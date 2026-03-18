@@ -1,0 +1,14 @@
+services:
+  app:
+    build:
+      context: .
+      target: dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules      # prevent host node_modules from overriding container's
+      - /app/.next             # persist Next.js build cache across restarts
+    environment:
+      - NODE_ENV=development
+    restart: unless-stopped
