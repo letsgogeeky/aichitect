@@ -4,6 +4,7 @@ import "./globals.css";
 import { SITE_URL, GITHUB_URL, TOOL_COUNT, CATEGORY_COUNT } from "@/lib/constants";
 import { Analytics } from "@vercel/analytics/next";
 import { SuggestToolProvider } from "@/components/ui/SuggestToolContext";
+import { WalkthroughProvider } from "@/components/ui/WalkthroughContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -103,10 +104,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className={inter.className}>
-        <SuggestToolProvider>
-          {children}
-          <Analytics />
-        </SuggestToolProvider>
+        <WalkthroughProvider>
+          <SuggestToolProvider>
+            {children}
+            <Analytics />
+          </SuggestToolProvider>
+        </WalkthroughProvider>
       </body>
     </html>
   );

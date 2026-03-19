@@ -402,6 +402,7 @@ export default function ExploreGraph() {
 
           {/* View mode toggle — top-right */}
           <div
+            data-tour="view-toggle"
             className="absolute top-3 right-3 z-10 flex rounded-md overflow-hidden"
             style={{ border: "1px solid var(--border)", background: "var(--surface)" }}
           >

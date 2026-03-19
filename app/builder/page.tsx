@@ -227,6 +227,7 @@ function BuilderPageContent() {
     <div className="flex h-full">
       {/* Slots panel */}
       <aside
+        data-tour="builder-slots"
         className="w-64 flex-shrink-0 border-r overflow-y-auto"
         style={{ background: "var(--surface)", borderColor: "var(--border)" }}
       >
@@ -269,12 +270,14 @@ function BuilderPageContent() {
             </div>
           )}
 
-          <StackHealthPanel
-            selected={selected}
-            slots={slots}
-            allTools={allTools}
-            onAddTool={pickTool}
-          />
+          <div data-tour="builder-health">
+            <StackHealthPanel
+              selected={selected}
+              slots={slots}
+              allTools={allTools}
+              onAddTool={pickTool}
+            />
+          </div>
 
           {visibleSlots.map((slot) => {
             const selectedId = selected[slot.id];

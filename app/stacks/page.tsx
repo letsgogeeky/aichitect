@@ -146,6 +146,7 @@ function StacksContent() {
     <div className="flex h-full">
       {/* ── Sidebar ── */}
       <aside
+        data-tour="stacks-sidebar"
         className="flex flex-col flex-shrink-0 border-r overflow-hidden"
         style={{ width: 288, background: "var(--surface)", borderColor: "var(--border)" }}
       >
@@ -294,6 +295,7 @@ function StacksContent() {
             </div>
 
             <Link
+              data-tour="stacks-builder-cta"
               href={builderUrl}
               className="flex items-center gap-1.5 flex-shrink-0 transition-all"
               style={{
@@ -467,7 +469,7 @@ function StacksContent() {
         </div>
 
         {/* Graph */}
-        <div className="flex-1 overflow-hidden">
+        <div data-tour="stacks-graph" className="flex-1 overflow-hidden">
           <ReactFlowProvider key={selected.id}>
             <StackGraph stack={selected} />
           </ReactFlowProvider>

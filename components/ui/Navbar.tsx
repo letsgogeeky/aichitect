@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import Logo from "./Logo";
 import { GITHUB_URL, TOOL_COUNT, STACK_COUNT } from "@/lib/constants";
 import { useSuggestTool } from "./SuggestToolContext";
+import { useWalkthrough, TourRoute } from "./WalkthroughContext";
 import GetStartedModal from "./GetStartedModal";
 
 function IconNetwork() {
@@ -87,6 +88,25 @@ function IconShare() {
   );
 }
 
+function IconTour() {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="12" cy="12" r="10" />
+      <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+      <line x1="12" y1="17" x2="12.01" y2="17" />
+    </svg>
+  );
+}
+
 function IconGitHub() {
   return (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
@@ -106,6 +126,16 @@ export default function Navbar() {
   const [copied, setCopied] = useState(false);
   const [getStartedOpen, setGetStartedOpen] = useState(false);
   const { openSuggest } = useSuggestTool();
+  const { openWalkthrough } = useWalkthrough();
+
+  const tourRoute: TourRoute | null =
+    pathname === "/explore"
+      ? "explore"
+      : pathname === "/stacks"
+        ? "stacks"
+        : pathname === "/builder"
+          ? "builder"
+          : null;
 
   function openGetStarted() {
     setGetStartedOpen(true);
@@ -228,6 +258,7 @@ export default function Navbar() {
               Get Started →
             </button>
             <button
+              data-tour="builder-share"
               onClick={copyStack}
               className="flex items-center transition-all"
               style={{
@@ -247,6 +278,32 @@ export default function Navbar() {
               {copied ? "Copied!" : "Share Stack"}
             </button>
           </div>
+        )}
+
+        {/* Tour button — visible on app routes */}
+        {tourRoute && (
+          <button
+            onClick={() => openWalkthrough(tourRoute)}
+            className="flex items-center flex-shrink-0 transition-colors"
+            style={{
+              gap: 5,
+              padding: "0 10px",
+              height: 34,
+              borderRadius: 8,
+              background: "#1c1c28",
+              border: "1px solid #2a2a3a",
+              color: "#8888aa",
+              fontSize: 11,
+              fontWeight: 500,
+              cursor: "pointer",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "#f0f0f8")}
+            onMouseLeave={(e) => (e.currentTarget.style.color = "#8888aa")}
+            title="Start page tour"
+          >
+            <IconTour />
+            Tour
+          </button>
         )}
 
         {/* Suggest a Tool — always visible */}

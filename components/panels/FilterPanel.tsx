@@ -94,6 +94,7 @@ export default function FilterPanel({
 
   return (
     <aside
+      data-tour="filter-panel"
       className="w-52 flex-shrink-0 border-r overflow-y-auto"
       style={{ background: "var(--surface)", borderColor: "var(--border)" }}
     >
