@@ -132,11 +132,11 @@ function StacksContent() {
           style={{ borderColor: "var(--border)" }}
         >
           <div className="flex items-center justify-between mb-3">
-            <span className="text-[11px] font-semibold text-[var(--text-primary)] tracking-wide uppercase">
+            <span className="text-[12px] font-semibold text-[var(--text-primary)] tracking-wide uppercase">
               Stacks
             </span>
             <span
-              className="text-[10px] px-1.5 py-0.5 rounded"
+              className="text-[11px] px-1.5 py-0.5 rounded"
               style={{ background: "#7c6bff18", color: "#7c6bff", border: "1px solid #7c6bff33" }}
             >
               {stacks.length} curated
@@ -149,7 +149,7 @@ function StacksContent() {
               <button
                 key={tag}
                 onClick={() => selectTag(tag)}
-                className="text-[10px] px-2 py-0.5 rounded-full transition-colors"
+                className="text-[11px] px-2 py-0.5 rounded-full transition-colors"
                 style={{
                   background: activeTag === tag ? "#7c6bff" : "#1c1c28",
                   color: activeTag === tag ? "#fff" : "#6666aa",
@@ -185,7 +185,7 @@ function StacksContent() {
               >
                 {/* Name */}
                 <div
-                  className="text-[11px] font-semibold leading-snug mb-1"
+                  className="text-[13px] font-semibold leading-snug mb-1"
                   style={{ color: isSelected ? color : "var(--text-primary)" }}
                 >
                   {s.name}
@@ -193,7 +193,7 @@ function StacksContent() {
 
                 {/* Target */}
                 <div
-                  className="text-[10px] leading-snug mb-2.5"
+                  className="text-[11px] leading-snug mb-2.5"
                   style={{ color: "var(--text-muted)" }}
                 >
                   {s.target}
@@ -213,11 +213,11 @@ function StacksContent() {
                             flexShrink: 0,
                           }}
                         />
-                        <span style={{ fontSize: 9, color: cx.color }}>{cx.label}</span>
+                        <span style={{ fontSize: 11, color: cx.color }}>{cx.label}</span>
                       </>
                     )}
                     {s.monthly_cost && (
-                      <span style={{ fontSize: 9, color: "var(--text-muted)" }}>
+                      <span style={{ fontSize: 11, color: "var(--text-muted)" }}>
                         · {s.monthly_cost}
                       </span>
                     )}
@@ -265,7 +265,7 @@ function StacksContent() {
               >
                 {selected.name}
               </h2>
-              <p className="text-[11px] leading-relaxed" style={{ color: "var(--text-secondary)" }}>
+              <p className="text-[12px] leading-relaxed" style={{ color: "var(--text-secondary)" }}>
                 {selected.description}
               </p>
             </div>
@@ -280,7 +280,7 @@ function StacksContent() {
                 background: accentColor + "20",
                 border: `1px solid ${accentColor}44`,
                 color: accentColor,
-                fontSize: 11,
+                fontSize: 12,
                 fontWeight: 600,
                 textDecoration: "none",
               }}
@@ -293,7 +293,7 @@ function StacksContent() {
           <div className="flex items-center gap-2 mb-3 flex-wrap">
             {complexity && (
               <span
-                className="text-[9px] font-semibold px-2 py-0.5 rounded-full uppercase tracking-wide"
+                className="text-[10px] font-semibold px-2 py-0.5 rounded-full uppercase tracking-wide"
                 style={{
                   background: complexity.color + "18",
                   border: `1px solid ${complexity.color}44`,
@@ -305,7 +305,7 @@ function StacksContent() {
             )}
             {selected.monthly_cost && (
               <span
-                className="text-[9px] font-medium px-2 py-0.5 rounded-full"
+                className="text-[10px] font-medium px-2 py-0.5 rounded-full"
                 style={{
                   background: "#1c1c28",
                   border: "1px solid #2a2a3a",
@@ -318,7 +318,7 @@ function StacksContent() {
             {selected.tags?.map((tag) => (
               <span
                 key={tag}
-                className="text-[9px] px-2 py-0.5 rounded-full"
+                className="text-[10px] px-2 py-0.5 rounded-full"
                 style={{
                   background: "#1c1c28",
                   border: "1px solid #2a2a3a",
@@ -338,12 +338,12 @@ function StacksContent() {
                 style={{ background: "#7c6bff0a", border: "1px solid #7c6bff1a" }}
               >
                 <div
-                  className="text-[8px] font-bold uppercase tracking-widest mb-1"
+                  className="text-[9px] font-bold uppercase tracking-widest mb-1"
                   style={{ color: "#7c6bff88" }}
                 >
                   Why this stack
                 </div>
-                <p className="text-[10px] leading-relaxed" style={{ color: "var(--text-muted)" }}>
+                <p className="text-[11px] leading-relaxed" style={{ color: "var(--text-muted)" }}>
                   {selected.why}
                 </p>
               </div>
@@ -354,12 +354,12 @@ function StacksContent() {
                 style={{ background: "#ff6b6b08", border: "1px solid #ff6b6b1a" }}
               >
                 <div
-                  className="text-[8px] font-bold uppercase tracking-widest mb-1"
+                  className="text-[9px] font-bold uppercase tracking-widest mb-1"
                   style={{ color: "#ff6b6b88" }}
                 >
                   Tradeoff
                 </div>
-                <p className="text-[10px] leading-relaxed" style={{ color: "var(--text-muted)" }}>
+                <p className="text-[11px] leading-relaxed" style={{ color: "var(--text-muted)" }}>
                   {selected.tradeoffs}
                 </p>
               </div>
@@ -373,7 +373,7 @@ function StacksContent() {
               return (
                 <span
                   key={t.id}
-                  className="text-[10px] font-medium px-2.5 py-0.5 rounded-full"
+                  className="text-[11px] font-medium px-2.5 py-0.5 rounded-full"
                   style={{
                     background: c + "18",
                     border: `1px solid ${c}33`,
