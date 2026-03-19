@@ -27,18 +27,18 @@ const allTools = toolsData as Tool[];
 const relationships = relationshipsData as Relationship[];
 const nodeTypes: NodeTypes = { tool: ToolNode };
 
-const BUILDER_SLOTS = slots.slice(0, 6);
+// Default slots always shown in the sidebar
+const DEFAULT_SLOT_IDS = new Set(slots.slice(0, 6).map((s) => s.id));
 
 function BuilderGraph({
-  selected,
+  toolIds,
   expandedId,
   onExpandId,
 }: {
-  selected: Record<string, string>;
+  toolIds: string[];
   expandedId: string | null;
   onExpandId: (id: string | null) => void;
 }) {
-  const toolIds = Object.values(selected).filter(Boolean);
   const toolSet = new Set(toolIds);
 
   const nodes: Node[] = toolIds
@@ -124,16 +124,24 @@ function BuilderPageContent() {
   const [compareA, setCompareA] = useState<Tool | null>(null);
   const [compareB, setCompareB] = useState<Tool | null>(null);
 
-  // Derive selected slots from URL — each tool ID maps back to its slot
+  // All tool IDs from the URL — used directly by the graph (no slot constraint)
+  const urlToolIds = useMemo(() => stackParam.split(",").filter(Boolean), [stackParam]);
+
+  // Slot-constrained selection for the sidebar — first occurrence per slot wins
   const selected = useMemo<Record<string, string>>(() => {
-    if (!stackParam) return {};
     const result: Record<string, string> = {};
-    for (const toolId of stackParam.split(",").filter(Boolean)) {
-      const slot = BUILDER_SLOTS.find((s) => s.tools.includes(toolId));
-      if (slot) result[slot.id] = toolId;
+    for (const toolId of urlToolIds) {
+      const slot = slots.find((s) => s.tools.includes(toolId));
+      if (slot && !result[slot.id]) result[slot.id] = toolId;
     }
     return result;
-  }, [stackParam]);
+  }, [urlToolIds]);
+
+  // Sidebar shows the default 6 slots + any extra slots that have URL-specified tools
+  const visibleSlots = useMemo(() => {
+    const extras = slots.filter((s) => !DEFAULT_SLOT_IDS.has(s.id) && !!selected[s.id]);
+    return [...slots.slice(0, 6), ...extras];
+  }, [selected]);
 
   const pickTool = useCallback(
     (slotId: string, toolId: string) => {
@@ -183,12 +191,8 @@ function BuilderPageContent() {
   const [collapsedSlots, setCollapsedSlots] = useState<Record<string, boolean>>({});
 
   const selectedTools = useMemo(
-    () =>
-      Object.values(selected)
-        .filter(Boolean)
-        .map((id) => allTools.find((t) => t.id === id))
-        .filter(Boolean) as Tool[],
-    [selected]
+    () => urlToolIds.map((id) => allTools.find((t) => t.id === id)).filter(Boolean) as Tool[],
+    [urlToolIds]
   );
   const story = useMemo(() => generateStackStory(selectedTools), [selectedTools]);
 
@@ -217,7 +221,7 @@ function BuilderPageContent() {
               className="text-[10px] px-2 py-1 rounded-md"
               style={{ background: "#7c6bff18", color: "#7c6bff" }}
             >
-              {selectedCount} of {BUILDER_SLOTS.length} slots filled
+              {selectedCount} of {visibleSlots.length} slots filled
             </div>
           )}
 
@@ -242,7 +246,7 @@ function BuilderPageContent() {
             </div>
           )}
 
-          {BUILDER_SLOTS.map((slot) => {
+          {visibleSlots.map((slot) => {
             const selectedId = selected[slot.id];
             const slotTools = slot.tools
               .map((id) => allTools.find((t) => t.id === id))
@@ -396,7 +400,7 @@ function BuilderPageContent() {
       {/* Builder graph */}
       <div className="flex-1 overflow-hidden relative">
         <ReactFlowProvider key={stackParam}>
-          <BuilderGraph selected={selected} expandedId={expandedId} onExpandId={setExpandedId} />
+          <BuilderGraph toolIds={urlToolIds} expandedId={expandedId} onExpandId={setExpandedId} />
         </ReactFlowProvider>
 
         {/* Stack Story — floating overlay at the bottom of the graph */}
