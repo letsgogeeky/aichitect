@@ -167,28 +167,41 @@ function ExploreGraphInner({
     [onSelectTool]
   );
 
+  const hasSearchResults = !searchMatch || visibleTools.some((t) => searchMatch.has(t.id));
+
   return (
-    <ReactFlow
-      nodes={nodes}
-      edges={edges}
-      nodeTypes={nodeTypes}
-      onNodeClick={onNodeClick}
-      fitView
-      fitViewOptions={FIT_VIEW_OPTIONS}
-      minZoom={0.15}
-      maxZoom={2}
-      proOptions={{ hideAttribution: true }}
-    >
-      <Background variant={BackgroundVariant.Dots} color="#1e1e2e" gap={20} size={1} />
-      <Controls showInteractive={false} />
-      <MiniMap
-        nodeColor={(node) => {
-          const tool = tools.find((t) => t.id === node.id);
-          return tool ? getCategoryColor(tool.category) : "#555577";
-        }}
-        maskColor="#0a0a0f99"
-      />
-    </ReactFlow>
+    <div className="w-full h-full relative">
+      <ReactFlow
+        nodes={nodes}
+        edges={edges}
+        nodeTypes={nodeTypes}
+        onNodeClick={onNodeClick}
+        fitView
+        fitViewOptions={FIT_VIEW_OPTIONS}
+        minZoom={0.15}
+        maxZoom={2}
+        proOptions={{ hideAttribution: true }}
+      >
+        <Background variant={BackgroundVariant.Dots} color="#1e1e2e" gap={20} size={1} />
+        <Controls showInteractive={false} />
+        <MiniMap
+          nodeColor={(node) => {
+            const tool = tools.find((t) => t.id === node.id);
+            return tool ? getCategoryColor(tool.category) : "#555577";
+          }}
+          maskColor="#0a0a0f99"
+        />
+      </ReactFlow>
+      {!hasSearchResults && (
+        <div
+          className="absolute inset-0 flex flex-col items-center justify-center gap-2 pointer-events-none"
+          style={{ zIndex: 10 }}
+        >
+          <p style={{ fontSize: 13, color: "#8888aa" }}>No tools match your search.</p>
+          <p style={{ fontSize: 11, color: "#555566" }}>Try a different name or keyword.</p>
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -404,6 +417,7 @@ export default function ExploreGraph() {
               searchQuery={searchQuery}
               selectedTool={selectedTool}
               onSelectTool={setSelectedTool}
+              onWebGLUnavailable={() => setViewMode("grid")}
             />
           ) : (
             <ReactFlowProvider key={viewMode}>

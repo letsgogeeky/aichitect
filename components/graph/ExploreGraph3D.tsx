@@ -19,7 +19,9 @@ interface Node3D {
   prominent?: boolean;
   tool: Tool;
   // three-forcegraph adds these at runtime
-  x?: number; y?: number; z?: number;
+  x?: number;
+  y?: number;
+  z?: number;
 }
 
 interface Link3D {
@@ -34,6 +36,19 @@ interface Props {
   searchQuery: string;
   selectedTool: Tool | null;
   onSelectTool: (tool: Tool | null) => void;
+  onWebGLUnavailable?: () => void;
+}
+
+function isWebGLAvailable(): boolean {
+  try {
+    const canvas = document.createElement("canvas");
+    return !!(
+      window.WebGLRenderingContext &&
+      (canvas.getContext("webgl") || canvas.getContext("experimental-webgl"))
+    );
+  } catch {
+    return false;
+  }
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -45,10 +60,21 @@ export default function ExploreGraph3D({
   searchQuery,
   selectedTool,
   onSelectTool,
+  onWebGLUnavailable,
 }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const fgRef = useRef<FGInstance>(null);
   const [dims, setDims] = useState({ width: 0, height: 0 });
+  const [webglUnavailable, setWebglUnavailable] = useState(false);
+
+  // Check WebGL availability on mount
+  useEffect(() => {
+    if (!isWebGLAvailable()) {
+      setWebglUnavailable(true);
+      onWebGLUnavailable?.();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Measure container
   useEffect(() => {
@@ -105,11 +131,7 @@ export default function ExploreGraph3D({
     const q = searchQuery.toLowerCase();
     return new Set(
       allTools
-        .filter(
-          (t) =>
-            t.name.toLowerCase().includes(q) ||
-            t.tagline.toLowerCase().includes(q)
-        )
+        .filter((t) => t.name.toLowerCase().includes(q) || t.tagline.toLowerCase().includes(q))
         .map((t) => t.id)
     );
   }, [searchQuery]);
@@ -257,6 +279,19 @@ export default function ExploreGraph3D({
     },
     [selectedTool, onSelectTool]
   );
+
+  if (webglUnavailable) {
+    return (
+      <div
+        className="w-full h-full flex flex-col items-center justify-center gap-3"
+        style={{ background: "#08080f" }}
+      >
+        <p style={{ fontSize: 13, color: "#8888aa" }}>
+          3D view requires WebGL, which isn&apos;t available in this browser.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div ref={containerRef} className="w-full h-full relative">

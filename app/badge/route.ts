@@ -9,11 +9,17 @@ export function GET(req: NextRequest) {
   const toolIds = s.split(",").filter(Boolean);
   const tools = toolIds
     .map((id) => (toolsData as Tool[]).find((t) => t.id === id))
-    .filter((t): t is Tool => Boolean(t))
-    .slice(0, 5);
+    .filter((t): t is Tool => Boolean(t));
 
   const label = "AI Stack";
-  const names = tools.length > 0 ? tools.map((t) => t.name).join(" · ") : "aichitect.dev";
+  const MAX_SHOWN = 5;
+  const toolNames = tools.map((t) => t.name);
+  const names =
+    toolNames.length === 0
+      ? "aichitect.dev"
+      : toolNames.length > MAX_SHOWN
+        ? toolNames.slice(0, MAX_SHOWN).join(" · ") + ` +${toolNames.length - MAX_SHOWN} more`
+        : toolNames.join(" · ");
 
   // Approximate text widths (7px per char at 11px font)
   const labelW = label.length * 6.5 + 16;
