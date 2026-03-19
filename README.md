@@ -19,6 +19,14 @@
 
 ---
 
+## Screenshots
+
+| Builder | Stacks |
+|:---:|:---:|
+| ![Builder view](public/screenshots/builder.png) | ![Stacks view](public/screenshots/stacks.png) |
+
+---
+
 AI tools are all over the place. Every week there's a new framework, a new model, a new "essential" addition to your stack. AIchitect gives you a structured, visual map of the ecosystem — **111 tools** across **11 categories** — with their integrations and relationships mapped out so you can pick the right stack based on data, not hype.
 
 ## Features

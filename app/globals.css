@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #0a0a0f;
+  --surface: #0e0e18;
+  --surface-2: #111118;
+  --border: #1e1e2e;
+  --border-2: #22222e;
+  --text-primary: #f0f0f8;
+  --text-secondary: #8888aa;
+  --text-muted: #555577;
+  --accent: #7c6bff;
+  --accent-2: #00d4aa;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-border-2: var(--border-2);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+
+body {
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+/* React Flow overrides */
+.react-flow__background {
+  background: var(--bg);
+}
+
+.react-flow__minimap {
+  background: var(--surface) !important;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.react-flow__controls {
+  border: 1px solid var(--border) !important;
+  border-radius: 8px !important;
+  overflow: hidden;
+  box-shadow: none !important;
+}
+
+.react-flow__controls-button {
+  background: var(--surface) !important;
+  border-color: var(--border) !important;
+  color: var(--text-secondary) !important;
+  width: 28px !important;
+  height: 28px !important;
+}
+
+.react-flow__controls-button:hover {
+  background: var(--surface-2) !important;
+}
+
+.react-flow__controls-button svg {
+  fill: var(--text-secondary) !important;
+}
+
+.react-flow__edge-path {
+  stroke-width: 1.5;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

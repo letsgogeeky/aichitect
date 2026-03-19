@@ -1,0 +1,98 @@
+[
+  {
+    "id": "code-editor",
+    "name": "Where do you write code?",
+    "description": "Your primary coding environment — the IDE where you spend most of your time",
+    "tools": ["cursor", "windsurf", "continue", "zed", "github-copilot", "tabnine", "supermaven", "aide", "replit-ghostwriter", "jetbrains-ai"]
+  },
+  {
+    "id": "cli-agent",
+    "name": "Who runs your terminal tasks?",
+    "description": "A CLI agent you direct to handle multi-step coding tasks autonomously",
+    "tools": ["claude-code", "aider", "plandex", "goose", "cline"]
+  },
+  {
+    "id": "swe-agent",
+    "name": "Who builds autonomously for you?",
+    "description": "A fully autonomous agent you assign tasks to — it handles entire features or PRs",
+    "tools": ["devin", "openhands", "swe-agent", "bolt-new", "lovable", "gpt-pilot"]
+  },
+  {
+    "id": "agent-framework",
+    "name": "How does your AI reason and plan?",
+    "description": "The framework that structures how your AI thinks, uses tools, and coordinates agents",
+    "tools": ["crewai", "autogen", "langgraph", "metagpt", "semantic-kernel", "mastra", "pydantic-ai", "smolagents", "agno"]
+  },
+  {
+    "id": "orchestration",
+    "name": "How do your AI calls chain together?",
+    "description": "The pipeline layer that connects LLM calls, retrieval, and data processing into a workflow",
+    "tools": ["langchain", "llamaindex", "dspy", "flowise", "dify", "n8n", "haystack", "langflow", "vercel-ai-sdk"]
+  },
+  {
+    "id": "model-router",
+    "name": "Which models does your stack route through?",
+    "description": "A gateway that normalizes calls across providers — one API for all models, with fallbacks",
+    "tools": ["litellm", "openrouter", "portkey"]
+  },
+  {
+    "id": "inference",
+    "name": "Where do your models actually run?",
+    "description": "LLM providers and inference servers — where the actual model computation happens",
+    "tools": ["ollama", "vllm", "groq", "together-ai", "fireworks-ai", "llama-cpp", "replicate", "huggingface", "mistral-api", "cohere-api", "anthropic-api", "openai-api"]
+  },
+  {
+    "id": "vector-db",
+    "name": "What knowledge does your AI have?",
+    "description": "The memory layer — stores and retrieves vector embeddings for RAG and semantic search",
+    "tools": ["qdrant", "chroma", "pgvector", "pinecone", "weaviate", "milvus"]
+  },
+  {
+    "id": "observability",
+    "name": "How do you see what's happening?",
+    "description": "Traces every LLM call, eval, and cost so you know exactly what your stack is doing",
+    "tools": ["langfuse", "langsmith", "helicone", "arize-phoenix", "braintrust", "weights-biases", "traceloop", "logfire"]
+  },
+  {
+    "id": "design-to-code",
+    "name": "How does your UI get built?",
+    "description": "Converts designs, prompts, or Figma files into production-ready UI components",
+    "tools": ["v0", "galileo", "locofy", "builder-io", "webflow-ai", "anima", "kombai", "framer-ai", "uizard", "relume"]
+  },
+  {
+    "id": "devops-automation",
+    "name": "Who handles your code quality?",
+    "description": "Automates code review, PR triage, test generation, and security scanning",
+    "tools": ["coderabbit", "sweep-ai", "qodo", "graphite", "trunk", "codegen", "sourcery", "grit-io", "pixee"]
+  },
+  {
+    "id": "mcp-infra",
+    "name": "What tools can your AI reach?",
+    "description": "MCP servers that give your AI agent access to browsers, APIs, repos, and more",
+    "tools": ["mcp-sdk-ts", "mcp-sdk-python", "fastmcp", "smithery", "e2b", "context7", "playwright-mcp", "github-mcp"]
+  },
+  {
+    "id": "prompt-eval",
+    "name": "How do you know it's working?",
+    "description": "Tests, evals, and experiment tracking to measure and improve your AI output quality",
+    "tools": ["promptfoo", "deepeval", "ragas", "vellum", "promptlayer", "agenta"]
+  },
+  {
+    "id": "docs",
+    "name": "How does your team stay in sync?",
+    "description": "AI-powered documentation that writes itself and stays current with your codebase",
+    "tools": ["mintlify", "swimm", "notion-ai", "gitbook-ai"]
+  },
+  {
+    "id": "product-mgmt",
+    "name": "How do you manage what gets built?",
+    "description": "AI tools for prioritization, roadmapping, and turning user feedback into decisions",
+    "tools": ["linear-ai", "cycle", "height-ai", "kraftful"]
+  },
+  {
+    "id": "specifications",
+    "name": "How do you define what you're building?",
+    "description": "Spec writing, API design, architecture diagrams, and contract-first tooling — the upstream layer before code is written",
+    "tools": ["spec-kit", "mermaid", "eraser", "structurizr", "swagger", "redocly", "asyncapi", "stoplight", "speakeasy", "fern", "stainless", "openapi-generator"]
+  }
+]

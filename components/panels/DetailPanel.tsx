@@ -1,0 +1,202 @@
+"use client";
+
+import { Tool, getCategoryColor, CATEGORIES } from "@/lib/types";
+import relationshipsData from "@/data/relationships.json";
+import toolsData from "@/data/tools.json";
+import stacksData from "@/data/stacks.json";
+import { Relationship, Stack } from "@/lib/types";
+
+const relationships = relationshipsData as Relationship[];
+const allTools = toolsData as Tool[];
+const stacks = stacksData as Stack[];
+
+interface Props {
+  tool: Tool | null;
+  onClose: () => void;
+}
+
+export default function DetailPanel({ tool, onClose }: Props) {
+  if (!tool) return null;
+
+  const color = getCategoryColor(tool.category);
+  const categoryLabel = CATEGORIES.find((c) => c.id === tool.category)?.label;
+
+  const connected = relationships
+    .filter((r) => r.source === tool.id || r.target === tool.id)
+    .map((r) => {
+      const otherId = r.source === tool.id ? r.target : r.source;
+      const other = allTools.find((t) => t.id === otherId);
+      return other ? { tool: other, type: r.type } : null;
+    })
+    .filter(Boolean) as { tool: Tool; type: string }[];
+
+  const featuredIn = stacks.filter((s) => s.tools.includes(tool.id));
+
+  return (
+    <aside
+      className="w-72 flex-shrink-0 border-l overflow-y-auto"
+      style={{ background: "var(--surface)", borderColor: "var(--border)" }}
+    >
+      <div className="p-4 space-y-4">
+        {/* Header */}
+        <div className="flex items-start justify-between">
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 mb-1">
+              <div
+                className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+                style={{ background: color }}
+              />
+              <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color }}>
+                {categoryLabel}
+              </span>
+              <span
+                className={`text-[9px] font-semibold px-1.5 py-0.5 rounded uppercase ${
+                  tool.type === "oss"
+                    ? "bg-[#26de8122] text-[#26de81]"
+                    : "bg-[#4ecdc422] text-[#4ecdc4]"
+                }`}
+              >
+                {tool.type === "oss" ? "OSS" : "SaaS"}
+              </span>
+            </div>
+            <h2 className="text-base font-semibold text-[var(--text-primary)] leading-tight">
+              {tool.name}
+            </h2>
+            {tool.github_stars && (
+              <div className="text-xs text-[var(--text-muted)] mt-0.5">
+                ⭐ {tool.github_stars.toLocaleString()} GitHub stars
+              </div>
+            )}
+          </div>
+          <button
+            onClick={onClose}
+            className="text-[var(--text-muted)] hover:text-[var(--text-secondary)] ml-2 mt-0.5 flex-shrink-0 transition-colors"
+          >
+            ✕
+          </button>
+        </div>
+
+        {/* Description */}
+        <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+          {tool.description}
+        </p>
+
+        {/* Pricing */}
+        <div>
+          <h3 className="text-[10px] font-semibold uppercase tracking-widest text-[var(--text-muted)] mb-2">
+            Pricing
+          </h3>
+          <div className="flex flex-wrap gap-1.5">
+            {tool.pricing.free_tier && (
+              <span className="text-[10px] px-2 py-1 rounded-full border border-[var(--border)] text-[var(--text-secondary)]">
+                Free tier
+              </span>
+            )}
+            {tool.pricing.plans.map((p, i) => (
+              <span
+                key={i}
+                className="text-[10px] px-2 py-1 rounded-full border border-[var(--border)] text-[var(--text-secondary)]"
+              >
+                {p.name}: {p.price}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Links */}
+        <div className="flex gap-2">
+          {tool.urls.website && (
+            <a
+              href={tool.urls.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 text-center text-xs py-1.5 px-3 rounded-md font-medium transition-colors"
+              style={{
+                background: color + "22",
+                color,
+                border: `1px solid ${color}44`,
+              }}
+            >
+              Website ↗
+            </a>
+          )}
+          {tool.urls.github && (
+            <a
+              href={tool.urls.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 text-center text-xs py-1.5 px-3 rounded-md font-medium border border-[var(--border)] text-[var(--text-secondary)] transition-colors hover:border-[var(--border-2)]"
+            >
+              GitHub ↗
+            </a>
+          )}
+        </div>
+
+        {/* Connected tools */}
+        {connected.length > 0 && (
+          <div>
+            <h3 className="text-[10px] font-semibold uppercase tracking-widest text-[var(--text-muted)] mb-2">
+              Connections
+            </h3>
+            <div className="space-y-1">
+              {connected.slice(0, 8).map(({ tool: other, type }) => (
+                <div
+                  key={other.id}
+                  className="flex items-center justify-between py-1 px-2 rounded-md"
+                  style={{ background: "var(--surface-2)" }}
+                >
+                  <span className="text-xs text-[var(--text-primary)] truncate">
+                    {other.name}
+                  </span>
+                  <span
+                    className="text-[9px] px-1.5 py-0.5 rounded ml-2 flex-shrink-0"
+                    style={{
+                      background:
+                        type === "integrates-with"
+                          ? "#7c6bff22"
+                          : type === "commonly-paired"
+                          ? "#4a4a7a44"
+                          : "#3a3a4a44",
+                      color:
+                        type === "integrates-with"
+                          ? "#7c6bff"
+                          : type === "commonly-paired"
+                          ? "#8888aa"
+                          : "#555577",
+                    }}
+                  >
+                    {type === "integrates-with"
+                      ? "integrates with"
+                      : type === "commonly-paired"
+                      ? "often used with"
+                      : "competes with"}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Featured in stacks */}
+        {featuredIn.length > 0 && (
+          <div>
+            <h3 className="text-[10px] font-semibold uppercase tracking-widest text-[var(--text-muted)] mb-2">
+              Featured in stacks
+            </h3>
+            <div className="space-y-1">
+              {featuredIn.map((stack) => (
+                <div
+                  key={stack.id}
+                  className="text-xs text-[var(--text-secondary)] px-2 py-1 rounded-md"
+                  style={{ background: "var(--surface-2)" }}
+                >
+                  {stack.name}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </aside>
+  );
+}

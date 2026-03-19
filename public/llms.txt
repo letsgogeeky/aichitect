@@ -1,0 +1,43 @@
+# AIchitect
+
+> AI tools are all over the place. AIchitect maps the full ecosystem so developers can pick the right stack without the noise.
+
+AIchitect is a free, open-source, interactive tool landscape for AI developers. It catalogs 111 AI tools across 11 categories and maps their integrations, so teams can understand the ecosystem and make informed stack decisions.
+
+GitHub: https://github.com/letsgogeeky/aichitect
+
+## What AIchitect covers
+
+- **111 AI tools** spanning code editors, agent frameworks, LLM providers, observability, vector databases, MCP servers, and more
+- **11 tool categories**: Code Editor / IDE, Agentic Coding, Multi-Agent Framework, LLM Provider, Observability & Evals, Vector Database, Data & Auth, Deployment & Infra, AI Design Tools, MCP Servers, Prompt & Eval
+- **3 relationship types** between tools: integrates-with, often used together, competes-with
+- **8 curated stacks** covering common AI engineering patterns (Indie Hacker, Enterprise RAG, OSS Self-Hosted, Agentic DevOps, and more)
+- **Stack Builder**: compose a custom stack slot-by-slot and see live integration graphs with shareable URLs
+
+## Pages
+
+- / — Landing page with links to all three views
+- /explore — Full interactive graph of all 111 tools with category and relationship filters; supports 2D grid, 2D layers, and 3D rotation views
+- /stacks — 8 battle-tested, pre-built AI stacks visualized as swimlane integration graphs
+- /builder — Build a custom stack by picking one tool per slot; renders live connection graph; share via URL
+
+## Tool categories and example tools
+
+- Code Editor / IDE: Cursor, Windsurf, Zed, VS Code, Neovim AI
+- Agentic Coding: Claude Code, OpenHands, Aider, Plandex, Goose
+- Multi-Agent Framework: LangGraph, CrewAI, AutoGen, LlamaIndex, Semantic Kernel
+- LLM Provider: OpenAI, Anthropic, Together AI, Fireworks AI, Ollama, llama.cpp
+- Observability & Evals: LangSmith, Langfuse, Arize Phoenix, Braintrust, Helicone
+- Vector Database: Pinecone, Weaviate, Qdrant, Milvus, Chroma
+- Deployment & Infra: Modal, Render, Railway, Fly.io, LiteLLM
+- MCP Servers: MCP SDK Python, MCP SDK TypeScript, PortKey
+
+## Brand
+
+AIchitect's core thesis: the AI tooling space is noisy and overwhelming. Developers waste time evaluating tools that don't work well together. AIchitect solves this with a structured, visual map of the ecosystem — so you can pick your stack based on real integration data, not hype.
+
+Tagline: "Cut the noise. Pick your AI stack."
+
+## Open Source
+
+AIchitect is MIT-licensed and fully open source. Contributions, issues, and new tool suggestions are welcome via GitHub.

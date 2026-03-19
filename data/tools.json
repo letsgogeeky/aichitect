@@ -1,0 +1,2674 @@
+[
+  {
+    "id": "cursor",
+    "name": "Cursor",
+    "category": "coding-assistants",
+    "tagline": "AI-native code editor",
+    "description": "VS Code fork with deep AI editing, multi-file context, and a powerful agent mode. The most popular AI editor by mindshare.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Pro",
+          "price": "$20/mo"
+        },
+        {
+          "name": "Business",
+          "price": "$40/user/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "code-editor",
+    "prominent": true,
+    "urls": {
+      "website": "https://cursor.sh",
+      "github": null
+    }
+  },
+  {
+    "id": "github-copilot",
+    "name": "GitHub Copilot",
+    "category": "coding-assistants",
+    "tagline": "AI pair programmer from GitHub",
+    "description": "Inline code completions and chat across IDEs. Deeply integrated with GitHub and VS Code. Used by millions of developers.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Individual",
+          "price": "$10/mo"
+        },
+        {
+          "name": "Business",
+          "price": "$19/user/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "code-editor",
+    "prominent": true,
+    "urls": {
+      "website": "https://github.com/features/copilot",
+      "github": null
+    }
+  },
+  {
+    "id": "windsurf",
+    "name": "Windsurf",
+    "category": "coding-assistants",
+    "tagline": "Agentic AI editor by Codeium",
+    "description": "AI-native editor with Cascade agentic editing and Flows. Strong multi-file context and deep codebase understanding.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Pro",
+          "price": "$15/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "code-editor",
+    "urls": {
+      "website": "https://windsurf.com",
+      "github": null
+    }
+  },
+  {
+    "id": "zed",
+    "name": "Zed",
+    "category": "coding-assistants",
+    "tagline": "High-performance editor with native AI",
+    "description": "Built in Rust for speed. Native AI with inline edit and a growing ecosystem. OSS with strong community momentum.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 50000,
+    "slot": "code-editor",
+    "urls": {
+      "website": "https://zed.dev",
+      "github": "https://github.com/zed-industries/zed"
+    }
+  },
+  {
+    "id": "continue",
+    "name": "Continue",
+    "category": "coding-assistants",
+    "tagline": "OSS VS Code plugin \u2014 bring your own LLM",
+    "description": "Open-source VS Code and JetBrains extension. Connect any LLM via ollama, LiteLLM, or cloud APIs. Fully customizable.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 20000,
+    "slot": "code-editor",
+    "urls": {
+      "website": "https://continue.dev",
+      "github": "https://github.com/continuedev/continue"
+    }
+  },
+  {
+    "id": "aider",
+    "name": "Aider",
+    "category": "coding-assistants",
+    "tagline": "CLI pair programmer with git integration",
+    "description": "Terminal-based AI pair programmer that edits files through git. Supports 100+ models. Great for structured, commit-level changes.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 23000,
+    "slot": "cli-agent",
+    "urls": {
+      "website": "https://aider.chat",
+      "github": "https://github.com/paul-gauthier/aider"
+    }
+  },
+  {
+    "id": "claude-code",
+    "name": "Claude Code",
+    "category": "coding-assistants",
+    "tagline": "Anthropic's official CLI coding agent",
+    "description": "Terminal-first agentic coding assistant from Anthropic. Full MCP client support, codebase-aware, runs multi-step tasks autonomously.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": false,
+      "plans": [
+        {
+          "name": "API usage",
+          "price": "Usage-based"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "cli-agent",
+    "urls": {
+      "website": "https://claude.ai/code",
+      "github": null
+    }
+  },
+  {
+    "id": "tabnine",
+    "name": "Tabnine",
+    "category": "coding-assistants",
+    "tagline": "AI completions trained on your private codebase",
+    "description": "Enterprise-grade AI code completion trained on your organization's private codebase. Runs locally or in the cloud with strict data privacy guarantees.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Pro",
+          "price": "$12/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "code-editor",
+    "urls": {
+      "website": "https://tabnine.com",
+      "github": null
+    }
+  },
+  {
+    "id": "supermaven",
+    "name": "Supermaven",
+    "category": "coding-assistants",
+    "tagline": "Ultra-fast completions with 1M token context",
+    "description": "The fastest AI code completion with a 1M token context window. Built by the creator of Tabnine for speed-first developer experience.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Pro",
+          "price": "$10/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "code-editor",
+    "urls": {
+      "website": "https://supermaven.com",
+      "github": null
+    }
+  },
+  {
+    "id": "plandex",
+    "name": "Plandex",
+    "category": "coding-assistants",
+    "tagline": "Terminal AI coding engine for large multi-step tasks",
+    "description": "AI coding engine designed for large, complex tasks that span many files. Uses a reliable plan-then-execute approach to avoid getting stuck.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Cloud",
+          "price": "$10/mo"
+        }
+      ]
+    },
+    "github_stars": 9000,
+    "slot": "cli-agent",
+    "urls": {
+      "website": "https://plandex.ai",
+      "github": "https://github.com/plandex-ai/plandex"
+    }
+  },
+  {
+    "id": "goose",
+    "name": "Goose",
+    "category": "coding-assistants",
+    "tagline": "Local, extensible CLI agent by Block",
+    "description": "Open-source local AI agent from Block (Square). Extensible via plugins, runs entirely local, full MCP client support.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 10000,
+    "slot": "cli-agent",
+    "urls": {
+      "website": "https://block.github.io/goose",
+      "github": "https://github.com/block/goose"
+    }
+  },
+  {
+    "id": "aide",
+    "name": "Aide",
+    "category": "coding-assistants",
+    "tagline": "VS Code fork with deeply agentic, proactive coding",
+    "description": "VS Code fork from Codestory with a proactive AI agent that notices issues without being asked. Designed for deep autonomous coding assistance.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 5000,
+    "slot": "code-editor",
+    "urls": {
+      "website": "https://aide.dev",
+      "github": "https://github.com/codestoryai/aide"
+    }
+  },
+  {
+    "id": "replit-ghostwriter",
+    "name": "Replit Ghostwriter",
+    "category": "coding-assistants",
+    "tagline": "AI coding assistant built into Replit IDE",
+    "description": "AI code completion, chat, and generation inside Replit's browser-based IDE. Ghostwriter can explain code, debug, and generate full programs with zero setup.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Core",
+          "price": "$20/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "code-editor",
+    "urls": {
+      "website": "https://replit.com/ai",
+      "github": null
+    }
+  },
+  {
+    "id": "jetbrains-ai",
+    "name": "JetBrains AI Assistant",
+    "category": "coding-assistants",
+    "tagline": "AI coding assistant native to JetBrains IDEs",
+    "description": "AI completion, chat, and code generation built into all JetBrains IDEs. Understands project context deeply through IDE integration and code analysis.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "AI Pro",
+          "price": "$10/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "code-editor",
+    "urls": {
+      "website": "https://www.jetbrains.com/ai",
+      "github": null
+    }
+  },
+  {
+    "id": "cline",
+    "name": "Cline",
+    "category": "coding-assistants",
+    "tagline": "Autonomous AI coding agent in VS Code",
+    "description": "VS Code extension that gives Claude and other LLMs full agentic control \u2014 file edits, terminal commands, browser automation, and MCP tool use.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 35000,
+    "slot": "code-editor",
+    "urls": {
+      "website": "https://cline.bot",
+      "github": "https://github.com/cline/cline"
+    }
+  },
+  {
+    "id": "bolt-new",
+    "name": "Bolt.new",
+    "category": "coding-assistants",
+    "tagline": "StackBlitz AI full-stack web app builder",
+    "description": "AI-powered in-browser development environment by StackBlitz. Generates, runs, and deploys full-stack web apps from prompts with real npm and Node.js.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Pro",
+          "price": "$20/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "code-editor",
+    "urls": {
+      "website": "https://bolt.new",
+      "github": null
+    }
+  },
+  {
+    "id": "devin",
+    "name": "Devin",
+    "category": "autonomous-agents",
+    "tagline": "Fully autonomous AI software engineer",
+    "description": "Cognition's AI that handles complete dev tasks end-to-end: plans, codes, tests, debugs, and opens PRs without human input.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": false,
+      "plans": [
+        {
+          "name": "Starter",
+          "price": "$500/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "swe-agent",
+    "prominent": true,
+    "urls": {
+      "website": "https://cognition.ai",
+      "github": null
+    }
+  },
+  {
+    "id": "openhands",
+    "name": "OpenHands",
+    "category": "autonomous-agents",
+    "tagline": "OSS platform for AI software dev agents",
+    "description": "Open-source sandboxed platform for running AI software engineering agents. Supports multiple agent frameworks and LLMs.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 36000,
+    "slot": "swe-agent",
+    "prominent": true,
+    "urls": {
+      "website": "https://docs.all-hands.dev",
+      "github": "https://github.com/All-Hands-AI/OpenHands"
+    }
+  },
+  {
+    "id": "swe-agent",
+    "name": "SWE-agent",
+    "category": "autonomous-agents",
+    "tagline": "Research agent that solves GitHub issues",
+    "description": "Princeton research agent that autonomously resolves real GitHub issues. Pioneered the SWE-bench benchmark category.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 14000,
+    "slot": "swe-agent",
+    "urls": {
+      "website": "https://swe-agent.com",
+      "github": "https://github.com/princeton-nlp/SWE-agent"
+    }
+  },
+  {
+    "id": "crewai",
+    "name": "CrewAI",
+    "category": "agent-frameworks",
+    "tagline": "Role-based multi-agent orchestration",
+    "description": "Framework for building multi-agent systems where each agent has a defined role, backstory, and tools. Simple and pythonic.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 23000,
+    "slot": "agent-framework",
+    "prominent": true,
+    "urls": {
+      "website": "https://crewai.com",
+      "github": "https://github.com/joaomdmoura/crewAI"
+    }
+  },
+  {
+    "id": "autogen",
+    "name": "AutoGen",
+    "category": "agent-frameworks",
+    "tagline": "Conversational multi-agent framework by Microsoft",
+    "description": "Microsoft's framework for building multi-agent systems through conversational patterns. Supports group chats, code execution, and tool use.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 34000,
+    "slot": "agent-framework",
+    "prominent": true,
+    "urls": {
+      "website": "https://microsoft.github.io/autogen",
+      "github": "https://github.com/microsoft/autogen"
+    }
+  },
+  {
+    "id": "langgraph",
+    "name": "LangGraph",
+    "category": "agent-frameworks",
+    "tagline": "Graph-based stateful agent orchestration",
+    "description": "Build stateful multi-actor applications as directed graphs. Part of the LangChain ecosystem. Strong for complex agentic workflows.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 8000,
+    "slot": "agent-framework",
+    "urls": {
+      "website": "https://langchain-ai.github.io/langgraph",
+      "github": "https://github.com/langchain-ai/langgraph"
+    }
+  },
+  {
+    "id": "metagpt",
+    "name": "MetaGPT",
+    "category": "agent-frameworks",
+    "tagline": "Multi-agent software company simulation",
+    "description": "Assigns GPT roles (PM, architect, engineer) to simulate a software company. Generates full project artifacts from one-line requirements.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 44000,
+    "slot": "agent-framework",
+    "urls": {
+      "website": "https://metagpt.com",
+      "github": "https://github.com/geekan/MetaGPT"
+    }
+  },
+  {
+    "id": "semantic-kernel",
+    "name": "Semantic Kernel",
+    "category": "agent-frameworks",
+    "tagline": "Microsoft SDK for AI orchestration",
+    "description": "Microsoft's open-source SDK for integrating AI models into .NET, Python, and Java applications. Enterprise-grade orchestration with plugin architecture.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 22000,
+    "slot": "agent-framework",
+    "urls": {
+      "website": "https://learn.microsoft.com/en-us/semantic-kernel",
+      "github": "https://github.com/microsoft/semantic-kernel"
+    }
+  },
+  {
+    "id": "lovable",
+    "name": "Lovable",
+    "category": "autonomous-agents",
+    "tagline": "AI that builds full-stack web apps from prompts",
+    "description": "Lovable generates complete full-stack web applications from natural language. It handles frontend, backend, auth, and database \u2014 editable in real time.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Starter",
+          "price": "$20/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "swe-agent",
+    "urls": {
+      "website": "https://lovable.dev",
+      "github": null
+    }
+  },
+  {
+    "id": "gpt-pilot",
+    "name": "GPT Pilot",
+    "category": "autonomous-agents",
+    "tagline": "AI dev that codes entire apps step by step",
+    "description": "OSS AI developer that scaffolds and builds entire applications while asking clarifying questions at each step. Designed for complex, multi-file projects.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 31000,
+    "slot": "swe-agent",
+    "urls": {
+      "website": "https://github.com/Pythagora-io/gpt-pilot",
+      "github": "https://github.com/Pythagora-io/gpt-pilot"
+    }
+  },
+  {
+    "id": "v0",
+    "name": "v0",
+    "category": "design",
+    "tagline": "Prompt \u2192 production React/Tailwind components",
+    "description": "Vercel's AI that generates production-ready React and Tailwind UI from prompts. Exports directly to code. Legitimized AI design-to-code.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Pro",
+          "price": "$20/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "design-to-code",
+    "prominent": true,
+    "urls": {
+      "website": "https://v0.dev",
+      "github": null
+    }
+  },
+  {
+    "id": "galileo",
+    "name": "Galileo AI",
+    "category": "design",
+    "tagline": "Text \u2192 Figma-ready UI generation",
+    "description": "Generates complete Figma-ready UI designs from text prompts. Targets design teams looking to accelerate early-stage UI generation.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": false,
+      "plans": [
+        {
+          "name": "Enterprise",
+          "price": "Custom"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "design-to-code",
+    "urls": {
+      "website": "https://www.usegalileo.ai",
+      "github": null
+    }
+  },
+  {
+    "id": "locofy",
+    "name": "Locofy.ai",
+    "category": "design",
+    "tagline": "Figma/XD \u2192 production React/Next.js code",
+    "description": "Converts Figma and Adobe XD designs into production-ready React, Next.js, and React Native code with accurate styling.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Starter",
+          "price": "Free"
+        },
+        {
+          "name": "Pro",
+          "price": "Paid"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "design-to-code",
+    "urls": {
+      "website": "https://locofy.ai",
+      "github": null
+    }
+  },
+  {
+    "id": "builder-io",
+    "name": "Builder.io",
+    "category": "design",
+    "tagline": "Visual CMS + AI design-to-code from Figma",
+    "description": "AI-powered visual editor that converts Figma designs to clean React code and offers a headless CMS for visual content editing.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Growth",
+          "price": "$19/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "design-to-code",
+    "urls": {
+      "website": "https://builder.io",
+      "github": null
+    }
+  },
+  {
+    "id": "framer-ai",
+    "name": "Framer AI",
+    "category": "design",
+    "tagline": "AI-generated websites from prompts",
+    "description": "Generate complete, publishable websites from a text prompt directly inside Framer. Editable, responsive, and instantly live.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": false,
+      "plans": [
+        {
+          "name": "Bundled",
+          "price": "$15+/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "design-to-code",
+    "urls": {
+      "website": "https://framer.com/ai",
+      "github": null
+    }
+  },
+  {
+    "id": "uizard",
+    "name": "Uizard",
+    "category": "design",
+    "tagline": "Wireframes from sketches and text prompts",
+    "description": "Converts rough sketches, screenshots, or text descriptions into interactive UI wireframes. Fast prototyping without design expertise.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Pro",
+          "price": "$12/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "design-to-code",
+    "urls": {
+      "website": "https://uizard.io",
+      "github": null
+    }
+  },
+  {
+    "id": "relume",
+    "name": "Relume",
+    "category": "design",
+    "tagline": "AI sitemap and wireframe generation",
+    "description": "Generates complete site architectures and wireframes from a brief. Outputs to Figma and Webflow, accelerating the design planning phase.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": false,
+      "plans": [
+        {
+          "name": "Starter",
+          "price": "$38/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "design-to-code",
+    "urls": {
+      "website": "https://relume.io",
+      "github": null
+    }
+  },
+  {
+    "id": "webflow-ai",
+    "name": "Webflow AI",
+    "category": "design",
+    "tagline": "AI site builder and copy generation in Webflow",
+    "description": "AI-powered site generation, layout suggestions, and copy writing built into Webflow. Generate fully editable, responsive websites without writing code.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Basic",
+          "price": "$14/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "design-to-code",
+    "urls": {
+      "website": "https://webflow.com/ai",
+      "github": null
+    }
+  },
+  {
+    "id": "anima",
+    "name": "Anima",
+    "category": "design",
+    "tagline": "Figma \u2192 React/Vue/HTML code generation",
+    "description": "Converts Figma designs to production-ready React, Vue, and HTML code. Supports design tokens, responsive layouts, and interactive components.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Pro",
+          "price": "$31/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "design-to-code",
+    "urls": {
+      "website": "https://animaapp.com",
+      "github": null
+    }
+  },
+  {
+    "id": "kombai",
+    "name": "Kombai",
+    "category": "design",
+    "tagline": "Figma-to-code AI with semantic understanding",
+    "description": "AI that converts Figma designs to clean, maintainable code by understanding design semantics rather than just copying layout pixels.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Pro",
+          "price": "Paid"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "design-to-code",
+    "urls": {
+      "website": "https://kombai.com",
+      "github": null
+    }
+  },
+  {
+    "id": "langchain",
+    "name": "LangChain",
+    "category": "pipelines-rag",
+    "tagline": "The leading LLM app framework",
+    "description": "Most widely used framework for building LLM applications. Chains, agents, RAG pipelines, and deep integrations with 300+ tools.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 93000,
+    "slot": "orchestration",
+    "prominent": true,
+    "urls": {
+      "website": "https://langchain.com",
+      "github": "https://github.com/langchain-ai/langchain"
+    }
+  },
+  {
+    "id": "llamaindex",
+    "name": "LlamaIndex",
+    "category": "pipelines-rag",
+    "tagline": "Data framework for RAG and LLM pipelines",
+    "description": "Framework specialized in data ingestion, indexing, and retrieval for LLM applications. The go-to for complex RAG pipelines.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 37000,
+    "slot": "orchestration",
+    "prominent": true,
+    "urls": {
+      "website": "https://llamaindex.ai",
+      "github": "https://github.com/run-llama/llama_index"
+    }
+  },
+  {
+    "id": "dspy",
+    "name": "DSPy",
+    "category": "pipelines-rag",
+    "tagline": "Programming (not prompting) LLMs",
+    "description": "Stanford's framework for algorithmically optimizing LLM pipelines. Replaces hand-crafted prompts with declarative modules and automatic optimization.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 18000,
+    "slot": "orchestration",
+    "urls": {
+      "website": "https://dspy-docs.vercel.app",
+      "github": "https://github.com/stanfordnlp/dspy"
+    }
+  },
+  {
+    "id": "flowise",
+    "name": "Flowise",
+    "category": "pipelines-rag",
+    "tagline": "No-code visual LangChain pipeline builder",
+    "description": "Open-source drag-and-drop UI for building LangChain pipelines without code. Makes AI orchestration accessible to non-engineers.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Cloud",
+          "price": "$35/mo"
+        }
+      ]
+    },
+    "github_stars": 32000,
+    "slot": "orchestration",
+    "urls": {
+      "website": "https://flowiseai.com",
+      "github": "https://github.com/FlowiseAI/Flowise"
+    }
+  },
+  {
+    "id": "dify",
+    "name": "Dify",
+    "category": "pipelines-rag",
+    "tagline": "OSS LLM app development platform",
+    "description": "Open-source platform with a visual workflow builder, model management, RAG pipeline, and agent capabilities in one product.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Cloud Pro",
+          "price": "Paid"
+        }
+      ]
+    },
+    "github_stars": 50000,
+    "slot": "orchestration",
+    "prominent": true,
+    "urls": {
+      "website": "https://dify.ai",
+      "github": "https://github.com/langgenius/dify"
+    }
+  },
+  {
+    "id": "n8n",
+    "name": "n8n",
+    "category": "pipelines-rag",
+    "tagline": "Workflow automation with AI nodes",
+    "description": "Fair-code workflow automation with 400+ integrations and native AI nodes. Self-hostable and increasingly used for AI pipelines.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Cloud",
+          "price": "$20/mo"
+        }
+      ]
+    },
+    "github_stars": 48000,
+    "slot": "orchestration",
+    "prominent": true,
+    "urls": {
+      "website": "https://n8n.io",
+      "github": "https://github.com/n8n-io/n8n"
+    }
+  },
+  {
+    "id": "haystack",
+    "name": "Haystack",
+    "category": "pipelines-rag",
+    "tagline": "Composable NLP and LLM pipeline framework",
+    "description": "deepset's open-source framework for building production NLP and LLM pipelines. Strong focus on RAG, search, and document AI use cases.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "deepset Cloud",
+          "price": "Custom"
+        }
+      ]
+    },
+    "github_stars": 18000,
+    "slot": "orchestration",
+    "urls": {
+      "website": "https://haystack.deepset.ai",
+      "github": "https://github.com/deepset-ai/haystack"
+    }
+  },
+  {
+    "id": "langflow",
+    "name": "Langflow",
+    "category": "pipelines-rag",
+    "tagline": "Visual builder for LangChain pipelines",
+    "description": "Open-source drag-and-drop interface for building LangChain pipelines. Backed by DataStax, it's the closest competitor to Flowise.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "DataStax Cloud",
+          "price": "Managed"
+        }
+      ]
+    },
+    "github_stars": 35000,
+    "slot": "orchestration",
+    "urls": {
+      "website": "https://langflow.org",
+      "github": "https://github.com/langflow-ai/langflow"
+    }
+  },
+  {
+    "id": "mastra",
+    "name": "Mastra",
+    "category": "agent-frameworks",
+    "tagline": "TypeScript AI agent framework by Vercel contributors",
+    "description": "TypeScript-first framework for building AI agents and workflows. Supports tool use, memory, RAG, and evals with first-class Vercel AI SDK integration.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 8000,
+    "slot": "orchestration",
+    "urls": {
+      "website": "https://mastra.ai",
+      "github": "https://github.com/mastra-ai/mastra"
+    }
+  },
+  {
+    "id": "pydantic-ai",
+    "name": "PydanticAI",
+    "category": "agent-frameworks",
+    "tagline": "Type-safe Python agent framework by Pydantic team",
+    "description": "Agent framework from the Pydantic team leveraging Python's type system. Supports structured outputs, dependency injection, and multi-model backends.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 7000,
+    "slot": "orchestration",
+    "urls": {
+      "website": "https://ai.pydantic.dev",
+      "github": "https://github.com/pydantic/pydantic-ai"
+    }
+  },
+  {
+    "id": "smolagents",
+    "name": "smolagents",
+    "category": "agent-frameworks",
+    "tagline": "HuggingFace's minimal agent framework",
+    "description": "Lightweight agent framework from HuggingFace. Agents write Python code as actions rather than JSON, enabling complex multi-step reasoning with minimal overhead.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 12000,
+    "slot": "orchestration",
+    "urls": {
+      "website": "https://huggingface.co/docs/smolagents",
+      "github": "https://github.com/huggingface/smolagents"
+    }
+  },
+  {
+    "id": "agno",
+    "name": "Agno",
+    "category": "agent-frameworks",
+    "tagline": "Fast Python agent framework, formerly Phidata",
+    "description": "High-performance Python framework for building multi-modal AI agents with memory, knowledge, and tool use. Formerly known as Phidata.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 18000,
+    "slot": "orchestration",
+    "urls": {
+      "website": "https://agno.com",
+      "github": "https://github.com/agno-agi/agno"
+    }
+  },
+  {
+    "id": "sweep-ai",
+    "name": "Sweep AI",
+    "category": "devops",
+    "tagline": "GitHub bot: issues \u2192 PRs automatically",
+    "description": "GitHub bot that converts issues and bug reports into working pull requests. Handles simple to medium complexity tasks autonomously.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Pro",
+          "price": "$480/yr"
+        }
+      ]
+    },
+    "github_stars": 7500,
+    "slot": "devops-automation",
+    "urls": {
+      "website": "https://sweep.dev",
+      "github": "https://github.com/sweepai/sweep"
+    }
+  },
+  {
+    "id": "coderabbit",
+    "name": "CodeRabbit",
+    "category": "devops",
+    "tagline": "AI code review bot for GitHub/GitLab",
+    "description": "Automated AI code review that provides line-by-line feedback on PRs. Understands context, suggests improvements, and catches bugs.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Pro",
+          "price": "$12/user/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "devops-automation",
+    "urls": {
+      "website": "https://coderabbit.ai",
+      "github": null
+    }
+  },
+  {
+    "id": "qodo",
+    "name": "Qodo (CodiumAI)",
+    "category": "devops",
+    "tagline": "AI test generation and code integrity",
+    "description": "Generates meaningful tests and reviews code behavior on PRs. Focuses on code correctness rather than just style.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Teams",
+          "price": "$19/user/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "devops-automation",
+    "urls": {
+      "website": "https://qodo.ai",
+      "github": null
+    }
+  },
+  {
+    "id": "graphite",
+    "name": "Graphite",
+    "category": "devops",
+    "tagline": "AI-assisted PR stacking and code review",
+    "description": "Stacked diffs workflow with AI-powered code review. Speeds up PR review cycles for teams that ship frequently.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Pro",
+          "price": "$19/user/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "devops-automation",
+    "urls": {
+      "website": "https://graphite.dev",
+      "github": null
+    }
+  },
+  {
+    "id": "sourcery",
+    "name": "Sourcery",
+    "category": "devops",
+    "tagline": "AI refactoring and code review in CI",
+    "description": "AI-powered code review that runs in CI pipelines and IDE. Focuses on refactoring suggestions, code quality improvements, and PR feedback.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Team",
+          "price": "$12/user/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "devops-automation",
+    "urls": {
+      "website": "https://sourcery.ai",
+      "github": null
+    }
+  },
+  {
+    "id": "grit-io",
+    "name": "Grit.io",
+    "category": "devops",
+    "tagline": "AI-powered code migrations and upgrades at scale",
+    "description": "Automates large-scale code migrations \u2014 upgrading frameworks, removing deprecated APIs, and enforcing patterns across entire codebases.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Enterprise",
+          "price": "Custom"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "devops-automation",
+    "urls": {
+      "website": "https://grit.io",
+      "github": null
+    }
+  },
+  {
+    "id": "pixee",
+    "name": "Pixee",
+    "category": "devops",
+    "tagline": "Automated security hardening PRs",
+    "description": "Automatically opens PRs that fix security vulnerabilities found by SAST tools. Converts SAST findings into actionable, reviewed code changes.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Pro",
+          "price": "Custom"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "devops-automation",
+    "urls": {
+      "website": "https://pixee.ai",
+      "github": null
+    }
+  },
+  {
+    "id": "trunk",
+    "name": "Trunk",
+    "category": "devops",
+    "tagline": "Code quality, linting, and merge queue CI",
+    "description": "Developer platform combining AI-assisted code checking, a merge queue for safe parallel merging, and flaky test management. Works with any CI system.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Team",
+          "price": "Paid"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "devops-automation",
+    "urls": {
+      "website": "https://trunk.io",
+      "github": null
+    }
+  },
+  {
+    "id": "codegen",
+    "name": "Codegen",
+    "category": "devops",
+    "tagline": "AI-powered automated code migrations",
+    "description": "AI agent that performs large-scale automated code migrations across codebases. Handles framework upgrades, API changes, and refactors with review workflows.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Enterprise",
+          "price": "Custom"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "devops-automation",
+    "urls": {
+      "website": "https://codegen.com",
+      "github": null
+    }
+  },
+  {
+    "id": "mintlify",
+    "name": "Mintlify",
+    "category": "docs",
+    "tagline": "Auto-generates and hosts docs from code",
+    "description": "AI-powered documentation platform that generates and maintains docs from your codebase. Beautiful hosted output with AI search.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Growth",
+          "price": "$150/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "docs",
+    "prominent": true,
+    "urls": {
+      "website": "https://mintlify.com",
+      "github": null
+    }
+  },
+  {
+    "id": "swimm",
+    "name": "Swimm",
+    "category": "docs",
+    "tagline": "AI-powered internal code docs synced to codebase",
+    "description": "Creates living internal documentation that stays in sync with code changes. Great for onboarding and reducing knowledge silos.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Team",
+          "price": "$18/user/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "docs",
+    "urls": {
+      "website": "https://swimm.io",
+      "github": null
+    }
+  },
+  {
+    "id": "notion-ai",
+    "name": "Notion AI",
+    "category": "docs",
+    "tagline": "AI writing assistant within Notion",
+    "description": "AI writing, summarization, and Q&A built into Notion. Used for docs, PRDs, meeting notes, and knowledge bases.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": false,
+      "plans": [
+        {
+          "name": "Add-on",
+          "price": "$10/user/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "docs",
+    "urls": {
+      "website": "https://notion.so/ai",
+      "github": null
+    }
+  },
+  {
+    "id": "gitbook-ai",
+    "name": "GitBook AI",
+    "category": "docs",
+    "tagline": "AI-powered search and content generation in GitBook",
+    "description": "Semantic search and AI Q&A built into GitBook documentation. Readers can ask questions and get AI-generated answers grounded in your docs.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Plus",
+          "price": "$8/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "docs",
+    "urls": {
+      "website": "https://gitbook.com",
+      "github": null
+    }
+  },
+  {
+    "id": "linear-ai",
+    "name": "Linear AI",
+    "category": "product-mgmt",
+    "tagline": "AI issue writing, triage, and summarization",
+    "description": "AI features built into Linear for writing better issues, triaging bugs, and summarizing project activity. Bundled with Linear.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": false,
+      "plans": [
+        {
+          "name": "Bundled",
+          "price": "$8+/user/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "product-mgmt",
+    "urls": {
+      "website": "https://linear.app",
+      "github": null
+    }
+  },
+  {
+    "id": "height-ai",
+    "name": "Height AI",
+    "category": "product-mgmt",
+    "tagline": "AI task management with autonomous project ops",
+    "description": "Project management tool with an AI agent that can autonomously triage tasks, draft specs, and manage backlog \u2014 without being explicitly asked.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Pro",
+          "price": "Paid"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "product-mgmt",
+    "urls": {
+      "website": "https://height.app",
+      "github": null
+    }
+  },
+  {
+    "id": "cycle",
+    "name": "Cycle",
+    "category": "product-mgmt",
+    "tagline": "AI-powered product discovery and feedback synthesis",
+    "description": "Connects user feedback to product decisions. AI synthesizes patterns from interviews, support tickets, and surveys into actionable insights.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": false,
+      "plans": [
+        {
+          "name": "Starter",
+          "price": "$49/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "product-mgmt",
+    "urls": {
+      "website": "https://cycle.app",
+      "github": null
+    }
+  },
+  {
+    "id": "kraftful",
+    "name": "Kraftful",
+    "category": "product-mgmt",
+    "tagline": "AI analysis of user feedback and feature requests",
+    "description": "Synthesizes user feedback from interviews, reviews, and support tickets into structured product insights. Replaces manual qualitative analysis.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Pro",
+          "price": "$99/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "product-mgmt",
+    "urls": {
+      "website": "https://kraftful.com",
+      "github": null
+    }
+  },
+  {
+    "id": "litellm",
+    "name": "LiteLLM",
+    "category": "llm-infra",
+    "tagline": "Universal LLM proxy \u2014 100+ models, one API",
+    "description": "OSS proxy that normalizes 100+ LLMs to the OpenAI format. Add routing, fallbacks, caching, and cost tracking in one layer.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Enterprise",
+          "price": "Custom"
+        }
+      ]
+    },
+    "github_stars": 16000,
+    "slot": "model-router",
+    "prominent": true,
+    "urls": {
+      "website": "https://litellm.ai",
+      "github": "https://github.com/BerriAI/litellm"
+    }
+  },
+  {
+    "id": "openrouter",
+    "name": "OpenRouter",
+    "category": "llm-infra",
+    "tagline": "Unified API routing to 200+ LLMs",
+    "description": "Routes requests to 200+ LLMs through one API. Handles fallbacks, cost optimization, and model discovery. Pay per token.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Usage-based",
+          "price": "Per token"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "model-router",
+    "prominent": true,
+    "urls": {
+      "website": "https://openrouter.ai",
+      "github": null
+    }
+  },
+  {
+    "id": "portkey",
+    "name": "PortKey",
+    "category": "llm-infra",
+    "tagline": "AI gateway with routing, fallbacks, and caching",
+    "description": "Production AI gateway with smart routing, automatic fallbacks, semantic caching, and full observability. Drop-in replacement for direct LLM calls.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Growth",
+          "price": "$49/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "model-router",
+    "urls": {
+      "website": "https://portkey.ai",
+      "github": null
+    }
+  },
+  {
+    "id": "langsmith",
+    "name": "LangSmith",
+    "category": "llm-infra",
+    "tagline": "LLM tracing, evaluation, and dataset management",
+    "description": "LangChain's observability platform. Trace every LLM call, run evals on datasets, and manage prompts in production.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Plus",
+          "price": "$39/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "observability",
+    "urls": {
+      "website": "https://smith.langchain.com",
+      "github": null
+    }
+  },
+  {
+    "id": "langfuse",
+    "name": "Langfuse",
+    "category": "llm-infra",
+    "tagline": "OSS LLM engineering platform",
+    "description": "Open-source platform for tracing, evaluations, and prompt management. Self-hostable alternative to LangSmith with clean UX.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Cloud",
+          "price": "$59/mo"
+        }
+      ]
+    },
+    "github_stars": 7000,
+    "slot": "observability",
+    "prominent": true,
+    "urls": {
+      "website": "https://langfuse.com",
+      "github": "https://github.com/langfuse/langfuse"
+    }
+  },
+  {
+    "id": "helicone",
+    "name": "Helicone",
+    "category": "llm-infra",
+    "tagline": "LLM observability, cost tracking, request logging",
+    "description": "Open-source LLM observability platform. One-line integration to log every LLM request, track costs, and debug slow or failing calls.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Pro",
+          "price": "Usage-based"
+        }
+      ]
+    },
+    "github_stars": 2500,
+    "slot": "observability",
+    "urls": {
+      "website": "https://helicone.ai",
+      "github": "https://github.com/Helicone/helicone"
+    }
+  },
+  {
+    "id": "arize-phoenix",
+    "name": "Arize Phoenix",
+    "category": "llm-infra",
+    "tagline": "ML/LLM observability and evaluation platform",
+    "description": "Open-source observability platform for ML and LLM applications. Supports tracing, evaluation, and dataset management with a strong eval framework.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Enterprise",
+          "price": "Custom"
+        }
+      ]
+    },
+    "github_stars": 4000,
+    "slot": "observability",
+    "urls": {
+      "website": "https://phoenix.arize.com",
+      "github": "https://github.com/Arize-ai/phoenix"
+    }
+  },
+  {
+    "id": "braintrust",
+    "name": "Braintrust",
+    "category": "llm-infra",
+    "tagline": "AI evaluation platform with datasets and prompt mgmt",
+    "description": "End-to-end evaluation platform for AI products. Manage datasets, run evals, and track prompt versions across experiments in a clean interface.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Team",
+          "price": "Paid"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "observability",
+    "urls": {
+      "website": "https://braintrustdata.com",
+      "github": null
+    }
+  },
+  {
+    "id": "ollama",
+    "name": "Ollama",
+    "category": "llm-infra",
+    "tagline": "Run LLMs locally via simple CLI/API",
+    "description": "Dead-simple local LLM serving. Pull and run models like Docker images. Compatible with the OpenAI API format.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 90000,
+    "slot": "inference",
+    "prominent": true,
+    "urls": {
+      "website": "https://ollama.ai",
+      "github": "https://github.com/ollama/ollama"
+    }
+  },
+  {
+    "id": "vllm",
+    "name": "vLLM",
+    "category": "llm-infra",
+    "tagline": "High-throughput LLM serving with PagedAttention",
+    "description": "Production-grade LLM inference server. PagedAttention enables high throughput and efficient KV cache memory management.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 32000,
+    "slot": "inference",
+    "urls": {
+      "website": "https://vllm.ai",
+      "github": "https://github.com/vllm-project/vllm"
+    }
+  },
+  {
+    "id": "groq",
+    "name": "Groq",
+    "category": "llm-infra",
+    "tagline": "Ultra-fast LLM inference via LPU hardware",
+    "description": "Inference API powered by custom Language Processing Units. 10x faster than GPU-based inference for supported models.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "API",
+          "price": "Per token"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "inference",
+    "urls": {
+      "website": "https://groq.com",
+      "github": null
+    }
+  },
+  {
+    "id": "together-ai",
+    "name": "Together AI",
+    "category": "llm-infra",
+    "tagline": "Fast inference API for open-source models",
+    "description": "Inference API with 200+ open-source models at competitive speeds. Popular for running Llama, Mistral, and other open models at scale.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "API",
+          "price": "Per token"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "inference",
+    "urls": {
+      "website": "https://together.ai",
+      "github": null
+    }
+  },
+  {
+    "id": "fireworks-ai",
+    "name": "Fireworks AI",
+    "category": "llm-infra",
+    "tagline": "Fast inference with function calling and fine-tuning",
+    "description": "High-performance inference API with native function calling, structured outputs, and fine-tuning for open-source models.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "API",
+          "price": "Per token"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "inference",
+    "urls": {
+      "website": "https://fireworks.ai",
+      "github": null
+    }
+  },
+  {
+    "id": "llama-cpp",
+    "name": "llama.cpp",
+    "category": "llm-infra",
+    "tagline": "C++ LLM inference for local and edge deployment",
+    "description": "Highly optimized C++ inference engine for running quantized LLMs on CPU and GPU. The foundation for Ollama and many local AI tools.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 68000,
+    "slot": "inference",
+    "prominent": true,
+    "urls": {
+      "website": "https://github.com/ggerganov/llama.cpp",
+      "github": "https://github.com/ggerganov/llama.cpp"
+    }
+  },
+  {
+    "id": "modal",
+    "name": "Modal",
+    "category": "llm-infra",
+    "tagline": "Cloud platform for GPU inference and training",
+    "description": "Run Python functions on serverless GPUs with zero infrastructure management. Popular for deploying custom LLM inference and fine-tuning jobs.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Pay-as-you-go",
+          "price": "Per GPU-second"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "inference",
+    "urls": {
+      "website": "https://modal.com",
+      "github": null
+    }
+  },
+  {
+    "id": "qdrant",
+    "name": "Qdrant",
+    "category": "llm-infra",
+    "tagline": "High-performance vector DB with filtering",
+    "description": "Rust-based vector database optimized for filtering. Supports named vectors, payloads, and hybrid search. Self-hostable or cloud.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Cloud",
+          "price": "Usage-based"
+        }
+      ]
+    },
+    "github_stars": 20000,
+    "slot": "vector-db",
+    "urls": {
+      "website": "https://qdrant.tech",
+      "github": "https://github.com/qdrant/qdrant"
+    }
+  },
+  {
+    "id": "chroma",
+    "name": "Chroma",
+    "category": "llm-infra",
+    "tagline": "Lightweight embedded vector DB for AI apps",
+    "description": "Developer-friendly vector database. Embeds in-process or runs as a server. Great for prototyping RAG applications quickly.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 15000,
+    "slot": "vector-db",
+    "urls": {
+      "website": "https://trychroma.com",
+      "github": "https://github.com/chroma-core/chroma"
+    }
+  },
+  {
+    "id": "pgvector",
+    "name": "pgvector",
+    "category": "llm-infra",
+    "tagline": "PostgreSQL extension for vector similarity search",
+    "description": "Adds vector similarity search to PostgreSQL. Perfect for teams already on Postgres who don't want to manage a separate vector DB.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 13000,
+    "slot": "vector-db",
+    "urls": {
+      "website": "https://github.com/pgvector/pgvector",
+      "github": "https://github.com/pgvector/pgvector"
+    }
+  },
+  {
+    "id": "pinecone",
+    "name": "Pinecone",
+    "category": "llm-infra",
+    "tagline": "Managed vector DB service",
+    "description": "Fully managed vector database with serverless indexes. No ops overhead. The go-to managed option for production RAG.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Standard",
+          "price": "Usage-based"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "vector-db",
+    "prominent": true,
+    "urls": {
+      "website": "https://pinecone.io",
+      "github": null
+    }
+  },
+  {
+    "id": "weaviate",
+    "name": "Weaviate",
+    "category": "llm-infra",
+    "tagline": "Cloud-native vector search engine",
+    "description": "Open-source vector database with hybrid search (vector + BM25), multi-modal support, and native GraphQL API. Strong enterprise adoption.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Cloud",
+          "price": "Usage-based"
+        }
+      ]
+    },
+    "github_stars": 11000,
+    "slot": "vector-db",
+    "urls": {
+      "website": "https://weaviate.io",
+      "github": "https://github.com/weaviate/weaviate"
+    }
+  },
+  {
+    "id": "milvus",
+    "name": "Milvus",
+    "category": "llm-infra",
+    "tagline": "Distributed vector database built for scale",
+    "description": "Cloud-native vector database designed for billion-scale similarity search. Powers Zilliz Cloud and used by major enterprises for production RAG.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Zilliz Cloud",
+          "price": "Usage-based"
+        }
+      ]
+    },
+    "github_stars": 31000,
+    "slot": "vector-db",
+    "urls": {
+      "website": "https://milvus.io",
+      "github": "https://github.com/milvus-io/milvus"
+    }
+  },
+  {
+    "id": "anthropic-api",
+    "name": "Anthropic API",
+    "category": "llm-infra",
+    "tagline": "Claude models API by Anthropic",
+    "description": "API access to Claude model family including Claude 3.5 Sonnet, Haiku, and Opus. Excels at coding, analysis, long-context tasks, and safety-critical applications.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": false,
+      "plans": [
+        {
+          "name": "API",
+          "price": "Per token"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "llm-provider",
+    "prominent": true,
+    "urls": {
+      "website": "https://anthropic.com/api",
+      "github": null
+    }
+  },
+  {
+    "id": "openai-api",
+    "name": "OpenAI API",
+    "category": "llm-infra",
+    "tagline": "GPT-4o, o1, and embeddings from OpenAI",
+    "description": "API access to GPT-4o, o1, and other OpenAI models including embeddings and image generation. The most widely used LLM API in production.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": false,
+      "plans": [
+        {
+          "name": "API",
+          "price": "Per token"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "llm-provider",
+    "prominent": true,
+    "urls": {
+      "website": "https://platform.openai.com",
+      "github": null
+    }
+  },
+  {
+    "id": "mistral-api",
+    "name": "Mistral API",
+    "category": "llm-infra",
+    "tagline": "Mistral and Mixtral models via La Plateforme",
+    "description": "API access to Mistral's efficient models including Mistral Large, Mixtral 8x7B, and the ultra-fast Mistral Small. Strong multilingual support.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "API",
+          "price": "Per token"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "llm-provider",
+    "urls": {
+      "website": "https://mistral.ai/api",
+      "github": null
+    }
+  },
+  {
+    "id": "cohere-api",
+    "name": "Cohere API",
+    "category": "llm-infra",
+    "tagline": "Command and Embed models for enterprise NLP",
+    "description": "API for Cohere's Command (generation) and Embed (embeddings) models. Strong focus on enterprise search, RAG, and classification use cases.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "API",
+          "price": "Per token"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "llm-provider",
+    "urls": {
+      "website": "https://cohere.com",
+      "github": null
+    }
+  },
+  {
+    "id": "replicate",
+    "name": "Replicate",
+    "category": "llm-infra",
+    "tagline": "Run open-source ML models via API",
+    "description": "Cloud platform for running thousands of open-source ML models via a simple API. Supports LLMs, image generation, audio, and video models.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Pay-per-run",
+          "price": "Usage-based"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "inference",
+    "urls": {
+      "website": "https://replicate.com",
+      "github": null
+    }
+  },
+  {
+    "id": "huggingface",
+    "name": "HuggingFace",
+    "category": "llm-infra",
+    "tagline": "Open ML model hub and inference platform",
+    "description": "The central hub for open-source ML models, datasets, and spaces. Offers Inference API, Inference Endpoints, and the Transformers library for running models.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Pro",
+          "price": "$9/mo"
+        }
+      ]
+    },
+    "github_stars": 135000,
+    "slot": "llm-provider",
+    "prominent": true,
+    "urls": {
+      "website": "https://huggingface.co",
+      "github": "https://github.com/huggingface/transformers"
+    }
+  },
+  {
+    "id": "vercel-ai-sdk",
+    "name": "Vercel AI SDK",
+    "category": "llm-infra",
+    "tagline": "TypeScript SDK for streaming AI UIs",
+    "description": "Open-source SDK for building AI-powered streaming UIs in Next.js and Node.js. Unified provider API supports OpenAI, Anthropic, and 20+ others.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 12000,
+    "slot": "model-router",
+    "urls": {
+      "website": "https://sdk.vercel.ai",
+      "github": "https://github.com/vercel/ai"
+    }
+  },
+  {
+    "id": "ray",
+    "name": "Ray",
+    "category": "llm-infra",
+    "tagline": "Distributed computing framework for ML workloads",
+    "description": "Open-source distributed computing framework for scaling Python ML workloads. Ray Serve and Ray Train power production LLM serving and fine-tuning pipelines.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Anyscale",
+          "price": "Managed"
+        }
+      ]
+    },
+    "github_stars": 33000,
+    "slot": "inference",
+    "urls": {
+      "website": "https://ray.io",
+      "github": "https://github.com/ray-project/ray"
+    }
+  },
+  {
+    "id": "logfire",
+    "name": "Logfire",
+    "category": "llm-infra",
+    "tagline": "Observability platform by the Pydantic team",
+    "description": "OpenTelemetry-based observability platform built by Pydantic. Tight integration with PydanticAI for tracing agent runs and LLM calls with structured data.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Team",
+          "price": "Paid"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "observability",
+    "urls": {
+      "website": "https://logfire.pydantic.dev",
+      "github": null
+    }
+  },
+  {
+    "id": "mcp-sdk-ts",
+    "name": "MCP SDK (TypeScript)",
+    "category": "mcp",
+    "tagline": "Official Anthropic SDK for MCP servers/clients",
+    "description": "The official TypeScript SDK for building and connecting MCP servers and clients. The foundation for the MCP ecosystem.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 8000,
+    "slot": "mcp-infra",
+    "prominent": true,
+    "urls": {
+      "website": "https://modelcontextprotocol.io",
+      "github": "https://github.com/modelcontextprotocol/typescript-sdk"
+    }
+  },
+  {
+    "id": "mcp-sdk-python",
+    "name": "MCP SDK (Python)",
+    "category": "mcp",
+    "tagline": "Official Anthropic Python SDK for MCP",
+    "description": "The official Python SDK for building MCP servers and clients. Pairs with FastMCP for high-level abstractions and custom MCP server development.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 6000,
+    "slot": "mcp-infra",
+    "urls": {
+      "website": "https://modelcontextprotocol.io",
+      "github": "https://github.com/modelcontextprotocol/python-sdk"
+    }
+  },
+  {
+    "id": "fastmcp",
+    "name": "FastMCP",
+    "category": "mcp",
+    "tagline": "High-level Python framework for MCP servers",
+    "description": "Simplifies building MCP servers in Python with decorators and automatic schema generation. The FastAPI of the MCP world.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 5000,
+    "slot": "mcp-infra",
+    "urls": {
+      "website": "https://github.com/jlowin/fastmcp",
+      "github": "https://github.com/jlowin/fastmcp"
+    }
+  },
+  {
+    "id": "smithery",
+    "name": "Smithery",
+    "category": "mcp",
+    "tagline": "MCP server registry and deployment platform",
+    "description": "Discover, deploy, and manage MCP servers. Registry of 2,000+ community MCP servers with one-click deployment.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": null,
+    "slot": "mcp-infra",
+    "urls": {
+      "website": "https://smithery.ai",
+      "github": null
+    }
+  },
+  {
+    "id": "e2b",
+    "name": "E2B",
+    "category": "mcp",
+    "tagline": "Sandboxed code execution for AI agents",
+    "description": "Provides secure, isolated sandboxes for AI agents to run code. Popular MCP target for agentic coding workflows.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Pro",
+          "price": "Usage-based"
+        }
+      ]
+    },
+    "github_stars": 8000,
+    "slot": "mcp-infra",
+    "urls": {
+      "website": "https://e2b.dev",
+      "github": "https://github.com/e2b-dev/e2b"
+    }
+  },
+  {
+    "id": "context7",
+    "name": "Context7",
+    "category": "mcp",
+    "tagline": "Up-to-date library docs via MCP",
+    "description": "MCP server that provides AI coding assistants with accurate, version-specific library documentation. Eliminates hallucinated API calls by grounding LLMs in real docs.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 5000,
+    "slot": "mcp-infra",
+    "urls": {
+      "website": "https://context7.com",
+      "github": "https://github.com/upstash/context7"
+    }
+  },
+  {
+    "id": "playwright-mcp",
+    "name": "Playwright MCP",
+    "category": "mcp",
+    "tagline": "Browser automation via MCP for AI agents",
+    "description": "Official Microsoft MCP server that gives AI agents full browser automation via Playwright. Enables web scraping, testing, and interaction tasks from any MCP client.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 10000,
+    "slot": "mcp-infra",
+    "urls": {
+      "website": "https://github.com/microsoft/playwright-mcp",
+      "github": "https://github.com/microsoft/playwright-mcp"
+    }
+  },
+  {
+    "id": "github-mcp",
+    "name": "GitHub MCP",
+    "category": "mcp",
+    "tagline": "GitHub operations via MCP for AI agents",
+    "description": "Official GitHub MCP server exposing repos, PRs, issues, and code search to AI agents. Enables agentic workflows that read and write to GitHub.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 8000,
+    "slot": "mcp-infra",
+    "urls": {
+      "website": "https://github.com/github/github-mcp-server",
+      "github": "https://github.com/github/github-mcp-server"
+    }
+  },
+  {
+    "id": "promptfoo",
+    "name": "PromptFoo",
+    "category": "prompt-eval",
+    "tagline": "CLI/library for prompt testing and red-teaming",
+    "description": "Test and compare prompts across models. Built-in red-teaming, regression testing, and side-by-side model comparison.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 5000,
+    "slot": "prompt-eval",
+    "urls": {
+      "website": "https://promptfoo.dev",
+      "github": "https://github.com/promptfoo/promptfoo"
+    }
+  },
+  {
+    "id": "deepeval",
+    "name": "DeepEval",
+    "category": "prompt-eval",
+    "tagline": "LLM evaluation framework \u2014 14+ metrics",
+    "description": "Open-source evaluation framework with 14+ metrics including faithfulness, relevancy, and hallucination detection. Integrates with CI/CD.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 5500,
+    "slot": "prompt-eval",
+    "urls": {
+      "website": "https://deepeval.com",
+      "github": "https://github.com/confident-ai/deepeval"
+    }
+  },
+  {
+    "id": "ragas",
+    "name": "RAGAS",
+    "category": "prompt-eval",
+    "tagline": "RAG pipeline evaluation framework",
+    "description": "Evaluates retrieval-augmented generation pipelines on faithfulness, answer relevancy, context precision, and recall.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 7000,
+    "slot": "prompt-eval",
+    "prominent": true,
+    "urls": {
+      "website": "https://ragas.io",
+      "github": "https://github.com/explodinggradients/ragas"
+    }
+  },
+  {
+    "id": "vellum",
+    "name": "Vellum",
+    "category": "prompt-eval",
+    "tagline": "Prompt engineering, testing, and deployment platform",
+    "description": "End-to-end platform for prompt engineering teams. Version prompts, run A/B tests, evaluate quality, and deploy to production with a visual interface.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Starter",
+          "price": "Paid"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "prompt-eval",
+    "urls": {
+      "website": "https://vellum.ai",
+      "github": null
+    }
+  },
+  {
+    "id": "promptlayer",
+    "name": "PromptLayer",
+    "category": "prompt-eval",
+    "tagline": "Prompt versioning, logging, and A/B testing",
+    "description": "Log every LLM request, version prompts, and run A/B tests. Provides a visual interface for prompt engineering teams to iterate collaboratively.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Pro",
+          "price": "Paid"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "prompt-eval",
+    "urls": {
+      "website": "https://promptlayer.com",
+      "github": null
+    }
+  },
+  {
+    "id": "agenta",
+    "name": "Agenta",
+    "category": "prompt-eval",
+    "tagline": "OSS prompt management and LLM eval platform",
+    "description": "Open-source platform combining prompt management, human evaluation, and automated testing. Self-hostable alternative to commercial eval platforms.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Cloud",
+          "price": "Paid"
+        }
+      ]
+    },
+    "github_stars": 2000,
+    "slot": "prompt-eval",
+    "urls": {
+      "website": "https://agenta.ai",
+      "github": "https://github.com/Agenta-AI/agenta"
+    }
+  },
+  {
+    "id": "weights-biases",
+    "name": "Weights & Biases",
+    "category": "prompt-eval",
+    "tagline": "ML experiment tracking and LLM evaluation",
+    "description": "Industry-standard ML experiment tracking platform with LLM-specific tools for prompt evaluation, fine-tuning monitoring, and dataset versioning.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Teams",
+          "price": "$50/user/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "prompt-eval",
+    "urls": {
+      "website": "https://wandb.ai",
+      "github": null
+    }
+  },
+  {
+    "id": "traceloop",
+    "name": "Traceloop",
+    "category": "prompt-eval",
+    "tagline": "OpenTelemetry-based LLM observability",
+    "description": "Open-source LLM observability using OpenTelemetry standards. Automatic instrumentation for LangChain, OpenAI, and other frameworks with zero code changes.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Cloud",
+          "price": "Usage-based"
+        }
+      ]
+    },
+    "github_stars": 2000,
+    "slot": "prompt-eval",
+    "urls": {
+      "website": "https://traceloop.com",
+      "github": "https://github.com/traceloop/openllmetry"
+    }
+  },
+  {
+    "id": "spec-kit",
+    "name": "Spec Kit",
+    "category": "specifications",
+    "tagline": "GitHub's OSS toolkit for spec-driven AI coding workflows",
+    "description": "Open-source scaffold from GitHub that operationalizes spec-driven development with AI coding agents. Creates structured .specify/ folders that serve as the source of truth for Claude Code, GitHub Copilot, and Gemini CLI — steering AI generation from upfront specs rather than improvised prompts.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 28000,
+    "slot": "specifications",
+    "prominent": true,
+    "urls": {
+      "website": "https://github.com/github/spec-kit",
+      "github": "https://github.com/github/spec-kit"
+    }
+  },
+  {
+    "id": "mermaid",
+    "name": "Mermaid",
+    "category": "specifications",
+    "tagline": "Text-to-diagram natively supported by GitHub and Notion",
+    "description": "Renders flowcharts, sequence diagrams, ER diagrams, C4 diagrams, and Gantt charts from simple Markdown-style text definitions. Native support in GitHub, GitLab, Notion, and dozens of engineering platforms. With 87k+ GitHub stars, it's the most widely adopted diagramming tool in engineering.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 87000,
+    "slot": "specifications",
+    "prominent": true,
+    "urls": {
+      "website": "https://mermaid.js.org",
+      "github": "https://github.com/mermaid-js/mermaid"
+    }
+  },
+  {
+    "id": "eraser",
+    "name": "Eraser",
+    "category": "specifications",
+    "tagline": "AI co-pilot for technical diagrams synced to your codebase",
+    "description": "Generate architecture diagrams, ERDs, cloud infrastructure diagrams, and sequence diagrams from natural language or code via DiagramGPT. Supports GitHub sync and a VS Code extension so diagrams stay connected to code. SOC II Type 2 compliant and never trains on user data.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Starter",
+          "price": "$10/user/mo"
+        },
+        {
+          "name": "Team",
+          "price": "$20/user/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "specifications",
+    "urls": {
+      "website": "https://www.eraser.io",
+      "github": null
+    }
+  },
+  {
+    "id": "structurizr",
+    "name": "Structurizr",
+    "category": "specifications",
+    "tagline": "Code-first C4 model architecture diagrams as structured text",
+    "description": "Implements the C4 model as a diagrams-as-code DSL — write Structurizr DSL and render multiple architecture views (Context, Container, Component, Code) from a single model. Version-controlled alongside code with full ADR integration. Free OSS CLI plus paid cloud workspace for team collaboration.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Cloud",
+          "price": "$8/mo"
+        }
+      ]
+    },
+    "github_stars": 3800,
+    "slot": "specifications",
+    "urls": {
+      "website": "https://structurizr.com",
+      "github": "https://github.com/structurizr/dsl"
+    }
+  },
+  {
+    "id": "swagger",
+    "name": "Swagger / OpenAPI",
+    "category": "specifications",
+    "tagline": "The foundational OpenAPI toolchain for API design and docs",
+    "description": "Swagger UI is the canonical open-source renderer for interactive API documentation from OpenAPI specs, with 28k+ GitHub stars. SwaggerHub adds collaborative API design, versioning, and governance at scale. The de facto standard for REST API specification across the industry.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "SwaggerHub Team",
+          "price": "$90/mo"
+        }
+      ]
+    },
+    "github_stars": 28700,
+    "slot": "specifications",
+    "prominent": true,
+    "urls": {
+      "website": "https://swagger.io",
+      "github": "https://github.com/swagger-api/swagger-ui"
+    }
+  },
+  {
+    "id": "redocly",
+    "name": "Redocly",
+    "category": "specifications",
+    "tagline": "OpenAPI linting, bundling, and beautiful API docs from one CLI",
+    "description": "Combines Redoc (25k+ GitHub stars) with a powerful CLI for linting, validating, and bundling OpenAPI specs. Supports OpenAPI 3.x, Swagger 2.0, AsyncAPI, and Arazzo. Enterprise offering adds developer portals and auto-generated code samples across teams.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Enterprise",
+          "price": "Custom"
+        }
+      ]
+    },
+    "github_stars": 25500,
+    "slot": "specifications",
+    "urls": {
+      "website": "https://redocly.com",
+      "github": "https://github.com/Redocly/redoc"
+    }
+  },
+  {
+    "id": "asyncapi",
+    "name": "AsyncAPI",
+    "category": "specifications",
+    "tagline": "Open standard for defining event-driven async APIs",
+    "description": "The specification standard for async, event-driven APIs over Kafka, MQTT, WebSockets, and more — the async equivalent of OpenAPI. The ecosystem includes CLI, parser, code generators, and server stub templates. Widely adopted in microservices and streaming architectures.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 5100,
+    "slot": "specifications",
+    "urls": {
+      "website": "https://www.asyncapi.com",
+      "github": "https://github.com/asyncapi/spec"
+    }
+  },
+  {
+    "id": "stoplight",
+    "name": "Stoplight",
+    "category": "specifications",
+    "tagline": "Visual API design platform with linting, mocking, and docs built in",
+    "description": "Design-first platform for creating, governing, and documenting OpenAPI specifications. Bundles a visual editor, Spectral (JSON/YAML linter), Prism (mock server), and Elements (docs renderer) into one workflow. Teams use it to enforce API style guides across large API portfolios.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Starter",
+          "price": "$49/mo"
+        },
+        {
+          "name": "Professional",
+          "price": "$149/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "specifications",
+    "urls": {
+      "website": "https://stoplight.io",
+      "github": null
+    }
+  },
+  {
+    "id": "speakeasy",
+    "name": "Speakeasy",
+    "category": "specifications",
+    "tagline": "OpenAPI → idiomatic SDKs, MCP servers, and contract tests",
+    "description": "Takes an OpenAPI spec and generates polished, type-safe client SDKs across multiple languages, Terraform providers, and MCP servers for AI agent integration. Handles pagination, retries, webhooks, and streaming out of the box. Increasingly positioning itself as the API platform for the agent era.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Growth",
+          "price": "$250/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "specifications",
+    "prominent": true,
+    "urls": {
+      "website": "https://www.speakeasy.com",
+      "github": "https://github.com/speakeasy-api/speakeasy"
+    }
+  },
+  {
+    "id": "fern",
+    "name": "Fern",
+    "category": "specifications",
+    "tagline": "OpenAPI in, idiomatic SDKs and API docs out",
+    "description": "Takes an OpenAPI spec and generates hand-crafted-quality SDKs across TypeScript, Python, Go, Java, Ruby, C#, and PHP, plus integrated documentation sites. SDKs and docs stay in sync from a single source of truth. Used by Cohere, ElevenLabs, and Merge.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Managed",
+          "price": "Custom"
+        }
+      ]
+    },
+    "github_stars": 3000,
+    "slot": "specifications",
+    "urls": {
+      "website": "https://buildwithfern.com",
+      "github": "https://github.com/fern-api/fern"
+    }
+  },
+  {
+    "id": "stainless",
+    "name": "Stainless",
+    "category": "specifications",
+    "tagline": "Generates hand-crafted SDKs trusted by OpenAI and Anthropic",
+    "description": "Accepts an OpenAPI spec and produces high-quality, idiomatic SDKs that feel hand-written across TypeScript, Python, Go, Java, Kotlin, Ruby, PHP, and C#. GitHub integration auto-regenerates SDKs when the spec changes. The team behind OpenAI, Anthropic, Cloudflare, and Meta's official SDKs.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Growth",
+          "price": "$250/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "specifications",
+    "prominent": true,
+    "urls": {
+      "website": "https://www.stainless.com",
+      "github": null
+    }
+  },
+  {
+    "id": "openapi-generator",
+    "name": "OpenAPI Generator",
+    "category": "specifications",
+    "tagline": "Community-driven code generation for 50+ languages from OpenAPI",
+    "description": "The most widely adopted open-source code generator forked from Swagger Codegen. Given an OpenAPI spec, generates API client SDKs, server stubs, and documentation for 50+ languages and frameworks. 26k+ GitHub stars, 600k weekly NPM downloads, and 30M Docker pulls.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 26000,
+    "slot": "specifications",
+    "urls": {
+      "website": "https://openapi-generator.tech",
+      "github": "https://github.com/OpenAPITools/openapi-generator"
+    }
+  }
+]
