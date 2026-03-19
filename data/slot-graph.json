@@ -1,0 +1,165 @@
+{
+  "adjacency": [
+    { "from": "specifications", "to": ["code-editor", "cli-agent"] },
+    { "from": "design-to-code", "to": ["code-editor", "cli-agent"] },
+    {
+      "from": "code-editor",
+      "to": ["orchestration", "agent-framework", "mcp-infra", "devops-automation", "cli-agent"]
+    },
+    {
+      "from": "cli-agent",
+      "to": ["orchestration", "agent-framework", "mcp-infra", "devops-automation"]
+    },
+    { "from": "swe-agent", "to": ["mcp-infra", "devops-automation"] },
+    {
+      "from": "agent-framework",
+      "to": ["orchestration", "model-router", "inference", "vector-db", "observability"]
+    },
+    { "from": "orchestration", "to": ["model-router", "inference", "vector-db", "observability"] },
+    { "from": "model-router", "to": ["inference", "observability"] },
+    { "from": "inference", "to": ["observability"] },
+    { "from": "vector-db", "to": ["observability"] },
+    { "from": "mcp-infra", "to": ["code-editor", "cli-agent"] },
+    { "from": "devops-automation", "to": ["observability"] },
+    { "from": "observability", "to": ["prompt-eval"] },
+    { "from": "docs", "to": ["specifications"] },
+    { "from": "product-mgmt", "to": ["specifications"] }
+  ],
+
+  "gap_patterns": [
+    {
+      "slots": ["code-editor", "vector-db"],
+      "missing_slots": ["orchestration", "inference"],
+      "message": "A code editor and a vector database aren't directly connected. You need an orchestration layer to build the retrieval pipeline, and a model provider to generate embeddings and responses.",
+      "suggest": {
+        "orchestration": ["vercel-ai-sdk", "llamaindex", "langchain"],
+        "inference": ["openai-api", "anthropic-api"]
+      }
+    },
+    {
+      "slots": ["code-editor", "inference"],
+      "missing_slots": ["orchestration"],
+      "message": "Your editor doesn't call model APIs directly — you need an SDK or orchestration layer to structure how your application makes LLM calls.",
+      "suggest": {
+        "orchestration": ["vercel-ai-sdk", "langchain", "llamaindex"]
+      }
+    },
+    {
+      "slots": ["code-editor", "observability"],
+      "missing_slots": ["inference"],
+      "message": "Observability traces LLM calls — without a model provider in the stack there's nothing to observe.",
+      "suggest": {
+        "inference": ["openai-api", "anthropic-api"]
+      }
+    },
+    {
+      "slots": ["design-to-code", "vector-db"],
+      "missing_slots": ["code-editor", "orchestration", "inference"],
+      "message": "A design tool and a vector database sit at opposite ends of the stack. You need an editor to build the app, an orchestration layer to wire retrieval, and a model provider for embeddings.",
+      "suggest": {
+        "code-editor": ["cursor", "windsurf"],
+        "orchestration": ["vercel-ai-sdk", "llamaindex", "langchain"],
+        "inference": ["openai-api", "anthropic-api"]
+      }
+    },
+    {
+      "slots": ["design-to-code", "inference"],
+      "missing_slots": ["code-editor", "orchestration"],
+      "message": "A design tool generates UI components — to make them call an LLM you need an editor to build the app and an SDK to structure the API calls.",
+      "suggest": {
+        "code-editor": ["cursor", "windsurf"],
+        "orchestration": ["vercel-ai-sdk", "langchain"]
+      }
+    },
+    {
+      "slots": ["design-to-code", "observability"],
+      "missing_slots": ["code-editor", "orchestration", "inference"],
+      "message": "Observability traces LLM calls, but a design tool only generates UI — the full app stack needs to exist between them.",
+      "suggest": {
+        "code-editor": ["cursor", "windsurf"],
+        "orchestration": ["vercel-ai-sdk", "langchain"],
+        "inference": ["openai-api", "anthropic-api"]
+      }
+    },
+    {
+      "slots": ["agent-framework", "vector-db"],
+      "missing_slots": ["inference"],
+      "message": "Agents need a model to generate embeddings before they can store or retrieve from a vector database.",
+      "suggest": {
+        "inference": ["openai-api", "anthropic-api", "ollama"]
+      }
+    },
+    {
+      "slots": ["specifications", "inference"],
+      "missing_slots": ["code-editor", "orchestration"],
+      "message": "A spec defines what to build — to call a model from it you need a code editor to implement the app and an SDK to structure the LLM calls.",
+      "suggest": {
+        "code-editor": ["cursor", "claude-code"],
+        "orchestration": ["vercel-ai-sdk", "langchain"]
+      }
+    },
+    {
+      "slots": ["specifications", "vector-db"],
+      "missing_slots": ["code-editor", "orchestration", "inference"],
+      "message": "A spec tool and a vector database have no direct connection — you need the full app stack between them to make retrieval work.",
+      "suggest": {
+        "code-editor": ["cursor", "claude-code"],
+        "orchestration": ["llamaindex", "langchain"],
+        "inference": ["openai-api", "anthropic-api"]
+      }
+    },
+    {
+      "slots": ["devops-automation", "vector-db"],
+      "missing_slots": ["code-editor", "orchestration", "inference"],
+      "message": "Code review tooling and a vector database operate in completely different parts of the stack — the connection runs through the application that uses the vector DB.",
+      "suggest": {
+        "code-editor": ["cursor", "claude-code"],
+        "orchestration": ["llamaindex", "langchain"],
+        "inference": ["openai-api", "anthropic-api"]
+      }
+    },
+    {
+      "slots": ["prompt-eval", "code-editor"],
+      "missing_slots": ["inference"],
+      "message": "Eval tools measure LLM output quality — without a model provider in the stack there are no outputs to evaluate.",
+      "suggest": {
+        "inference": ["openai-api", "anthropic-api"]
+      }
+    },
+    {
+      "slots": ["mcp-infra", "vector-db"],
+      "missing_slots": ["orchestration", "inference"],
+      "message": "MCP servers give agents tool access, but connecting them to a vector database requires an orchestration layer to build the retrieval pipeline and a model to generate embeddings.",
+      "suggest": {
+        "orchestration": ["llamaindex", "langchain"],
+        "inference": ["openai-api", "anthropic-api"]
+      }
+    },
+    {
+      "slots": ["mcp-infra", "observability"],
+      "missing_slots": ["inference"],
+      "message": "MCP servers extend agent capabilities, but observability traces LLM calls — you need a model provider to have anything to trace.",
+      "suggest": {
+        "inference": ["openai-api", "anthropic-api"]
+      }
+    },
+    {
+      "slots": ["design-to-code", "prompt-eval"],
+      "missing_slots": ["code-editor", "orchestration", "inference", "observability"],
+      "message": "Eval tools measure AI output quality — a design tool only generates UI components. You need the full AI stack between them before there's anything to evaluate.",
+      "suggest": {
+        "code-editor": ["cursor", "windsurf"],
+        "orchestration": ["vercel-ai-sdk", "langchain"],
+        "inference": ["openai-api", "anthropic-api"],
+        "observability": ["langfuse", "langsmith"]
+      }
+    }
+  ],
+
+  "traversal_config": {
+    "follow_types": ["integrates-with", "commonly-paired"],
+    "ignore_types": ["competes-with"],
+    "max_depth": 3,
+    "note": "For tool pairs with no direct relationship, perform BFS through the relationships graph following only integrates-with and commonly-paired edges. Surface intermediate nodes as missing bridge tools, grouped by their slot. If no path is found within max_depth, fall back to gap_patterns lookup by slot pair."
+  }
+}
