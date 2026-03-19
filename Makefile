@@ -1,6 +1,6 @@
 COMPOSE = docker compose
 
-.PHONY: help run down restart build rebuild logs shell typecheck lint
+.PHONY: help run down restart build rebuild logs shell typecheck lint format check
 
 help: ## Show this help
 	@awk 'BEGIN {FS = ":.*##"} /^[a-zA-Z_-]+:.*##/ { printf "  \033[36m%-12s\033[0m %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
@@ -35,3 +35,8 @@ typecheck: ## Run TypeScript type check on the host
 
 lint: ## Run ESLint on the host
 	npx eslint .
+
+format: ## Format all files with Prettier
+	npx prettier --write .
+
+check: lint typecheck ## Run all checks (lint + typecheck)
