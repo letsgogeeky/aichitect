@@ -140,6 +140,14 @@ export default function ComparisonPanel({ toolA, toolB, onClose, onSwap }: Compa
           </div>
         </div>
 
+        {/* When to choose */}
+        {(toolA.choose_if || toolB.choose_if) && (
+          <div className="grid grid-cols-2 gap-3">
+            <ChooseIfCard tool={toolA} color={colorA} />
+            <ChooseIfCard tool={toolB} color={colorB} />
+          </div>
+        )}
+
         {/* Comparison grid */}
         <div className="rounded-md overflow-hidden" style={{ border: "1px solid var(--border)" }}>
           {/* Column headers */}
@@ -389,6 +397,42 @@ function LinksCard({ tool, color }: { tool: Tool; color: string }) {
           GitHub ↗
         </a>
       )}
+    </div>
+  );
+}
+
+function ChooseIfCard({ tool, color }: { tool: Tool; color: string }) {
+  if (!tool.choose_if || tool.choose_if.length === 0) {
+    return (
+      <div
+        className="rounded-md p-3"
+        style={{ background: "var(--surface-2)", borderTop: `2px solid ${color}` }}
+      >
+        <p className="text-[10px] font-semibold uppercase tracking-wide mb-2" style={{ color }}>
+          Choose {tool.name} when…
+        </p>
+        <p className="text-[10px] text-[var(--text-muted)] italic">No signals added yet</p>
+      </div>
+    );
+  }
+  return (
+    <div
+      className="rounded-md p-3"
+      style={{ background: "var(--surface-2)", borderTop: `2px solid ${color}` }}
+    >
+      <p className="text-[10px] font-semibold uppercase tracking-wide mb-2" style={{ color }}>
+        Choose {tool.name} when…
+      </p>
+      <ul className="space-y-1.5">
+        {tool.choose_if.map((signal, i) => (
+          <li key={i} className="flex items-start gap-1.5">
+            <span className="text-[9px] mt-0.5 flex-shrink-0" style={{ color }}>
+              •
+            </span>
+            <span className="text-[11px] text-[var(--text-secondary)] leading-snug">{signal}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

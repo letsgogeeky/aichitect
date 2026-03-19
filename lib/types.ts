@@ -43,6 +43,7 @@ export interface Tool {
   slot: string;
   prominent?: boolean;
   provider?: string; // e.g. "anthropic" | "openai" | "mistral" | "cohere" — only set for provider-tied tools
+  choose_if?: string[]; // ≤3 decision signals shown in comparison panel
   urls: ToolUrls;
 }
 

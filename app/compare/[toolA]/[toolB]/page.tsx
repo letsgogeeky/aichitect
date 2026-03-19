@@ -217,6 +217,54 @@ export default async function ComparePage({ params }: Props) {
           </Link>
         </div>
 
+        {/* When to choose */}
+        {(a.choose_if || b.choose_if) && (
+          <section className="grid grid-cols-2 gap-4 mb-8">
+            {[
+              { tool: a, color: colorA },
+              { tool: b, color: colorB },
+            ].map(({ tool, color }) => (
+              <div
+                key={tool.id}
+                className="rounded-xl p-5"
+                style={{
+                  background: "var(--surface)",
+                  border: "1px solid var(--border)",
+                  borderTop: `3px solid ${color}`,
+                }}
+              >
+                <h3
+                  className="text-xs font-semibold uppercase tracking-wide mb-3"
+                  style={{ color }}
+                >
+                  Choose {tool.name} when…
+                </h3>
+                {tool.choose_if && tool.choose_if.length > 0 ? (
+                  <ul className="space-y-2">
+                    {tool.choose_if.map((signal, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <span className="text-xs mt-0.5 flex-shrink-0" style={{ color }}>
+                          •
+                        </span>
+                        <span
+                          className="text-xs leading-snug"
+                          style={{ color: "var(--text-secondary)" }}
+                        >
+                          {signal}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="text-xs italic" style={{ color: "var(--text-muted)" }}>
+                    No signals added yet
+                  </p>
+                )}
+              </div>
+            ))}
+          </section>
+        )}
+
         {/* Comparison grid */}
         <section
           className="mb-8 rounded-xl overflow-hidden"
