@@ -5,6 +5,7 @@ import relationshipsData from "@/data/relationships.json";
 import toolsData from "@/data/tools.json";
 import stacksData from "@/data/stacks.json";
 import { Relationship, Stack } from "@/lib/types";
+import { useSuggestTool } from "@/components/ui/SuggestToolContext";
 
 const relationships = relationshipsData as Relationship[];
 const allTools = toolsData as Tool[];
@@ -16,6 +17,8 @@ interface Props {
 }
 
 export default function DetailPanel({ tool, onClose }: Props) {
+  const { openSuggest } = useSuggestTool();
+
   if (!tool) return null;
 
   const color = getCategoryColor(tool.category);
@@ -192,6 +195,38 @@ export default function DetailPanel({ tool, onClose }: Props) {
             </div>
           </div>
         )}
+        {/* Suggest a related tool */}
+        <div
+          style={{
+            borderTop: "1px solid var(--border)",
+            paddingTop: 12,
+            marginTop: 4,
+          }}
+        >
+          <button
+            onClick={() => openSuggest()}
+            className="w-full text-left transition-colors"
+            style={{
+              padding: "8px 10px",
+              borderRadius: 7,
+              background: "#1c1c28",
+              border: "1px solid #2a2a3a",
+              color: "#555577",
+              fontSize: 11,
+              cursor: "pointer",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = "#8888aa";
+              e.currentTarget.style.borderColor = "#3a3a4a";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = "#555577";
+              e.currentTarget.style.borderColor = "#2a2a3a";
+            }}
+          >
+            Missing a related tool? <span style={{ color: "#7c6bff" }}>Suggest it →</span>
+          </button>
+        </div>
       </div>
     </aside>
   );

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "./Logo";
 import { GITHUB_URL, TOOL_COUNT, STACK_COUNT } from "@/lib/constants";
+import { useSuggestTool } from "./SuggestToolContext";
 
 function IconNetwork() {
   return (
@@ -102,6 +103,7 @@ const VIEWS = [
 export default function Navbar() {
   const pathname = usePathname();
   const [copied, setCopied] = useState(false);
+  const { openSuggest } = useSuggestTool();
 
   function copyStack() {
     navigator.clipboard
@@ -214,6 +216,28 @@ export default function Navbar() {
           {copied ? "Copied!" : "Share Stack"}
         </button>
       )}
+
+      {/* Suggest a Tool — always visible */}
+      <button
+        onClick={() => openSuggest()}
+        className="flex items-center flex-shrink-0 transition-colors"
+        style={{
+          gap: 5,
+          padding: "0 10px",
+          height: 34,
+          borderRadius: 8,
+          background: "#1c1c28",
+          border: "1px solid #2a2a3a",
+          color: "#8888aa",
+          fontSize: 11,
+          fontWeight: 500,
+          cursor: "pointer",
+        }}
+        onMouseEnter={(e) => (e.currentTarget.style.color = "#f0f0f8")}
+        onMouseLeave={(e) => (e.currentTarget.style.color = "#8888aa")}
+      >
+        + Suggest a Tool
+      </button>
 
       {/* GitHub link — always visible */}
       <a

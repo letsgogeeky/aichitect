@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { CATEGORIES, STACK_LAYERS, RelationshipType } from "@/lib/types";
+import { useSuggestTool } from "@/components/ui/SuggestToolContext";
 
 interface Props {
   activeCategories: Set<string>;
@@ -15,16 +16,29 @@ interface Props {
 const REL_TYPES: { id: RelationshipType; label: string; style: string }[] = [
   { id: "integrates-with", label: "Integrates with", style: "solid" },
   { id: "commonly-paired", label: "Often used together", style: "dashed" },
-  { id: "competes-with",   label: "Competes with",   style: "dotted" },
+  { id: "competes-with", label: "Competes with", style: "dotted" },
 ];
 
 function ChevronIcon({ open }: { open: boolean }) {
   return (
     <svg
-      width="10" height="10" viewBox="0 0 10 10" fill="none"
-      style={{ transform: open ? "rotate(0deg)" : "rotate(-90deg)", transition: "transform 180ms ease", flexShrink: 0 }}
+      width="10"
+      height="10"
+      viewBox="0 0 10 10"
+      fill="none"
+      style={{
+        transform: open ? "rotate(0deg)" : "rotate(-90deg)",
+        transition: "transform 180ms ease",
+        flexShrink: 0,
+      }}
     >
-      <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+      <path
+        d="M2 3.5L5 6.5L8 3.5"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
@@ -37,6 +51,7 @@ export default function FilterPanel({
   searchQuery,
   setSearchQuery,
 }: Props) {
+  const { openSuggest } = useSuggestTool();
   const allOn = activeCategories.size === CATEGORIES.length;
 
   // Each layer starts open; track collapsed state per layer id
@@ -113,16 +128,10 @@ export default function FilterPanel({
 
           <div className="space-y-1">
             {STACK_LAYERS.map((layer) => {
-              const layerCats = CATEGORIES.filter((c) =>
-                layer.categories.includes(c.id)
-              );
+              const layerCats = CATEGORIES.filter((c) => layer.categories.includes(c.id));
               const isOpen = !collapsed[layer.id];
-              const allLayerActive = layerCats.every((c) =>
-                activeCategories.has(c.id)
-              );
-              const someLayerActive = layerCats.some((c) =>
-                activeCategories.has(c.id)
-              );
+              const allLayerActive = layerCats.every((c) => activeCategories.has(c.id));
+              const someLayerActive = layerCats.some((c) => activeCategories.has(c.id));
 
               return (
                 <div key={layer.id}>
@@ -136,9 +145,7 @@ export default function FilterPanel({
                     <span
                       className="text-[10px] font-semibold flex-1 leading-tight"
                       style={{
-                        color: someLayerActive
-                          ? "var(--text-secondary)"
-                          : "var(--text-muted)",
+                        color: someLayerActive ? "var(--text-secondary)" : "var(--text-muted)",
                         opacity: someLayerActive ? 1 : 0.5,
                       }}
                     >
@@ -219,20 +226,53 @@ export default function FilterPanel({
                             rt.style === "dashed"
                               ? "1px dashed #8888aa"
                               : rt.style === "dotted"
-                              ? "1px dotted #8888aa"
-                              : "none",
+                                ? "1px dotted #8888aa"
+                                : "none",
                         }}
                       />
                     </div>
-                    <span className="text-[11px] text-[var(--text-secondary)]">
-                      {rt.label}
-                    </span>
+                    <span className="text-[11px] text-[var(--text-secondary)]">{rt.label}</span>
                   </button>
                 );
               })}
             </div>
           )}
         </div>
+      </div>
+
+      {/* Suggest a Tool footer */}
+      <div
+        style={{
+          borderTop: "1px solid var(--border)",
+          padding: "10px 12px",
+          marginTop: 4,
+        }}
+      >
+        <button
+          onClick={() => openSuggest(searchQuery)}
+          style={{
+            width: "100%",
+            padding: "7px 10px",
+            borderRadius: 7,
+            background: "#1c1c28",
+            border: "1px solid #2a2a3a",
+            color: "#555577",
+            fontSize: 11,
+            cursor: "pointer",
+            textAlign: "center",
+            transition: "color 150ms, border-color 150ms",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.color = "#8888aa";
+            e.currentTarget.style.borderColor = "#3a3a4a";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.color = "#555577";
+            e.currentTarget.style.borderColor = "#2a2a3a";
+          }}
+        >
+          + Suggest a missing tool
+        </button>
       </div>
     </aside>
   );

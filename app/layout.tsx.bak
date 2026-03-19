@@ -39,14 +39,7 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     title: TITLE,
     description: DESCRIPTION,
-    images: [
-      {
-        url: "/opengraph-image",
-        width: 1200,
-        height: 630,
-        alt: "AIchitect — AI tool landscape map",
-      },
-    ],
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "AIchitect — AI tool landscape map" }],
   },
   twitter: {
     card: "summary_large_image",

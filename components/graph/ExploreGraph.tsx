@@ -34,6 +34,7 @@ const ExploreGraph3D = dynamic(() => import("./ExploreGraph3D"), { ssr: false })
 import FilterPanel from "@/components/panels/FilterPanel";
 import DetailPanel from "@/components/panels/DetailPanel";
 import ComparisonPanel from "@/components/panels/ComparisonPanel";
+import { useSuggestTool } from "@/components/ui/SuggestToolContext";
 
 const tools = toolsData as Tool[];
 const relationships = relationshipsData as Relationship[];
@@ -64,6 +65,7 @@ interface ExploreGraphInnerProps {
   highlightedIds: Set<string>;
   onSelectTool: (tool: Tool) => void;
   viewMode: "grid" | "layers";
+  onSuggest: (name: string) => void;
 }
 
 function ExploreGraphInner({
@@ -73,6 +75,7 @@ function ExploreGraphInner({
   highlightedIds,
   onSelectTool,
   viewMode,
+  onSuggest,
 }: ExploreGraphInnerProps) {
   useReactFlow();
 
@@ -194,11 +197,25 @@ function ExploreGraphInner({
       </ReactFlow>
       {!hasSearchResults && (
         <div
-          className="absolute inset-0 flex flex-col items-center justify-center gap-2 pointer-events-none"
+          className="absolute inset-0 flex flex-col items-center justify-center gap-3"
           style={{ zIndex: 10 }}
         >
           <p style={{ fontSize: 13, color: "#8888aa" }}>No tools match your search.</p>
-          <p style={{ fontSize: 11, color: "#555566" }}>Try a different name or keyword.</p>
+          <button
+            onClick={() => onSuggest(searchQuery)}
+            style={{
+              padding: "7px 16px",
+              borderRadius: 8,
+              background: "#7c6bff22",
+              border: "1px solid #7c6bff44",
+              color: "#7c6bff",
+              fontSize: 12,
+              fontWeight: 500,
+              cursor: "pointer",
+            }}
+          >
+            + Suggest &ldquo;{searchQuery}&rdquo;
+          </button>
         </div>
       )}
     </div>
@@ -207,6 +224,7 @@ function ExploreGraphInner({
 
 export default function ExploreGraph() {
   const allCategories = useMemo(() => new Set(tools.map((t) => t.category)), []);
+  const { openSuggest } = useSuggestTool();
 
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -428,6 +446,7 @@ export default function ExploreGraph() {
                 highlightedIds={highlightedIds}
                 onSelectTool={handleNodeSelect}
                 viewMode={viewMode}
+                onSuggest={openSuggest}
               />
             </ReactFlowProvider>
           )}
