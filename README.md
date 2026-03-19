@@ -21,8 +21,8 @@
 
 ## Screenshots
 
-| Graph | Stacks |
-|:---:|:---:|
+|                     Graph                     |                    Stacks                     |
+| :-------------------------------------------: | :-------------------------------------------: |
 | ![Graph view](public/screenshots/explore.png) | ![Stacks view](public/screenshots/stacks.png) |
 
 ---
@@ -32,40 +32,44 @@ AI tools are all over the place. Every week there's a new framework, a new model
 ## Features
 
 ### Graph View — Explore the full ecosystem
+
 Browse all 123 tools as an interactive force graph. Filter by category or relationship type, search by name, and switch between three view modes:
+
 - **2D Grid** — clean, scannable card layout
 - **2D Layers** — swimlane view organized by stack layer (Development → AI Logic → Models & Infra → Tooling)
 - **3D** — rotatable Three.js force graph with orbit controls
 
 ### Stacks — 10 curated starting points
+
 Pre-built stacks for common AI engineering patterns, each visualized as an integration diagram:
 
-| Stack | Description |
-|---|---|
-| Indie Hacker / Startup | Solo developer, fast shipping, minimal ops |
-| Agentic Coding | Full loop from task to reviewed PR without human keyboard input |
-| Enterprise RAG | Production RAG pipeline with routing, eval, and observability |
-| OSS Self-Hosted | Fully open-source, zero data egress, on-premise stack |
-| Multi-Agent DevOps | Specialised agents working in parallel to reduce cycle time |
-| AI Design-to-Code | From prompt or Figma to production components |
-| LLM Production Infra | Provider-agnostic infra with full cost and quality visibility |
-| MCP Power User | MCP-native stack for browsing, coding, and execution |
-| Evaluation & Quality | Regression testing, quality metrics, and failure analysis for LLM features |
-| Spec-Driven AI Development | Spec-first workflow keeping AI agents, SDKs, and docs in sync |
+| Stack                      | Description                                                                |
+| -------------------------- | -------------------------------------------------------------------------- |
+| Indie Hacker / Startup     | Solo developer, fast shipping, minimal ops                                 |
+| Agentic Coding             | Full loop from task to reviewed PR without human keyboard input            |
+| Enterprise RAG             | Production RAG pipeline with routing, eval, and observability              |
+| OSS Self-Hosted            | Fully open-source, zero data egress, on-premise stack                      |
+| Multi-Agent DevOps         | Specialised agents working in parallel to reduce cycle time                |
+| AI Design-to-Code          | From prompt or Figma to production components                              |
+| LLM Production Infra       | Provider-agnostic infra with full cost and quality visibility              |
+| MCP Power User             | MCP-native stack for browsing, coding, and execution                       |
+| Evaluation & Quality       | Regression testing, quality metrics, and failure analysis for LLM features |
+| Spec-Driven AI Development | Spec-first workflow keeping AI agents, SDKs, and docs in sync              |
 
 ### Builder — Design your own stack
+
 Pick one tool per slot and watch your stack wire together with live integration edges. Share your exact stack via a single URL (`?s=cursor,langgraph,gpt-4o,...`).
 
 ## Tech Stack
 
-| Layer | Technology |
-|---|---|
+| Layer     | Technology                         |
+| --------- | ---------------------------------- |
 | Framework | Next.js 16 (App Router, Turbopack) |
-| 2D Graph | React Flow v11 |
-| 3D Graph | react-force-graph-3d + Three.js |
-| Styling | Tailwind CSS v4 |
-| Language | TypeScript |
-| Dev | Docker + Docker Compose |
+| 2D Graph  | React Flow v11                     |
+| 3D Graph  | react-force-graph-3d + Three.js    |
+| Styling   | Tailwind CSS v4                    |
+| Language  | TypeScript                         |
+| Dev       | Docker + Docker Compose            |
 
 ## Getting Started
 
@@ -118,7 +122,7 @@ components/
     Logo.tsx            # SVG logo component
 data/
   tools.json            # 123 tools
-  relationships.json    # ~243 edges
+  relationships.json    # ~283 edges
   stacks.json           # 10 curated stacks
   slots.json            # 15 builder slot types
 lib/
@@ -135,6 +139,7 @@ Contributions are welcome — tools, stacks, bug fixes, and new features.
 ### Adding a tool
 
 1. Add an entry to `data/tools.json`:
+
 ```json
 {
   "id": "my-tool",
@@ -152,6 +157,7 @@ Contributions are welcome — tools, stacks, bug fixes, and new features.
 ```
 
 2. Optionally add edges in `data/relationships.json`:
+
 ```json
 { "source": "my-tool", "target": "langchain", "type": "integrates-with" }
 ```

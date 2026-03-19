@@ -1,6 +1,6 @@
 COMPOSE = docker compose
 
-.PHONY: help run down restart build rebuild logs shell typecheck lint format check test
+.PHONY: help run down restart build rebuild logs shell typecheck lint format check test sync-counts
 
 help: ## Show this help
 	@awk 'BEGIN {FS = ":.*##"} /^[a-zA-Z_-]+:.*##/ { printf "  \033[36m%-12s\033[0m %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
@@ -43,3 +43,6 @@ test: ## Run tests with Vitest inside container
 	$(COMPOSE) run --rm app npx vitest run
 
 check: lint typecheck test ## Run all checks (lint + typecheck + test)
+
+sync-counts: ## Sync tool/category/stack counts into README.md and CLAUDE.md
+	node scripts/sync-counts.mjs

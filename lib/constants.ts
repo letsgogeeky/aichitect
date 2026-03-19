@@ -1,9 +1,12 @@
+import tools from "@/data/tools.json";
+import stacks from "@/data/stacks.json";
+import relationships from "@/data/relationships.json";
+
 export const SITE_URL = "https://aichitect.dev";
 export const GITHUB_URL = "https://github.com/letsgogeeky/aichitect";
 export const GITHUB_SUGGEST_URL = `${GITHUB_URL}/issues/new?labels=suggested-tool`;
 
-// Derived from data files at build time — update when data changes
-export const TOOL_COUNT = 123;
-export const CATEGORY_COUNT = 12;
-export const STACK_COUNT = 10;
-export const RELATIONSHIP_COUNT = 243;
+export const TOOL_COUNT = tools.length;
+export const CATEGORY_COUNT = new Set(tools.map((t) => t.category)).size;
+export const STACK_COUNT = stacks.length;
+export const RELATIONSHIP_COUNT = relationships.length;

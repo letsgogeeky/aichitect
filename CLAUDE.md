@@ -6,19 +6,21 @@
 **Domain:** aichitect.dev | **Stack:** Next.js 16 + React Flow + Three.js + Tailwind v4 + TypeScript
 
 ## Dev workflow
+
 - **Docker only** — never run `npm` or `node` locally. All dev runs through docker-compose.
 - Use `make run` to start (foreground), `make down` to stop, `make rebuild` after adding packages.
 - Hot reload via volume mounts. Rebuild image only when adding new packages to `package.json`.
 - Ask before any git operations — Ramy has a signing process.
 
 ## Architecture
+
 ```
 app/
   page.tsx              → landing page (hero, view cards, OSS banner, footer)
   layout.tsx            → root metadata (OG, JSON-LD, robots, favicon)
   opengraph-image.tsx   → root OG image (1200×630, edge runtime)
   explore/              → full tool graph (FilterPanel + ExploreGraph + DetailPanel)
-  stacks/               → 8 curated stacks (sidebar + dagre graph)
+  stacks/               → 10 curated stacks (sidebar + dagre graph)
   builder/              → slot-by-slot stack builder (slots panel + integration graph)
   robots.ts             → /robots.txt
   sitemap.ts            → /sitemap.xml
@@ -35,9 +37,9 @@ components/
     Navbar.tsx          → 56px, Logo component, icon tabs, route-aware right slot, GitHub button
     Logo.tsx            → inline SVG 3-node graph logo on gradient rect; id + size props
 data/
-  tools.json            → 111 tools, 11 categories
-  relationships.json    → ~243 edges (integrates-with / often-used-together / competes-with)
-  stacks.json           → 8 curated stacks with flow edges
+  tools.json            → 123 tools, 12 categories
+  relationships.json    → ~283 edges (integrates-with / often-used-together / competes-with)
+  stacks.json           → 10 curated stacks with flow edges
   slots.json            → 15 slot types for the Builder
 lib/
   types.ts              → all TS interfaces + getCategoryColor() + STACK_LAYERS
@@ -50,35 +52,40 @@ public/
 ```
 
 ## Data shape (tools.json)
+
 ```ts
 { id, name, category, tagline, description, type: "oss"|"saas",
   pricing: { free_tier, plans[] }, github_stars, slot, prominent, urls }
 ```
 
 ## Category colors
-| Category | Color |
-|---|---|
+
+| Category          | Color   |
+| ----------------- | ------- |
 | coding-assistants | #7c6bff |
 | autonomous-agents | #ff6b6b |
-| agent-frameworks | #26de81 |
-| llm-providers | #00d4aa |
-| observability | #fd9644 |
-| vector-databases | #4ecdc4 |
-| deployment | #ff9f43 |
-| mcp | #a29bfe |
-| design | #74b9ff |
-| data-auth | #fd79a8 |
-| prompt-eval | #55efc4 |
-| specifications | #e17055 |
+| agent-frameworks  | #26de81 |
+| llm-providers     | #00d4aa |
+| observability     | #fd9644 |
+| vector-databases  | #4ecdc4 |
+| deployment        | #ff9f43 |
+| mcp               | #a29bfe |
+| design            | #74b9ff |
+| data-auth         | #fd79a8 |
+| prompt-eval       | #55efc4 |
+| specifications    | #e17055 |
 
 ## Sharing system
+
 Builder selections are URL-encoded as `?s=tool-id-1,tool-id-2,...`
+
 - `app/builder/page.tsx` — uses `useSearchParams` + `useRouter` to read/write the `s` param; wrapped in `<Suspense>`
 - `components/ui/Navbar.tsx` — "Share Stack" button copies `window.location.href` to clipboard, shows "Copied!" for 2s
 - `app/builder/opengraph-image.tsx` — edge-runtime OG image generator; reads `?s=` param, renders tool pills on dark background
 - `app/badge/route.ts` — edge-runtime SVG badge endpoint: `GET /badge?s=cursor,langgraph` → shields.io-style SVG
 
 ## Card design (ToolNode)
+
 - Colored 2px top accent strip (full opacity when expanded, dimmed otherwise)
 - **OSS tag**: `◆ Open Source` — green (#26de81), filled bg, shown whenever `type === "oss"`
 - **Free Tier tag**: `✦ Free Tier` — teal (#00d4aa), filled bg, shown whenever `pricing.free_tier === true`
@@ -86,6 +93,7 @@ Builder selections are URL-encoded as `?s=tool-id-1,tool-id-2,...`
 - Plan price pill + "Visit ↗" link remain in bottom row (collapsed/expanded respectively)
 
 ## 3D Graph (ExploreGraph3D)
+
 - Dynamically imported with `ssr: false` from ExploreGraph.tsx
 - Wheel event interception at container level (capture phase) amplifies deltaY × 6 for responsive zoom
 - d3 forces: `charge` with `strength(-60).distanceMax(150)`, `center` with `strength(0.8)`
