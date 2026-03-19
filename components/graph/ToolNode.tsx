@@ -8,6 +8,7 @@ export interface ToolNodeData extends Tool {
   dimmed?: boolean;
   highlighted?: boolean;
   expanded?: boolean;
+  onRemove?: () => void;
 }
 
 function formatStars(n: number): string {
@@ -28,23 +29,19 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
     <div
       style={{
         opacity: data.dimmed ? 0.2 : 1,
-        borderColor: isExpanded
-          ? color
-          : data.highlighted
-          ? color
-          : "var(--border)",
+        borderColor: isExpanded ? color : data.highlighted ? color : "var(--border)",
         boxShadow: isExpanded
           ? `0 0 0 1px ${color}, 0 0 20px ${color}22`
           : data.highlighted
-          ? `0 0 0 1px ${color}88`
-          : "none",
+            ? `0 0 0 1px ${color}88`
+            : "none",
         width: nodeWidth,
         transition:
           "width 220ms ease, box-shadow 180ms ease, border-color 180ms ease, opacity 180ms ease",
         zIndex: isExpanded ? 10 : 1,
         position: "relative",
       }}
-      className="rounded-lg border bg-[var(--surface)] cursor-pointer hover:border-[var(--border-2)]"
+      className="group rounded-lg border bg-[var(--surface)] cursor-pointer hover:border-[var(--border-2)]"
     >
       {/* Colored top accent */}
       <div
@@ -57,6 +54,29 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
         }}
       />
 
+      {/* Remove button — visible on hover or when expanded */}
+      {data.onRemove && (
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            data.onRemove!();
+          }}
+          title="Remove from stack"
+          className={`absolute top-2 right-2 w-4 h-4 flex items-center justify-center rounded transition-opacity z-20 ${
+            isExpanded ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+          }`}
+          style={{
+            background: "#ff6b6b18",
+            border: "1px solid #ff6b6b44",
+            color: "#ff6b6b",
+            fontSize: 10,
+            lineHeight: 1,
+          }}
+        >
+          ×
+        </button>
+      )}
+
       <Handle
         type="target"
         position={Position.Left}
@@ -67,10 +87,7 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
         {/* Top row: category label */}
         <div className="flex items-center justify-between mb-1.5">
           <div className="flex items-center gap-1.5 min-w-0">
-            <div
-              className="w-2 h-2 rounded-full flex-shrink-0"
-              style={{ background: color }}
-            />
+            <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: color }} />
             <span
               className="text-[10px] font-medium uppercase tracking-wide truncate"
               style={{ color }}

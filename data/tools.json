@@ -49,6 +49,7 @@
     },
     "github_stars": null,
     "slot": "code-editor",
+    "provider": "openai",
     "prominent": true,
     "urls": {
       "website": "https://github.com/features/copilot",
@@ -150,6 +151,7 @@
     },
     "github_stars": null,
     "slot": "cli-agent",
+    "provider": "anthropic",
     "urls": {
       "website": "https://claude.ai/code",
       "github": null
@@ -1895,6 +1897,7 @@
     },
     "github_stars": null,
     "slot": "llm-provider",
+    "provider": "anthropic",
     "prominent": true,
     "urls": {
       "website": "https://anthropic.com/api",
@@ -1919,6 +1922,7 @@
     },
     "github_stars": null,
     "slot": "llm-provider",
+    "provider": "openai",
     "prominent": true,
     "urls": {
       "website": "https://platform.openai.com",
@@ -1943,6 +1947,7 @@
     },
     "github_stars": null,
     "slot": "llm-provider",
+    "provider": "mistral",
     "urls": {
       "website": "https://mistral.ai/api",
       "github": null
@@ -1966,6 +1971,7 @@
     },
     "github_stars": null,
     "slot": "llm-provider",
+    "provider": "cohere",
     "urls": {
       "website": "https://cohere.com",
       "github": null

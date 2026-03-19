@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import Logo from "./Logo";
 import { GITHUB_URL, TOOL_COUNT, STACK_COUNT } from "@/lib/constants";
 import { useSuggestTool } from "./SuggestToolContext";
+import GetStartedModal from "./GetStartedModal";
 
 function IconNetwork() {
   return (
@@ -103,7 +104,17 @@ const VIEWS = [
 export default function Navbar() {
   const pathname = usePathname();
   const [copied, setCopied] = useState(false);
+  const [getStartedOpen, setGetStartedOpen] = useState(false);
   const { openSuggest } = useSuggestTool();
+
+  function openGetStarted() {
+    setGetStartedOpen(true);
+  }
+
+  function getStartedToolIds(): string[] {
+    if (typeof window === "undefined") return [];
+    return (new URLSearchParams(window.location.search).get("s") ?? "").split(",").filter(Boolean);
+  }
 
   function copyStack() {
     navigator.clipboard
@@ -118,151 +129,177 @@ export default function Navbar() {
   }
 
   return (
-    <nav
-      className="flex items-center justify-between flex-shrink-0 border-b"
-      style={{
-        background: "#111118",
-        borderColor: "var(--border)",
-        height: 56,
-        padding: "0 20px",
-        gap: 16,
-      }}
-    >
-      {/* Logo */}
-      <Link href="/" className="flex items-center gap-2 flex-shrink-0">
-        <Logo size={28} id="nav-logo-g" />
-        <span style={{ fontSize: 15, fontWeight: 600, color: "#f0f0f8" }}>AIchitect</span>
-      </Link>
-
-      {/* Spacer */}
-      <div style={{ flex: 1 }} />
-
-      {/* View toggle */}
-      <div
-        className="flex items-center"
-        style={{ background: "#1c1c28", borderRadius: 8, padding: 3, gap: 2, height: 34 }}
+    <>
+      <nav
+        className="flex items-center justify-between flex-shrink-0 border-b"
+        style={{
+          background: "#111118",
+          borderColor: "var(--border)",
+          height: 56,
+          padding: "0 20px",
+          gap: 16,
+        }}
       >
-        {VIEWS.map(({ href, label, Icon }) => {
-          const active = pathname === href;
-          return (
-            <Link
-              key={href}
-              href={href}
-              className="flex items-center"
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-2 flex-shrink-0">
+          <Logo size={28} id="nav-logo-g" />
+          <span style={{ fontSize: 15, fontWeight: 600, color: "#f0f0f8" }}>AIchitect</span>
+        </Link>
+
+        {/* Spacer */}
+        <div style={{ flex: 1 }} />
+
+        {/* View toggle */}
+        <div
+          className="flex items-center"
+          style={{ background: "#1c1c28", borderRadius: 8, padding: 3, gap: 2, height: 34 }}
+        >
+          {VIEWS.map(({ href, label, Icon }) => {
+            const active = pathname === href;
+            return (
+              <Link
+                key={href}
+                href={href}
+                className="flex items-center"
+                style={{
+                  gap: 6,
+                  padding: "0 12px",
+                  height: "100%",
+                  borderRadius: 6,
+                  fontSize: 12,
+                  fontWeight: active ? 500 : 400,
+                  background: active ? "#7c6bff" : "transparent",
+                  color: active ? "#ffffff" : "#8888aa",
+                  transition: "background 150ms, color 150ms",
+                }}
+              >
+                <Icon />
+                {label}
+              </Link>
+            );
+          })}
+        </div>
+
+        {/* Right slot */}
+        {pathname === "/explore" && (
+          <div
+            className="flex items-center flex-shrink-0"
+            style={{
+              gap: 6,
+              padding: "4px 10px",
+              borderRadius: 20,
+              background: "#1c1c28",
+              border: "1px solid #2a2a3a",
+            }}
+          >
+            <div
+              style={{
+                width: 6,
+                height: 6,
+                borderRadius: "50%",
+                background: "#00d4aa",
+                flexShrink: 0,
+              }}
+            />
+            <span style={{ fontSize: 11, color: "#8888aa" }}>
+              {TOOL_COUNT} tools · {STACK_COUNT} stacks
+            </span>
+          </div>
+        )}
+
+        {pathname === "/builder" && (
+          <div className="flex items-center flex-shrink-0" style={{ gap: 8 }}>
+            <button
+              onClick={openGetStarted}
+              className="flex items-center transition-all"
               style={{
                 gap: 6,
-                padding: "0 12px",
-                height: "100%",
-                borderRadius: 6,
+                padding: "0 14px",
+                height: 34,
+                borderRadius: 8,
+                background: "#7c6bff18",
+                border: "1px solid #7c6bff44",
+                color: "#7c6bff",
                 fontSize: 12,
-                fontWeight: active ? 500 : 400,
-                background: active ? "#7c6bff" : "transparent",
-                color: active ? "#ffffff" : "#8888aa",
-                transition: "background 150ms, color 150ms",
+                fontWeight: 500,
+                cursor: "pointer",
               }}
             >
-              <Icon />
-              {label}
-            </Link>
-          );
-        })}
-      </div>
+              Get Started →
+            </button>
+            <button
+              onClick={copyStack}
+              className="flex items-center transition-all"
+              style={{
+                gap: 6,
+                padding: "0 14px",
+                height: 34,
+                borderRadius: 8,
+                background: copied ? "#00d4aa30" : "#00d4aa18",
+                border: `1px solid ${copied ? "#00d4aa88" : "#00d4aa44"}`,
+                color: "#00d4aa",
+                fontSize: 12,
+                fontWeight: 500,
+                cursor: "pointer",
+              }}
+            >
+              <IconShare />
+              {copied ? "Copied!" : "Share Stack"}
+            </button>
+          </div>
+        )}
 
-      {/* Right slot */}
-      {pathname === "/explore" && (
-        <div
-          className="flex items-center flex-shrink-0"
-          style={{
-            gap: 6,
-            padding: "4px 10px",
-            borderRadius: 20,
-            background: "#1c1c28",
-            border: "1px solid #2a2a3a",
-          }}
-        >
-          <div
-            style={{
-              width: 6,
-              height: 6,
-              borderRadius: "50%",
-              background: "#00d4aa",
-              flexShrink: 0,
-            }}
-          />
-          <span style={{ fontSize: 11, color: "#8888aa" }}>
-            {TOOL_COUNT} tools · {STACK_COUNT} stacks
-          </span>
-        </div>
-      )}
-
-      {pathname === "/builder" && (
+        {/* Suggest a Tool — always visible */}
         <button
-          onClick={copyStack}
-          className="flex items-center flex-shrink-0 transition-all"
+          onClick={() => openSuggest()}
+          className="flex items-center flex-shrink-0 transition-colors"
           style={{
-            gap: 6,
-            padding: "0 14px",
+            gap: 5,
+            padding: "0 10px",
             height: 34,
             borderRadius: 8,
-            background: copied ? "#00d4aa30" : "#00d4aa18",
-            border: `1px solid ${copied ? "#00d4aa88" : "#00d4aa44"}`,
-            color: "#00d4aa",
-            fontSize: 12,
+            background: "#1c1c28",
+            border: "1px solid #2a2a3a",
+            color: "#8888aa",
+            fontSize: 11,
             fontWeight: 500,
             cursor: "pointer",
           }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = "#f0f0f8")}
+          onMouseLeave={(e) => (e.currentTarget.style.color = "#8888aa")}
         >
-          <IconShare />
-          {copied ? "Copied!" : "Share Stack"}
+          + Suggest a Tool
         </button>
+
+        {/* GitHub link — always visible */}
+        <a
+          href={GITHUB_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center flex-shrink-0 transition-colors"
+          style={{
+            gap: 5,
+            padding: "0 10px",
+            height: 34,
+            borderRadius: 8,
+            background: "#1c1c28",
+            border: "1px solid #2a2a3a",
+            color: "#8888aa",
+            fontSize: 11,
+            fontWeight: 500,
+            textDecoration: "none",
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.color = "#f0f0f8")}
+          onMouseLeave={(e) => (e.currentTarget.style.color = "#8888aa")}
+        >
+          <IconGitHub />
+          GitHub
+        </a>
+      </nav>
+
+      {getStartedOpen && (
+        <GetStartedModal toolIds={getStartedToolIds()} onClose={() => setGetStartedOpen(false)} />
       )}
-
-      {/* Suggest a Tool — always visible */}
-      <button
-        onClick={() => openSuggest()}
-        className="flex items-center flex-shrink-0 transition-colors"
-        style={{
-          gap: 5,
-          padding: "0 10px",
-          height: 34,
-          borderRadius: 8,
-          background: "#1c1c28",
-          border: "1px solid #2a2a3a",
-          color: "#8888aa",
-          fontSize: 11,
-          fontWeight: 500,
-          cursor: "pointer",
-        }}
-        onMouseEnter={(e) => (e.currentTarget.style.color = "#f0f0f8")}
-        onMouseLeave={(e) => (e.currentTarget.style.color = "#8888aa")}
-      >
-        + Suggest a Tool
-      </button>
-
-      {/* GitHub link — always visible */}
-      <a
-        href={GITHUB_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex items-center flex-shrink-0 transition-colors"
-        style={{
-          gap: 5,
-          padding: "0 10px",
-          height: 34,
-          borderRadius: 8,
-          background: "#1c1c28",
-          border: "1px solid #2a2a3a",
-          color: "#8888aa",
-          fontSize: 11,
-          fontWeight: 500,
-          textDecoration: "none",
-        }}
-        onMouseEnter={(e) => (e.currentTarget.style.color = "#f0f0f8")}
-        onMouseLeave={(e) => (e.currentTarget.style.color = "#8888aa")}
-      >
-        <IconGitHub />
-        GitHub
-      </a>
-    </nav>
+    </>
   );
 }

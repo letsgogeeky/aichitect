@@ -42,6 +42,7 @@ export interface Tool {
   github_stars: number | null;
   slot: string;
   prominent?: boolean;
+  provider?: string; // e.g. "anthropic" | "openai" | "mistral" | "cohere" — only set for provider-tied tools
   urls: ToolUrls;
 }
 

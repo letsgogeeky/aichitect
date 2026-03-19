@@ -35,10 +35,12 @@ function BuilderGraph({
   toolIds,
   expandedId,
   onExpandId,
+  onRemoveTool,
 }: {
   toolIds: string[];
   expandedId: string | null;
   onExpandId: (id: string | null) => void;
+  onRemoveTool: (toolId: string) => void;
 }) {
   const toolSet = new Set(toolIds);
 
@@ -48,7 +50,12 @@ function BuilderGraph({
     .map((t) => ({
       id: t!.id,
       type: "tool",
-      data: { ...t!, highlighted: true, expanded: expandedId === t!.id },
+      data: {
+        ...t!,
+        highlighted: true,
+        expanded: expandedId === t!.id,
+        onRemove: () => onRemoveTool(t!.id),
+      },
       position: { x: 0, y: 0 },
     }));
 
@@ -160,6 +167,21 @@ function BuilderPageContent() {
       router.replace(url.pathname + url.search, { scroll: false });
     },
     [selected, router]
+  );
+
+  const removeTool = useCallback(
+    (toolId: string) => {
+      const next = urlToolIds.filter((id) => id !== toolId);
+      const url = new URL(window.location.href);
+      if (next.length > 0) {
+        url.searchParams.set("s", next.join(","));
+      } else {
+        url.searchParams.delete("s");
+      }
+      router.replace(url.pathname + url.search, { scroll: false });
+      if (expandedId === toolId) setExpandedId(null);
+    },
+    [urlToolIds, router, expandedId]
   );
 
   function handleCompareClick(tool: Tool, e: React.MouseEvent) {
@@ -408,7 +430,12 @@ function BuilderPageContent() {
       {/* Builder graph */}
       <div className="flex-1 overflow-hidden relative">
         <ReactFlowProvider key={stackParam}>
-          <BuilderGraph toolIds={urlToolIds} expandedId={expandedId} onExpandId={setExpandedId} />
+          <BuilderGraph
+            toolIds={urlToolIds}
+            expandedId={expandedId}
+            onExpandId={setExpandedId}
+            onRemoveTool={removeTool}
+          />
         </ReactFlowProvider>
 
         {/* Stack Story — floating overlay at the bottom of the graph */}
