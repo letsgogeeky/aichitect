@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, Suspense } from "react";
+import { useMemo, useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import ReactFlow, {
@@ -19,15 +19,16 @@ import toolsData from "@/data/tools.json";
 import { Stack, Tool, getCategoryColor } from "@/lib/types";
 import { applyDagreLayout } from "@/lib/graph";
 import ToolNode from "@/components/graph/ToolNode";
+import ComparisonPanel from "@/components/panels/ComparisonPanel";
 
 const stacks = stacksData as Stack[];
 const allTools = toolsData as Tool[];
 const nodeTypes: NodeTypes = { tool: ToolNode };
 
 const COMPLEXITY_META = {
-  beginner:     { label: "Beginner",     color: "#26de81" },
+  beginner: { label: "Beginner", color: "#26de81" },
   intermediate: { label: "Intermediate", color: "#fdcb6e" },
-  advanced:     { label: "Advanced",     color: "#ff6b6b" },
+  advanced: { label: "Advanced", color: "#ff6b6b" },
 } as const;
 
 function StackGraph({ stack }: { stack: Stack }) {
@@ -82,10 +83,16 @@ function StacksContent() {
 
   const activeTag = searchParams.get("tag") ?? "All";
 
+  const [compareA, setCompareA] = useState<Tool | null>(null);
+  const [compareB, setCompareB] = useState<Tool | null>(null);
+
   function selectStack(s: Stack) {
     const params = new URLSearchParams(searchParams.toString());
     params.set("stack", s.id);
     router.push(`?${params.toString()}`, { scroll: false });
+    // Clear comparison when switching stacks
+    setCompareA(null);
+    setCompareB(null);
   }
 
   function selectTag(tag: string) {
@@ -95,29 +102,45 @@ function StacksContent() {
     router.push(`?${params.toString()}`, { scroll: false });
   }
 
+  function handleCompareClick(tool: Tool) {
+    // Already showing comparison — replace slot B
+    if (compareA && compareB) {
+      if (tool.id === compareA.id || tool.id === compareB.id) {
+        setCompareA(null);
+        setCompareB(null);
+      } else {
+        setCompareB(tool);
+      }
+      return;
+    }
+    if (!compareA) {
+      setCompareA(tool);
+      return;
+    }
+    if (compareA.id === tool.id) {
+      setCompareA(null);
+      return;
+    }
+    setCompareB(tool);
+  }
+
   const allTags = useMemo(() => {
     const tags = new Set<string>();
     stacks.forEach((s) => s.tags?.forEach((t) => tags.add(t)));
     return ["All", ...Array.from(tags)];
   }, []);
 
-  const filtered = activeTag === "All"
-    ? stacks
-    : stacks.filter((s) => s.tags?.includes(activeTag));
+  const filtered = activeTag === "All" ? stacks : stacks.filter((s) => s.tags?.includes(activeTag));
 
   const builderUrl = `/builder?s=${selected.tools.join(",")}`;
 
-  const complexity = selected.complexity
-    ? COMPLEXITY_META[selected.complexity]
-    : null;
+  const complexity = selected.complexity ? COMPLEXITY_META[selected.complexity] : null;
 
   const selectedTools = selected.tools
     .map((id) => allTools.find((t) => t.id === id))
     .filter(Boolean) as Tool[];
 
-  const accentColor = selectedTools[0]
-    ? getCategoryColor(selectedTools[0].category)
-    : "#7c6bff";
+  const accentColor = selectedTools[0] ? getCategoryColor(selectedTools[0].category) : "#7c6bff";
 
   return (
     <div className="flex h-full">
@@ -246,7 +269,7 @@ function StacksContent() {
       </aside>
 
       {/* ── Main ── */}
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex-1 flex flex-col overflow-hidden min-w-0">
         {/* Stack detail header */}
         <div
           className="flex-shrink-0 border-b"
@@ -331,7 +354,10 @@ function StacksContent() {
           </div>
 
           {/* Why + Tradeoffs */}
-          <div className="grid gap-2 mb-3" style={{ gridTemplateColumns: selected.tradeoffs ? "1fr 1fr" : "1fr" }}>
+          <div
+            className="grid gap-2 mb-3"
+            style={{ gridTemplateColumns: selected.tradeoffs ? "1fr 1fr" : "1fr" }}
+          >
             {selected.why && (
               <div
                 className="rounded-lg px-3 py-2"
@@ -366,24 +392,77 @@ function StacksContent() {
             )}
           </div>
 
-          {/* Tool chips */}
-          <div className="flex flex-wrap gap-1.5">
+          {/* Tool chips — each gets a compare trigger on hover */}
+          <div className="flex flex-wrap gap-1.5 items-center">
             {selectedTools.map((t) => {
               const c = getCategoryColor(t.category);
+              const isCompareA = compareA?.id === t.id;
+              const isCompareB = compareB?.id === t.id;
+              const isCompared = isCompareA || isCompareB;
               return (
-                <span
-                  key={t.id}
-                  className="text-[11px] font-medium px-2.5 py-0.5 rounded-full"
-                  style={{
-                    background: c + "18",
-                    border: `1px solid ${c}33`,
-                    color: c,
-                  }}
-                >
-                  {t.name}
-                </span>
+                <div key={t.id} className="relative group/chip inline-flex">
+                  <span
+                    className="text-[11px] font-medium px-2.5 py-0.5 rounded-full transition-all"
+                    style={{
+                      background: isCompared ? c + "30" : c + "18",
+                      border: isCompared ? `1px solid ${c}66` : `1px solid ${c}33`,
+                      color: c,
+                    }}
+                  >
+                    {t.name}
+                  </span>
+                  {/* Compare button — appears on hover or when staged */}
+                  <button
+                    onClick={() => handleCompareClick(t)}
+                    title={isCompareA ? `${t.name} staged — pick one more` : `Compare ${t.name}`}
+                    className={`absolute -top-1 -right-1 w-4 h-4 rounded-full flex items-center justify-center transition-all ${isCompared ? "opacity-100" : "opacity-0 group-hover/chip:opacity-100"}`}
+                    style={{
+                      background: isCompared ? "#7c6bff" : "#0e0e18",
+                      border: `1px solid ${isCompared ? "#7c6bff" : "var(--border)"}`,
+                      color: isCompared ? "#fff" : "var(--text-muted)",
+                    }}
+                  >
+                    <svg width="8" height="8" viewBox="0 0 12 12" fill="none">
+                      <rect
+                        x="0.5"
+                        y="0.5"
+                        width="4"
+                        height="11"
+                        rx="1"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                      />
+                      <rect
+                        x="7.5"
+                        y="0.5"
+                        width="4"
+                        height="11"
+                        rx="1"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                      />
+                    </svg>
+                  </button>
+                </div>
               );
             })}
+
+            {/* Compare hint when A is staged */}
+            {compareA && !compareB && (
+              <div
+                className="flex items-center gap-1.5 text-[10px] px-2 py-0.5 rounded-full ml-1"
+                style={{ background: "#7c6bff14", border: "1px solid #7c6bff33", color: "#7c6bff" }}
+              >
+                <span className="font-medium">{compareA.name}</span>
+                <span className="text-[#7c6bff66]">· pick one more</span>
+                <button
+                  onClick={() => setCompareA(null)}
+                  className="text-[#7c6bff88] hover:text-[#7c6bff] transition-colors leading-none"
+                >
+                  ✕
+                </button>
+              </div>
+            )}
           </div>
         </div>
 
@@ -394,6 +473,22 @@ function StacksContent() {
           </ReactFlowProvider>
         </div>
       </div>
+
+      {/* Comparison panel */}
+      {compareA && compareB && (
+        <ComparisonPanel
+          toolA={compareA}
+          toolB={compareB}
+          onClose={() => {
+            setCompareA(null);
+            setCompareB(null);
+          }}
+          onSwap={() => {
+            setCompareA(compareB);
+            setCompareB(compareA);
+          }}
+        />
+      )}
     </div>
   );
 }

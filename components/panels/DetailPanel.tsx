@@ -77,9 +77,7 @@ export default function DetailPanel({ tool, onClose }: Props) {
         </div>
 
         {/* Description */}
-        <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
-          {tool.description}
-        </p>
+        <p className="text-xs text-[var(--text-secondary)] leading-relaxed">{tool.description}</p>
 
         {/* Pricing */}
         <div>
@@ -141,13 +139,11 @@ export default function DetailPanel({ tool, onClose }: Props) {
             <div className="space-y-1">
               {connected.slice(0, 8).map(({ tool: other, type }) => (
                 <div
-                  key={other.id}
+                  key={`${other.id}-${type}`}
                   className="flex items-center justify-between py-1 px-2 rounded-md"
                   style={{ background: "var(--surface-2)" }}
                 >
-                  <span className="text-xs text-[var(--text-primary)] truncate">
-                    {other.name}
-                  </span>
+                  <span className="text-xs text-[var(--text-primary)] truncate">{other.name}</span>
                   <span
                     className="text-[9px] px-1.5 py-0.5 rounded ml-2 flex-shrink-0"
                     style={{
@@ -155,21 +151,21 @@ export default function DetailPanel({ tool, onClose }: Props) {
                         type === "integrates-with"
                           ? "#7c6bff22"
                           : type === "commonly-paired"
-                          ? "#4a4a7a44"
-                          : "#3a3a4a44",
+                            ? "#4a4a7a44"
+                            : "#3a3a4a44",
                       color:
                         type === "integrates-with"
                           ? "#7c6bff"
                           : type === "commonly-paired"
-                          ? "#8888aa"
-                          : "#555577",
+                            ? "#8888aa"
+                            : "#555577",
                     }}
                   >
                     {type === "integrates-with"
                       ? "integrates with"
                       : type === "commonly-paired"
-                      ? "often used with"
-                      : "competes with"}
+                        ? "often used with"
+                        : "competes with"}
                   </span>
                 </div>
               ))}

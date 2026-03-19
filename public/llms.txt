@@ -9,28 +9,56 @@ GitHub: https://github.com/letsgogeeky/aichitect
 ## What AIchitect covers
 
 - **111 AI tools** spanning code editors, agent frameworks, LLM providers, observability, vector databases, MCP servers, and more
-- **11 tool categories**: Code Editor / IDE, Agentic Coding, Multi-Agent Framework, LLM Provider, Observability & Evals, Vector Database, Data & Auth, Deployment & Infra, AI Design Tools, MCP Servers, Prompt & Eval
+- **11 tool categories**: Coding Assistants, Autonomous Agents, Agent Frameworks, Pipelines & RAG, LLM Infrastructure, Design & UI, DevOps & CI/CD, Documentation, Product & PM, MCP Servers, Prompt & Eval
 - **3 relationship types** between tools: integrates-with, often used together, competes-with
+- **243 mapped relationships** showing which tools integrate, pair well, or compete
 - **8 curated stacks** covering common AI engineering patterns (Indie Hacker, Enterprise RAG, OSS Self-Hosted, Agentic DevOps, and more)
 - **Stack Builder**: compose a custom stack slot-by-slot and see live integration graphs with shareable URLs
+- **Tool Comparison**: compare any two tools side by side — pricing, integrations, shared ecosystem connections, and direct relationships
 
 ## Pages
 
 - / — Landing page with links to all three views
-- /explore — Full interactive graph of all 111 tools with category and relationship filters; supports 2D grid, 2D layers, and 3D rotation views
+- /explore — Full interactive graph of all 111 tools with category and relationship filters; supports 2D grid, 2D layers, and 3D rotation views; supports compare mode via URL
 - /stacks — 8 battle-tested, pre-built AI stacks visualized as swimlane integration graphs
 - /builder — Build a custom stack by picking one tool per slot; renders live connection graph; share via URL
+- /compare/[tool-a]/[tool-b] — Dedicated comparison page for any two tools; server-rendered with full pricing, relationship, and ecosystem data
+
+## URL patterns
+
+- /explore?compare=cursor,github-copilot — compare two tools in the interactive graph
+- /compare/cursor/github-copilot — dedicated SEO page comparing two specific tools
+- /builder?s=cursor,langgraph,openai-api — pre-loaded stack in the builder
+- /explore?s=cursor — explore page with a specific tool highlighted
+
+## Tool comparison: key pairs
+
+- Cursor vs GitHub Copilot: /compare/cursor/github-copilot
+- LangChain vs LlamaIndex: /compare/langchain/llamaindex
+- OpenAI API vs Anthropic API: /compare/openai-api/anthropic-api
+- CrewAI vs AutoGen: /compare/crewai/autogen
+- Devin vs OpenHands: /compare/devin/openhands
+- Pinecone vs Weaviate: /compare/pinecone/weaviate (if relationship exists)
+- LiteLLM vs OpenRouter: /compare/litellm/openrouter
 
 ## Tool categories and example tools
 
-- Code Editor / IDE: Cursor, Windsurf, Zed, VS Code, Neovim AI
-- Agentic Coding: Claude Code, OpenHands, Aider, Plandex, Goose
-- Multi-Agent Framework: LangGraph, CrewAI, AutoGen, LlamaIndex, Semantic Kernel
-- LLM Provider: OpenAI, Anthropic, Together AI, Fireworks AI, Ollama, llama.cpp
-- Observability & Evals: LangSmith, Langfuse, Arize Phoenix, Braintrust, Helicone
-- Vector Database: Pinecone, Weaviate, Qdrant, Milvus, Chroma
-- Deployment & Infra: Modal, Render, Railway, Fly.io, LiteLLM
+- Coding Assistants: Cursor, Windsurf, GitHub Copilot, Zed, VS Code
+- Autonomous Agents: Devin, OpenHands, Claude Code, Aider, Plandex, Goose
+- Agent Frameworks: LangGraph, CrewAI, AutoGen, LlamaIndex, Semantic Kernel
+- Pipelines & RAG: LangChain, Dify, n8n, Flowise
+- LLM Infrastructure: OpenAI API, Anthropic API, Together AI, Fireworks AI, Ollama, llama.cpp, LiteLLM, OpenRouter
+- Observability & Eval: LangSmith, Langfuse, Arize Phoenix, Braintrust, Helicone, RAGAS
 - MCP Servers: MCP SDK Python, MCP SDK TypeScript, PortKey
+- Design & UI: v0, Vercel v0, Figma AI
+- DevOps & CI/CD: Modal, Render, Railway, Fly.io
+- Documentation: Mintlify, Readme.io
+
+## Data shape (for programmatic use)
+
+Each tool has: id, name, category, tagline, description, type (oss|commercial), pricing (free_tier, plans[]), github_stars, urls (website, github)
+
+Each relationship has: source (tool id), target (tool id), type (integrates-with|commonly-paired|competes-with)
 
 ## Brand
 

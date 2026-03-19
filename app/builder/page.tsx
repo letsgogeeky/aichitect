@@ -20,6 +20,7 @@ import { Slot, Tool, Relationship, getCategoryColor } from "@/lib/types";
 import { applyDagreLayout } from "@/lib/graph";
 import { SLOT_AUTONOMY, generateStackStory } from "@/lib/stackStory";
 import ToolNode from "@/components/graph/ToolNode";
+import ComparisonPanel from "@/components/panels/ComparisonPanel";
 
 const slots = slotsData as Slot[];
 const allTools = toolsData as Tool[];
@@ -86,7 +87,8 @@ function BuilderGraph({
           Too many tools, not enough signal.
         </p>
         <p className="text-xs text-[var(--text-muted)] max-w-xs leading-relaxed">
-          Pick one tool per slot on the left. Your stack will render here — with every integration mapped out.
+          Pick one tool per slot on the left. Your stack will render here — with every integration
+          mapped out.
         </p>
         <div className="flex items-center gap-1 text-[10px] text-[var(--text-muted)] mt-2">
           <span>←</span>
@@ -101,9 +103,7 @@ function BuilderGraph({
       nodes={laidOut}
       edges={edges}
       nodeTypes={nodeTypes}
-      onNodeClick={(_, node) =>
-        onExpandId(expandedId === node.id ? null : node.id)
-      }
+      onNodeClick={(_, node) => onExpandId(expandedId === node.id ? null : node.id)}
       fitView
       fitViewOptions={{ padding: 0.25, duration: 300 }}
       proOptions={{ hideAttribution: true }}
@@ -121,6 +121,8 @@ function BuilderPageContent() {
   const stackParam = searchParams.get("s") ?? "";
 
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [compareA, setCompareA] = useState<Tool | null>(null);
+  const [compareB, setCompareB] = useState<Tool | null>(null);
 
   // Derive selected slots from URL — each tool ID maps back to its slot
   const selected = useMemo<Record<string, string>>(() => {
@@ -150,6 +152,32 @@ function BuilderPageContent() {
     },
     [selected, router]
   );
+
+  function handleCompareClick(tool: Tool, e: React.MouseEvent) {
+    e.stopPropagation();
+    // Already showing a comparison — replace slot B
+    if (compareA && compareB) {
+      if (tool.id === compareA.id || tool.id === compareB.id) {
+        setCompareA(null);
+        setCompareB(null);
+      } else {
+        setCompareB(tool);
+      }
+      return;
+    }
+    // No A staged yet
+    if (!compareA) {
+      setCompareA(tool);
+      return;
+    }
+    // A is staged — clicking A again deselects
+    if (compareA.id === tool.id) {
+      setCompareA(null);
+      return;
+    }
+    // Stage B → show panel
+    setCompareB(tool);
+  }
 
   const selectedCount = Object.values(selected).filter(Boolean).length;
   const [collapsedSlots, setCollapsedSlots] = useState<Record<string, boolean>>({});
@@ -193,6 +221,27 @@ function BuilderPageContent() {
             </div>
           )}
 
+          {/* Compare staging hint */}
+          {compareA && !compareB && (
+            <div
+              className="flex items-center gap-1.5 text-[10px] px-2 py-1.5 rounded-md"
+              style={{ background: "#7c6bff14", border: "1px solid #7c6bff33", color: "#7c6bff" }}
+            >
+              <div
+                className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                style={{ background: getCategoryColor(compareA.category) }}
+              />
+              <span className="truncate font-medium">{compareA.name}</span>
+              <span className="text-[#7c6bff66] flex-shrink-0">· pick one more</span>
+              <button
+                onClick={() => setCompareA(null)}
+                className="ml-auto flex-shrink-0 text-[#7c6bff88] hover:text-[#7c6bff] transition-colors"
+              >
+                ✕
+              </button>
+            </div>
+          )}
+
           {BUILDER_SLOTS.map((slot) => {
             const selectedId = selected[slot.id];
             const slotTools = slot.tools
@@ -209,14 +258,23 @@ function BuilderPageContent() {
                   className="w-full flex items-start gap-2 mb-1 text-left group"
                 >
                   <svg
-                    width="10" height="10" viewBox="0 0 10 10" fill="none"
+                    width="10"
+                    height="10"
+                    viewBox="0 0 10 10"
+                    fill="none"
                     className="mt-0.5 flex-shrink-0 text-[var(--text-muted)]"
                     style={{
                       transform: isOpen ? "rotate(0deg)" : "rotate(-90deg)",
                       transition: "transform 180ms ease",
                     }}
                   >
-                    <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path
+                      d="M2 3.5L5 6.5L8 3.5"
+                      stroke="currentColor"
+                      strokeWidth="1.4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
                   </svg>
                   <div className="flex-1 min-w-0">
                     <p className="text-[11px] font-semibold text-[var(--text-primary)] leading-tight">
@@ -231,7 +289,10 @@ function BuilderPageContent() {
                       </span>
                     )}
                     {!isOpen && selectedTool && (
-                      <p className="text-[10px] mt-0.5 truncate" style={{ color: getCategoryColor(selectedTool.category) }}>
+                      <p
+                        className="text-[10px] mt-0.5 truncate"
+                        style={{ color: getCategoryColor(selectedTool.category) }}
+                      >
                         {selectedTool.name}
                       </p>
                     )}
@@ -250,30 +311,77 @@ function BuilderPageContent() {
                       {slotTools.map((t) => {
                         const active = selectedId === t.id;
                         const color = getCategoryColor(t.category);
+                        const isCompareA = compareA?.id === t.id;
+                        const isCompareB = compareB?.id === t.id;
+                        const isCompared = isCompareA || isCompareB;
                         return (
-                          <button
-                            key={t.id}
-                            onClick={() => pickTool(slot.id, t.id)}
-                            className="w-full flex items-center gap-2 px-2.5 py-2 rounded-lg text-left transition-all"
-                            style={{
-                              background: active ? color + "22" : "var(--surface-2)",
-                              border: active ? `1px solid ${color}66` : "1px solid var(--border)",
-                            }}
-                          >
-                            <div
-                              className="w-1.5 h-1.5 rounded-full flex-shrink-0"
-                              style={{ background: color }}
-                            />
-                            <span
-                              className="text-xs font-medium"
-                              style={{ color: active ? color : "var(--text-primary)" }}
+                          <div key={t.id} className="flex items-center gap-1 group/tool">
+                            <button
+                              onClick={() => pickTool(slot.id, t.id)}
+                              className="flex-1 flex items-center gap-2 px-2.5 py-2 rounded-lg text-left transition-all"
+                              style={{
+                                background: active ? color + "22" : "var(--surface-2)",
+                                border: active ? `1px solid ${color}66` : "1px solid var(--border)",
+                              }}
                             >
-                              {t.name}
-                            </span>
-                            {t.type === "oss" && (
-                              <span className="ml-auto text-[9px] text-[#26de81]">OSS</span>
-                            )}
-                          </button>
+                              <div
+                                className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                                style={{ background: color }}
+                              />
+                              <span
+                                className="text-xs font-medium"
+                                style={{ color: active ? color : "var(--text-primary)" }}
+                              >
+                                {t.name}
+                              </span>
+                              {t.type === "oss" && (
+                                <span className="ml-auto text-[9px] text-[#26de81]">OSS</span>
+                              )}
+                            </button>
+                            {/* Compare icon — visible on row hover or when staged */}
+                            <button
+                              onClick={(e) => handleCompareClick(t, e)}
+                              title={isCompareA ? "Staged for comparison" : `Compare ${t.name}`}
+                              className="flex-shrink-0 w-6 h-6 flex items-center justify-center rounded transition-all"
+                              style={{
+                                opacity: isCompared ? 1 : undefined,
+                                background: isCompared ? "#7c6bff22" : "transparent",
+                                color: isCompared ? "#7c6bff" : "var(--text-muted)",
+                              }}
+                              // Show on hover via CSS class — we use a sibling trick with group
+                            >
+                              <svg
+                                width="11"
+                                height="11"
+                                viewBox="0 0 12 12"
+                                fill="none"
+                                className={
+                                  isCompared
+                                    ? ""
+                                    : "opacity-0 group-hover/tool:opacity-100 transition-opacity"
+                                }
+                              >
+                                <rect
+                                  x="0.5"
+                                  y="0.5"
+                                  width="4"
+                                  height="11"
+                                  rx="1"
+                                  stroke="currentColor"
+                                  strokeWidth="1.2"
+                                />
+                                <rect
+                                  x="7.5"
+                                  y="0.5"
+                                  width="4"
+                                  height="11"
+                                  rx="1"
+                                  stroke="currentColor"
+                                  strokeWidth="1.2"
+                                />
+                              </svg>
+                            </button>
+                          </div>
                         );
                       })}
                     </div>
@@ -283,17 +391,12 @@ function BuilderPageContent() {
             );
           })}
         </div>
-
       </aside>
 
       {/* Builder graph */}
       <div className="flex-1 overflow-hidden relative">
         <ReactFlowProvider key={stackParam}>
-          <BuilderGraph
-            selected={selected}
-            expandedId={expandedId}
-            onExpandId={setExpandedId}
-          />
+          <BuilderGraph selected={selected} expandedId={expandedId} onExpandId={setExpandedId} />
         </ReactFlowProvider>
 
         {/* Stack Story — floating overlay at the bottom of the graph */}
@@ -313,12 +416,26 @@ function BuilderPageContent() {
             <p className="text-[11px] text-[var(--text-primary)] font-mono mb-1 leading-relaxed">
               {story.flow}
             </p>
-            <p className="text-[10px] text-[var(--text-muted)] leading-relaxed">
-              {story.prose}
-            </p>
+            <p className="text-[10px] text-[var(--text-muted)] leading-relaxed">{story.prose}</p>
           </div>
         )}
       </div>
+
+      {/* Comparison panel */}
+      {compareA && compareB && (
+        <ComparisonPanel
+          toolA={compareA}
+          toolB={compareB}
+          onClose={() => {
+            setCompareA(null);
+            setCompareB(null);
+          }}
+          onSwap={() => {
+            setCompareA(compareB);
+            setCompareB(compareA);
+          }}
+        />
+      )}
     </div>
   );
 }

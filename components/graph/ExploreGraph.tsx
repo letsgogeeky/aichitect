@@ -1,6 +1,7 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import ReactFlow, {
   Background,
@@ -18,13 +19,21 @@ import "reactflow/dist/style.css";
 
 import toolsData from "@/data/tools.json";
 import relationshipsData from "@/data/relationships.json";
-import { Tool, Relationship, RelationshipType, getCategoryColor, STACK_LAYERS, CategoryId } from "@/lib/types";
+import {
+  Tool,
+  Relationship,
+  RelationshipType,
+  getCategoryColor,
+  STACK_LAYERS,
+  CategoryId,
+} from "@/lib/types";
 import { gridLayout, swimlaneLayout } from "@/lib/graph";
 import ToolNode from "./ToolNode";
 import LaneLabel from "./LaneLabel";
 const ExploreGraph3D = dynamic(() => import("./ExploreGraph3D"), { ssr: false });
 import FilterPanel from "@/components/panels/FilterPanel";
 import DetailPanel from "@/components/panels/DetailPanel";
+import ComparisonPanel from "@/components/panels/ComparisonPanel";
 
 const tools = toolsData as Tool[];
 const relationships = relationshipsData as Relationship[];
@@ -52,8 +61,8 @@ interface ExploreGraphInnerProps {
   activeCategories: Set<string>;
   activeRelTypes: Set<RelationshipType>;
   searchQuery: string;
-  selectedTool: Tool | null;
-  onSelectTool: (tool: Tool | null) => void;
+  highlightedIds: Set<string>;
+  onSelectTool: (tool: Tool) => void;
   viewMode: "grid" | "layers";
 }
 
@@ -61,7 +70,7 @@ function ExploreGraphInner({
   activeCategories,
   activeRelTypes,
   searchQuery,
-  selectedTool,
+  highlightedIds,
   onSelectTool,
   viewMode,
 }: ExploreGraphInnerProps) {
@@ -77,11 +86,7 @@ function ExploreGraphInner({
     const q = searchQuery.toLowerCase();
     return new Set(
       tools
-        .filter(
-          (t) =>
-            t.name.toLowerCase().includes(q) ||
-            t.tagline.toLowerCase().includes(q)
-        )
+        .filter((t) => t.name.toLowerCase().includes(q) || t.tagline.toLowerCase().includes(q))
         .map((t) => t.id)
     );
   }, [searchQuery]);
@@ -93,8 +98,8 @@ function ExploreGraphInner({
       data: {
         ...t,
         dimmed: searchMatch != null && !searchMatch.has(t.id),
-        highlighted: selectedTool?.id === t.id,
-        expanded: selectedTool?.id === t.id,
+        highlighted: highlightedIds.has(t.id),
+        expanded: highlightedIds.has(t.id),
       },
       position: { x: 0, y: 0 },
     }));
@@ -118,19 +123,19 @@ function ExploreGraphInner({
       toolNodeInputs,
       (id) => toolLayerIndex.get(id) ?? -1,
       STACK_LAYERS.map((l) => ({ label: l.label, question: l.question })),
-      5,   // cols
+      5, // cols
       220, // nodeWidth
-      90,  // nodeHeight
-      24,  // gap
-      52,  // laneGap
-      40,  // headerHeight
-      20,  // padH
-      14   // padV
+      90, // nodeHeight
+      24, // gap
+      52, // laneGap
+      40, // headerHeight
+      20, // padH
+      14 // padV
     );
 
     // laneNodes first so they render behind tool nodes
     return [...laneNodes, ...toolNodes];
-  }, [visibleTools, searchMatch, selectedTool, viewMode]);
+  }, [visibleTools, searchMatch, highlightedIds, viewMode]);
 
   const edges: Edge[] = useMemo(() => {
     const visibleIds = new Set(visibleTools.map((t) => t.id));
@@ -143,10 +148,7 @@ function ExploreGraphInner({
       )
       .map((r) => {
         const sourceTool = tools.find((t) => t.id === r.source);
-        const style = edgeStyle(
-          r.type as RelationshipType,
-          sourceTool?.category ?? ""
-        );
+        const style = edgeStyle(r.type as RelationshipType, sourceTool?.category ?? "");
         return {
           id: `${r.source}-${r.target}`,
           source: r.source,
@@ -159,10 +161,10 @@ function ExploreGraphInner({
 
   const onNodeClick = useCallback(
     (_: React.MouseEvent, node: Node) => {
-      const tool = tools.find((t) => t.id === node.id) ?? null;
-      onSelectTool(tool?.id === selectedTool?.id ? null : tool);
+      const tool = tools.find((t) => t.id === node.id);
+      if (tool) onSelectTool(tool);
     },
-    [selectedTool, onSelectTool]
+    [onSelectTool]
   );
 
   return (
@@ -191,10 +193,20 @@ function ExploreGraphInner({
 }
 
 export default function ExploreGraph() {
-  const allCategories = useMemo(
-    () => new Set(tools.map((t) => t.category)),
-    []
-  );
+  const allCategories = useMemo(() => new Set(tools.map((t) => t.category)), []);
+
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  const initialComparison = useMemo((): [Tool, Tool] | null => {
+    const param = searchParams.get("compare");
+    if (!param) return null;
+    const [aId, bId] = param.split(",");
+    const a = tools.find((t) => t.id === aId);
+    const b = tools.find((t) => t.id === bId);
+    return a && b ? [a, b] : null;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // run once on mount only
 
   const [activeCategories, setActiveCategories] = useState<Set<string>>(allCategories);
   const [activeRelTypes, setActiveRelTypes] = useState<Set<RelationshipType>>(
@@ -204,6 +216,70 @@ export default function ExploreGraph() {
   const [selectedTool, setSelectedTool] = useState<Tool | null>(null);
   const [bannerDismissed, setBannerDismissed] = useState(false);
   const [viewMode, setViewMode] = useState<"grid" | "layers" | "3d">("grid");
+  const [compareMode, setCompareMode] = useState(!!initialComparison);
+  const [comparisonTools, setComparisonTools] = useState<[Tool, Tool] | null>(initialComparison);
+
+  // Sync URL when comparisonTools changes
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    if (comparisonTools) {
+      url.searchParams.set("compare", `${comparisonTools[0].id},${comparisonTools[1].id}`);
+    } else {
+      url.searchParams.delete("compare");
+    }
+    router.replace(url.pathname + url.search, { scroll: false });
+  }, [comparisonTools, router]);
+
+  const handleNodeSelect = useCallback(
+    (tool: Tool) => {
+      if (!compareMode) {
+        setSelectedTool((prev) => (prev?.id === tool.id ? null : tool));
+        return;
+      }
+
+      // Already have a comparison — allow re-selection
+      if (comparisonTools) {
+        const [a, b] = comparisonTools;
+        if (a.id === tool.id || b.id === tool.id) {
+          setComparisonTools(null); // deselect if clicking an already-compared tool
+        } else {
+          setComparisonTools([a, tool]); // replace slot 2
+        }
+        return;
+      }
+
+      // First tool staged
+      if (!selectedTool) {
+        setSelectedTool(tool);
+        return;
+      }
+
+      // Second tool — promote to comparison
+      if (selectedTool.id === tool.id) {
+        setSelectedTool(null); // deselect if same tool
+        return;
+      }
+
+      setComparisonTools([selectedTool, tool]);
+      setSelectedTool(null);
+    },
+    [compareMode, selectedTool, comparisonTools]
+  );
+
+  const highlightedIds = useMemo(() => {
+    if (comparisonTools) return new Set([comparisonTools[0].id, comparisonTools[1].id]);
+    if (selectedTool) return new Set([selectedTool.id]);
+    return new Set<string>();
+  }, [comparisonTools, selectedTool]);
+
+  // Derive panel mode
+  const panelMode = comparisonTools
+    ? "compare"
+    : !compareMode && selectedTool
+      ? "detail"
+      : compareMode
+        ? "compare-hint"
+        : "none";
 
   return (
     <div className="flex flex-col h-full overflow-hidden">
@@ -217,8 +293,8 @@ export default function ExploreGraph() {
             <span className="text-[var(--text-primary)] font-medium">
               AI tools are all over the place.
             </span>{" "}
-            This is the full landscape — {tools.length} tools across {allCategories.size} categories, mapped and connected.
-            Ready to narrow it down?{" "}
+            This is the full landscape — {tools.length} tools across {allCategories.size}{" "}
+            categories, mapped and connected. Ready to narrow it down?{" "}
             <a
               href="/builder"
               className="underline underline-offset-2"
@@ -247,7 +323,53 @@ export default function ExploreGraph() {
         />
 
         <div className="flex-1 relative">
-          {/* View mode toggle */}
+          {/* Compare toggle button — top-left */}
+          {viewMode !== "3d" && (
+            <div
+              className="absolute top-3 left-3 z-10 flex items-center rounded-md overflow-hidden"
+              style={{ border: "1px solid var(--border)", background: "var(--surface)" }}
+            >
+              <button
+                onClick={() => {
+                  const entering = !compareMode;
+                  setCompareMode(entering);
+                  if (!entering) {
+                    setComparisonTools(null);
+                    setSelectedTool(null);
+                  }
+                }}
+                className="px-2.5 py-1 text-[10px] font-medium transition-colors flex items-center gap-1.5"
+                style={{
+                  background: compareMode ? "#7c6bff22" : "transparent",
+                  color: compareMode ? "#7c6bff" : "var(--text-muted)",
+                }}
+              >
+                <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                  <rect
+                    x="0.5"
+                    y="0.5"
+                    width="4"
+                    height="11"
+                    rx="1"
+                    stroke="currentColor"
+                    strokeWidth="1.2"
+                  />
+                  <rect
+                    x="7.5"
+                    y="0.5"
+                    width="4"
+                    height="11"
+                    rx="1"
+                    stroke="currentColor"
+                    strokeWidth="1.2"
+                  />
+                </svg>
+                Compare
+              </button>
+            </div>
+          )}
+
+          {/* View mode toggle — top-right */}
           <div
             className="absolute top-3 right-3 z-10 flex rounded-md overflow-hidden"
             style={{ border: "1px solid var(--border)", background: "var(--surface)" }}
@@ -255,7 +377,14 @@ export default function ExploreGraph() {
             {(["grid", "layers", "3d"] as const).map((mode, i) => (
               <button
                 key={mode}
-                onClick={() => setViewMode(mode)}
+                onClick={() => {
+                  setViewMode(mode);
+                  if (mode === "3d" && compareMode) {
+                    setCompareMode(false);
+                    setComparisonTools(null);
+                    setSelectedTool(null);
+                  }
+                }}
                 className="px-2.5 py-1 text-[10px] font-medium transition-colors"
                 style={{
                   background: viewMode === mode ? "#7c6bff22" : "transparent",
@@ -282,15 +411,52 @@ export default function ExploreGraph() {
                 activeCategories={activeCategories}
                 activeRelTypes={activeRelTypes}
                 searchQuery={searchQuery}
-                selectedTool={selectedTool}
-                onSelectTool={setSelectedTool}
+                highlightedIds={highlightedIds}
+                onSelectTool={handleNodeSelect}
                 viewMode={viewMode}
               />
             </ReactFlowProvider>
           )}
         </div>
 
-        <DetailPanel tool={selectedTool} onClose={() => setSelectedTool(null)} />
+        {/* Right panel */}
+        {panelMode === "compare" && comparisonTools ? (
+          <ComparisonPanel
+            toolA={comparisonTools[0]}
+            toolB={comparisonTools[1]}
+            onClose={() => {
+              setComparisonTools(null);
+              setCompareMode(false);
+            }}
+            onSwap={() => setComparisonTools([comparisonTools[1], comparisonTools[0]])}
+          />
+        ) : panelMode === "detail" ? (
+          <DetailPanel tool={selectedTool} onClose={() => setSelectedTool(null)} />
+        ) : panelMode === "compare-hint" ? (
+          <div
+            className="w-72 flex-shrink-0 border-l flex flex-col items-center justify-center gap-3 p-6 text-center"
+            style={{ background: "var(--surface)", borderColor: "var(--border)" }}
+          >
+            {selectedTool ? (
+              <>
+                <div
+                  className="w-2 h-2 rounded-full"
+                  style={{ background: getCategoryColor(selectedTool.category) }}
+                />
+                <p className="text-xs font-medium" style={{ color: "var(--text-primary)" }}>
+                  {selectedTool.name}
+                </p>
+                <p className="text-[10px]" style={{ color: "var(--text-muted)" }}>
+                  Now click a second tool to compare
+                </p>
+              </>
+            ) : (
+              <p className="text-[10px]" style={{ color: "var(--text-muted)" }}>
+                Click two tools on the graph to compare them
+              </p>
+            )}
+          </div>
+        ) : null}
       </div>
     </div>
   );
