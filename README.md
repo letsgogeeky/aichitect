@@ -11,8 +11,8 @@
     <a href="https://aichitect.dev/builder">Builder</a>
   </p>
 
-  <img src="https://img.shields.io/badge/tools-111-7c6bff?style=flat-square" alt="111 tools" />
-  <img src="https://img.shields.io/badge/categories-11-00d4aa?style=flat-square" alt="11 categories" />
+  <img src="https://img.shields.io/badge/tools-123-7c6bff?style=flat-square" alt="123 tools" />
+  <img src="https://img.shields.io/badge/categories-12-00d4aa?style=flat-square" alt="12 categories" />
   <img src="https://img.shields.io/badge/license-MIT-26de81?style=flat-square" alt="MIT license" />
   <img src="https://img.shields.io/badge/open%20source-%E2%9D%A4-ff6b6b?style=flat-square" alt="Open Source" />
 </div>
@@ -21,35 +21,37 @@
 
 ## Screenshots
 
-| Builder | Stacks |
+| Graph | Stacks |
 |:---:|:---:|
-| ![Builder view](public/screenshots/builder.png) | ![Stacks view](public/screenshots/stacks.png) |
+| ![Graph view](public/screenshots/explore.png) | ![Stacks view](public/screenshots/stacks.png) |
 
 ---
 
-AI tools are all over the place. Every week there's a new framework, a new model, a new "essential" addition to your stack. AIchitect gives you a structured, visual map of the ecosystem — **111 tools** across **11 categories** — with their integrations and relationships mapped out so you can pick the right stack based on data, not hype.
+AI tools are all over the place. Every week there's a new framework, a new model, a new "essential" addition to your stack. AIchitect gives you a structured, visual map of the ecosystem — **123 tools** across **12 categories** — with their integrations and relationships mapped out so you can pick the right stack based on data, not hype.
 
 ## Features
 
 ### Graph View — Explore the full ecosystem
-Browse all 111 tools as an interactive force graph. Filter by category or relationship type, search by name, and switch between three view modes:
+Browse all 123 tools as an interactive force graph. Filter by category or relationship type, search by name, and switch between three view modes:
 - **2D Grid** — clean, scannable card layout
 - **2D Layers** — swimlane view organized by stack layer (Development → AI Logic → Models & Infra → Tooling)
 - **3D** — rotatable Three.js force graph with orbit controls
 
-### Stacks — 8 curated starting points
+### Stacks — 10 curated starting points
 Pre-built stacks for common AI engineering patterns, each visualized as an integration diagram:
 
 | Stack | Description |
 |---|---|
-| Indie Hacker | Solo developer, fast shipping, minimal ops |
-| Enterprise RAG | Production RAG pipeline with observability |
-| OSS Self-Hosted | Fully open-source, self-hostable stack |
-| Agentic DevOps | Autonomous coding + CI/CD agent loop |
-| Multi-Agent Research | Multi-agent coordination for deep research |
-| LLM Fine-tuning | Model fine-tuning and evaluation workflow |
-| Voice AI | Real-time voice + LLM pipeline |
-| Edge AI | Lightweight inference at the edge |
+| Indie Hacker / Startup | Solo developer, fast shipping, minimal ops |
+| Agentic Coding | Full loop from task to reviewed PR without human keyboard input |
+| Enterprise RAG | Production RAG pipeline with routing, eval, and observability |
+| OSS Self-Hosted | Fully open-source, zero data egress, on-premise stack |
+| Multi-Agent DevOps | Specialised agents working in parallel to reduce cycle time |
+| AI Design-to-Code | From prompt or Figma to production components |
+| LLM Production Infra | Provider-agnostic infra with full cost and quality visibility |
+| MCP Power User | MCP-native stack for browsing, coding, and execution |
+| Evaluation & Quality | Regression testing, quality metrics, and failure analysis for LLM features |
+| Spec-Driven AI Development | Spec-first workflow keeping AI agents, SDKs, and docs in sync |
 
 ### Builder — Design your own stack
 Pick one tool per slot and watch your stack wire together with live integration edges. Share your exact stack via a single URL (`?s=cursor,langgraph,gpt-4o,...`).
@@ -115,9 +117,9 @@ components/
     Navbar.tsx          # Top nav with route-aware controls
     Logo.tsx            # SVG logo component
 data/
-  tools.json            # 111 tools
+  tools.json            # 123 tools
   relationships.json    # ~243 edges
-  stacks.json           # 8 curated stacks
+  stacks.json           # 10 curated stacks
   slots.json            # 15 builder slot types
 lib/
   types.ts              # TypeScript interfaces + getCategoryColor()

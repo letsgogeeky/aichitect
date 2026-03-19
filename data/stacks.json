@@ -3,81 +3,129 @@
     "id": "indie-hacker",
     "name": "Indie Hacker / Startup Stack",
     "description": "Near-zero infra overhead; AI handles 60-80% of boilerplate. The fastest path from idea to deployed SaaS.",
-    "target": "MVPs, SaaS products, solo/small team full-stack web apps",
-    "tools": ["cursor", "claude-code", "v0", "langfuse"],
+    "target": "Solo founders and small teams shipping full-stack web apps fast",
+    "tags": ["fast shipping", "SaaS", "solo dev"],
+    "why": "Solo founders need to ship fast. This stack maximises AI leverage at every layer — v0 generates the UI, Claude Code writes the logic, the Vercel AI SDK handles streaming, and Langfuse keeps traces so you know when something breaks. Practically zero ops overhead.",
+    "tradeoffs": "Tight coupling to the Vercel/OpenAI ecosystem. Works best for standard web apps — not the right fit for high-throughput workloads, regulated data, or teams with strict compliance requirements.",
+    "complexity": "beginner",
+    "monthly_cost": "$50–150",
+    "tools": ["cursor", "claude-code", "v0", "vercel-ai-sdk", "openai-api", "langfuse"],
     "flow": [
       { "from": "v0", "to": "cursor", "label": "exports UI to" },
       { "from": "cursor", "to": "claude-code", "label": "powered by" },
+      { "from": "cursor", "to": "vercel-ai-sdk", "label": "calls AI via" },
+      { "from": "vercel-ai-sdk", "to": "openai-api", "label": "routes to" },
       { "from": "cursor", "to": "langfuse", "label": "traced by" }
     ]
   },
   {
     "id": "agentic-coding",
     "name": "Agentic Coding Stack",
-    "description": "Full loop from task to deployed PR without human keyboard input. AI reads, writes, tests, and ships.",
-    "target": "Autonomous feature development, bug fixing, refactoring",
-    "tools": ["claude-code", "mcp-sdk-ts", "e2b", "langfuse"],
+    "description": "Full loop from task to reviewed PR without human keyboard input. AI reads, writes, executes, and ships.",
+    "target": "Teams delegating feature development, bug fixing, and refactoring to AI agents",
+    "tags": ["autonomous", "coding", "agents"],
+    "why": "Close the loop between AI writing code and it being reviewed, tested, and merged. Claude Code reads the repo via GitHub MCP, executes safely in E2B sandboxes, and gets reviewed by CodeRabbit before any human sees the PR. OpenHands handles longer autonomous runs.",
+    "tradeoffs": "Autonomous agents diverge without clear task specs and tight scope. Requires disciplined prompt engineering and explicit task boundaries. Debugging agent failures mid-run is non-trivial.",
+    "complexity": "intermediate",
+    "monthly_cost": "$100–400",
+    "tools": ["claude-code", "openhands", "github-mcp", "e2b", "coderabbit", "langfuse"],
     "flow": [
-      { "from": "claude-code", "to": "mcp-sdk-ts", "label": "connects via" },
-      { "from": "claude-code", "to": "e2b", "label": "runs code in" },
+      { "from": "claude-code", "to": "github-mcp", "label": "reads repo via" },
+      { "from": "claude-code", "to": "e2b", "label": "executes in" },
+      { "from": "openhands", "to": "github-mcp", "label": "reads repo via" },
+      { "from": "claude-code", "to": "coderabbit", "label": "PRs reviewed by" },
       { "from": "claude-code", "to": "langfuse", "label": "traced by" }
     ]
   },
   {
     "id": "enterprise-rag",
     "name": "Enterprise RAG Stack",
-    "description": "Mature, well-documented, enterprise-proven. Full RAG pipeline with observability from day one.",
-    "target": "Internal knowledge bases, customer support bots, doc Q&A",
-    "tools": ["langchain", "pgvector", "litellm", "langsmith"],
+    "description": "Mature, well-observed, enterprise-proven. Full RAG pipeline with routing, eval, and observability from day one.",
+    "target": "Internal knowledge bases, customer support bots, and document Q&A at scale",
+    "tags": ["RAG", "enterprise", "knowledge base"],
+    "why": "Enterprise RAG needs more than a simple chain — it needs routing, branching retrieval logic, and evaluation you can run in CI. LangGraph handles complex multi-step retrieval; pgvector keeps sensitive data in your existing Postgres; LiteLLM gives you model flexibility without lock-in; Arize Phoenix catches prompt regressions before users do.",
+    "tradeoffs": "High complexity and ops overhead. Overkill for simple Q&A or small-scale use. Requires a team with LLM engineering experience to instrument evals properly and maintain retrieval quality as data grows.",
+    "complexity": "advanced",
+    "monthly_cost": "$500–2000",
+    "tools": ["langgraph", "pgvector", "litellm", "langsmith", "openai-api", "arize-phoenix"],
     "flow": [
-      { "from": "langchain", "to": "pgvector", "label": "retrieves from" },
-      { "from": "langchain", "to": "litellm", "label": "routes LLM calls via" },
-      { "from": "langchain", "to": "langsmith", "label": "traced by" }
+      { "from": "langgraph", "to": "pgvector", "label": "retrieves from" },
+      { "from": "langgraph", "to": "litellm", "label": "routes LLM calls via" },
+      { "from": "litellm", "to": "openai-api", "label": "serves models from" },
+      { "from": "langgraph", "to": "langsmith", "label": "traced by" },
+      { "from": "langsmith", "to": "arize-phoenix", "label": "feeds evals to" }
     ]
   },
   {
     "id": "oss-self-hosted",
     "name": "OSS Self-Hosted AI Stack",
-    "description": "Zero data egress; entirely on-premise. Full AI capabilities without sending data to external services.",
-    "target": "Privacy-first orgs, enterprises with data residency requirements",
-    "tools": ["ollama", "llamaindex", "chroma", "langfuse"],
+    "description": "Zero data egress; entirely on-premise. Full AI capabilities without sending a single byte to an external service.",
+    "target": "Privacy-first orgs, regulated industries, and teams with strict data residency requirements",
+    "tags": ["OSS", "self-hosted", "privacy"],
+    "why": "Every component is open-source and self-hostable. Ollama serves models locally for interactive use; vLLM handles production inference throughput. LlamaIndex builds the retrieval pipeline; Qdrant stores vectors on your infra; Langfuse traces — all without any data leaving your network.",
+    "tradeoffs": "You own the entire ops burden. Smaller open models have a lower capability ceiling than GPT-4o or Claude — expect more prompt engineering work to get comparable output quality. Infra and GPU costs can exceed managed services at scale.",
+    "complexity": "advanced",
+    "monthly_cost": "Infra only",
+    "tools": ["ollama", "vllm", "llamaindex", "qdrant", "langfuse"],
     "flow": [
       { "from": "ollama", "to": "llamaindex", "label": "serves models to" },
-      { "from": "llamaindex", "to": "chroma", "label": "stores embeddings in" },
+      { "from": "vllm", "to": "llamaindex", "label": "serves models to" },
+      { "from": "llamaindex", "to": "qdrant", "label": "stores embeddings in" },
       { "from": "llamaindex", "to": "langfuse", "label": "traced by" }
     ]
   },
   {
     "id": "multi-agent-devops",
     "name": "Multi-Agent DevOps Stack",
-    "description": "Specialized agents integrated into existing CI/CD. Automates code review, test generation, and PR creation.",
-    "target": "Engineering teams automating repetitive dev tasks",
-    "tools": ["crewai", "langsmith", "coderabbit", "sweep-ai"],
+    "description": "Specialised agents working in parallel — one triages, one fixes, one reviews. Dramatically reduces cycle time.",
+    "target": "Engineering teams automating issue triage, code fixes, and PR review",
+    "tags": ["multi-agent", "DevOps", "automation"],
+    "why": "Specialised agents working in parallel reduce cycle time dramatically. LangGraph coordinates the handoffs — it assigns tasks to Claude Code for implementation and Sweep for automated fixes, keeps agents wired to the live repo state via GitHub MCP, and routes PRs to CodeRabbit for review before any human sees them.",
+    "tradeoffs": "Multi-agent coordination adds latency and token cost. Clear agent boundaries are required to prevent conflicts. Debugging inter-agent failures mid-run is non-trivial and requires good tracing from day one.",
+    "complexity": "advanced",
+    "monthly_cost": "$200–600",
+    "tools": ["langgraph", "claude-code", "github-mcp", "sweep-ai", "coderabbit", "langsmith"],
     "flow": [
-      { "from": "crewai", "to": "langsmith", "label": "traced by" },
+      { "from": "langgraph", "to": "claude-code", "label": "assigns tasks to" },
+      { "from": "langgraph", "to": "sweep-ai", "label": "triggers fixes via" },
+      { "from": "claude-code", "to": "github-mcp", "label": "reads repo via" },
       { "from": "sweep-ai", "to": "coderabbit", "label": "PRs reviewed by" },
-      { "from": "crewai", "to": "sweep-ai", "label": "orchestrates" }
+      { "from": "langgraph", "to": "langsmith", "label": "traced by" }
     ]
   },
   {
     "id": "design-to-code",
     "name": "AI Design-to-Code Pipeline",
-    "description": "Eliminates translation cost between design and implementation. From Figma to production components.",
-    "target": "Design-eng handoff, component libraries, rapid prototyping",
-    "tools": ["v0", "locofy", "cursor", "qodo"],
+    "description": "Eliminates the translation cost between design and implementation. From prompt or Figma to production components.",
+    "target": "Design–engineering handoff, component libraries, and rapid prototyping",
+    "tags": ["design", "UI", "prototyping"],
+    "why": "Designers generate production-quality React/Tailwind components via v0; Locofy handles Figma-to-code conversion; Cursor and GitHub Copilot let engineers refine them without leaving the editor; Qodo auto-generates test coverage. No handoff document, no translation loss.",
+    "tradeoffs": "AI-generated code often needs cleanup, especially for non-standard designs. Works best for established design systems and common component patterns. Final output quality is tightly coupled to the quality and consistency of your design inputs.",
+    "complexity": "beginner",
+    "monthly_cost": "$50–200",
+    "tools": ["v0", "cursor", "locofy", "github-copilot", "qodo"],
     "flow": [
       { "from": "v0", "to": "cursor", "label": "exports code to" },
       { "from": "locofy", "to": "cursor", "label": "exports components to" },
+      { "from": "cursor", "to": "github-copilot", "label": "assisted by" },
       { "from": "cursor", "to": "qodo", "label": "tests generated by" }
     ]
   },
   {
     "id": "llm-startup-infra",
-    "name": "LLM Startup Infrastructure Stack",
-    "description": "Provider-agnostic; full observability from day one. The standard infra layer for AI-native startups.",
-    "target": "AI-native startups shipping LLM-powered products",
-    "tools": ["litellm", "langfuse", "qdrant"],
+    "name": "LLM Production Infra Stack",
+    "description": "Provider-agnostic from day one. Swap models without touching app code; full cost and quality visibility.",
+    "target": "AI-native startups and teams shipping LLM-powered products to production",
+    "tags": ["infrastructure", "observability", "multi-provider"],
+    "why": "LiteLLM normalises API calls across every major provider so you can swap models with a config change. Helicone gives per-request cost and latency visibility at the proxy layer. Langfuse captures traces and evals. Qdrant handles semantic retrieval. The whole thing is provider-agnostic from day one.",
+    "tradeoffs": "Every proxy layer adds latency (~10–30ms overhead). Requires discipline to define meaningful evals early — bad evals give false confidence. Cost control is critical at volume; easy to miss runaway usage without alerting.",
+    "complexity": "intermediate",
+    "monthly_cost": "$100–1000",
+    "tools": ["litellm", "langfuse", "helicone", "qdrant", "openai-api", "anthropic-api"],
     "flow": [
+      { "from": "helicone", "to": "litellm", "label": "proxies" },
+      { "from": "litellm", "to": "openai-api", "label": "routes to" },
+      { "from": "litellm", "to": "anthropic-api", "label": "routes to" },
       { "from": "litellm", "to": "langfuse", "label": "sends traces to" },
       { "from": "litellm", "to": "qdrant", "label": "retrieves context via" }
     ]
@@ -85,14 +133,59 @@
   {
     "id": "mcp-power-user",
     "name": "MCP Power User Stack",
-    "description": "MCP eliminates the need for separate AI integrations per tool. One AI interface for your entire workflow.",
-    "target": "Individual power users and small teams wanting unified AI orchestration",
-    "tools": ["cursor", "claude-code", "mcp-sdk-ts", "smithery", "e2b"],
+    "description": "MCP turns your AI into an agent that can browse, write to repos, and execute code — one protocol, full reach.",
+    "target": "Individual power users and small teams wanting unified AI orchestration across all their tools",
+    "tags": ["MCP", "automation", "power user"],
+    "why": "MCP eliminates the need for separate AI integrations per tool. Cursor and Claude Code connect to a single MCP layer; Smithery hosts and discovers servers; GitHub MCP gives agents live repo access; Playwright MCP lets them browse the web; E2B sandboxes code execution safely.",
+    "tradeoffs": "The MCP ecosystem is still maturing — some servers are experimental and break. The security model requires careful server vetting; each server gets broad access by design. Not suitable for sensitive environments without strict server auditing.",
+    "complexity": "intermediate",
+    "monthly_cost": "$20–100",
+    "tools": ["cursor", "claude-code", "mcp-sdk-ts", "smithery", "playwright-mcp", "github-mcp", "e2b"],
     "flow": [
       { "from": "cursor", "to": "mcp-sdk-ts", "label": "connects via" },
       { "from": "claude-code", "to": "mcp-sdk-ts", "label": "connects via" },
       { "from": "smithery", "to": "mcp-sdk-ts", "label": "hosts servers on" },
-      { "from": "mcp-sdk-ts", "to": "e2b", "label": "executes code in" }
+      { "from": "mcp-sdk-ts", "to": "github-mcp", "label": "reaches" },
+      { "from": "mcp-sdk-ts", "to": "playwright-mcp", "label": "reaches" },
+      { "from": "mcp-sdk-ts", "to": "e2b", "label": "executes in" }
+    ]
+  },
+  {
+    "id": "evaluation-quality",
+    "name": "Evaluation & Quality Stack",
+    "description": "\"It works\" is not a deploy criterion. This stack gives you regression testing, quality metrics, and systematic failure analysis for LLM features.",
+    "target": "Teams shipping LLM features that need measurable, reproducible quality guarantees",
+    "tags": ["evals", "quality", "testing"],
+    "why": "Most teams skip evals until production breaks. This stack makes eval a first-class engineering discipline: Promptfoo runs prompt regression suites in CI; DeepEval gives structured quality metrics; Braintrust manages datasets and experiments; Langfuse captures traces for dataset curation. Build the eval loop before you need it.",
+    "tradeoffs": "Evals require upfront investment in dataset curation and metric definition that most teams underestimate. Bad evals are worse than no evals — they give false confidence. Eval datasets go stale as the product evolves and need active maintenance.",
+    "complexity": "intermediate",
+    "monthly_cost": "$50–300",
+    "tools": ["promptfoo", "deepeval", "langfuse", "braintrust", "openai-api", "langsmith"],
+    "flow": [
+      { "from": "promptfoo", "to": "openai-api", "label": "tests against" },
+      { "from": "deepeval", "to": "langfuse", "label": "sends results to" },
+      { "from": "braintrust", "to": "openai-api", "label": "evaluates" },
+      { "from": "langfuse", "to": "langsmith", "label": "feeds traces to" },
+      { "from": "promptfoo", "to": "deepeval", "label": "pairs with" }
+    ]
+  },
+  {
+    "id": "spec-driven-ai",
+    "name": "Spec-Driven AI Development",
+    "description": "The spec is the source of truth. Define it once — AI coding agents, SDK generators, and docs all stay in sync automatically.",
+    "target": "Teams building AI-native APIs and products where spec drift is a real problem",
+    "tags": ["spec-driven", "API", "engineering process"],
+    "why": "Spec-driven development pays dividends at scale. Spec Kit creates structured context that steers Claude Code and Cursor toward well-defined outcomes instead of improvised prompts. Swagger defines the API contract; Speakeasy auto-generates SDKs when the spec changes; Langfuse keeps AI calls observable throughout. Everything downstream of the spec stays in sync.",
+    "tradeoffs": "Upfront spec investment slows initial velocity — not worth it for throwaway prototypes or highly exploratory projects. The discipline to keep specs current requires team buy-in; a stale spec is worse than no spec.",
+    "complexity": "intermediate",
+    "monthly_cost": "$50–200",
+    "tools": ["spec-kit", "swagger", "speakeasy", "cursor", "claude-code", "langfuse"],
+    "flow": [
+      { "from": "spec-kit", "to": "claude-code", "label": "steers" },
+      { "from": "spec-kit", "to": "cursor", "label": "steers" },
+      { "from": "swagger", "to": "speakeasy", "label": "generates SDKs via" },
+      { "from": "cursor", "to": "claude-code", "label": "powered by" },
+      { "from": "claude-code", "to": "langfuse", "label": "traced by" }
     ]
   }
 ]

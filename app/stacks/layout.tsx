@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Navbar from "@/components/ui/Navbar";
 
 export const metadata: Metadata = {
-  title: "Stacks — 8 Battle-Tested AI Stacks",
+  title: "Stacks — 10 Curated AI Stacks",
   description:
-    "Skip the research. Explore 8 proven AI stacks — from Indie Hacker to Enterprise RAG — with every tool connection mapped out.",
+    "Skip the research. Explore 10 curated AI stacks with honest reasoning and tradeoffs — from Indie Hacker to Enterprise RAG, Evaluation, and Spec-Driven development.",
   alternates: { canonical: "https://aichitect.dev/stacks" },
 };
 

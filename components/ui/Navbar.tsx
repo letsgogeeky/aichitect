@@ -52,8 +52,8 @@ function IconGitHub() {
 }
 
 const VIEWS = [
-  { href: "/explore", label: "Graph",   Icon: IconNetwork },
   { href: "/stacks",  label: "Stacks",  Icon: IconLayers },
+  { href: "/explore", label: "Graph",   Icon: IconNetwork },
   { href: "/builder", label: "Builder", Icon: IconSettings2 },
 ];
 

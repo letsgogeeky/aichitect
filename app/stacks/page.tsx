@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, Suspense } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import Link from "next/link";
 import ReactFlow, {
   Background,
   BackgroundVariant,
@@ -21,6 +23,12 @@ import ToolNode from "@/components/graph/ToolNode";
 const stacks = stacksData as Stack[];
 const allTools = toolsData as Tool[];
 const nodeTypes: NodeTypes = { tool: ToolNode };
+
+const COMPLEXITY_META = {
+  beginner:     { label: "Beginner",     color: "#26de81" },
+  intermediate: { label: "Intermediate", color: "#fdcb6e" },
+  advanced:     { label: "Advanced",     color: "#ff6b6b" },
+} as const;
 
 function StackGraph({ stack }: { stack: Stack }) {
   const nodes: Node[] = stack.tools
@@ -56,9 +64,9 @@ function StackGraph({ stack }: { stack: Stack }) {
       edges={edges}
       nodeTypes={nodeTypes}
       fitView
-      fitViewOptions={{ padding: 0.2, duration: 300 }}
+      fitViewOptions={{ padding: 0.25, duration: 300 }}
       proOptions={{ hideAttribution: true }}
-      minZoom={0.3}
+      minZoom={0.2}
     >
       <Background variant={BackgroundVariant.Dots} color="#1e1e2e" gap={20} size={1} />
       <Controls showInteractive={false} />
@@ -66,68 +74,334 @@ function StackGraph({ stack }: { stack: Stack }) {
   );
 }
 
-export default function StacksPage() {
-  const [selected, setSelected] = useState<Stack>(stacks[0]);
+function StacksContent() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const stackId = searchParams.get("stack");
+  const selected = stacks.find((s) => s.id === stackId) ?? stacks[0];
+
+  const activeTag = searchParams.get("tag") ?? "All";
+
+  function selectStack(s: Stack) {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("stack", s.id);
+    router.push(`?${params.toString()}`, { scroll: false });
+  }
+
+  function selectTag(tag: string) {
+    const params = new URLSearchParams(searchParams.toString());
+    if (tag === "All") params.delete("tag");
+    else params.set("tag", tag);
+    router.push(`?${params.toString()}`, { scroll: false });
+  }
+
+  const allTags = useMemo(() => {
+    const tags = new Set<string>();
+    stacks.forEach((s) => s.tags?.forEach((t) => tags.add(t)));
+    return ["All", ...Array.from(tags)];
+  }, []);
+
+  const filtered = activeTag === "All"
+    ? stacks
+    : stacks.filter((s) => s.tags?.includes(activeTag));
+
+  const builderUrl = `/builder?s=${selected.tools.join(",")}`;
+
+  const complexity = selected.complexity
+    ? COMPLEXITY_META[selected.complexity]
+    : null;
+
+  const selectedTools = selected.tools
+    .map((id) => allTools.find((t) => t.id === id))
+    .filter(Boolean) as Tool[];
+
+  const accentColor = selectedTools[0]
+    ? getCategoryColor(selectedTools[0].category)
+    : "#7c6bff";
 
   return (
     <div className="flex h-full">
-      {/* Stack list sidebar */}
+      {/* ── Sidebar ── */}
       <aside
-        className="w-60 flex-shrink-0 border-r overflow-y-auto"
-        style={{ background: "var(--surface)", borderColor: "var(--border)" }}
+        className="flex flex-col flex-shrink-0 border-r overflow-hidden"
+        style={{ width: 288, background: "var(--surface)", borderColor: "var(--border)" }}
       >
-        <div className="p-3">
-          <div className="px-2 mb-4">
-            <p className="text-xs font-semibold text-[var(--text-primary)] mb-1">
-              8 proven stacks.
-            </p>
-            <p className="text-[10px] text-[var(--text-muted)] leading-relaxed">
-              No research required. Each one is a battle-tested combination — click to see how the tools connect.
-            </p>
+        {/* Sidebar header */}
+        <div
+          className="flex-shrink-0 px-4 pt-4 pb-3 border-b"
+          style={{ borderColor: "var(--border)" }}
+        >
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-[11px] font-semibold text-[var(--text-primary)] tracking-wide uppercase">
+              Stacks
+            </span>
+            <span
+              className="text-[10px] px-1.5 py-0.5 rounded"
+              style={{ background: "#7c6bff18", color: "#7c6bff", border: "1px solid #7c6bff33" }}
+            >
+              {stacks.length} curated
+            </span>
           </div>
-          <div className="space-y-0.5">
-            {stacks.map((s) => (
+
+          {/* Tag filters */}
+          <div className="flex flex-wrap gap-1">
+            {allTags.map((tag) => (
               <button
-                key={s.id}
-                onClick={() => setSelected(s)}
-                className="w-full text-left px-3 py-2.5 rounded-lg transition-colors"
+                key={tag}
+                onClick={() => selectTag(tag)}
+                className="text-[10px] px-2 py-0.5 rounded-full transition-colors"
                 style={{
-                  background: selected.id === s.id ? "#7c6bff22" : "transparent",
-                  border: selected.id === s.id ? "1px solid #7c6bff44" : "1px solid transparent",
+                  background: activeTag === tag ? "#7c6bff" : "#1c1c28",
+                  color: activeTag === tag ? "#fff" : "#6666aa",
+                  border: `1px solid ${activeTag === tag ? "#7c6bff" : "#2a2a3a"}`,
                 }}
               >
-                <div
-                  className="text-xs font-medium leading-tight"
-                  style={{ color: selected.id === s.id ? "#7c6bff" : "var(--text-primary)" }}
-                >
-                  {s.name}
-                </div>
-                <div className="text-[10px] text-[var(--text-muted)] mt-0.5 line-clamp-1">
-                  {s.target}
-                </div>
+                {tag}
               </button>
             ))}
           </div>
         </div>
+
+        {/* Stack list */}
+        <div className="flex-1 overflow-y-auto py-2">
+          {filtered.map((s) => {
+            const isSelected = selected.id === s.id;
+            const firstTool = allTools.find((t) => t.id === s.tools[0]);
+            const color = firstTool ? getCategoryColor(firstTool.category) : "#7c6bff";
+            const cx = s.complexity ? COMPLEXITY_META[s.complexity] : null;
+            const stackTools = s.tools
+              .map((id) => allTools.find((t) => t.id === id))
+              .filter(Boolean) as Tool[];
+
+            return (
+              <button
+                key={s.id}
+                onClick={() => selectStack(s)}
+                className="w-full text-left px-3 py-3 transition-all"
+                style={{
+                  borderLeft: `3px solid ${isSelected ? color : "transparent"}`,
+                  background: isSelected ? color + "10" : "transparent",
+                }}
+              >
+                {/* Name */}
+                <div
+                  className="text-[11px] font-semibold leading-snug mb-1"
+                  style={{ color: isSelected ? color : "var(--text-primary)" }}
+                >
+                  {s.name}
+                </div>
+
+                {/* Target */}
+                <div
+                  className="text-[10px] leading-snug mb-2.5"
+                  style={{ color: "var(--text-muted)" }}
+                >
+                  {s.target}
+                </div>
+
+                {/* Bottom row: complexity + tool dots */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-1.5">
+                    {cx && (
+                      <>
+                        <div
+                          style={{
+                            width: 6,
+                            height: 6,
+                            borderRadius: "50%",
+                            background: cx.color,
+                            flexShrink: 0,
+                          }}
+                        />
+                        <span style={{ fontSize: 9, color: cx.color }}>{cx.label}</span>
+                      </>
+                    )}
+                    {s.monthly_cost && (
+                      <span style={{ fontSize: 9, color: "var(--text-muted)" }}>
+                        · {s.monthly_cost}
+                      </span>
+                    )}
+                  </div>
+                  {/* Tool category dots */}
+                  <div className="flex items-center gap-0.5">
+                    {stackTools.slice(0, 6).map((t) => (
+                      <div
+                        key={t.id}
+                        title={t.name}
+                        style={{
+                          width: 7,
+                          height: 7,
+                          borderRadius: "50%",
+                          background: getCategoryColor(t.category),
+                          opacity: 0.8,
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </button>
+            );
+          })}
+        </div>
       </aside>
 
-      {/* Graph */}
+      {/* ── Main ── */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Stack info header */}
+        {/* Stack detail header */}
         <div
-          className="px-5 py-3 border-b flex-shrink-0"
-          style={{ borderColor: "var(--border)" }}
+          className="flex-shrink-0 border-b"
+          style={{
+            borderColor: "var(--border)",
+            background: "var(--surface-2)",
+            padding: "20px 24px 16px",
+          }}
         >
-          <h2 className="text-sm font-semibold text-[var(--text-primary)]">{selected.name}</h2>
-          <p className="text-xs text-[var(--text-secondary)] mt-0.5">{selected.description}</p>
+          {/* Top row: name + CTA */}
+          <div className="flex items-start justify-between gap-4 mb-3">
+            <div className="flex-1 min-w-0">
+              <h2
+                className="text-base font-bold leading-tight mb-1"
+                style={{ color: "var(--text-primary)" }}
+              >
+                {selected.name}
+              </h2>
+              <p className="text-[11px] leading-relaxed" style={{ color: "var(--text-secondary)" }}>
+                {selected.description}
+              </p>
+            </div>
+
+            <Link
+              href={builderUrl}
+              className="flex items-center gap-1.5 flex-shrink-0 transition-all"
+              style={{
+                padding: "0 14px",
+                height: 32,
+                borderRadius: 7,
+                background: accentColor + "20",
+                border: `1px solid ${accentColor}44`,
+                color: accentColor,
+                fontSize: 11,
+                fontWeight: 600,
+                textDecoration: "none",
+              }}
+            >
+              Try in Builder →
+            </Link>
+          </div>
+
+          {/* Badges row */}
+          <div className="flex items-center gap-2 mb-3 flex-wrap">
+            {complexity && (
+              <span
+                className="text-[9px] font-semibold px-2 py-0.5 rounded-full uppercase tracking-wide"
+                style={{
+                  background: complexity.color + "18",
+                  border: `1px solid ${complexity.color}44`,
+                  color: complexity.color,
+                }}
+              >
+                {complexity.label}
+              </span>
+            )}
+            {selected.monthly_cost && (
+              <span
+                className="text-[9px] font-medium px-2 py-0.5 rounded-full"
+                style={{
+                  background: "#1c1c28",
+                  border: "1px solid #2a2a3a",
+                  color: "#6666aa",
+                }}
+              >
+                {selected.monthly_cost}/mo
+              </span>
+            )}
+            {selected.tags?.map((tag) => (
+              <span
+                key={tag}
+                className="text-[9px] px-2 py-0.5 rounded-full"
+                style={{
+                  background: "#1c1c28",
+                  border: "1px solid #2a2a3a",
+                  color: "#555577",
+                }}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          {/* Why + Tradeoffs */}
+          <div className="grid gap-2 mb-3" style={{ gridTemplateColumns: selected.tradeoffs ? "1fr 1fr" : "1fr" }}>
+            {selected.why && (
+              <div
+                className="rounded-lg px-3 py-2"
+                style={{ background: "#7c6bff0a", border: "1px solid #7c6bff1a" }}
+              >
+                <div
+                  className="text-[8px] font-bold uppercase tracking-widest mb-1"
+                  style={{ color: "#7c6bff88" }}
+                >
+                  Why this stack
+                </div>
+                <p className="text-[10px] leading-relaxed" style={{ color: "var(--text-muted)" }}>
+                  {selected.why}
+                </p>
+              </div>
+            )}
+            {selected.tradeoffs && (
+              <div
+                className="rounded-lg px-3 py-2"
+                style={{ background: "#ff6b6b08", border: "1px solid #ff6b6b1a" }}
+              >
+                <div
+                  className="text-[8px] font-bold uppercase tracking-widest mb-1"
+                  style={{ color: "#ff6b6b88" }}
+                >
+                  Tradeoff
+                </div>
+                <p className="text-[10px] leading-relaxed" style={{ color: "var(--text-muted)" }}>
+                  {selected.tradeoffs}
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* Tool chips */}
+          <div className="flex flex-wrap gap-1.5">
+            {selectedTools.map((t) => {
+              const c = getCategoryColor(t.category);
+              return (
+                <span
+                  key={t.id}
+                  className="text-[10px] font-medium px-2.5 py-0.5 rounded-full"
+                  style={{
+                    background: c + "18",
+                    border: `1px solid ${c}33`,
+                    color: c,
+                  }}
+                >
+                  {t.name}
+                </span>
+              );
+            })}
+          </div>
         </div>
 
-        <div className="flex-1">
+        {/* Graph */}
+        <div className="flex-1 overflow-hidden">
           <ReactFlowProvider key={selected.id}>
             <StackGraph stack={selected} />
           </ReactFlowProvider>
         </div>
       </div>
     </div>
+  );
+}
+
+export default function StacksPage() {
+  return (
+    <Suspense>
+      <StacksContent />
+    </Suspense>
   );
 }

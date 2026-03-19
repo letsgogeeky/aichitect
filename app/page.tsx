@@ -139,6 +139,15 @@ function BuilderPreview() {
 
 const VIEWS = [
   {
+    href: "/stacks",
+    label: "Stacks",
+    tagline: `${STACK_COUNT} curated starting points`,
+    description: "Pre-built stacks for common AI workflows — with honest reasoning and tradeoffs for each. A great place to start.",
+    Icon: IconLayers,
+    accent: "#00d4aa",
+    Preview: StacksPreview,
+  },
+  {
     href: "/explore",
     label: "Graph",
     tagline: "Explore the full AI ecosystem",
@@ -146,15 +155,6 @@ const VIEWS = [
     Icon: IconNetwork,
     accent: "#7c6bff",
     Preview: GraphPreview,
-  },
-  {
-    href: "/stacks",
-    label: "Stacks",
-    tagline: `${STACK_COUNT} curated starting points`,
-    description: "Pre-built stacks for common AI workflows — from coding assistants to full autonomous agent pipelines.",
-    Icon: IconLayers,
-    accent: "#00d4aa",
-    Preview: StacksPreview,
   },
   {
     href: "/builder",
@@ -356,7 +356,7 @@ export default function LandingPage() {
         {/* CTAs */}
         <div style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center", position: "relative" }}>
           <Link
-            href="/explore"
+            href="/stacks"
             style={{
               display: "inline-flex",
               alignItems: "center",
@@ -371,11 +371,11 @@ export default function LandingPage() {
               textDecoration: "none",
             }}
           >
-            Explore the Graph
+            Browse Stacks
             <IconArrowRight />
           </Link>
           <Link
-            href="/stacks"
+            href="/explore"
             style={{
               display: "inline-flex",
               alignItems: "center",
@@ -391,7 +391,7 @@ export default function LandingPage() {
               textDecoration: "none",
             }}
           >
-            Browse Stacks
+            Explore the Graph
           </Link>
         </div>
 

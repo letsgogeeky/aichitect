@@ -67,6 +67,11 @@ export interface Stack {
   target: string;
   tools: string[];
   flow: StackFlowEdge[];
+  tags?: string[];
+  why?: string;
+  tradeoffs?: string;
+  complexity?: "beginner" | "intermediate" | "advanced";
+  monthly_cost?: string;
 }
 
 export interface Slot {
