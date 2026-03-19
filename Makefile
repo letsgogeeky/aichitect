@@ -1,6 +1,6 @@
 COMPOSE = docker compose
 
-.PHONY: help run down restart build rebuild logs shell typecheck lint format check
+.PHONY: help run down restart build rebuild logs shell typecheck lint format check test
 
 help: ## Show this help
 	@awk 'BEGIN {FS = ":.*##"} /^[a-zA-Z_-]+:.*##/ { printf "  \033[36m%-12s\033[0m %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
@@ -30,13 +30,16 @@ logs: ## Tail container logs
 shell: ## Open a shell inside the running container
 	$(COMPOSE) exec app sh
 
-typecheck: ## Run TypeScript type check on the host
-	npx tsc --noEmit
+typecheck: ## Run TypeScript type check inside container
+	$(COMPOSE) run --rm app npx tsc --noEmit
 
-lint: ## Run ESLint on the host
-	npx eslint .
+lint: ## Run ESLint inside container
+	$(COMPOSE) run --rm app npx eslint .
 
-format: ## Format all files with Prettier
-	npx prettier --write .
+format: ## Format all files with Prettier inside container
+	$(COMPOSE) run --rm app npx prettier --write .
 
-check: lint typecheck ## Run all checks (lint + typecheck)
+test: ## Run tests with Vitest inside container
+	$(COMPOSE) run --rm app npx vitest run
+
+check: lint typecheck test ## Run all checks (lint + typecheck + test)

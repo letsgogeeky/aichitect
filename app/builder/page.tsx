@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useCallback, Suspense, useRef } from "react";
+import { useState, useMemo, useCallback, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import ReactFlow, {
   Background,
@@ -181,7 +181,7 @@ function BuilderPageContent() {
               Your stack, no bloat.
             </p>
             <p className="text-[10px] text-[var(--text-muted)] leading-relaxed">
-              Answer each question. We'll map how the tools wire together.
+              Answer each question. We&apos;ll map how the tools wire together.
             </p>
           </div>
           {selectedCount > 0 && (

@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
 import toolsData from "@/data/tools.json";
 import { getCategoryColor } from "@/lib/types";
+import type { Tool } from "@/lib/types";
 
 export const runtime = "edge";
 export const size = { width: 1200, height: 630 };
@@ -14,8 +15,8 @@ export default async function Image({
   const { s } = await searchParams;
   const toolIds = (s ?? "").split(",").filter(Boolean);
   const tools = toolIds
-    .map((id) => (toolsData as any[]).find((t: any) => t.id === id))
-    .filter(Boolean)
+    .map((id) => (toolsData as Tool[]).find((t) => t.id === id))
+    .filter((t): t is Tool => Boolean(t))
     .slice(0, 8);
 
   const hasTools = tools.length > 0;
@@ -104,7 +105,7 @@ export default async function Image({
                 marginBottom: 52,
               }}
             >
-              {tools.map((t: any) => {
+              {tools.map((t) => {
                 const c = getCategoryColor(t.category);
                 return (
                   <div

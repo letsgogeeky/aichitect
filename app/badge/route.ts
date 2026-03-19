@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import toolsData from "@/data/tools.json";
+import type { Tool } from "@/lib/types";
 
 export const runtime = "edge";
 
@@ -7,12 +8,12 @@ export function GET(req: NextRequest) {
   const s = req.nextUrl.searchParams.get("s") ?? "";
   const toolIds = s.split(",").filter(Boolean);
   const tools = toolIds
-    .map((id) => (toolsData as any[]).find((t: any) => t.id === id))
-    .filter(Boolean)
+    .map((id) => (toolsData as Tool[]).find((t) => t.id === id))
+    .filter((t): t is Tool => Boolean(t))
     .slice(0, 5);
 
   const label = "AI Stack";
-  const names = tools.length > 0 ? tools.map((t: any) => t.name).join(" · ") : "aichitect.dev";
+  const names = tools.length > 0 ? tools.map((t) => t.name).join(" · ") : "aichitect.dev";
 
   // Approximate text widths (7px per char at 11px font)
   const labelW = label.length * 6.5 + 16;

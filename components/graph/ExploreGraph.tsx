@@ -65,7 +65,7 @@ function ExploreGraphInner({
   onSelectTool,
   viewMode,
 }: ExploreGraphInnerProps) {
-  const { fitView } = useReactFlow();
+  useReactFlow();
 
   const visibleTools = useMemo(
     () => tools.filter((t) => activeCategories.has(t.category)),

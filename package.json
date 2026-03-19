@@ -11,6 +11,8 @@
     "start": "next start",
     "lint": "eslint",
     "format": "prettier --write .",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "prepare": "husky"
   },
   "dependencies": {
@@ -37,6 +39,7 @@
     "husky": "^9",
     "lint-staged": "^15",
     "prettier": "^3",
+    "vitest": "^2",
     "tailwindcss": "^4",
     "typescript": "^5"
   },
