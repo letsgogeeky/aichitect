@@ -69,6 +69,27 @@ function IconSettings2() {
   );
 }
 
+function IconCompare() {
+  return (
+    <svg
+      width="13"
+      height="13"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M9 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4" />
+      <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+      <line x1="12" y1="8" x2="12" y2="16" />
+      <polyline points="9 11 12 8 15 11" />
+      <polyline points="9 13 12 16 15 13" />
+    </svg>
+  );
+}
+
 function IconShare() {
   return (
     <svg
@@ -119,6 +140,7 @@ const VIEWS = [
   { href: "/stacks", label: "Stacks", Icon: IconLayers },
   { href: "/explore", label: "Graph", Icon: IconNetwork },
   { href: "/builder", label: "Builder", Icon: IconSettings2 },
+  { href: "/compare", label: "Compare", Icon: IconCompare },
 ];
 
 export default function Navbar() {
@@ -136,6 +158,8 @@ export default function Navbar() {
         : pathname === "/builder"
           ? "builder"
           : null;
+
+  const isComparePage = pathname.startsWith("/compare");
 
   function openGetStarted() {
     setGetStartedOpen(true);
@@ -185,7 +209,8 @@ export default function Navbar() {
           style={{ background: "#1c1c28", borderRadius: 8, padding: 3, gap: 2, height: 34 }}
         >
           {VIEWS.map(({ href, label, Icon }) => {
-            const active = pathname === href;
+            const active =
+              href === "/compare" ? pathname.startsWith("/compare") : pathname === href;
             return (
               <Link
                 key={href}
@@ -235,6 +260,28 @@ export default function Navbar() {
               {TOOL_COUNT} tools · {STACK_COUNT} stacks
             </span>
           </div>
+        )}
+
+        {isComparePage && (
+          <Link
+            href="/compare"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 6,
+              padding: "0 12px",
+              height: 34,
+              borderRadius: 8,
+              background: "#7c6bff18",
+              border: "1px solid #7c6bff44",
+              color: "#7c6bff",
+              fontSize: 11,
+              fontWeight: 500,
+              textDecoration: "none",
+            }}
+          >
+            ← New comparison
+          </Link>
         )}
 
         {pathname === "/builder" && (

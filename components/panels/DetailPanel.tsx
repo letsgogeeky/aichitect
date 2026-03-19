@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Tool, getCategoryColor, CATEGORIES } from "@/lib/types";
 import relationshipsData from "@/data/relationships.json";
 import toolsData from "@/data/tools.json";
@@ -143,33 +144,43 @@ export default function DetailPanel({ tool, onClose }: Props) {
               {connected.slice(0, 8).map(({ tool: other, type }) => (
                 <div
                   key={`${other.id}-${type}`}
-                  className="flex items-center justify-between py-1 px-2 rounded-md"
+                  className="flex items-center justify-between py-1 px-2 rounded-md group"
                   style={{ background: "var(--surface-2)" }}
                 >
                   <span className="text-xs text-[var(--text-primary)] truncate">{other.name}</span>
-                  <span
-                    className="text-[9px] px-1.5 py-0.5 rounded ml-2 flex-shrink-0"
-                    style={{
-                      background:
-                        type === "integrates-with"
-                          ? "#7c6bff22"
-                          : type === "commonly-paired"
-                            ? "#4a4a7a44"
-                            : "#3a3a4a44",
-                      color:
-                        type === "integrates-with"
-                          ? "#7c6bff"
-                          : type === "commonly-paired"
-                            ? "#8888aa"
-                            : "#555577",
-                    }}
-                  >
-                    {type === "integrates-with"
-                      ? "integrates with"
-                      : type === "commonly-paired"
-                        ? "often used with"
-                        : "competes with"}
-                  </span>
+                  <div className="flex items-center gap-1.5 ml-2 flex-shrink-0">
+                    <span
+                      className="text-[9px] px-1.5 py-0.5 rounded group-hover:hidden"
+                      style={{
+                        background:
+                          type === "integrates-with"
+                            ? "#7c6bff22"
+                            : type === "commonly-paired"
+                              ? "#4a4a7a44"
+                              : "#3a3a4a44",
+                        color:
+                          type === "integrates-with"
+                            ? "#7c6bff"
+                            : type === "commonly-paired"
+                              ? "#8888aa"
+                              : "#555577",
+                      }}
+                    >
+                      {type === "integrates-with"
+                        ? "integrates with"
+                        : type === "commonly-paired"
+                          ? "often used with"
+                          : "competes with"}
+                    </span>
+                    <Link
+                      href={`/compare/${tool.id}/${other.id}`}
+                      className="hidden group-hover:block text-[9px] px-1.5 py-0.5 rounded"
+                      style={{ background: "#7c6bff22", color: "#7c6bff" }}
+                      title={`Compare ${tool.name} vs ${other.name}`}
+                    >
+                      Compare →
+                    </Link>
+                  </div>
                 </div>
               ))}
             </div>

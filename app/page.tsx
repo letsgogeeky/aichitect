@@ -71,6 +71,27 @@ function IconGitHub() {
   );
 }
 
+function IconCompare() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M9 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4" />
+      <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+      <line x1="12" y1="8" x2="12" y2="16" />
+      <polyline points="9 11 12 8 15 11" />
+      <polyline points="9 13 12 16 15 13" />
+    </svg>
+  );
+}
+
 function IconArrowRight() {
   return (
     <svg
@@ -316,6 +337,166 @@ function BuilderPreview() {
   );
 }
 
+function ComparePreview() {
+  return (
+    <svg
+      width="100%"
+      height="100%"
+      viewBox="0 0 280 160"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {/* Left card */}
+      <rect
+        x="6"
+        y="8"
+        width="118"
+        height="144"
+        rx="6"
+        fill="#0d0d16"
+        stroke="#7c6bff"
+        strokeWidth="1"
+        strokeOpacity="0.35"
+      />
+      <rect x="6" y="8" width="118" height="3" rx="2" fill="#7c6bff" opacity="0.85" />
+      {/* Right card */}
+      <rect
+        x="156"
+        y="8"
+        width="118"
+        height="144"
+        rx="6"
+        fill="#0d0d16"
+        stroke="#00d4aa"
+        strokeWidth="1"
+        strokeOpacity="0.35"
+      />
+      <rect x="156" y="8" width="118" height="3" rx="2" fill="#00d4aa" opacity="0.85" />
+      {/* VS bubble */}
+      <circle cx="140" cy="80" r="13" fill="#111118" stroke="#1e1e2e" strokeWidth="1.5" />
+      <text
+        x="140"
+        y="84"
+        textAnchor="middle"
+        fill="#555577"
+        fontSize="7"
+        fontWeight="600"
+        fontFamily="monospace"
+      >
+        vs
+      </text>
+      {/* Left tool name bar */}
+      <rect x="14" y="17" width="56" height="8" rx="2" fill="#7c6bff" opacity="0.22" />
+      <rect x="14" y="17" width="36" height="8" rx="2" fill="#7c6bff" opacity="0.12" />
+      {/* Right tool name bar */}
+      <rect x="164" y="17" width="56" height="8" rx="2" fill="#00d4aa" opacity="0.22" />
+      <rect x="164" y="17" width="44" height="8" rx="2" fill="#00d4aa" opacity="0.12" />
+      {/* Row labels */}
+      <text x="14" y="37" fill="#555577" fontSize="6" fontFamily="monospace">
+        Category
+      </text>
+      <text x="164" y="37" fill="#555577" fontSize="6" fontFamily="monospace">
+        Category
+      </text>
+      <text x="14" y="57" fill="#555577" fontSize="6" fontFamily="monospace">
+        Type
+      </text>
+      <text x="164" y="57" fill="#555577" fontSize="6" fontFamily="monospace">
+        Type
+      </text>
+      <text x="14" y="77" fill="#555577" fontSize="6" fontFamily="monospace">
+        Free tier
+      </text>
+      <text x="164" y="77" fill="#555577" fontSize="6" fontFamily="monospace">
+        Free tier
+      </text>
+      <text x="14" y="97" fill="#555577" fontSize="6" fontFamily="monospace">
+        Stars
+      </text>
+      <text x="164" y="97" fill="#555577" fontSize="6" fontFamily="monospace">
+        Stars
+      </text>
+      {/* Row 1: Category pills */}
+      <rect x="14" y="40" width="48" height="7" rx="2" fill="#7c6bff" opacity="0.2" />
+      <rect x="164" y="40" width="54" height="7" rx="2" fill="#00d4aa" opacity="0.2" />
+      {/* Row 2: Type tags */}
+      <rect x="14" y="60" width="42" height="7" rx="2" fill="#26de81" opacity="0.2" />
+      <rect x="164" y="60" width="48" height="7" rx="2" fill="#4ecdc4" opacity="0.2" />
+      {/* Row 3: Free tier ✓ / ✗ */}
+      <text x="14" y="90" fill="#26de81" fontSize="10" fontFamily="monospace" opacity="0.9">
+        ✓
+      </text>
+      <text x="164" y="90" fill="#ff6b6b" fontSize="10" fontFamily="monospace" opacity="0.9">
+        ✗
+      </text>
+      {/* Row 4: Stars bars */}
+      <rect x="14" y="100" width="88" height="5" rx="2" fill="#7c6bff" opacity="0.1" />
+      <rect x="14" y="100" width="66" height="5" rx="2" fill="#7c6bff" opacity="0.4" />
+      <rect x="164" y="100" width="88" height="5" rx="2" fill="#00d4aa" opacity="0.1" />
+      <rect x="164" y="100" width="36" height="5" rx="2" fill="#00d4aa" opacity="0.4" />
+      {/* Shared connections section */}
+      <text x="14" y="118" fill="#555577" fontSize="6" fontFamily="monospace">
+        Shared connections
+      </text>
+      {/* Left shared dots */}
+      <circle cx="18" cy="132" r="5" fill="#ff6b6b" opacity="0.4" />
+      <circle cx="30" cy="132" r="5" fill="#26de81" opacity="0.4" />
+      <circle cx="42" cy="132" r="5" fill="#fd9644" opacity="0.4" />
+      {/* Right shared dots (mirrored) */}
+      <circle cx="262" cy="132" r="5" fill="#ff6b6b" opacity="0.4" />
+      <circle cx="250" cy="132" r="5" fill="#26de81" opacity="0.4" />
+      <circle cx="238" cy="132" r="5" fill="#fd9644" opacity="0.4" />
+      {/* Dashed lines connecting shared */}
+      <line
+        x1="23"
+        y1="132"
+        x2="257"
+        y2="132"
+        stroke="#ff6b6b"
+        strokeWidth="0.75"
+        strokeDasharray="3 3"
+        opacity="0.25"
+      />
+      <line
+        x1="35"
+        y1="132"
+        x2="245"
+        y2="132"
+        stroke="#26de81"
+        strokeWidth="0.75"
+        strokeDasharray="3 3"
+        opacity="0.25"
+      />
+      <line
+        x1="47"
+        y1="132"
+        x2="233"
+        y2="132"
+        stroke="#fd9644"
+        strokeWidth="0.75"
+        strokeDasharray="3 3"
+        opacity="0.25"
+      />
+      {/* Extra unique-to-each dots */}
+      <circle cx="56" cy="132" r="4" fill="#7c6bff" opacity="0.25" />
+      <circle cx="66" cy="132" r="4" fill="#a29bfe" opacity="0.2" />
+      <circle cx="214" cy="132" r="4" fill="#4ecdc4" opacity="0.25" />
+      <circle cx="224" cy="132" r="4" fill="#00d4aa" opacity="0.2" />
+      {/* Row dividers */}
+      <line x1="14" y1="34" x2="110" y2="34" stroke="#1e1e2e" strokeWidth="0.5" />
+      <line x1="164" y1="34" x2="260" y2="34" stroke="#1e1e2e" strokeWidth="0.5" />
+      <line x1="14" y1="54" x2="110" y2="54" stroke="#1e1e2e" strokeWidth="0.5" />
+      <line x1="164" y1="54" x2="260" y2="54" stroke="#1e1e2e" strokeWidth="0.5" />
+      <line x1="14" y1="74" x2="110" y2="74" stroke="#1e1e2e" strokeWidth="0.5" />
+      <line x1="164" y1="74" x2="260" y2="74" stroke="#1e1e2e" strokeWidth="0.5" />
+      <line x1="14" y1="94" x2="110" y2="94" stroke="#1e1e2e" strokeWidth="0.5" />
+      <line x1="164" y1="94" x2="260" y2="94" stroke="#1e1e2e" strokeWidth="0.5" />
+      <line x1="14" y1="114" x2="110" y2="114" stroke="#1e1e2e" strokeWidth="0.5" />
+      <line x1="164" y1="114" x2="260" y2="114" stroke="#1e1e2e" strokeWidth="0.5" />
+    </svg>
+  );
+}
+
 const VIEWS = [
   {
     href: "/stacks",
@@ -345,6 +526,16 @@ const VIEWS = [
     Icon: IconSettings2,
     accent: "#ff6b6b",
     Preview: BuilderPreview,
+  },
+  {
+    href: "/compare",
+    label: "Compare",
+    tagline: "Side-by-side tool analysis",
+    description:
+      "Pick any two tools and see pricing, type, GitHub stars, shared connections, and unique integrations in one view.",
+    Icon: IconCompare,
+    accent: "#fd9644",
+    Preview: ComparePreview,
   },
 ];
 
@@ -378,7 +569,29 @@ export default function LandingPage() {
           <Logo size={28} id="hero-logo-g" />
           <span style={{ fontSize: 15, fontWeight: 600, color: "#f0f0f8" }}>AIchitect</span>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+          {[
+            { href: "/stacks", label: "Stacks" },
+            { href: "/explore", label: "Graph" },
+            { href: "/builder", label: "Builder" },
+            { href: "/compare", label: "Compare" },
+          ].map(({ href, label }) => (
+            <Link
+              key={href}
+              href={href}
+              className="flex items-center rounded-[7px] text-[#8888aa] hover:text-[#f0f0f8] hover:bg-[#1c1c28] transition-colors"
+              style={{
+                padding: "0 10px",
+                height: 34,
+                fontSize: 12,
+                fontWeight: 500,
+                textDecoration: "none",
+              }}
+            >
+              {label}
+            </Link>
+          ))}
+          <div style={{ width: 1, height: 20, background: "#1e1e2e", margin: "0 6px" }} />
           <a
             href={GITHUB_URL}
             target="_blank"
@@ -387,7 +600,7 @@ export default function LandingPage() {
               display: "flex",
               alignItems: "center",
               gap: 6,
-              padding: "0 14px",
+              padding: "0 12px",
               height: 34,
               borderRadius: 8,
               background: "#1c1c28",
@@ -401,24 +614,6 @@ export default function LandingPage() {
             <IconGitHub />
             GitHub
           </a>
-          <Link
-            href="/explore"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 6,
-              padding: "0 16px",
-              height: 34,
-              borderRadius: 8,
-              background: "#7c6bff",
-              color: "#fff",
-              fontSize: 12,
-              fontWeight: 600,
-              textDecoration: "none",
-            }}
-          >
-            Open App
-          </Link>
         </div>
       </header>
 
@@ -813,6 +1008,7 @@ export default function LandingPage() {
             { label: "Graph", href: "/explore" },
             { label: "Stacks", href: "/stacks" },
             { label: "Builder", href: "/builder" },
+            { label: "Compare", href: "/compare" },
             { label: "GitHub", href: GITHUB_URL, external: true },
           ].map(({ label, href, external }) =>
             external ? (

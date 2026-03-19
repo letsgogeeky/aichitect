@@ -5,6 +5,7 @@ import Link from "next/link";
 import toolsData from "@/data/tools.json";
 import relationshipsData from "@/data/relationships.json";
 import { Tool, Relationship, getCategoryColor, CATEGORIES } from "@/lib/types";
+import { TOOL_COUNT, RELATIONSHIP_COUNT } from "@/lib/constants";
 
 const tools = toolsData as Tool[];
 const relationships = relationshipsData as Relationship[];
@@ -493,8 +494,8 @@ export default async function ComparePage({ params }: Props) {
               Explore the full AI landscape
             </p>
             <p className="text-xs" style={{ color: "var(--text-muted)" }}>
-              See how {a.name} and {b.name} fit into the bigger picture — 111 tools, 243
-              relationships, all mapped.
+              See how {a.name} and {b.name} fit into the bigger picture — {TOOL_COUNT} tools,{" "}
+              {RELATIONSHIP_COUNT} relationships, all mapped.
             </p>
           </div>
           <Link

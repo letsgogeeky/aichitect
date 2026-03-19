@@ -8,7 +8,8 @@
     <a href="https://aichitect.dev">aichitect.dev</a> ·
     <a href="https://aichitect.dev/explore">Explore Graph</a> ·
     <a href="https://aichitect.dev/stacks">Stacks</a> ·
-    <a href="https://aichitect.dev/builder">Builder</a>
+    <a href="https://aichitect.dev/builder">Builder</a> ·
+    <a href="https://aichitect.dev/compare">Compare</a>
   </p>
 
   <img src="https://img.shields.io/badge/tools-123-7c6bff?style=flat-square" alt="123 tools" />
@@ -60,6 +61,14 @@ Pre-built stacks for common AI engineering patterns, each visualized as an integ
 
 Pick one tool per slot and watch your stack wire together with live integration edges. Share your exact stack via a single URL (`?s=cursor,langgraph,gpt-4o,...`).
 
+### Find My Stack — Guided quiz
+
+Not sure where to start? Answer a few questions about your use case and get a personalised stack recommendation with reasoning.
+
+### Compare — Side-by-side tool analysis
+
+Compare any two tools head-to-head: category, pricing, OSS vs. SaaS, GitHub stars, integrations, and a plain-language summary of the tradeoffs. Shareable via URL (`/compare/cursor/windsurf`).
+
 ## Tech Stack
 
 | Layer     | Technology                         |
@@ -90,13 +99,14 @@ make down
 ### Common commands
 
 ```bash
-make run        # Start dev server in foreground (hot reload)
-make down       # Stop and remove containers
-make rebuild    # Full rebuild after adding new packages
-make logs       # Tail container logs
-make shell      # Open shell inside the running container
-make typecheck  # Run tsc --noEmit
-make lint       # Run ESLint
+make run          # Start dev server in foreground (hot reload)
+make down         # Stop and remove containers
+make rebuild      # Full rebuild after adding new packages
+make logs         # Tail container logs
+make shell        # Open shell inside the running container
+make typecheck    # Run tsc --noEmit
+make lint         # Run ESLint
+make sync-counts  # Sync tool/category/stack counts into README.md and CLAUDE.md
 ```
 
 > Requires [Docker](https://docs.docker.com/get-docker/) and Docker Compose.
@@ -105,21 +115,27 @@ make lint       # Run ESLint
 
 ```
 app/
-  page.tsx              # Landing page
-  explore/              # Graph view (FilterPanel + ExploreGraph + DetailPanel)
-  stacks/               # Curated stacks (sidebar + dagre graph)
-  builder/              # Stack builder (slot picker + integration graph)
+  page.tsx                        # Landing page
+  explore/                        # Graph view (FilterPanel + ExploreGraph + DetailPanel)
+  stacks/                         # Curated stacks (sidebar + dagre graph)
+  builder/                        # Stack builder (slot picker + integration graph)
+  compare/[toolA]/[toolB]/        # Side-by-side tool comparison
+  badge/                          # SVG badge endpoint (/badge?s=cursor,langgraph,...)
+  opengraph-image.tsx             # Root OG image (1200×630, edge runtime)
+  robots.ts                       # /robots.txt
+  sitemap.ts                      # /sitemap.xml
 components/
   graph/
-    ExploreGraph.tsx    # Main graph; switches between grid / layers / 3D modes
-    ExploreGraph3D.tsx  # Three.js 3D force graph (SSR-disabled)
-    ToolNode.tsx        # Collapsible card node (190px ↔ 280px)
+    ExploreGraph.tsx              # Main graph; switches between grid / layers / 3D modes
+    ExploreGraph3D.tsx            # Three.js 3D force graph (SSR-disabled)
+    ToolNode.tsx                  # Collapsible card node (190px ↔ 280px)
   panels/
-    FilterPanel.tsx     # Category + relationship filters, search
-    DetailPanel.tsx     # Tool detail slide-in panel
+    FilterPanel.tsx               # Category + relationship filters, search
+    DetailPanel.tsx               # Tool detail slide-in panel
   ui/
-    Navbar.tsx          # Top nav with route-aware controls
-    Logo.tsx            # SVG logo component
+    Navbar.tsx                    # Top nav with route-aware controls
+    Logo.tsx                      # SVG logo component
+    StackQuizModal.tsx            # "Find My Stack" guided quiz modal
 data/
   tools.json            # 123 tools
   relationships.json    # ~283 edges
@@ -128,8 +144,10 @@ data/
 lib/
   types.ts              # TypeScript interfaces + getCategoryColor()
   graph.ts              # Dagre, grid, and swimlane layout functions
-  constants.ts          # SITE_URL, GITHUB_URL, TOOL_COUNT, etc.
+  constants.ts          # SITE_URL, GITHUB_URL, TOOL_COUNT, etc. (auto-derived from data)
   stackStory.ts         # Generates prose narrative from stack selection
+scripts/
+  sync-counts.mjs       # Patches count references in README.md and CLAUDE.md
 ```
 
 ## Contributing
@@ -162,7 +180,7 @@ Contributions are welcome — tools, stacks, bug fixes, and new features.
 { "source": "my-tool", "target": "langchain", "type": "integrates-with" }
 ```
 
-3. Update `TOOL_COUNT` in `lib/constants.ts`.
+Counts in `lib/constants.ts`, `README.md`, and `CLAUDE.md` are updated automatically on the next commit via the pre-commit hook.
 
 ### Adding a stack
 
