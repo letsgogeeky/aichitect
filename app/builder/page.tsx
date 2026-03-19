@@ -21,6 +21,7 @@ import { applyDagreLayout } from "@/lib/graph";
 import { SLOT_AUTONOMY, generateStackStory } from "@/lib/stackStory";
 import ToolNode from "@/components/graph/ToolNode";
 import ComparisonPanel from "@/components/panels/ComparisonPanel";
+import StackHealthPanel from "@/components/panels/StackHealthPanel";
 
 const slots = slotsData as Slot[];
 const allTools = toolsData as Tool[];
@@ -245,6 +246,13 @@ function BuilderPageContent() {
               </button>
             </div>
           )}
+
+          <StackHealthPanel
+            selected={selected}
+            slots={slots}
+            allTools={allTools}
+            onAddTool={pickTool}
+          />
 
           {visibleSlots.map((slot) => {
             const selectedId = selected[slot.id];

@@ -1,9 +1,6 @@
 export type ToolType = "oss" | "commercial";
 
-export type RelationshipType =
-  | "integrates-with"
-  | "commonly-paired"
-  | "competes-with";
+export type RelationshipType = "integrates-with" | "commonly-paired" | "competes-with";
 
 export type CategoryId =
   | "coding-assistants"
@@ -79,6 +76,9 @@ export interface Slot {
   name: string;
   description: string;
   tools: string[];
+  priority: "required" | "recommended" | "optional";
+  suggest?: string; // tool id to recommend when slot is empty
+  suggest_reason?: string; // one-line reason shown in health panel
 }
 
 export interface CategoryMeta {
@@ -90,8 +90,8 @@ export interface CategoryMeta {
 // Stack layer groups — used for pipeline reasoning UI
 export interface StackLayer {
   id: string;
-  label: string;          // short display name: "Development", "AI Logic", etc.
-  question: string;       // "What question does this answer in your stack?"
+  label: string; // short display name: "Development", "AI Logic", etc.
+  question: string; // "What question does this answer in your stack?"
   description: string;
   categories: CategoryId[];
 }
@@ -101,7 +101,8 @@ export const STACK_LAYERS: StackLayer[] = [
     id: "planning",
     label: "Planning & Spec",
     question: "What are you building and how is it defined?",
-    description: "Specification engineering, API design, and architecture — the upstream layer where what gets built is defined.",
+    description:
+      "Specification engineering, API design, and architecture — the upstream layer where what gets built is defined.",
     categories: ["specifications", "product-mgmt"],
   },
   {
@@ -115,7 +116,8 @@ export const STACK_LAYERS: StackLayer[] = [
     id: "ai-logic",
     label: "AI Logic",
     question: "How does your AI think and act?",
-    description: "Frameworks and pipelines that structure how your AI reasons, plans, and retrieves knowledge.",
+    description:
+      "Frameworks and pipelines that structure how your AI reasons, plans, and retrieves knowledge.",
     categories: ["agent-frameworks", "pipelines-rag"],
   },
   {
@@ -135,18 +137,18 @@ export const STACK_LAYERS: StackLayer[] = [
 ];
 
 export const CATEGORIES: CategoryMeta[] = [
-  { id: "coding-assistants",  label: "Coding Assistants",  color: "#7c6bff" },
-  { id: "autonomous-agents",  label: "Autonomous Agents",  color: "#ff6b6b" },
-  { id: "agent-frameworks",   label: "Agent Frameworks",   color: "#fdcb6e" },
-  { id: "pipelines-rag",      label: "Pipelines & RAG",    color: "#26de81" },
-  { id: "llm-infra",          label: "LLM Infrastructure", color: "#4ecdc4" },
-  { id: "design",             label: "Design & UI",        color: "#ff9f43" },
-  { id: "devops",             label: "DevOps & CI/CD",     color: "#fd9644" },
-  { id: "docs",               label: "Documentation",      color: "#74b9ff" },
-  { id: "product-mgmt",       label: "Product & PM",       color: "#fd79a8" },
-  { id: "mcp",                label: "MCP Servers",        color: "#a29bfe" },
-  { id: "prompt-eval",        label: "Prompt & Eval",      color: "#55efc4" },
-  { id: "specifications",     label: "Specifications",     color: "#e17055" },
+  { id: "coding-assistants", label: "Coding Assistants", color: "#7c6bff" },
+  { id: "autonomous-agents", label: "Autonomous Agents", color: "#ff6b6b" },
+  { id: "agent-frameworks", label: "Agent Frameworks", color: "#fdcb6e" },
+  { id: "pipelines-rag", label: "Pipelines & RAG", color: "#26de81" },
+  { id: "llm-infra", label: "LLM Infrastructure", color: "#4ecdc4" },
+  { id: "design", label: "Design & UI", color: "#ff9f43" },
+  { id: "devops", label: "DevOps & CI/CD", color: "#fd9644" },
+  { id: "docs", label: "Documentation", color: "#74b9ff" },
+  { id: "product-mgmt", label: "Product & PM", color: "#fd79a8" },
+  { id: "mcp", label: "MCP Servers", color: "#a29bfe" },
+  { id: "prompt-eval", label: "Prompt & Eval", color: "#55efc4" },
+  { id: "specifications", label: "Specifications", color: "#e17055" },
 ];
 
 export function getCategoryColor(id: CategoryId): string {

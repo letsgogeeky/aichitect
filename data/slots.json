@@ -3,96 +3,224 @@
     "id": "code-editor",
     "name": "Where do you write code?",
     "description": "Your primary coding environment — the IDE where you spend most of your time",
-    "tools": ["cursor", "windsurf", "continue", "zed", "github-copilot", "tabnine", "supermaven", "aide", "replit-ghostwriter", "jetbrains-ai"]
+    "tools": [
+      "cursor",
+      "windsurf",
+      "continue",
+      "zed",
+      "github-copilot",
+      "tabnine",
+      "supermaven",
+      "aide",
+      "replit-ghostwriter",
+      "jetbrains-ai"
+    ],
+    "priority": "required",
+    "suggest": "cursor",
+    "suggest_reason": "The default AI-first editor — AI pair programming built in from day one"
   },
   {
     "id": "cli-agent",
     "name": "Who runs your terminal tasks?",
     "description": "A CLI agent you direct to handle multi-step coding tasks autonomously",
-    "tools": ["claude-code", "aider", "plandex", "goose", "cline"]
+    "tools": ["claude-code", "aider", "plandex", "goose", "cline"],
+    "priority": "recommended",
+    "suggest": "claude-code",
+    "suggest_reason": "Best-in-class terminal agent for autonomous, multi-file coding tasks"
   },
   {
     "id": "swe-agent",
     "name": "Who builds autonomously for you?",
     "description": "A fully autonomous agent you assign tasks to — it handles entire features or PRs",
-    "tools": ["devin", "openhands", "swe-agent", "bolt-new", "lovable", "gpt-pilot"]
+    "tools": ["devin", "openhands", "swe-agent", "bolt-new", "lovable", "gpt-pilot"],
+    "priority": "optional"
   },
   {
     "id": "agent-framework",
     "name": "How does your AI reason and plan?",
     "description": "The framework that structures how your AI thinks, uses tools, and coordinates agents",
-    "tools": ["crewai", "autogen", "langgraph", "metagpt", "semantic-kernel", "mastra", "pydantic-ai", "smolagents", "agno"]
+    "tools": [
+      "crewai",
+      "autogen",
+      "langgraph",
+      "metagpt",
+      "semantic-kernel",
+      "mastra",
+      "pydantic-ai",
+      "smolagents",
+      "agno"
+    ],
+    "priority": "optional",
+    "suggest": "langgraph",
+    "suggest_reason": "Production-grade state machine — the right foundation for complex agents"
   },
   {
     "id": "orchestration",
     "name": "How do your AI calls chain together?",
     "description": "The pipeline layer that connects LLM calls, retrieval, and data processing into a workflow",
-    "tools": ["langchain", "llamaindex", "dspy", "flowise", "dify", "n8n", "haystack", "langflow", "vercel-ai-sdk"]
+    "tools": [
+      "langchain",
+      "llamaindex",
+      "dspy",
+      "flowise",
+      "dify",
+      "n8n",
+      "haystack",
+      "langflow",
+      "vercel-ai-sdk"
+    ],
+    "priority": "recommended",
+    "suggest": "vercel-ai-sdk",
+    "suggest_reason": "Lightweight and easy to start — integrates with any model provider"
   },
   {
     "id": "model-router",
     "name": "Which models does your stack route through?",
     "description": "A gateway that normalizes calls across providers — one API for all models, with fallbacks",
-    "tools": ["litellm", "openrouter", "portkey"]
+    "tools": ["litellm", "openrouter", "portkey"],
+    "priority": "optional"
   },
   {
     "id": "inference",
     "name": "Where do your models actually run?",
     "description": "LLM providers and inference servers — where the actual model computation happens",
-    "tools": ["ollama", "vllm", "groq", "together-ai", "fireworks-ai", "llama-cpp", "replicate", "huggingface", "mistral-api", "cohere-api", "anthropic-api", "openai-api"]
+    "tools": [
+      "ollama",
+      "vllm",
+      "groq",
+      "together-ai",
+      "fireworks-ai",
+      "llama-cpp",
+      "replicate",
+      "huggingface",
+      "mistral-api",
+      "cohere-api",
+      "anthropic-api",
+      "openai-api"
+    ],
+    "priority": "required",
+    "suggest": "anthropic-api",
+    "suggest_reason": "Claude powers most serious AI stacks — state of the art reasoning and coding"
   },
   {
     "id": "vector-db",
     "name": "What knowledge does your AI have?",
     "description": "The memory layer — stores and retrieves vector embeddings for RAG and semantic search",
-    "tools": ["qdrant", "chroma", "pgvector", "pinecone", "weaviate", "milvus"]
+    "tools": ["qdrant", "chroma", "pgvector", "pinecone", "weaviate", "milvus"],
+    "priority": "optional",
+    "suggest": "chroma",
+    "suggest_reason": "Easiest vector DB to get started — runs locally with no infrastructure"
   },
   {
     "id": "observability",
     "name": "How do you see what's happening?",
     "description": "Traces every LLM call, eval, and cost so you know exactly what your stack is doing",
-    "tools": ["langfuse", "langsmith", "helicone", "arize-phoenix", "braintrust", "weights-biases", "traceloop", "logfire"]
+    "tools": [
+      "langfuse",
+      "langsmith",
+      "helicone",
+      "arize-phoenix",
+      "braintrust",
+      "weights-biases",
+      "traceloop",
+      "logfire"
+    ],
+    "priority": "recommended",
+    "suggest": "langfuse",
+    "suggest_reason": "OSS, one line to add — you can't improve what you can't see"
   },
   {
     "id": "design-to-code",
     "name": "How does your UI get built?",
     "description": "Converts designs, prompts, or Figma files into production-ready UI components",
-    "tools": ["v0", "galileo", "locofy", "builder-io", "webflow-ai", "anima", "kombai", "framer-ai", "uizard", "relume"]
+    "tools": [
+      "v0",
+      "galileo",
+      "locofy",
+      "builder-io",
+      "webflow-ai",
+      "anima",
+      "kombai",
+      "framer-ai",
+      "uizard",
+      "relume"
+    ],
+    "priority": "optional"
   },
   {
     "id": "devops-automation",
     "name": "Who handles your code quality?",
     "description": "Automates code review, PR triage, test generation, and security scanning",
-    "tools": ["coderabbit", "sweep-ai", "qodo", "graphite", "trunk", "codegen", "sourcery", "grit-io", "pixee"]
+    "tools": [
+      "coderabbit",
+      "sweep-ai",
+      "qodo",
+      "graphite",
+      "trunk",
+      "codegen",
+      "sourcery",
+      "grit-io",
+      "pixee"
+    ],
+    "priority": "optional"
   },
   {
     "id": "mcp-infra",
     "name": "What tools can your AI reach?",
     "description": "MCP servers that give your AI agent access to browsers, APIs, repos, and more",
-    "tools": ["mcp-sdk-ts", "mcp-sdk-python", "fastmcp", "smithery", "e2b", "context7", "playwright-mcp", "github-mcp"]
+    "tools": [
+      "mcp-sdk-ts",
+      "mcp-sdk-python",
+      "fastmcp",
+      "smithery",
+      "e2b",
+      "context7",
+      "playwright-mcp",
+      "github-mcp"
+    ],
+    "priority": "optional"
   },
   {
     "id": "prompt-eval",
     "name": "How do you know it's working?",
     "description": "Tests, evals, and experiment tracking to measure and improve your AI output quality",
-    "tools": ["promptfoo", "deepeval", "ragas", "vellum", "promptlayer", "agenta"]
+    "tools": ["promptfoo", "deepeval", "ragas", "vellum", "promptlayer", "agenta"],
+    "priority": "recommended",
+    "suggest": "promptfoo",
+    "suggest_reason": "Catch output regressions before users do — CI-friendly and OSS"
   },
   {
     "id": "docs",
     "name": "How does your team stay in sync?",
     "description": "AI-powered documentation that writes itself and stays current with your codebase",
-    "tools": ["mintlify", "swimm", "notion-ai", "gitbook-ai"]
+    "tools": ["mintlify", "swimm", "notion-ai", "gitbook-ai"],
+    "priority": "optional"
   },
   {
     "id": "product-mgmt",
     "name": "How do you manage what gets built?",
     "description": "AI tools for prioritization, roadmapping, and turning user feedback into decisions",
-    "tools": ["linear-ai", "cycle", "height-ai", "kraftful"]
+    "tools": ["linear-ai", "cycle", "height-ai", "kraftful"],
+    "priority": "optional"
   },
   {
     "id": "specifications",
     "name": "How do you define what you're building?",
     "description": "Spec writing, API design, architecture diagrams, and contract-first tooling — the upstream layer before code is written",
-    "tools": ["spec-kit", "mermaid", "eraser", "structurizr", "swagger", "redocly", "asyncapi", "stoplight", "speakeasy", "fern", "stainless", "openapi-generator"]
+    "tools": [
+      "spec-kit",
+      "mermaid",
+      "eraser",
+      "structurizr",
+      "swagger",
+      "redocly",
+      "asyncapi",
+      "stoplight",
+      "speakeasy",
+      "fern",
+      "stainless",
+      "openapi-generator"
+    ],
+    "priority": "optional"
   }
 ]

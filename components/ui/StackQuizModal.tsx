@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { scoreStacks, QuizAnswers, StackMatch } from "@/lib/quizScoring";
 import stacksData from "@/data/stacks.json";
@@ -487,13 +487,15 @@ export function StackQuizModal({ onClose }: Props) {
   function reset() {
     setStep(0);
     setAnswers({});
-    setResults(null);
   }
 
   const topMatches = results
     ? results
         .slice(0, 2)
-        .map((m) => ({ match: m, stack: stacks.find((s) => s.id === m.stackId) }))
+        .map((m: StackMatch) => ({
+          match: m,
+          stack: stacks.find((s: Stack) => s.id === m.stackId),
+        }))
         .filter((x): x is { match: StackMatch; stack: Stack } => !!x.stack)
     : [];
 
