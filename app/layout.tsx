@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { SITE_URL, GITHUB_URL, TOOL_COUNT, CATEGORY_COUNT } from "@/lib/constants";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SuggestToolProvider } from "@/components/ui/SuggestToolContext";
 import { WalkthroughProvider } from "@/components/ui/WalkthroughContext";
 
@@ -108,6 +109,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <SuggestToolProvider>
             {children}
             <Analytics />
+            <SpeedInsights />
           </SuggestToolProvider>
         </WalkthroughProvider>
       </body>

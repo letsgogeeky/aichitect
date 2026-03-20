@@ -29,9 +29,10 @@ export default function DetailPanel({ tool, onClose }: Props) {
 
   const stackIds = (searchParams.get("s") ?? "").split(",").filter(Boolean);
   const inStack = stackIds.includes(tool.id);
+  const toolId = tool.id;
 
   function toggleStack() {
-    const next = inStack ? stackIds.filter((id) => id !== tool.id) : [...stackIds, tool.id];
+    const next = inStack ? stackIds.filter((id) => id !== toolId) : [...stackIds, toolId];
     const url = new URL(window.location.href);
     if (next.length > 0) url.searchParams.set("s", next.join(","));
     else url.searchParams.delete("s");
