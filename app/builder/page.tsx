@@ -206,7 +206,9 @@ function BuilderPageContent() {
   }
 
   const selectedCount = Object.values(selected).filter(Boolean).length;
-  const [collapsedSlots, setCollapsedSlots] = useState<Record<string, boolean>>({});
+  const [collapsedSlots, setCollapsedSlots] = useState<Record<string, boolean>>(() =>
+    Object.fromEntries(slots.map((s) => [s.id, true]))
+  );
   const [mobileSlotPickerOpen, setMobileSlotPickerOpen] = useState(false);
   const isMobile = useIsMobile();
 

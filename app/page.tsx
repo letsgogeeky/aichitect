@@ -830,7 +830,7 @@ export default function LandingPage() {
               WebkitTextFillColor: "transparent",
             }}
           >
-            Your stack shouldn&apos;t be.
+            Picking the right stack shouldn&apos;t be.
           </span>
         </h1>
 
@@ -918,6 +918,60 @@ export default function LandingPage() {
           ))}
         </div>
       </section>
+
+      {/* ── Path hint ── */}
+      <div
+        style={{
+          maxWidth: 1100,
+          margin: "0 auto",
+          padding: "0 24px 40px",
+          display: "flex",
+          alignItems: "center",
+          gap: 12,
+          flexWrap: "wrap",
+        }}
+      >
+        <span style={{ fontSize: 12, color: "#444466", flexShrink: 0 }}>
+          Not sure where to start?
+        </span>
+        <Link
+          href="/stacks"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 6,
+            padding: "5px 14px",
+            borderRadius: 8,
+            background: "#00d4aa12",
+            border: "1px solid #00d4aa33",
+            color: "#00d4aa",
+            fontSize: 12,
+            fontWeight: 500,
+            textDecoration: "none",
+          }}
+        >
+          <IconLayers />
+          I&apos;m new — show me curated stacks
+        </Link>
+        <Link
+          href="/builder"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 6,
+            padding: "5px 14px",
+            borderRadius: 8,
+            background: "#ff6b6b12",
+            border: "1px solid #ff6b6b33",
+            color: "#ff6b6b",
+            fontSize: 12,
+            fontWeight: 500,
+            textDecoration: "none",
+          }}
+        >
+          <IconSettings2 />I know what I need — let me build
+        </Link>
+      </div>
 
       {/* ── View cards ── */}
       <section
