@@ -4,6 +4,19 @@
     "name": "Indie Hacker / Startup Stack",
     "description": "Near-zero infra overhead; AI handles 60-80% of boilerplate. The fastest path from idea to deployed SaaS.",
     "target": "Solo founders and small teams shipping full-stack web apps fast",
+    "cluster": "build",
+    "mission": "You have 2 weeks to validate an idea. You're the only engineer. Your runway is 3 months.",
+    "not_in_stack": [
+      { "tool": "langgraph", "reason": "Orchestration overhead kills solo velocity at this stage" },
+      { "tool": "vllm", "reason": "GPU ops are a full-time job you don't have" },
+      { "tool": "pgvector", "reason": "Don't add a Postgres instance just to prove a concept" }
+    ],
+    "kill_conditions": [
+      "Team grows beyond 3 engineers",
+      "Any compliance or data residency requirement appears",
+      "Request volume exceeds 50k/day consistently"
+    ],
+    "graduates_to": "llm-startup-infra",
     "tags": ["fast shipping", "SaaS", "solo dev"],
     "why": "Solo founders need to ship fast. This stack maximises AI leverage at every layer — v0 generates the UI, Cursor edits the code, Claude Code handles multi-step terminal tasks, the Vercel AI SDK manages streaming LLM calls, and Langfuse keeps traces so you know when something breaks. Practically zero ops overhead.",
     "tradeoffs": "Tight coupling to the Vercel/OpenAI ecosystem. Works best for standard web apps — not the right fit for high-throughput workloads, regulated data, or teams with strict compliance requirements.",
@@ -19,88 +32,32 @@
     ]
   },
   {
-    "id": "agentic-coding",
-    "name": "Agentic Coding Stack",
-    "description": "Full loop from task to reviewed PR without human keyboard input. AI reads, writes, executes, and ships.",
-    "target": "Teams delegating feature development, bug fixing, and refactoring to AI agents",
-    "tags": ["autonomous", "coding", "agents"],
-    "why": "Close the loop between AI writing code and it being reviewed, tested, and merged. Claude Code reads the repo via GitHub MCP, executes safely in E2B sandboxes, and gets reviewed by CodeRabbit before any human sees the PR. OpenHands handles longer autonomous runs — it also executes in E2B and submits PRs that go through the same review gate.",
-    "tradeoffs": "Autonomous agents diverge without clear task specs and tight scope. Requires disciplined prompt engineering and explicit task boundaries. Debugging agent failures mid-run is non-trivial.",
-    "complexity": "intermediate",
-    "monthly_cost": "$100–400",
-    "tools": ["claude-code", "openhands", "github-mcp", "e2b", "coderabbit", "langfuse"],
-    "flow": [
-      { "from": "claude-code", "to": "github-mcp", "label": "reads repo via" },
-      { "from": "claude-code", "to": "e2b", "label": "executes in" },
-      { "from": "claude-code", "to": "coderabbit", "label": "PRs reviewed by" },
-      { "from": "openhands", "to": "github-mcp", "label": "reads repo via" },
-      { "from": "openhands", "to": "e2b", "label": "executes in" },
-      { "from": "openhands", "to": "coderabbit", "label": "PRs reviewed by" },
-      { "from": "claude-code", "to": "langfuse", "label": "traced by" }
-    ]
-  },
-  {
-    "id": "enterprise-rag",
-    "name": "Enterprise RAG Stack",
-    "description": "Mature, well-observed, enterprise-proven. Full RAG pipeline with routing, eval, and observability from day one.",
-    "target": "Internal knowledge bases, customer support bots, and document Q&A at scale",
-    "tags": ["RAG", "enterprise", "knowledge base"],
-    "why": "Enterprise RAG needs more than a simple chain — it needs routing, branching retrieval logic, and evaluation you can run in CI. LangGraph handles complex multi-step retrieval; pgvector keeps sensitive data in your existing Postgres; LiteLLM gives you model flexibility without lock-in, routing to both OpenAI and Anthropic; LangSmith traces every step so you can debug retrieval quality and catch regressions.",
-    "tradeoffs": "High complexity and ops overhead. Overkill for simple Q&A or small-scale use. Requires a team with LLM engineering experience to instrument evals properly and maintain retrieval quality as data grows.",
-    "complexity": "advanced",
-    "monthly_cost": "$500–2000",
-    "tools": ["langgraph", "pgvector", "litellm", "langsmith", "openai-api", "anthropic-api"],
-    "flow": [
-      { "from": "langgraph", "to": "pgvector", "label": "retrieves from" },
-      { "from": "langgraph", "to": "litellm", "label": "routes LLM calls via" },
-      { "from": "litellm", "to": "openai-api", "label": "routes to" },
-      { "from": "litellm", "to": "anthropic-api", "label": "routes to" },
-      { "from": "langgraph", "to": "langsmith", "label": "traced by" }
-    ]
-  },
-  {
-    "id": "oss-self-hosted",
-    "name": "OSS Self-Hosted AI Stack",
-    "description": "Zero data egress; entirely on-premise. Full AI capabilities without sending a single byte to an external service.",
-    "target": "Privacy-first orgs, regulated industries, and teams with strict data residency requirements",
-    "tags": ["OSS", "self-hosted", "privacy"],
-    "why": "Every component is open-source and self-hostable. Ollama serves models locally for interactive use; vLLM handles production inference throughput. LlamaIndex builds the retrieval pipeline; Qdrant stores vectors on your infra; Langfuse traces — all without any data leaving your network.",
-    "tradeoffs": "You own the entire ops burden. Smaller open models have a lower capability ceiling than GPT-4o or Claude — expect more prompt engineering work to get comparable output quality. Infra and GPU costs can exceed managed services at scale.",
-    "complexity": "advanced",
-    "monthly_cost": "Infra only",
-    "tools": ["ollama", "vllm", "llamaindex", "qdrant", "langfuse"],
-    "flow": [
-      { "from": "ollama", "to": "llamaindex", "label": "serves models to" },
-      { "from": "vllm", "to": "llamaindex", "label": "serves models to" },
-      { "from": "llamaindex", "to": "qdrant", "label": "stores embeddings in" },
-      { "from": "llamaindex", "to": "langfuse", "label": "traced by" }
-    ]
-  },
-  {
-    "id": "multi-agent-devops",
-    "name": "Multi-Agent DevOps Stack",
-    "description": "Specialised agents working in parallel — one triages, one fixes, one reviews. Dramatically reduces cycle time.",
-    "target": "Engineering teams automating issue triage, code fixes, and PR review",
-    "tags": ["multi-agent", "DevOps", "automation"],
-    "why": "Specialised agents working in parallel reduce cycle time dramatically. LangGraph coordinates the handoffs — it assigns tasks to Claude Code for implementation and Sweep for automated fixes, keeps agents wired to the live repo state via GitHub MCP, and routes all PRs to CodeRabbit for review before any human sees them.",
-    "tradeoffs": "Multi-agent coordination adds latency and token cost. Clear agent boundaries are required to prevent conflicts. Debugging inter-agent failures mid-run is non-trivial and requires good tracing from day one.",
-    "complexity": "advanced",
-    "monthly_cost": "$200–600",
-    "tools": ["langgraph", "claude-code", "github-mcp", "sweep-ai", "coderabbit", "langsmith"],
-    "flow": [
-      { "from": "langgraph", "to": "claude-code", "label": "assigns tasks to" },
-      { "from": "langgraph", "to": "sweep-ai", "label": "triggers fixes via" },
-      { "from": "claude-code", "to": "github-mcp", "label": "reads repo via" },
-      { "from": "claude-code", "to": "coderabbit", "label": "PRs reviewed by" },
-      { "from": "sweep-ai", "to": "coderabbit", "label": "PRs reviewed by" },
-      { "from": "langgraph", "to": "langsmith", "label": "traced by" }
-    ]
-  },
-  {
     "id": "design-to-code",
     "name": "AI Design-to-Code Pipeline",
     "description": "Eliminates the translation cost between design and implementation. From prompt or Figma to production components.",
     "target": "Design–engineering handoff, component libraries, and rapid prototyping",
+    "cluster": "build",
+    "mission": "Your designer keeps handing off Figma files that take 3 days to implement. You need production-quality components in hours, not days.",
+    "not_in_stack": [
+      {
+        "tool": "langgraph",
+        "reason": "No pipeline orchestration needed — it's a linear design-to-component flow"
+      },
+      {
+        "tool": "langfuse",
+        "reason": "No LLM calls to observe; the AI generation happens inside the design tools"
+      },
+      {
+        "tool": "openai-api",
+        "reason": "Direct API access adds complexity — v0 and Locofy already wrap it"
+      }
+    ],
+    "kill_conditions": [
+      "Design system grows complex enough to need API spec governance",
+      "Component count exceeds what AI can reliably generate without drift",
+      "Team needs reproducible outputs with spec-level guarantees"
+    ],
+    "graduates_to": "spec-driven-ai",
     "tags": ["design", "UI", "prototyping"],
     "why": "Designers generate production-quality React/Tailwind components via v0; Locofy handles Figma-to-code conversion; Cursor lets engineers refine and extend them; Claude Code handles multi-file tasks and larger refactors without leaving the terminal; Qodo auto-generates test coverage. No handoff document, no translation loss.",
     "tradeoffs": "AI-generated code often needs cleanup, especially for non-standard designs. Works best for established design systems and common component patterns. Final output quality is tightly coupled to the quality and consistency of your design inputs.",
@@ -115,29 +72,32 @@
     ]
   },
   {
-    "id": "llm-startup-infra",
-    "name": "LLM Production Infra Stack",
-    "description": "Provider-agnostic from day one. Swap models without touching app code; full cost and quality visibility.",
-    "target": "AI-native startups and teams shipping LLM-powered products to production",
-    "tags": ["infrastructure", "observability", "multi-provider"],
-    "why": "The Vercel AI SDK is the app's entry point — it handles streaming UIs and chains LLM calls through LiteLLM, which normalises every provider API so you can swap models with a config change. LiteLLM routes to OpenAI or Anthropic and pipes traces into Langfuse for per-request cost and quality visibility. Qdrant handles semantic retrieval when context needs to come from your own data.",
-    "tradeoffs": "The proxy layer adds latency (~10–30ms overhead). Requires discipline to define meaningful evals early — bad evals give false confidence. Cost control is critical at volume; easy to miss runaway usage without alerting.",
-    "complexity": "intermediate",
-    "monthly_cost": "$100–1000",
-    "tools": ["vercel-ai-sdk", "litellm", "langfuse", "qdrant", "openai-api", "anthropic-api"],
-    "flow": [
-      { "from": "vercel-ai-sdk", "to": "litellm", "label": "routes LLM calls via" },
-      { "from": "litellm", "to": "openai-api", "label": "routes to" },
-      { "from": "litellm", "to": "anthropic-api", "label": "routes to" },
-      { "from": "litellm", "to": "langfuse", "label": "sends traces to" },
-      { "from": "vercel-ai-sdk", "to": "qdrant", "label": "retrieves context from" }
-    ]
-  },
-  {
     "id": "mcp-power-user",
     "name": "MCP Power User Stack",
     "description": "MCP turns your AI into an agent that can browse, write to repos, and execute code — one protocol, full reach.",
     "target": "Individual power users and small teams wanting unified AI orchestration across all their tools",
+    "cluster": "build",
+    "mission": "You're running 4 different AI tools with no shared context. You want one AI that can touch your repo, browse the web, and run code without copy-pasting between windows.",
+    "not_in_stack": [
+      {
+        "tool": "langgraph",
+        "reason": "Full orchestration framework is overkill when MCP handles tool dispatch natively"
+      },
+      {
+        "tool": "vercel-ai-sdk",
+        "reason": "You're not building a product — you're augmenting your own workflow"
+      },
+      {
+        "tool": "langfuse",
+        "reason": "Personal-use workflows don't yet need production observability overhead"
+      }
+    ],
+    "kill_conditions": [
+      "Security audit flags broad MCP server access permissions",
+      "Team size grows and shared access governance is needed",
+      "Custom server count exceeds what manual maintenance allows"
+    ],
+    "graduates_to": "agentic-coding",
     "tags": ["MCP", "automation", "power user"],
     "why": "MCP eliminates the need for separate AI integrations per tool. Cursor and Claude Code connect directly to MCP servers — GitHub MCP for live repo access, Playwright MCP for browser automation, E2B for safe code execution. Smithery is your registry for discovering pre-built community servers. The MCP TypeScript SDK is what you reach for when you need to build a custom server that none of those cover.",
     "tradeoffs": "The MCP ecosystem is still maturing — some servers are experimental and break. The security model requires careful server vetting; each server gets broad access by design. Not suitable for sensitive environments without strict server auditing.",
@@ -164,12 +124,396 @@
     ]
   },
   {
+    "id": "no-code-ai",
+    "name": "No-Code AI Automation Stack",
+    "description": "Full AI workflow automation without writing a line of code. Connect models, triggers, and actions through visual builders.",
+    "target": "Non-technical teams, operators, and PMs who need AI workflows without an engineering bottleneck",
+    "cluster": "build",
+    "mission": "Your ops team needs to automate lead enrichment, document summarization, and Slack alerts using AI — and the engineering queue is 6 weeks long.",
+    "not_in_stack": [
+      {
+        "tool": "langgraph",
+        "reason": "Requires Python and graph programming knowledge — defeats the point"
+      },
+      {
+        "tool": "vercel-ai-sdk",
+        "reason": "Code-first SDK; the target user doesn't write TypeScript"
+      },
+      { "tool": "cursor", "reason": "IDE with AI assistance still requires writing code" }
+    ],
+    "kill_conditions": [
+      "Workflow complexity exceeds what visual builders can express without workarounds",
+      "Team needs version control and CI/CD on workflow logic",
+      "Performance requirements demand custom-optimized pipelines"
+    ],
+    "graduates_to": "indie-hacker",
+    "tags": ["no-code", "automation", "non-technical"],
+    "why": "n8n handles event-driven orchestration — webhooks, schedules, API calls — with a visual canvas and 400+ integrations. Flowise adds a drag-and-drop LLM chain builder on top. Dify provides a ready-made LLM app platform for prompt management, model switching, and dataset Q&A without code. OpenAI API is the model backend everything calls. This stack produces working AI automation in hours, not sprints.",
+    "tradeoffs": "Visual builders hit a ceiling fast. Complex branching logic, custom data transforms, and stateful multi-step agents require code eventually. Vendor lock-in to hosted no-code platforms can become a migration cost as complexity grows.",
+    "complexity": "beginner",
+    "monthly_cost": "$30–150",
+    "tools": ["n8n", "flowise", "dify", "openai-api"],
+    "flow": [
+      { "from": "n8n", "to": "flowise", "label": "triggers LLM chains in" },
+      { "from": "n8n", "to": "dify", "label": "calls workflows in" },
+      { "from": "flowise", "to": "openai-api", "label": "routes completions to" },
+      { "from": "dify", "to": "openai-api", "label": "routes completions to" }
+    ]
+  },
+  {
+    "id": "typescript-only",
+    "name": "TypeScript-Only AI Stack",
+    "description": "Full AI product capability — agents, RAG, observability — without a single line of Python.",
+    "target": "Frontend and full-stack teams who live in TypeScript and refuse to introduce a Python service",
+    "cluster": "build",
+    "mission": "Your team ships TypeScript. Someone suggested LangChain. You've decided you'd rather not introduce a Python microservice just to call an LLM.",
+    "not_in_stack": [
+      {
+        "tool": "langchain",
+        "reason": "Primary SDK is Python-first; TypeScript port lags significantly behind"
+      },
+      {
+        "tool": "langgraph",
+        "reason": "Python-native orchestration — Mastra covers the same ground in TypeScript"
+      },
+      {
+        "tool": "llamaindex",
+        "reason": "TypeScript version is a second-class citizen compared to the Python library"
+      }
+    ],
+    "kill_conditions": [
+      "Need to use ML libraries that only exist in Python (PyTorch, HuggingFace training)",
+      "Team hires ML engineers who expect a Python stack",
+      "Fine-tuning or custom model training becomes a requirement"
+    ],
+    "graduates_to": "llm-startup-infra",
+    "tags": ["TypeScript", "full-stack", "no Python"],
+    "why": "Vercel AI SDK is the foundation — TypeScript-native, handles streaming, tool calls, and multi-step agents. Mastra provides TypeScript-first agent orchestration with built-in memory and workflow primitives. Qdrant has a full TypeScript client for vector search. Langfuse's TypeScript SDK handles tracing without leaving the ecosystem. Everything is typed end-to-end.",
+    "tradeoffs": "TypeScript AI tooling is 6–12 months behind its Python equivalents in feature depth. Complex RAG patterns and fine-tuning pipelines will eventually force a Python boundary. Some research-grade tooling has no TypeScript port at all.",
+    "complexity": "intermediate",
+    "monthly_cost": "$100–400",
+    "tools": ["cursor", "vercel-ai-sdk", "mastra", "qdrant", "langfuse", "openai-api"],
+    "flow": [
+      { "from": "cursor", "to": "vercel-ai-sdk", "label": "develops against" },
+      { "from": "vercel-ai-sdk", "to": "mastra", "label": "orchestrates agents via" },
+      { "from": "mastra", "to": "openai-api", "label": "routes completions to" },
+      { "from": "mastra", "to": "qdrant", "label": "retrieves context from" },
+      { "from": "vercel-ai-sdk", "to": "langfuse", "label": "sends traces to" }
+    ]
+  },
+  {
+    "id": "zero-budget-oss",
+    "name": "Zero-Budget OSS Stack",
+    "description": "Build a fully capable AI product with $0/mo in API costs. Everything runs locally; nothing phones home.",
+    "target": "Bootstrapped projects, OSS contributors, and developers who want capability without recurring API bills",
+    "cluster": "build",
+    "mission": "You have a working laptop, a GitHub account, and zero budget for API subscriptions. You want a capable AI coding and Q&A setup anyway.",
+    "not_in_stack": [
+      {
+        "tool": "openai-api",
+        "reason": "Every token costs money — that's the constraint you're solving around"
+      },
+      {
+        "tool": "langfuse",
+        "reason": "The cloud-hosted tier defeats the zero-egress goal; self-host it if you need tracing"
+      },
+      {
+        "tool": "cursor",
+        "reason": "Commercial product with a subscription; Continue gives 80% of the value for free"
+      }
+    ],
+    "kill_conditions": [
+      "Project goes to production and output quality ceiling of local models becomes a problem",
+      "Inference speed requirements exceed what consumer hardware can deliver",
+      "Team size grows and centralized model serving is needed"
+    ],
+    "graduates_to": "oss-self-hosted",
+    "tags": ["OSS", "zero cost", "local", "bootstrapped"],
+    "why": "Ollama runs Llama, Mistral, and Qwen locally with a single command. Aider is an OSS CLI coding assistant that drives those local models on your codebase. Continue adds inline AI assistance inside VS Code for free. LlamaIndex handles RAG pipelines and points at local models. Chroma is an in-process vector DB with no cloud dependency. The entire stack runs on a MacBook.",
+    "tradeoffs": "Local models top out at 70B parameters on consumer hardware. Output quality is noticeably below GPT-4o or Claude for complex reasoning tasks. Setup friction is higher than calling an API. Latency depends entirely on your machine.",
+    "complexity": "beginner",
+    "monthly_cost": "$0",
+    "tools": ["ollama", "aider", "continue", "llamaindex", "chroma"],
+    "flow": [
+      { "from": "ollama", "to": "aider", "label": "serves model to" },
+      { "from": "ollama", "to": "continue", "label": "serves model to" },
+      { "from": "ollama", "to": "llamaindex", "label": "serves model to" },
+      { "from": "llamaindex", "to": "chroma", "label": "stores embeddings in" }
+    ]
+  },
+  {
+    "id": "agentic-coding",
+    "name": "Agentic Coding Stack",
+    "description": "Full loop from task to reviewed PR without human keyboard input. AI reads, writes, executes, and ships.",
+    "target": "Teams delegating feature development, bug fixing, and refactoring to AI agents",
+    "cluster": "automate",
+    "mission": "Your backlog has 60 tickets. Half of them are well-specified, repetitive, and boring. You want an agent to close them while your engineers work on the hard ones.",
+    "not_in_stack": [
+      {
+        "tool": "vercel-ai-sdk",
+        "reason": "SDK for building AI products, not for running autonomous coding agents"
+      },
+      {
+        "tool": "flowise",
+        "reason": "Visual builder for workflows, not for executing code against a live repo"
+      },
+      {
+        "tool": "langfuse",
+        "reason": "Replaced by LangSmith here — tracing needs tighter integration with the LangGraph-based agent loop"
+      }
+    ],
+    "kill_conditions": [
+      "Task specs are too ambiguous for autonomous execution without constant human correction",
+      "Security policy prohibits autonomous agents with write access to production repos",
+      "Agent failure rate on complex tasks exceeds cost of human engineering time"
+    ],
+    "graduates_to": "multi-agent-devops",
+    "tags": ["autonomous", "coding", "agents"],
+    "why": "Close the loop between AI writing code and it being reviewed, tested, and merged. Claude Code reads the repo via GitHub MCP, executes safely in E2B sandboxes, and gets reviewed by CodeRabbit before any human sees the PR. OpenHands handles longer autonomous runs — it also executes in E2B and submits PRs that go through the same review gate.",
+    "tradeoffs": "Autonomous agents diverge without clear task specs and tight scope. Requires disciplined prompt engineering and explicit task boundaries. Debugging agent failures mid-run is non-trivial.",
+    "complexity": "intermediate",
+    "monthly_cost": "$100–400",
+    "tools": ["claude-code", "openhands", "github-mcp", "e2b", "coderabbit", "langfuse"],
+    "flow": [
+      { "from": "claude-code", "to": "github-mcp", "label": "reads repo via" },
+      { "from": "claude-code", "to": "e2b", "label": "executes in" },
+      { "from": "claude-code", "to": "coderabbit", "label": "PRs reviewed by" },
+      { "from": "openhands", "to": "github-mcp", "label": "reads repo via" },
+      { "from": "openhands", "to": "e2b", "label": "executes in" },
+      { "from": "openhands", "to": "coderabbit", "label": "PRs reviewed by" },
+      { "from": "claude-code", "to": "langfuse", "label": "traced by" }
+    ]
+  },
+  {
+    "id": "multi-agent-devops",
+    "name": "Multi-Agent DevOps Stack",
+    "description": "Specialised agents working in parallel — one triages, one fixes, one reviews. Dramatically reduces cycle time.",
+    "target": "Engineering teams automating issue triage, code fixes, and PR review",
+    "cluster": "automate",
+    "mission": "Your on-call rotation spends 40% of time on toil — triaging issues, writing boilerplate fixes, reviewing PRs that follow obvious patterns. You want agents to own that loop entirely.",
+    "not_in_stack": [
+      {
+        "tool": "flowise",
+        "reason": "Visual workflow builder — lacks the programmatic control needed for multi-agent coordination"
+      },
+      {
+        "tool": "dify",
+        "reason": "App-layer platform, not suitable for CI/CD pipeline orchestration"
+      },
+      {
+        "tool": "openai-api",
+        "reason": "Direct API calls add fragility — LangGraph manages model routing and retry logic"
+      }
+    ],
+    "kill_conditions": [
+      "Agent coordination complexity grows beyond what LangGraph state machines can express cleanly",
+      "Security team requires human-in-the-loop approval before any automated merge",
+      "Multi-agent token costs exceed the engineering time saved"
+    ],
+    "graduates_to": "spec-driven-ai",
+    "tags": ["multi-agent", "DevOps", "automation"],
+    "why": "Specialised agents working in parallel reduce cycle time dramatically. LangGraph coordinates the handoffs — it assigns tasks to Claude Code for implementation and Sweep for automated fixes, keeps agents wired to the live repo state via GitHub MCP, and routes all PRs to CodeRabbit for review before any human sees them.",
+    "tradeoffs": "Multi-agent coordination adds latency and token cost. Clear agent boundaries are required to prevent conflicts. Debugging inter-agent failures mid-run is non-trivial and requires good tracing from day one.",
+    "complexity": "advanced",
+    "monthly_cost": "$200–600",
+    "tools": ["langgraph", "claude-code", "github-mcp", "sweep-ai", "coderabbit", "langsmith"],
+    "flow": [
+      { "from": "langgraph", "to": "claude-code", "label": "assigns tasks to" },
+      { "from": "langgraph", "to": "sweep-ai", "label": "triggers fixes via" },
+      { "from": "claude-code", "to": "github-mcp", "label": "reads repo via" },
+      { "from": "claude-code", "to": "coderabbit", "label": "PRs reviewed by" },
+      { "from": "sweep-ai", "to": "coderabbit", "label": "PRs reviewed by" },
+      { "from": "langgraph", "to": "langsmith", "label": "traced by" }
+    ]
+  },
+  {
+    "id": "browser-agent",
+    "name": "Browser AI / Web Agent Stack",
+    "description": "An AI that navigates the web, fills forms, scrapes data, and monitors pages — with no human in the loop.",
+    "target": "Teams automating web research, competitive monitoring, form submission, and browser-based workflows",
+    "cluster": "automate",
+    "mission": "You have a workflow that requires navigating 12 different websites, filling forms, and aggregating the results into a report. A human does it every Monday. That stops now.",
+    "not_in_stack": [
+      {
+        "tool": "vercel-ai-sdk",
+        "reason": "Frontend SDK — irrelevant when the browser is the tool, not the UI layer"
+      },
+      {
+        "tool": "llamaindex",
+        "reason": "RAG pipeline framework; the data source here is live web pages, not a document corpus"
+      },
+      {
+        "tool": "flowise",
+        "reason": "Visual builder doesn't expose the low-level browser control this stack requires"
+      }
+    ],
+    "kill_conditions": [
+      "Target sites implement bot detection that breaks Playwright automation",
+      "Task complexity requires judgment that exceeds current model capabilities mid-session",
+      "Legal review flags scraping of specific domains"
+    ],
+    "graduates_to": "multi-agent-devops",
+    "tags": ["browser", "web automation", "agents"],
+    "why": "Playwright MCP gives Claude Code and Cursor direct browser control — navigation, clicks, form fills, screenshots, and DOM inspection. E2B provides a sandboxed environment so browser sessions run safely without touching your local machine. LangGraph orchestrates multi-step web tasks with state and retry logic. Langfuse traces every action so you can debug when an agent gets stuck on an unexpected page state.",
+    "tradeoffs": "Browser agents are brittle against UI changes — a redesigned login page breaks the flow. Anti-bot measures on major platforms can block Playwright-based automation. Real-time web state makes deterministic testing hard.",
+    "complexity": "intermediate",
+    "monthly_cost": "$50–200",
+    "tools": ["playwright-mcp", "claude-code", "langgraph", "e2b", "langfuse"],
+    "flow": [
+      { "from": "langgraph", "to": "claude-code", "label": "orchestrates agent" },
+      { "from": "claude-code", "to": "playwright-mcp", "label": "controls browser via" },
+      { "from": "claude-code", "to": "e2b", "label": "executes safely in" },
+      { "from": "langgraph", "to": "langfuse", "label": "traced by" }
+    ]
+  },
+  {
+    "id": "voice-ai",
+    "name": "Voice AI Pipeline",
+    "description": "Speech in, intelligence out, speech back — streaming, low-latency, production-ready voice AI.",
+    "target": "Teams building voice assistants, call automation, real-time transcription, or audio-first AI products",
+    "cluster": "automate",
+    "mission": "Your support team handles 500 calls a day. 60% are the same 10 questions. You want an AI voice agent that handles the tier-1 queue end-to-end.",
+    "not_in_stack": [
+      {
+        "tool": "llamaindex",
+        "reason": "Document retrieval framework — audio streams need a different ingestion path"
+      },
+      { "tool": "cursor", "reason": "IDE assistant is irrelevant to a production audio pipeline" },
+      {
+        "tool": "e2b",
+        "reason": "Sandboxed code execution adds latency that voice interactions cannot tolerate"
+      }
+    ],
+    "kill_conditions": [
+      "Latency requirements fall below 300ms round-trip, requiring dedicated real-time infrastructure",
+      "Domain-specific vocabulary accuracy demands a fine-tuned speech model",
+      "Call volume requires a purpose-built telephony platform instead of a custom pipeline"
+    ],
+    "graduates_to": "llm-startup-infra",
+    "tags": ["voice", "audio", "streaming", "real-time"],
+    "why": "OpenAI API provides Whisper for speech-to-text and TTS for speech synthesis — both accessible via the same SDK. Vercel AI SDK handles the streaming response pipeline and keeps latency low with chunked output. LangGraph manages the conversation state machine — tracking context, handling interruptions, and routing to escalation flows. Replicate fills the gap when you need open speech models or lower-cost audio inference. Langfuse traces every turn so you can measure latency, detect failure modes, and curate training data from real calls.",
+    "tradeoffs": "End-to-end latency is the hardest constraint — each pipeline hop adds delay. OpenAI's TTS is high quality but not real-time streaming in the WebSocket sense. True sub-300ms voice AI requires dedicated infrastructure beyond this stack.",
+    "complexity": "intermediate",
+    "monthly_cost": "$200–800",
+    "tools": ["openai-api", "vercel-ai-sdk", "langgraph", "replicate", "langfuse"],
+    "flow": [
+      { "from": "openai-api", "to": "vercel-ai-sdk", "label": "STT + TTS via" },
+      { "from": "vercel-ai-sdk", "to": "langgraph", "label": "streams to" },
+      { "from": "langgraph", "to": "openai-api", "label": "routes LLM calls to" },
+      { "from": "replicate", "to": "langgraph", "label": "serves open audio models to" },
+      { "from": "langgraph", "to": "langfuse", "label": "traced by" }
+    ]
+  },
+  {
+    "id": "data-ai-pipeline",
+    "name": "Data + AI Pipeline",
+    "description": "Your data warehouse becomes the context source. LLM layers sit on top of structured transforms, not raw text.",
+    "target": "Data teams and analytics engineers adding AI reasoning to existing data pipelines",
+    "cluster": "automate",
+    "mission": "You have a mature data warehouse. Your analysts want to query it in plain English, get summaries of anomalies, and trigger automated reports. The answer is not a chatbot over a CSV.",
+    "not_in_stack": [
+      {
+        "tool": "vercel-ai-sdk",
+        "reason": "Frontend streaming SDK — the pipeline runs server-side on scheduled triggers, not user requests"
+      },
+      {
+        "tool": "cursor",
+        "reason": "IDE assistant doesn't integrate with scheduled pipeline orchestration"
+      },
+      {
+        "tool": "flowise",
+        "reason": "Visual builder lacks the data transformation depth this pipeline requires"
+      }
+    ],
+    "kill_conditions": [
+      "Data volume requires distributed processing beyond what LlamaIndex handles natively",
+      "Real-time streaming data replaces batch transforms as the primary source",
+      "Compliance requires audit trails on every data access that the current stack can't provide"
+    ],
+    "graduates_to": "enterprise-rag",
+    "tags": ["data", "analytics", "pipeline", "warehouse"],
+    "why": "n8n orchestrates the pipeline — it schedules runs, triggers on data events, and handles the connector glue between systems. LlamaIndex parses and chunks structured and semi-structured outputs from the warehouse. pgvector stores embeddings in the same Postgres instance your data already lives in — no separate vector DB to operate. OpenAI API provides the reasoning layer. Langfuse traces every query and aggregation so you can debug when the model misreads your schema.",
+    "tradeoffs": "Text-to-SQL is still unreliable for complex multi-join queries. LLMs hallucinate column names and table relationships without careful schema injection. This stack works best on well-documented schemas; poorly named tables produce poor answers.",
+    "complexity": "intermediate",
+    "monthly_cost": "$150–600",
+    "tools": ["n8n", "llamaindex", "pgvector", "openai-api", "langfuse"],
+    "flow": [
+      { "from": "n8n", "to": "llamaindex", "label": "triggers ingestion in" },
+      { "from": "llamaindex", "to": "pgvector", "label": "stores embeddings in" },
+      { "from": "llamaindex", "to": "openai-api", "label": "routes LLM calls to" },
+      { "from": "n8n", "to": "langfuse", "label": "sends pipeline traces to" }
+    ]
+  },
+  {
+    "id": "llm-startup-infra",
+    "name": "LLM Production Infra Stack",
+    "description": "Provider-agnostic from day one. Swap models without touching app code; full cost and quality visibility.",
+    "target": "AI-native startups and teams shipping LLM-powered products to production",
+    "cluster": "ship",
+    "mission": "You've shipped a product on OpenAI. The bill just hit $8k/mo. Anthropic released a better model for your use case at half the price. Switching should take a config change, not a sprint.",
+    "not_in_stack": [
+      {
+        "tool": "langchain",
+        "reason": "Abstractions add complexity when LiteLLM already handles the provider normalization layer"
+      },
+      {
+        "tool": "langgraph",
+        "reason": "Stateful agent orchestration is overkill for a request-response LLM product"
+      },
+      {
+        "tool": "llamaindex",
+        "reason": "Full RAG framework; Qdrant's native clients handle retrieval without the extra abstraction"
+      }
+    ],
+    "kill_conditions": [
+      "Workflow complexity grows to require stateful multi-step agent orchestration",
+      "Team needs fine-grained access control and enterprise SSO on the observability layer",
+      "Volume hits a scale where the proxy layer latency becomes a product constraint"
+    ],
+    "graduates_to": "enterprise-rag",
+    "tags": ["infrastructure", "observability", "multi-provider"],
+    "why": "The Vercel AI SDK is the app's entry point — it handles streaming UIs and chains LLM calls through LiteLLM, which normalises every provider API so you can swap models with a config change. LiteLLM routes to OpenAI or Anthropic and pipes traces into Langfuse for per-request cost and quality visibility. Qdrant handles semantic retrieval when context needs to come from your own data.",
+    "tradeoffs": "The proxy layer adds latency (~10–30ms overhead). Requires discipline to define meaningful evals early — bad evals give false confidence. Cost control is critical at volume; easy to miss runaway usage without alerting.",
+    "complexity": "intermediate",
+    "monthly_cost": "$100–1000",
+    "tools": ["vercel-ai-sdk", "litellm", "langfuse", "qdrant", "openai-api", "anthropic-api"],
+    "flow": [
+      { "from": "vercel-ai-sdk", "to": "litellm", "label": "routes LLM calls via" },
+      { "from": "litellm", "to": "openai-api", "label": "routes to" },
+      { "from": "litellm", "to": "anthropic-api", "label": "routes to" },
+      { "from": "litellm", "to": "langfuse", "label": "sends traces to" },
+      { "from": "vercel-ai-sdk", "to": "qdrant", "label": "retrieves context from" }
+    ]
+  },
+  {
     "id": "evaluation-quality",
     "name": "Evaluation & Quality Stack",
     "description": "\"It works\" is not a deploy criterion. This stack gives you regression testing, quality metrics, and systematic failure analysis for LLM features.",
     "target": "Teams shipping LLM features that need measurable, reproducible quality guarantees",
+    "cluster": "ship",
+    "mission": "You've had three incidents where a model update silently broke the product's output quality. No one noticed for a week. That doesn't happen again.",
+    "not_in_stack": [
+      {
+        "tool": "langgraph",
+        "reason": "Agent orchestration — irrelevant when the objective is measuring output quality, not running agents"
+      },
+      {
+        "tool": "litellm",
+        "reason": "Provider routing; this stack assumes you're already settled on providers and need to evaluate them"
+      },
+      {
+        "tool": "llamaindex",
+        "reason": "Retrieval pipeline framework — evaluation here is model-and-prompt focused, not retrieval-focused"
+      }
+    ],
+    "kill_conditions": [
+      "Eval datasets reveal that prompting has hit its ceiling and fine-tuning is the next lever",
+      "Model quality gaps are traced to retrieval quality rather than generation quality",
+      "Team needs a dedicated ML platform with experiment versioning beyond what Braintrust provides"
+    ],
+    "graduates_to": "fine-tuning",
     "tags": ["evals", "quality", "testing"],
-    "why": "Most teams skip evals until production breaks. This stack makes eval a first-class engineering discipline: Promptfoo runs prompt regression suites in CI; DeepEval gives structured quality metrics (faithfulness, relevance, hallucination rate); Langfuse captures production traces and curates them into eval datasets; Braintrust manages experiments and dataset versioning so you can track quality over time. Build the eval loop before you need it.",
+    "why": "Most teams skip evals until production breaks. This stack makes eval a first-class engineering discipline: Promptfoo runs prompt regression suites in CI; DeepEval gives structured quality metrics (faithfulness, relevance, hallucination rate); Langfuse captures production traces and curates them into eval datasets; Braintrust manages experiments and dataset versioning so you can track quality over time.",
     "tradeoffs": "Evals require upfront investment in dataset curation and metric definition that most teams underestimate. Bad evals are worse than no evals — they give false confidence. Eval datasets go stale as the product evolves and need active maintenance.",
     "complexity": "intermediate",
     "monthly_cost": "$50–300",
@@ -187,8 +531,30 @@
     "name": "Spec-Driven AI Development",
     "description": "The spec is the source of truth. Define it once — AI coding agents, SDK generators, and docs all stay in sync automatically.",
     "target": "Teams building AI-native APIs and products where spec drift is a real problem",
+    "cluster": "ship",
+    "mission": "Your API has 40 endpoints. The docs are wrong. The SDKs are out of date. The AI coding assistant is improvising because there's no structured context to work from.",
+    "not_in_stack": [
+      {
+        "tool": "v0",
+        "reason": "UI generation tool — irrelevant when the product is an API, not a frontend"
+      },
+      {
+        "tool": "flowise",
+        "reason": "Visual workflow builder; spec-driven work requires code-level precision and version control"
+      },
+      {
+        "tool": "langfuse",
+        "reason": "Observability layer — this stack focuses on the development and generation phase, not runtime"
+      }
+    ],
+    "kill_conditions": [
+      "Spec discipline breaks down under deadline pressure and drift reappears",
+      "API surface stabilises and spec maintenance overhead exceeds its value",
+      "Team moves to a monolith where SDKs and multi-language clients are no longer needed"
+    ],
+    "graduates_to": "multi-agent-devops",
     "tags": ["spec-driven", "API", "backend", "engineering process"],
-    "why": "Spec-driven development pays dividends at scale. Spec Kit creates structured context that steers Claude Code and Cursor toward well-defined outcomes instead of improvised prompts. Swagger defines the API contract and feeds its context directly into Cursor; Speakeasy auto-generates SDKs when the spec changes; Langfuse keeps AI calls observable throughout. Everything downstream of the spec stays in sync.",
+    "why": "Spec Kit creates structured context that steers Claude Code and Cursor toward well-defined outcomes instead of improvised prompts. Swagger defines the API contract and feeds its context directly into Cursor; Speakeasy auto-generates SDKs when the spec changes; Langfuse keeps AI calls observable throughout. Everything downstream of the spec stays in sync.",
     "tradeoffs": "Upfront spec investment slows initial velocity — not worth it for throwaway prototypes or highly exploratory projects. The discipline to keep specs current requires team buy-in; a stale spec is worse than no spec.",
     "complexity": "intermediate",
     "monthly_cost": "$50–200",
@@ -199,6 +565,439 @@
       { "from": "swagger", "to": "speakeasy", "label": "generates SDKs via" },
       { "from": "swagger", "to": "cursor", "label": "API spec imported into" },
       { "from": "claude-code", "to": "langfuse", "label": "traced by" }
+    ]
+  },
+  {
+    "id": "cost-reduction",
+    "name": "LLM Cost Reduction Stack",
+    "description": "Already in production. Cut LLM spend by 50–80% without degrading user-facing quality.",
+    "target": "Teams whose LLM API bill has become a line item that leadership is questioning",
+    "cluster": "ship",
+    "mission": "Your LLM bill hit $15k last month. Leadership wants it halved by next quarter. You can't touch the product. You need to optimize the infrastructure underneath it.",
+    "not_in_stack": [
+      {
+        "tool": "vercel-ai-sdk",
+        "reason": "Frontend SDK — cost optimization happens at the routing and model-selection layer, not the UI"
+      },
+      {
+        "tool": "langgraph",
+        "reason": "Adding orchestration complexity during a cost-reduction sprint introduces new failure modes"
+      },
+      { "tool": "cursor", "reason": "IDE assistant; this is an infra change, not a feature build" }
+    ],
+    "kill_conditions": [
+      "Cost is driven by retrieval volume, not generation — switch focus to vector DB and chunking optimization",
+      "Quality degradation from cheaper models becomes a retention problem",
+      "Traffic patterns become unpredictable enough to require dedicated capacity planning"
+    ],
+    "tags": ["cost", "optimization", "production"],
+    "why": "LiteLLM is the routing layer — it scores each request by complexity and routes cheap tasks to smaller, cheaper models while reserving frontier models for tasks that need them. OpenRouter provides access to the cheapest available model for each capability tier. Ollama handles dev and test traffic at zero cost, eliminating API calls during development. Promptfoo validates that cheaper model substitutes maintain acceptable quality before the route goes live. Langfuse shows per-request cost breakdowns and flags which endpoints are burning budget.",
+    "tradeoffs": "Model routing by complexity requires prompt classifiers or heuristics that add latency and engineering work. Quality regressions from cheaper models are subtle and hard to catch without comprehensive evals already in place. Cost reduction often surfaces latent quality issues that were previously masked by expensive model performance.",
+    "complexity": "intermediate",
+    "monthly_cost": "Replaces current bill",
+    "tools": ["litellm", "openrouter", "ollama", "promptfoo", "langfuse"],
+    "flow": [
+      { "from": "litellm", "to": "openrouter", "label": "routes to cheapest model via" },
+      { "from": "litellm", "to": "ollama", "label": "routes dev traffic to" },
+      { "from": "litellm", "to": "langfuse", "label": "sends cost traces to" },
+      { "from": "promptfoo", "to": "litellm", "label": "validates quality of routes in" }
+    ]
+  },
+  {
+    "id": "multimodal-rag",
+    "name": "Multi-Modal RAG Stack",
+    "description": "RAG over PDFs, images, tables, and charts — not just text chunks. Retrieval that understands documents the way humans do.",
+    "target": "Teams building document Q&A systems where the documents contain charts, diagrams, tables, and mixed-format content",
+    "cluster": "ship",
+    "mission": "Your RAG system handles text well but falls apart on PDFs with tables, financial reports with charts, and slide decks with diagrams. Users keep asking questions the system can't answer.",
+    "not_in_stack": [
+      {
+        "tool": "langchain",
+        "reason": "LlamaIndex's multimodal parsing is significantly more mature for mixed-format documents"
+      },
+      {
+        "tool": "chroma",
+        "reason": "In-process DB lacks the metadata filtering and multi-vector support complex multimodal retrieval requires"
+      },
+      {
+        "tool": "pgvector",
+        "reason": "Storing image embeddings alongside text embeddings needs dedicated vector infrastructure"
+      }
+    ],
+    "kill_conditions": [
+      "Document types expand to video or audio, requiring a different ingestion pipeline entirely",
+      "Retrieval quality plateaus and fine-tuning the embedding model becomes the next lever",
+      "Document volume reaches a scale that requires distributed indexing infrastructure"
+    ],
+    "graduates_to": "enterprise-rag",
+    "tags": ["multimodal", "RAG", "documents", "vision"],
+    "why": "LlamaIndex's multimodal capabilities parse PDFs, extract tables, and understand image context natively. OpenAI API provides both vision models for image understanding and text-embedding-3 for dense retrieval. Qdrant handles multi-vector storage — text embeddings and image embeddings live in the same collection with payload filtering. LangGraph manages the retrieval routing logic — deciding when to use vision, when to use text search, and when to combine both. Langfuse traces retrieval quality so you can identify which document types are degrading accuracy.",
+    "tradeoffs": "Multimodal retrieval is significantly more expensive than text-only — vision model calls add cost and latency. Table extraction accuracy degrades on complex merged-cell layouts. Retrieval quality evaluation requires human annotation of ground truth for non-text content.",
+    "complexity": "advanced",
+    "monthly_cost": "$300–1500",
+    "tools": ["llamaindex", "openai-api", "qdrant", "langgraph", "langfuse"],
+    "flow": [
+      { "from": "llamaindex", "to": "openai-api", "label": "parses images via" },
+      { "from": "llamaindex", "to": "qdrant", "label": "stores multi-modal embeddings in" },
+      { "from": "langgraph", "to": "llamaindex", "label": "orchestrates retrieval via" },
+      { "from": "langgraph", "to": "openai-api", "label": "routes generation to" },
+      { "from": "langgraph", "to": "langfuse", "label": "traced by" }
+    ]
+  },
+  {
+    "id": "legacy-plus-ai",
+    "name": "Legacy App + AI Stack",
+    "description": "Add AI capabilities to an existing application without a rewrite. Language-agnostic, side-car friendly, incrementally deployable.",
+    "target": "Engineering teams with a working Rails, Django, Java, or .NET app who want to add AI features without blowing up the existing stack",
+    "cluster": "ship",
+    "mission": "You have a 6-year-old Django monolith. Product wants a document summarization feature by end of quarter. Rewriting the backend in TypeScript is not an option anyone is discussing.",
+    "not_in_stack": [
+      {
+        "tool": "vercel-ai-sdk",
+        "reason": "TypeScript/Next.js SDK — useless if your app is in Python, Ruby, or Java"
+      },
+      {
+        "tool": "mastra",
+        "reason": "TypeScript-native framework — assumes you're building in TypeScript from the start"
+      },
+      {
+        "tool": "langgraph",
+        "reason": "Full agent framework adds complexity before you've validated basic AI integration works"
+      }
+    ],
+    "kill_conditions": [
+      "AI features grow complex enough to justify a dedicated AI service boundary with its own stack",
+      "Legacy app gets rebuilt and the constraint of language-agnosticism disappears",
+      "Volume requires a dedicated inference infrastructure layer"
+    ],
+    "graduates_to": "llm-startup-infra",
+    "tags": ["legacy", "migration", "integration", "backend"],
+    "why": "LiteLLM exposes an OpenAI-compatible REST API that any language can call — your Ruby, Python, or Java code calls one endpoint and LiteLLM handles routing, retries, and provider switching behind it. LangChain fills orchestration needs if your existing language supports it (Python-first). Langfuse captures traces from the sidecar layer without touching application code. OpenAI API is the initial model; LiteLLM makes it trivially swappable later.",
+    "tradeoffs": "Network hop to a sidecar LLM proxy adds latency. Without shared context between the legacy app and the AI layer, complex stateful AI features require careful API design. This is an integration pattern, not an architecture — technical debt will accumulate if AI features grow significantly.",
+    "complexity": "intermediate",
+    "monthly_cost": "$100–500",
+    "tools": ["litellm", "langchain", "langfuse", "openai-api", "anthropic-api"],
+    "flow": [
+      { "from": "langchain", "to": "litellm", "label": "routes calls through" },
+      { "from": "litellm", "to": "openai-api", "label": "routes to" },
+      { "from": "litellm", "to": "anthropic-api", "label": "routes to" },
+      { "from": "litellm", "to": "langfuse", "label": "traces via" }
+    ]
+  },
+  {
+    "id": "enterprise-rag",
+    "name": "Enterprise RAG Stack",
+    "description": "Mature, well-observed, enterprise-proven. Full RAG pipeline with routing, eval, and observability from day one.",
+    "target": "Internal knowledge bases, customer support bots, and document Q&A at scale",
+    "cluster": "understand",
+    "mission": "Your company has 200k internal documents. Support agents spend half their day finding answers that are definitely written down somewhere. That institutional knowledge needs to be instantly queryable.",
+    "not_in_stack": [
+      {
+        "tool": "flowise",
+        "reason": "Visual builder lacks the programmatic control needed for production RAG eval and routing logic"
+      },
+      {
+        "tool": "chroma",
+        "reason": "In-process DB not suitable for multi-tenant production workloads with SLA requirements"
+      },
+      {
+        "tool": "vercel-ai-sdk",
+        "reason": "Frontend streaming SDK — enterprise RAG serves multiple internal clients, not one web app"
+      }
+    ],
+    "kill_conditions": [
+      "Document corpus grows to billions of vectors requiring a managed cloud vector service",
+      "Retrieval quality ceiling is traced to the base model and fine-tuning becomes the lever",
+      "Compliance team requires data access audit logs that require a different observability stack"
+    ],
+    "graduates_to": "fine-tuning",
+    "tags": ["RAG", "enterprise", "knowledge base"],
+    "why": "Enterprise RAG needs more than a simple chain — it needs routing, branching retrieval logic, and evaluation you can run in CI. LangGraph handles complex multi-step retrieval; pgvector keeps sensitive data in your existing Postgres; LiteLLM gives you model flexibility without lock-in, routing to both OpenAI and Anthropic; LangSmith traces every step so you can debug retrieval quality and catch regressions.",
+    "tradeoffs": "High complexity and ops overhead. Overkill for simple Q&A or small-scale use. Requires a team with LLM engineering experience to instrument evals properly and maintain retrieval quality as data grows.",
+    "complexity": "advanced",
+    "monthly_cost": "$500–2000",
+    "tools": ["langgraph", "pgvector", "litellm", "langsmith", "openai-api", "anthropic-api"],
+    "flow": [
+      { "from": "langgraph", "to": "pgvector", "label": "retrieves from" },
+      { "from": "langgraph", "to": "litellm", "label": "routes LLM calls via" },
+      { "from": "litellm", "to": "openai-api", "label": "routes to" },
+      { "from": "litellm", "to": "anthropic-api", "label": "routes to" },
+      { "from": "langgraph", "to": "langsmith", "label": "traced by" }
+    ]
+  },
+  {
+    "id": "oss-self-hosted",
+    "name": "OSS Self-Hosted AI Stack",
+    "description": "Zero data egress; entirely on-premise. Full AI capabilities without sending a single byte to an external service.",
+    "target": "Privacy-first orgs, regulated industries, and teams with strict data residency requirements",
+    "cluster": "comply",
+    "mission": "Your legal team just informed you that sending any customer data to a third-party API requires a DPA you don't have. You need full AI capability and full data control.",
+    "not_in_stack": [
+      {
+        "tool": "openai-api",
+        "reason": "Every API call sends data to OpenAI's servers — that's the exact constraint you're solving"
+      },
+      {
+        "tool": "langfuse",
+        "reason": "Cloud-hosted Langfuse sends trace data externally — self-host it or replace with logfire"
+      },
+      {
+        "tool": "pinecone",
+        "reason": "Managed cloud vector DB — data residency requires a self-hosted alternative"
+      }
+    ],
+    "kill_conditions": [
+      "Team grows to a scale where GPU ops cost exceeds managed cloud inference",
+      "Model capability requirements exceed what open weights can provide for your use case",
+      "Compliance framework gets updated to permit specific EU-hosted cloud providers"
+    ],
+    "graduates_to": "eu-gdpr-regulated",
+    "tags": ["OSS", "self-hosted", "privacy"],
+    "why": "Every component is open-source and self-hostable. Ollama serves models locally for interactive use; vLLM handles production inference throughput. LlamaIndex builds the retrieval pipeline; Qdrant stores vectors on your infra; Langfuse traces — all without any data leaving your network.",
+    "tradeoffs": "You own the entire ops burden. Smaller open models have a lower capability ceiling than GPT-4o or Claude — expect more prompt engineering work to get comparable output quality. Infra and GPU costs can exceed managed services at scale.",
+    "complexity": "advanced",
+    "monthly_cost": "Infra only",
+    "tools": ["ollama", "vllm", "llamaindex", "qdrant", "langfuse"],
+    "flow": [
+      { "from": "ollama", "to": "llamaindex", "label": "serves models to" },
+      { "from": "vllm", "to": "llamaindex", "label": "serves models to" },
+      { "from": "llamaindex", "to": "qdrant", "label": "stores embeddings in" },
+      { "from": "llamaindex", "to": "langfuse", "label": "traced by" }
+    ]
+  },
+  {
+    "id": "eu-gdpr-regulated",
+    "name": "EU / GDPR Regulated AI Stack",
+    "description": "Cloud-hosted AI that legally works in the EU — using providers with EU data residency, DPAs, and GDPR-compliant infrastructure.",
+    "target": "EU-based companies and teams handling EU citizen data who need cloud AI without self-hosting the entire stack",
+    "cluster": "comply",
+    "mission": "You're building in Germany. Your DPO has approved cloud services only from EU-resident providers with signed DPAs. OpenAI is not on the approved list.",
+    "not_in_stack": [
+      {
+        "tool": "openai-api",
+        "reason": "Data processed on US servers by default; no EU data residency option currently available"
+      },
+      {
+        "tool": "anthropic-api",
+        "reason": "US-based provider without EU data residency offering at this time"
+      },
+      {
+        "tool": "pinecone",
+        "reason": "US-based managed service without EU data residency guarantees"
+      }
+    ],
+    "kill_conditions": [
+      "Compliance requirements become strict enough to require full on-premises processing",
+      "EU AI Act obligations demand model cards and transparency documentation the provider can't supply",
+      "Required capabilities don't exist in EU-resident providers"
+    ],
+    "graduates_to": "oss-self-hosted",
+    "tags": ["GDPR", "EU", "compliance", "data residency"],
+    "why": "Mistral AI is a French company with EU data processing and GDPR-compliant infrastructure — their API is the LLM backbone. Qdrant can be self-hosted in an EU region or used via their EU-hosted cloud tier. Langfuse is open-source and can be self-hosted in any EU data center. LiteLLM acts as the routing layer, keeping provider switching possible if EU-approved options expand. Logfire provides EU-region compatible observability for the Python layer.",
+    "tradeoffs": "EU-resident AI providers have smaller model selection and lower benchmark scores than US frontier models. Self-hosting components in EU infrastructure means you inherit the ops burden. The approved provider list changes as regulations and provider offerings evolve.",
+    "complexity": "advanced",
+    "monthly_cost": "$300–1500",
+    "tools": ["mistral-api", "litellm", "qdrant", "langfuse", "logfire"],
+    "flow": [
+      { "from": "litellm", "to": "mistral-api", "label": "routes to EU provider" },
+      { "from": "litellm", "to": "langfuse", "label": "sends traces to" },
+      { "from": "litellm", "to": "qdrant", "label": "retrieves context from" },
+      { "from": "logfire", "to": "litellm", "label": "instruments" }
+    ]
+  },
+  {
+    "id": "edge-on-device",
+    "name": "Edge / On-Device AI Stack",
+    "description": "AI that runs on the device — no server round-trip, no API bill, no data leaving the user's machine.",
+    "target": "Teams building offline-capable apps, privacy-sensitive tooling, or low-latency AI that can't afford a network hop",
+    "cluster": "comply",
+    "mission": "Your app needs to work on an airplane. Or in a hospital where nothing talks to the internet. Or for users who refuse to send their data to any server. The AI runs on the device or it doesn't run.",
+    "not_in_stack": [
+      {
+        "tool": "openai-api",
+        "reason": "Cloud API — requires internet connectivity and sends data to external servers"
+      },
+      {
+        "tool": "langfuse",
+        "reason": "Cloud observability — edge deployments trace locally or not at all"
+      },
+      {
+        "tool": "vllm",
+        "reason": "High-throughput server inference framework — requires GPU server infrastructure"
+      }
+    ],
+    "kill_conditions": [
+      "Feature complexity requires models larger than the device can run",
+      "Multi-user coordination requires shared server state that per-device inference can't provide",
+      "Regulatory requirements mandate auditability that client-side inference can't satisfy"
+    ],
+    "tags": ["edge", "on-device", "offline", "privacy"],
+    "why": "llama.cpp runs quantized models on CPU — MacBook, Raspberry Pi, or any edge device with no GPU required. Ollama wraps llama.cpp with a developer-friendly API and model management for local desktop deployments. LlamaIndex builds retrieval pipelines on top of local models, enabling document Q&A without any external calls. For browser deployments, the same models can run via WebAssembly bindings — the stack's architecture ports cleanly to that environment.",
+    "tradeoffs": "Model size is severely constrained by device memory — you're working with 3B–13B parameter models, not 70B+. Output quality is noticeably lower for complex reasoning. Battery and thermal impact on mobile devices is significant. Models need to be bundled with or downloaded to the device.",
+    "complexity": "advanced",
+    "monthly_cost": "$0",
+    "tools": ["llama-cpp", "ollama", "llamaindex"],
+    "flow": [
+      { "from": "llama-cpp", "to": "ollama", "label": "powers model serving in" },
+      { "from": "ollama", "to": "llamaindex", "label": "serves model to" }
+    ]
+  },
+  {
+    "id": "ai-red-team",
+    "name": "AI Red-Team / Security Stack",
+    "description": "Test your own AI systems for prompt injection, jailbreaks, hallucinations, and data leakage before attackers do.",
+    "target": "Security engineers and ML teams hardening AI products before launch or after an incident",
+    "cluster": "comply",
+    "mission": "Your AI product ships next month. You don't know if it can be jailbroken, manipulated into leaking system prompts, or coaxed into generating harmful content. You need to find out before users do.",
+    "not_in_stack": [
+      {
+        "tool": "langchain",
+        "reason": "Orchestration framework — not designed for adversarial prompt testing"
+      },
+      {
+        "tool": "cursor",
+        "reason": "IDE assistant; red-teaming is a testing discipline, not a development one"
+      },
+      {
+        "tool": "langfuse",
+        "reason": "Production observability tool — the adversarial test harness handles its own trace capture"
+      }
+    ],
+    "kill_conditions": [
+      "Security findings require architectural changes that a red-team alone can't drive",
+      "Regulatory framework mandates a formal third-party security audit that replaces internal red-teaming",
+      "Attack surface stabilises post-launch and ongoing red-teaming shifts to a lighter monitoring posture"
+    ],
+    "tags": ["security", "red-teaming", "adversarial", "hardening"],
+    "why": "Promptfoo's red-team mode runs adversarial prompt suites — injection attempts, jailbreak sequences, PII extraction attempts — against your system and reports pass/fail with evidence. DeepEval adds structured safety metrics: toxicity scores, bias detection, and hallucination rates across test datasets. RAGAS provides RAG-specific security evals — testing whether retrieval can be manipulated to surface unauthorized documents. OpenAI API acts as both the target system and the judge model for automated scoring.",
+    "tradeoffs": "Automated red-teaming catches known attack patterns but not novel adversarial techniques. False negatives are more dangerous than false positives here — a passing test suite is not a security guarantee. Human red-teamers with domain expertise remain essential alongside automated tooling.",
+    "complexity": "advanced",
+    "monthly_cost": "$100–400",
+    "tools": ["promptfoo", "deepeval", "ragas", "openai-api"],
+    "flow": [
+      { "from": "promptfoo", "to": "openai-api", "label": "attacks and evaluates" },
+      { "from": "deepeval", "to": "openai-api", "label": "scores safety metrics against" },
+      { "from": "ragas", "to": "openai-api", "label": "tests retrieval security via" },
+      { "from": "promptfoo", "to": "deepeval", "label": "feeds results to" }
+    ]
+  },
+  {
+    "id": "fine-tuning",
+    "name": "Fine-Tuning Pipeline",
+    "description": "When prompting hits its ceiling, you train. Curate data, fine-tune a base model, evaluate before and after, and serve the result.",
+    "target": "Teams who've exhausted prompt engineering and need a model that truly understands their domain, format, or persona",
+    "cluster": "understand",
+    "mission": "You've spent 6 months prompt-engineering a medical coding assistant. It's still wrong 15% of the time on edge cases that any trained coder would catch. The base model doesn't know your domain. You need to teach it.",
+    "not_in_stack": [
+      {
+        "tool": "langchain",
+        "reason": "Inference orchestration layer — irrelevant during the training phase"
+      },
+      {
+        "tool": "langfuse",
+        "reason": "Replaced by Weights & Biases here — W&B is the standard for training experiment tracking"
+      },
+      {
+        "tool": "cursor",
+        "reason": "IDE assistant; fine-tuning pipelines run in notebooks and training scripts, not editor workflows"
+      }
+    ],
+    "kill_conditions": [
+      "Training data quality and diversity plateau before the model reaches target accuracy",
+      "Compute cost of fine-tuning exceeds the cost of better prompting or RAG augmentation",
+      "Regulatory environment restricts training on customer data"
+    ],
+    "tags": ["fine-tuning", "training", "custom model", "ML"],
+    "why": "HuggingFace is the model hub and training framework — it provides base models, dataset tooling, and the PEFT/LoRA libraries needed for efficient fine-tuning. Weights & Biases tracks every training run, hyperparameter sweep, and eval checkpoint so you can reproduce the best run and debug regressions. DeepEval compares the base model against the fine-tuned model on structured quality metrics before you ship. vLLM serves the fine-tuned model in production with high-throughput batching. Replicate handles deployment when you don't want to manage GPU infrastructure.",
+    "tradeoffs": "Fine-tuning requires high-quality labeled data — typically 1k–100k examples depending on task complexity. Training costs scale with model size and dataset volume. Fine-tuned models can catastrophically forget general capabilities while gaining domain-specific ones. Maintaining fine-tuned models through base model updates requires ongoing retraining.",
+    "complexity": "advanced",
+    "monthly_cost": "$500–5000",
+    "tools": ["huggingface", "weights-biases", "deepeval", "vllm", "replicate"],
+    "flow": [
+      { "from": "huggingface", "to": "weights-biases", "label": "logs training runs to" },
+      { "from": "huggingface", "to": "deepeval", "label": "evaluated by" },
+      { "from": "huggingface", "to": "vllm", "label": "model served by" },
+      { "from": "huggingface", "to": "replicate", "label": "deployed via" },
+      { "from": "weights-biases", "to": "deepeval", "label": "checkpoints evaluated by" }
+    ]
+  },
+  {
+    "id": "document-intelligence",
+    "name": "Document Intelligence Stack",
+    "description": "Structured extraction from unstructured documents at volume. Not Q&A — extraction. Contracts, invoices, medical records, regulatory filings.",
+    "target": "Teams processing high volumes of structured business documents who need reliable field extraction, not conversational retrieval",
+    "cluster": "understand",
+    "mission": "You receive 2,000 supplier contracts a month. Legal needs 14 specific fields extracted from each one. Humans are doing it. It costs $40 per contract. You need 95% accuracy at $0.10 per contract.",
+    "not_in_stack": [
+      {
+        "tool": "langchain",
+        "reason": "General orchestration; LlamaIndex's document parsing is purpose-built for this extraction pattern"
+      },
+      {
+        "tool": "chroma",
+        "reason": "In-process vector DB — high-volume extraction pipelines need persistent, queryable storage"
+      },
+      {
+        "tool": "langgraph",
+        "reason": "Multi-step agent orchestration; extraction is a structured, repeatable transform, not an agent task"
+      }
+    ],
+    "kill_conditions": [
+      "Extraction accuracy requirements exceed what LLM-based extraction can achieve without fine-tuning",
+      "Document format diversity grows to include video, audio, or non-text media",
+      "Volume scales to a point requiring dedicated document processing infrastructure"
+    ],
+    "graduates_to": "enterprise-rag",
+    "tags": ["documents", "extraction", "contracts", "structured data"],
+    "why": "LlamaIndex's document parsers handle PDFs, Word docs, and Excel files with table and layout awareness. OpenAI API's structured output mode enforces extraction into typed schemas — fields either populate correctly or the failure is explicit. Qdrant stores extracted embeddings with rich metadata so documents are queryable by extracted field values, not just semantic similarity. Langfuse traces extraction quality per document type so you can identify which formats need prompt tuning.",
+    "tradeoffs": "LLM extraction accuracy varies significantly with document layout complexity. Headers, footers, and merged cells in tables are common failure modes. Structured output mode reduces hallucination but not layout misreading. Ground-truth validation datasets are essential and expensive to build.",
+    "complexity": "intermediate",
+    "monthly_cost": "$200–1000",
+    "tools": ["llamaindex", "openai-api", "qdrant", "langfuse"],
+    "flow": [
+      { "from": "llamaindex", "to": "openai-api", "label": "extracts fields via" },
+      { "from": "llamaindex", "to": "qdrant", "label": "stores embeddings in" },
+      { "from": "openai-api", "to": "langfuse", "label": "traces extraction to" }
+    ]
+  },
+  {
+    "id": "research-synthesis",
+    "name": "Research & Synthesis Stack",
+    "description": "AI that reads across sources, connects evidence, and produces structured reports — not a chatbot, a research analyst.",
+    "target": "Research teams, analysts, and knowledge workers who need to synthesize large bodies of source material into structured outputs",
+    "cluster": "understand",
+    "mission": "Your analyst team spends 3 days per week reading papers, news, and reports to write a single 10-page synthesis document. The reading is tractable. The connecting-the-dots is where the value is.",
+    "not_in_stack": [
+      {
+        "tool": "flowise",
+        "reason": "Visual workflow builder — research synthesis requires programmatic multi-source retrieval strategies"
+      },
+      {
+        "tool": "vercel-ai-sdk",
+        "reason": "Frontend streaming SDK — synthesis pipelines run as background jobs, not interactive web requests"
+      },
+      {
+        "tool": "pgvector",
+        "reason": "Corpus-scale semantic search needs a dedicated vector DB, not an extension"
+      }
+    ],
+    "kill_conditions": [
+      "Source material is too dynamic to index — real-time synthesis requires live search integration",
+      "Output quality requires domain-specific fine-tuning beyond what a general model provides",
+      "Corpus grows to a scale requiring distributed indexing beyond a single vector DB instance"
+    ],
+    "graduates_to": "fine-tuning",
+    "tags": ["research", "synthesis", "knowledge", "analysis"],
+    "why": "LangChain's multi-source retrieval chains pull from multiple indexed corpora in parallel — research literature, internal documents, and web sources — and merge the results before generation. Qdrant stores the indexed corpus with metadata filtering so searches can be scoped by source, date, or domain. OpenAI API handles both embedding generation and the synthesis step. Promptfoo evaluates synthesis quality against reference outputs — a critical step when the output is a high-stakes deliverable. Langfuse traces every retrieval decision so analysts can audit the source evidence behind each claim in the report.",
+    "tradeoffs": "Synthesis quality is highly sensitive to retrieval quality — the model can only connect dots it can find. Citation accuracy and faithfulness to sources degrade as corpus size increases without retrieval quality work. Building evaluation datasets for synthesis tasks requires expensive expert annotation.",
+    "complexity": "advanced",
+    "monthly_cost": "$300–1200",
+    "tools": ["langchain", "qdrant", "openai-api", "promptfoo", "langfuse"],
+    "flow": [
+      { "from": "langchain", "to": "qdrant", "label": "retrieves from" },
+      { "from": "langchain", "to": "openai-api", "label": "synthesizes via" },
+      { "from": "promptfoo", "to": "openai-api", "label": "evaluates quality against" },
+      { "from": "langchain", "to": "langfuse", "label": "traces retrieval in" }
     ]
   }
 ]

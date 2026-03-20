@@ -4,9 +4,9 @@ import Navbar from "@/components/ui/Navbar";
 import MyStackTray from "@/components/ui/MyStackTray";
 
 export const metadata: Metadata = {
-  title: "Stacks — 10 Curated AI Stacks",
+  title: "Stacks — 25 Curated AI Stacks",
   description:
-    "Skip the research. Explore 10 curated AI stacks with honest reasoning and tradeoffs — from Indie Hacker to Enterprise RAG, Evaluation, and Spec-Driven development.",
+    "Skip the research. Explore 25 curated AI stacks organized by mission — from zero-budget OSS to enterprise RAG, fine-tuning, GDPR compliance, and multi-agent DevOps.",
   alternates: { canonical: "https://aichitect.dev/stacks" },
 };
 

@@ -72,6 +72,13 @@ export interface StackFlowEdge {
   label: string;
 }
 
+export type StackCluster = "build" | "automate" | "ship" | "comply" | "understand";
+
+export interface StackRejection {
+  tool: string; // tool id
+  reason: string;
+}
+
 export interface Stack {
   id: string;
   name: string;
@@ -79,12 +86,25 @@ export interface Stack {
   target: string;
   tools: string[];
   flow: StackFlowEdge[];
+  cluster: StackCluster;
+  mission: string;
+  not_in_stack: StackRejection[];
+  kill_conditions: string[];
+  graduates_to?: string;
   tags?: string[];
   why?: string;
   tradeoffs?: string;
   complexity?: "beginner" | "intermediate" | "advanced";
   monthly_cost?: string;
 }
+
+export const STACK_CLUSTERS: { id: StackCluster; label: string; tagline: string }[] = [
+  { id: "build", label: "Build", tagline: "Ship this week" },
+  { id: "automate", label: "Automate", tagline: "AI does the work" },
+  { id: "ship", label: "Ship & Harden", tagline: "Make it trustworthy" },
+  { id: "comply", label: "Comply & Restrict", tagline: "Nothing leaves the building" },
+  { id: "understand", label: "Understand", tagline: "Data is the product" },
+];
 
 export interface Slot {
   id: string;

@@ -2,34 +2,83 @@
 
 > AI tools are all over the place. AIchitect maps the full ecosystem so developers can pick the right stack without the noise.
 
-AIchitect is a free, open-source, interactive tool landscape for AI developers. It catalogs 111 AI tools across 11 categories and maps their integrations, so teams can understand the ecosystem and make informed stack decisions.
+AIchitect is a free, open-source, interactive tool landscape for AI developers. It catalogs 123 AI tools across 12 categories and maps their integrations, so teams can understand the ecosystem and make informed stack decisions.
 
 GitHub: https://github.com/letsgogeeky/aichitect
 
 ## What AIchitect covers
 
-- **111 AI tools** spanning code editors, agent frameworks, LLM providers, observability, vector databases, MCP servers, and more
-- **11 tool categories**: Coding Assistants, Autonomous Agents, Agent Frameworks, Pipelines & RAG, LLM Infrastructure, Design & UI, DevOps & CI/CD, Documentation, Product & PM, MCP Servers, Prompt & Eval
-- **3 relationship types** between tools: integrates-with, often used together, competes-with
-- **243 mapped relationships** showing which tools integrate, pair well, or compete
-- **8 curated stacks** covering common AI engineering patterns (Indie Hacker, Enterprise RAG, OSS Self-Hosted, Agentic DevOps, and more)
+- **123 AI tools** spanning code editors, agent frameworks, LLM providers, observability, vector databases, MCP servers, and more
+- **12 tool categories**: Coding Assistants, Autonomous Agents, Agent Frameworks, Pipelines & RAG, LLM Infrastructure, Design & UI, DevOps & CI/CD, Documentation, Product & PM, MCP Servers, Prompt & Eval, Specifications
+- **3 relationship types** between tools: integrates-with, often-used-together, competes-with
+- **~283 mapped relationships** showing which tools integrate, pair well, or compete
+- **25 curated stacks** organized as mission briefings across 5 decision clusters
 - **Stack Builder**: compose a custom stack slot-by-slot and see live integration graphs with shareable URLs
 - **Tool Comparison**: compare any two tools side by side — pricing, integrations, shared ecosystem connections, and direct relationships
 
 ## Pages
 
-- / — Landing page with links to all three views
-- /explore — Full interactive graph of all 111 tools with category and relationship filters; supports 2D grid, 2D layers, and 3D rotation views; supports compare mode via URL
-- /stacks — 8 battle-tested, pre-built AI stacks visualized as swimlane integration graphs
+- / — Landing page with links to all views
+- /explore — Full interactive graph of all 123 tools with category and relationship filters; supports 2D grid, 2D layers, and 3D rotation views
+- /stacks — 25 mission-driven, pre-built AI stacks organized by decision cluster, each with situation brief, explicit rejections, kill conditions, and graduation paths
 - /builder — Build a custom stack by picking one tool per slot; renders live connection graph; share via URL
-- /compare/[tool-a]/[tool-b] — Dedicated comparison page for any two tools; server-rendered with full pricing, relationship, and ecosystem data
+- /compare/[tool-a]/[tool-b] — Dedicated comparison page for any two tools; full pricing, relationship, and ecosystem data
+
+## Stacks — 5 clusters, 25 missions
+
+Stacks are organized as mission briefings. Each stack describes the specific situation it solves, the tools chosen, what was explicitly rejected and why, and when to move on.
+
+### Build — "Ship this week"
+For solo developers and small teams who need to move fast.
+- Indie Hacker / Startup Stack — 2 weeks, 1 engineer, 3 months of runway
+- AI Design-to-Code Pipeline — Figma to production components without translation loss
+- MCP Power User Stack — one protocol connecting all your tools
+- No-Code AI Automation Stack — AI workflows without writing code
+- TypeScript-Only AI Stack — full AI capability without a Python service
+- Zero-Budget OSS Stack — capable AI development at $0/mo in API costs
+
+### Automate — "AI does the work"
+For teams delegating work to agents and closing autonomous loops.
+- Agentic Coding Stack — task to reviewed PR without human keyboard input
+- Multi-Agent DevOps Stack — triage, fix, and review agents in parallel
+- Browser AI / Web Agent Stack — navigate, scrape, and fill forms with no human in the loop
+- Voice AI Pipeline — speech in, intelligence out, speech back, streaming
+- Data + AI Pipeline — warehouse as context source, LLM as reasoning layer
+
+### Ship & Harden — "Make it trustworthy"
+For teams who are in production and need reliability, quality, and cost control.
+- LLM Production Infra Stack — provider-agnostic, swap models with a config change
+- Evaluation & Quality Stack — regression testing and quality metrics for LLM features
+- Spec-Driven AI Development — spec as source of truth, everything downstream stays in sync
+- LLM Cost Reduction Stack — cut API spend 50–80% without degrading quality
+- Multi-Modal RAG Stack — RAG over PDFs, images, tables, and charts
+- Legacy App + AI Stack — add AI to an existing Rails/Django/Java app without a rewrite
+
+### Comply & Restrict — "Nothing leaves the building"
+For teams with data residency, compliance, or security requirements.
+- OSS Self-Hosted AI Stack — zero data egress, everything on-premise
+- EU / GDPR Regulated AI Stack — cloud AI using EU-resident providers with signed DPAs
+- Edge / On-Device AI Stack — model runs on the device, no server round-trip
+- AI Red-Team / Security Stack — test your own AI for prompt injection, jailbreaks, and data leakage
+
+### Understand — "Data is the product"
+For teams building knowledge systems, training custom models, or extracting structured data at scale.
+- Enterprise RAG Stack — production RAG with routing, eval, and observability
+- Fine-Tuning Pipeline — when prompting hits its ceiling, you train
+- Document Intelligence Stack — structured extraction from contracts, invoices, and records at volume
+- Research & Synthesis Stack — AI that reads across sources and produces structured reports
 
 ## URL patterns
 
+- /stacks?cluster=build — stacks in the Build cluster
+- /stacks?cluster=automate — stacks in the Automate cluster
+- /stacks?cluster=ship — stacks in the Ship & Harden cluster
+- /stacks?cluster=comply — stacks in the Comply & Restrict cluster
+- /stacks?cluster=understand — stacks in the Understand cluster
+- /stacks?stack=indie-hacker — specific stack selected
 - /explore?compare=cursor,github-copilot — compare two tools in the interactive graph
 - /compare/cursor/github-copilot — dedicated SEO page comparing two specific tools
 - /builder?s=cursor,langgraph,openai-api — pre-loaded stack in the builder
-- /explore?s=cursor — explore page with a specific tool highlighted
 
 ## Tool comparison: key pairs
 
@@ -38,25 +87,45 @@ GitHub: https://github.com/letsgogeeky/aichitect
 - OpenAI API vs Anthropic API: /compare/openai-api/anthropic-api
 - CrewAI vs AutoGen: /compare/crewai/autogen
 - Devin vs OpenHands: /compare/devin/openhands
-- Pinecone vs Weaviate: /compare/pinecone/weaviate (if relationship exists)
 - LiteLLM vs OpenRouter: /compare/litellm/openrouter
+- Langfuse vs LangSmith: /compare/langfuse/langsmith
+- Qdrant vs pgvector: /compare/qdrant/pgvector
+- Ollama vs vLLM: /compare/ollama/vllm
 
 ## Tool categories and example tools
 
-- Coding Assistants: Cursor, Windsurf, GitHub Copilot, Zed, VS Code
-- Autonomous Agents: Devin, OpenHands, Claude Code, Aider, Plandex, Goose
-- Agent Frameworks: LangGraph, CrewAI, AutoGen, LlamaIndex, Semantic Kernel
-- Pipelines & RAG: LangChain, Dify, n8n, Flowise
-- LLM Infrastructure: OpenAI API, Anthropic API, Together AI, Fireworks AI, Ollama, llama.cpp, LiteLLM, OpenRouter
-- Observability & Eval: LangSmith, Langfuse, Arize Phoenix, Braintrust, Helicone, RAGAS
-- MCP Servers: MCP SDK Python, MCP SDK TypeScript, PortKey
-- Design & UI: v0, Vercel v0, Figma AI
-- DevOps & CI/CD: Modal, Render, Railway, Fly.io
-- Documentation: Mintlify, Readme.io
+- Coding Assistants: Cursor, Windsurf, GitHub Copilot, Claude Code, Aider, Continue, Zed
+- Autonomous Agents: Devin, OpenHands, GPT Pilot, SWE-agent
+- Agent Frameworks: LangGraph, CrewAI, AutoGen, Mastra, PydanticAI, Agno, smolagents
+- Pipelines & RAG: LangChain, LlamaIndex, Dify, n8n, Flowise, DSPy, Haystack
+- LLM Infrastructure: OpenAI API, Anthropic API, Mistral API, Together AI, Fireworks AI, Ollama, vLLM, llama.cpp, LiteLLM, OpenRouter, Replicate
+- Observability: LangSmith, Langfuse, Arize Phoenix, Braintrust, Helicone, Logfire
+- Vector Databases: Qdrant, pgvector, Chroma, Weaviate, Milvus, Pinecone
+- Prompt & Eval: PromptFoo, DeepEval, RAGAS, Weights & Biases, Vellum, Agenta
+- MCP Servers: MCP SDK TypeScript, MCP SDK Python, GitHub MCP, Playwright MCP, E2B, Smithery, FastMCP
+- Design & UI: v0, Locofy, Framer AI, Relume, Builder.io, Uizard
+- DevOps & CI/CD: CodeRabbit, Sweep AI, Qodo, Graphite, Trunk, Modal, Ray
+- Specifications: Swagger / OpenAPI, Speakeasy, Spec Kit, Fern, Stainless, Redocly
 
-## Data shape (for programmatic use)
+## Stack data shape
 
-Each tool has: id, name, category, tagline, description, type (oss|commercial), pricing (free_tier, plans[]), github_stars, urls (website, github)
+Each stack has:
+- id, name, description, target — identity and audience
+- cluster — one of: build | automate | ship | comply | understand
+- mission — the specific situation and constraints the stack was assembled for
+- not_in_stack — tools that were considered and explicitly rejected, with one-line reasons
+- kill_conditions — the specific conditions that signal it's time to graduate to a different stack
+- graduates_to — stack id of the natural next stack in the progression
+- why — reasoning behind the tool choices
+- tradeoffs — honest description of where this stack falls short
+- complexity — beginner | intermediate | advanced
+- monthly_cost — approximate cost range
+- tools — ordered list of tool ids in the stack
+- flow — directed edges describing how tools connect in this stack
+
+## Tool data shape
+
+Each tool has: id, name, category, tagline, description, type (oss|saas), pricing (free_tier, plans[]), github_stars, slot, urls (website, github)
 
 Each relationship has: source (tool id), target (tool id), type (integrates-with|commonly-paired|competes-with)
 

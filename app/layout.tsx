@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { SITE_URL, GITHUB_URL, TOOL_COUNT, CATEGORY_COUNT } from "@/lib/constants";
+import { SITE_URL, GITHUB_URL, TOOL_COUNT, CATEGORY_COUNT, STACK_COUNT } from "@/lib/constants";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SuggestToolProvider } from "@/components/ui/SuggestToolContext";
@@ -93,7 +93,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
               featureList: [
                 `Interactive AI tool graph with ${TOOL_COUNT} tools`,
-                "10 curated AI stacks",
+                `${STACK_COUNT} curated AI stacks`,
                 "Custom stack builder with URL sharing",
                 "3D graph visualization",
                 "Open source",
