@@ -92,6 +92,26 @@ function IconCompare() {
   );
 }
 
+function IconGenome() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M2 12C2 12 7 7 12 12s10-0 10 0" />
+      <path d="M2 12C2 12 7 17 12 12s10 0 10 0" />
+      <line x1="2" y1="9" x2="22" y2="9" />
+      <line x1="2" y1="15" x2="22" y2="15" />
+    </svg>
+  );
+}
+
 function IconArrowRight() {
   return (
     <svg
@@ -497,6 +517,93 @@ function ComparePreview() {
   );
 }
 
+function GenomePreview() {
+  return (
+    <svg
+      width="100%"
+      height="100%"
+      viewBox="0 0 280 160"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {/* Fitness gauge circle */}
+      <circle cx="60" cy="80" r="38" stroke="#1e1e2e" strokeWidth="7" fill="none" />
+      <circle
+        cx="60"
+        cy="80"
+        r="38"
+        stroke="#26de81"
+        strokeWidth="7"
+        fill="none"
+        strokeDasharray="180 239"
+        strokeLinecap="round"
+        transform="rotate(-90 60 80)"
+        opacity="0.9"
+      />
+      <text
+        x="60"
+        y="77"
+        textAnchor="middle"
+        fill="#f0f0f8"
+        fontSize="16"
+        fontWeight="700"
+        fontFamily="monospace"
+      >
+        78
+      </text>
+      <text x="60" y="90" textAnchor="middle" fill="#555577" fontSize="7" fontFamily="monospace">
+        / 100
+      </text>
+      <rect x="36" y="126" width="48" height="10" rx="5" fill="#26de81" opacity="0.2" />
+      <text
+        x="60"
+        y="134"
+        textAnchor="middle"
+        fill="#26de81"
+        fontSize="7"
+        fontWeight="600"
+        fontFamily="monospace"
+      >
+        Cutting-Edge
+      </text>
+
+      {/* Slot grid on the right */}
+      {[
+        { x: 118, y: 10, color: "#7c6bff", label: "code editor", filled: true },
+        { x: 194, y: 10, color: "#ff6b6b", label: "agent", filled: true },
+        { x: 118, y: 48, color: "#26de81", label: "framework", filled: true },
+        { x: 194, y: 48, color: "#00d4aa", label: "inference", filled: true },
+        { x: 118, y: 86, color: "#4ecdc4", label: "vector db", filled: true },
+        { x: 194, y: 86, color: "#fd9644", label: "observability", filled: false },
+        { x: 118, y: 124, color: "#a29bfe", label: "mcp", filled: false },
+        { x: 194, y: 124, color: "#555577", label: "eval", filled: false },
+      ].map(({ x, y, color, label, filled }) => (
+        <g key={label}>
+          <rect
+            x={x}
+            y={y}
+            width="68"
+            height="32"
+            rx="5"
+            fill={filled ? color + "15" : "#0e0e18"}
+            stroke={filled ? color + "44" : "#1e1e2e"}
+          />
+          <circle cx={x + 9} cy={y + 10} r="3" fill={color} opacity={filled ? 0.9 : 0.3} />
+          <rect
+            x={x + 7}
+            y={y + 18}
+            width={filled ? 42 : 28}
+            height="6"
+            rx="2"
+            fill={color}
+            opacity={filled ? 0.5 : 0.15}
+          />
+        </g>
+      ))}
+    </svg>
+  );
+}
+
 const VIEWS = [
   {
     href: "/stacks",
@@ -537,6 +644,16 @@ const VIEWS = [
     accent: "#fd9644",
     Preview: ComparePreview,
   },
+  {
+    href: "/genome",
+    label: "Genome",
+    tagline: "Score your AI stack",
+    description:
+      "Paste your dependency files and get a fitness score for your stack — see which slots are covered, which are missing, and what to add next.",
+    Icon: IconGenome,
+    accent: "#26de81",
+    Preview: GenomePreview,
+  },
 ];
 
 export default function LandingPage() {
@@ -571,15 +688,16 @@ export default function LandingPage() {
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
           {[
-            { href: "/stacks", label: "Stacks" },
-            { href: "/explore", label: "Graph" },
-            { href: "/builder", label: "Builder" },
-            { href: "/compare", label: "Compare" },
-          ].map(({ href, label }) => (
+            { href: "/stacks", label: "Stacks", Icon: IconLayers },
+            { href: "/explore", label: "Graph", Icon: IconNetwork },
+            { href: "/builder", label: "Builder", Icon: IconSettings2 },
+            { href: "/compare", label: "Compare", Icon: IconCompare },
+            { href: "/genome", label: "Genome", Icon: IconGenome },
+          ].map(({ href, label, Icon }) => (
             <Link
               key={href}
               href={href}
-              className="flex items-center rounded-[7px] text-[#8888aa] hover:text-[#f0f0f8] hover:bg-[#1c1c28] transition-colors"
+              className="flex items-center gap-[6px] rounded-[7px] text-[#8888aa] hover:text-[#f0f0f8] hover:bg-[#1c1c28] transition-colors"
               style={{
                 padding: "0 10px",
                 height: 34,
@@ -588,6 +706,7 @@ export default function LandingPage() {
                 textDecoration: "none",
               }}
             >
+              <Icon />
               {label}
             </Link>
           ))}
@@ -1009,6 +1128,7 @@ export default function LandingPage() {
             { label: "Stacks", href: "/stacks" },
             { label: "Builder", href: "/builder" },
             { label: "Compare", href: "/compare" },
+            { label: "Genome", href: "/genome" },
             { label: "GitHub", href: GITHUB_URL, external: true },
           ].map(({ label, href, external }) =>
             external ? (

@@ -90,6 +90,26 @@ function IconCompare() {
   );
 }
 
+function IconGenome() {
+  return (
+    <svg
+      width="13"
+      height="13"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M2 12C2 12 7 7 12 12s10-0 10 0" />
+      <path d="M2 12C2 12 7 17 12 12s10 0 10 0" />
+      <line x1="2" y1="9" x2="22" y2="9" />
+      <line x1="2" y1="15" x2="22" y2="15" />
+    </svg>
+  );
+}
+
 function IconShare() {
   return (
     <svg
@@ -141,6 +161,7 @@ const VIEWS = [
   { href: "/explore", label: "Graph", Icon: IconNetwork },
   { href: "/builder", label: "Builder", Icon: IconSettings2 },
   { href: "/compare", label: "Compare", Icon: IconCompare },
+  { href: "/genome", label: "Genome", Icon: IconGenome },
 ];
 
 function NavViewLinks() {
@@ -155,7 +176,9 @@ function NavViewLinks() {
     >
       {VIEWS.map(({ href, label, Icon }) => {
         const active = href === "/compare" ? pathname.startsWith("/compare") : pathname === href;
-        const dest = s ? `${href}?s=${s}` : href;
+        // Don't forward the stack ?s= param to routes that use their own URL state
+        const forwardS = s && href !== "/genome" && href !== "/compare";
+        const dest = forwardS ? `${href}?s=${s}` : href;
         return (
           <Link
             key={href}

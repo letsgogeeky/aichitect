@@ -31,6 +31,18 @@ export interface ToolUrls {
   github: string | null;
 }
 
+/**
+ * Multi-strategy detection signals for the Stack Genome parser.
+ * Each array contains strings matched against a specific input source.
+ * Tools with all empty arrays are "manual-only" — shown in the "Did we miss anything?" UI.
+ */
+export interface ToolAliases {
+  npm: string[]; // npm/yarn package names (package.json dependencies)
+  pip: string[]; // PyPI package names (requirements.txt / pyproject.toml)
+  env_vars: string[]; // env var key names (.env.example, docker-compose.yml)
+  config_files: string[]; // file path prefixes/patterns (file tree detection)
+}
+
 export interface Tool {
   id: string;
   name: string;
@@ -44,6 +56,7 @@ export interface Tool {
   prominent?: boolean;
   provider?: string; // e.g. "anthropic" | "openai" | "mistral" | "cohere" — only set for provider-tied tools
   choose_if?: string[]; // ≤3 decision signals shown in comparison panel
+  aliases?: ToolAliases; // Stack Genome detection signals
   urls: ToolUrls;
 }
 
