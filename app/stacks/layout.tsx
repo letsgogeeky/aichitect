@@ -1,14 +1,16 @@
-import type { Metadata } from "next";
 import { Suspense } from "react";
 import Navbar from "@/components/ui/Navbar";
 import MyStackTray from "@/components/ui/MyStackTray";
+import { pageMeta } from "@/lib/metadata";
 
-export const metadata: Metadata = {
-  title: "Stacks — 25 Curated AI Stacks",
+export const metadata = pageMeta({
+  title: "Stacks — 25 Mission-Driven AI Stacks",
   description:
-    "Skip the research. Explore 25 curated AI stacks organized by mission — from zero-budget OSS to enterprise RAG, fine-tuning, GDPR compliance, and multi-agent DevOps.",
-  alternates: { canonical: "https://aichitect.dev/stacks" },
-};
+    "Skip the research. 25 curated AI stacks organized by what you're trying to do — Build, Automate, Ship & Harden, Comply, or Understand. Each with a mission brief, explicit rejections, and kill conditions.",
+  path: "/stacks",
+  ogImage: "/stacks/opengraph-image",
+  ogImageAlt: "AIchitect Stacks — 25 mission-driven AI stacks",
+});
 
 export default function StacksLayout({ children }: { children: React.ReactNode }) {
   return (

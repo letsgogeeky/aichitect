@@ -1,4 +1,13 @@
 import Navbar from "@/components/ui/Navbar";
+import { pageMeta } from "@/lib/metadata";
+
+export const metadata = pageMeta({
+  title: "Compare — AI Tool Head-to-Head",
+  description:
+    "Pick any two AI tools and get a side-by-side breakdown of pricing, integrations, GitHub stars, and ecosystem connections.",
+  path: "/compare",
+  ogImageAlt: "AIchitect Compare",
+});
 
 export default function CompareLayout({ children }: { children: React.ReactNode }) {
   return (

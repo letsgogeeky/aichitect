@@ -1,12 +1,14 @@
-import type { Metadata } from "next";
 import Navbar from "@/components/ui/Navbar";
+import { pageMeta } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
   title: "Builder — Build Your AI Stack",
   description:
-    "Pick one tool per slot and see how your stack wires together. No bloat, no noise — just your custom AI stack with every integration mapped.",
-  alternates: { canonical: "https://aichitect.dev/builder" },
-};
+    "Pick one tool per slot and watch your stack wire together with live integration edges. Share your exact stack via URL.",
+  path: "/builder",
+  ogImage: "/builder/opengraph-image",
+  ogImageAlt: "AIchitect Builder — Build Your AI Stack",
+});
 
 export default function BuilderLayout({ children }: { children: React.ReactNode }) {
   return (

@@ -1,4 +1,3 @@
-import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 
@@ -6,6 +5,7 @@ import toolsData from "@/data/tools.json";
 import relationshipsData from "@/data/relationships.json";
 import { Tool, Relationship, getCategoryColor, CATEGORIES } from "@/lib/types";
 import { TOOL_COUNT, RELATIONSHIP_COUNT } from "@/lib/constants";
+import { pageMeta } from "@/lib/metadata";
 
 const tools = toolsData as Tool[];
 const relationships = relationshipsData as Relationship[];
@@ -16,23 +16,19 @@ interface Props {
 
 // ─── Metadata ────────────────────────────────────────────────────────────────
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: Props) {
   const { toolA: aId, toolB: bId } = await params;
   const a = tools.find((t) => t.id === aId);
   const b = tools.find((t) => t.id === bId);
   if (!a || !b) return {};
 
-  const title = `${a.name} vs ${b.name}`;
-  const description = `Compare ${a.name} and ${b.name}: pricing, integrations, shared ecosystem connections, and how they relate in the AI stack. ${a.tagline} vs ${b.tagline}`;
-  const canonical = `https://aichitect.dev/compare/${aId}/${bId}`;
-
-  return {
-    title,
-    description,
-    alternates: { canonical },
-    openGraph: { title, description, url: canonical },
-    twitter: { card: "summary_large_image", title, description },
-  };
+  return pageMeta({
+    title: `${a.name} vs ${b.name}`,
+    description: `Compare ${a.name} and ${b.name}: pricing, integrations, shared ecosystem connections, and how they relate in the AI stack. ${a.tagline} vs ${b.tagline}`,
+    path: `/compare/${aId}/${bId}`,
+    ogImage: `/compare/${aId}/${bId}/opengraph-image`,
+    ogImageAlt: `${a.name} vs ${b.name}`,
+  });
 }
 
 // ─── Static params (prominent tool pairs with direct relationships) ──────────

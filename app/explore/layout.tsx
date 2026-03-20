@@ -1,14 +1,15 @@
-import type { Metadata } from "next";
 import { Suspense } from "react";
 import Navbar from "@/components/ui/Navbar";
 import MyStackTray from "@/components/ui/MyStackTray";
+import { pageMeta } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata = pageMeta({
   title: "Explore — AI Tool Landscape Map",
   description:
-    "Browse 123 AI tools across 12 categories — code editors, agent frameworks, LLM providers, API specs, observability, and more — mapped with their integrations and relationships.",
-  alternates: { canonical: "https://aichitect.dev/explore" },
-};
+    "Browse 123 AI tools across 12 categories — code editors, agent frameworks, LLM providers, observability, vector databases, and more — mapped with their integrations and relationships.",
+  path: "/explore",
+  ogImageAlt: "AIchitect — AI Tool Landscape Map",
+});
 
 export default function ExploreLayout({ children }: { children: React.ReactNode }) {
   return (
