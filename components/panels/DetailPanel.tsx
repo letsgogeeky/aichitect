@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useSearchParams, useRouter } from "next/navigation";
 import { Tool, getCategoryColor, CATEGORIES } from "@/lib/types";
 import relationshipsData from "@/data/relationships.json";
 import toolsData from "@/data/tools.json";
@@ -19,13 +20,26 @@ interface Props {
 
 export default function DetailPanel({ tool, onClose }: Props) {
   const { openSuggest } = useSuggestTool();
+  const searchParams = useSearchParams();
+  const router = useRouter();
 
   if (!tool) return null;
 
   const color = getCategoryColor(tool.category);
+
+  const stackIds = (searchParams.get("s") ?? "").split(",").filter(Boolean);
+  const inStack = stackIds.includes(tool.id);
+
+  function toggleStack() {
+    const next = inStack ? stackIds.filter((id) => id !== tool.id) : [...stackIds, tool.id];
+    const url = new URL(window.location.href);
+    if (next.length > 0) url.searchParams.set("s", next.join(","));
+    else url.searchParams.delete("s");
+    router.replace(url.pathname + url.search, { scroll: false });
+  }
   const categoryLabel = CATEGORIES.find((c) => c.id === tool.category)?.label;
 
-  const connected = relationships
+  const connectedRaw = relationships
     .filter((r) => r.source === tool.id || r.target === tool.id)
     .map((r) => {
       const otherId = r.source === tool.id ? r.target : r.source;
@@ -33,6 +47,15 @@ export default function DetailPanel({ tool, onClose }: Props) {
       return other ? { tool: other, type: r.type } : null;
     })
     .filter(Boolean) as { tool: Tool; type: string }[];
+
+  // Deduplicate: same tool can appear in both directions (A→B and B→A)
+  const seen = new Set<string>();
+  const connected = connectedRaw.filter(({ tool: other, type }) => {
+    const key = `${other.id}-${type}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
 
   const featuredIn = stacks.filter((s) => s.tools.includes(tool.id));
 
@@ -133,6 +156,24 @@ export default function DetailPanel({ tool, onClose }: Props) {
             </a>
           )}
         </div>
+
+        {/* Add to My Stack */}
+        <button
+          onClick={toggleStack}
+          className="w-full flex items-center justify-center gap-2 transition-all"
+          style={{
+            padding: "8px 12px",
+            borderRadius: 8,
+            background: inStack ? "#00d4aa18" : "#7c6bff18",
+            border: `1px solid ${inStack ? "#00d4aa44" : "#7c6bff44"}`,
+            color: inStack ? "#00d4aa" : "#7c6bff",
+            fontSize: 12,
+            fontWeight: 600,
+            cursor: "pointer",
+          }}
+        >
+          {inStack ? "✓ In My Stack" : "+ Add to My Stack"}
+        </button>
 
         {/* Connected tools */}
         {connected.length > 0 && (

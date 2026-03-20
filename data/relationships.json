@@ -1048,6 +1048,18 @@
   { "source": "anima", "target": "kombai", "type": "competes-with" },
   { "source": "kombai", "target": "locofy", "type": "competes-with" },
   { "source": "uizard", "target": "galileo", "type": "competes-with" },
+  { "source": "google-stitch", "target": "v0", "type": "competes-with" },
+  { "source": "google-stitch", "target": "locofy", "type": "competes-with" },
+  { "source": "google-stitch", "target": "anima", "type": "competes-with" },
+  { "source": "google-stitch", "target": "kombai", "type": "competes-with" },
+  { "source": "google-stitch", "target": "galileo", "type": "competes-with" },
+  {
+    "source": "google-stitch",
+    "target": "cursor",
+    "type": "commonly-paired",
+    "how": "Google Stitch converts a screenshot or mockup into HTML/CSS/JS, which is then imported into Cursor to refine, componentize, and wire into the full application.",
+    "achieves": "Visual-to-production in one flow: Stitch handles the translation from design reference, Cursor handles the engineering — no manual pixel-matching."
+  },
   {
     "source": "sweep-ai",
     "target": "coderabbit",

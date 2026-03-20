@@ -959,6 +959,35 @@
     ]
   },
   {
+    "id": "google-stitch",
+    "name": "Google Stitch",
+    "category": "design",
+    "tagline": "Gemini-powered screenshot or prompt → production web code",
+    "description": "Google's design-to-code tool powered by Gemini. Converts screenshots, mockups, or text prompts into production-ready HTML, CSS, and JavaScript. Integrated with Google AI Studio and targets rapid UI prototyping directly from visual references.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Free",
+          "price": "Free"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "design-to-code",
+    "prominent": false,
+    "urls": {
+      "website": "https://stitch.withgoogle.com",
+      "github": null
+    },
+    "choose_if": [
+      "You want to turn a screenshot or mockup into real code instantly",
+      "You're in the Google / Gemini ecosystem",
+      "You need a free, fast starting point for UI prototypes"
+    ]
+  },
+  {
     "id": "langchain",
     "name": "LangChain",
     "category": "pipelines-rag",

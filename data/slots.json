@@ -69,7 +69,7 @@
       "langflow",
       "vercel-ai-sdk"
     ],
-    "priority": "recommended",
+    "priority": "optional",
     "suggest": "vercel-ai-sdk",
     "suggest_reason": "Lightweight and easy to start — integrates with any model provider"
   },
@@ -78,7 +78,9 @@
     "name": "Which models does your stack route through?",
     "description": "A gateway that normalizes calls across providers — one API for all models, with fallbacks",
     "tools": ["litellm", "openrouter", "portkey"],
-    "priority": "optional"
+    "priority": "optional",
+    "suggest": "litellm",
+    "suggest_reason": "One interface for 100+ models — swap providers without rewriting your code"
   },
   {
     "id": "inference",
@@ -143,9 +145,12 @@
       "kombai",
       "framer-ai",
       "uizard",
-      "relume"
+      "relume",
+      "google-stitch"
     ],
-    "priority": "optional"
+    "priority": "optional",
+    "suggest": "v0",
+    "suggest_reason": "Prompt → production React/Tailwind in seconds — the fastest UI starting point"
   },
   {
     "id": "devops-automation",
@@ -162,7 +167,9 @@
       "grit-io",
       "pixee"
     ],
-    "priority": "optional"
+    "priority": "optional",
+    "suggest": "coderabbit",
+    "suggest_reason": "AI code review on every PR — catches bugs and style issues before they merge"
   },
   {
     "id": "mcp-infra",
@@ -178,7 +185,9 @@
       "playwright-mcp",
       "github-mcp"
     ],
-    "priority": "optional"
+    "priority": "optional",
+    "suggest": "fastmcp",
+    "suggest_reason": "Build an MCP server in minutes — the fastest way to give your agent new capabilities"
   },
   {
     "id": "prompt-eval",

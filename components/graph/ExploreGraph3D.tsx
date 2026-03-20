@@ -318,7 +318,7 @@ export default function ExploreGraph3D({
           </div>
         ))}
         <p className="text-[9px] text-[var(--text-muted)] mt-1.5 pt-1.5 border-t border-[var(--border)]">
-          Drag to rotate · Scroll to zoom · Click a node
+          Drag to rotate · Scroll to zoom · Click for details
         </p>
       </div>
 

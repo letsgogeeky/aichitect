@@ -102,6 +102,17 @@ function StacksContent() {
     router.push(`?${params.toString()}`, { scroll: false });
   }
 
+  function handleAddToStack(tool: Tool) {
+    const currentS = searchParams.get("s") ?? "";
+    const stackIds = currentS.split(",").filter(Boolean);
+    const inStack = stackIds.includes(tool.id);
+    const next = inStack ? stackIds.filter((id) => id !== tool.id) : [...stackIds, tool.id];
+    const params = new URLSearchParams(searchParams.toString());
+    if (next.length > 0) params.set("s", next.join(","));
+    else params.delete("s");
+    router.replace(`?${params.toString()}`, { scroll: false });
+  }
+
   function handleCompareClick(tool: Tool) {
     // Already showing comparison — replace slot B
     if (compareA && compareB) {
@@ -394,13 +405,16 @@ function StacksContent() {
             )}
           </div>
 
-          {/* Tool chips — each gets a compare trigger on hover */}
+          {/* Tool chips — each gets a compare trigger and add-to-stack on hover */}
           <div className="flex flex-wrap gap-1.5 items-center">
             {selectedTools.map((t) => {
               const c = getCategoryColor(t.category);
               const isCompareA = compareA?.id === t.id;
               const isCompareB = compareB?.id === t.id;
               const isCompared = isCompareA || isCompareB;
+              const currentS = searchParams.get("s") ?? "";
+              const stackIds = currentS.split(",").filter(Boolean);
+              const inStack = stackIds.includes(t.id);
               return (
                 <div key={t.id} className="relative group/chip inline-flex">
                   <span
@@ -413,7 +427,22 @@ function StacksContent() {
                   >
                     {t.name}
                   </span>
-                  {/* Compare button — appears on hover or when staged */}
+                  {/* Add to stack button — top-left */}
+                  <button
+                    onClick={() => handleAddToStack(t)}
+                    title={inStack ? `Remove ${t.name} from My Stack` : `Add ${t.name} to My Stack`}
+                    className={`absolute -top-1 -left-1 w-4 h-4 rounded-full flex items-center justify-center transition-all ${inStack ? "opacity-100" : "opacity-0 group-hover/chip:opacity-100"}`}
+                    style={{
+                      background: inStack ? "#00d4aa" : "#0e0e18",
+                      border: `1px solid ${inStack ? "#00d4aa" : "var(--border)"}`,
+                      color: inStack ? "#0a0a0f" : "var(--text-muted)",
+                      fontSize: 9,
+                      fontWeight: 700,
+                    }}
+                  >
+                    {inStack ? "✓" : "+"}
+                  </button>
+                  {/* Compare button — top-right */}
                   <button
                     onClick={() => handleCompareClick(t)}
                     title={isCompareA ? `${t.name} staged — pick one more` : `Compare ${t.name}`}

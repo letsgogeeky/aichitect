@@ -28,9 +28,6 @@ const allTools = toolsData as Tool[];
 const relationships = relationshipsData as Relationship[];
 const nodeTypes: NodeTypes = { tool: ToolNode };
 
-// Default slots always shown in the sidebar
-const DEFAULT_SLOT_IDS = new Set(slots.slice(0, 6).map((s) => s.id));
-
 function BuilderGraph({
   toolIds,
   expandedId,
@@ -145,11 +142,7 @@ function BuilderPageContent() {
     return result;
   }, [urlToolIds]);
 
-  // Sidebar shows the default 6 slots + any extra slots that have URL-specified tools
-  const visibleSlots = useMemo(() => {
-    const extras = slots.filter((s) => !DEFAULT_SLOT_IDS.has(s.id) && !!selected[s.id]);
-    return [...slots.slice(0, 6), ...extras];
-  }, [selected]);
+  const visibleSlots = slots;
 
   const pickTool = useCallback(
     (slotId: string, toolId: string) => {
@@ -245,7 +238,7 @@ function BuilderPageContent() {
               className="text-[10px] px-2 py-1 rounded-md"
               style={{ background: "#7c6bff18", color: "#7c6bff" }}
             >
-              {selectedCount} of {visibleSlots.length} slots filled
+              {selectedCount} of {slots.length} slots filled
             </div>
           )}
 

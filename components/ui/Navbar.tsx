@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import Logo from "./Logo";
 import { GITHUB_URL, TOOL_COUNT, STACK_COUNT } from "@/lib/constants";
 import { useSuggestTool } from "./SuggestToolContext";
@@ -143,6 +143,45 @@ const VIEWS = [
   { href: "/compare", label: "Compare", Icon: IconCompare },
 ];
 
+function NavViewLinks() {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const s = searchParams.get("s");
+
+  return (
+    <div
+      className="flex items-center"
+      style={{ background: "#1c1c28", borderRadius: 8, padding: 3, gap: 2, height: 34 }}
+    >
+      {VIEWS.map(({ href, label, Icon }) => {
+        const active = href === "/compare" ? pathname.startsWith("/compare") : pathname === href;
+        const dest = s ? `${href}?s=${s}` : href;
+        return (
+          <Link
+            key={href}
+            href={dest}
+            className="flex items-center"
+            style={{
+              gap: 6,
+              padding: "0 12px",
+              height: "100%",
+              borderRadius: 6,
+              fontSize: 12,
+              fontWeight: active ? 500 : 400,
+              background: active ? "#7c6bff" : "transparent",
+              color: active ? "#ffffff" : "#8888aa",
+              transition: "background 150ms, color 150ms",
+            }}
+          >
+            <Icon />
+            {label}
+          </Link>
+        );
+      })}
+    </div>
+  );
+}
+
 export default function Navbar() {
   const pathname = usePathname();
   const [copied, setCopied] = useState(false);
@@ -204,36 +243,42 @@ export default function Navbar() {
         <div style={{ flex: 1 }} />
 
         {/* View toggle */}
-        <div
-          className="flex items-center"
-          style={{ background: "#1c1c28", borderRadius: 8, padding: 3, gap: 2, height: 34 }}
+        <Suspense
+          fallback={
+            <div
+              className="flex items-center"
+              style={{ background: "#1c1c28", borderRadius: 8, padding: 3, gap: 2, height: 34 }}
+            >
+              {VIEWS.map(({ href, label, Icon }) => {
+                const active =
+                  href === "/compare" ? pathname.startsWith("/compare") : pathname === href;
+                return (
+                  <Link
+                    key={href}
+                    href={href}
+                    className="flex items-center"
+                    style={{
+                      gap: 6,
+                      padding: "0 12px",
+                      height: "100%",
+                      borderRadius: 6,
+                      fontSize: 12,
+                      fontWeight: active ? 500 : 400,
+                      background: active ? "#7c6bff" : "transparent",
+                      color: active ? "#ffffff" : "#8888aa",
+                      transition: "background 150ms, color 150ms",
+                    }}
+                  >
+                    <Icon />
+                    {label}
+                  </Link>
+                );
+              })}
+            </div>
+          }
         >
-          {VIEWS.map(({ href, label, Icon }) => {
-            const active =
-              href === "/compare" ? pathname.startsWith("/compare") : pathname === href;
-            return (
-              <Link
-                key={href}
-                href={href}
-                className="flex items-center"
-                style={{
-                  gap: 6,
-                  padding: "0 12px",
-                  height: "100%",
-                  borderRadius: 6,
-                  fontSize: 12,
-                  fontWeight: active ? 500 : 400,
-                  background: active ? "#7c6bff" : "transparent",
-                  color: active ? "#ffffff" : "#8888aa",
-                  transition: "background 150ms, color 150ms",
-                }}
-              >
-                <Icon />
-                {label}
-              </Link>
-            );
-          })}
-        </div>
+          <NavViewLinks />
+        </Suspense>
 
         {/* Right slot */}
         {pathname === "/explore" && (

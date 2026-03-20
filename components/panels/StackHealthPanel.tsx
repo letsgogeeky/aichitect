@@ -82,7 +82,7 @@ export default function StackHealthPanel({ selected, slots, allTools, onAddTool 
       let suggestReason = slot.suggest_reason;
 
       // Override inference/llm-provider suggestion if we know the dominant provider
-      if (!tool && dominantProvider && (slot.id === "inference" || slot.id === "llm-provider")) {
+      if (!tool && dominantProvider && slot.id === "inference") {
         const override = PROVIDER_INFERENCE_TOOL[dominantProvider];
         if (override) {
           suggestedToolId = override;
