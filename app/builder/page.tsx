@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useMemo, useCallback, Suspense } from "react";
+import { useIsMobile } from "@/hooks/useIsMobile";
+import BottomSheet from "@/components/mobile/BottomSheet";
 import { useSearchParams, useRouter } from "next/navigation";
 import ReactFlow, {
   Background,
@@ -205,6 +207,8 @@ function BuilderPageContent() {
 
   const selectedCount = Object.values(selected).filter(Boolean).length;
   const [collapsedSlots, setCollapsedSlots] = useState<Record<string, boolean>>({});
+  const [mobileSlotPickerOpen, setMobileSlotPickerOpen] = useState(false);
+  const isMobile = useIsMobile();
 
   const selectedTools = useMemo(
     () => urlToolIds.map((id) => allTools.find((t) => t.id === id)).filter(Boolean) as Tool[],
@@ -218,10 +222,10 @@ function BuilderPageContent() {
 
   return (
     <div className="flex h-full">
-      {/* Slots panel */}
+      {/* Slots panel — hidden on mobile */}
       <aside
         data-tour="builder-slots"
-        className="w-64 flex-shrink-0 border-r overflow-y-auto"
+        className="hidden sm:block w-64 flex-shrink-0 border-r overflow-y-auto"
         style={{ background: "var(--surface)", borderColor: "var(--border)" }}
       >
         <div className="p-3 space-y-3">
@@ -434,11 +438,27 @@ function BuilderPageContent() {
           />
         </ReactFlowProvider>
 
+        {/* Mobile: floating "Choose Tools" button */}
+        {isMobile && (
+          <button
+            onClick={() => setMobileSlotPickerOpen(true)}
+            className="absolute left-3 z-20 flex items-center gap-2 px-3 py-2 rounded-lg text-xs"
+            style={{
+              bottom: "calc(1rem + env(safe-area-inset-bottom, 0px))",
+              background: "#7c6bff",
+              color: "#fff",
+            }}
+          >
+            ⊕ Choose Tools{selectedCount > 0 ? ` (${selectedCount})` : ""}
+          </button>
+        )}
+
         {/* Stack Story — floating overlay at the bottom of the graph */}
         {story && (
           <div
-            className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 rounded-xl px-4 py-3 w-max max-w-[560px]"
+            className="absolute left-1/2 -translate-x-1/2 z-10 rounded-xl px-4 py-3 w-max max-w-[calc(100vw-2rem)] sm:max-w-[560px]"
             style={{
+              bottom: "calc(4rem + env(safe-area-inset-bottom, 0px))",
               background: "#0e0e18ee",
               border: "1px solid #7c6bff33",
               backdropFilter: "blur(8px)",
@@ -456,8 +476,8 @@ function BuilderPageContent() {
         )}
       </div>
 
-      {/* Comparison panel */}
-      {compareA && compareB && (
+      {/* Comparison panel — desktop only */}
+      {!isMobile && compareA && compareB && (
         <ComparisonPanel
           toolA={compareA}
           toolB={compareB}
@@ -471,6 +491,75 @@ function BuilderPageContent() {
           }}
         />
       )}
+      {/* Mobile: slot picker bottom sheet */}
+      <BottomSheet
+        open={mobileSlotPickerOpen}
+        onClose={() => setMobileSlotPickerOpen(false)}
+        title={selectedCount > 0 ? `Choose Tools · ${selectedCount} selected` : "Choose Tools"}
+        snapPoints={[75, 92]}
+      >
+        <div className="p-3 space-y-3">
+          {visibleSlots.map((slot) => {
+            const selectedId = selected[slot.id];
+            const slotTools = slot.tools
+              .map((id) => allTools.find((t) => t.id === id))
+              .filter(Boolean) as Tool[];
+            return (
+              <div key={slot.id}>
+                <div
+                  className="text-[11px] font-semibold mb-1.5 px-1"
+                  style={{ color: "var(--text-secondary)" }}
+                >
+                  {slot.name}
+                </div>
+                <div className="space-y-1">
+                  {slotTools.map((tool) => {
+                    const isActive = selectedId === tool.id;
+                    const color = getCategoryColor(tool.category);
+                    return (
+                      <button
+                        key={tool.id}
+                        onClick={() => pickTool(slot.id, tool.id)}
+                        className="w-full flex items-center gap-2 px-3 py-3 rounded-lg"
+                        style={{
+                          background: isActive ? color + "22" : "var(--surface-2)",
+                          border: `1px solid ${isActive ? color + "66" : "var(--border)"}`,
+                        }}
+                      >
+                        <span
+                          className="text-xs font-medium flex-1 text-left"
+                          style={{ color: isActive ? color : "var(--text-primary)" }}
+                        >
+                          {tool.name}
+                        </span>
+                        {tool.type === "oss" && (
+                          <span className="text-[9px]" style={{ color: "#26de81" }}>
+                            OSS
+                          </span>
+                        )}
+                        {isActive && (
+                          <span className="text-[10px]" style={{ color }}>
+                            ✓
+                          </span>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
+          <div className="pt-2 pb-2">
+            <button
+              className="w-full py-2.5 rounded-lg text-sm font-semibold"
+              style={{ background: "#7c6bff", color: "#fff" }}
+              onClick={() => setMobileSlotPickerOpen(false)}
+            >
+              Build my stack
+            </button>
+          </div>
+        </div>
+      </BottomSheet>
     </div>
   );
 }

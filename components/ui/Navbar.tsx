@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, Suspense } from "react";
+import BottomSheet from "@/components/mobile/BottomSheet";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import Logo from "./Logo";
@@ -197,7 +198,7 @@ function NavViewLinks() {
             }}
           >
             <Icon />
-            {label}
+            <span className="hidden sm:inline">{label}</span>
           </Link>
         );
       })}
@@ -209,6 +210,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const [copied, setCopied] = useState(false);
   const [getStartedOpen, setGetStartedOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { openSuggest } = useSuggestTool();
   const { openWalkthrough } = useWalkthrough();
 
@@ -293,7 +295,7 @@ export default function Navbar() {
                     }}
                   >
                     <Icon />
-                    {label}
+                    <span className="hidden sm:inline">{label}</span>
                   </Link>
                 );
               })}
@@ -303,10 +305,29 @@ export default function Navbar() {
           <NavViewLinks />
         </Suspense>
 
+        {/* Mobile: ⋯ menu button */}
+        <button
+          className="sm:hidden flex items-center justify-center flex-shrink-0"
+          style={{
+            width: 34,
+            height: 34,
+            borderRadius: 8,
+            background: "#1c1c28",
+            border: "1px solid #2a2a3a",
+            color: "#8888aa",
+            fontSize: 16,
+            cursor: "pointer",
+          }}
+          onClick={() => setMobileMenuOpen(true)}
+          aria-label="More options"
+        >
+          ···
+        </button>
+
         {/* Right slot */}
         {pathname === "/explore" && (
           <div
-            className="flex items-center flex-shrink-0"
+            className="hidden sm:flex items-center flex-shrink-0"
             style={{
               gap: 6,
               padding: "4px 10px",
@@ -333,8 +354,8 @@ export default function Navbar() {
         {isComparePage && (
           <Link
             href="/compare"
+            className="hidden sm:flex"
             style={{
-              display: "flex",
               alignItems: "center",
               gap: 6,
               padding: "0 12px",
@@ -356,7 +377,7 @@ export default function Navbar() {
           <div className="flex items-center flex-shrink-0" style={{ gap: 8 }}>
             <button
               onClick={openGetStarted}
-              className="flex items-center transition-all"
+              className="hidden sm:flex items-center transition-all"
               style={{
                 gap: 6,
                 padding: "0 14px",
@@ -395,11 +416,11 @@ export default function Navbar() {
           </div>
         )}
 
-        {/* Tour button — visible on app routes */}
+        {/* Tour button — visible on app routes, hidden on mobile */}
         {tourRoute && (
           <button
             onClick={() => openWalkthrough(tourRoute)}
-            className="flex items-center flex-shrink-0 transition-colors"
+            className="hidden sm:flex items-center flex-shrink-0 transition-colors"
             style={{
               gap: 5,
               padding: "0 10px",
@@ -421,10 +442,10 @@ export default function Navbar() {
           </button>
         )}
 
-        {/* Suggest a Tool — always visible */}
+        {/* Suggest a Tool — hidden on mobile */}
         <button
           onClick={() => openSuggest()}
-          className="flex items-center flex-shrink-0 transition-colors"
+          className="hidden sm:flex items-center flex-shrink-0 transition-colors"
           style={{
             gap: 5,
             padding: "0 10px",
@@ -443,12 +464,12 @@ export default function Navbar() {
           + Suggest a Tool
         </button>
 
-        {/* GitHub link — always visible */}
+        {/* GitHub link — hidden on mobile */}
         <a
           href={GITHUB_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center flex-shrink-0 transition-colors"
+          className="hidden sm:flex items-center flex-shrink-0 transition-colors"
           style={{
             gap: 5,
             padding: "0 10px",
@@ -472,6 +493,81 @@ export default function Navbar() {
       {getStartedOpen && (
         <GetStartedModal toolIds={getStartedToolIds()} onClose={() => setGetStartedOpen(false)} />
       )}
+
+      {/* Mobile: ⋯ menu bottom sheet */}
+      <BottomSheet
+        open={mobileMenuOpen}
+        onClose={() => setMobileMenuOpen(false)}
+        snapPoints={[40, 60]}
+      >
+        <div className="px-4 pt-1 pb-4 space-y-2">
+          {pathname === "/builder" && (
+            <button
+              onClick={() => {
+                copyStack();
+                setMobileMenuOpen(false);
+              }}
+              className="w-full flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium"
+              style={{
+                background: copied ? "#00d4aa18" : "var(--surface-2)",
+                border: `1px solid ${copied ? "#00d4aa44" : "var(--border)"}`,
+                color: copied ? "#00d4aa" : "var(--text-primary)",
+              }}
+            >
+              <IconShare />
+              {copied ? "Copied!" : "Share Stack"}
+            </button>
+          )}
+          {tourRoute && (
+            <button
+              onClick={() => {
+                openWalkthrough(tourRoute);
+                setMobileMenuOpen(false);
+              }}
+              className="w-full flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium"
+              style={{
+                background: "var(--surface-2)",
+                border: "1px solid var(--border)",
+                color: "var(--text-primary)",
+              }}
+            >
+              <IconTour />
+              Take a Tour
+            </button>
+          )}
+          <button
+            onClick={() => {
+              openSuggest();
+              setMobileMenuOpen(false);
+            }}
+            className="w-full flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium"
+            style={{
+              background: "var(--surface-2)",
+              border: "1px solid var(--border)",
+              color: "var(--text-primary)",
+            }}
+          >
+            + Suggest a Tool
+          </button>
+          <a
+            href={GITHUB_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium"
+            style={{
+              background: "var(--surface-2)",
+              border: "1px solid var(--border)",
+              color: "var(--text-primary)",
+              textDecoration: "none",
+              display: "flex",
+            }}
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <IconGitHub />
+            GitHub
+          </a>
+        </div>
+      </BottomSheet>
     </>
   );
 }

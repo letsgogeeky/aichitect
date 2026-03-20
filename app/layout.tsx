@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { SITE_URL, GITHUB_URL, TOOL_COUNT, CATEGORY_COUNT, STACK_COUNT } from "@/lib/constants";
@@ -12,6 +12,13 @@ const inter = Inter({ subsets: ["latin"] });
 const SITE_NAME = "AIchitect";
 const TITLE = "AIchitect — Cut the noise. Pick your AI stack.";
 const DESCRIPTION = `AI tools are all over the place. AIchitect maps the full ecosystem — ${TOOL_COUNT} tools across ${CATEGORY_COUNT} categories — so you can pick the right stack without the noise.`;
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

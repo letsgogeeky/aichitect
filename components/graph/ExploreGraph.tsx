@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import { useIsMobile } from "@/hooks/useIsMobile";
 import dynamic from "next/dynamic";
 import ReactFlow, {
   Background,
@@ -35,6 +36,8 @@ import FilterPanel from "@/components/panels/FilterPanel";
 import DetailPanel from "@/components/panels/DetailPanel";
 import ComparisonPanel from "@/components/panels/ComparisonPanel";
 import { useSuggestTool } from "@/components/ui/SuggestToolContext";
+import BottomSheet from "@/components/mobile/BottomSheet";
+import ToolDetailSheet from "@/components/mobile/ToolDetailSheet";
 
 const tools = toolsData as Tool[];
 const relationships = relationshipsData as Relationship[];
@@ -181,8 +184,13 @@ function ExploreGraphInner({
         onNodeClick={onNodeClick}
         fitView
         fitViewOptions={FIT_VIEW_OPTIONS}
-        minZoom={0.15}
+        minZoom={0.2}
         maxZoom={2}
+        panOnScroll={false}
+        panOnDrag={[1, 2]}
+        zoomOnPinch={true}
+        zoomOnDoubleClick={false}
+        selectionOnDrag={false}
         proOptions={{ hideAttribution: true }}
       >
         <Background variant={BackgroundVariant.Dots} color="#1e1e2e" gap={20} size={1} />
@@ -225,6 +233,9 @@ function ExploreGraphInner({
 export default function ExploreGraph() {
   const allCategories = useMemo(() => new Set(tools.map((t) => t.category)), []);
   const { openSuggest } = useSuggestTool();
+  const isMobile = useIsMobile();
+  const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
+  const [mobileDetailOpen, setMobileDetailOpen] = useState(false);
 
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -314,8 +325,8 @@ export default function ExploreGraph() {
 
   return (
     <div className="flex flex-col h-full overflow-hidden">
-      {/* Intent banner */}
-      {!bannerDismissed && (
+      {/* Intent banner — hidden on mobile to save space */}
+      {!bannerDismissed && !isMobile && (
         <div
           className="flex items-center justify-between px-4 py-2 flex-shrink-0 border-b"
           style={{ background: "#0d0d1a", borderColor: "var(--border)" }}
@@ -344,14 +355,17 @@ export default function ExploreGraph() {
       )}
 
       <div className="flex flex-1 overflow-hidden">
-        <FilterPanel
-          activeCategories={activeCategories}
-          setActiveCategories={setActiveCategories}
-          activeRelTypes={activeRelTypes}
-          setActiveRelTypes={setActiveRelTypes}
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-        />
+        {/* FilterPanel — hidden on mobile, shown via overlay */}
+        <div className="hidden sm:flex flex-shrink-0">
+          <FilterPanel
+            activeCategories={activeCategories}
+            setActiveCategories={setActiveCategories}
+            activeRelTypes={activeRelTypes}
+            setActiveRelTypes={setActiveRelTypes}
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+          />
+        </div>
 
         <div className="flex-1 relative">
           {/* Compare toggle button — top-left */}
@@ -406,28 +420,100 @@ export default function ExploreGraph() {
             className="absolute top-3 right-3 z-10 flex rounded-md overflow-hidden"
             style={{ border: "1px solid var(--border)", background: "var(--surface)" }}
           >
-            {(["grid", "layers", "3d"] as const).map((mode, i) => (
-              <button
-                key={mode}
-                onClick={() => {
-                  setViewMode(mode);
-                  if (mode === "3d" && compareMode) {
-                    setCompareMode(false);
-                    setComparisonTools(null);
-                    setSelectedTool(null);
-                  }
-                }}
-                className="px-2.5 py-1 text-[10px] font-medium transition-colors"
-                style={{
-                  background: viewMode === mode ? "#7c6bff22" : "transparent",
-                  color: viewMode === mode ? "#7c6bff" : "var(--text-muted)",
-                  borderLeft: i > 0 ? "1px solid var(--border)" : undefined,
-                }}
-              >
-                {mode === "grid" ? "Grid" : mode === "layers" ? "Layers" : "3D"}
-              </button>
-            ))}
+            {(["grid", "layers", "3d"] as const)
+              .filter((m) => !isMobile || m !== "3d")
+              .map((mode, i) => (
+                <button
+                  key={mode}
+                  onClick={() => {
+                    setViewMode(mode);
+                    if (mode === "3d" && compareMode) {
+                      setCompareMode(false);
+                      setComparisonTools(null);
+                      setSelectedTool(null);
+                    }
+                  }}
+                  className="px-2.5 py-1 text-[10px] font-medium transition-colors"
+                  style={{
+                    background: viewMode === mode ? "#7c6bff22" : "transparent",
+                    color: viewMode === mode ? "#7c6bff" : "var(--text-muted)",
+                    borderLeft: i > 0 ? "1px solid var(--border)" : undefined,
+                  }}
+                >
+                  {mode === "grid" ? "Grid" : mode === "layers" ? "Layers" : "3D"}
+                </button>
+              ))}
           </div>
+
+          {/* Mobile: selected tool mini-banner */}
+          {isMobile && selectedTool && panelMode === "detail" && (
+            <div
+              className="absolute left-3 right-3 z-20 flex items-center justify-between rounded-xl px-4 py-3"
+              style={{
+                bottom: "calc(5rem + env(safe-area-inset-bottom, 0px))",
+                background: "var(--surface)",
+                border: "1px solid var(--border)",
+                backdropFilter: "blur(8px)",
+              }}
+            >
+              <div className="min-w-0 mr-3">
+                <div
+                  className="text-sm font-semibold truncate"
+                  style={{ color: "var(--text-primary)" }}
+                >
+                  {selectedTool.name}
+                </div>
+                <div className="text-xs truncate" style={{ color: "var(--text-muted)" }}>
+                  {selectedTool.tagline}
+                </div>
+              </div>
+              <div className="flex items-center gap-2 flex-shrink-0">
+                <button
+                  onClick={() => setMobileDetailOpen(true)}
+                  className="text-xs px-3 py-1.5 rounded-lg"
+                  style={{ background: "#7c6bff", color: "#fff" }}
+                >
+                  Details →
+                </button>
+                <button
+                  onClick={() => setSelectedTool(null)}
+                  className="text-xs w-6 h-6 flex items-center justify-center rounded-full"
+                  style={{ background: "var(--surface-2)", color: "var(--text-muted)" }}
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Mobile: floating filter button */}
+          {isMobile && (
+            <button
+              onClick={() => setMobileFilterOpen(true)}
+              className="absolute left-3 z-20 flex items-center gap-2 px-3 py-2 rounded-lg text-xs"
+              style={{
+                bottom: "calc(1rem + env(safe-area-inset-bottom, 0px))",
+                background: "var(--surface)",
+                border: "1px solid var(--border)",
+                color: "var(--text-primary)",
+              }}
+            >
+              ⊞ Filter
+              {activeCategories.size < allCategories.size && (
+                <span
+                  style={{
+                    background: "#7c6bff",
+                    color: "#fff",
+                    borderRadius: 10,
+                    padding: "0 5px",
+                    fontSize: 10,
+                  }}
+                >
+                  {allCategories.size - activeCategories.size}
+                </span>
+              )}
+            </button>
+          )}
 
           {viewMode === "3d" ? (
             <ExploreGraph3D
@@ -453,45 +539,80 @@ export default function ExploreGraph() {
           )}
         </div>
 
-        {/* Right panel */}
-        {panelMode === "compare" && comparisonTools ? (
-          <ComparisonPanel
-            toolA={comparisonTools[0]}
-            toolB={comparisonTools[1]}
-            onClose={() => {
-              setComparisonTools(null);
-              setCompareMode(false);
-            }}
-            onSwap={() => setComparisonTools([comparisonTools[1], comparisonTools[0]])}
-          />
-        ) : panelMode === "detail" ? (
-          <DetailPanel tool={selectedTool} onClose={() => setSelectedTool(null)} />
-        ) : panelMode === "compare-hint" ? (
-          <div
-            className="w-72 flex-shrink-0 border-l flex flex-col items-center justify-center gap-3 p-6 text-center"
-            style={{ background: "var(--surface)", borderColor: "var(--border)" }}
-          >
-            {selectedTool ? (
-              <>
-                <div
-                  className="w-2 h-2 rounded-full"
-                  style={{ background: getCategoryColor(selectedTool.category) }}
-                />
-                <p className="text-xs font-medium" style={{ color: "var(--text-primary)" }}>
-                  {selectedTool.name}
-                </p>
+        {/* Right panel — hidden on mobile */}
+        <div className="hidden sm:flex flex-shrink-0">
+          {panelMode === "compare" && comparisonTools ? (
+            <ComparisonPanel
+              toolA={comparisonTools[0]}
+              toolB={comparisonTools[1]}
+              onClose={() => {
+                setComparisonTools(null);
+                setCompareMode(false);
+              }}
+              onSwap={() => setComparisonTools([comparisonTools[1], comparisonTools[0]])}
+            />
+          ) : panelMode === "detail" ? (
+            <DetailPanel tool={selectedTool} onClose={() => setSelectedTool(null)} />
+          ) : panelMode === "compare-hint" ? (
+            <div
+              className="w-72 flex-shrink-0 border-l flex flex-col items-center justify-center gap-3 p-6 text-center"
+              style={{ background: "var(--surface)", borderColor: "var(--border)" }}
+            >
+              {selectedTool ? (
+                <>
+                  <div
+                    className="w-2 h-2 rounded-full"
+                    style={{ background: getCategoryColor(selectedTool.category) }}
+                  />
+                  <p className="text-xs font-medium" style={{ color: "var(--text-primary)" }}>
+                    {selectedTool.name}
+                  </p>
+                  <p className="text-[10px]" style={{ color: "var(--text-muted)" }}>
+                    Now click a second tool to compare
+                  </p>
+                </>
+              ) : (
                 <p className="text-[10px]" style={{ color: "var(--text-muted)" }}>
-                  Now click a second tool to compare
+                  Click two tools on the graph to compare them
                 </p>
-              </>
-            ) : (
-              <p className="text-[10px]" style={{ color: "var(--text-muted)" }}>
-                Click two tools on the graph to compare them
-              </p>
-            )}
-          </div>
-        ) : null}
+              )}
+            </div>
+          ) : null}
+        </div>
       </div>
+
+      {/* Mobile: tool detail bottom sheet */}
+      <ToolDetailSheet
+        tool={selectedTool}
+        open={mobileDetailOpen}
+        onClose={() => setMobileDetailOpen(false)}
+      />
+
+      {/* Mobile: filter bottom sheet */}
+      <BottomSheet
+        open={mobileFilterOpen}
+        onClose={() => setMobileFilterOpen(false)}
+        title="Filter"
+        snapPoints={[70, 92]}
+      >
+        <FilterPanel
+          activeCategories={activeCategories}
+          setActiveCategories={setActiveCategories}
+          activeRelTypes={activeRelTypes}
+          setActiveRelTypes={setActiveRelTypes}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+        />
+        <div className="px-4 pb-4 pt-2">
+          <button
+            className="w-full py-2.5 rounded-lg text-sm font-semibold"
+            style={{ background: "#7c6bff", color: "#fff" }}
+            onClick={() => setMobileFilterOpen(false)}
+          >
+            Show results
+          </button>
+        </div>
+      </BottomSheet>
     </div>
   );
 }
