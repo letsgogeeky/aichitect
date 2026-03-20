@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import toolsData from "@/data/tools.json";
 import relationshipsData from "@/data/relationships.json";
-import { Tool, Relationship, getCategoryColor } from "@/lib/types";
+import { Tool, Relationship, getCategoryColor, CATEGORIES } from "@/lib/types";
 
 const tools = toolsData as Tool[];
 const relationships = relationshipsData as Relationship[];
@@ -56,14 +56,32 @@ function ToolPicker({
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
 
-  const filtered = useMemo(() => {
+  const color = value ? getCategoryColor(value.category) : "#7c6bff";
+
+  // Flat search results when querying
+  const searchResults = useMemo(() => {
+    if (!query) return [];
     const q = query.toLowerCase();
-    return tools
-      .filter((t) => t.id !== exclude?.id && t.name.toLowerCase().includes(q))
-      .slice(0, 8);
+    return tools.filter(
+      (t) =>
+        t.id !== exclude?.id &&
+        (t.name.toLowerCase().includes(q) ||
+          t.tagline.toLowerCase().includes(q) ||
+          t.category.includes(q.replace(/ /g, "-")))
+    );
   }, [query, exclude]);
 
-  const color = value ? getCategoryColor(value.category) : "#7c6bff";
+  // Grouped by category when no query
+  const grouped = useMemo(() => {
+    if (query) return [];
+    return CATEGORIES.map((cat) => ({
+      cat,
+      items: tools.filter((t) => t.category === cat.id && t.id !== exclude?.id),
+    })).filter((g) => g.items.length > 0);
+  }, [query, exclude]);
+
+  const showSearch = open && !!query && searchResults.length > 0;
+  const showGrouped = open && !query && grouped.length > 0;
 
   return (
     <div style={{ position: "relative", flex: 1 }}>
@@ -93,13 +111,7 @@ function ToolPicker({
           }}
         >
           <div
-            style={{
-              width: 8,
-              height: 8,
-              borderRadius: "50%",
-              background: color,
-              flexShrink: 0,
-            }}
+            style={{ width: 8, height: 8, borderRadius: "50%", background: color, flexShrink: 0 }}
           />
           <span style={{ flex: 1, fontSize: 14, fontWeight: 500, color: "var(--text-primary)" }}>
             {value.name}
@@ -132,7 +144,7 @@ function ToolPicker({
             }}
             onFocus={() => setOpen(true)}
             onBlur={() => setTimeout(() => setOpen(false), 150)}
-            placeholder="Search tools..."
+            placeholder="Search tools or browse by category…"
             style={{
               width: "100%",
               padding: "10px 14px",
@@ -145,7 +157,8 @@ function ToolPicker({
               boxSizing: "border-box",
             }}
           />
-          {open && filtered.length > 0 && (
+
+          {(showSearch || showGrouped) && (
             <div
               style={{
                 position: "absolute",
@@ -156,55 +169,161 @@ function ToolPicker({
                 background: "#111118",
                 border: "1px solid var(--border)",
                 zIndex: 50,
-                overflow: "hidden",
-                boxShadow: "0 8px 24px #00000066",
+                maxHeight: 360,
+                overflowY: "auto",
+                boxShadow: "0 8px 32px #00000088",
               }}
             >
-              {filtered.map((t) => {
-                const c = getCategoryColor(t.category);
-                return (
-                  <button
-                    key={t.id}
-                    onMouseDown={() => {
-                      onChange(t);
-                      setQuery("");
-                      setOpen(false);
-                    }}
-                    style={{
-                      width: "100%",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 10,
-                      padding: "9px 14px",
-                      background: "none",
-                      border: "none",
-                      cursor: "pointer",
-                      textAlign: "left",
-                      transition: "background 100ms",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.background = "#1c1c28";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.background = "none";
-                    }}
-                  >
+              {/* Flat search results */}
+              {showSearch &&
+                searchResults.map((t) => {
+                  const c = getCategoryColor(t.category);
+                  const catLabel =
+                    CATEGORIES.find((cat) => cat.id === t.category)?.label ?? t.category;
+                  return (
+                    <button
+                      key={t.id}
+                      onMouseDown={() => {
+                        onChange(t);
+                        setQuery("");
+                        setOpen(false);
+                      }}
+                      style={{
+                        width: "100%",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 10,
+                        padding: "9px 14px",
+                        background: "none",
+                        border: "none",
+                        cursor: "pointer",
+                        textAlign: "left",
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = "#1c1c28";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = "none";
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: 6,
+                          height: 6,
+                          borderRadius: "50%",
+                          background: c,
+                          flexShrink: 0,
+                        }}
+                      />
+                      <span style={{ fontSize: 13, color: "var(--text-primary)", flex: 1 }}>
+                        {t.name}
+                      </span>
+                      <span style={{ fontSize: 10, color: c, opacity: 0.8 }}>{catLabel}</span>
+                    </button>
+                  );
+                })}
+
+              {/* Category-grouped browse */}
+              {showGrouped &&
+                grouped.map(({ cat, items }) => (
+                  <div key={cat.id}>
+                    {/* Category header */}
                     <div
                       style={{
-                        width: 6,
-                        height: 6,
-                        borderRadius: "50%",
-                        background: c,
-                        flexShrink: 0,
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 6,
+                        padding: "8px 14px 4px",
+                        position: "sticky",
+                        top: 0,
+                        background: "#111118",
+                        zIndex: 1,
                       }}
-                    />
-                    <span style={{ fontSize: 13, color: "var(--text-primary)" }}>{t.name}</span>
-                    <span style={{ fontSize: 10, color: c, marginLeft: "auto", opacity: 0.8 }}>
-                      {t.category.replace(/-/g, " ")}
-                    </span>
-                  </button>
-                );
-              })}
+                    >
+                      <div
+                        style={{
+                          width: 5,
+                          height: 5,
+                          borderRadius: "50%",
+                          background: cat.color,
+                          flexShrink: 0,
+                        }}
+                      />
+                      <span
+                        style={{
+                          fontSize: 9,
+                          fontWeight: 700,
+                          textTransform: "uppercase",
+                          letterSpacing: "0.1em",
+                          color: cat.color,
+                        }}
+                      >
+                        {cat.label}
+                      </span>
+                      <span style={{ fontSize: 9, color: "#444466", marginLeft: "auto" }}>
+                        {items.length}
+                      </span>
+                    </div>
+                    {/* Tools in this category */}
+                    {items.map((t) => (
+                      <button
+                        key={t.id}
+                        onMouseDown={() => {
+                          onChange(t);
+                          setQuery("");
+                          setOpen(false);
+                        }}
+                        style={{
+                          width: "100%",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 10,
+                          padding: "7px 14px 7px 28px",
+                          background: "none",
+                          border: "none",
+                          cursor: "pointer",
+                          textAlign: "left",
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = "#1c1c28";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = "none";
+                        }}
+                      >
+                        <span style={{ fontSize: 13, color: "var(--text-primary)", flex: 1 }}>
+                          {t.name}
+                        </span>
+                        {t.pricing?.free_tier && (
+                          <span
+                            style={{
+                              fontSize: 9,
+                              color: "#00d4aa",
+                              border: "1px solid #00d4aa33",
+                              borderRadius: 4,
+                              padding: "1px 5px",
+                            }}
+                          >
+                            Free
+                          </span>
+                        )}
+                        {t.type === "oss" && (
+                          <span
+                            style={{
+                              fontSize: 9,
+                              color: "#26de81",
+                              border: "1px solid #26de8133",
+                              borderRadius: 4,
+                              padding: "1px 5px",
+                            }}
+                          >
+                            OSS
+                          </span>
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                ))}
             </div>
           )}
         </div>
