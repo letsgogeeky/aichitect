@@ -23,8 +23,6 @@ import ComparisonPanel from "@/components/panels/ComparisonPanel";
 import { COMPLEXITY_META } from "./stacksConstants";
 import { StackSidebar } from "./components/StackSidebar";
 import { StackDetailHeader } from "./components/StackDetailHeader";
-import { MobileStackPicker } from "./components/MobileStackPicker";
-
 const nodeTypes: NodeTypes = { tool: ToolNode };
 
 function StackGraph({ stack, allTools }: { stack: Stack; allTools: Tool[] }) {
@@ -85,7 +83,6 @@ function StacksContent({ stacks, allTools }: { stacks: Stack[]; allTools: Tool[]
 
   const [compareA, setCompareA] = useState<Tool | null>(null);
   const [compareB, setCompareB] = useState<Tool | null>(null);
-  const [mobilePickerOpen, setMobilePickerOpen] = useState(false);
   const [mobileDetailOpen, setMobileDetailOpen] = useState(false);
   const isMobile = useIsMobile();
 
@@ -158,50 +155,48 @@ function StacksContent({ stacks, allTools }: { stacks: Stack[]; allTools: Tool[]
 
       <div className="flex-1 flex flex-col overflow-hidden min-w-0">
         {/* Mobile: horizontal pill selector */}
-        {isMobile && (
-          <div
-            className="flex-shrink-0 border-b"
-            style={{ borderColor: "var(--border)", background: "var(--surface)" }}
-          >
-            <div className="flex gap-2 overflow-x-auto px-3 py-2 no-scrollbar">
-              {stacks.map((s) => {
-                const isSelected = selected.id === s.id;
-                const ft = allTools.find((t) => t.id === s.tools[0]);
-                const c = ft ? getCategoryColor(ft.category) : "#7c6bff";
-                return (
-                  <button
-                    key={s.id}
-                    onClick={() => selectStack(s)}
-                    className="flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold"
-                    style={{
-                      background: isSelected ? c + "30" : "var(--surface-2)",
-                      border: `1px solid ${isSelected ? c + "66" : "var(--border)"}`,
-                      color: isSelected ? c : "var(--text-muted)",
-                    }}
-                  >
-                    {s.name}
-                  </button>
-                );
-              })}
-            </div>
-            <div className="flex items-center justify-between px-3 pb-2">
-              <span className="text-xs" style={{ color: "var(--text-muted)" }}>
-                {selected.target}
-              </span>
-              <button
-                onClick={() => setMobileDetailOpen(true)}
-                className="text-xs px-2.5 py-1 rounded-lg flex-shrink-0"
-                style={{
-                  background: accentColor + "20",
-                  border: `1px solid ${accentColor}44`,
-                  color: accentColor,
-                }}
-              >
-                Details ↑
-              </button>
-            </div>
+        <div
+          className="sm:hidden flex-shrink-0 border-b"
+          style={{ borderColor: "var(--border)", background: "var(--surface)" }}
+        >
+          <div className="flex gap-2 overflow-x-auto px-3 py-2 no-scrollbar">
+            {stacks.map((s) => {
+              const isSelected = selected.id === s.id;
+              const ft = allTools.find((t) => t.id === s.tools[0]);
+              const c = ft ? getCategoryColor(ft.category) : "#7c6bff";
+              return (
+                <button
+                  key={s.id}
+                  onClick={() => selectStack(s)}
+                  className="flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold"
+                  style={{
+                    background: isSelected ? c + "30" : "var(--surface-2)",
+                    border: `1px solid ${isSelected ? c + "66" : "var(--border)"}`,
+                    color: isSelected ? c : "var(--text-muted)",
+                  }}
+                >
+                  {s.name}
+                </button>
+              );
+            })}
           </div>
-        )}
+          <div className="flex items-center justify-between px-3 pb-2">
+            <span className="text-xs" style={{ color: "var(--text-muted)" }}>
+              {selected.target}
+            </span>
+            <button
+              onClick={() => setMobileDetailOpen(true)}
+              className="text-xs px-2.5 py-1 rounded-lg flex-shrink-0"
+              style={{
+                background: accentColor + "20",
+                border: `1px solid ${accentColor}44`,
+                color: accentColor,
+              }}
+            >
+              Details ↑
+            </button>
+          </div>
+        </div>
 
         <StackDetailHeader
           selected={selected}
@@ -339,18 +334,6 @@ function StacksContent({ stacks, allTools }: { stacks: Stack[]; allTools: Tool[]
           </Link>
         </div>
       </BottomSheet>
-
-      {mobilePickerOpen && (
-        <MobileStackPicker
-          stacks={stacks}
-          allTools={allTools}
-          selectedId={selected.id}
-          activeCluster={activeCluster}
-          onSelectStack={selectStack}
-          onSelectCluster={selectCluster}
-          onClose={() => setMobilePickerOpen(false)}
-        />
-      )}
     </div>
   );
 }
