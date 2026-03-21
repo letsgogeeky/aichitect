@@ -64,6 +64,10 @@ export interface Relationship {
   source: string;
   target: string;
   type: RelationshipType;
+  /** How the two tools are used together (enriched relationships only) */
+  how?: string;
+  /** What outcome the pairing achieves (enriched relationships only) */
+  achieves?: string;
 }
 
 export interface StackFlowEdge {

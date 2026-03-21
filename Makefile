@@ -1,7 +1,7 @@
 COMPOSE = docker compose
-LOCAL_DB_URL = postgresql://postgres:postgres@db:5432/aichitect?sslmode=disable
+LOCAL_DB_URL = postgresql://postgres:postgres@db:5432/aichitect
 
-.PHONY: help run down restart build rebuild logs shell typecheck lint format check test sync-counts db-push db-push-local db-diff db-diff-local db-migrate db-pull db-reset-local
+.PHONY: help run down restart build rebuild logs shell typecheck lint format check test sync-counts seed seed-local seed-validate db-push db-push-local db-diff db-diff-local db-migrate db-pull db-reset-local
 
 help: ## Show this help
 	@awk 'BEGIN {FS = ":.*##"} /^[a-zA-Z_-]+:.*##/ { printf "  \033[36m%-12s\033[0m %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
@@ -48,6 +48,15 @@ check: lint typecheck test ## Run all checks (lint + typecheck + test)
 sync-counts: ## Sync tool/category/stack counts into README.md and CLAUDE.md
 	node scripts/sync-counts.mjs
 
+seed-validate: ## Validate JSON data integrity without a DB connection
+	$(COMPOSE) run --rm app npx tsx scripts/seed-db.ts --validate
+
+seed-local: ## Seed local Postgres container (no Supabase needed)
+	$(COMPOSE) run --rm app npx tsx scripts/seed-db-local.ts
+
+seed: ## Seed remote Supabase with data from data/*.json (idempotent)
+	$(COMPOSE) run --rm app sh -c 'npx tsx scripts/seed-db.ts'
+
 # ── Supabase / Database ───────────────────────────────────────────────────────
 # Local target  → applies migrations to the local Postgres container (db service)
 # Remote target → applies migrations to the hosted Supabase project
@@ -57,13 +66,13 @@ sync-counts: ## Sync tool/category/stack counts into README.md and CLAUDE.md
 #   make db-push         # promote to remote when satisfied
 
 db-push-local: ## Apply pending migrations to local Postgres container
-	$(COMPOSE) run --rm app npx supabase db push --db-url "$(LOCAL_DB_URL)"
+	$(COMPOSE) run --rm -e PGSSLMODE=disable app npx supabase db push --db-url "$(LOCAL_DB_URL)"
 
 db-push: ## Apply pending migrations to remote Supabase project
 	$(COMPOSE) run --rm app sh -c 'npx supabase db push --db-url "$$POSTGRES_URL_NON_POOLING"'
 
 db-diff-local: ## Diff local migrations against local Postgres
-	$(COMPOSE) run --rm app npx supabase db diff --db-url "$(LOCAL_DB_URL)"
+	$(COMPOSE) run --rm -e PGSSLMODE=disable app npx supabase db diff --db-url "$(LOCAL_DB_URL)"
 
 db-diff: ## Diff local migrations against remote Supabase schema
 	$(COMPOSE) run --rm app sh -c 'npx supabase db diff --db-url "$$POSTGRES_URL_NON_POOLING"'

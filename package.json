@@ -16,6 +16,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2",
     "@dagrejs/dagre": "^2.0.4",
     "@vercel/analytics": "^1",
     "@vercel/speed-insights": "^2.0.0",
@@ -32,6 +33,9 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "supabase": "^2",
+    "tsx": "^4",
+    "pg": "^8",
+    "@types/pg": "^8",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
