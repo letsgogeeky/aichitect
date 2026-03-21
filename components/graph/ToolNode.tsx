@@ -185,9 +185,9 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
               {data.pricing.plans[0].price}
             </span>
           )}
-          {isExpanded && data.urls.website && (
+          {isExpanded && data.website_url && (
             <a
-              href={data.urls.website}
+              href={data.website_url}
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}

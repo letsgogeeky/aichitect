@@ -6,8 +6,11 @@ LOCAL_DB_URL = postgresql://postgres:postgres@db:5432/aichitect
 help: ## Show this help
 	@awk 'BEGIN {FS = ":.*##"} /^[a-zA-Z_-]+:.*##/ { printf "  \033[36m%-12s\033[0m %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
 
-run: ## Start the dev server in the foreground
-	$(COMPOSE) up
+run: ## Start the dev server (spins containers, applies local migrations, seeds DB, then tails logs)
+	$(COMPOSE) up -d
+	$(COMPOSE) run --rm -e PGSSLMODE=disable app npx supabase db push --db-url "$(LOCAL_DB_URL)"
+	$(COMPOSE) run --rm app npx tsx scripts/seed-db-local.ts
+	$(COMPOSE) logs -f app
 
 down: ## Stop and remove containers
 	$(COMPOSE) down

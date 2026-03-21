@@ -1,14 +1,11 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 
-import toolsData from "@/data/tools.json";
-import relationshipsData from "@/data/relationships.json";
-import { Tool, Relationship, getCategoryColor, CATEGORIES } from "@/lib/types";
+import { getTools } from "@/lib/data/tools";
+import { getRelationships } from "@/lib/data/relationships";
+import { Tool, getCategoryColor, CATEGORIES } from "@/lib/types";
 import { TOOL_COUNT, RELATIONSHIP_COUNT } from "@/lib/constants";
 import { pageMeta } from "@/lib/metadata";
-
-const tools = toolsData as Tool[];
-const relationships = relationshipsData as Relationship[];
 
 interface Props {
   params: Promise<{ toolA: string; toolB: string }>;
@@ -18,6 +15,7 @@ interface Props {
 
 export async function generateMetadata({ params }: Props) {
   const { toolA: aId, toolB: bId } = await params;
+  const tools = await getTools();
   const a = tools.find((t) => t.id === aId);
   const b = tools.find((t) => t.id === bId);
   if (!a || !b) return {};
@@ -33,7 +31,8 @@ export async function generateMetadata({ params }: Props) {
 
 // ─── Static params (prominent tool pairs with direct relationships) ──────────
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const [tools, relationships] = await Promise.all([getTools(), getRelationships()]);
   const prominentIds = new Set(tools.filter((t) => t.prominent).map((t) => t.id));
   const pairs: { toolA: string; toolB: string }[] = [];
   for (const r of relationships) {
@@ -64,6 +63,7 @@ function relBadgeStyle(type: string): React.CSSProperties {
 
 export default async function ComparePage({ params }: Props) {
   const { toolA: aId, toolB: bId } = await params;
+  const [tools, relationships] = await Promise.all([getTools(), getRelationships()]);
   const a = tools.find((t) => t.id === aId);
   const b = tools.find((t) => t.id === bId);
   if (!a || !b) notFound();
@@ -120,7 +120,7 @@ export default async function ComparePage({ params }: Props) {
             name: a.name,
             description: a.description,
             applicationCategory: catLabelA,
-            ...(a.urls.website && { url: a.urls.website }),
+            ...(a.website_url && { url: a.website_url }),
             ...(a.github_stars && {
               aggregateRating: {
                 "@type": "AggregateRating",
@@ -138,7 +138,7 @@ export default async function ComparePage({ params }: Props) {
             name: b.name,
             description: b.description,
             applicationCategory: catLabelB,
-            ...(b.urls.website && { url: b.urls.website }),
+            ...(b.website_url && { url: b.website_url }),
             ...(b.github_stars && {
               aggregateRating: {
                 "@type": "AggregateRating",
@@ -442,9 +442,9 @@ export default async function ComparePage({ params }: Props) {
                 {tool.description}
               </p>
               <div className="flex gap-2 pt-1">
-                {tool.urls.website && (
+                {tool.website_url && (
                   <a
-                    href={tool.urls.website}
+                    href={tool.website_url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[10px] font-medium px-2 py-1 rounded transition-colors"
@@ -453,9 +453,9 @@ export default async function ComparePage({ params }: Props) {
                     Website ↗
                   </a>
                 )}
-                {tool.urls.github && (
+                {tool.github_url && (
                   <a
-                    href={tool.urls.github}
+                    href={tool.github_url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[10px] font-medium px-2 py-1 rounded border border-[var(--border)] transition-colors"

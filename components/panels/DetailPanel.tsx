@@ -131,9 +131,9 @@ export default function DetailPanel({ tool, onClose }: Props) {
 
         {/* Links */}
         <div className="flex gap-2">
-          {tool.urls.website && (
+          {tool.website_url && (
             <a
-              href={tool.urls.website}
+              href={tool.website_url}
               target="_blank"
               rel="noopener noreferrer"
               className="flex-1 text-center text-xs py-1.5 px-3 rounded-md font-medium transition-colors"
@@ -146,9 +146,9 @@ export default function DetailPanel({ tool, onClose }: Props) {
               Website ↗
             </a>
           )}
-          {tool.urls.github && (
+          {tool.github_url && (
             <a
-              href={tool.urls.github}
+              href={tool.github_url}
               target="_blank"
               rel="noopener noreferrer"
               className="flex-1 text-center text-xs py-1.5 px-3 rounded-md font-medium border border-[var(--border)] text-[var(--text-secondary)] transition-colors hover:border-[var(--border-2)]"
