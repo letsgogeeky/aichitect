@@ -10,7 +10,26 @@
 - **Docker only** — never run `npm` or `node` locally. All dev runs through docker-compose.
 - Use `make run` to start (foreground), `make down` to stop, `make rebuild` after adding packages.
 - Hot reload via volume mounts. Rebuild image only when adding new packages to `package.json`.
-- Ask before any git operations — Ramy has a signing process.
+
+## Git & PR workflow
+
+**Branching:**
+
+- Always branch from the current active branch: `git checkout -b feat/AIC-N`
+- Ramy ensures the active branch is the correct base before starting — no merging or rebasing needed.
+
+**Commits (Ramy signs — never commit for him):**
+
+1. Stage specific files: `git add <files>`
+2. Print the commit message for Ramy to copy
+3. Ramy runs `git commit` — his signing config applies automatically
+4. After Ramy confirms the commit, open the PR with `gh pr create`
+
+**PR format (concise):**
+
+- Title: `feat(scope): AIC-N — short description` (≤60 chars)
+- Body: 3–5 bullet summary of what changed and why, plus a short test plan checklist
+- No walls of text, no restating every file changed
 
 ## Architecture
 
