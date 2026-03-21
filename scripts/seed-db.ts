@@ -21,12 +21,12 @@ if (process.argv.includes("--validate")) {
 }
 
 async function main(): Promise<void> {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const url = process.env.NEXT_PUBLIC_POSTGRES_SUPABASE_URL;
   const key = process.env.POSTGRES_SUPABASE_SERVICE_ROLE_KEY;
 
   if (!url || !key) {
     console.error(
-      "Missing required env vars: NEXT_PUBLIC_SUPABASE_URL, POSTGRES_SUPABASE_SERVICE_ROLE_KEY"
+      "Missing required env vars: NEXT_PUBLIC_POSTGRES_SUPABASE_URL, POSTGRES_SUPABASE_SERVICE_ROLE_KEY"
     );
     process.exit(1);
   }

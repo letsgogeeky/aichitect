@@ -1,7 +1,7 @@
 import { createClient, SupabaseClient } from "@supabase/supabase-js";
 
-const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const url = process.env.NEXT_PUBLIC_POSTGRES_SUPABASE_URL;
+const key = process.env.NEXT_PUBLIC_POSTGRES_SUPABASE_ANON_KEY;
 
 /**
  * Supabase client singleton. Null when env vars are not set (local dev fallback).

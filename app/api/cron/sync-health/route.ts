@@ -4,10 +4,10 @@ import { createClient } from "@supabase/supabase-js";
 import { fetchToolGitHubData, type GitHubToolData } from "@/lib/github";
 
 function getServiceClient() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const url = process.env.NEXT_PUBLIC_POSTGRES_SUPABASE_URL;
   const key = process.env.POSTGRES_SUPABASE_SERVICE_ROLE_KEY;
   if (!url) {
-    console.error("[sync-health] Missing env var: NEXT_PUBLIC_SUPABASE_URL");
+    console.error("[sync-health] Missing env var: NEXT_PUBLIC_POSTGRES_SUPABASE_URL");
     return null;
   }
   if (!key) {
