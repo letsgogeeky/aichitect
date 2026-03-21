@@ -285,9 +285,9 @@ export default function ExploreGraph({
   return (
     <div className="flex flex-col h-full overflow-hidden">
       {/* Intent banner — hidden on mobile to save space */}
-      {!bannerDismissed && !isMobile && (
+      {!bannerDismissed && (
         <div
-          className="flex items-center justify-between px-4 py-2 flex-shrink-0 border-b"
+          className="hidden sm:flex items-center justify-between px-4 py-2 flex-shrink-0 border-b"
           style={{ background: "#0d0d1a", borderColor: "var(--border)" }}
         >
           <p className="text-xs text-[var(--text-secondary)]">
@@ -446,33 +446,31 @@ export default function ExploreGraph({
           )}
 
           {/* Mobile: floating filter button */}
-          {isMobile && (
-            <button
-              onClick={() => setMobileFilterOpen(true)}
-              className="absolute left-3 z-20 flex items-center gap-2 px-3 py-2 rounded-lg text-xs"
-              style={{
-                bottom: "calc(1rem + env(safe-area-inset-bottom, 0px))",
-                background: "var(--surface)",
-                border: "1px solid var(--border)",
-                color: "var(--text-primary)",
-              }}
-            >
-              ⊞ Filter
-              {activeCategories.size < allCategories.size && (
-                <span
-                  style={{
-                    background: "#7c6bff",
-                    color: "#fff",
-                    borderRadius: 10,
-                    padding: "0 5px",
-                    fontSize: 10,
-                  }}
-                >
-                  {allCategories.size - activeCategories.size}
-                </span>
-              )}
-            </button>
-          )}
+          <button
+            onClick={() => setMobileFilterOpen(true)}
+            className="sm:hidden absolute left-3 z-20 flex items-center gap-2 px-3 py-2 rounded-lg text-xs"
+            style={{
+              bottom: "calc(1rem + env(safe-area-inset-bottom, 0px))",
+              background: "var(--surface)",
+              border: "1px solid var(--border)",
+              color: "var(--text-primary)",
+            }}
+          >
+            ⊞ Filter
+            {activeCategories.size < allCategories.size && (
+              <span
+                style={{
+                  background: "#7c6bff",
+                  color: "#fff",
+                  borderRadius: 10,
+                  padding: "0 5px",
+                  fontSize: 10,
+                }}
+              >
+                {allCategories.size - activeCategories.size}
+              </span>
+            )}
+          </button>
 
           {viewMode === "3d" ? (
             <ExploreGraph3D

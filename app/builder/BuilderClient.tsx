@@ -182,19 +182,17 @@ function BuilderPageContent({
         </ReactFlowProvider>
 
         {/* Mobile: floating "Choose Tools" button */}
-        {isMobile && (
-          <button
-            onClick={() => setMobileSlotPickerOpen(true)}
-            className="absolute left-3 z-20 flex items-center gap-2 px-3 py-2 rounded-lg text-xs"
-            style={{
-              bottom: "calc(1rem + env(safe-area-inset-bottom, 0px))",
-              background: "#7c6bff",
-              color: "#fff",
-            }}
-          >
-            ⊕ Choose Tools{selectedCount > 0 ? ` (${selectedCount})` : ""}
-          </button>
-        )}
+        <button
+          onClick={() => setMobileSlotPickerOpen(true)}
+          className="sm:hidden absolute left-3 z-20 flex items-center gap-2 px-3 py-2 rounded-lg text-xs"
+          style={{
+            bottom: "calc(1rem + env(safe-area-inset-bottom, 0px))",
+            background: "#7c6bff",
+            color: "#fff",
+          }}
+        >
+          ⊕ Choose Tools{selectedCount > 0 ? ` (${selectedCount})` : ""}
+        </button>
 
         {/* Stack Story — floating overlay at the bottom of the graph */}
         {story && (
