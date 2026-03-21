@@ -13,7 +13,7 @@ export async function getTools(): Promise<Tool[]> {
 
 export async function getToolById(id: string): Promise<Tool | null> {
   if (!supabase) return fallback.find((t) => t.id === id) ?? null;
-  const { data, error } = await supabase.from("tools").select("*").eq("id", id).single();
+  const { data, error } = await supabase.from("tools").select("*").eq("id", id).maybeSingle();
   if (error || !data) return fallback.find((t) => t.id === id) ?? null;
   return data as unknown as Tool;
 }
@@ -38,7 +38,7 @@ export async function getToolHealthDetails(
       .eq("tool_id", toolId)
       .order("recorded_at", { ascending: false })
       .limit(1)
-      .single(),
+      .maybeSingle(),
     supabase
       .from("tool_snapshots")
       .select("stars")
@@ -46,7 +46,7 @@ export async function getToolHealthDetails(
       .lte("recorded_at", thirtyDaysAgo)
       .order("recorded_at", { ascending: false })
       .limit(1)
-      .single(),
+      .maybeSingle(),
   ]);
 
   const starDelta =
