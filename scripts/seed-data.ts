@@ -82,8 +82,8 @@ export const tools: DbTool[] = (toolsData as Tool[]).map((t) => ({
   provider: t.provider ?? null,
   choose_if: t.choose_if ?? [],
   aliases: t.aliases ?? { npm: [], pip: [], env_vars: [], config_files: [] },
-  website_url: t.urls.website ?? null,
-  github_url: t.urls.github ?? null,
+  website_url: t.website_url ?? null,
+  github_url: t.github_url ?? null,
 }));
 
 export const stacks: DbStack[] = (stacksData as Stack[]).map((s) => ({

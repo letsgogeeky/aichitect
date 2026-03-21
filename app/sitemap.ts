@@ -1,14 +1,12 @@
 import type { MetadataRoute } from "next";
-import toolsData from "@/data/tools.json";
-import relationshipsData from "@/data/relationships.json";
-import { Tool, Relationship } from "@/lib/types";
+import { getTools } from "@/lib/data/tools";
+import { getRelationships } from "@/lib/data/relationships";
 
 const BASE = "https://aichitect.dev";
-const tools = toolsData as Tool[];
-const relationships = relationshipsData as Relationship[];
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
+  const [tools, relationships] = await Promise.all([getTools(), getRelationships()]);
 
   // Core pages
   const core: MetadataRoute.Sitemap = [

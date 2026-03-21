@@ -22,10 +22,6 @@
     "github_stars": null,
     "slot": "code-editor",
     "prominent": true,
-    "urls": {
-      "website": "https://cursor.sh",
-      "github": null
-    },
     "choose_if": [
       "You want a full AI-native editor replacing VS Code",
       "You need multi-file agent mode",
@@ -36,7 +32,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": [".cursor/settings.json", ".cursorrules", ".cursorignore"]
-    }
+    },
+    "website_url": "https://cursor.sh",
+    "github_url": null
   },
   {
     "id": "github-copilot",
@@ -62,10 +60,6 @@
     "slot": "code-editor",
     "provider": "openai",
     "prominent": true,
-    "urls": {
-      "website": "https://github.com/features/copilot",
-      "github": null
-    },
     "choose_if": [
       "You're already deep in GitHub and VS Code",
       "You want AI completions in any IDE",
@@ -76,7 +70,9 @@
       "pip": [],
       "env_vars": ["GITHUB_TOKEN"],
       "config_files": [".github/copilot-instructions.md"]
-    }
+    },
+    "website_url": "https://github.com/features/copilot",
+    "github_url": null
   },
   {
     "id": "windsurf",
@@ -96,10 +92,6 @@
     },
     "github_stars": null,
     "slot": "code-editor",
-    "urls": {
-      "website": "https://windsurf.com",
-      "github": null
-    },
     "choose_if": [
       "You want a fast, minimal AI editor",
       "Cascade agentic flows fit your workflow",
@@ -110,7 +102,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": [".windsurfrules"]
-    }
+    },
+    "website_url": "https://windsurf.com",
+    "github_url": null
   },
   {
     "id": "zed",
@@ -125,10 +119,6 @@
     },
     "github_stars": 50000,
     "slot": "code-editor",
-    "urls": {
-      "website": "https://zed.dev",
-      "github": "https://github.com/zed-industries/zed"
-    },
     "choose_if": [
       "You want a blazing-fast editor with low latency",
       "Pair programming with remote collaborators",
@@ -139,13 +129,15 @@
       "pip": [],
       "env_vars": [],
       "config_files": [".zed/settings.json"]
-    }
+    },
+    "website_url": "https://zed.dev",
+    "github_url": "https://github.com/zed-industries/zed"
   },
   {
     "id": "continue",
     "name": "Continue",
     "category": "coding-assistants",
-    "tagline": "OSS VS Code plugin \u2014 bring your own LLM",
+    "tagline": "OSS VS Code plugin — bring your own LLM",
     "description": "Open-source VS Code and JetBrains extension. Connect any LLM via ollama, LiteLLM, or cloud APIs. Fully customizable.",
     "type": "oss",
     "pricing": {
@@ -154,10 +146,6 @@
     },
     "github_stars": 20000,
     "slot": "code-editor",
-    "urls": {
-      "website": "https://continue.dev",
-      "github": "https://github.com/continuedev/continue"
-    },
     "choose_if": [
       "You want open-source, self-hostable AI completions",
       "You bring your own LLM or use local models",
@@ -168,7 +156,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": [".continue/config.json", ".continue/config.ts", ".continue/"]
-    }
+    },
+    "website_url": "https://continue.dev",
+    "github_url": "https://github.com/continuedev/continue"
   },
   {
     "id": "aider",
@@ -183,10 +173,6 @@
     },
     "github_stars": 23000,
     "slot": "cli-agent",
-    "urls": {
-      "website": "https://aider.chat",
-      "github": "https://github.com/paul-gauthier/aider"
-    },
     "choose_if": [
       "You prefer terminal-first AI coding",
       "You want git-integrated pair programming",
@@ -197,7 +183,9 @@
       "pip": ["aider-chat"],
       "env_vars": [],
       "config_files": [".aider.conf.yml", ".aider.model.settings.yml"]
-    }
+    },
+    "website_url": "https://aider.chat",
+    "github_url": "https://github.com/paul-gauthier/aider"
   },
   {
     "id": "claude-code",
@@ -218,10 +206,6 @@
     "github_stars": null,
     "slot": "cli-agent",
     "provider": "anthropic",
-    "urls": {
-      "website": "https://claude.ai/code",
-      "github": null
-    },
     "choose_if": [
       "You want an agentic terminal assistant",
       "You need Claude to run commands and tests",
@@ -232,7 +216,9 @@
       "pip": [],
       "env_vars": ["ANTHROPIC_API_KEY"],
       "config_files": [".claude/settings.json", "CLAUDE.md"]
-    }
+    },
+    "website_url": "https://claude.ai/code",
+    "github_url": null
   },
   {
     "id": "tabnine",
@@ -252,10 +238,6 @@
     },
     "github_stars": null,
     "slot": "code-editor",
-    "urls": {
-      "website": "https://tabnine.com",
-      "github": null
-    },
     "choose_if": [
       "Enterprise compliance and private deployment matter",
       "You want on-premise AI completions",
@@ -266,7 +248,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": [".tabnine/"]
-    }
+    },
+    "website_url": "https://tabnine.com",
+    "github_url": null
   },
   {
     "id": "supermaven",
@@ -286,10 +270,6 @@
     },
     "github_stars": null,
     "slot": "code-editor",
-    "urls": {
-      "website": "https://supermaven.com",
-      "github": null
-    },
     "choose_if": [
       "You want the fastest inline completions available",
       "Low-latency tab completion is your #1 priority",
@@ -300,7 +280,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://supermaven.com",
+    "github_url": null
   },
   {
     "id": "plandex",
@@ -320,10 +302,6 @@
     },
     "github_stars": 9000,
     "slot": "cli-agent",
-    "urls": {
-      "website": "https://plandex.ai",
-      "github": "https://github.com/plandex-ai/plandex"
-    },
     "choose_if": [
       "You need long-horizon, multi-step coding tasks",
       "You want terminal-based task planning",
@@ -334,7 +312,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": [".plandex/"]
-    }
+    },
+    "website_url": "https://plandex.ai",
+    "github_url": "https://github.com/plandex-ai/plandex"
   },
   {
     "id": "goose",
@@ -349,10 +329,6 @@
     },
     "github_stars": 10000,
     "slot": "cli-agent",
-    "urls": {
-      "website": "https://block.github.io/goose",
-      "github": "https://github.com/block/goose"
-    },
     "choose_if": [
       "You want an open-source agentic assistant",
       "You prefer Block's extensible agent framework",
@@ -363,7 +339,9 @@
       "pip": ["goose-ai"],
       "env_vars": [],
       "config_files": [".goose/"]
-    }
+    },
+    "website_url": "https://block.github.io/goose",
+    "github_url": "https://github.com/block/goose"
   },
   {
     "id": "aide",
@@ -378,10 +356,6 @@
     },
     "github_stars": 5000,
     "slot": "code-editor",
-    "urls": {
-      "website": "https://aide.dev",
-      "github": "https://github.com/codestoryai/aide"
-    },
     "choose_if": [
       "You want an OSS VS Code fork with AI built in",
       "You're self-hosting your AI dev environment",
@@ -392,7 +366,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": [".aide/"]
-    }
+    },
+    "website_url": "https://aide.dev",
+    "github_url": "https://github.com/codestoryai/aide"
   },
   {
     "id": "replit-ghostwriter",
@@ -412,10 +388,6 @@
     },
     "github_stars": null,
     "slot": "code-editor",
-    "urls": {
-      "website": "https://replit.com/ai",
-      "github": null
-    },
     "choose_if": [
       "You're building in the browser with no local setup",
       "You want instant deployment alongside AI coding",
@@ -426,7 +398,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://replit.com/ai",
+    "github_url": null
   },
   {
     "id": "jetbrains-ai",
@@ -446,10 +420,6 @@
     },
     "github_stars": null,
     "slot": "code-editor",
-    "urls": {
-      "website": "https://www.jetbrains.com/ai",
-      "github": null
-    },
     "choose_if": [
       "You're a JetBrains user (IntelliJ, PyCharm, etc.)",
       "You want AI natively in your existing IDE",
@@ -460,14 +430,16 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://www.jetbrains.com/ai",
+    "github_url": null
   },
   {
     "id": "cline",
     "name": "Cline",
     "category": "coding-assistants",
     "tagline": "Autonomous AI coding agent in VS Code",
-    "description": "VS Code extension that gives Claude and other LLMs full agentic control \u2014 file edits, terminal commands, browser automation, and MCP tool use.",
+    "description": "VS Code extension that gives Claude and other LLMs full agentic control — file edits, terminal commands, browser automation, and MCP tool use.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -475,10 +447,6 @@
     },
     "github_stars": 35000,
     "slot": "code-editor",
-    "urls": {
-      "website": "https://cline.bot",
-      "github": "https://github.com/cline/cline"
-    },
     "choose_if": [
       "You want an open-source Claude agent in VS Code",
       "You need an agent that executes shell commands",
@@ -489,7 +457,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": [".cline/"]
-    }
+    },
+    "website_url": "https://cline.bot",
+    "github_url": "https://github.com/cline/cline"
   },
   {
     "id": "bolt-new",
@@ -509,13 +479,9 @@
     },
     "github_stars": null,
     "slot": "code-editor",
-    "urls": {
-      "website": "https://bolt.new",
-      "github": null
-    },
     "choose_if": [
       "You want to go from prompt to full-stack app instantly",
-      "You need no local setup \u2014 browser-only",
+      "You need no local setup — browser-only",
       "You're prototyping or demoing a product fast"
     ],
     "aliases": {
@@ -523,7 +489,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://bolt.new",
+    "github_url": null
   },
   {
     "id": "devin",
@@ -544,10 +512,6 @@
     "github_stars": null,
     "slot": "swe-agent",
     "prominent": true,
-    "urls": {
-      "website": "https://cognition.ai",
-      "github": null
-    },
     "choose_if": [
       "You want a fully autonomous SWE agent",
       "You're delegating entire coding tickets end-to-end",
@@ -558,7 +522,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://cognition.ai",
+    "github_url": null
   },
   {
     "id": "openhands",
@@ -574,10 +540,6 @@
     "github_stars": 36000,
     "slot": "swe-agent",
     "prominent": true,
-    "urls": {
-      "website": "https://docs.all-hands.dev",
-      "github": "https://github.com/All-Hands-AI/OpenHands"
-    },
     "choose_if": [
       "You want an open-source alternative to Devin",
       "Self-hosting your SWE agent is important",
@@ -588,7 +550,9 @@
       "pip": ["openhands-ai"],
       "env_vars": [],
       "config_files": [".openhands/"]
-    }
+    },
+    "website_url": "https://docs.all-hands.dev",
+    "github_url": "https://github.com/All-Hands-AI/OpenHands"
   },
   {
     "id": "swe-agent",
@@ -603,10 +567,6 @@
     },
     "github_stars": 14000,
     "slot": "swe-agent",
-    "urls": {
-      "website": "https://swe-agent.com",
-      "github": "https://github.com/princeton-nlp/SWE-agent"
-    },
     "choose_if": [
       "You need a research-grade SWE agent baseline",
       "You're benchmarking agent performance (SWE-bench)",
@@ -617,7 +577,9 @@
       "pip": ["sweagent"],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://swe-agent.com",
+    "github_url": "https://github.com/princeton-nlp/SWE-agent"
   },
   {
     "id": "crewai",
@@ -633,10 +595,6 @@
     "github_stars": 23000,
     "slot": "agent-framework",
     "prominent": true,
-    "urls": {
-      "website": "https://crewai.com",
-      "github": "https://github.com/joaomdmoura/crewAI"
-    },
     "choose_if": [
       "You need role-based multi-agent collaboration",
       "Your workflow maps to a team with clear roles",
@@ -647,7 +605,9 @@
       "pip": ["crewai", "crewai-tools"],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://crewai.com",
+    "github_url": "https://github.com/joaomdmoura/crewAI"
   },
   {
     "id": "autogen",
@@ -663,10 +623,6 @@
     "github_stars": 34000,
     "slot": "agent-framework",
     "prominent": true,
-    "urls": {
-      "website": "https://microsoft.github.io/autogen",
-      "github": "https://github.com/microsoft/autogen"
-    },
     "choose_if": [
       "You want conversational multi-agent orchestration",
       "Research or Microsoft ecosystem integration matters",
@@ -677,7 +633,9 @@
       "pip": ["pyautogen", "autogen-agentchat", "autogen-core"],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://microsoft.github.io/autogen",
+    "github_url": "https://github.com/microsoft/autogen"
   },
   {
     "id": "langgraph",
@@ -692,10 +650,6 @@
     },
     "github_stars": 8000,
     "slot": "agent-framework",
-    "urls": {
-      "website": "https://langchain-ai.github.io/langgraph",
-      "github": "https://github.com/langchain-ai/langgraph"
-    },
     "choose_if": [
       "You need stateful, graph-based agent control flow",
       "Complex branching or retry logic is required",
@@ -706,7 +660,9 @@
       "pip": ["langgraph", "langgraph-sdk"],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://langchain-ai.github.io/langgraph",
+    "github_url": "https://github.com/langchain-ai/langgraph"
   },
   {
     "id": "metagpt",
@@ -721,10 +677,6 @@
     },
     "github_stars": 44000,
     "slot": "agent-framework",
-    "urls": {
-      "website": "https://metagpt.com",
-      "github": "https://github.com/geekan/MetaGPT"
-    },
     "choose_if": [
       "You want agents that simulate a software company",
       "You're automating structured product development",
@@ -735,7 +687,9 @@
       "pip": ["metagpt"],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://metagpt.com",
+    "github_url": "https://github.com/geekan/MetaGPT"
   },
   {
     "id": "semantic-kernel",
@@ -750,10 +704,6 @@
     },
     "github_stars": 22000,
     "slot": "agent-framework",
-    "urls": {
-      "website": "https://learn.microsoft.com/en-us/semantic-kernel",
-      "github": "https://github.com/microsoft/semantic-kernel"
-    },
     "choose_if": [
       ".NET or C# is your primary language",
       "You're integrating AI into a Microsoft-stack app",
@@ -764,14 +714,16 @@
       "pip": ["semantic-kernel"],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://learn.microsoft.com/en-us/semantic-kernel",
+    "github_url": "https://github.com/microsoft/semantic-kernel"
   },
   {
     "id": "lovable",
     "name": "Lovable",
     "category": "autonomous-agents",
     "tagline": "AI that builds full-stack web apps from prompts",
-    "description": "Lovable generates complete full-stack web applications from natural language. It handles frontend, backend, auth, and database \u2014 editable in real time.",
+    "description": "Lovable generates complete full-stack web applications from natural language. It handles frontend, backend, auth, and database — editable in real time.",
     "type": "commercial",
     "pricing": {
       "free_tier": true,
@@ -784,10 +736,6 @@
     },
     "github_stars": null,
     "slot": "swe-agent",
-    "urls": {
-      "website": "https://lovable.dev",
-      "github": null
-    },
     "choose_if": [
       "You want a beautiful full-stack app from a prompt",
       "Design polish matters as much as functionality",
@@ -798,7 +746,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://lovable.dev",
+    "github_url": null
   },
   {
     "id": "gpt-pilot",
@@ -813,10 +763,6 @@
     },
     "github_stars": 31000,
     "slot": "swe-agent",
-    "urls": {
-      "website": "https://github.com/Pythagora-io/gpt-pilot",
-      "github": "https://github.com/Pythagora-io/gpt-pilot"
-    },
     "choose_if": [
       "You want a local, step-by-step coding agent",
       "You prefer iterative agent workflows with human review",
@@ -827,13 +773,15 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://github.com/Pythagora-io/gpt-pilot",
+    "github_url": "https://github.com/Pythagora-io/gpt-pilot"
   },
   {
     "id": "v0",
     "name": "v0",
     "category": "design",
-    "tagline": "Prompt \u2192 production React/Tailwind components",
+    "tagline": "Prompt → production React/Tailwind components",
     "description": "Vercel's AI that generates production-ready React and Tailwind UI from prompts. Exports directly to code. Legitimized AI design-to-code.",
     "type": "commercial",
     "pricing": {
@@ -848,10 +796,6 @@
     "github_stars": null,
     "slot": "design-to-code",
     "prominent": true,
-    "urls": {
-      "website": "https://v0.dev",
-      "github": null
-    },
     "choose_if": [
       "You want production-ready React/Tailwind UI from prompts",
       "You're in the Vercel ecosystem",
@@ -862,13 +806,15 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://v0.dev",
+    "github_url": null
   },
   {
     "id": "galileo",
     "name": "Galileo AI",
     "category": "design",
-    "tagline": "Text \u2192 Figma-ready UI generation",
+    "tagline": "Text → Figma-ready UI generation",
     "description": "Generates complete Figma-ready UI designs from text prompts. Targets design teams looking to accelerate early-stage UI generation.",
     "type": "commercial",
     "pricing": {
@@ -882,10 +828,6 @@
     },
     "github_stars": null,
     "slot": "design-to-code",
-    "urls": {
-      "website": "https://www.usegalileo.ai",
-      "github": null
-    },
     "choose_if": [
       "You need design-to-code at wireframe fidelity",
       "You want high-quality UI mockups without a designer",
@@ -896,13 +838,15 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://www.usegalileo.ai",
+    "github_url": null
   },
   {
     "id": "locofy",
     "name": "Locofy.ai",
     "category": "design",
-    "tagline": "Figma/XD \u2192 production React/Next.js code",
+    "tagline": "Figma/XD → production React/Next.js code",
     "description": "Converts Figma and Adobe XD designs into production-ready React, Next.js, and React Native code with accurate styling.",
     "type": "commercial",
     "pricing": {
@@ -920,10 +864,6 @@
     },
     "github_stars": null,
     "slot": "design-to-code",
-    "urls": {
-      "website": "https://locofy.ai",
-      "github": null
-    },
     "choose_if": [
       "You're converting Figma designs to code",
       "You want production-ready React/React Native output",
@@ -934,7 +874,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://locofy.ai",
+    "github_url": null
   },
   {
     "id": "builder-io",
@@ -954,10 +896,6 @@
     },
     "github_stars": null,
     "slot": "design-to-code",
-    "urls": {
-      "website": "https://builder.io",
-      "github": null
-    },
     "choose_if": [
       "You want a visual CMS with design-to-code output",
       "Marketers need to edit pages without engineers",
@@ -968,7 +906,9 @@
       "pip": [],
       "env_vars": ["BUILDER_API_KEY", "NEXT_PUBLIC_BUILDER_API_KEY"],
       "config_files": []
-    }
+    },
+    "website_url": "https://builder.io",
+    "github_url": null
   },
   {
     "id": "framer-ai",
@@ -988,10 +928,6 @@
     },
     "github_stars": null,
     "slot": "design-to-code",
-    "urls": {
-      "website": "https://framer.com/ai",
-      "github": null
-    },
     "choose_if": [
       "You want to publish a beautiful site fast",
       "Marketing or portfolio sites are your use case",
@@ -1002,7 +938,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://framer.com/ai",
+    "github_url": null
   },
   {
     "id": "uizard",
@@ -1022,10 +960,6 @@
     },
     "github_stars": null,
     "slot": "design-to-code",
-    "urls": {
-      "website": "https://uizard.io",
-      "github": null
-    },
     "choose_if": [
       "You're wireframing quickly from sketches or prompts",
       "You're a non-designer creating product mockups",
@@ -1036,7 +970,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://uizard.io",
+    "github_url": null
   },
   {
     "id": "relume",
@@ -1056,10 +992,6 @@
     },
     "github_stars": null,
     "slot": "design-to-code",
-    "urls": {
-      "website": "https://relume.io",
-      "github": null
-    },
     "choose_if": [
       "You're designing marketing sites and landing pages",
       "Sitemap-first design workflow fits your process",
@@ -1070,7 +1002,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://relume.io",
+    "github_url": null
   },
   {
     "id": "webflow-ai",
@@ -1090,10 +1024,6 @@
     },
     "github_stars": null,
     "slot": "design-to-code",
-    "urls": {
-      "website": "https://webflow.com/ai",
-      "github": null
-    },
     "choose_if": [
       "You want a no-code site with CMS and hosting",
       "You're a designer who doesn't want to touch code",
@@ -1104,13 +1034,15 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://webflow.com/ai",
+    "github_url": null
   },
   {
     "id": "anima",
     "name": "Anima",
     "category": "design",
-    "tagline": "Figma \u2192 React/Vue/HTML code generation",
+    "tagline": "Figma → React/Vue/HTML code generation",
     "description": "Converts Figma designs to production-ready React, Vue, and HTML code. Supports design tokens, responsive layouts, and interactive components.",
     "type": "commercial",
     "pricing": {
@@ -1124,10 +1056,6 @@
     },
     "github_stars": null,
     "slot": "design-to-code",
-    "urls": {
-      "website": "https://animaapp.com",
-      "github": null
-    },
     "choose_if": [
       "You're translating Figma to React with fidelity",
       "Design-to-code accuracy matters more than flexibility",
@@ -1138,7 +1066,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://animaapp.com",
+    "github_url": null
   },
   {
     "id": "kombai",
@@ -1158,10 +1088,6 @@
     },
     "github_stars": null,
     "slot": "design-to-code",
-    "urls": {
-      "website": "https://kombai.com",
-      "github": null
-    },
     "choose_if": [
       "You want pixel-accurate Figma-to-code conversion",
       "Frontend fidelity to design is non-negotiable",
@@ -1172,13 +1098,15 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://kombai.com",
+    "github_url": null
   },
   {
     "id": "google-stitch",
     "name": "Google Stitch",
     "category": "design",
-    "tagline": "Gemini-powered screenshot or prompt \u2192 production web code",
+    "tagline": "Gemini-powered screenshot or prompt → production web code",
     "description": "Google's design-to-code tool powered by Gemini. Converts screenshots, mockups, or text prompts into production-ready HTML, CSS, and JavaScript. Integrated with Google AI Studio and targets rapid UI prototyping directly from visual references.",
     "type": "commercial",
     "pricing": {
@@ -1193,10 +1121,6 @@
     "github_stars": null,
     "slot": "design-to-code",
     "prominent": false,
-    "urls": {
-      "website": "https://stitch.withgoogle.com",
-      "github": null
-    },
     "choose_if": [
       "You want to turn a screenshot or mockup into real code instantly",
       "You're in the Google / Gemini ecosystem",
@@ -1207,7 +1131,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://stitch.withgoogle.com",
+    "github_url": null
   },
   {
     "id": "langchain",
@@ -1223,10 +1149,6 @@
     "github_stars": 93000,
     "slot": "orchestration",
     "prominent": true,
-    "urls": {
-      "website": "https://langchain.com",
-      "github": "https://github.com/langchain-ai/langchain"
-    },
     "choose_if": [
       "You want a broad, flexible LLM orchestration toolkit",
       "You need integrations with many tools and data sources",
@@ -1243,7 +1165,9 @@
       ],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://langchain.com",
+    "github_url": "https://github.com/langchain-ai/langchain"
   },
   {
     "id": "llamaindex",
@@ -1259,10 +1183,6 @@
     "github_stars": 37000,
     "slot": "orchestration",
     "prominent": true,
-    "urls": {
-      "website": "https://llamaindex.ai",
-      "github": "https://github.com/run-llama/llama_index"
-    },
     "choose_if": [
       "You're building RAG or knowledge base apps",
       "Structured data querying over documents is your focus",
@@ -1273,7 +1193,9 @@
       "pip": ["llama-index", "llama-index-core", "llama-index-llms-openai"],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://llamaindex.ai",
+    "github_url": "https://github.com/run-llama/llama_index"
   },
   {
     "id": "dspy",
@@ -1288,10 +1210,6 @@
     },
     "github_stars": 18000,
     "slot": "orchestration",
-    "urls": {
-      "website": "https://dspy-docs.vercel.app",
-      "github": "https://github.com/stanfordnlp/dspy"
-    },
     "choose_if": [
       "You want to optimize LLM pipelines programmatically",
       "You're running experiments and tuning prompts at scale",
@@ -1302,7 +1220,9 @@
       "pip": ["dspy-ai", "dspy"],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://dspy-docs.vercel.app",
+    "github_url": "https://github.com/stanfordnlp/dspy"
   },
   {
     "id": "flowise",
@@ -1322,10 +1242,6 @@
     },
     "github_stars": 32000,
     "slot": "orchestration",
-    "urls": {
-      "website": "https://flowiseai.com",
-      "github": "https://github.com/FlowiseAI/Flowise"
-    },
     "choose_if": [
       "You want a no-code LangChain builder with a UI",
       "Non-engineers need to build LLM flows visually",
@@ -1336,7 +1252,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://flowiseai.com",
+    "github_url": "https://github.com/FlowiseAI/Flowise"
   },
   {
     "id": "dify",
@@ -1357,10 +1275,6 @@
     "github_stars": 50000,
     "slot": "orchestration",
     "prominent": true,
-    "urls": {
-      "website": "https://dify.ai",
-      "github": "https://github.com/langgenius/dify"
-    },
     "choose_if": [
       "You want a self-hosted LLM app platform",
       "Non-technical users need to build AI workflows",
@@ -1371,7 +1285,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://dify.ai",
+    "github_url": "https://github.com/langgenius/dify"
   },
   {
     "id": "n8n",
@@ -1392,10 +1308,6 @@
     "github_stars": 48000,
     "slot": "orchestration",
     "prominent": true,
-    "urls": {
-      "website": "https://n8n.io",
-      "github": "https://github.com/n8n-io/n8n"
-    },
     "choose_if": [
       "You're automating workflows between many tools",
       "You want AI steps inside broader automation pipelines",
@@ -1406,7 +1318,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://n8n.io",
+    "github_url": "https://github.com/n8n-io/n8n"
   },
   {
     "id": "haystack",
@@ -1426,10 +1340,6 @@
     },
     "github_stars": 18000,
     "slot": "orchestration",
-    "urls": {
-      "website": "https://haystack.deepset.ai",
-      "github": "https://github.com/deepset-ai/haystack"
-    },
     "choose_if": [
       "You're building search-first or RAG pipelines in Python",
       "Deepset's enterprise search DNA fits your use case",
@@ -1440,7 +1350,9 @@
       "pip": ["haystack-ai", "farm-haystack"],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://haystack.deepset.ai",
+    "github_url": "https://github.com/deepset-ai/haystack"
   },
   {
     "id": "langflow",
@@ -1460,10 +1372,6 @@
     },
     "github_stars": 35000,
     "slot": "orchestration",
-    "urls": {
-      "website": "https://langflow.org",
-      "github": "https://github.com/langflow-ai/langflow"
-    },
     "choose_if": [
       "You want a visual builder for LangChain flows",
       "Your team prefers drag-and-drop over code",
@@ -1474,7 +1382,9 @@
       "pip": ["langflow"],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://langflow.org",
+    "github_url": "https://github.com/langflow-ai/langflow"
   },
   {
     "id": "mastra",
@@ -1489,10 +1399,6 @@
     },
     "github_stars": 8000,
     "slot": "orchestration",
-    "urls": {
-      "website": "https://mastra.ai",
-      "github": "https://github.com/mastra-ai/mastra"
-    },
     "choose_if": [
       "You're building TypeScript-native agentic workflows",
       "You want a structured framework for agent + RAG apps",
@@ -1503,7 +1409,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://mastra.ai",
+    "github_url": "https://github.com/mastra-ai/mastra"
   },
   {
     "id": "pydantic-ai",
@@ -1518,10 +1426,6 @@
     },
     "github_stars": 7000,
     "slot": "orchestration",
-    "urls": {
-      "website": "https://ai.pydantic.dev",
-      "github": "https://github.com/pydantic/pydantic-ai"
-    },
     "choose_if": [
       "You want type-safe, structured LLM outputs in Python",
       "Pydantic is already central to your Python stack",
@@ -1532,7 +1436,9 @@
       "pip": ["pydantic-ai", "pydantic-ai-slim"],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://ai.pydantic.dev",
+    "github_url": "https://github.com/pydantic/pydantic-ai"
   },
   {
     "id": "smolagents",
@@ -1547,10 +1453,6 @@
     },
     "github_stars": 12000,
     "slot": "orchestration",
-    "urls": {
-      "website": "https://huggingface.co/docs/smolagents",
-      "github": "https://github.com/huggingface/smolagents"
-    },
     "choose_if": [
       "You want Hugging Face's lightweight agent framework",
       "Local or open-source models are central to your stack",
@@ -1561,7 +1463,9 @@
       "pip": ["smolagents"],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://huggingface.co/docs/smolagents",
+    "github_url": "https://github.com/huggingface/smolagents"
   },
   {
     "id": "agno",
@@ -1576,10 +1480,6 @@
     },
     "github_stars": 18000,
     "slot": "orchestration",
-    "urls": {
-      "website": "https://agno.com",
-      "github": "https://github.com/agno-agi/agno"
-    },
     "choose_if": [
       "You want a fast, multi-modal agentic framework",
       "You're building agents that see, read, and reason",
@@ -1590,13 +1490,15 @@
       "pip": ["agno"],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://agno.com",
+    "github_url": "https://github.com/agno-agi/agno"
   },
   {
     "id": "sweep-ai",
     "name": "Sweep AI",
     "category": "devops",
-    "tagline": "GitHub bot: issues \u2192 PRs automatically",
+    "tagline": "GitHub bot: issues → PRs automatically",
     "description": "GitHub bot that converts issues and bug reports into working pull requests. Handles simple to medium complexity tasks autonomously.",
     "type": "oss",
     "pricing": {
@@ -1610,10 +1512,6 @@
     },
     "github_stars": 7500,
     "slot": "devops-automation",
-    "urls": {
-      "website": "https://sweep.dev",
-      "github": "https://github.com/sweepai/sweep"
-    },
     "choose_if": [
       "You want AI to handle GitHub issues autonomously",
       "You have a backlog of bug fixes and small features",
@@ -1624,7 +1522,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": ["sweep.yaml", ".github/sweep.yaml"]
-    }
+    },
+    "website_url": "https://sweep.dev",
+    "github_url": "https://github.com/sweepai/sweep"
   },
   {
     "id": "coderabbit",
@@ -1644,10 +1544,6 @@
     },
     "github_stars": null,
     "slot": "devops-automation",
-    "urls": {
-      "website": "https://coderabbit.ai",
-      "github": null
-    },
     "choose_if": [
       "You want AI code review on every PR",
       "Catching bugs and style issues before merge matters",
@@ -1658,7 +1554,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": [".coderabbit.yaml", ".coderabbit.yml"]
-    }
+    },
+    "website_url": "https://coderabbit.ai",
+    "github_url": null
   },
   {
     "id": "qodo",
@@ -1678,10 +1576,6 @@
     },
     "github_stars": null,
     "slot": "devops-automation",
-    "urls": {
-      "website": "https://qodo.ai",
-      "github": null
-    },
     "choose_if": [
       "You want AI to generate and review tests",
       "Test coverage improvement is a team priority",
@@ -1692,7 +1586,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://qodo.ai",
+    "github_url": null
   },
   {
     "id": "graphite",
@@ -1712,10 +1608,6 @@
     },
     "github_stars": null,
     "slot": "devops-automation",
-    "urls": {
-      "website": "https://graphite.dev",
-      "github": null
-    },
     "choose_if": [
       "You want a stacked PRs workflow",
       "Fast code review cycles matter to your team",
@@ -1726,7 +1618,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://graphite.dev",
+    "github_url": null
   },
   {
     "id": "sourcery",
@@ -1746,10 +1640,6 @@
     },
     "github_stars": null,
     "slot": "devops-automation",
-    "urls": {
-      "website": "https://sourcery.ai",
-      "github": null
-    },
     "choose_if": [
       "You want AI refactoring suggestions inline",
       "Code quality and readability improvements are a goal",
@@ -1760,14 +1650,16 @@
       "pip": [],
       "env_vars": [],
       "config_files": [".sourcery.yaml"]
-    }
+    },
+    "website_url": "https://sourcery.ai",
+    "github_url": null
   },
   {
     "id": "grit-io",
     "name": "Grit.io",
     "category": "devops",
     "tagline": "AI-powered code migrations and upgrades at scale",
-    "description": "Automates large-scale code migrations \u2014 upgrading frameworks, removing deprecated APIs, and enforcing patterns across entire codebases.",
+    "description": "Automates large-scale code migrations — upgrading frameworks, removing deprecated APIs, and enforcing patterns across entire codebases.",
     "type": "commercial",
     "pricing": {
       "free_tier": true,
@@ -1780,10 +1672,6 @@
     },
     "github_stars": null,
     "slot": "devops-automation",
-    "urls": {
-      "website": "https://grit.io",
-      "github": null
-    },
     "choose_if": [
       "You need large-scale automated code migrations",
       "Upgrading dependencies or APIs across many files",
@@ -1794,7 +1682,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": [".grit/", "grit.yaml"]
-    }
+    },
+    "website_url": "https://grit.io",
+    "github_url": null
   },
   {
     "id": "pixee",
@@ -1814,10 +1704,6 @@
     },
     "github_stars": null,
     "slot": "devops-automation",
-    "urls": {
-      "website": "https://pixee.ai",
-      "github": null
-    },
     "choose_if": [
       "You want security-focused automated code fixes",
       "SAST-integrated remediation in PRs fits your workflow",
@@ -1828,7 +1714,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": [".pixee.yml"]
-    }
+    },
+    "website_url": "https://pixee.ai",
+    "github_url": null
   },
   {
     "id": "trunk",
@@ -1848,10 +1736,6 @@
     },
     "github_stars": null,
     "slot": "devops-automation",
-    "urls": {
-      "website": "https://trunk.io",
-      "github": null
-    },
     "choose_if": [
       "You want a unified linting and formatting platform",
       "You're tired of managing many separate linting tools",
@@ -1862,7 +1746,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": [".trunk/trunk.yaml", "trunk.yaml"]
-    }
+    },
+    "website_url": "https://trunk.io",
+    "github_url": null
   },
   {
     "id": "codegen",
@@ -1882,10 +1768,6 @@
     },
     "github_stars": null,
     "slot": "devops-automation",
-    "urls": {
-      "website": "https://codegen.com",
-      "github": null
-    },
     "choose_if": [
       "You want AI to do large autonomous code changes",
       "You're modernizing a legacy codebase at scale",
@@ -1896,7 +1778,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://codegen.com",
+    "github_url": null
   },
   {
     "id": "mintlify",
@@ -1917,10 +1801,6 @@
     "github_stars": null,
     "slot": "docs",
     "prominent": true,
-    "urls": {
-      "website": "https://mintlify.com",
-      "github": null
-    },
     "choose_if": [
       "You want beautiful API docs with minimal effort",
       "Developer experience for your API or SDK matters",
@@ -1931,7 +1811,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": ["mint.json", "docs.json"]
-    }
+    },
+    "website_url": "https://mintlify.com",
+    "github_url": null
   },
   {
     "id": "swimm",
@@ -1951,10 +1833,6 @@
     },
     "github_stars": null,
     "slot": "docs",
-    "urls": {
-      "website": "https://swimm.io",
-      "github": null
-    },
     "choose_if": [
       "You need docs embedded and synced to code",
       "Onboarding new engineers faster is a priority",
@@ -1965,7 +1843,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": [".swm/"]
-    }
+    },
+    "website_url": "https://swimm.io",
+    "github_url": null
   },
   {
     "id": "notion-ai",
@@ -1985,10 +1865,6 @@
     },
     "github_stars": null,
     "slot": "docs",
-    "urls": {
-      "website": "https://notion.so/ai",
-      "github": null
-    },
     "choose_if": [
       "Your team already lives in Notion",
       "AI writing assistance within a wiki or knowledge base",
@@ -1999,7 +1875,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://notion.so/ai",
+    "github_url": null
   },
   {
     "id": "gitbook-ai",
@@ -2019,10 +1897,6 @@
     },
     "github_stars": null,
     "slot": "docs",
-    "urls": {
-      "website": "https://gitbook.com",
-      "github": null
-    },
     "choose_if": [
       "You want collaborative, clean technical documentation",
       "Your team needs a knowledge base with AI search",
@@ -2033,7 +1907,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": [".gitbook.yaml"]
-    }
+    },
+    "website_url": "https://gitbook.com",
+    "github_url": null
   },
   {
     "id": "linear-ai",
@@ -2053,10 +1929,6 @@
     },
     "github_stars": null,
     "slot": "product-mgmt",
-    "urls": {
-      "website": "https://linear.app",
-      "github": null
-    },
     "choose_if": [
       "You want AI inside your issue tracker",
       "Ticket writing, summarization, and triage matter",
@@ -2067,14 +1939,16 @@
       "pip": [],
       "env_vars": ["LINEAR_API_KEY"],
       "config_files": []
-    }
+    },
+    "website_url": "https://linear.app",
+    "github_url": null
   },
   {
     "id": "height-ai",
     "name": "Height AI",
     "category": "product-mgmt",
     "tagline": "AI task management with autonomous project ops",
-    "description": "Project management tool with an AI agent that can autonomously triage tasks, draft specs, and manage backlog \u2014 without being explicitly asked.",
+    "description": "Project management tool with an AI agent that can autonomously triage tasks, draft specs, and manage backlog — without being explicitly asked.",
     "type": "commercial",
     "pricing": {
       "free_tier": true,
@@ -2087,10 +1961,6 @@
     },
     "github_stars": null,
     "slot": "product-mgmt",
-    "urls": {
-      "website": "https://height.app",
-      "github": null
-    },
     "choose_if": [
       "You want AI-powered project management",
       "Autonomous task organization and subtask generation",
@@ -2101,7 +1971,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://height.app",
+    "github_url": null
   },
   {
     "id": "cycle",
@@ -2121,10 +1993,6 @@
     },
     "github_stars": null,
     "slot": "product-mgmt",
-    "urls": {
-      "website": "https://cycle.app",
-      "github": null
-    },
     "choose_if": [
       "You want product feedback and roadmapping in one place",
       "Customer feedback synthesis and prioritization is key",
@@ -2135,7 +2003,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://cycle.app",
+    "github_url": null
   },
   {
     "id": "kraftful",
@@ -2155,10 +2025,6 @@
     },
     "github_stars": null,
     "slot": "product-mgmt",
-    "urls": {
-      "website": "https://kraftful.com",
-      "github": null
-    },
     "choose_if": [
       "You want AI analysis of user feedback",
       "You're a PM synthesizing reviews and survey data",
@@ -2169,13 +2035,15 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://kraftful.com",
+    "github_url": null
   },
   {
     "id": "litellm",
     "name": "LiteLLM",
     "category": "llm-infra",
-    "tagline": "Universal LLM proxy \u2014 100+ models, one API",
+    "tagline": "Universal LLM proxy — 100+ models, one API",
     "description": "OSS proxy that normalizes 100+ LLMs to the OpenAI format. Add routing, fallbacks, caching, and cost tracking in one layer.",
     "type": "oss",
     "pricing": {
@@ -2190,10 +2058,6 @@
     "github_stars": 16000,
     "slot": "model-router",
     "prominent": true,
-    "urls": {
-      "website": "https://litellm.ai",
-      "github": "https://github.com/BerriAI/litellm"
-    },
     "choose_if": [
       "You want a unified API across 100+ LLM providers",
       "You're switching between providers or running A/B tests",
@@ -2204,7 +2068,9 @@
       "pip": ["litellm"],
       "env_vars": ["LITELLM_API_KEY", "LITELLM_BASE_URL"],
       "config_files": ["litellm_config.yaml"]
-    }
+    },
+    "website_url": "https://litellm.ai",
+    "github_url": "https://github.com/BerriAI/litellm"
   },
   {
     "id": "openrouter",
@@ -2225,10 +2091,6 @@
     "github_stars": null,
     "slot": "model-router",
     "prominent": true,
-    "urls": {
-      "website": "https://openrouter.ai",
-      "github": null
-    },
     "choose_if": [
       "You want a single API key for all frontier models",
       "You're experimenting with many different models",
@@ -2239,7 +2101,9 @@
       "pip": [],
       "env_vars": ["OPENROUTER_API_KEY"],
       "config_files": []
-    }
+    },
+    "website_url": "https://openrouter.ai",
+    "github_url": null
   },
   {
     "id": "portkey",
@@ -2259,10 +2123,6 @@
     },
     "github_stars": null,
     "slot": "model-router",
-    "urls": {
-      "website": "https://portkey.ai",
-      "github": null
-    },
     "choose_if": [
       "You want LLM gateway with caching and guardrails",
       "Enterprise-grade LLM routing with reliability is needed",
@@ -2273,7 +2133,9 @@
       "pip": ["portkey-ai"],
       "env_vars": ["PORTKEY_API_KEY"],
       "config_files": []
-    }
+    },
+    "website_url": "https://portkey.ai",
+    "github_url": null
   },
   {
     "id": "langsmith",
@@ -2293,10 +2155,6 @@
     },
     "github_stars": null,
     "slot": "observability",
-    "urls": {
-      "website": "https://smith.langchain.com",
-      "github": null
-    },
     "choose_if": [
       "You're already in the LangChain ecosystem",
       "You want end-to-end tracing for LangChain apps",
@@ -2307,7 +2165,9 @@
       "pip": ["langsmith"],
       "env_vars": ["LANGSMITH_API_KEY", "LANGCHAIN_API_KEY", "LANGCHAIN_TRACING_V2"],
       "config_files": []
-    }
+    },
+    "website_url": "https://smith.langchain.com",
+    "github_url": null
   },
   {
     "id": "langfuse",
@@ -2328,10 +2188,6 @@
     "github_stars": 7000,
     "slot": "observability",
     "prominent": true,
-    "urls": {
-      "website": "https://langfuse.com",
-      "github": "https://github.com/langfuse/langfuse"
-    },
     "choose_if": [
       "You want open-source LLM observability",
       "Self-hosting your tracing stack is important",
@@ -2342,7 +2198,9 @@
       "pip": ["langfuse"],
       "env_vars": ["LANGFUSE_SECRET_KEY", "LANGFUSE_PUBLIC_KEY", "LANGFUSE_HOST"],
       "config_files": []
-    }
+    },
+    "website_url": "https://langfuse.com",
+    "github_url": "https://github.com/langfuse/langfuse"
   },
   {
     "id": "helicone",
@@ -2362,10 +2220,6 @@
     },
     "github_stars": 2500,
     "slot": "observability",
-    "urls": {
-      "website": "https://helicone.ai",
-      "github": "https://github.com/Helicone/helicone"
-    },
     "choose_if": [
       "You want one-line LLM observability setup",
       "Caching LLM responses to cut costs matters",
@@ -2376,7 +2230,9 @@
       "pip": ["helicone"],
       "env_vars": ["HELICONE_API_KEY"],
       "config_files": []
-    }
+    },
+    "website_url": "https://helicone.ai",
+    "github_url": "https://github.com/Helicone/helicone"
   },
   {
     "id": "arize-phoenix",
@@ -2396,10 +2252,6 @@
     },
     "github_stars": 4000,
     "slot": "observability",
-    "urls": {
-      "website": "https://phoenix.arize.com",
-      "github": "https://github.com/Arize-ai/phoenix"
-    },
     "choose_if": [
       "You need ML observability beyond just LLMs",
       "RAG pipeline tracing and eval integration is required",
@@ -2410,7 +2262,9 @@
       "pip": ["arize-phoenix", "openinference-instrumentation-openai"],
       "env_vars": ["PHOENIX_API_KEY"],
       "config_files": []
-    }
+    },
+    "website_url": "https://phoenix.arize.com",
+    "github_url": "https://github.com/Arize-ai/phoenix"
   },
   {
     "id": "braintrust",
@@ -2430,10 +2284,6 @@
     },
     "github_stars": null,
     "slot": "observability",
-    "urls": {
-      "website": "https://braintrustdata.com",
-      "github": null
-    },
     "choose_if": [
       "You want eval-first development with a full platform",
       "Prompt experiments and dataset management are central",
@@ -2444,7 +2294,9 @@
       "pip": ["braintrust"],
       "env_vars": ["BRAINTRUST_API_KEY"],
       "config_files": []
-    }
+    },
+    "website_url": "https://braintrustdata.com",
+    "github_url": null
   },
   {
     "id": "ollama",
@@ -2460,10 +2312,6 @@
     "github_stars": 90000,
     "slot": "inference",
     "prominent": true,
-    "urls": {
-      "website": "https://ollama.ai",
-      "github": "https://github.com/ollama/ollama"
-    },
     "choose_if": [
       "You want to run LLMs locally on your machine",
       "Privacy or offline use cases require local models",
@@ -2474,7 +2322,9 @@
       "pip": ["ollama"],
       "env_vars": [],
       "config_files": ["Modelfile"]
-    }
+    },
+    "website_url": "https://ollama.ai",
+    "github_url": "https://github.com/ollama/ollama"
   },
   {
     "id": "vllm",
@@ -2489,10 +2339,6 @@
     },
     "github_stars": 32000,
     "slot": "inference",
-    "urls": {
-      "website": "https://vllm.ai",
-      "github": "https://github.com/vllm-project/vllm"
-    },
     "choose_if": [
       "You're serving LLMs at high throughput in production",
       "Continuous batching and PagedAttention are needed",
@@ -2503,7 +2349,9 @@
       "pip": ["vllm"],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://vllm.ai",
+    "github_url": "https://github.com/vllm-project/vllm"
   },
   {
     "id": "groq",
@@ -2523,10 +2371,6 @@
     },
     "github_stars": null,
     "slot": "inference",
-    "urls": {
-      "website": "https://groq.com",
-      "github": null
-    },
     "choose_if": [
       "You want the fastest LLM inference available",
       "Low-latency responses are critical for your UX",
@@ -2537,7 +2381,9 @@
       "pip": ["groq"],
       "env_vars": ["GROQ_API_KEY"],
       "config_files": []
-    }
+    },
+    "website_url": "https://groq.com",
+    "github_url": null
   },
   {
     "id": "together-ai",
@@ -2557,10 +2403,6 @@
     },
     "github_stars": null,
     "slot": "inference",
-    "urls": {
-      "website": "https://together.ai",
-      "github": null
-    },
     "choose_if": [
       "You want fast, affordable inference on open models",
       "Fine-tuning on open-source models is on your roadmap",
@@ -2571,7 +2413,9 @@
       "pip": ["together"],
       "env_vars": ["TOGETHER_API_KEY"],
       "config_files": []
-    }
+    },
+    "website_url": "https://together.ai",
+    "github_url": null
   },
   {
     "id": "fireworks-ai",
@@ -2591,10 +2435,6 @@
     },
     "github_stars": null,
     "slot": "inference",
-    "urls": {
-      "website": "https://fireworks.ai",
-      "github": null
-    },
     "choose_if": [
       "You need production-grade open-model serving",
       "Low latency and high throughput at scale matter",
@@ -2605,7 +2445,9 @@
       "pip": ["fireworks-ai"],
       "env_vars": ["FIREWORKS_API_KEY"],
       "config_files": []
-    }
+    },
+    "website_url": "https://fireworks.ai",
+    "github_url": null
   },
   {
     "id": "llama-cpp",
@@ -2621,10 +2463,6 @@
     "github_stars": 68000,
     "slot": "inference",
     "prominent": true,
-    "urls": {
-      "website": "https://github.com/ggerganov/llama.cpp",
-      "github": "https://github.com/ggerganov/llama.cpp"
-    },
     "choose_if": [
       "You want maximum efficiency for local LLM inference",
       "You're running models on CPU or edge hardware",
@@ -2635,7 +2473,9 @@
       "pip": ["llama-cpp-python"],
       "env_vars": [],
       "config_files": ["Modelfile"]
-    }
+    },
+    "website_url": "https://github.com/ggerganov/llama.cpp",
+    "github_url": "https://github.com/ggerganov/llama.cpp"
   },
   {
     "id": "modal",
@@ -2655,10 +2495,6 @@
     },
     "github_stars": null,
     "slot": "inference",
-    "urls": {
-      "website": "https://modal.com",
-      "github": null
-    },
     "choose_if": [
       "You want serverless GPU compute for AI workloads",
       "You're running batch inference or training jobs",
@@ -2669,7 +2505,9 @@
       "pip": ["modal"],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://modal.com",
+    "github_url": null
   },
   {
     "id": "qdrant",
@@ -2689,10 +2527,6 @@
     },
     "github_stars": 20000,
     "slot": "vector-db",
-    "urls": {
-      "website": "https://qdrant.tech",
-      "github": "https://github.com/qdrant/qdrant"
-    },
     "choose_if": [
       "You need high-performance vector search in production",
       "You want OSS with Rust-level performance",
@@ -2703,7 +2537,9 @@
       "pip": ["qdrant-client"],
       "env_vars": ["QDRANT_URL", "QDRANT_API_KEY"],
       "config_files": []
-    }
+    },
+    "website_url": "https://qdrant.tech",
+    "github_url": "https://github.com/qdrant/qdrant"
   },
   {
     "id": "chroma",
@@ -2718,10 +2554,6 @@
     },
     "github_stars": 15000,
     "slot": "vector-db",
-    "urls": {
-      "website": "https://trychroma.com",
-      "github": "https://github.com/chroma-core/chroma"
-    },
     "choose_if": [
       "You're prototyping a RAG app quickly",
       "Simplicity and in-process use matter",
@@ -2732,7 +2564,9 @@
       "pip": ["chromadb"],
       "env_vars": ["CHROMA_API_KEY"],
       "config_files": []
-    }
+    },
+    "website_url": "https://trychroma.com",
+    "github_url": "https://github.com/chroma-core/chroma"
   },
   {
     "id": "pgvector",
@@ -2747,10 +2581,6 @@
     },
     "github_stars": 13000,
     "slot": "vector-db",
-    "urls": {
-      "website": "https://github.com/pgvector/pgvector",
-      "github": "https://github.com/pgvector/pgvector"
-    },
     "choose_if": [
       "You're already on PostgreSQL",
       "You want vector search without a separate database",
@@ -2761,7 +2591,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://github.com/pgvector/pgvector",
+    "github_url": "https://github.com/pgvector/pgvector"
   },
   {
     "id": "pinecone",
@@ -2782,10 +2614,6 @@
     "github_stars": null,
     "slot": "vector-db",
     "prominent": true,
-    "urls": {
-      "website": "https://pinecone.io",
-      "github": null
-    },
     "choose_if": [
       "You want managed, scalable vector search",
       "You don't want to run infra and need SLAs",
@@ -2796,7 +2624,9 @@
       "pip": ["pinecone", "pinecone-client"],
       "env_vars": ["PINECONE_API_KEY", "PINECONE_ENVIRONMENT"],
       "config_files": []
-    }
+    },
+    "website_url": "https://pinecone.io",
+    "github_url": null
   },
   {
     "id": "weaviate",
@@ -2816,10 +2646,6 @@
     },
     "github_stars": 11000,
     "slot": "vector-db",
-    "urls": {
-      "website": "https://weaviate.io",
-      "github": "https://github.com/weaviate/weaviate"
-    },
     "choose_if": [
       "You want a knowledge graph alongside vector search",
       "Multi-modal search (text + image) is needed",
@@ -2830,7 +2656,9 @@
       "pip": ["weaviate-client"],
       "env_vars": ["WEAVIATE_URL", "WEAVIATE_API_KEY"],
       "config_files": []
-    }
+    },
+    "website_url": "https://weaviate.io",
+    "github_url": "https://github.com/weaviate/weaviate"
   },
   {
     "id": "milvus",
@@ -2850,10 +2678,6 @@
     },
     "github_stars": 31000,
     "slot": "vector-db",
-    "urls": {
-      "website": "https://milvus.io",
-      "github": "https://github.com/milvus-io/milvus"
-    },
     "choose_if": [
       "You're running large-scale, high-volume vector search",
       "You need a dedicated open-source vector DB for production",
@@ -2864,7 +2688,9 @@
       "pip": ["pymilvus"],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://milvus.io",
+    "github_url": "https://github.com/milvus-io/milvus"
   },
   {
     "id": "anthropic-api",
@@ -2886,10 +2712,6 @@
     "slot": "llm-provider",
     "provider": "anthropic",
     "prominent": true,
-    "urls": {
-      "website": "https://anthropic.com/api",
-      "github": null
-    },
     "choose_if": [
       "You need long context windows (200k tokens)",
       "Safety, reliability, and reasoning quality matter most",
@@ -2900,7 +2722,9 @@
       "pip": ["anthropic"],
       "env_vars": ["ANTHROPIC_API_KEY"],
       "config_files": []
-    }
+    },
+    "website_url": "https://anthropic.com/api",
+    "github_url": null
   },
   {
     "id": "openai-api",
@@ -2922,10 +2746,6 @@
     "slot": "llm-provider",
     "provider": "openai",
     "prominent": true,
-    "urls": {
-      "website": "https://platform.openai.com",
-      "github": null
-    },
     "choose_if": [
       "You need the broadest ecosystem and most integrations",
       "GPT-4 or o-series reasoning models are required",
@@ -2936,7 +2756,9 @@
       "pip": ["openai"],
       "env_vars": ["OPENAI_API_KEY", "OPENAI_BASE_URL", "OPENAI_ORG_ID"],
       "config_files": []
-    }
+    },
+    "website_url": "https://platform.openai.com",
+    "github_url": null
   },
   {
     "id": "mistral-api",
@@ -2957,10 +2779,6 @@
     "github_stars": null,
     "slot": "llm-provider",
     "provider": "mistral",
-    "urls": {
-      "website": "https://mistral.ai/api",
-      "github": null
-    },
     "choose_if": [
       "You want a fast, affordable European AI provider",
       "GDPR compliance and EU data residency matter",
@@ -2971,7 +2789,9 @@
       "pip": ["mistralai"],
       "env_vars": ["MISTRAL_API_KEY"],
       "config_files": []
-    }
+    },
+    "website_url": "https://mistral.ai/api",
+    "github_url": null
   },
   {
     "id": "cohere-api",
@@ -2992,10 +2812,6 @@
     "github_stars": null,
     "slot": "llm-provider",
     "provider": "cohere",
-    "urls": {
-      "website": "https://cohere.com",
-      "github": null
-    },
     "choose_if": [
       "Enterprise RAG or search is your primary use case",
       "You need embeddings and reranking in one provider",
@@ -3006,7 +2822,9 @@
       "pip": ["cohere"],
       "env_vars": ["COHERE_API_KEY"],
       "config_files": []
-    }
+    },
+    "website_url": "https://cohere.com",
+    "github_url": null
   },
   {
     "id": "replicate",
@@ -3026,10 +2844,6 @@
     },
     "github_stars": null,
     "slot": "inference",
-    "urls": {
-      "website": "https://replicate.com",
-      "github": null
-    },
     "choose_if": [
       "You want to run any open-source model via API",
       "You don't want to manage GPU infrastructure",
@@ -3040,7 +2854,9 @@
       "pip": ["replicate"],
       "env_vars": ["REPLICATE_API_TOKEN"],
       "config_files": []
-    }
+    },
+    "website_url": "https://replicate.com",
+    "github_url": null
   },
   {
     "id": "huggingface",
@@ -3061,10 +2877,6 @@
     "github_stars": 135000,
     "slot": "llm-provider",
     "prominent": true,
-    "urls": {
-      "website": "https://huggingface.co",
-      "github": "https://github.com/huggingface/transformers"
-    },
     "choose_if": [
       "You want access to thousands of open models",
       "Fine-tuning or training custom models is on your roadmap",
@@ -3075,7 +2887,9 @@
       "pip": ["transformers", "huggingface-hub", "datasets"],
       "env_vars": ["HF_TOKEN", "HUGGINGFACE_API_KEY", "HF_API_TOKEN"],
       "config_files": []
-    }
+    },
+    "website_url": "https://huggingface.co",
+    "github_url": "https://github.com/huggingface/transformers"
   },
   {
     "id": "vercel-ai-sdk",
@@ -3090,10 +2904,6 @@
     },
     "github_stars": 12000,
     "slot": "model-router",
-    "urls": {
-      "website": "https://sdk.vercel.ai",
-      "github": "https://github.com/vercel/ai"
-    },
     "choose_if": [
       "You're building a Next.js or React AI app",
       "Streaming UI and server actions are central to your stack",
@@ -3104,7 +2914,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://sdk.vercel.ai",
+    "github_url": "https://github.com/vercel/ai"
   },
   {
     "id": "ray",
@@ -3124,10 +2936,6 @@
     },
     "github_stars": 33000,
     "slot": "inference",
-    "urls": {
-      "website": "https://ray.io",
-      "github": "https://github.com/ray-project/ray"
-    },
     "choose_if": [
       "You need distributed computing for ML workloads",
       "You're scaling training or inference across many machines",
@@ -3138,7 +2946,9 @@
       "pip": ["ray"],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://ray.io",
+    "github_url": "https://github.com/ray-project/ray"
   },
   {
     "id": "logfire",
@@ -3158,10 +2968,6 @@
     },
     "github_stars": null,
     "slot": "observability",
-    "urls": {
-      "website": "https://logfire.pydantic.dev",
-      "github": null
-    },
     "choose_if": [
       "You want Pydantic-native observability for Python apps",
       "Structured logging and tracing in one tool matter",
@@ -3172,7 +2978,9 @@
       "pip": ["logfire"],
       "env_vars": ["LOGFIRE_TOKEN"],
       "config_files": []
-    }
+    },
+    "website_url": "https://logfire.pydantic.dev",
+    "github_url": null
   },
   {
     "id": "mcp-sdk-ts",
@@ -3188,10 +2996,6 @@
     "github_stars": 8000,
     "slot": "mcp-infra",
     "prominent": true,
-    "urls": {
-      "website": "https://modelcontextprotocol.io",
-      "github": "https://github.com/modelcontextprotocol/typescript-sdk"
-    },
     "choose_if": [
       "You're building MCP servers in TypeScript/Node.js",
       "You want Anthropic's official TypeScript MCP primitives",
@@ -3202,7 +3006,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://modelcontextprotocol.io",
+    "github_url": "https://github.com/modelcontextprotocol/typescript-sdk"
   },
   {
     "id": "mcp-sdk-python",
@@ -3217,10 +3023,6 @@
     },
     "github_stars": 6000,
     "slot": "mcp-infra",
-    "urls": {
-      "website": "https://modelcontextprotocol.io",
-      "github": "https://github.com/modelcontextprotocol/python-sdk"
-    },
     "choose_if": [
       "You're building MCP servers in Python",
       "You want Anthropic's official Python MCP primitives",
@@ -3231,7 +3033,9 @@
       "pip": ["mcp"],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://modelcontextprotocol.io",
+    "github_url": "https://github.com/modelcontextprotocol/python-sdk"
   },
   {
     "id": "fastmcp",
@@ -3246,10 +3050,6 @@
     },
     "github_stars": 5000,
     "slot": "mcp-infra",
-    "urls": {
-      "website": "https://github.com/jlowin/fastmcp",
-      "github": "https://github.com/jlowin/fastmcp"
-    },
     "choose_if": [
       "You want to build MCP servers with minimal boilerplate",
       "Python and simplicity are priorities for your MCP server",
@@ -3260,7 +3060,9 @@
       "pip": ["fastmcp"],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://github.com/jlowin/fastmcp",
+    "github_url": "https://github.com/jlowin/fastmcp"
   },
   {
     "id": "smithery",
@@ -3275,10 +3077,6 @@
     },
     "github_stars": null,
     "slot": "mcp-infra",
-    "urls": {
-      "website": "https://smithery.ai",
-      "github": null
-    },
     "choose_if": [
       "You want to discover and install community MCP servers",
       "You're browsing what tools Claude can connect to",
@@ -3289,7 +3087,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://smithery.ai",
+    "github_url": null
   },
   {
     "id": "e2b",
@@ -3309,10 +3109,6 @@
     },
     "github_stars": 8000,
     "slot": "mcp-infra",
-    "urls": {
-      "website": "https://e2b.dev",
-      "github": "https://github.com/e2b-dev/e2b"
-    },
     "choose_if": [
       "You need a secure sandbox for AI code execution",
       "LLM-generated code needs to run in isolated containers",
@@ -3323,7 +3119,9 @@
       "pip": ["e2b", "e2b-code-interpreter"],
       "env_vars": ["E2B_API_KEY"],
       "config_files": []
-    }
+    },
+    "website_url": "https://e2b.dev",
+    "github_url": "https://github.com/e2b-dev/e2b"
   },
   {
     "id": "context7",
@@ -3338,10 +3136,6 @@
     },
     "github_stars": 5000,
     "slot": "mcp-infra",
-    "urls": {
-      "website": "https://context7.com",
-      "github": "https://github.com/upstash/context7"
-    },
     "choose_if": [
       "You want up-to-date library docs injected into Claude",
       "Your agent needs accurate, version-specific documentation",
@@ -3352,7 +3146,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://context7.com",
+    "github_url": "https://github.com/upstash/context7"
   },
   {
     "id": "playwright-mcp",
@@ -3367,10 +3163,6 @@
     },
     "github_stars": 10000,
     "slot": "mcp-infra",
-    "urls": {
-      "website": "https://github.com/microsoft/playwright-mcp",
-      "github": "https://github.com/microsoft/playwright-mcp"
-    },
     "choose_if": [
       "You want Claude to control a browser",
       "Web scraping or UI testing via AI agents is needed",
@@ -3381,7 +3173,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://github.com/microsoft/playwright-mcp",
+    "github_url": "https://github.com/microsoft/playwright-mcp"
   },
   {
     "id": "github-mcp",
@@ -3396,10 +3190,6 @@
     },
     "github_stars": 8000,
     "slot": "mcp-infra",
-    "urls": {
-      "website": "https://github.com/github/github-mcp-server",
-      "github": "https://github.com/github/github-mcp-server"
-    },
     "choose_if": [
       "You want Claude to interact with GitHub directly",
       "Automating PRs, issues, or code review with Claude",
@@ -3410,7 +3200,9 @@
       "pip": [],
       "env_vars": ["GITHUB_TOKEN"],
       "config_files": []
-    }
+    },
+    "website_url": "https://github.com/github/github-mcp-server",
+    "github_url": "https://github.com/github/github-mcp-server"
   },
   {
     "id": "promptfoo",
@@ -3425,10 +3217,6 @@
     },
     "github_stars": 5000,
     "slot": "prompt-eval",
-    "urls": {
-      "website": "https://promptfoo.dev",
-      "github": "https://github.com/promptfoo/promptfoo"
-    },
     "choose_if": [
       "You want CLI-first, config-driven LLM evals",
       "Running eval suites in CI/CD pipelines is a goal",
@@ -3439,13 +3227,15 @@
       "pip": [],
       "env_vars": [],
       "config_files": ["promptfooconfig.yaml", "promptfooconfig.yml"]
-    }
+    },
+    "website_url": "https://promptfoo.dev",
+    "github_url": "https://github.com/promptfoo/promptfoo"
   },
   {
     "id": "deepeval",
     "name": "DeepEval",
     "category": "prompt-eval",
-    "tagline": "LLM evaluation framework \u2014 14+ metrics",
+    "tagline": "LLM evaluation framework — 14+ metrics",
     "description": "Open-source evaluation framework with 14+ metrics including faithfulness, relevancy, and hallucination detection. Integrates with CI/CD.",
     "type": "oss",
     "pricing": {
@@ -3454,10 +3244,6 @@
     },
     "github_stars": 5500,
     "slot": "prompt-eval",
-    "urls": {
-      "website": "https://deepeval.com",
-      "github": "https://github.com/confident-ai/deepeval"
-    },
     "choose_if": [
       "You want a pytest-style framework for LLM testing",
       "Unit-test-like evals for LLM outputs fit your workflow",
@@ -3468,7 +3254,9 @@
       "pip": ["deepeval"],
       "env_vars": ["CONFIDENT_API_KEY"],
       "config_files": []
-    }
+    },
+    "website_url": "https://deepeval.com",
+    "github_url": "https://github.com/confident-ai/deepeval"
   },
   {
     "id": "ragas",
@@ -3484,10 +3272,6 @@
     "github_stars": 7000,
     "slot": "prompt-eval",
     "prominent": true,
-    "urls": {
-      "website": "https://ragas.io",
-      "github": "https://github.com/explodinggradients/ragas"
-    },
     "choose_if": [
       "You're evaluating a RAG pipeline specifically",
       "Context relevance and answer faithfulness are your key metrics",
@@ -3498,7 +3282,9 @@
       "pip": ["ragas"],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://ragas.io",
+    "github_url": "https://github.com/explodinggradients/ragas"
   },
   {
     "id": "vellum",
@@ -3518,10 +3304,6 @@
     },
     "github_stars": null,
     "slot": "prompt-eval",
-    "urls": {
-      "website": "https://vellum.ai",
-      "github": null
-    },
     "choose_if": [
       "You want a full LLM product development platform",
       "Prompt management, testing, and deployment in one place",
@@ -3532,7 +3314,9 @@
       "pip": ["vellum-ai"],
       "env_vars": ["VELLUM_API_KEY"],
       "config_files": []
-    }
+    },
+    "website_url": "https://vellum.ai",
+    "github_url": null
   },
   {
     "id": "promptlayer",
@@ -3552,10 +3336,6 @@
     },
     "github_stars": null,
     "slot": "prompt-eval",
-    "urls": {
-      "website": "https://promptlayer.com",
-      "github": null
-    },
     "choose_if": [
       "You want prompt versioning and request logging",
       "Prompt history, replay, and A/B testing matter",
@@ -3566,7 +3346,9 @@
       "pip": ["promptlayer"],
       "env_vars": ["PROMPTLAYER_API_KEY"],
       "config_files": []
-    }
+    },
+    "website_url": "https://promptlayer.com",
+    "github_url": null
   },
   {
     "id": "agenta",
@@ -3586,10 +3368,6 @@
     },
     "github_stars": 2000,
     "slot": "prompt-eval",
-    "urls": {
-      "website": "https://agenta.ai",
-      "github": "https://github.com/Agenta-AI/agenta"
-    },
     "choose_if": [
       "You want an open-source LLM ops and eval platform",
       "Self-hosting your prompt management stack is important",
@@ -3600,7 +3378,9 @@
       "pip": ["agenta"],
       "env_vars": ["AGENTA_API_KEY"],
       "config_files": []
-    }
+    },
+    "website_url": "https://agenta.ai",
+    "github_url": "https://github.com/Agenta-AI/agenta"
   },
   {
     "id": "weights-biases",
@@ -3620,10 +3400,6 @@
     },
     "github_stars": null,
     "slot": "prompt-eval",
-    "urls": {
-      "website": "https://wandb.ai",
-      "github": null
-    },
     "choose_if": [
       "You're running ML experiments alongside LLM work",
       "Model training tracking and artifact management are needed",
@@ -3634,7 +3410,9 @@
       "pip": ["wandb"],
       "env_vars": ["WANDB_API_KEY"],
       "config_files": []
-    }
+    },
+    "website_url": "https://wandb.ai",
+    "github_url": null
   },
   {
     "id": "traceloop",
@@ -3654,10 +3432,6 @@
     },
     "github_stars": 2000,
     "slot": "prompt-eval",
-    "urls": {
-      "website": "https://traceloop.com",
-      "github": "https://github.com/traceloop/openllmetry"
-    },
     "choose_if": [
       "You want OpenTelemetry-native LLM observability",
       "Vendor-neutral tracing that plugs into your existing stack",
@@ -3668,14 +3442,16 @@
       "pip": ["traceloop-sdk", "opentelemetry-sdk"],
       "env_vars": ["TRACELOOP_API_KEY"],
       "config_files": []
-    }
+    },
+    "website_url": "https://traceloop.com",
+    "github_url": "https://github.com/traceloop/openllmetry"
   },
   {
     "id": "spec-kit",
     "name": "Spec Kit",
     "category": "specifications",
     "tagline": "GitHub's OSS toolkit for spec-driven AI coding workflows",
-    "description": "Open-source scaffold from GitHub that operationalizes spec-driven development with AI coding agents. Creates structured .specify/ folders that serve as the source of truth for Claude Code, GitHub Copilot, and Gemini CLI \u2014 steering AI generation from upfront specs rather than improvised prompts.",
+    "description": "Open-source scaffold from GitHub that operationalizes spec-driven development with AI coding agents. Creates structured .specify/ folders that serve as the source of truth for Claude Code, GitHub Copilot, and Gemini CLI — steering AI generation from upfront specs rather than improvised prompts.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -3684,10 +3460,6 @@
     "github_stars": 28000,
     "slot": "specifications",
     "prominent": true,
-    "urls": {
-      "website": "https://github.com/github/spec-kit",
-      "github": "https://github.com/github/spec-kit"
-    },
     "choose_if": [
       "You want to write AI-readable specs for your codebase",
       "You're building with AI agents that need structured context",
@@ -3698,7 +3470,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": [".specify/"]
-    }
+    },
+    "website_url": "https://github.com/github/spec-kit",
+    "github_url": "https://github.com/github/spec-kit"
   },
   {
     "id": "mermaid",
@@ -3714,10 +3488,6 @@
     "github_stars": 87000,
     "slot": "specifications",
     "prominent": true,
-    "urls": {
-      "website": "https://mermaid.js.org",
-      "github": "https://github.com/mermaid-js/mermaid"
-    },
     "choose_if": [
       "You want diagrams embedded in Markdown or docs",
       "Lightweight text-based diagramming fits your workflow",
@@ -3728,7 +3498,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://mermaid.js.org",
+    "github_url": "https://github.com/mermaid-js/mermaid"
   },
   {
     "id": "eraser",
@@ -3752,10 +3524,6 @@
     },
     "github_stars": null,
     "slot": "specifications",
-    "urls": {
-      "website": "https://www.eraser.io",
-      "github": null
-    },
     "choose_if": [
       "You want collaborative AI-generated technical diagrams",
       "System design docs and architecture maps are your output",
@@ -3766,14 +3534,16 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://www.eraser.io",
+    "github_url": null
   },
   {
     "id": "structurizr",
     "name": "Structurizr",
     "category": "specifications",
     "tagline": "Code-first C4 model architecture diagrams as structured text",
-    "description": "Implements the C4 model as a diagrams-as-code DSL \u2014 write Structurizr DSL and render multiple architecture views (Context, Container, Component, Code) from a single model. Version-controlled alongside code with full ADR integration. Free OSS CLI plus paid cloud workspace for team collaboration.",
+    "description": "Implements the C4 model as a diagrams-as-code DSL — write Structurizr DSL and render multiple architecture views (Context, Container, Component, Code) from a single model. Version-controlled alongside code with full ADR integration. Free OSS CLI plus paid cloud workspace for team collaboration.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -3786,10 +3556,6 @@
     },
     "github_stars": 3800,
     "slot": "specifications",
-    "urls": {
-      "website": "https://structurizr.com",
-      "github": "https://github.com/structurizr/dsl"
-    },
     "choose_if": [
       "You're doing structured C4 architecture modeling",
       "Simon Brown's C4 model is your diagramming approach",
@@ -3800,7 +3566,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": ["workspace.dsl", ".structurizr/"]
-    }
+    },
+    "website_url": "https://structurizr.com",
+    "github_url": "https://github.com/structurizr/dsl"
   },
   {
     "id": "swagger",
@@ -3821,10 +3589,6 @@
     "github_stars": 28700,
     "slot": "specifications",
     "prominent": true,
-    "urls": {
-      "website": "https://swagger.io",
-      "github": "https://github.com/swagger-api/swagger-ui"
-    },
     "choose_if": [
       "You're defining REST APIs with OpenAPI spec",
       "API documentation and mock server generation are needed",
@@ -3840,7 +3604,9 @@
       "pip": ["swagger-ui-bundle"],
       "env_vars": [],
       "config_files": ["openapi.yaml", "openapi.json", "swagger.yaml", "swagger.json"]
-    }
+    },
+    "website_url": "https://swagger.io",
+    "github_url": "https://github.com/swagger-api/swagger-ui"
   },
   {
     "id": "redocly",
@@ -3860,10 +3626,6 @@
     },
     "github_stars": 25500,
     "slot": "specifications",
-    "urls": {
-      "website": "https://redocly.com",
-      "github": "https://github.com/Redocly/redoc"
-    },
     "choose_if": [
       "You want polished, branded API reference docs",
       "You're already using OpenAPI and want better docs output",
@@ -3874,14 +3636,16 @@
       "pip": [],
       "env_vars": [],
       "config_files": ["redocly.yaml", ".redocly.yaml"]
-    }
+    },
+    "website_url": "https://redocly.com",
+    "github_url": "https://github.com/Redocly/redoc"
   },
   {
     "id": "asyncapi",
     "name": "AsyncAPI",
     "category": "specifications",
     "tagline": "Open standard for defining event-driven async APIs",
-    "description": "The specification standard for async, event-driven APIs over Kafka, MQTT, WebSockets, and more \u2014 the async equivalent of OpenAPI. The ecosystem includes CLI, parser, code generators, and server stub templates. Widely adopted in microservices and streaming architectures.",
+    "description": "The specification standard for async, event-driven APIs over Kafka, MQTT, WebSockets, and more — the async equivalent of OpenAPI. The ecosystem includes CLI, parser, code generators, and server stub templates. Widely adopted in microservices and streaming architectures.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -3889,10 +3653,6 @@
     },
     "github_stars": 5100,
     "slot": "specifications",
-    "urls": {
-      "website": "https://www.asyncapi.com",
-      "github": "https://github.com/asyncapi/spec"
-    },
     "choose_if": [
       "You're documenting event-driven or async APIs",
       "Kafka, WebSocket, or MQTT interfaces need specs",
@@ -3903,7 +3663,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://www.asyncapi.com",
+    "github_url": "https://github.com/asyncapi/spec"
   },
   {
     "id": "stoplight",
@@ -3927,10 +3689,6 @@
     },
     "github_stars": null,
     "slot": "specifications",
-    "urls": {
-      "website": "https://stoplight.io",
-      "github": null
-    },
     "choose_if": [
       "You want a visual API design and documentation studio",
       "Design-first API development with mocking is your workflow",
@@ -3941,13 +3699,15 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://stoplight.io",
+    "github_url": null
   },
   {
     "id": "speakeasy",
     "name": "Speakeasy",
     "category": "specifications",
-    "tagline": "OpenAPI \u2192 idiomatic SDKs, MCP servers, and contract tests",
+    "tagline": "OpenAPI → idiomatic SDKs, MCP servers, and contract tests",
     "description": "Takes an OpenAPI spec and generates polished, type-safe client SDKs across multiple languages, Terraform providers, and MCP servers for AI agent integration. Handles pagination, retries, webhooks, and streaming out of the box. Increasingly positioning itself as the API platform for the agent era.",
     "type": "commercial",
     "pricing": {
@@ -3962,10 +3722,6 @@
     "github_stars": null,
     "slot": "specifications",
     "prominent": true,
-    "urls": {
-      "website": "https://www.speakeasy.com",
-      "github": "https://github.com/speakeasy-api/speakeasy"
-    },
     "choose_if": [
       "You want auto-generated SDKs from your OpenAPI spec",
       "You're publishing a developer-facing API with multiple SDKs",
@@ -3976,7 +3732,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://www.speakeasy.com",
+    "github_url": "https://github.com/speakeasy-api/speakeasy"
   },
   {
     "id": "fern",
@@ -3996,10 +3754,6 @@
     },
     "github_stars": 3000,
     "slot": "specifications",
-    "urls": {
-      "website": "https://buildwithfern.com",
-      "github": "https://github.com/fern-api/fern"
-    },
     "choose_if": [
       "You want type-safe SDKs and docs from your API spec",
       "You need SDKs in TypeScript, Python, Go, and more",
@@ -4010,7 +3764,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://buildwithfern.com",
+    "github_url": "https://github.com/fern-api/fern"
   },
   {
     "id": "stainless",
@@ -4031,10 +3787,6 @@
     "github_stars": null,
     "slot": "specifications",
     "prominent": true,
-    "urls": {
-      "website": "https://www.stainless.com",
-      "github": null
-    },
     "choose_if": [
       "You want premium, hand-polished auto-generated SDKs",
       "Anthropic or OpenAI-style SDK quality is your standard",
@@ -4045,7 +3797,9 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://www.stainless.com",
+    "github_url": null
   },
   {
     "id": "openapi-generator",
@@ -4060,10 +3814,6 @@
     },
     "github_stars": 26000,
     "slot": "specifications",
-    "urls": {
-      "website": "https://openapi-generator.tech",
-      "github": "https://github.com/OpenAPITools/openapi-generator"
-    },
     "choose_if": [
       "You want free, flexible OpenAPI SDK generation",
       "You need generators for many languages",
@@ -4074,6 +3824,8 @@
       "pip": [],
       "env_vars": [],
       "config_files": []
-    }
+    },
+    "website_url": "https://openapi-generator.tech",
+    "github_url": "https://github.com/OpenAPITools/openapi-generator"
   }
 ]

@@ -140,9 +140,9 @@ export default function ToolDetailSheet({ tool, open, onClose }: Props) {
 
           {/* Links */}
           <div className="flex gap-2">
-            {tool.urls.website && (
+            {tool.website_url && (
               <a
-                href={tool.urls.website}
+                href={tool.website_url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 text-center text-xs py-2 px-3 rounded-md font-medium"
@@ -151,9 +151,9 @@ export default function ToolDetailSheet({ tool, open, onClose }: Props) {
                 Website ↗
               </a>
             )}
-            {tool.urls.github && (
+            {tool.github_url && (
               <a
-                href={tool.urls.github}
+                href={tool.github_url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 text-center text-xs py-2 px-3 rounded-md font-medium border"

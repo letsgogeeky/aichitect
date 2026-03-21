@@ -1,10 +1,7 @@
 import { Suspense } from "react";
 import { Metadata } from "next";
 import ExploreGraph from "@/components/graph/ExploreGraph";
-import toolsData from "@/data/tools.json";
-import { Tool } from "@/lib/types";
-
-const tools = toolsData as Tool[];
+import { getTools } from "@/lib/data/tools";
 
 export async function generateMetadata({
   searchParams,
@@ -15,6 +12,7 @@ export async function generateMetadata({
   if (!compare) return {};
 
   const [aId, bId] = compare.split(",");
+  const tools = await getTools();
   const a = tools.find((t) => t.id === aId);
   const b = tools.find((t) => t.id === bId);
   if (!a || !b) return {};

@@ -26,11 +26,6 @@ export interface Pricing {
   plans: PricingPlan[];
 }
 
-export interface ToolUrls {
-  website: string | null;
-  github: string | null;
-}
-
 /**
  * Multi-strategy detection signals for the Stack Genome parser.
  * Each array contains strings matched against a specific input source.
@@ -57,7 +52,12 @@ export interface Tool {
   provider?: string; // e.g. "anthropic" | "openai" | "mistral" | "cohere" — only set for provider-tied tools
   choose_if?: string[]; // ≤3 decision signals shown in comparison panel
   aliases?: ToolAliases; // Stack Genome detection signals
-  urls: ToolUrls;
+  website_url: string | null;
+  github_url: string | null;
+  // Health fields populated by nightly GitHub sync (AIC-9)
+  health_score?: number | null; // 0–100 composite score
+  last_synced_at?: string | null; // ISO timestamp of last GitHub sync
+  is_stale?: boolean | null; // true if no commits in 90d or repo is archived
 }
 
 export interface Relationship {

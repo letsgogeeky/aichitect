@@ -71,7 +71,7 @@ export function getChecklistItems(toolIds: string[]): ChecklistItem[] {
         timeEst: SLOT_TIME[slotId] ?? "15 min",
         toolName: tool.name,
         tagline: tool.tagline,
-        link: tool.urls?.website ?? tool.urls?.github ?? null,
+        link: tool.website_url ?? tool.github_url ?? null,
       });
       step++;
     }
