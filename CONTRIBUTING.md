@@ -44,12 +44,12 @@ make shell      # open a shell inside the running container
 
 ## Ways to contribute
 
-| Type | Examples |
-|---|---|
-| **Data** | Add a missing tool, fix incorrect data, add a relationship edge, add a curated stack |
-| **Bug fix** | Fix a rendering issue, broken edge, layout problem |
-| **Feature** | New view mode, filter, UI improvement |
-| **Docs** | Improve README, fix typos, clarify setup steps |
+| Type        | Examples                                                                             |
+| ----------- | ------------------------------------------------------------------------------------ |
+| **Data**    | Add a missing tool, fix incorrect data, add a relationship edge, add a curated stack |
+| **Bug fix** | Fix a rendering issue, broken edge, layout problem                                   |
+| **Feature** | New view mode, filter, UI improvement                                                |
+| **Docs**    | Improve README, fix typos, clarify setup steps                                       |
 
 Not sure where to start? Browse [open issues](https://github.com/letsgogeeky/aichitect/issues) or open one describing what you have in mind.
 
@@ -104,6 +104,19 @@ Add an entry to `data/stacks.json` following the format of an existing stack. Ea
 - **One concern per PR** — keep changes focused; it makes review faster
 - Run `make check` before pushing to catch lint and type errors early
 - Pre-commit hooks will automatically format and lint staged files via `lint-staged`
+
+### File structure conventions
+
+Page-level client components (e.g. `GenomeClient`, `StacksClient`) are thin shells — they wire state and layout but contain no business logic. Logic lives in:
+
+| Where                     | What                                                                                       |
+| ------------------------- | ------------------------------------------------------------------------------------------ |
+| `hooks/`                  | URL-backed state, multi-piece state machines (e.g. `useBuilderState`, `useComparisonMode`) |
+| `lib/`                    | Pure functions with no React dependency                                                    |
+| `app/<route>/components/` | Sub-components owned by a single route                                                     |
+| `components/`             | Shared components used across multiple routes                                              |
+
+When adding to an existing page, prefer extracting a new component or hook over growing the parent file. Keep individual files under ~300 lines.
 
 ---
 

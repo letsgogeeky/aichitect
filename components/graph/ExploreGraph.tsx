@@ -1,8 +1,9 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useCallback, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useIsMobile } from "@/hooks/useIsMobile";
+import { useComparisonMode } from "@/hooks/useComparisonMode";
 import dynamic from "next/dynamic";
 import ReactFlow, {
   Background,
@@ -250,7 +251,6 @@ export default function ExploreGraph({
   const [mobileDetailOpen, setMobileDetailOpen] = useState(false);
 
   const searchParams = useSearchParams();
-  const router = useRouter();
 
   const initialComparison = useMemo((): [Tool, Tool] | null => {
     const param = searchParams.get("compare");
@@ -260,80 +260,27 @@ export default function ExploreGraph({
     const b = tools.find((t) => t.id === bId);
     return a && b ? [a, b] : null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // run once on mount only
+  }, []);
+
+  const {
+    selectedTool,
+    setSelectedTool,
+    compareMode,
+    setCompareMode,
+    comparisonTools,
+    setComparisonTools,
+    handleNodeSelect,
+    highlightedIds,
+    panelMode,
+  } = useComparisonMode(initialComparison);
 
   const [activeCategories, setActiveCategories] = useState<Set<string>>(allCategories);
   const [activeRelTypes, setActiveRelTypes] = useState<Set<RelationshipType>>(
     new Set(["integrates-with", "commonly-paired", "competes-with"])
   );
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedTool, setSelectedTool] = useState<Tool | null>(null);
   const [bannerDismissed, setBannerDismissed] = useState(false);
   const [viewMode, setViewMode] = useState<"grid" | "layers" | "3d">("grid");
-  const [compareMode, setCompareMode] = useState(!!initialComparison);
-  const [comparisonTools, setComparisonTools] = useState<[Tool, Tool] | null>(initialComparison);
-
-  // Sync URL when comparisonTools changes
-  useEffect(() => {
-    const url = new URL(window.location.href);
-    if (comparisonTools) {
-      url.searchParams.set("compare", `${comparisonTools[0].id},${comparisonTools[1].id}`);
-    } else {
-      url.searchParams.delete("compare");
-    }
-    router.replace(url.pathname + url.search, { scroll: false });
-  }, [comparisonTools, router]);
-
-  const handleNodeSelect = useCallback(
-    (tool: Tool) => {
-      if (!compareMode) {
-        setSelectedTool((prev) => (prev?.id === tool.id ? null : tool));
-        return;
-      }
-
-      // Already have a comparison — allow re-selection
-      if (comparisonTools) {
-        const [a, b] = comparisonTools;
-        if (a.id === tool.id || b.id === tool.id) {
-          setComparisonTools(null); // deselect if clicking an already-compared tool
-        } else {
-          setComparisonTools([a, tool]); // replace slot 2
-        }
-        return;
-      }
-
-      // First tool staged
-      if (!selectedTool) {
-        setSelectedTool(tool);
-        return;
-      }
-
-      // Second tool — promote to comparison
-      if (selectedTool.id === tool.id) {
-        setSelectedTool(null); // deselect if same tool
-        return;
-      }
-
-      setComparisonTools([selectedTool, tool]);
-      setSelectedTool(null);
-    },
-    [compareMode, selectedTool, comparisonTools]
-  );
-
-  const highlightedIds = useMemo(() => {
-    if (comparisonTools) return new Set([comparisonTools[0].id, comparisonTools[1].id]);
-    if (selectedTool) return new Set([selectedTool.id]);
-    return new Set<string>();
-  }, [comparisonTools, selectedTool]);
-
-  // Derive panel mode
-  const panelMode = comparisonTools
-    ? "compare"
-    : !compareMode && selectedTool
-      ? "detail"
-      : compareMode
-        ? "compare-hint"
-        : "none";
 
   return (
     <div className="flex flex-col h-full overflow-hidden">

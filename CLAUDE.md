@@ -49,13 +49,39 @@ app/
   layout.tsx            → root metadata (OG, JSON-LD, robots, favicon)
   opengraph-image.tsx   → root OG image (1200×630, edge runtime)
   explore/              → full tool graph (FilterPanel + ExploreGraph + DetailPanel)
-  stacks/               → 10 curated stacks (sidebar + dagre graph)
-  builder/              → slot-by-slot stack builder (slots panel + integration graph)
+  stacks/
+    StacksClient.tsx    → layout shell: wires state + delegates to sub-components
+    stacksConstants.ts  → COMPLEXITY_META (label + hex color per complexity level)
+    components/
+      StackSidebar.tsx      → cluster tabs + stack list aside
+      StackDetailHeader.tsx → detail header; owns killOpen state internally
+      MobileStackPicker.tsx → full-screen mobile stack overlay
+  builder/
+    BuilderClient.tsx   → wires useBuilderState + renders BuilderSlotList / BuilderGraph / MobileSlotPicker
+    components/
+      BuilderSlotList.tsx   → desktop aside: slot accordion + compare buttons + StackHealthPanel
+      MobileSlotPicker.tsx  → BottomSheet wrapper for mobile slot picking
+  genome/
+    GenomeClient.tsx    → state machine (step, detectedIds, workflowIds, URL sync) + context provider + Suspense
+    GenomeContext.tsx   → GenomeData interface, GenomeDataCtx, useGenomeData hook
+    genomeConstants.ts  → INPUT_TABS, WORKFLOW_GROUPS, PRIORITY_COLOR
+    components/
+      ScanStep.tsx      → dependency file input tabs + detect step
+      WorkflowStep.tsx  → workflow group selection step
+      ResultsView.tsx   → composes FitnessGauge + Stat + SlotGrid + MissingPanel
+      FitnessGauge.tsx  → SVG arc gauge for genome tier
+      Stat.tsx          → single stat display (label + value)
+      SlotGrid.tsx      → grid of recommended tools per slot
+      MissingPanel.tsx  → list of unfilled slots grouped by priority
+      ProgressDots.tsx  → step progress indicator dots
   robots.ts             → /robots.txt
   sitemap.ts            → /sitemap.xml
+hooks/
+  useComparisonMode.ts  → selectedTool, compareMode, comparisonTools, URL sync for ExploreGraph
+  useBuilderState.ts    → all URL-backed state for the Builder (selected tools, compare A/B, collapsed slots)
 components/
   graph/
-    ExploreGraph.tsx    → main graph view; viewMode: "grid" | "layers" | "3d"
+    ExploreGraph.tsx    → main graph view; viewMode: "grid" | "layers" | "3d"; uses useComparisonMode
     ExploreGraph3D.tsx  → Three.js 3D force graph (react-force-graph-3d, SSR-disabled)
     LaneLabel.tsx       → custom ReactFlow node type for swimlane lane backgrounds
     ToolNode.tsx        → custom node (collapsed 190px ↔ expanded 280px, CSS transition)
@@ -79,6 +105,19 @@ public/
   favicon.svg           → same 3-node graph design as Logo
   llms.txt              → LLM crawler optimization
 ```
+
+### Component responsibility rules
+
+Page-level client components (`GenomeClient`, `StacksClient`, `BuilderClient`) are thin shells — they wire state and layout but contain no business logic.
+
+| Where                     | What                                                                                  |
+| ------------------------- | ------------------------------------------------------------------------------------- |
+| `hooks/`                  | URL-backed state, multi-piece state machines (`useBuilderState`, `useComparisonMode`) |
+| `lib/`                    | Pure functions with no React dependency                                               |
+| `app/<route>/components/` | Sub-components owned by a single route                                                |
+| `components/`             | Shared components used across multiple routes                                         |
+
+Keep individual files under ~300 lines. When a file grows beyond that, extract a component or hook.
 
 ## Data shape (tools.json)
 
