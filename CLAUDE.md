@@ -5,6 +5,16 @@
 **Brand:** "Cut the noise. Pick your AI stack."
 **Domain:** aichitect.dev | **Stack:** Next.js 16 + React Flow + Three.js + Tailwind v4 + TypeScript
 
+## Engineering philosophy
+
+This is a greenfield project. Always build clean:
+
+- **No adapter layers** — if the DB schema or TypeScript type is designed a certain way, the rest of the code conforms to it. Never write a mapping/transform function to bridge an old shape to a new one just to avoid touching other files.
+- **No backwards-compat shims** — if a type changes, update all call sites. If a field is renamed, rename it everywhere. The cost of a clean sweep is low at this stage.
+- **No workarounds** — if something is wrong, fix the root cause. Don't patch around it with defensive code, re-exports, or fallback casts that exist only to preserve a broken old shape.
+
+The exception: once we have production data that can't be migrated cheaply, or a public API contract we can't break, we'll revisit. Until then, always reach for the clean solution.
+
 ## Dev workflow
 
 - **Docker only** — never run `npm` or `node` locally. All dev runs through docker-compose.
@@ -73,8 +83,10 @@ public/
 ## Data shape (tools.json)
 
 ```ts
-{ id, name, category, tagline, description, type: "oss"|"saas",
-  pricing: { free_tier, plans[] }, github_stars, slot, prominent, urls }
+{ id, name, category, tagline, description, type: "oss"|"commercial",
+  pricing: { free_tier, plans[] }, github_stars, slot, prominent,
+  website_url, github_url, choose_if, aliases, provider,
+  health_score, last_synced_at, is_stale }
 ```
 
 ## Category colors
