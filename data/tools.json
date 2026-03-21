@@ -3836,5 +3836,1845 @@
     },
     "website_url": "https://openapi-generator.tech",
     "github_url": "https://github.com/OpenAPITools/openapi-generator"
+  },
+  {
+    "id": "google-adk",
+    "name": "Google Agent Development Kit",
+    "category": "agent-frameworks",
+    "tagline": "Google's open-source framework for building production-ready AI agents",
+    "description": "Google Agent Development Kit (ADK) is an open-source Python framework for building, evaluating, and deploying AI agents. It provides multi-agent composition, built-in evaluation tools, and native integration with Gemini models and Google Cloud services.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Open Source",
+          "price": "Free"
+        }
+      ]
+    },
+    "github_stars": 7800,
+    "slot": "agent-framework",
+    "prominent": false,
+    "choose_if": [
+      "building on Google Cloud or using Gemini models",
+      "need built-in agent evaluation and deployment tools",
+      "want enterprise-grade deployment on Vertex AI"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["google-adk"],
+      "env_vars": ["GOOGLE_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://google.github.io/adk-docs/",
+    "github_url": "https://github.com/google/adk-python"
+  },
+  {
+    "id": "julep",
+    "name": "Julep",
+    "category": "agent-frameworks",
+    "tagline": "Platform for building long-running AI workflows and stateful agents",
+    "description": "Julep is an agent platform that lets you define, execute, and manage long-running AI workflows with persistent state. It provides a YAML-based workflow definition language, built-in memory management, and an API for orchestrating multi-step autonomous tasks.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Free",
+          "price": "$0"
+        },
+        {
+          "name": "Pro",
+          "price": "$49/mo"
+        }
+      ]
+    },
+    "github_stars": 5400,
+    "slot": "agent-framework",
+    "prominent": false,
+    "choose_if": [
+      "need agents that run for minutes or hours autonomously",
+      "want declarative YAML workflow definitions",
+      "building background task automation pipelines"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["julep"],
+      "env_vars": ["JULEP_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://julep.ai",
+    "github_url": "https://github.com/julep-ai/julep"
+  },
+  {
+    "id": "letta",
+    "name": "Letta",
+    "category": "agent-frameworks",
+    "tagline": "Stateful agents with long-term memory — formerly MemGPT",
+    "description": "Letta (formerly MemGPT) is an open-source framework for building stateful AI agents with persistent, editable memory. Agents remember conversations across sessions, search their own memory, and update their knowledge over time — solving context window limitations.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Open Source",
+          "price": "Free"
+        },
+        {
+          "name": "Cloud",
+          "price": "$20/mo"
+        }
+      ]
+    },
+    "github_stars": 13200,
+    "slot": "agent-framework",
+    "prominent": false,
+    "choose_if": [
+      "need agents with persistent cross-session memory",
+      "context window length is limiting your application",
+      "building personal assistants or long-running agents"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["letta"],
+      "env_vars": ["LETTA_API_KEY"],
+      "config_files": [".letta/"]
+    },
+    "website_url": "https://letta.com",
+    "github_url": "https://github.com/letta-ai/letta"
+  },
+  {
+    "id": "bee-agent",
+    "name": "Bee Agent Framework",
+    "category": "agent-frameworks",
+    "tagline": "IBM's open-source TypeScript framework for production AI agents",
+    "description": "Bee Agent Framework is an open-source TypeScript framework from IBM Research for building scalable, production-grade AI agents. It features a modular tool system, built-in ReAct strategies, memory management, and strong observability integration.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Open Source",
+          "price": "Free"
+        }
+      ]
+    },
+    "github_stars": 1900,
+    "slot": "agent-framework",
+    "prominent": false,
+    "choose_if": [
+      "building TypeScript/Node.js AI agents",
+      "want IBM-backed enterprise support and tooling",
+      "need modular, composable agent architecture"
+    ],
+    "aliases": {
+      "npm": ["bee-agent-framework"],
+      "pip": [],
+      "env_vars": [],
+      "config_files": []
+    },
+    "website_url": "https://i-am-bee.github.io/bee-agent-framework/",
+    "github_url": "https://github.com/i-am-bee/bee-agent-framework"
+  },
+  {
+    "id": "controlflow",
+    "name": "ControlFlow",
+    "category": "agent-frameworks",
+    "tagline": "Prefect's Python framework for structured, workflow-native AI agents",
+    "description": "ControlFlow is an open-source Python framework from the Prefect team that integrates AI agents directly into structured workflows. Tasks are first-class citizens, agents operate within well-defined boundaries, and the system provides full observability and control over AI behavior.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Open Source",
+          "price": "Free"
+        }
+      ]
+    },
+    "github_stars": 2800,
+    "slot": "agent-framework",
+    "prominent": false,
+    "choose_if": [
+      "already using Prefect for workflow orchestration",
+      "want deterministic structure around LLM calls",
+      "need agents integrated into data pipelines"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["controlflow"],
+      "env_vars": [],
+      "config_files": []
+    },
+    "website_url": "https://controlflow.ai",
+    "github_url": "https://github.com/PrefectHQ/ControlFlow"
+  },
+  {
+    "id": "griptape",
+    "name": "Griptape",
+    "category": "pipelines-rag",
+    "tagline": "Python framework for building reliable, event-driven AI pipelines",
+    "description": "Griptape is an enterprise-focused Python framework for building safe, predictable, and controllable AI applications. It provides pipelines, tasks, drivers, and tools in a composable architecture that enforces structure, making AI behavior auditable and production-ready.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Open Source",
+          "price": "Free"
+        },
+        {
+          "name": "Enterprise",
+          "price": "Custom"
+        }
+      ]
+    },
+    "github_stars": 2300,
+    "slot": "orchestration",
+    "prominent": false,
+    "choose_if": [
+      "building enterprise AI with compliance requirements",
+      "want fine-grained control over LLM pipeline execution",
+      "need event-driven AI workflows in Python"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["griptape"],
+      "env_vars": [],
+      "config_files": []
+    },
+    "website_url": "https://www.griptape.ai",
+    "github_url": "https://github.com/griptape-ai/griptape"
+  },
+  {
+    "id": "rivet",
+    "name": "Rivet",
+    "category": "pipelines-rag",
+    "tagline": "Visual node-based IDE for building and debugging AI agent pipelines",
+    "description": "Rivet is an open-source visual programming environment for building complex AI agent workflows. Drag-and-drop nodes represent LLM calls, conditionals, loops, and tool uses — making it easy to prototype, debug, and understand AI pipeline behavior without writing code.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Open Source",
+          "price": "Free"
+        }
+      ]
+    },
+    "github_stars": 3100,
+    "slot": "orchestration",
+    "prominent": false,
+    "choose_if": [
+      "prefer visual over code-based pipeline building",
+      "need to demo or explain AI workflows to stakeholders",
+      "debugging complex multi-step agent flows"
+    ],
+    "aliases": {
+      "npm": ["@ironclad/rivet-node"],
+      "pip": [],
+      "env_vars": [],
+      "config_files": []
+    },
+    "website_url": "https://rivet.ironcladapp.com",
+    "github_url": "https://github.com/Ironclad/rivet"
+  },
+  {
+    "id": "taskweaver",
+    "name": "TaskWeaver",
+    "category": "pipelines-rag",
+    "tagline": "Microsoft's code-first agent framework for data analytics tasks",
+    "description": "TaskWeaver is an open-source agent framework from Microsoft Research that converts user requests into executable Python code for data analytics. It handles stateful conversations, interprets structured data, and manages complex, multi-step data processing workflows.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Open Source",
+          "price": "Free"
+        }
+      ]
+    },
+    "github_stars": 5200,
+    "slot": "orchestration",
+    "prominent": false,
+    "choose_if": [
+      "building AI-powered data analytics pipelines",
+      "want agents that generate and execute Python code",
+      "working on enterprise BI or data processing workflows"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["taskweaver"],
+      "env_vars": [],
+      "config_files": ["taskweaver_config.json"]
+    },
+    "website_url": "https://microsoft.github.io/TaskWeaver/",
+    "github_url": "https://github.com/microsoft/TaskWeaver"
+  },
+  {
+    "id": "unify-ai",
+    "name": "Unify",
+    "category": "llm-infra",
+    "tagline": "Route prompts to the best model dynamically by cost, speed, or quality",
+    "description": "Unify provides a unified API to route LLM requests across 100+ models, optimizing for quality, latency, or cost based on benchmarks. Its dynamic router automatically selects the best model per query, and its benchmark hub lets you compare models on your specific tasks.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Free",
+          "price": "$0"
+        },
+        {
+          "name": "Pay-as-you-go",
+          "price": "Per token"
+        }
+      ]
+    },
+    "github_stars": 800,
+    "slot": "model-router",
+    "prominent": false,
+    "choose_if": [
+      "want automatic model selection optimized per query",
+      "comparing models across cost and quality tradeoffs",
+      "need a single API for 100+ LLM providers"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["unifyai"],
+      "env_vars": ["UNIFY_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://unify.ai",
+    "github_url": "https://github.com/unifyai/unify"
+  },
+  {
+    "id": "martian",
+    "name": "Martian",
+    "category": "llm-infra",
+    "tagline": "Intelligent model router that picks the right LLM for every request",
+    "description": "Martian is a model routing layer that sits between your app and LLM providers, automatically routing each request to the most capable model within your budget. It provides cost optimization, automatic fallbacks, and quality guarantees without changing your code.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Free",
+          "price": "$0"
+        },
+        {
+          "name": "Scale",
+          "price": "Custom"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "model-router",
+    "prominent": false,
+    "choose_if": [
+      "want automatic model selection based on task complexity",
+      "need cost optimization across multiple LLMs",
+      "apps where latency and cost vary widely per request"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": [],
+      "env_vars": ["MARTIAN_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://withmartian.com",
+    "github_url": null
+  },
+  {
+    "id": "not-diamond",
+    "name": "Not Diamond",
+    "category": "llm-infra",
+    "tagline": "AI model router that learns which LLM performs best for your tasks",
+    "description": "Not Diamond is a model router that analyzes your prompts and routes each one to the LLM most likely to perform best, based on task type and historical quality data. It supports GPT-4, Claude, Gemini, and more, reducing costs while maintaining output quality.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Free",
+          "price": "$0/mo"
+        },
+        {
+          "name": "Pro",
+          "price": "$49/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "model-router",
+    "prominent": false,
+    "choose_if": [
+      "want data-driven model selection based on your specific tasks",
+      "reducing LLM spend without sacrificing output quality",
+      "running multiple model providers in parallel"
+    ],
+    "aliases": {
+      "npm": ["notdiamond"],
+      "pip": ["notdiamond"],
+      "env_vars": ["NOTDIAMOND_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://notdiamond.ai",
+    "github_url": null
+  },
+  {
+    "id": "cerebras",
+    "name": "Cerebras",
+    "category": "llm-infra",
+    "tagline": "Wafer-scale chip inference — the fastest LLM API available",
+    "description": "Cerebras offers ultra-fast LLM inference powered by its wafer-scale AI chips, delivering 2,000+ tokens/second — far exceeding GPU-based providers. It hosts Llama, Mistral, and other open models, making it ideal for latency-sensitive applications.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Free",
+          "price": "$0"
+        },
+        {
+          "name": "Pay-as-you-go",
+          "price": "Per token"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "inference",
+    "prominent": false,
+    "choose_if": [
+      "latency is critical and you need 2000+ tokens/sec",
+      "running open-weight models like Llama in production",
+      "replacing Groq for even faster inference speeds"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["cerebras-cloud-sdk"],
+      "env_vars": ["CEREBRAS_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://cloud.cerebras.ai",
+    "github_url": null
+  },
+  {
+    "id": "deepinfra",
+    "name": "DeepInfra",
+    "category": "llm-infra",
+    "tagline": "Serverless GPU inference for open-source LLMs at low cost",
+    "description": "DeepInfra provides serverless inference for hundreds of open-source models including Llama, Mistral, and Falcon, with pay-per-token pricing and an OpenAI-compatible API. No infrastructure management — just call the API and scale automatically.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Free trial",
+          "price": "$0"
+        },
+        {
+          "name": "Pay-as-you-go",
+          "price": "Per token"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "inference",
+    "prominent": false,
+    "choose_if": [
+      "running open-source models without managing GPU infrastructure",
+      "need the lowest cost per token for open models",
+      "want OpenAI-compatible API for easy integration"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": [],
+      "env_vars": ["DEEPINFRA_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://deepinfra.com",
+    "github_url": null
+  },
+  {
+    "id": "baseten",
+    "name": "Baseten",
+    "category": "llm-infra",
+    "tagline": "Deploy any ML model as a low-latency production API",
+    "description": "Baseten lets you deploy custom and fine-tuned models as scalable inference APIs with minimal DevOps overhead. It handles GPU provisioning, auto-scaling, and traffic management, making it ideal for teams that need custom model serving beyond off-the-shelf providers.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": false,
+      "plans": [
+        {
+          "name": "Pay-as-you-go",
+          "price": "Per GPU-second"
+        },
+        {
+          "name": "Enterprise",
+          "price": "Custom"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "inference",
+    "prominent": false,
+    "choose_if": [
+      "serving custom fine-tuned models in production",
+      "need guaranteed GPU capacity and reserved instances",
+      "want model endpoints with auto-scaling and zero cold starts"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["baseten"],
+      "env_vars": ["BASETEN_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://baseten.co",
+    "github_url": null
+  },
+  {
+    "id": "lambda-labs",
+    "name": "Lambda Labs",
+    "category": "llm-infra",
+    "tagline": "GPU cloud and API for training and serving AI models",
+    "description": "Lambda Labs provides on-demand GPU cloud instances for model training and a serverless inference API for popular open-source models. With competitive pricing and high-end H100/A100 availability, it's a go-to for teams that need both training compute and inference.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": false,
+      "plans": [
+        {
+          "name": "On-demand",
+          "price": "From $0.50/hr"
+        },
+        {
+          "name": "API",
+          "price": "Per token"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "inference",
+    "prominent": false,
+    "choose_if": [
+      "need both training compute and inference in one provider",
+      "want access to H100 and A100 GPUs on demand",
+      "running large-scale fine-tuning experiments"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": [],
+      "env_vars": ["LAMBDA_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://lambdalabs.com",
+    "github_url": null
+  },
+  {
+    "id": "perplexity-api",
+    "name": "Perplexity API",
+    "category": "llm-infra",
+    "tagline": "LLM API with real-time web search grounding built in",
+    "description": "Perplexity's API provides access to their hosted LLMs with built-in web search retrieval, returning answers grounded in real-time information with citations. Ideal for applications that need up-to-date facts without building a separate retrieval pipeline.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": false,
+      "plans": [
+        {
+          "name": "Pay-as-you-go",
+          "price": "Per token"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "inference",
+    "prominent": false,
+    "choose_if": [
+      "need real-time web search grounding without RAG infrastructure",
+      "building research or Q&A tools with up-to-date answers",
+      "want cited, fact-checked responses out of the box"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": [],
+      "env_vars": ["PPLX_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://docs.perplexity.ai",
+    "github_url": null
+  },
+  {
+    "id": "redis-vector",
+    "name": "Redis Vector",
+    "category": "llm-infra",
+    "tagline": "In-memory vector search built into Redis — no separate DB needed",
+    "description": "Redis Vector Search adds native vector similarity search to Redis, enabling low-latency semantic search on data already in Redis. With Redis Stack, you get vector indexing, hybrid search, and filtering alongside your existing caching and pub/sub workloads.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "OSS",
+          "price": "Free"
+        },
+        {
+          "name": "Redis Cloud",
+          "price": "From $7/mo"
+        }
+      ]
+    },
+    "github_stars": 23000,
+    "slot": "vector-db",
+    "prominent": false,
+    "choose_if": [
+      "already using Redis in your stack",
+      "need sub-millisecond vector search latency",
+      "want vector search without adding another infrastructure component"
+    ],
+    "aliases": {
+      "npm": ["redis"],
+      "pip": ["redis", "redisvl"],
+      "env_vars": ["REDIS_URL", "REDIS_PASSWORD"],
+      "config_files": []
+    },
+    "website_url": "https://redis.io/docs/stack/search/reference/vectors/",
+    "github_url": "https://github.com/redis/redis"
+  },
+  {
+    "id": "turbopuffer",
+    "name": "turbopuffer",
+    "category": "llm-infra",
+    "tagline": "Serverless vector database built for scale — no infrastructure to manage",
+    "description": "turbopuffer is a serverless vector database designed for high-scale production workloads, offering fast nearest-neighbor search with automatic scaling and a simple HTTP API. It handles billions of vectors without capacity planning, charging only for storage and queries.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Free",
+          "price": "$0/mo"
+        },
+        {
+          "name": "Pay-as-you-go",
+          "price": "Per query + storage"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "vector-db",
+    "prominent": false,
+    "choose_if": [
+      "want zero-ops vector search at any scale",
+      "cost scales with usage, not reserved capacity",
+      "building production RAG without infrastructure overhead"
+    ],
+    "aliases": {
+      "npm": ["@turbopuffer/turbopuffer"],
+      "pip": ["turbopuffer"],
+      "env_vars": ["TURBOPUFFER_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://turbopuffer.com",
+    "github_url": null
+  },
+  {
+    "id": "lancedb",
+    "name": "LanceDB",
+    "category": "llm-infra",
+    "tagline": "Serverless vector DB built on Apache Arrow — embedded or cloud",
+    "description": "LanceDB is an open-source vector database built on the Lance columnar format, offering embedded usage (no server) and a serverless cloud option. It supports multimodal data, blazing-fast queries on large datasets, and seamless interop with pandas, PyArrow, and LangChain.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "OSS",
+          "price": "Free"
+        },
+        {
+          "name": "Cloud",
+          "price": "Pay as you go"
+        }
+      ]
+    },
+    "github_stars": 5800,
+    "slot": "vector-db",
+    "prominent": false,
+    "choose_if": [
+      "want an embedded vector DB with no server to manage locally",
+      "working with multimodal data (images, audio, text)",
+      "need tight pandas/Arrow integration in Python"
+    ],
+    "aliases": {
+      "npm": ["vectordb", "@lancedb/lancedb"],
+      "pip": ["lancedb"],
+      "env_vars": [],
+      "config_files": []
+    },
+    "website_url": "https://lancedb.github.io/lancedb/",
+    "github_url": "https://github.com/lancedb/lancedb"
+  },
+  {
+    "id": "opik",
+    "name": "Opik",
+    "category": "observability",
+    "tagline": "Open-source LLM tracing and evaluation platform by Comet",
+    "description": "Opik is an open-source LLM observability platform from Comet that provides detailed tracing, prompt tracking, and automated evaluation for AI applications. One-line integration captures every LLM call, cost, and output with built-in eval metrics including hallucination detection.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "OSS",
+          "price": "Free"
+        },
+        {
+          "name": "Cloud",
+          "price": "Free tier + pay as you go"
+        }
+      ]
+    },
+    "github_stars": 4200,
+    "slot": "observability",
+    "prominent": false,
+    "choose_if": [
+      "want OSS observability with built-in eval metrics",
+      "already using Comet for ML experiment tracking",
+      "need hallucination detection out of the box"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["opik"],
+      "env_vars": ["OPIK_API_KEY", "COMET_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://www.comet.com/site/products/opik/",
+    "github_url": "https://github.com/comet-ml/opik"
+  },
+  {
+    "id": "agentops",
+    "name": "AgentOps",
+    "category": "observability",
+    "tagline": "Observability and replay platform built specifically for AI agents",
+    "description": "AgentOps provides session replay, cost tracking, and error monitoring designed for AI agents — not just LLM calls. It captures the full agent execution tree including tool calls, decisions, and multi-agent interactions, with a visual session replay for debugging.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Free",
+          "price": "$0"
+        },
+        {
+          "name": "Pro",
+          "price": "Usage-based"
+        }
+      ]
+    },
+    "github_stars": 3100,
+    "slot": "observability",
+    "prominent": false,
+    "choose_if": [
+      "monitoring multi-agent systems with complex tool-calling flows",
+      "need session replay to debug agent behavior",
+      "want cost tracking at the agent session level"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["agentops"],
+      "env_vars": ["AGENTOPS_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://agentops.ai",
+    "github_url": "https://github.com/AgentOps-AI/agentops"
+  },
+  {
+    "id": "mlflow",
+    "name": "MLflow",
+    "category": "observability",
+    "tagline": "Open-source MLOps platform with LLM experiment tracking and tracing",
+    "description": "MLflow is an open-source platform for managing the full ML lifecycle, now extended with native LLM tracking and tracing. It captures prompts, responses, latency, and costs in MLflow Tracing, integrates with LangChain and OpenAI, and provides a unified experiment UI.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Open Source",
+          "price": "Free"
+        },
+        {
+          "name": "Databricks Managed",
+          "price": "Included with Databricks"
+        }
+      ]
+    },
+    "github_stars": 19800,
+    "slot": "observability",
+    "prominent": false,
+    "choose_if": [
+      "already using MLflow for ML experiments and want LLM tracking too",
+      "running on Databricks and want native platform observability",
+      "need unified tracking for both traditional ML and LLM workloads"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["mlflow"],
+      "env_vars": ["MLFLOW_TRACKING_URI"],
+      "config_files": ["MLproject", "mlflow.yaml"]
+    },
+    "website_url": "https://mlflow.org",
+    "github_url": "https://github.com/mlflow/mlflow"
+  },
+  {
+    "id": "trulens",
+    "name": "TruLens",
+    "category": "prompt-eval",
+    "tagline": "Open-source eval and tracking for LLM applications and RAG pipelines",
+    "description": "TruLens is an open-source library for evaluating and tracking LLM-based applications, with a focus on RAG pipelines. It provides feedback functions for groundedness, answer relevance, and context relevance, plus a dashboard for visualizing eval results across experiments.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Open Source",
+          "price": "Free"
+        }
+      ]
+    },
+    "github_stars": 2100,
+    "slot": "prompt-eval",
+    "prominent": false,
+    "choose_if": [
+      "evaluating RAG pipeline quality — groundedness and relevance",
+      "want open-source evals with a visual results dashboard",
+      "building with LangChain or LlamaIndex and need eval integration"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["trulens", "trulens-eval"],
+      "env_vars": [],
+      "config_files": []
+    },
+    "website_url": "https://www.trulens.org",
+    "github_url": "https://github.com/truera/trulens"
+  },
+  {
+    "id": "humanloop",
+    "name": "Humanloop",
+    "category": "prompt-eval",
+    "tagline": "Prompt management, A/B testing, and evals for production LLM apps",
+    "description": "Humanloop is a platform for managing prompts, running experiments, and evaluating LLM outputs in production. It provides a prompt editor, version history, A/B testing across models, and human plus automated eval workflows — keeping your prompts in sync with your code.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Free",
+          "price": "$0"
+        },
+        {
+          "name": "Growth",
+          "price": "$200/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "prompt-eval",
+    "prominent": false,
+    "choose_if": [
+      "managing prompts as production artifacts with version control",
+      "running A/B tests across different models and prompt variants",
+      "need human labeling and automated evals in one platform"
+    ],
+    "aliases": {
+      "npm": ["humanloop"],
+      "pip": ["humanloop"],
+      "env_vars": ["HUMANLOOP_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://humanloop.com",
+    "github_url": null
+  },
+  {
+    "id": "inspect-ai",
+    "name": "Inspect",
+    "category": "prompt-eval",
+    "tagline": "Open-source LLM evaluation framework by the UK AI Safety Institute",
+    "description": "Inspect is an open-source framework for building LLM evaluations, developed by the UK AI Safety Institute. It provides task composition, built-in datasets, scorers, and solvers for systematic benchmarking of LLM capabilities, safety, and alignment properties.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Open Source",
+          "price": "Free"
+        }
+      ]
+    },
+    "github_stars": 1800,
+    "slot": "prompt-eval",
+    "prominent": false,
+    "choose_if": [
+      "running capability and safety evaluations on LLMs",
+      "building custom benchmarks for model comparison",
+      "need government-backed evaluation methodology"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["inspect-ai"],
+      "env_vars": [],
+      "config_files": []
+    },
+    "website_url": "https://ukgovernment.github.io/inspect_ai/",
+    "github_url": "https://github.com/UKGovernmentBEIS/inspect_ai"
+  },
+  {
+    "id": "amp",
+    "name": "Amp",
+    "category": "coding-assistants",
+    "tagline": "Sourcegraph's AI coding agent for autonomous terminal-based tasks",
+    "description": "Amp is an AI coding agent from Sourcegraph that operates in the terminal, capable of reading, editing, and executing across your entire codebase. It integrates with Sourcegraph's code intelligence to understand large codebases and execute multi-step tasks autonomously.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Free",
+          "price": "$0"
+        },
+        {
+          "name": "Pro",
+          "price": "$19/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "cli-agent",
+    "prominent": false,
+    "choose_if": [
+      "working with large enterprise codebases",
+      "want Sourcegraph code intelligence behind your AI agent",
+      "need deep code navigation for complex multi-file tasks"
+    ],
+    "aliases": {
+      "npm": ["@sourcegraph/amp"],
+      "pip": [],
+      "env_vars": ["SRC_ACCESS_TOKEN"],
+      "config_files": []
+    },
+    "website_url": "https://ampcode.com",
+    "github_url": null
+  },
+  {
+    "id": "codex-cli",
+    "name": "OpenAI Codex CLI",
+    "category": "coding-assistants",
+    "tagline": "OpenAI's open-source terminal agent for autonomous coding tasks",
+    "description": "OpenAI Codex CLI is an open-source terminal agent that applies natural language instructions to your local codebase. Running in your terminal, it reads files, writes code, runs tests, and iterates until the task is complete — powered by OpenAI's o4-mini model.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": false,
+      "plans": [
+        {
+          "name": "Pay-as-you-go",
+          "price": "OpenAI API tokens"
+        }
+      ]
+    },
+    "github_stars": 28000,
+    "slot": "cli-agent",
+    "prominent": false,
+    "choose_if": [
+      "using OpenAI models and want a terminal coding agent",
+      "prefer open-source with full control over the agent loop",
+      "need to integrate with existing OpenAI API infrastructure"
+    ],
+    "aliases": {
+      "npm": ["@openai/codex"],
+      "pip": [],
+      "env_vars": ["OPENAI_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://github.com/openai/codex",
+    "github_url": "https://github.com/openai/codex"
+  },
+  {
+    "id": "kodu-ai",
+    "name": "Kodu",
+    "category": "coding-assistants",
+    "tagline": "AI coding agent inside VS Code that handles multi-step development tasks",
+    "description": "Kodu is a VS Code extension that acts as an autonomous coding agent, handling multi-step software development tasks from within the editor. It can browse the web, run terminals, edit files, and create entire features autonomously while keeping you in the loop.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Free",
+          "price": "$0"
+        },
+        {
+          "name": "Pro",
+          "price": "$20/mo"
+        }
+      ]
+    },
+    "github_stars": 800,
+    "slot": "cli-agent",
+    "prominent": false,
+    "choose_if": [
+      "want an autonomous coding agent inside VS Code",
+      "need web browsing and terminal access for complex tasks",
+      "looking for a cost-effective Devin alternative in your editor"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": [],
+      "env_vars": ["ANTHROPIC_API_KEY", "OPENAI_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://kodu.ai",
+    "github_url": "https://github.com/kodu-ai/claude-coder"
+  },
+  {
+    "id": "factory-ai",
+    "name": "Factory",
+    "category": "autonomous-agents",
+    "tagline": "AI software engineers that autonomously build features and fix bugs",
+    "description": "Factory provides Droids — AI software engineers that autonomously handle development tasks including coding, testing, debugging, and PR creation. They integrate with GitHub and Jira, accept natural language task descriptions, and operate continuously without human intervention.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": false,
+      "plans": [
+        {
+          "name": "Startup",
+          "price": "Custom"
+        },
+        {
+          "name": "Enterprise",
+          "price": "Custom"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "swe-agent",
+    "prominent": false,
+    "choose_if": [
+      "want fully autonomous software engineers for repetitive dev tasks",
+      "need agents that integrate with GitHub, Jira, and Linear",
+      "scaling engineering capacity without additional hires"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": [],
+      "env_vars": ["FACTORY_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://factory.ai",
+    "github_url": null
+  },
+  {
+    "id": "github-copilot-workspace",
+    "name": "GitHub Copilot Workspace",
+    "category": "autonomous-agents",
+    "tagline": "Task-centric dev environment where Copilot autonomously plans and codes",
+    "description": "GitHub Copilot Workspace is a task-centric development environment where you describe what to build and Copilot autonomously proposes a plan, writes code across files, and creates a PR. It operates entirely in the browser with full access to your GitHub repository.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": false,
+      "plans": [
+        {
+          "name": "Included with Copilot",
+          "price": "$10/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "swe-agent",
+    "prominent": false,
+    "choose_if": [
+      "already using GitHub Copilot and want autonomous task execution",
+      "prefer browser-based agents without local setup",
+      "need tight GitHub issue to PR automation"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": [],
+      "env_vars": ["GITHUB_TOKEN"],
+      "config_files": []
+    },
+    "website_url": "https://githubnext.com/projects/copilot-workspace",
+    "github_url": null
+  },
+  {
+    "id": "replit-agent",
+    "name": "Replit Agent",
+    "category": "autonomous-agents",
+    "tagline": "Build full apps from a prompt — Replit's autonomous AI developer",
+    "description": "Replit Agent is an AI that builds complete web apps from a natural language description, handling frontend, backend, and deployment automatically inside Replit's cloud IDE. It creates, iterates, and deploys apps end-to-end, making it ideal for rapid prototyping.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Free",
+          "price": "$0"
+        },
+        {
+          "name": "Core",
+          "price": "$25/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "swe-agent",
+    "prominent": false,
+    "choose_if": [
+      "want to go from idea to deployed app in minutes",
+      "building and hosting in one place without DevOps",
+      "prototyping full-stack apps with no local setup"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": [],
+      "env_vars": ["REPL_TOKEN"],
+      "config_files": [".replit", "replit.nix"]
+    },
+    "website_url": "https://replit.com/ai",
+    "github_url": null
+  },
+  {
+    "id": "desktop-commander",
+    "name": "Desktop Commander",
+    "category": "mcp",
+    "tagline": "MCP server giving AI agents terminal access and file system control",
+    "description": "Desktop Commander is an MCP server that provides AI agents with terminal execution, file system operations, process management, and text editor access. It enables agents to run shell commands, manage files, and control desktop applications — all through the MCP protocol.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Open Source",
+          "price": "Free"
+        }
+      ]
+    },
+    "github_stars": 9200,
+    "slot": "mcp-infra",
+    "prominent": false,
+    "choose_if": [
+      "need an AI agent with full terminal and file system access",
+      "building automation that requires running shell commands",
+      "want MCP-native control over your local machine"
+    ],
+    "aliases": {
+      "npm": ["@wonderwhy-er/desktop-commander"],
+      "pip": [],
+      "env_vars": [],
+      "config_files": []
+    },
+    "website_url": "https://desktopcommander.app",
+    "github_url": "https://github.com/wonderwhy-er/DesktopCommanderMCP"
+  },
+  {
+    "id": "brave-search-mcp",
+    "name": "Brave Search MCP",
+    "category": "mcp",
+    "tagline": "MCP server for web and local search via Brave Search API",
+    "description": "Brave Search MCP provides AI agents with web search and local search capabilities through Brave's privacy-respecting search API. It supports general web queries, news search, image search, and local business lookups — giving agents real-time information access.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Free",
+          "price": "2000 queries/mo"
+        },
+        {
+          "name": "Pro",
+          "price": "$5/mo"
+        }
+      ]
+    },
+    "github_stars": 1200,
+    "slot": "mcp-infra",
+    "prominent": false,
+    "choose_if": [
+      "giving agents web search capabilities without Google",
+      "need real-time web data with privacy-respecting search",
+      "want local business and news search for AI workflows"
+    ],
+    "aliases": {
+      "npm": ["@modelcontextprotocol/server-brave-search"],
+      "pip": [],
+      "env_vars": ["BRAVE_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://brave.com/search/api/",
+    "github_url": "https://github.com/modelcontextprotocol/servers"
+  },
+  {
+    "id": "sequential-thinking-mcp",
+    "name": "Sequential Thinking MCP",
+    "category": "mcp",
+    "tagline": "MCP server that enables structured step-by-step reasoning for agents",
+    "description": "Sequential Thinking MCP is a Model Context Protocol server that provides a tool for dynamic, reflective problem-solving. It enables AI agents to break complex problems into sequential steps, revise earlier thinking, and branch into alternative approaches — improving reasoning quality.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Open Source",
+          "price": "Free"
+        }
+      ]
+    },
+    "github_stars": 2800,
+    "slot": "mcp-infra",
+    "prominent": false,
+    "choose_if": [
+      "want agents to reason through complex multi-step problems",
+      "improving AI decision quality on ambiguous tasks",
+      "building workflows where reflective reasoning matters"
+    ],
+    "aliases": {
+      "npm": ["@modelcontextprotocol/server-sequential-thinking"],
+      "pip": [],
+      "env_vars": [],
+      "config_files": []
+    },
+    "website_url": "https://github.com/modelcontextprotocol/servers",
+    "github_url": "https://github.com/modelcontextprotocol/servers"
+  },
+  {
+    "id": "sentry-mcp",
+    "name": "Sentry MCP",
+    "category": "mcp",
+    "tagline": "MCP server connecting AI agents to Sentry error tracking data",
+    "description": "Sentry MCP is an official MCP server from Sentry that lets AI agents query error events, view stack traces, analyze issue trends, and understand production bugs through the MCP protocol. It bridges your AI coding agent with real production error context.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Free",
+          "price": "Free with Sentry account"
+        }
+      ]
+    },
+    "github_stars": 800,
+    "slot": "mcp-infra",
+    "prominent": false,
+    "choose_if": [
+      "using Sentry and want AI agents to understand production errors",
+      "debugging issues that require stack trace and event context",
+      "building AI-assisted incident response workflows"
+    ],
+    "aliases": {
+      "npm": ["@sentry/mcp-server"],
+      "pip": [],
+      "env_vars": ["SENTRY_AUTH_TOKEN", "SENTRY_ORG"],
+      "config_files": []
+    },
+    "website_url": "https://docs.sentry.io/product/sentry-mcp/",
+    "github_url": "https://github.com/getsentry/sentry-mcp"
+  },
+  {
+    "id": "snyk",
+    "name": "Snyk",
+    "category": "devops",
+    "tagline": "AI-powered security scanning for code, dependencies, and containers",
+    "description": "Snyk scans your code, open-source dependencies, containers, and IaC for security vulnerabilities, providing fix recommendations directly in your PR workflow. Its AI-powered DeepCode capabilities detect custom security issues in application code beyond known CVEs.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Free",
+          "price": "$0"
+        },
+        {
+          "name": "Team",
+          "price": "$25/user/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "devops-automation",
+    "prominent": false,
+    "choose_if": [
+      "security scanning for dependencies and container images is required",
+      "need developer-friendly security integrated in the PR flow",
+      "compliance requires SCA and SAST tooling"
+    ],
+    "aliases": {
+      "npm": ["snyk"],
+      "pip": [],
+      "env_vars": ["SNYK_TOKEN"],
+      "config_files": [".snyk"]
+    },
+    "website_url": "https://snyk.io",
+    "github_url": null
+  },
+  {
+    "id": "sonarqube",
+    "name": "SonarQube",
+    "category": "devops",
+    "tagline": "Code quality and security analysis across 30+ programming languages",
+    "description": "SonarQube provides static code analysis for code quality, security vulnerabilities, and technical debt across 30+ languages. Its AI Code Assurance features detect AI-generated code and apply stricter quality gates, making it essential for maintaining code standards at scale.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Community",
+          "price": "Free"
+        },
+        {
+          "name": "Developer",
+          "price": "$150/yr"
+        }
+      ]
+    },
+    "github_stars": 9800,
+    "slot": "devops-automation",
+    "prominent": false,
+    "choose_if": [
+      "maintaining code quality standards across a large team",
+      "need polyglot static analysis with security rules",
+      "want detailed technical debt tracking over time"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": [],
+      "env_vars": ["SONAR_TOKEN", "SONAR_HOST_URL"],
+      "config_files": ["sonar-project.properties"]
+    },
+    "website_url": "https://www.sonarsource.com/products/sonarqube/",
+    "github_url": "https://github.com/SonarSource/sonarqube"
+  },
+  {
+    "id": "semgrep",
+    "name": "Semgrep",
+    "category": "devops",
+    "tagline": "Fast, lightweight static analysis for finding bugs and security issues",
+    "description": "Semgrep is a fast, open-source static analysis tool that lets you write custom rules in YAML to detect bugs, security vulnerabilities, and code patterns specific to your codebase. Its rule library covers OWASP Top 10 and common security issues across 30+ languages.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "OSS",
+          "price": "Free"
+        },
+        {
+          "name": "Team",
+          "price": "$40/developer/mo"
+        }
+      ]
+    },
+    "github_stars": 10600,
+    "slot": "devops-automation",
+    "prominent": false,
+    "choose_if": [
+      "want custom security rules for your codebase's specific patterns",
+      "need lightweight SAST that runs in CI without heavy setup",
+      "detecting anti-patterns via AST matching across languages"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["semgrep"],
+      "env_vars": ["SEMGREP_APP_TOKEN"],
+      "config_files": [".semgrepignore", "semgrep.yml"]
+    },
+    "website_url": "https://semgrep.dev",
+    "github_url": "https://github.com/semgrep/semgrep"
+  },
+  {
+    "id": "archbee",
+    "name": "Archbee",
+    "category": "docs",
+    "tagline": "AI-powered developer documentation platform for product teams",
+    "description": "Archbee is a documentation platform built for developer teams, combining AI writing assistance, API references, and knowledge bases in one tool. Its AI co-writer helps draft and update technical docs, while rich blocks support code, API specs, and diagrams natively.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Free",
+          "price": "$0"
+        },
+        {
+          "name": "Starter",
+          "price": "$50/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "docs",
+    "prominent": false,
+    "choose_if": [
+      "building developer-facing documentation with API references",
+      "want AI writing assistance built into your doc platform",
+      "need a modern alternative to Confluence for technical teams"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": [],
+      "env_vars": [],
+      "config_files": []
+    },
+    "website_url": "https://www.archbee.com",
+    "github_url": null
+  },
+  {
+    "id": "tettra",
+    "name": "Tettra",
+    "category": "docs",
+    "tagline": "AI-powered internal knowledge base that answers questions from your docs",
+    "description": "Tettra is an internal knowledge management platform with an AI assistant that answers team questions by searching your documentation. It integrates with Slack for Q&A, automatically suggests when docs are out of date, and routes unanswered questions to the right expert.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": false,
+      "plans": [
+        {
+          "name": "Scaling",
+          "price": "$10/user/mo"
+        },
+        {
+          "name": "Professional",
+          "price": "$20/user/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "docs",
+    "prominent": false,
+    "choose_if": [
+      "building an internal knowledge base for an engineering team",
+      "want Slack-native AI Q&A over your documentation",
+      "tracking documentation health and keeping it current"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": [],
+      "env_vars": [],
+      "config_files": []
+    },
+    "website_url": "https://tettra.com",
+    "github_url": null
+  },
+  {
+    "id": "coda-ai",
+    "name": "Coda AI",
+    "category": "docs",
+    "tagline": "Doc-meets-spreadsheet platform with AI built directly into every page",
+    "description": "Coda AI integrates AI writing, summarization, and data manipulation directly into Coda's doc-spreadsheet hybrid. Teams use it to draft PRDs, summarize meeting notes, generate tables from data, and automate repetitive documentation tasks — all within a collaborative workspace.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Free",
+          "price": "$0"
+        },
+        {
+          "name": "Pro",
+          "price": "$12/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "docs",
+    "prominent": false,
+    "choose_if": [
+      "using Coda for product documentation and wikis",
+      "want AI writing assistance in a flexible doc-database hybrid",
+      "need to automate table generation and data summaries in docs"
+    ],
+    "aliases": {
+      "npm": ["@codahq/coda-js-sdk"],
+      "pip": [],
+      "env_vars": ["CODA_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://coda.io/product/ai",
+    "github_url": null
+  },
+  {
+    "id": "confluence-ai",
+    "name": "Confluence AI",
+    "category": "docs",
+    "tagline": "Atlassian's Confluence with AI writing and search built in",
+    "description": "Confluence AI adds Atlassian Intelligence capabilities to Confluence, enabling AI-powered page creation, automatic summaries, smart search, and writing assistance across your team's wiki. It integrates with Jira AI for seamless project-to-doc workflows.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": false,
+      "plans": [
+        {
+          "name": "Standard",
+          "price": "$6/user/mo"
+        },
+        {
+          "name": "Premium",
+          "price": "$11/user/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "docs",
+    "prominent": false,
+    "choose_if": [
+      "already using Atlassian tools and want AI in your wiki",
+      "need AI search across a large Confluence knowledge base",
+      "building Jira and Confluence workflow automation"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": [],
+      "env_vars": ["CONFLUENCE_API_TOKEN", "CONFLUENCE_URL"],
+      "config_files": []
+    },
+    "website_url": "https://www.atlassian.com/software/confluence/ai",
+    "github_url": null
+  },
+  {
+    "id": "productboard-ai",
+    "name": "Productboard AI",
+    "category": "product-mgmt",
+    "tagline": "AI-powered product management with feedback synthesis and roadmapping",
+    "description": "Productboard's AI features automatically synthesize customer feedback from multiple sources, surface themes and insights, and link insights to features. Its AI-assisted prioritization helps product teams make data-driven decisions about what to build next.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": false,
+      "plans": [
+        {
+          "name": "Starter",
+          "price": "$20/maker/mo"
+        },
+        {
+          "name": "Pro",
+          "price": "$80/maker/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "product-mgmt",
+    "prominent": false,
+    "choose_if": [
+      "synthesizing customer feedback at scale to inform product decisions",
+      "managing a product roadmap with stakeholder visibility",
+      "linking user insights directly to features in a structured PM workflow"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": [],
+      "env_vars": ["PRODUCTBOARD_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://www.productboard.com",
+    "github_url": null
+  },
+  {
+    "id": "jira-ai",
+    "name": "Jira AI",
+    "category": "product-mgmt",
+    "tagline": "Atlassian Intelligence in Jira — AI backlog management and sprint planning",
+    "description": "Jira AI brings Atlassian Intelligence to issue tracking, enabling AI-generated ticket summaries, automatic subtask creation, sprint retrospective insights, and work-breakdown suggestions. It connects with Confluence AI for end-to-end project documentation and planning.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": false,
+      "plans": [
+        {
+          "name": "Standard",
+          "price": "$8/user/mo"
+        },
+        {
+          "name": "Premium",
+          "price": "$16/user/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "product-mgmt",
+    "prominent": false,
+    "choose_if": [
+      "already on Jira and want AI-assisted ticket management",
+      "need automatic sprint planning and backlog grooming",
+      "scaling a team where Atlassian is the standard tooling"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": [],
+      "env_vars": ["JIRA_API_TOKEN", "JIRA_BASE_URL"],
+      "config_files": []
+    },
+    "website_url": "https://www.atlassian.com/software/jira/ai",
+    "github_url": null
+  },
+  {
+    "id": "aha-ai",
+    "name": "Aha! Roadmaps",
+    "category": "product-mgmt",
+    "tagline": "AI-powered product roadmapping and strategy platform",
+    "description": "Aha! is a comprehensive product management platform with AI features for writing product strategy, generating ideas, summarizing feedback, and building visual roadmaps. Its Ideas portal aggregates user feedback and AI helps surface patterns and priorities.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": false,
+      "plans": [
+        {
+          "name": "Startup",
+          "price": "$59/user/mo"
+        },
+        {
+          "name": "Enterprise",
+          "price": "Custom"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "product-mgmt",
+    "prominent": false,
+    "choose_if": [
+      "building a comprehensive product strategy and roadmap in one tool",
+      "need a dedicated ideas portal for collecting user feedback",
+      "want AI-assisted goal setting and OKR alignment"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": [],
+      "env_vars": ["AHA_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://www.aha.io",
+    "github_url": null
+  },
+  {
+    "id": "grain",
+    "name": "Grain",
+    "category": "product-mgmt",
+    "tagline": "AI meeting notes that turn user interviews into product insights",
+    "description": "Grain automatically records, transcribes, and summarizes product meetings and user interviews, extracting key insights and action items. Product teams use it to capture user research, share clips, and build an evidence base that links customer voice to product decisions.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Free",
+          "price": "$0"
+        },
+        {
+          "name": "Starter",
+          "price": "$19/seat/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "product-mgmt",
+    "prominent": false,
+    "choose_if": [
+      "conducting user interviews and want AI to extract product insights",
+      "sharing meeting clips and highlights with stakeholders",
+      "building a library of customer evidence for roadmap decisions"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": [],
+      "env_vars": [],
+      "config_files": []
+    },
+    "website_url": "https://grain.com",
+    "github_url": null
+  },
+  {
+    "id": "google-gemini-api",
+    "name": "Google Gemini API",
+    "category": "llm-infra",
+    "tagline": "Google's frontier multimodal model API — Gemini Pro and Flash",
+    "description": "Google's Gemini API provides access to Gemini Pro, Flash, and Ultra — Google's state-of-the-art multimodal models with native image, audio, and video understanding. With a 1M+ token context window and competitive pricing, it's a strong alternative to GPT-4 for production workloads.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Free",
+          "price": "$0 (rate limited)"
+        },
+        {
+          "name": "Pay-as-you-go",
+          "price": "Per token"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "llm-provider",
+    "provider": "google",
+    "prominent": true,
+    "choose_if": [
+      "need 1M+ token context window for long documents or codebases",
+      "want multimodal AI that natively processes images, audio, and video",
+      "looking for a cost-competitive frontier model alternative to GPT-4o"
+    ],
+    "aliases": {
+      "npm": ["@google/generative-ai", "@google/genai"],
+      "pip": ["google-generativeai", "google-genai"],
+      "env_vars": ["GOOGLE_API_KEY", "GEMINI_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://ai.google.dev",
+    "github_url": null
+  },
+  {
+    "id": "amazon-bedrock",
+    "name": "Amazon Bedrock",
+    "category": "llm-infra",
+    "tagline": "AWS managed AI service with access to frontier models from every provider",
+    "description": "Amazon Bedrock provides API access to foundation models from Anthropic, Meta, Mistral, Cohere, and Amazon's own Titan models — all through a single AWS API. It handles compliance, security, and private deployment within your AWS account for enterprise-grade AI applications.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Free Tier",
+          "price": "Limited free usage"
+        },
+        {
+          "name": "Pay-as-you-go",
+          "price": "Per token"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "llm-provider",
+    "provider": "aws",
+    "prominent": true,
+    "choose_if": [
+      "deploying AI within AWS with existing cloud infrastructure",
+      "need multi-model access with enterprise security and compliance",
+      "want private model deployment with no data leaving your AWS account"
+    ],
+    "aliases": {
+      "npm": ["@aws-sdk/client-bedrock-runtime"],
+      "pip": ["boto3"],
+      "env_vars": ["AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY", "AWS_REGION"],
+      "config_files": ["~/.aws/credentials"]
+    },
+    "website_url": "https://aws.amazon.com/bedrock/",
+    "github_url": null
+  },
+  {
+    "id": "azure-openai",
+    "name": "Azure OpenAI",
+    "category": "llm-infra",
+    "tagline": "OpenAI models hosted on Azure with enterprise compliance and SLAs",
+    "description": "Azure OpenAI Service provides access to GPT-4o, o1, and other OpenAI models hosted within Microsoft Azure, offering enterprise-grade SLAs, data privacy guarantees, and compliance certifications. It's the default choice for enterprises on Azure that need OpenAI models.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": false,
+      "plans": [
+        {
+          "name": "Pay-as-you-go",
+          "price": "Per token"
+        },
+        {
+          "name": "Provisioned",
+          "price": "Reserved capacity"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "llm-provider",
+    "provider": "microsoft",
+    "prominent": true,
+    "choose_if": [
+      "enterprise on Azure with compliance and data residency requirements",
+      "need GPT-4o with Azure AD auth and VNet integration",
+      "want OpenAI models with enterprise SLAs and support"
+    ],
+    "aliases": {
+      "npm": ["openai", "@azure/openai"],
+      "pip": ["openai"],
+      "env_vars": ["AZURE_OPENAI_API_KEY", "AZURE_OPENAI_ENDPOINT", "AZURE_OPENAI_DEPLOYMENT_NAME"],
+      "config_files": []
+    },
+    "website_url": "https://azure.microsoft.com/en-us/products/ai-services/openai-service",
+    "github_url": null
+  },
+  {
+    "id": "xai-grok",
+    "name": "xAI Grok API",
+    "category": "llm-infra",
+    "tagline": "xAI's Grok models with real-time knowledge and strong reasoning",
+    "description": "xAI's Grok API provides access to the Grok family of frontier language models, featuring competitive reasoning capabilities and an OpenAI-compatible API. Grok-2 and Grok Vision models are available with real-time knowledge and strong coding performance.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Free",
+          "price": "Limited usage"
+        },
+        {
+          "name": "Pay-as-you-go",
+          "price": "Per token"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "llm-provider",
+    "provider": "xai",
+    "prominent": false,
+    "choose_if": [
+      "comparing frontier models beyond OpenAI and Anthropic",
+      "want OpenAI-compatible API with Grok's reasoning capabilities",
+      "need a model with real-time knowledge cutoff"
+    ],
+    "aliases": {
+      "npm": ["openai"],
+      "pip": ["openai"],
+      "env_vars": ["XAI_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://x.ai/api",
+    "github_url": null
+  },
+  {
+    "id": "deepseek-api",
+    "name": "DeepSeek API",
+    "category": "llm-infra",
+    "tagline": "High-performance frontier model API at a fraction of the cost",
+    "description": "DeepSeek's API provides access to DeepSeek-R1 and DeepSeek-V3 — frontier models matching GPT-4 performance on benchmarks at dramatically lower per-token costs. Its reasoning model (R1) supports extended chain-of-thought for complex coding and math tasks.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Free",
+          "price": "Trial credits"
+        },
+        {
+          "name": "Pay-as-you-go",
+          "price": "Per token (very low)"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "llm-provider",
+    "provider": "deepseek",
+    "prominent": false,
+    "choose_if": [
+      "need frontier-level reasoning at the lowest cost per token",
+      "running high-volume inference where cost is the primary constraint",
+      "want strong coding and math reasoning at low cost"
+    ],
+    "aliases": {
+      "npm": ["openai"],
+      "pip": ["openai"],
+      "env_vars": ["DEEPSEEK_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://platform.deepseek.com",
+    "github_url": null
   }
 ]

@@ -1,9 +1,29 @@
 [
-  { "source": "cursor", "target": "windsurf", "type": "competes-with" },
-  { "source": "cursor", "target": "github-copilot", "type": "competes-with" },
-  { "source": "cursor", "target": "zed", "type": "competes-with" },
-  { "source": "cursor", "target": "aide", "type": "competes-with" },
-  { "source": "cursor", "target": "jetbrains-ai", "type": "competes-with" },
+  {
+    "source": "cursor",
+    "target": "windsurf",
+    "type": "competes-with"
+  },
+  {
+    "source": "cursor",
+    "target": "github-copilot",
+    "type": "competes-with"
+  },
+  {
+    "source": "cursor",
+    "target": "zed",
+    "type": "competes-with"
+  },
+  {
+    "source": "cursor",
+    "target": "aide",
+    "type": "competes-with"
+  },
+  {
+    "source": "cursor",
+    "target": "jetbrains-ai",
+    "type": "competes-with"
+  },
   {
     "source": "cursor",
     "target": "claude-code",
@@ -88,8 +108,16 @@
     "how": "Windsurf connects to MCP servers as a client, making any server registered via the TypeScript SDK available to its Cascade agent.",
     "achieves": "The same MCP tool ecosystem as Cursor — browser, repo, and code execution — accessible inside Windsurf's Cascade agentic editor."
   },
-  { "source": "windsurf", "target": "github-copilot", "type": "competes-with" },
-  { "source": "windsurf", "target": "cursor", "type": "competes-with" },
+  {
+    "source": "windsurf",
+    "target": "github-copilot",
+    "type": "competes-with"
+  },
+  {
+    "source": "windsurf",
+    "target": "cursor",
+    "type": "competes-with"
+  },
   {
     "source": "continue",
     "target": "ollama",
@@ -118,7 +146,11 @@
     "how": "Aider accepts LiteLLM's OpenAI-compatible proxy as its model backend via the --openai-api-base flag.",
     "achieves": "Model-agnostic Aider sessions — route to Claude, GPT-4o, Gemini, or local models through one LiteLLM config."
   },
-  { "source": "aider", "target": "claude-code", "type": "competes-with" },
+  {
+    "source": "aider",
+    "target": "claude-code",
+    "type": "competes-with"
+  },
   {
     "source": "claude-code",
     "target": "mcp-sdk-ts",
@@ -161,7 +193,11 @@
     "how": "Cline is a VS Code MCP client — it auto-discovers and connects to configured MCP servers, making their tools available during agent sessions.",
     "achieves": "The same MCP server ecosystem as Cursor and Claude Code, running as a VS Code extension without switching editors."
   },
-  { "source": "cline", "target": "cursor", "type": "competes-with" },
+  {
+    "source": "cline",
+    "target": "cursor",
+    "type": "competes-with"
+  },
   {
     "source": "cline",
     "target": "claude-code",
@@ -169,15 +205,51 @@
     "how": "Cline handles in-editor VS Code tasks while Claude Code runs multi-step terminal operations — both work on the same codebase.",
     "achieves": "Two AI coding surfaces in one dev environment: Cline for interactive in-editor tasks, Claude Code for autonomous terminal automation."
   },
-  { "source": "bolt-new", "target": "lovable", "type": "competes-with" },
-  { "source": "bolt-new", "target": "v0", "type": "competes-with" },
-  { "source": "replit-ghostwriter", "target": "github-copilot", "type": "competes-with" },
-  { "source": "replit-ghostwriter", "target": "bolt-new", "type": "competes-with" },
-  { "source": "jetbrains-ai", "target": "github-copilot", "type": "competes-with" },
-  { "source": "jetbrains-ai", "target": "tabnine", "type": "competes-with" },
-  { "source": "devin", "target": "cursor", "type": "competes-with" },
-  { "source": "devin", "target": "openhands", "type": "competes-with" },
-  { "source": "devin", "target": "claude-code", "type": "competes-with" },
+  {
+    "source": "bolt-new",
+    "target": "lovable",
+    "type": "competes-with"
+  },
+  {
+    "source": "bolt-new",
+    "target": "v0",
+    "type": "competes-with"
+  },
+  {
+    "source": "replit-ghostwriter",
+    "target": "github-copilot",
+    "type": "competes-with"
+  },
+  {
+    "source": "replit-ghostwriter",
+    "target": "bolt-new",
+    "type": "competes-with"
+  },
+  {
+    "source": "jetbrains-ai",
+    "target": "github-copilot",
+    "type": "competes-with"
+  },
+  {
+    "source": "jetbrains-ai",
+    "target": "tabnine",
+    "type": "competes-with"
+  },
+  {
+    "source": "devin",
+    "target": "cursor",
+    "type": "competes-with"
+  },
+  {
+    "source": "devin",
+    "target": "openhands",
+    "type": "competes-with"
+  },
+  {
+    "source": "devin",
+    "target": "claude-code",
+    "type": "competes-with"
+  },
   {
     "source": "openhands",
     "target": "e2b",
@@ -220,13 +292,41 @@
     "how": "OpenHands opens PRs after completing autonomous tasks; CodeRabbit reviews them automatically before any human sees them.",
     "achieves": "A fully autonomous dev loop — OpenHands writes and submits, CodeRabbit reviews, humans only approve."
   },
-  { "source": "openhands", "target": "devin", "type": "competes-with" },
-  { "source": "lovable", "target": "bolt-new", "type": "competes-with" },
-  { "source": "lovable", "target": "v0", "type": "competes-with" },
-  { "source": "lovable", "target": "devin", "type": "competes-with" },
-  { "source": "gpt-pilot", "target": "openhands", "type": "competes-with" },
-  { "source": "gpt-pilot", "target": "devin", "type": "competes-with" },
-  { "source": "plandex", "target": "aider", "type": "competes-with" },
+  {
+    "source": "openhands",
+    "target": "devin",
+    "type": "competes-with"
+  },
+  {
+    "source": "lovable",
+    "target": "bolt-new",
+    "type": "competes-with"
+  },
+  {
+    "source": "lovable",
+    "target": "v0",
+    "type": "competes-with"
+  },
+  {
+    "source": "lovable",
+    "target": "devin",
+    "type": "competes-with"
+  },
+  {
+    "source": "gpt-pilot",
+    "target": "openhands",
+    "type": "competes-with"
+  },
+  {
+    "source": "gpt-pilot",
+    "target": "devin",
+    "type": "competes-with"
+  },
+  {
+    "source": "plandex",
+    "target": "aider",
+    "type": "competes-with"
+  },
   {
     "source": "plandex",
     "target": "litellm",
@@ -241,8 +341,16 @@
     "how": "Goose is a full MCP client — it discovers and connects to MCP servers at startup, exposing their tools in every local agent session.",
     "achieves": "An open-source local agent with the same MCP tool reach as Cursor and Claude Code — entirely self-hosted."
   },
-  { "source": "goose", "target": "claude-code", "type": "competes-with" },
-  { "source": "crewai", "target": "autogen", "type": "competes-with" },
+  {
+    "source": "goose",
+    "target": "claude-code",
+    "type": "competes-with"
+  },
+  {
+    "source": "crewai",
+    "target": "autogen",
+    "type": "competes-with"
+  },
   {
     "source": "crewai",
     "target": "langchain",
@@ -264,7 +372,11 @@
     "how": "CrewAI routes LLM calls through LiteLLM, making any model accessible to any agent in the crew via a unified API.",
     "achieves": "Mix models across agents in the same crew — one agent on Claude, another on GPT-4o — through one LiteLLM config change."
   },
-  { "source": "crewai", "target": "langgraph", "type": "competes-with" },
+  {
+    "source": "crewai",
+    "target": "langgraph",
+    "type": "competes-with"
+  },
   {
     "source": "crewai",
     "target": "openai-api",
@@ -384,7 +496,11 @@
     "how": "LangGraph triggers Sweep AI for automated fix tasks via its GitHub integration — Sweep handles small, well-scoped code changes as a graph node.",
     "achieves": "Automated issue-to-PR pipeline: LangGraph triages and routes, Sweep generates the fix, the graph waits for review."
   },
-  { "source": "semantic-kernel", "target": "langchain", "type": "competes-with" },
+  {
+    "source": "semantic-kernel",
+    "target": "langchain",
+    "type": "competes-with"
+  },
   {
     "source": "semantic-kernel",
     "target": "litellm",
@@ -567,8 +683,16 @@
     "how": "DSPy routes its compilation and inference calls through LiteLLM, enabling multi-provider optimization runs.",
     "achieves": "Model-agnostic DSPy compilation — optimize prompts across Claude, GPT-4o, and open models in one run to find the best-performing variant."
   },
-  { "source": "haystack", "target": "langchain", "type": "competes-with" },
-  { "source": "haystack", "target": "llamaindex", "type": "competes-with" },
+  {
+    "source": "haystack",
+    "target": "langchain",
+    "type": "competes-with"
+  },
+  {
+    "source": "haystack",
+    "target": "llamaindex",
+    "type": "competes-with"
+  },
   {
     "source": "haystack",
     "target": "qdrant",
@@ -590,7 +714,11 @@
     "how": "Flowise is a visual no-code builder that generates and runs LangChain pipelines under the hood.",
     "achieves": "LangChain-powered AI workflows built visually — accessible to non-engineers, exportable to LangChain code if needed."
   },
-  { "source": "flowise", "target": "dify", "type": "competes-with" },
+  {
+    "source": "flowise",
+    "target": "dify",
+    "type": "competes-with"
+  },
   {
     "source": "langflow",
     "target": "langchain",
@@ -598,7 +726,11 @@
     "how": "Langflow is a visual IDE for LangChain — drag-and-drop chains compile and execute as LangChain runnables.",
     "achieves": "Visual LangChain prototyping with full code export — explore pipeline architectures without writing chain boilerplate."
   },
-  { "source": "langflow", "target": "flowise", "type": "competes-with" },
+  {
+    "source": "langflow",
+    "target": "flowise",
+    "type": "competes-with"
+  },
   {
     "source": "dify",
     "target": "langfuse",
@@ -739,8 +871,16 @@
     "how": "Agno sends traces to Langfuse via its built-in OpenTelemetry integration.",
     "achieves": "Full observability on Agno agent runs — multi-step traces with per-step cost and latency breakdown."
   },
-  { "source": "litellm", "target": "openrouter", "type": "competes-with" },
-  { "source": "litellm", "target": "portkey", "type": "competes-with" },
+  {
+    "source": "litellm",
+    "target": "openrouter",
+    "type": "competes-with"
+  },
+  {
+    "source": "litellm",
+    "target": "portkey",
+    "type": "competes-with"
+  },
   {
     "source": "litellm",
     "target": "langfuse",
@@ -846,7 +986,11 @@
     "how": "Portkey proxies Anthropic's API with the same gateway features — caching, retries, and automatic fallbacks.",
     "achieves": "Reliable Claude API calls with gateway-level resilience and prompt caching at the proxy layer."
   },
-  { "source": "portkey", "target": "litellm", "type": "competes-with" },
+  {
+    "source": "portkey",
+    "target": "litellm",
+    "type": "competes-with"
+  },
   {
     "source": "portkey",
     "target": "langchain",
@@ -854,7 +998,11 @@
     "how": "Portkey provides a LangChain-compatible wrapper that routes all model calls through its gateway.",
     "achieves": "Caching, retries, and fallbacks for any LangChain chain without changing chain code — reliability added at the gateway."
   },
-  { "source": "langfuse", "target": "langsmith", "type": "competes-with" },
+  {
+    "source": "langfuse",
+    "target": "langsmith",
+    "type": "competes-with"
+  },
   {
     "source": "langfuse",
     "target": "langchain",
@@ -876,7 +1024,11 @@
     "how": "DeepEval sends evaluation results to Langfuse as trace scores via its Langfuse integration.",
     "achieves": "Quality metrics — faithfulness, hallucination rate, G-Eval scores — visible alongside the raw traces that produced them."
   },
-  { "source": "langfuse", "target": "helicone", "type": "competes-with" },
+  {
+    "source": "langfuse",
+    "target": "helicone",
+    "type": "competes-with"
+  },
   {
     "source": "langfuse",
     "target": "openai-api",
@@ -898,8 +1050,16 @@
     "how": "Langfuse traces are exported as datasets to Braintrust, where they become versioned experiment inputs for systematic eval tracking.",
     "achieves": "Production traces feed directly into structured experiments — Langfuse captures what happened, Braintrust measures whether it was good."
   },
-  { "source": "langsmith", "target": "helicone", "type": "competes-with" },
-  { "source": "helicone", "target": "arize-phoenix", "type": "competes-with" },
+  {
+    "source": "langsmith",
+    "target": "helicone",
+    "type": "competes-with"
+  },
+  {
+    "source": "helicone",
+    "target": "arize-phoenix",
+    "type": "competes-with"
+  },
   {
     "source": "helicone",
     "target": "openai-api",
@@ -921,9 +1081,21 @@
     "how": "Helicone sits in front of LiteLLM as a proxy layer, logging all requests before they reach LiteLLM's routing logic.",
     "achieves": "Request-level logging and caching on top of LiteLLM's multi-provider routing — Helicone sees every request, LiteLLM routes it."
   },
-  { "source": "arize-phoenix", "target": "langfuse", "type": "competes-with" },
-  { "source": "braintrust", "target": "langfuse", "type": "competes-with" },
-  { "source": "braintrust", "target": "langsmith", "type": "competes-with" },
+  {
+    "source": "arize-phoenix",
+    "target": "langfuse",
+    "type": "competes-with"
+  },
+  {
+    "source": "braintrust",
+    "target": "langfuse",
+    "type": "competes-with"
+  },
+  {
+    "source": "braintrust",
+    "target": "langsmith",
+    "type": "competes-with"
+  },
   {
     "source": "ollama",
     "target": "continue",
@@ -931,7 +1103,11 @@
     "how": "Continue's model config accepts Ollama's local API endpoint — any model in Ollama appears as a provider in Continue's completions and chat.",
     "achieves": "Local AI pair programming in VS Code with Continue, using any Ollama model — zero cloud dependency or API costs."
   },
-  { "source": "ollama", "target": "vllm", "type": "competes-with" },
+  {
+    "source": "ollama",
+    "target": "vllm",
+    "type": "competes-with"
+  },
   {
     "source": "ollama",
     "target": "llama-cpp",
@@ -939,7 +1115,11 @@
     "how": "Ollama uses llama.cpp under the hood for model execution — they serve the same role at different abstraction levels.",
     "achieves": "Full understanding of the local inference stack: Ollama for developer convenience, llama.cpp for custom quantization and fine-tuning control."
   },
-  { "source": "vllm", "target": "together-ai", "type": "competes-with" },
+  {
+    "source": "vllm",
+    "target": "together-ai",
+    "type": "competes-with"
+  },
   {
     "source": "vllm",
     "target": "llamaindex",
@@ -947,9 +1127,21 @@
     "how": "LlamaIndex connects to a vLLM-hosted endpoint via its OpenAI-compatible API, treating self-hosted vLLM as a generation provider.",
     "achieves": "LlamaIndex RAG pipelines backed by self-hosted GPU inference — enterprise-grade retrieval and generation with full data residency."
   },
-  { "source": "groq", "target": "together-ai", "type": "competes-with" },
-  { "source": "groq", "target": "fireworks-ai", "type": "competes-with" },
-  { "source": "together-ai", "target": "fireworks-ai", "type": "competes-with" },
+  {
+    "source": "groq",
+    "target": "together-ai",
+    "type": "competes-with"
+  },
+  {
+    "source": "groq",
+    "target": "fireworks-ai",
+    "type": "competes-with"
+  },
+  {
+    "source": "together-ai",
+    "target": "fireworks-ai",
+    "type": "competes-with"
+  },
   {
     "source": "modal",
     "target": "vllm",
@@ -957,14 +1149,46 @@
     "how": "vLLM is deployed on Modal's serverless GPU infrastructure — Modal handles provisioning and scaling, vLLM handles inference serving.",
     "achieves": "Production vLLM inference without managing GPU servers — Modal scales to zero when idle, spins up instantly under load."
   },
-  { "source": "openai-api", "target": "anthropic-api", "type": "competes-with" },
-  { "source": "openai-api", "target": "mistral-api", "type": "competes-with" },
-  { "source": "openai-api", "target": "cohere-api", "type": "competes-with" },
-  { "source": "openai-api", "target": "groq", "type": "competes-with" },
-  { "source": "openai-api", "target": "together-ai", "type": "competes-with" },
-  { "source": "anthropic-api", "target": "openai-api", "type": "competes-with" },
-  { "source": "anthropic-api", "target": "mistral-api", "type": "competes-with" },
-  { "source": "mistral-api", "target": "cohere-api", "type": "competes-with" },
+  {
+    "source": "openai-api",
+    "target": "anthropic-api",
+    "type": "competes-with"
+  },
+  {
+    "source": "openai-api",
+    "target": "mistral-api",
+    "type": "competes-with"
+  },
+  {
+    "source": "openai-api",
+    "target": "cohere-api",
+    "type": "competes-with"
+  },
+  {
+    "source": "openai-api",
+    "target": "groq",
+    "type": "competes-with"
+  },
+  {
+    "source": "openai-api",
+    "target": "together-ai",
+    "type": "competes-with"
+  },
+  {
+    "source": "anthropic-api",
+    "target": "openai-api",
+    "type": "competes-with"
+  },
+  {
+    "source": "anthropic-api",
+    "target": "mistral-api",
+    "type": "competes-with"
+  },
+  {
+    "source": "mistral-api",
+    "target": "cohere-api",
+    "type": "competes-with"
+  },
   {
     "source": "vercel-ai-sdk",
     "target": "openai-api",
@@ -1007,21 +1231,81 @@
     "how": "Apps built with the Vercel AI SDK call Qdrant directly for retrieval in RAG endpoints, fetching context before passing it to the SDK's generate function.",
     "achieves": "Semantic retrieval in Vercel AI SDK streaming endpoints — context from Qdrant enriches every generation without breaking streaming."
   },
-  { "source": "huggingface", "target": "replicate", "type": "competes-with" },
-  { "source": "huggingface", "target": "together-ai", "type": "competes-with" },
-  { "source": "qdrant", "target": "chroma", "type": "competes-with" },
-  { "source": "qdrant", "target": "pinecone", "type": "competes-with" },
-  { "source": "qdrant", "target": "pgvector", "type": "competes-with" },
-  { "source": "qdrant", "target": "weaviate", "type": "competes-with" },
-  { "source": "qdrant", "target": "milvus", "type": "competes-with" },
-  { "source": "weaviate", "target": "milvus", "type": "competes-with" },
-  { "source": "weaviate", "target": "pinecone", "type": "competes-with" },
-  { "source": "milvus", "target": "pgvector", "type": "competes-with" },
-  { "source": "pinecone", "target": "weaviate", "type": "competes-with" },
-  { "source": "pinecone", "target": "qdrant", "type": "competes-with" },
-  { "source": "pinecone", "target": "milvus", "type": "competes-with" },
-  { "source": "pinecone", "target": "chroma", "type": "competes-with" },
-  { "source": "pinecone", "target": "pgvector", "type": "competes-with" },
+  {
+    "source": "huggingface",
+    "target": "replicate",
+    "type": "competes-with"
+  },
+  {
+    "source": "huggingface",
+    "target": "together-ai",
+    "type": "competes-with"
+  },
+  {
+    "source": "qdrant",
+    "target": "chroma",
+    "type": "competes-with"
+  },
+  {
+    "source": "qdrant",
+    "target": "pinecone",
+    "type": "competes-with"
+  },
+  {
+    "source": "qdrant",
+    "target": "pgvector",
+    "type": "competes-with"
+  },
+  {
+    "source": "qdrant",
+    "target": "weaviate",
+    "type": "competes-with"
+  },
+  {
+    "source": "qdrant",
+    "target": "milvus",
+    "type": "competes-with"
+  },
+  {
+    "source": "weaviate",
+    "target": "milvus",
+    "type": "competes-with"
+  },
+  {
+    "source": "weaviate",
+    "target": "pinecone",
+    "type": "competes-with"
+  },
+  {
+    "source": "milvus",
+    "target": "pgvector",
+    "type": "competes-with"
+  },
+  {
+    "source": "pinecone",
+    "target": "weaviate",
+    "type": "competes-with"
+  },
+  {
+    "source": "pinecone",
+    "target": "qdrant",
+    "type": "competes-with"
+  },
+  {
+    "source": "pinecone",
+    "target": "milvus",
+    "type": "competes-with"
+  },
+  {
+    "source": "pinecone",
+    "target": "chroma",
+    "type": "competes-with"
+  },
+  {
+    "source": "pinecone",
+    "target": "pgvector",
+    "type": "competes-with"
+  },
   {
     "source": "v0",
     "target": "cursor",
@@ -1029,11 +1313,31 @@
     "how": "v0 generates React/Tailwind components from prompts, which are directly pasted into Cursor for editing, refining, and wiring into the full app.",
     "achieves": "Skip UI boilerplate entirely — generate the component in v0, refine it with Cursor's AI, ship without writing from scratch."
   },
-  { "source": "v0", "target": "locofy", "type": "competes-with" },
-  { "source": "v0", "target": "galileo", "type": "competes-with" },
-  { "source": "v0", "target": "framer-ai", "type": "competes-with" },
-  { "source": "v0", "target": "bolt-new", "type": "competes-with" },
-  { "source": "locofy", "target": "builder-io", "type": "competes-with" },
+  {
+    "source": "v0",
+    "target": "locofy",
+    "type": "competes-with"
+  },
+  {
+    "source": "v0",
+    "target": "galileo",
+    "type": "competes-with"
+  },
+  {
+    "source": "v0",
+    "target": "framer-ai",
+    "type": "competes-with"
+  },
+  {
+    "source": "v0",
+    "target": "bolt-new",
+    "type": "competes-with"
+  },
+  {
+    "source": "locofy",
+    "target": "builder-io",
+    "type": "competes-with"
+  },
   {
     "source": "locofy",
     "target": "cursor",
@@ -1041,18 +1345,66 @@
     "how": "Locofy converts Figma designs to React/Vue code, which engineers then import into Cursor to refine, extend, and wire into the application.",
     "achieves": "Design-to-production in one flow: Locofy closes the Figma gap, Cursor handles the engineering refinement — no manual translation."
   },
-  { "source": "framer-ai", "target": "builder-io", "type": "competes-with" },
-  { "source": "framer-ai", "target": "webflow-ai", "type": "competes-with" },
-  { "source": "webflow-ai", "target": "framer-ai", "type": "competes-with" },
-  { "source": "anima", "target": "locofy", "type": "competes-with" },
-  { "source": "anima", "target": "kombai", "type": "competes-with" },
-  { "source": "kombai", "target": "locofy", "type": "competes-with" },
-  { "source": "uizard", "target": "galileo", "type": "competes-with" },
-  { "source": "google-stitch", "target": "v0", "type": "competes-with" },
-  { "source": "google-stitch", "target": "locofy", "type": "competes-with" },
-  { "source": "google-stitch", "target": "anima", "type": "competes-with" },
-  { "source": "google-stitch", "target": "kombai", "type": "competes-with" },
-  { "source": "google-stitch", "target": "galileo", "type": "competes-with" },
+  {
+    "source": "framer-ai",
+    "target": "builder-io",
+    "type": "competes-with"
+  },
+  {
+    "source": "framer-ai",
+    "target": "webflow-ai",
+    "type": "competes-with"
+  },
+  {
+    "source": "webflow-ai",
+    "target": "framer-ai",
+    "type": "competes-with"
+  },
+  {
+    "source": "anima",
+    "target": "locofy",
+    "type": "competes-with"
+  },
+  {
+    "source": "anima",
+    "target": "kombai",
+    "type": "competes-with"
+  },
+  {
+    "source": "kombai",
+    "target": "locofy",
+    "type": "competes-with"
+  },
+  {
+    "source": "uizard",
+    "target": "galileo",
+    "type": "competes-with"
+  },
+  {
+    "source": "google-stitch",
+    "target": "v0",
+    "type": "competes-with"
+  },
+  {
+    "source": "google-stitch",
+    "target": "locofy",
+    "type": "competes-with"
+  },
+  {
+    "source": "google-stitch",
+    "target": "anima",
+    "type": "competes-with"
+  },
+  {
+    "source": "google-stitch",
+    "target": "kombai",
+    "type": "competes-with"
+  },
+  {
+    "source": "google-stitch",
+    "target": "galileo",
+    "type": "competes-with"
+  },
   {
     "source": "google-stitch",
     "target": "cursor",
@@ -1067,7 +1419,11 @@
     "how": "Sweep creates automated fix PRs for GitHub issues; CodeRabbit reviews those PRs immediately after they're opened.",
     "achieves": "Fully automated issue-to-reviewed-PR pipeline — Sweep writes the fix, CodeRabbit reviews it, humans only approve."
   },
-  { "source": "coderabbit", "target": "qodo", "type": "competes-with" },
+  {
+    "source": "coderabbit",
+    "target": "qodo",
+    "type": "competes-with"
+  },
   {
     "source": "coderabbit",
     "target": "graphite",
@@ -1075,7 +1431,11 @@
     "how": "Graphite manages PR stacking and merge queues; CodeRabbit reviews each PR in the stack before it advances.",
     "achieves": "High-velocity PR stacking with AI review on every layer — Graphite handles the merge logistics, CodeRabbit ensures quality."
   },
-  { "source": "sourcery", "target": "coderabbit", "type": "competes-with" },
+  {
+    "source": "sourcery",
+    "target": "coderabbit",
+    "type": "competes-with"
+  },
   {
     "source": "grit-io",
     "target": "sourcery",
@@ -1083,9 +1443,21 @@
     "how": "Grit.io handles automated large-scale codebase migrations and refactors; Sourcery reviews the resulting code for quality.",
     "achieves": "Automated refactoring at scale with quality review — Grit makes the structural changes, Sourcery checks the output."
   },
-  { "source": "grit-io", "target": "codegen", "type": "competes-with" },
-  { "source": "codegen", "target": "grit-io", "type": "competes-with" },
-  { "source": "trunk", "target": "graphite", "type": "competes-with" },
+  {
+    "source": "grit-io",
+    "target": "codegen",
+    "type": "competes-with"
+  },
+  {
+    "source": "codegen",
+    "target": "grit-io",
+    "type": "competes-with"
+  },
+  {
+    "source": "trunk",
+    "target": "graphite",
+    "type": "competes-with"
+  },
   {
     "source": "pixee",
     "target": "qodo",
@@ -1184,7 +1556,11 @@
     "how": "Claude Code connects to GitHub MCP to read repo state, reference issues, and open PRs as part of autonomous coding tasks.",
     "achieves": "Full GitHub workflow automation from within Claude Code — read, implement, commit, and create a reviewed PR without leaving the terminal."
   },
-  { "source": "ragas", "target": "deepeval", "type": "competes-with" },
+  {
+    "source": "ragas",
+    "target": "deepeval",
+    "type": "competes-with"
+  },
   {
     "source": "promptfoo",
     "target": "deepeval",
@@ -1206,14 +1582,46 @@
     "how": "DeepEval uses OpenAI's API as the judge model to score generated outputs on metrics like faithfulness, relevance, and hallucination rate.",
     "achieves": "LLM-as-judge quality metrics powered by GPT-4o — structured, reproducible evaluation scores for any AI output."
   },
-  { "source": "vellum", "target": "promptfoo", "type": "competes-with" },
-  { "source": "promptlayer", "target": "langfuse", "type": "competes-with" },
-  { "source": "agenta", "target": "langfuse", "type": "competes-with" },
-  { "source": "agenta", "target": "promptfoo", "type": "competes-with" },
-  { "source": "weights-biases", "target": "langfuse", "type": "competes-with" },
-  { "source": "weights-biases", "target": "langsmith", "type": "competes-with" },
-  { "source": "traceloop", "target": "langfuse", "type": "competes-with" },
-  { "source": "traceloop", "target": "helicone", "type": "competes-with" },
+  {
+    "source": "vellum",
+    "target": "promptfoo",
+    "type": "competes-with"
+  },
+  {
+    "source": "promptlayer",
+    "target": "langfuse",
+    "type": "competes-with"
+  },
+  {
+    "source": "agenta",
+    "target": "langfuse",
+    "type": "competes-with"
+  },
+  {
+    "source": "agenta",
+    "target": "promptfoo",
+    "type": "competes-with"
+  },
+  {
+    "source": "weights-biases",
+    "target": "langfuse",
+    "type": "competes-with"
+  },
+  {
+    "source": "weights-biases",
+    "target": "langsmith",
+    "type": "competes-with"
+  },
+  {
+    "source": "traceloop",
+    "target": "langfuse",
+    "type": "competes-with"
+  },
+  {
+    "source": "traceloop",
+    "target": "helicone",
+    "type": "competes-with"
+  },
   {
     "source": "notion-ai",
     "target": "linear-ai",
@@ -1221,14 +1629,41 @@
     "how": "Linear tracks engineering tasks and sprints; Notion AI captures specs, docs, and research — teams use both for different knowledge layers.",
     "achieves": "Structured project management in Linear backed by richer, AI-searchable documentation and context in Notion."
   },
-  { "source": "height-ai", "target": "linear-ai", "type": "competes-with" },
-  { "source": "cycle", "target": "kraftful", "type": "competes-with" },
-  { "source": "mintlify", "target": "swimm", "type": "competes-with" },
-  { "source": "mintlify", "target": "gitbook-ai", "type": "competes-with" },
-  { "source": "gitbook-ai", "target": "notion-ai", "type": "competes-with" },
-  { "source": "logfire", "target": "langfuse", "type": "competes-with" },
-  { "source": "logfire", "target": "helicone", "type": "competes-with" },
-
+  {
+    "source": "height-ai",
+    "target": "linear-ai",
+    "type": "competes-with"
+  },
+  {
+    "source": "cycle",
+    "target": "kraftful",
+    "type": "competes-with"
+  },
+  {
+    "source": "mintlify",
+    "target": "swimm",
+    "type": "competes-with"
+  },
+  {
+    "source": "mintlify",
+    "target": "gitbook-ai",
+    "type": "competes-with"
+  },
+  {
+    "source": "gitbook-ai",
+    "target": "notion-ai",
+    "type": "competes-with"
+  },
+  {
+    "source": "logfire",
+    "target": "langfuse",
+    "type": "competes-with"
+  },
+  {
+    "source": "logfire",
+    "target": "helicone",
+    "type": "competes-with"
+  },
   {
     "source": "spec-kit",
     "target": "claude-code",
@@ -1264,8 +1699,16 @@
     "how": "Spec Kit's context files are loaded into Cursor's project context, steering AI completions and agent tasks toward spec-defined outcomes.",
     "achieves": "Cursor code suggestions constrained by the defined architecture — less guesswork, more spec-consistent output."
   },
-  { "source": "mermaid", "target": "structurizr", "type": "competes-with" },
-  { "source": "mermaid", "target": "eraser", "type": "competes-with" },
+  {
+    "source": "mermaid",
+    "target": "structurizr",
+    "type": "competes-with"
+  },
+  {
+    "source": "mermaid",
+    "target": "eraser",
+    "type": "competes-with"
+  },
   {
     "source": "mermaid",
     "target": "notion-ai",
@@ -1280,7 +1723,11 @@
     "how": "Swimm embeds Mermaid diagrams in its code-coupled docs, keeping architecture visuals synchronized with the codebase.",
     "achieves": "Code docs that include always-current architecture diagrams — Swimm handles the code coupling, Mermaid handles the visuals."
   },
-  { "source": "eraser", "target": "structurizr", "type": "competes-with" },
+  {
+    "source": "eraser",
+    "target": "structurizr",
+    "type": "competes-with"
+  },
   {
     "source": "eraser",
     "target": "cursor",
@@ -1309,8 +1756,16 @@
     "how": "Structurizr's architecture diagrams are embedded in Mintlify docs pages as reference material for API and system documentation.",
     "achieves": "API docs enriched with architecture context — Mintlify handles the public-facing docs, Structurizr provides the system diagrams."
   },
-  { "source": "swagger", "target": "redocly", "type": "competes-with" },
-  { "source": "swagger", "target": "stoplight", "type": "competes-with" },
+  {
+    "source": "swagger",
+    "target": "redocly",
+    "type": "competes-with"
+  },
+  {
+    "source": "swagger",
+    "target": "stoplight",
+    "type": "competes-with"
+  },
   {
     "source": "swagger",
     "target": "speakeasy",
@@ -1353,8 +1808,16 @@
     "how": "Cursor imports OpenAPI/Swagger spec files as project context, using the defined endpoints, types, and schemas to guide code generation.",
     "achieves": "Spec-aware code generation in Cursor — AI completions respect the actual API contract instead of guessing the interface."
   },
-  { "source": "redocly", "target": "stoplight", "type": "competes-with" },
-  { "source": "redocly", "target": "mintlify", "type": "competes-with" },
+  {
+    "source": "redocly",
+    "target": "stoplight",
+    "type": "competes-with"
+  },
+  {
+    "source": "redocly",
+    "target": "mintlify",
+    "type": "competes-with"
+  },
   {
     "source": "redocly",
     "target": "speakeasy",
@@ -1397,9 +1860,21 @@
     "how": "Fern reads OpenAPI specs from Stoplight, generating SDKs from specs that have been visually authored and validated.",
     "achieves": "Visual API design in Stoplight feeds directly into Fern's SDK generation pipeline — design once, generate everywhere."
   },
-  { "source": "speakeasy", "target": "fern", "type": "competes-with" },
-  { "source": "speakeasy", "target": "stainless", "type": "competes-with" },
-  { "source": "speakeasy", "target": "openapi-generator", "type": "competes-with" },
+  {
+    "source": "speakeasy",
+    "target": "fern",
+    "type": "competes-with"
+  },
+  {
+    "source": "speakeasy",
+    "target": "stainless",
+    "type": "competes-with"
+  },
+  {
+    "source": "speakeasy",
+    "target": "openapi-generator",
+    "type": "competes-with"
+  },
   {
     "source": "speakeasy",
     "target": "mcp-sdk-ts",
@@ -1414,8 +1889,16 @@
     "how": "Speakeasy generates Python MCP server wrappers from OpenAPI specs using the Python MCP SDK under the hood.",
     "achieves": "Python-based MCP servers generated from existing API specs — instant MCP access to any Python-friendly REST API."
   },
-  { "source": "fern", "target": "stainless", "type": "competes-with" },
-  { "source": "fern", "target": "openapi-generator", "type": "competes-with" },
+  {
+    "source": "fern",
+    "target": "stainless",
+    "type": "competes-with"
+  },
+  {
+    "source": "fern",
+    "target": "openapi-generator",
+    "type": "competes-with"
+  },
   {
     "source": "fern",
     "target": "mintlify",
@@ -1423,7 +1906,11 @@
     "how": "Fern generates API reference docs and sends them to Mintlify for rendering as a polished public documentation site.",
     "achieves": "Beautiful API docs generated directly from Fern's SDK generation pipeline — code and docs generate together from the same spec."
   },
-  { "source": "stainless", "target": "openapi-generator", "type": "competes-with" },
+  {
+    "source": "stainless",
+    "target": "openapi-generator",
+    "type": "competes-with"
+  },
   {
     "source": "stainless",
     "target": "anthropic-api",
@@ -1437,5 +1924,322 @@
     "type": "commonly-paired",
     "how": "Stainless generates the official OpenAI SDK — the openai Python and TypeScript packages are built with Stainless.",
     "achieves": "The same SDK quality as OpenAI's official libraries — Stainless generates polished, reliable SDKs with retry logic and pagination."
+  },
+  {
+    "source": "google-adk",
+    "target": "google-gemini-api",
+    "type": "integrates-with",
+    "how": "ADK is Google's native framework for building agents powered by Gemini models via the Gemini API.",
+    "achieves": "First-party integration with optimal latency and access to all Gemini capabilities."
+  },
+  {
+    "source": "google-adk",
+    "target": "langgraph",
+    "type": "competes-with"
+  },
+  {
+    "source": "letta",
+    "target": "langgraph",
+    "type": "competes-with"
+  },
+  {
+    "source": "letta",
+    "target": "openai-api",
+    "type": "integrates-with",
+    "how": "Letta agents use OpenAI models as their reasoning core, extended with Letta's persistent memory layer.",
+    "achieves": "Long-running stateful agents that remember context across sessions without context window limits."
+  },
+  {
+    "source": "controlflow",
+    "target": "langgraph",
+    "type": "competes-with"
+  },
+  {
+    "source": "bee-agent",
+    "target": "langchain",
+    "type": "commonly-paired",
+    "how": "Bee Agent Framework can consume LangChain tools and integrations, extending its tool ecosystem.",
+    "achieves": "Access to LangChain's broad tool library within IBM's structured TypeScript agent framework."
+  },
+  {
+    "source": "griptape",
+    "target": "langchain",
+    "type": "competes-with"
+  },
+  {
+    "source": "rivet",
+    "target": "flowise",
+    "type": "competes-with"
+  },
+  {
+    "source": "rivet",
+    "target": "langflow",
+    "type": "competes-with"
+  },
+  {
+    "source": "taskweaver",
+    "target": "langgraph",
+    "type": "competes-with"
+  },
+  {
+    "source": "not-diamond",
+    "target": "litellm",
+    "type": "integrates-with",
+    "how": "Not Diamond can be layered over LiteLLM, adding intelligent task-based routing on top of LiteLLM's unified provider API.",
+    "achieves": "Best-of-both: LiteLLM's provider coverage with Not Diamond's quality-driven routing."
+  },
+  {
+    "source": "martian",
+    "target": "litellm",
+    "type": "competes-with"
+  },
+  {
+    "source": "unify-ai",
+    "target": "openrouter",
+    "type": "competes-with"
+  },
+  {
+    "source": "cerebras",
+    "target": "groq",
+    "type": "competes-with"
+  },
+  {
+    "source": "deepinfra",
+    "target": "together-ai",
+    "type": "competes-with"
+  },
+  {
+    "source": "deepinfra",
+    "target": "fireworks-ai",
+    "type": "competes-with"
+  },
+  {
+    "source": "google-gemini-api",
+    "target": "openai-api",
+    "type": "competes-with"
+  },
+  {
+    "source": "google-gemini-api",
+    "target": "anthropic-api",
+    "type": "competes-with"
+  },
+  {
+    "source": "amazon-bedrock",
+    "target": "azure-openai",
+    "type": "competes-with"
+  },
+  {
+    "source": "amazon-bedrock",
+    "target": "anthropic-api",
+    "type": "integrates-with",
+    "how": "Bedrock hosts Claude models within AWS, giving enterprises access to Anthropic's API inside their AWS account.",
+    "achieves": "Claude's capabilities with AWS-native security, compliance, and VPC isolation."
+  },
+  {
+    "source": "azure-openai",
+    "target": "openai-api",
+    "type": "integrates-with",
+    "how": "Azure OpenAI hosts OpenAI's models in Microsoft's data centers, accessible via the same OpenAI SDK.",
+    "achieves": "OpenAI model access with enterprise compliance, data residency, and Azure AD integration."
+  },
+  {
+    "source": "deepseek-api",
+    "target": "openai-api",
+    "type": "competes-with"
+  },
+  {
+    "source": "deepseek-api",
+    "target": "anthropic-api",
+    "type": "competes-with"
+  },
+  {
+    "source": "xai-grok",
+    "target": "openai-api",
+    "type": "competes-with"
+  },
+  {
+    "source": "lancedb",
+    "target": "chroma",
+    "type": "competes-with"
+  },
+  {
+    "source": "turbopuffer",
+    "target": "pinecone",
+    "type": "competes-with"
+  },
+  {
+    "source": "redis-vector",
+    "target": "pgvector",
+    "type": "competes-with"
+  },
+  {
+    "source": "redis-vector",
+    "target": "qdrant",
+    "type": "competes-with"
+  },
+  {
+    "source": "opik",
+    "target": "langfuse",
+    "type": "competes-with"
+  },
+  {
+    "source": "agentops",
+    "target": "langsmith",
+    "type": "competes-with"
+  },
+  {
+    "source": "mlflow",
+    "target": "langfuse",
+    "type": "competes-with"
+  },
+  {
+    "source": "agentops",
+    "target": "langfuse",
+    "type": "competes-with"
+  },
+  {
+    "source": "trulens",
+    "target": "ragas",
+    "type": "competes-with"
+  },
+  {
+    "source": "trulens",
+    "target": "deepeval",
+    "type": "competes-with"
+  },
+  {
+    "source": "humanloop",
+    "target": "vellum",
+    "type": "competes-with"
+  },
+  {
+    "source": "humanloop",
+    "target": "promptlayer",
+    "type": "competes-with"
+  },
+  {
+    "source": "inspect-ai",
+    "target": "deepeval",
+    "type": "competes-with"
+  },
+  {
+    "source": "codex-cli",
+    "target": "claude-code",
+    "type": "competes-with"
+  },
+  {
+    "source": "amp",
+    "target": "claude-code",
+    "type": "competes-with"
+  },
+  {
+    "source": "kodu-ai",
+    "target": "cline",
+    "type": "competes-with"
+  },
+  {
+    "source": "codex-cli",
+    "target": "aider",
+    "type": "competes-with"
+  },
+  {
+    "source": "factory-ai",
+    "target": "devin",
+    "type": "competes-with"
+  },
+  {
+    "source": "github-copilot-workspace",
+    "target": "devin",
+    "type": "competes-with"
+  },
+  {
+    "source": "replit-agent",
+    "target": "lovable",
+    "type": "competes-with"
+  },
+  {
+    "source": "replit-agent",
+    "target": "bolt-new",
+    "type": "competes-with"
+  },
+  {
+    "source": "desktop-commander",
+    "target": "e2b",
+    "type": "competes-with"
+  },
+  {
+    "source": "sentry-mcp",
+    "target": "github-mcp",
+    "type": "commonly-paired",
+    "how": "Sentry MCP provides error context while GitHub MCP provides code context — together they give agents full incident-to-PR visibility.",
+    "achieves": "AI agents that can find the bug in the error, locate it in the code, and create a fix PR automatically."
+  },
+  {
+    "source": "snyk",
+    "target": "semgrep",
+    "type": "commonly-paired",
+    "how": "Snyk handles dependency and container security while Semgrep covers custom code pattern detection — complementary layers of the security stack.",
+    "achieves": "Comprehensive security coverage: known CVEs in dependencies and custom vulnerabilities in application code."
+  },
+  {
+    "source": "sonarqube",
+    "target": "snyk",
+    "type": "commonly-paired",
+    "how": "SonarQube handles code quality and technical debt while Snyk focuses on security vulnerabilities — used together they cover both quality and security.",
+    "achieves": "Full code health coverage: clean code quality metrics from SonarQube plus vulnerability scanning from Snyk."
+  },
+  {
+    "source": "semgrep",
+    "target": "sonarqube",
+    "type": "competes-with"
+  },
+  {
+    "source": "confluence-ai",
+    "target": "notion-ai",
+    "type": "competes-with"
+  },
+  {
+    "source": "archbee",
+    "target": "mintlify",
+    "type": "competes-with"
+  },
+  {
+    "source": "coda-ai",
+    "target": "notion-ai",
+    "type": "competes-with"
+  },
+  {
+    "source": "confluence-ai",
+    "target": "gitbook-ai",
+    "type": "competes-with"
+  },
+  {
+    "source": "jira-ai",
+    "target": "confluence-ai",
+    "type": "commonly-paired",
+    "how": "Jira AI manages tickets and sprints while Confluence AI handles the wiki and specs — Atlassian Intelligence connects both seamlessly.",
+    "achieves": "End-to-end AI assistance from product planning in Confluence to execution tracking in Jira."
+  },
+  {
+    "source": "productboard-ai",
+    "target": "linear-ai",
+    "type": "competes-with"
+  },
+  {
+    "source": "jira-ai",
+    "target": "linear-ai",
+    "type": "competes-with"
+  },
+  {
+    "source": "aha-ai",
+    "target": "productboard-ai",
+    "type": "competes-with"
+  },
+  {
+    "source": "grain",
+    "target": "linear-ai",
+    "type": "commonly-paired",
+    "how": "Grain captures and summarizes user interviews while Linear manages the resulting feature tickets and roadmap.",
+    "achieves": "Closed loop from user research to tracked feature work — customer insights directly linked to engineering tasks."
   }
 ]
