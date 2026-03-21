@@ -1,6 +1,7 @@
 COMPOSE = docker compose
+LOCAL_DB_URL = postgresql://postgres:postgres@db:5432/aichitect?sslmode=disable
 
-.PHONY: help run down restart build rebuild logs shell typecheck lint format check test sync-counts
+.PHONY: help run down restart build rebuild logs shell typecheck lint format check test sync-counts db-push db-push-local db-diff db-diff-local db-migrate db-pull db-reset-local
 
 help: ## Show this help
 	@awk 'BEGIN {FS = ":.*##"} /^[a-zA-Z_-]+:.*##/ { printf "  \033[36m%-12s\033[0m %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
@@ -46,3 +47,34 @@ check: lint typecheck test ## Run all checks (lint + typecheck + test)
 
 sync-counts: ## Sync tool/category/stack counts into README.md and CLAUDE.md
 	node scripts/sync-counts.mjs
+
+# ── Supabase / Database ───────────────────────────────────────────────────────
+# Local target  → applies migrations to the local Postgres container (db service)
+# Remote target → applies migrations to the hosted Supabase project
+#
+# Typical dev workflow:
+#   make db-push-local   # verify migrations work locally first
+#   make db-push         # promote to remote when satisfied
+
+db-push-local: ## Apply pending migrations to local Postgres container
+	$(COMPOSE) run --rm app npx supabase db push --db-url "$(LOCAL_DB_URL)"
+
+db-push: ## Apply pending migrations to remote Supabase project
+	$(COMPOSE) run --rm app sh -c 'npx supabase db push --db-url "$$POSTGRES_URL_NON_POOLING"'
+
+db-diff-local: ## Diff local migrations against local Postgres
+	$(COMPOSE) run --rm app npx supabase db diff --db-url "$(LOCAL_DB_URL)"
+
+db-diff: ## Diff local migrations against remote Supabase schema
+	$(COMPOSE) run --rm app sh -c 'npx supabase db diff --db-url "$$POSTGRES_URL_NON_POOLING"'
+
+db-migrate: ## Scaffold a new migration file: make db-migrate name=your_migration_name
+	@test -n "$(name)" || (echo "Usage: make db-migrate name=your_migration_name" && exit 1)
+	$(COMPOSE) run --rm app npx supabase migration new $(name)
+
+db-pull: ## Pull remote schema changes into a new local migration
+	$(COMPOSE) run --rm app sh -c 'npx supabase db pull --db-url "$$POSTGRES_URL_NON_POOLING"'
+
+db-reset-local: ## Wipe and re-apply all migrations on local Postgres (destructive)
+	$(COMPOSE) run --rm db psql -U postgres -c "DROP DATABASE IF EXISTS aichitect; CREATE DATABASE aichitect;"
+	$(MAKE) db-push-local

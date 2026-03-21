@@ -1,0 +1,11 @@
+# Supabase CLI project configuration.
+# Docs: https://supabase.com/docs/reference/cli/config
+#
+# Find your project_id in: Supabase Dashboard → Project Settings → General
+# It is the subdomain of your Supabase URL:
+#   https://<project_id>.supabase.co
+
+project_id = "iuphopycbayoybmjnswi"  # ← replace with your actual project ref
+
+[db]
+major_version = 17
