@@ -17,3 +17,45 @@ export async function getToolById(id: string): Promise<Tool | null> {
   if (error || !data) return fallback.find((t) => t.id === id) ?? null;
   return data as unknown as Tool;
 }
+
+export interface ToolHealthDetails {
+  starDelta: number | null;
+  lastCommitAt: string | null;
+}
+
+export async function getToolHealthDetails(
+  toolId: string,
+  currentStars: number | null
+): Promise<ToolHealthDetails> {
+  if (!supabase) return { starDelta: null, lastCommitAt: null };
+
+  const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+
+  const [latestResult, historicalResult] = await Promise.all([
+    supabase
+      .from("tool_snapshots")
+      .select("stars, last_commit_at")
+      .eq("tool_id", toolId)
+      .order("recorded_at", { ascending: false })
+      .limit(1)
+      .single(),
+    supabase
+      .from("tool_snapshots")
+      .select("stars")
+      .eq("tool_id", toolId)
+      .lte("recorded_at", thirtyDaysAgo)
+      .order("recorded_at", { ascending: false })
+      .limit(1)
+      .single(),
+  ]);
+
+  const starDelta =
+    currentStars != null && historicalResult.data?.stars != null
+      ? currentStars - historicalResult.data.stars
+      : null;
+
+  return {
+    starDelta,
+    lastCommitAt: latestResult.data?.last_commit_at ?? null,
+  };
+}
