@@ -662,7 +662,10 @@
       "config_files": []
     },
     "website_url": "https://langchain-ai.github.io/langgraph",
-    "github_url": "https://github.com/langchain-ai/langgraph"
+    "github_url": "https://github.com/langchain-ai/langgraph",
+    "health_score": 85,
+    "last_synced_at": "2026-03-21T02:00:00Z",
+    "is_stale": false
   },
   {
     "id": "metagpt",
@@ -1167,7 +1170,10 @@
       "config_files": []
     },
     "website_url": "https://langchain.com",
-    "github_url": "https://github.com/langchain-ai/langchain"
+    "github_url": "https://github.com/langchain-ai/langchain",
+    "health_score": 48,
+    "last_synced_at": "2026-03-21T02:00:00Z",
+    "is_stale": false
   },
   {
     "id": "llamaindex",
@@ -1254,7 +1260,10 @@
       "config_files": []
     },
     "website_url": "https://flowiseai.com",
-    "github_url": "https://github.com/FlowiseAI/Flowise"
+    "github_url": "https://github.com/FlowiseAI/Flowise",
+    "health_score": 22,
+    "last_synced_at": "2026-03-21T02:00:00Z",
+    "is_stale": true
   },
   {
     "id": "dify",

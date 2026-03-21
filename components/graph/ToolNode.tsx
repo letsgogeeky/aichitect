@@ -7,6 +7,7 @@ import { Tool, getCategoryColor } from "@/lib/types";
 export interface ToolNodeData extends Tool {
   dimmed?: boolean;
   highlighted?: boolean;
+  /** When true, card expands in-place (used by Builder + Stacks). Explore never sets this. */
   expanded?: boolean;
   onRemove?: () => void;
 }
@@ -18,9 +19,11 @@ function formatStars(n: number): string {
 
 function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
   const color = getCategoryColor(data.category);
-  const isExpanded = data.expanded || selected;
+  // Expansion is explicit only — driven by data.expanded, never by ReactFlow's selected state.
+  // This keeps Explore cards fixed-size while Builder/Stacks can still expand nodes.
+  const isExpanded = !!data.expanded;
+  const isSelected = data.highlighted || selected;
   const isProminent = data.prominent;
-
   const nodeWidth = isExpanded ? 280 : isProminent ? 220 : 190;
   const isOss = data.type === "oss";
   const hasFree = data.pricing.free_tier;
@@ -29,10 +32,10 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
     <div
       style={{
         opacity: data.dimmed ? 0.2 : 1,
-        borderColor: isExpanded ? color : data.highlighted ? color : "var(--border)",
+        borderColor: isExpanded || isSelected ? color : "var(--border)",
         boxShadow: isExpanded
           ? `0 0 0 1px ${color}, 0 0 20px ${color}22`
-          : data.highlighted
+          : isSelected
             ? `0 0 0 1px ${color}88`
             : "none",
         width: nodeWidth,
@@ -49,12 +52,37 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
           height: 2,
           background: color,
           borderRadius: "6px 6px 0 0",
-          opacity: isExpanded ? 1 : 0.4,
+          opacity: isExpanded || isSelected ? 1 : 0.4,
           transition: "opacity 180ms ease",
         }}
       />
 
-      {/* Remove button — visible on hover or when expanded */}
+      {/* Health dot */}
+      {data.health_score != null && (
+        <div
+          title={`Health score: ${data.health_score} — ${
+            data.health_score >= 70
+              ? "active, well-maintained"
+              : data.health_score >= 40
+                ? "slowing down"
+                : "low activity"
+          }`}
+          style={{
+            position: "absolute",
+            top: 8,
+            right: data.onRemove ? 28 : 8,
+            width: 8,
+            height: 8,
+            borderRadius: "50%",
+            background:
+              data.health_score >= 70 ? "#26de81" : data.health_score >= 40 ? "#fdcb6e" : "#ff6b6b",
+            zIndex: 10,
+            cursor: "help",
+          }}
+        />
+      )}
+
+      {/* Remove button — visible on hover */}
       {data.onRemove && (
         <button
           onClick={(e) => {
@@ -62,9 +90,7 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
             data.onRemove!();
           }}
           title="Remove from stack"
-          className={`absolute top-2 right-2 w-4 h-4 flex items-center justify-center rounded transition-opacity z-20 ${
-            isExpanded ? "opacity-100" : "opacity-0 group-hover:opacity-100"
-          }`}
+          className="absolute top-2 right-2 w-4 h-4 flex items-center justify-center rounded opacity-0 group-hover:opacity-100 transition-opacity z-20"
           style={{
             background: "#ff6b6b18",
             border: "1px solid #ff6b6b44",
@@ -84,7 +110,7 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
       />
 
       <div className="px-3 pt-2 pb-2.5">
-        {/* Top row: category label */}
+        {/* Top row: category label + stars */}
         <div className="flex items-center justify-between mb-1.5">
           <div className="flex items-center gap-1.5 min-w-0">
             <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: color }} />
@@ -95,8 +121,6 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
               {data.category.replace(/-/g, " ")}
             </span>
           </div>
-
-          {/* Stars */}
           {data.github_stars ? (
             <span className="text-[10px] text-[var(--text-muted)] flex-shrink-0 ml-1">
               ⭐ {formatStars(data.github_stars)}
@@ -114,8 +138,8 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
           </span>
         </div>
 
-        {/* OSS + Free Tier special tags */}
-        {(isOss || hasFree) && (
+        {/* OSS + Free Tier + Stale tags */}
+        {(isOss || hasFree || data.is_stale) && (
           <div className="flex items-center gap-1.5 mb-1.5 flex-wrap">
             {isOss && (
               <span
@@ -151,16 +175,33 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
                 ✦ Free Tier
               </span>
             )}
+            {data.is_stale && (
+              <span
+                style={{
+                  fontSize: 9,
+                  padding: "2px 7px",
+                  borderRadius: 4,
+                  background: "#f39c1220",
+                  color: "#f39c12",
+                  border: "1px solid #f39c1240",
+                  fontWeight: 600,
+                  letterSpacing: 0.3,
+                  lineHeight: 1.6,
+                }}
+              >
+                ⚠ Stale
+              </span>
+            )}
           </div>
         )}
 
-        {/* Tagline */}
+        {/* Tagline — 2-line clamp normally, full when expanded */}
         <p
           className="text-[11px] text-[var(--text-secondary)] leading-snug"
           style={{
             overflow: isExpanded ? "visible" : "hidden",
             display: isExpanded ? "block" : "-webkit-box",
-            WebkitLineClamp: isExpanded ? undefined : 1,
+            WebkitLineClamp: isExpanded ? undefined : 2,
             WebkitBoxOrient: "vertical",
             marginBottom: isExpanded ? 6 : 8,
           }}

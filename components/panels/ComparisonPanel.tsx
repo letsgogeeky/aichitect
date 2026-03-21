@@ -15,6 +15,18 @@ interface ComparisonPanelProps {
   onSwap: () => void;
 }
 
+function healthColor(score: number): string {
+  if (score >= 70) return "#26de81";
+  if (score >= 40) return "#fdcb6e";
+  return "#ff6b6b";
+}
+
+function healthLabel(score: number): string {
+  if (score >= 70) return "Active";
+  if (score >= 40) return "Slowing";
+  return "Low activity";
+}
+
 function relLabel(type: string) {
   if (type === "integrates-with") return "integrates with";
   if (type === "commonly-paired") return "often paired";
@@ -157,16 +169,18 @@ export default function ComparisonPanel({ toolA, toolB, onClose, onSwap }: Compa
           >
             <div className="px-3 py-2 text-[var(--text-muted)]">Field</div>
             <div
-              className="px-3 py-2 border-l"
+              className="px-3 py-2 border-l flex items-center gap-1.5"
               style={{ borderColor: "var(--border)", color: colorA }}
             >
               {toolA.name}
+              {toolA.is_stale && <span style={{ color: "#f39c12", fontSize: 10 }}>⚠</span>}
             </div>
             <div
-              className="px-3 py-2 border-l"
+              className="px-3 py-2 border-l flex items-center gap-1.5"
               style={{ borderColor: "var(--border)", color: colorB }}
             >
               {toolB.name}
+              {toolB.is_stale && <span style={{ color: "#f39c12", fontSize: 10 }}>⚠</span>}
             </div>
           </div>
 
@@ -202,6 +216,32 @@ export default function ComparisonPanel({ toolA, toolB, onClose, onSwap }: Compa
             <span className="text-xs text-[var(--text-secondary)]">
               {toolB.github_stars ? `⭐ ${toolB.github_stars.toLocaleString()}` : "—"}
             </span>
+          </Row>
+
+          {/* Health */}
+          <Row label="Health">
+            {toolA.health_score != null ? (
+              <span
+                className="flex items-center gap-1.5 text-xs font-medium"
+                style={{ color: healthColor(toolA.health_score) }}
+              >
+                <span style={{ fontSize: 8 }}>●</span>
+                {toolA.health_score} — {healthLabel(toolA.health_score)}
+              </span>
+            ) : (
+              <span className="text-xs text-[var(--text-muted)]">—</span>
+            )}
+            {toolB.health_score != null ? (
+              <span
+                className="flex items-center gap-1.5 text-xs font-medium"
+                style={{ color: healthColor(toolB.health_score) }}
+              >
+                <span style={{ fontSize: 8 }}>●</span>
+                {toolB.health_score} — {healthLabel(toolB.health_score)}
+              </span>
+            ) : (
+              <span className="text-xs text-[var(--text-muted)]">—</span>
+            )}
           </Row>
         </div>
 

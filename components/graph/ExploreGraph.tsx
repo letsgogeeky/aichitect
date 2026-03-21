@@ -28,6 +28,7 @@ import {
   STACK_LAYERS,
   CategoryId,
 } from "@/lib/types";
+import { getTools } from "@/lib/data/tools";
 import { gridLayout, swimlaneLayout } from "@/lib/graph";
 import ToolNode from "./ToolNode";
 import LaneLabel from "./LaneLabel";
@@ -39,7 +40,7 @@ import { useSuggestTool } from "@/components/ui/SuggestToolContext";
 import BottomSheet from "@/components/mobile/BottomSheet";
 import ToolDetailSheet from "@/components/mobile/ToolDetailSheet";
 
-const tools = toolsData as Tool[];
+const staticTools = toolsData as Tool[];
 const relationships = relationshipsData as Relationship[];
 
 const nodeTypes: NodeTypes = { tool: ToolNode, laneLabel: LaneLabel };
@@ -62,6 +63,7 @@ function edgeStyle(type: RelationshipType, sourceCategory: string) {
 }
 
 interface ExploreGraphInnerProps {
+  tools: Tool[];
   activeCategories: Set<string>;
   activeRelTypes: Set<RelationshipType>;
   searchQuery: string;
@@ -72,6 +74,7 @@ interface ExploreGraphInnerProps {
 }
 
 function ExploreGraphInner({
+  tools,
   activeCategories,
   activeRelTypes,
   searchQuery,
@@ -84,7 +87,7 @@ function ExploreGraphInner({
 
   const visibleTools = useMemo(
     () => tools.filter((t) => activeCategories.has(t.category)),
-    [activeCategories]
+    [activeCategories, tools]
   );
 
   const searchMatch = useMemo(() => {
@@ -95,7 +98,7 @@ function ExploreGraphInner({
         .filter((t) => t.name.toLowerCase().includes(q) || t.tagline.toLowerCase().includes(q))
         .map((t) => t.id)
     );
-  }, [searchQuery]);
+  }, [searchQuery, tools]);
 
   const nodes: Node[] = useMemo(() => {
     const toolNodeInputs = visibleTools.map((t) => ({
@@ -105,7 +108,6 @@ function ExploreGraphInner({
         ...t,
         dimmed: searchMatch != null && !searchMatch.has(t.id),
         highlighted: highlightedIds.has(t.id),
-        expanded: highlightedIds.has(t.id),
       },
       position: { x: 0, y: 0 },
     }));
@@ -163,14 +165,14 @@ function ExploreGraphInner({
           style,
         };
       });
-  }, [visibleTools, activeRelTypes]);
+  }, [visibleTools, activeRelTypes, tools]);
 
   const onNodeClick = useCallback(
     (_: React.MouseEvent, node: Node) => {
       const tool = tools.find((t) => t.id === node.id);
       if (tool) onSelectTool(tool);
     },
-    [onSelectTool]
+    [onSelectTool, tools]
   );
 
   const hasSearchResults = !searchMatch || visibleTools.some((t) => searchMatch.has(t.id));
@@ -187,7 +189,7 @@ function ExploreGraphInner({
         minZoom={0.2}
         maxZoom={2}
         panOnScroll={false}
-        panOnDrag={[1, 2]}
+        panOnDrag={true}
         zoomOnPinch={true}
         zoomOnDoubleClick={false}
         selectionOnDrag={false}
@@ -231,9 +233,17 @@ function ExploreGraphInner({
 }
 
 export default function ExploreGraph() {
-  const allCategories = useMemo(() => new Set(tools.map((t) => t.category)), []);
+  const [tools, setTools] = useState<Tool[]>(staticTools);
   const { openSuggest } = useSuggestTool();
   const isMobile = useIsMobile();
+
+  useEffect(() => {
+    getTools().then((fetched) => {
+      if (fetched.length) setTools(fetched);
+    });
+  }, []);
+
+  const allCategories = useMemo(() => new Set(tools.map((t) => t.category)), [tools]);
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
   const [mobileDetailOpen, setMobileDetailOpen] = useState(false);
 
@@ -244,8 +254,8 @@ export default function ExploreGraph() {
     const param = searchParams.get("compare");
     if (!param) return null;
     const [aId, bId] = param.split(",");
-    const a = tools.find((t) => t.id === aId);
-    const b = tools.find((t) => t.id === bId);
+    const a = staticTools.find((t) => t.id === aId);
+    const b = staticTools.find((t) => t.id === bId);
     return a && b ? [a, b] : null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // run once on mount only
@@ -527,6 +537,7 @@ export default function ExploreGraph() {
           ) : (
             <ReactFlowProvider key={viewMode}>
               <ExploreGraphInner
+                tools={tools}
                 activeCategories={activeCategories}
                 activeRelTypes={activeRelTypes}
                 searchQuery={searchQuery}

@@ -193,10 +193,26 @@ export default async function ComparePage({ params }: Props) {
             style={{ color: "var(--text-primary)" }}
           >
             <span style={{ color: colorA }}>{a.name}</span>
+            {a.is_stale && (
+              <span
+                className="ml-2 text-sm font-medium px-2 py-0.5 rounded-full align-middle"
+                style={{ background: "#f39c1220", color: "#f39c12", border: "1px solid #f39c1240" }}
+              >
+                ⚠ Stale
+              </span>
+            )}
             <span className="mx-4" style={{ color: "var(--text-muted)" }}>
               vs
             </span>
             <span style={{ color: colorB }}>{b.name}</span>
+            {b.is_stale && (
+              <span
+                className="ml-2 text-sm font-medium px-2 py-0.5 rounded-full align-middle"
+                style={{ background: "#f39c1220", color: "#f39c12", border: "1px solid #f39c1240" }}
+              >
+                ⚠ Stale
+              </span>
+            )}
           </h1>
           <p
             className="text-sm leading-relaxed max-w-2xl mb-5"
@@ -402,6 +418,57 @@ export default async function ComparePage({ params }: Props) {
               ) : (
                 <span className="text-xs text-[var(--text-muted)]">—</span>
               ),
+            },
+            {
+              label: "Health",
+              cellA:
+                a.health_score != null ? (
+                  <span
+                    className="flex items-center gap-1.5 text-xs font-medium"
+                    style={{
+                      color:
+                        a.health_score >= 70
+                          ? "#26de81"
+                          : a.health_score >= 40
+                            ? "#fdcb6e"
+                            : "#ff6b6b",
+                    }}
+                  >
+                    <span style={{ fontSize: 8 }}>●</span>
+                    {a.health_score} —{" "}
+                    {a.health_score >= 70
+                      ? "Active"
+                      : a.health_score >= 40
+                        ? "Slowing"
+                        : "Low activity"}
+                  </span>
+                ) : (
+                  <span className="text-xs text-[var(--text-muted)]">—</span>
+                ),
+              cellB:
+                b.health_score != null ? (
+                  <span
+                    className="flex items-center gap-1.5 text-xs font-medium"
+                    style={{
+                      color:
+                        b.health_score >= 70
+                          ? "#26de81"
+                          : b.health_score >= 40
+                            ? "#fdcb6e"
+                            : "#ff6b6b",
+                    }}
+                  >
+                    <span style={{ fontSize: 8 }}>●</span>
+                    {b.health_score} —{" "}
+                    {b.health_score >= 70
+                      ? "Active"
+                      : b.health_score >= 40
+                        ? "Slowing"
+                        : "Low activity"}
+                  </span>
+                ) : (
+                  <span className="text-xs text-[var(--text-muted)]">—</span>
+                ),
             },
           ].map(({ label, cellA, cellB, align }) => (
             <div

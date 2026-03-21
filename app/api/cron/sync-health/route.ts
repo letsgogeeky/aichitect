@@ -6,7 +6,14 @@ import { fetchToolGitHubData, type GitHubToolData } from "@/lib/github";
 function getServiceClient() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.POSTGRES_SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) return null;
+  if (!url) {
+    console.error("[sync-health] Missing env var: NEXT_PUBLIC_SUPABASE_URL");
+    return null;
+  }
+  if (!key) {
+    console.error("[sync-health] Missing env var: POSTGRES_SUPABASE_SERVICE_ROLE_KEY");
+    return null;
+  }
   return createClient(url, key);
 }
 
