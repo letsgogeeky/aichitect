@@ -8,9 +8,6 @@ import { Tool, Relationship, RelationshipType, CategoryId, getCategoryColor } fr
 import toolsData from "@/data/tools.json";
 import relationshipsData from "@/data/relationships.json";
 
-const allTools = toolsData as Tool[];
-const allRelationships = relationshipsData as Relationship[];
-
 interface Node3D {
   id: string;
   name: string;
@@ -31,6 +28,8 @@ interface Link3D {
 }
 
 interface Props {
+  tools?: Tool[];
+  relationships?: Relationship[];
   activeCategories: Set<string>;
   activeRelTypes: Set<RelationshipType>;
   searchQuery: string;
@@ -55,6 +54,8 @@ function isWebGLAvailable(): boolean {
 type FGInstance = any;
 
 export default function ExploreGraph3D({
+  tools: toolsProp,
+  relationships: relationshipsProp,
   activeCategories,
   activeRelTypes,
   searchQuery,
@@ -62,6 +63,8 @@ export default function ExploreGraph3D({
   onSelectTool,
   onWebGLUnavailable,
 }: Props) {
+  const allTools = toolsProp ?? (toolsData as Tool[]);
+  const allRelationships = relationshipsProp ?? (relationshipsData as Relationship[]);
   const containerRef = useRef<HTMLDivElement>(null);
   const fgRef = useRef<FGInstance>(null);
   const [dims, setDims] = useState({ width: 0, height: 0 });
@@ -123,7 +126,7 @@ export default function ExploreGraph3D({
 
   const visibleTools = useMemo(
     () => allTools.filter((t) => activeCategories.has(t.category)),
-    [activeCategories]
+    [activeCategories, allTools]
   );
 
   const searchMatch = useMemo(() => {
@@ -134,7 +137,7 @@ export default function ExploreGraph3D({
         .filter((t) => t.name.toLowerCase().includes(q) || t.tagline.toLowerCase().includes(q))
         .map((t) => t.id)
     );
-  }, [searchQuery]);
+  }, [searchQuery, allTools]);
 
   const graphData = useMemo(() => {
     const visibleIds = new Set(visibleTools.map((t) => t.id));
@@ -159,7 +162,7 @@ export default function ExploreGraph3D({
         type: r.type as RelationshipType,
       }));
     return { nodes, links };
-  }, [visibleTools, activeRelTypes]);
+  }, [visibleTools, activeRelTypes, allRelationships]);
 
   // Apply d3 forces: cap repulsion range + strengthen center pull
   const applyForces = useCallback(() => {

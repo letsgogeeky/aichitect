@@ -28,7 +28,6 @@ import {
   STACK_LAYERS,
   CategoryId,
 } from "@/lib/types";
-import { getTools } from "@/lib/data/tools";
 import { gridLayout, swimlaneLayout } from "@/lib/graph";
 import ToolNode from "./ToolNode";
 import LaneLabel from "./LaneLabel";
@@ -41,7 +40,7 @@ import BottomSheet from "@/components/mobile/BottomSheet";
 import ToolDetailSheet from "@/components/mobile/ToolDetailSheet";
 
 const staticTools = toolsData as Tool[];
-const relationships = relationshipsData as Relationship[];
+const staticRelationships = relationshipsData as Relationship[];
 
 const nodeTypes: NodeTypes = { tool: ToolNode, laneLabel: LaneLabel };
 
@@ -64,6 +63,7 @@ function edgeStyle(type: RelationshipType, sourceCategory: string) {
 
 interface ExploreGraphInnerProps {
   tools: Tool[];
+  relationships: Relationship[];
   activeCategories: Set<string>;
   activeRelTypes: Set<RelationshipType>;
   searchQuery: string;
@@ -75,6 +75,7 @@ interface ExploreGraphInnerProps {
 
 function ExploreGraphInner({
   tools,
+  relationships,
   activeCategories,
   activeRelTypes,
   searchQuery,
@@ -165,7 +166,7 @@ function ExploreGraphInner({
           style,
         };
       });
-  }, [visibleTools, activeRelTypes, tools]);
+  }, [visibleTools, activeRelTypes, tools, relationships]);
 
   const onNodeClick = useCallback(
     (_: React.MouseEvent, node: Node) => {
@@ -232,16 +233,17 @@ function ExploreGraphInner({
   );
 }
 
-export default function ExploreGraph() {
-  const [tools, setTools] = useState<Tool[]>(staticTools);
+export default function ExploreGraph({
+  initialTools,
+  initialRelationships,
+}: {
+  initialTools?: Tool[];
+  initialRelationships?: Relationship[];
+}) {
+  const [tools] = useState<Tool[]>(initialTools ?? staticTools);
+  const activeRelationships = initialRelationships ?? staticRelationships;
   const { openSuggest } = useSuggestTool();
   const isMobile = useIsMobile();
-
-  useEffect(() => {
-    getTools().then((fetched) => {
-      if (fetched.length) setTools(fetched);
-    });
-  }, []);
 
   const allCategories = useMemo(() => new Set(tools.map((t) => t.category)), [tools]);
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
@@ -254,8 +256,8 @@ export default function ExploreGraph() {
     const param = searchParams.get("compare");
     if (!param) return null;
     const [aId, bId] = param.split(",");
-    const a = staticTools.find((t) => t.id === aId);
-    const b = staticTools.find((t) => t.id === bId);
+    const a = tools.find((t) => t.id === aId);
+    const b = tools.find((t) => t.id === bId);
     return a && b ? [a, b] : null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // run once on mount only
@@ -527,6 +529,8 @@ export default function ExploreGraph() {
 
           {viewMode === "3d" ? (
             <ExploreGraph3D
+              tools={tools}
+              relationships={activeRelationships}
               activeCategories={activeCategories}
               activeRelTypes={activeRelTypes}
               searchQuery={searchQuery}
@@ -538,6 +542,7 @@ export default function ExploreGraph() {
             <ReactFlowProvider key={viewMode}>
               <ExploreGraphInner
                 tools={tools}
+                relationships={activeRelationships}
                 activeCategories={activeCategories}
                 activeRelTypes={activeRelTypes}
                 searchQuery={searchQuery}
