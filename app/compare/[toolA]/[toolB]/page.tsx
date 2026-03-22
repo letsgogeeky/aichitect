@@ -6,6 +6,7 @@ import { getRelationships } from "@/lib/data/relationships";
 import { Tool, getCategoryColor, CATEGORIES } from "@/lib/types";
 import { TOOL_COUNT, RELATIONSHIP_COUNT } from "@/lib/constants";
 import { pageMeta } from "@/lib/metadata";
+import { relLabel } from "@/lib/health";
 
 interface Props {
   params: Promise<{ toolA: string; toolB: string }>;
@@ -44,12 +45,6 @@ export async function generateStaticParams() {
 }
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
-
-function relLabel(type: string) {
-  if (type === "integrates-with") return "integrates with";
-  if (type === "commonly-paired-with") return "often paired with";
-  return "competes with";
-}
 
 function relBadgeStyle(type: string): React.CSSProperties {
   if (type === "integrates-with")
