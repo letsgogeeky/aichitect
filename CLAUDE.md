@@ -92,8 +92,8 @@ components/
     Navbar.tsx          → 56px, Logo component, icon tabs, route-aware right slot, GitHub button
     Logo.tsx            → inline SVG 3-node graph logo on gradient rect; id + size props
 data/
-  tools.json            → 175 tools, 13 categories
-  relationships.json    → ~369 edges (integrates-with / often-used-together / competes-with)
+  tools.json            → 185 tools, 13 categories
+  relationships.json    → ~411 edges (integrates-with / often-used-together / competes-with)
   stacks.json           → 25 curated stacks with flow edges
   slots.json            → 15 slot types for the Builder
 lib/
