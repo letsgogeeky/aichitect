@@ -62,13 +62,13 @@ export function StackSidebar({
                   className="flex items-center justify-between px-4 py-2.5 text-left transition-all"
                   style={{
                     background: isActive ? "#7c6bff12" : "transparent",
-                    borderLeft: `3px solid ${isActive ? "#7c6bff" : "transparent"}`,
+                    borderLeft: `3px solid ${isActive ? "var(--accent)" : "transparent"}`,
                   }}
                 >
                   <div>
                     <div
                       className="text-[12px] font-semibold leading-tight"
-                      style={{ color: isActive ? "#7c6bff" : "var(--text-secondary)" }}
+                      style={{ color: isActive ? "var(--accent)" : "var(--text-secondary)" }}
                     >
                       {cluster.label}
                     </div>
@@ -79,9 +79,9 @@ export function StackSidebar({
                   <span
                     className="text-[10px] px-1.5 py-0.5 rounded"
                     style={{
-                      background: isActive ? "#7c6bff20" : "#1c1c28",
-                      color: isActive ? "#7c6bff" : "#555577",
-                      border: `1px solid ${isActive ? "#7c6bff33" : "#2a2a3a"}`,
+                      background: isActive ? "#7c6bff20" : "var(--btn)",
+                      color: isActive ? "var(--accent)" : "#555577",
+                      border: `1px solid ${isActive ? "#7c6bff33" : "var(--btn-border)"}`,
                     }}
                   >
                     {count}
@@ -128,7 +128,7 @@ export function StackSidebar({
         ).map(({ s, rejected }) => {
           const isSelected = selectedId === s.id;
           const firstTool = allTools.find((t) => t.id === s.tools[0]);
-          const color = firstTool ? getCategoryColor(firstTool.category) : "#7c6bff";
+          const color = firstTool ? getCategoryColor(firstTool.category) : "var(--accent)";
           const cx = s.complexity ? COMPLEXITY_META[s.complexity] : null;
           const stackTools = s.tools
             .map((id) => allTools.find((t) => t.id === id))

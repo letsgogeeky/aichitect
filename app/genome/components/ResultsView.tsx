@@ -77,7 +77,7 @@ export function ResultsView({
               fontWeight: 500,
               background: "#7c6bff18",
               border: "1px solid #7c6bff44",
-              color: "#7c6bff",
+              color: "var(--accent)",
               textDecoration: "none",
               whiteSpace: "nowrap",
             }}
@@ -97,7 +97,7 @@ export function ResultsView({
               fontWeight: 500,
               background: copied ? "#00d4aa30" : "#00d4aa18",
               border: `1px solid ${copied ? "#00d4aa88" : "#00d4aa44"}`,
-              color: "#00d4aa",
+              color: "var(--accent-2)",
               cursor: "pointer",
             }}
           >
@@ -132,7 +132,7 @@ export function ResultsView({
           {/* Score */}
           <div
             style={{
-              background: "#0e0e18",
+              background: "var(--surface)",
               border: "1px solid #1e1e2e",
               borderRadius: 12,
               padding: "20px 16px",
@@ -167,7 +167,7 @@ export function ResultsView({
           {/* Tool list */}
           <div
             style={{
-              background: "#0e0e18",
+              background: "var(--surface)",
               border: "1px solid #1e1e2e",
               borderRadius: 10,
               overflow: "hidden",

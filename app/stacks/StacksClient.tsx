@@ -38,14 +38,14 @@ function StackGraph({ stack, allTools }: { stack: Stack; allTools: Tool[] }) {
 
   const edges: Edge[] = stack.flow.map((f, i) => {
     const sourceTool = allTools.find((t) => t.id === f.from);
-    const color = sourceTool ? getCategoryColor(sourceTool.category) : "#7c6bff";
+    const color = sourceTool ? getCategoryColor(sourceTool.category) : "var(--accent)";
     return {
       id: `flow-${i}`,
       source: f.from,
       target: f.to,
       label: f.label,
       labelStyle: { fill: "#8888aa", fontSize: 10 },
-      labelBgStyle: { fill: "#0e0e18", fillOpacity: 0.9 },
+      labelBgStyle: { fill: "var(--surface)", fillOpacity: 0.9 },
       style: { stroke: color, strokeWidth: 1.5 },
       animated: true,
     };
@@ -141,7 +141,9 @@ function StacksContent({ stacks, allTools }: { stacks: Stack[]; allTools: Tool[]
   const selectedTools = selected.tools
     .map((id) => allTools.find((t) => t.id === id))
     .filter(Boolean) as Tool[];
-  const accentColor = selectedTools[0] ? getCategoryColor(selectedTools[0].category) : "#7c6bff";
+  const accentColor = selectedTools[0]
+    ? getCategoryColor(selectedTools[0].category)
+    : "var(--accent)";
 
   return (
     <div className="flex h-full">
@@ -164,7 +166,7 @@ function StacksContent({ stacks, allTools }: { stacks: Stack[]; allTools: Tool[]
             {stacks.map((s) => {
               const isSelected = selected.id === s.id;
               const ft = allTools.find((t) => t.id === s.tools[0]);
-              const c = ft ? getCategoryColor(ft.category) : "#7c6bff";
+              const c = ft ? getCategoryColor(ft.category) : "var(--accent)";
               return (
                 <button
                   key={s.id}
@@ -283,7 +285,11 @@ function StacksContent({ stacks, allTools }: { stacks: Stack[]; allTools: Tool[]
             {selected.monthly_cost && (
               <span
                 className="text-[10px] px-2 py-0.5 rounded-full"
-                style={{ background: "#1c1c28", border: "1px solid #2a2a3a", color: "#6666aa" }}
+                style={{
+                  background: "var(--btn)",
+                  border: "1px solid var(--btn-border)",
+                  color: "#6666aa",
+                }}
               >
                 {selected.monthly_cost}/mo
               </span>

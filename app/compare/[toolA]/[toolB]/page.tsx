@@ -48,10 +48,10 @@ export async function generateStaticParams() {
 
 function relBadgeStyle(type: string): React.CSSProperties {
   if (type === "integrates-with")
-    return { background: "#7c6bff22", color: "#7c6bff", border: "1px solid #7c6bff44" };
+    return { background: "#7c6bff22", color: "var(--accent)", border: "1px solid #7c6bff44" };
   if (type === "commonly-paired-with")
     return { background: "#4a4a7a44", color: "#8888aa", border: "1px solid #4a4a7a88" };
-  return { background: "#ff6b6b22", color: "#ff6b6b", border: "1px solid #ff6b6b44" };
+  return { background: "#ff6b6b22", color: "var(--danger)", border: "1px solid #ff6b6b44" };
 }
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
@@ -232,7 +232,11 @@ export default async function ComparePage({ params }: Props) {
           <Link
             href={`/explore?compare=${a.id},${b.id}`}
             className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-md transition-colors"
-            style={{ background: "#7c6bff18", border: "1px solid #7c6bff44", color: "#7c6bff" }}
+            style={{
+              background: "#7c6bff18",
+              border: "1px solid #7c6bff44",
+              color: "var(--accent)",
+            }}
           >
             Compare interactively in Explore →
           </Link>
@@ -340,7 +344,7 @@ export default async function ComparePage({ params }: Props) {
                   className="text-[11px] font-semibold px-1.5 py-0.5 rounded uppercase"
                   style={
                     a.type === "oss"
-                      ? { background: "#26de8122", color: "#26de81" }
+                      ? { background: "#26de8122", color: "var(--success)" }
                       : { background: "#4ecdc422", color: "#4ecdc4" }
                   }
                 >
@@ -352,7 +356,7 @@ export default async function ComparePage({ params }: Props) {
                   className="text-[11px] font-semibold px-1.5 py-0.5 rounded uppercase"
                   style={
                     b.type === "oss"
-                      ? { background: "#26de8122", color: "#26de81" }
+                      ? { background: "#26de8122", color: "var(--success)" }
                       : { background: "#4ecdc422", color: "#4ecdc4" }
                   }
                 >
@@ -364,14 +368,14 @@ export default async function ComparePage({ params }: Props) {
               label: "Free Tier",
               cellA: (
                 <span
-                  className={`text-sm font-medium ${a.pricing.free_tier ? "text-[#26de81]" : "text-[var(--text-muted)]"}`}
+                  className={`text-sm font-medium ${a.pricing.free_tier ? "text-[var(--success)]" : "text-[var(--text-muted)]"}`}
                 >
                   {a.pricing.free_tier ? "✓ Yes" : "✗ No"}
                 </span>
               ),
               cellB: (
                 <span
-                  className={`text-sm font-medium ${b.pricing.free_tier ? "text-[#26de81]" : "text-[var(--text-muted)]"}`}
+                  className={`text-sm font-medium ${b.pricing.free_tier ? "text-[var(--success)]" : "text-[var(--text-muted)]"}`}
                 >
                   {b.pricing.free_tier ? "✓ Yes" : "✗ No"}
                 </span>
@@ -437,10 +441,10 @@ export default async function ComparePage({ params }: Props) {
                     style={{
                       color:
                         a.health_score >= 70
-                          ? "#26de81"
+                          ? "var(--success)"
                           : a.health_score >= 40
-                            ? "#fdcb6e"
-                            : "#ff6b6b",
+                            ? "var(--warning)"
+                            : "var(--danger)",
                     }}
                   >
                     <span style={{ fontSize: 8 }}>●</span>
@@ -461,10 +465,10 @@ export default async function ComparePage({ params }: Props) {
                     style={{
                       color:
                         b.health_score >= 70
-                          ? "#26de81"
+                          ? "var(--success)"
                           : b.health_score >= 40
-                            ? "#fdcb6e"
-                            : "#ff6b6b",
+                            ? "var(--warning)"
+                            : "var(--danger)",
                     }}
                   >
                     <span style={{ fontSize: 8 }}>●</span>
@@ -621,7 +625,7 @@ export default async function ComparePage({ params }: Props) {
           <Link
             href={`/explore?compare=${a.id},${b.id}`}
             className="flex-shrink-0 ml-4 text-xs font-semibold px-4 py-2 rounded-md transition-colors"
-            style={{ background: "#7c6bff", color: "#fff" }}
+            style={{ background: "var(--accent)", color: "#fff" }}
           >
             Open in Explore →
           </Link>

@@ -121,8 +121,8 @@ export function WorkflowStep({
                         borderRadius: 20,
                         fontSize: 12,
                         fontWeight: active ? 500 : 400,
-                        background: active ? color + "20" : "#0e0e18",
-                        border: `1px solid ${active ? color + "66" : "#2a2a3a"}`,
+                        background: active ? color + "20" : "var(--surface)",
+                        border: `1px solid ${active ? color + "66" : "var(--btn-border)"}`,
                         color: active ? color : "#8888aa",
                         cursor: "pointer",
                         transition: "all 140ms",
@@ -177,7 +177,7 @@ export function WorkflowStep({
         </button>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           {selected.size > 0 && (
-            <span style={{ fontSize: 11, color: "#7c6bff" }}>{selected.size} selected</span>
+            <span style={{ fontSize: 11, color: "var(--accent)" }}>{selected.size} selected</span>
           )}
           <button
             onClick={() => onNext(Array.from(selected))}
@@ -187,7 +187,7 @@ export function WorkflowStep({
               borderRadius: 8,
               fontSize: 13,
               fontWeight: 600,
-              background: "#7c6bff",
+              background: "var(--accent)",
               color: "#fff",
               border: "none",
               cursor: "pointer",

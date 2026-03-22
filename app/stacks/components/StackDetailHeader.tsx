@@ -38,7 +38,9 @@ export function StackDetailHeader({
   const selectedTools = selected.tools
     .map((id) => allTools.find((t) => t.id === id))
     .filter(Boolean) as Tool[];
-  const accentColor = selectedTools[0] ? getCategoryColor(selectedTools[0].category) : "#7c6bff";
+  const accentColor = selectedTools[0]
+    ? getCategoryColor(selectedTools[0].category)
+    : "var(--accent)";
   const complexity = selected.complexity ? COMPLEXITY_META[selected.complexity] : null;
   const graduatesTo = selected.graduates_to
     ? stacks.find((s) => s.id === selected.graduates_to)
@@ -129,7 +131,11 @@ export function StackDetailHeader({
         {selected.monthly_cost && (
           <span
             className="text-[10px] font-medium px-2 py-0.5 rounded-full"
-            style={{ background: "#1c1c28", border: "1px solid #2a2a3a", color: "#6666aa" }}
+            style={{
+              background: "var(--btn)",
+              border: "1px solid var(--btn-border)",
+              color: "#6666aa",
+            }}
           >
             {selected.monthly_cost}/mo
           </span>
@@ -138,7 +144,11 @@ export function StackDetailHeader({
           <span
             key={tag}
             className="text-[10px] px-2 py-0.5 rounded-full"
-            style={{ background: "#1c1c28", border: "1px solid #2a2a3a", color: "#555577" }}
+            style={{
+              background: "var(--btn)",
+              border: "1px solid var(--btn-border)",
+              color: "#555577",
+            }}
           >
             {tag}
           </span>
@@ -274,7 +284,7 @@ export function StackDetailHeader({
                     onSelectStack(graduatesTo);
                   }}
                   className="flex items-center gap-1.5 text-[11px] font-medium transition-colors hover:opacity-100"
-                  style={{ color: "#fdcb6e", opacity: 0.8 }}
+                  style={{ color: "var(--warning)", opacity: 0.8 }}
                 >
                   <span>→ Graduate to:</span>
                   <span className="font-semibold">{graduatesTo.name}</span>
@@ -312,8 +322,8 @@ export function StackDetailHeader({
                 title={inStack ? `Remove ${t.name} from My Stack` : `Add ${t.name} to My Stack`}
                 className={`absolute -top-1 -left-1 w-4 h-4 rounded-full flex items-center justify-center transition-all ${inStack ? "opacity-100" : "opacity-0 group-hover/chip:opacity-100"}`}
                 style={{
-                  background: inStack ? "#00d4aa" : "#0e0e18",
-                  border: `1px solid ${inStack ? "#00d4aa" : "var(--border)"}`,
+                  background: inStack ? "var(--accent-2)" : "var(--surface)",
+                  border: `1px solid ${inStack ? "var(--accent-2)" : "var(--border)"}`,
                   color: inStack ? "#0a0a0f" : "var(--text-muted)",
                   fontSize: 9,
                   fontWeight: 700,
@@ -326,8 +336,8 @@ export function StackDetailHeader({
                 title={isCompareA ? `${t.name} staged — pick one more` : `Compare ${t.name}`}
                 className={`absolute -top-1 -right-1 w-4 h-4 rounded-full flex items-center justify-center transition-all ${isCompared ? "opacity-100" : "opacity-0 group-hover/chip:opacity-100"}`}
                 style={{
-                  background: isCompared ? "#7c6bff" : "#0e0e18",
-                  border: `1px solid ${isCompared ? "#7c6bff" : "var(--border)"}`,
+                  background: isCompared ? "var(--accent)" : "var(--surface)",
+                  border: `1px solid ${isCompared ? "var(--accent)" : "var(--border)"}`,
                   color: isCompared ? "#fff" : "var(--text-muted)",
                 }}
               >
@@ -358,7 +368,11 @@ export function StackDetailHeader({
         {compareA && !compareB && (
           <div
             className="flex items-center gap-1.5 text-[10px] px-2 py-0.5 rounded-full ml-1"
-            style={{ background: "#7c6bff14", border: "1px solid #7c6bff33", color: "#7c6bff" }}
+            style={{
+              background: "#7c6bff14",
+              border: "1px solid #7c6bff33",
+              color: "var(--accent)",
+            }}
           >
             <span className="font-medium">{compareA.name}</span>
             <span className="text-[#7c6bff66]">· pick one more</span>

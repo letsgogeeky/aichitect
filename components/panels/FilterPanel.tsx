@@ -253,8 +253,8 @@ export default function FilterPanel({
             width: "100%",
             padding: "7px 10px",
             borderRadius: 7,
-            background: "#1c1c28",
-            border: "1px solid #2a2a3a",
+            background: "var(--btn)",
+            border: "1px solid var(--btn-border)",
             color: "#555577",
             fontSize: 11,
             cursor: "pointer",
@@ -267,7 +267,7 @@ export default function FilterPanel({
           }}
           onMouseLeave={(e) => {
             e.currentTarget.style.color = "#555577";
-            e.currentTarget.style.borderColor = "#2a2a3a";
+            e.currentTarget.style.borderColor = "var(--btn-border)";
           }}
         >
           + Suggest a missing tool

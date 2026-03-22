@@ -43,7 +43,7 @@ export default function ToolDetailSheet({ tool, open, onClose }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tool?.id]);
 
-  const color = tool ? getCategoryColor(tool.category) : "#7c6bff";
+  const color = tool ? getCategoryColor(tool.category) : "var(--accent)";
   const stackIds = (searchParams.get("s") ?? "").split(",").filter(Boolean);
   const inStack = tool ? stackIds.includes(tool.id) : false;
 
@@ -118,7 +118,7 @@ export default function ToolDetailSheet({ tool, open, onClose }: Props) {
                 <span
                   className={`text-[9px] font-semibold px-1.5 py-0.5 rounded uppercase ${
                     tool.type === "oss"
-                      ? "bg-[#26de8122] text-[#26de81]"
+                      ? "bg-[#26de8122] text-[var(--success)]"
                       : "bg-[#4ecdc422] text-[#4ecdc4]"
                   }`}
                 >
@@ -239,7 +239,7 @@ export default function ToolDetailSheet({ tool, open, onClose }: Props) {
               borderRadius: 8,
               background: inStack ? "#00d4aa18" : "#7c6bff18",
               border: `1px solid ${inStack ? "#00d4aa44" : "#7c6bff44"}`,
-              color: inStack ? "#00d4aa" : "#7c6bff",
+              color: inStack ? "var(--accent-2)" : "var(--accent)",
               fontSize: 13,
               fontWeight: 600,
               cursor: "pointer",
@@ -279,7 +279,7 @@ export default function ToolDetailSheet({ tool, open, onClose }: Props) {
                                 : "#3a3a4a44",
                           color:
                             type === "integrates-with"
-                              ? "#7c6bff"
+                              ? "var(--accent)"
                               : type === "commonly-paired-with"
                                 ? "#8888aa"
                                 : "#555577",
@@ -294,7 +294,7 @@ export default function ToolDetailSheet({ tool, open, onClose }: Props) {
                       <Link
                         href={`/compare/${tool.id}/${other.id}`}
                         className="text-[9px] px-1.5 py-0.5 rounded"
-                        style={{ background: "#7c6bff22", color: "#7c6bff" }}
+                        style={{ background: "#7c6bff22", color: "var(--accent)" }}
                       >
                         vs →
                       </Link>
@@ -336,14 +336,14 @@ export default function ToolDetailSheet({ tool, open, onClose }: Props) {
               style={{
                 padding: "8px 10px",
                 borderRadius: 7,
-                background: "#1c1c28",
-                border: "1px solid #2a2a3a",
+                background: "var(--btn)",
+                border: "1px solid var(--btn-border)",
                 color: "#555577",
                 fontSize: 11,
                 cursor: "pointer",
               }}
             >
-              Missing a related tool? <span style={{ color: "#7c6bff" }}>Suggest it →</span>
+              Missing a related tool? <span style={{ color: "var(--accent)" }}>Suggest it →</span>
             </button>
           </div>
         </div>

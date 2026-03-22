@@ -116,7 +116,7 @@ export default function ComparisonPanel({ toolA, toolB, onClose, onSwap }: Compa
               onClick={handleShare}
               className="text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors p-1 text-[10px] font-medium"
               title="Copy share link"
-              style={copied ? { color: "#26de81" } : undefined}
+              style={copied ? { color: "var(--success)" } : undefined}
             >
               {copied ? "Copied!" : "Share"}
             </button>

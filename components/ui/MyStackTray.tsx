@@ -37,7 +37,7 @@ export default function MyStackTray() {
       className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 rounded-xl"
       style={{
         background: "#0e0e18ee",
-        border: "1px solid #2a2a3a",
+        border: "1px solid var(--btn-border)",
         backdropFilter: "blur(12px)",
         boxShadow: "0 8px 32px #00000077",
         padding: minimized ? "6px 14px" : "8px 12px",
@@ -54,7 +54,7 @@ export default function MyStackTray() {
                 width: 6,
                 height: 6,
                 borderRadius: "50%",
-                background: "#7c6bff",
+                background: "var(--accent)",
                 flexShrink: 0,
               }}
             />
@@ -62,13 +62,13 @@ export default function MyStackTray() {
               {stackTools.length} tool{stackTools.length !== 1 ? "s" : ""} in stack
             </span>
           </div>
-          <div style={{ width: 1, height: 16, background: "#2a2a3a", flexShrink: 0 }} />
+          <div style={{ width: 1, height: 16, background: "var(--btn-border)", flexShrink: 0 }} />
           <Link
             href={builderUrl}
             style={{
               fontSize: 11,
               fontWeight: 600,
-              color: "#7c6bff",
+              color: "var(--accent)",
               textDecoration: "none",
               flexShrink: 0,
             }}
@@ -138,7 +138,7 @@ export default function MyStackTray() {
             )}
           </div>
 
-          <div style={{ width: 1, height: 20, background: "#2a2a3a", flexShrink: 0 }} />
+          <div style={{ width: 1, height: 20, background: "var(--btn-border)", flexShrink: 0 }} />
 
           {/* Open in Builder */}
           <Link
@@ -148,7 +148,7 @@ export default function MyStackTray() {
               padding: "0 12px",
               height: 28,
               borderRadius: 7,
-              background: "#7c6bff",
+              background: "var(--accent)",
               color: "#fff",
               fontSize: 11,
               fontWeight: 600,

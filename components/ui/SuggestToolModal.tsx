@@ -80,8 +80,8 @@ function TextInput({
         width: "100%",
         padding: "8px 10px",
         borderRadius: 7,
-        background: "#1c1c28",
-        border: "1px solid #2a2a3a",
+        background: "var(--btn)",
+        border: "1px solid var(--btn-border)",
         color: "#f0f0f8",
         fontSize: 13,
         outline: "none",
@@ -111,8 +111,8 @@ function Toggle({
         gap: 10,
         padding: "10px 12px",
         borderRadius: 8,
-        background: value ? accent + "15" : "#1c1c28",
-        border: `1px solid ${value ? accent + "50" : "#2a2a3a"}`,
+        background: value ? accent + "15" : "var(--btn)",
+        border: `1px solid ${value ? accent + "50" : "var(--btn-border)"}`,
         color: value ? accent : "#8888aa",
         fontSize: 12,
         fontWeight: 500,
@@ -127,7 +127,7 @@ function Toggle({
           width: 32,
           height: 18,
           borderRadius: 9,
-          background: value ? accent : "#2a2a3a",
+          background: value ? accent : "var(--btn-border)",
           position: "relative",
           flexShrink: 0,
           transition: "background 150ms",
@@ -247,8 +247,8 @@ function Step2({
                   gap: 7,
                   padding: "7px 9px",
                   borderRadius: 7,
-                  background: active ? cat.color + "20" : "#1c1c28",
-                  border: `1px solid ${active ? cat.color + "60" : "#2a2a3a"}`,
+                  background: active ? cat.color + "20" : "var(--btn)",
+                  border: `1px solid ${active ? cat.color + "60" : "var(--btn-border)"}`,
                   color: active ? cat.color : "#8888aa",
                   fontSize: 11,
                   fontWeight: active ? 500 : 400,
@@ -289,8 +289,8 @@ function Step2({
             width: "100%",
             padding: "8px 10px",
             borderRadius: 7,
-            background: "#1c1c28",
-            border: "1px solid #2a2a3a",
+            background: "var(--btn)",
+            border: "1px solid var(--btn-border)",
             color: "#f0f0f8",
             fontSize: 13,
             outline: "none",
@@ -318,13 +318,13 @@ function Step3({
         label="Open Source"
         value={form.isOss || githubProvided}
         onChange={(v) => update("isOss", v)}
-        accent="#26de81"
+        accent="var(--success)"
       />
       <Toggle
         label="Has a Free Tier"
         value={form.hasFreeTier}
         onChange={(v) => update("hasFreeTier", v)}
-        accent="#00d4aa"
+        accent="var(--accent-2)"
       />
       <div style={{ marginTop: 4 }}>
         <FieldLabel>Starting paid price (optional)</FieldLabel>
@@ -347,7 +347,7 @@ function PreviewCard({ form, color }: { form: FormData; color: string }) {
       style={{
         borderRadius: 8,
         border: `1px solid ${color}80`,
-        background: "#0e0e18",
+        background: "var(--surface)",
         overflow: "hidden",
         boxShadow: `0 0 20px ${color}15`,
       }}
@@ -415,7 +415,7 @@ function PreviewCard({ form, color }: { form: FormData; color: string }) {
                   padding: "2px 7px",
                   borderRadius: 4,
                   background: "#26de8120",
-                  color: "#26de81",
+                  color: "var(--success)",
                   border: "1px solid #26de8140",
                   fontWeight: 600,
                   letterSpacing: 0.3,
@@ -431,7 +431,7 @@ function PreviewCard({ form, color }: { form: FormData; color: string }) {
                   padding: "2px 7px",
                   borderRadius: 4,
                   background: "#00d4aa15",
-                  color: "#00d4aa",
+                  color: "var(--accent-2)",
                   border: "1px solid #00d4aa40",
                   fontWeight: 600,
                   letterSpacing: 0.3,
@@ -463,7 +463,7 @@ function PreviewCard({ form, color }: { form: FormData; color: string }) {
                 fontSize: 9,
                 padding: "2px 7px",
                 borderRadius: 12,
-                border: "1px solid #2a2a3a",
+                border: "1px solid var(--btn-border)",
                 color: "#555577",
               }}
             >
@@ -490,8 +490,8 @@ function Step4({ form, color, onSubmit }: { form: FormData; color: string; onSub
         style={{
           padding: "10px 12px",
           borderRadius: 8,
-          background: "#1c1c28",
-          border: "1px solid #2a2a3a",
+          background: "var(--btn)",
+          border: "1px solid var(--btn-border)",
           fontSize: 11,
           color: "#8888aa",
           lineHeight: 1.5,
@@ -503,7 +503,7 @@ function Step4({ form, color, onSubmit }: { form: FormData; color: string; onSub
           href={GITHUB_SUGGEST_URL}
           target="_blank"
           rel="noopener noreferrer"
-          style={{ color: "#7c6bff", textDecoration: "underline" }}
+          style={{ color: "var(--accent)", textDecoration: "underline" }}
         >
           browse existing suggestions
         </a>{" "}
@@ -550,7 +550,7 @@ function SuccessView({
       </div>
       <div>
         <p style={{ fontSize: 14, fontWeight: 600, color: "#f0f0f8", margin: 0 }}>
-          Issue opened for <span style={{ color: "#7c6bff" }}>{toolName}</span>
+          Issue opened for <span style={{ color: "var(--accent)" }}>{toolName}</span>
         </p>
         <p
           style={{
@@ -571,8 +571,8 @@ function SuccessView({
             padding: "7px 14px",
             borderRadius: 7,
             fontSize: 12,
-            background: "#1c1c28",
-            border: "1px solid #2a2a3a",
+            background: "var(--btn)",
+            border: "1px solid var(--btn-border)",
             color: "#8888aa",
             cursor: "pointer",
           }}
@@ -585,7 +585,7 @@ function SuccessView({
             padding: "7px 14px",
             borderRadius: 7,
             fontSize: 12,
-            background: "#7c6bff",
+            background: "var(--accent)",
             color: "#fff",
             border: "none",
             cursor: "pointer",
@@ -615,7 +615,7 @@ export default function SuggestToolModal({ onClose, prefillName = "" }: Props) {
 
   const dupes = findDuplicates(form.name);
 
-  const categoryColor = CATEGORIES.find((c) => c.id === form.category)?.color ?? "#7c6bff";
+  const categoryColor = CATEGORIES.find((c) => c.id === form.category)?.color ?? "var(--accent)";
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
@@ -708,7 +708,7 @@ export default function SuggestToolModal({ onClose, prefillName = "" }: Props) {
         className="w-full max-w-md flex flex-col rounded-xl overflow-hidden"
         style={{
           background: "#111118",
-          border: "1px solid #2a2a3a",
+          border: "1px solid var(--btn-border)",
           boxShadow: "0 24px 64px rgba(0,0,0,0.7)",
           maxHeight: "90vh",
         }}
@@ -757,7 +757,7 @@ export default function SuggestToolModal({ onClose, prefillName = "" }: Props) {
                   flex: 1,
                   height: 2,
                   borderRadius: 2,
-                  background: i < step ? "#7c6bff" : "#2a2a3a",
+                  background: i < step ? "var(--accent)" : "var(--btn-border)",
                   transition: "background 200ms",
                 }}
               />
@@ -850,7 +850,7 @@ export default function SuggestToolModal({ onClose, prefillName = "" }: Props) {
                   borderRadius: 7,
                   fontSize: 12,
                   fontWeight: 500,
-                  background: canAdvance() ? "#7c6bff" : "#2a2a3a",
+                  background: canAdvance() ? "var(--accent)" : "var(--btn-border)",
                   color: canAdvance() ? "#fff" : "#555577",
                   border: "none",
                   cursor: canAdvance() ? "pointer" : "not-allowed",
@@ -867,7 +867,7 @@ export default function SuggestToolModal({ onClose, prefillName = "" }: Props) {
                   borderRadius: 7,
                   fontSize: 12,
                   fontWeight: 500,
-                  background: "#7c6bff",
+                  background: "var(--accent)",
                   color: "#fff",
                   border: "none",
                   cursor: "pointer",

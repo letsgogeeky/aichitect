@@ -77,17 +77,17 @@ const QUESTIONS: {
 ];
 
 const LABEL_COLOR: Record<string, string> = {
-  "Perfect fit": "#26de81",
-  "Strong match": "#00d4aa",
-  "Good match": "#7c6bff",
+  "Perfect fit": "var(--success)",
+  "Strong match": "var(--accent-2)",
+  "Good match": "var(--accent)",
   "Decent fit": "#fd9644",
   "Partial match": "#8888aa",
 };
 
 const COMPLEXITY_COLOR: Record<string, string> = {
-  beginner: "#26de81",
+  beginner: "var(--success)",
   intermediate: "#fd9644",
-  advanced: "#ff6b6b",
+  advanced: "var(--danger)",
 };
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
@@ -102,7 +102,8 @@ function ProgressDots({ total, current }: { total: number; current: number }) {
             width: i < current ? 20 : 6,
             height: 6,
             borderRadius: 3,
-            background: i < current ? "#7c6bff" : i === current ? "#7c6bff88" : "#2a2a3a",
+            background:
+              i < current ? "var(--accent)" : i === current ? "#7c6bff88" : "var(--btn-border)",
             transition: "all 220ms ease",
           }}
         />
@@ -126,8 +127,8 @@ function OptionButton({
       style={{
         padding: "11px 14px",
         borderRadius: 9,
-        background: selected ? "#7c6bff18" : "#1c1c28",
-        border: `1px solid ${selected ? "#7c6bff66" : "#2a2a3a"}`,
+        background: selected ? "#7c6bff18" : "var(--btn)",
+        border: `1px solid ${selected ? "#7c6bff66" : "var(--btn-border)"}`,
         color: selected ? "#f0f0f8" : "#8888aa",
         fontSize: 13,
         fontWeight: selected ? 500 : 400,
@@ -147,7 +148,7 @@ function OptionButton({
       }}
       onMouseLeave={(e) => {
         if (!selected) {
-          e.currentTarget.style.borderColor = "#2a2a3a";
+          e.currentTarget.style.borderColor = "var(--btn-border)";
           e.currentTarget.style.color = "#8888aa";
         }
       }}
@@ -158,8 +159,8 @@ function OptionButton({
           width: 16,
           height: 16,
           borderRadius: "50%",
-          border: `1.5px solid ${selected ? "#7c6bff" : "#3a3a4a"}`,
-          background: selected ? "#7c6bff" : "transparent",
+          border: `1.5px solid ${selected ? "var(--accent)" : "#3a3a4a"}`,
+          background: selected ? "var(--accent)" : "transparent",
           flexShrink: 0,
           marginTop: 1,
           display: "flex",
@@ -210,7 +211,7 @@ function MatchCard({
         style={{
           padding: "14px 16px",
           borderRadius: 10,
-          background: "#0e0e18",
+          background: "var(--surface)",
           border: "1px solid #1e1e2e",
           display: "flex",
           alignItems: "center",
@@ -258,8 +259,8 @@ function MatchCard({
             fontWeight: 500,
             padding: "5px 12px",
             borderRadius: 6,
-            background: "#1c1c28",
-            border: "1px solid #2a2a3a",
+            background: "var(--btn)",
+            border: "1px solid var(--btn-border)",
             color: "#8888aa",
             textDecoration: "none",
           }}
@@ -274,14 +275,16 @@ function MatchCard({
     <div
       style={{
         borderRadius: 12,
-        background: "#0e0e18",
+        background: "var(--surface)",
         border: "1px solid #7c6bff44",
         overflow: "hidden",
         boxShadow: "0 0 40px #7c6bff0a",
       }}
     >
       {/* Top accent */}
-      <div style={{ height: 2, background: "linear-gradient(90deg, #7c6bff, #00d4aa)" }} />
+      <div
+        style={{ height: 2, background: "linear-gradient(90deg, var(--accent), var(--accent-2))" }}
+      />
 
       <div style={{ padding: "18px 20px 20px" }}>
         {/* Header */}
@@ -384,8 +387,8 @@ function MatchCard({
                 fontSize: 10,
                 padding: "2px 8px",
                 borderRadius: 10,
-                background: "#1c1c28",
-                border: "1px solid #2a2a3a",
+                background: "var(--btn)",
+                border: "1px solid var(--btn-border)",
                 color: "#6666aa",
                 fontFamily: "monospace",
               }}
@@ -399,8 +402,8 @@ function MatchCard({
                 fontSize: 10,
                 padding: "2px 8px",
                 borderRadius: 10,
-                background: "#1c1c28",
-                border: "1px solid #2a2a3a",
+                background: "var(--btn)",
+                border: "1px solid var(--btn-border)",
                 color: "#444466",
               }}
             >
@@ -417,7 +420,7 @@ function MatchCard({
               flex: 1,
               padding: "9px 16px",
               borderRadius: 8,
-              background: "#7c6bff",
+              background: "var(--accent)",
               color: "#fff",
               fontSize: 12,
               fontWeight: 600,
@@ -432,8 +435,8 @@ function MatchCard({
             style={{
               padding: "9px 14px",
               borderRadius: 8,
-              background: "#1c1c28",
-              border: "1px solid #2a2a3a",
+              background: "var(--btn)",
+              border: "1px solid var(--btn-border)",
               color: "#8888aa",
               fontSize: 12,
               fontWeight: 500,
@@ -511,7 +514,7 @@ export function StackQuizModal({ onClose }: Props) {
           maxWidth: 520,
           maxHeight: "90vh",
           background: "#111118",
-          border: "1px solid #2a2a3a",
+          border: "1px solid var(--btn-border)",
           borderRadius: 16,
           boxShadow: "0 32px 80px rgba(0,0,0,0.7)",
           overflow: "hidden",
@@ -689,7 +692,7 @@ export function FindMyStackButton() {
           padding: "0 28px",
           height: 46,
           borderRadius: 10,
-          background: "#7c6bff",
+          background: "var(--accent)",
           color: "#fff",
           fontSize: 14,
           fontWeight: 600,

@@ -4,7 +4,9 @@ interface FreeTierCellProps {
 
 export function FreeTierCell({ has }: FreeTierCellProps) {
   return (
-    <span className={`text-xs font-medium ${has ? "text-[#26de81]" : "text-[var(--text-muted)]"}`}>
+    <span
+      className={`text-xs font-medium ${has ? "text-[var(--success)]" : "text-[var(--text-muted)]"}`}
+    >
       {has ? "✓ Yes" : "✗ No"}
     </span>
   );
