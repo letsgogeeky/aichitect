@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 
 import { getTools } from "@/lib/data/tools";
-import { getRelationships } from "@/lib/data/relationships";
+import { loadGraphData } from "@/lib/data-loaders";
 import { Tool, getCategoryColor, CATEGORIES } from "@/lib/types";
 import { TOOL_COUNT, RELATIONSHIP_COUNT } from "@/lib/constants";
 import { pageMeta } from "@/lib/metadata";
@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: Props) {
 // ─── Static params (prominent tool pairs with direct relationships) ──────────
 
 export async function generateStaticParams() {
-  const [tools, relationships] = await Promise.all([getTools(), getRelationships()]);
+  const { tools, relationships } = await loadGraphData();
   const prominentIds = new Set(tools.filter((t) => t.prominent).map((t) => t.id));
   const pairs: { toolA: string; toolB: string }[] = [];
   for (const r of relationships) {
@@ -58,7 +58,7 @@ function relBadgeStyle(type: string): React.CSSProperties {
 
 export default async function ComparePage({ params }: Props) {
   const { toolA: aId, toolB: bId } = await params;
-  const [tools, relationships] = await Promise.all([getTools(), getRelationships()]);
+  const { tools, relationships } = await loadGraphData();
   const a = tools.find((t) => t.id === aId);
   const b = tools.find((t) => t.id === bId);
   if (!a || !b) notFound();

@@ -1,13 +1,7 @@
-import { getSlots } from "@/lib/data/slots";
-import { getTools } from "@/lib/data/tools";
-import { getRelationships } from "@/lib/data/relationships";
+import { loadBuilderData } from "@/lib/data-loaders";
 import BuilderClient from "./BuilderClient";
 
 export default async function BuilderPage() {
-  const [slots, tools, relationships] = await Promise.all([
-    getSlots(),
-    getTools(),
-    getRelationships(),
-  ]);
+  const { tools, relationships, slots } = await loadBuilderData();
   return <BuilderClient slots={slots} tools={tools} relationships={relationships} />;
 }
