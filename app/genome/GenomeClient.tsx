@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, Suspense } from "react";
+import { useState, useMemo, Suspense, Component, ReactNode } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Tool, Slot, Relationship } from "@/lib/types";
 import { analyzeGenome } from "@/lib/genomeAnalysis";
@@ -9,6 +9,49 @@ import { GenomeStep } from "./genomeConstants";
 import { ScanStep } from "./components/ScanStep";
 import { WorkflowStep } from "./components/WorkflowStep";
 import { ResultsView } from "./components/ResultsView";
+
+class GenomeErrorBoundary extends Component<{ children: ReactNode }, { error: Error | null }> {
+  state = { error: null };
+  static getDerivedStateFromError(error: Error) {
+    return { error };
+  }
+  render() {
+    if (this.state.error) {
+      return (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            height: "100%",
+            gap: 12,
+            color: "#555577",
+          }}
+        >
+          <span style={{ fontSize: 28 }}>⚠</span>
+          <p style={{ fontSize: 13, margin: 0 }}>Something went wrong loading the Genome.</p>
+          <button
+            onClick={() => this.setState({ error: null })}
+            style={{
+              marginTop: 4,
+              padding: "6px 16px",
+              fontSize: 12,
+              borderRadius: 6,
+              background: "#1e1e2e",
+              border: "1px solid #2e2e4e",
+              color: "#f0f0f8",
+              cursor: "pointer",
+            }}
+          >
+            Try again
+          </button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 
 function GenomePageInner() {
   const { allTools, allSlots, allRelationships } = useGenomeData();
@@ -82,6 +125,36 @@ function GenomePageInner() {
       {step === "results" && report && (
         <ResultsView report={report} allIds={allIds} onReset={handleReset} />
       )}
+
+      {step === "results" && !report && (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            height: "100%",
+            gap: 12,
+            color: "#555577",
+          }}
+        >
+          <p style={{ fontSize: 13, margin: 0 }}>No analysis to show.</p>
+          <button
+            onClick={handleReset}
+            style={{
+              padding: "6px 16px",
+              fontSize: 12,
+              borderRadius: 6,
+              background: "#1e1e2e",
+              border: "1px solid #2e2e4e",
+              color: "#f0f0f8",
+              cursor: "pointer",
+            }}
+          >
+            Start over
+          </button>
+        </div>
+      )}
     </div>
   );
 }
@@ -99,24 +172,26 @@ export default function GenomeClient({
     <GenomeDataCtx.Provider
       value={{ allTools: tools, allSlots: slots, allRelationships: relationships }}
     >
-      <Suspense
-        fallback={
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              height: "100%",
-              color: "#555577",
-              fontSize: 13,
-            }}
-          >
-            Loading…
-          </div>
-        }
-      >
-        <GenomePageInner />
-      </Suspense>
+      <GenomeErrorBoundary>
+        <Suspense
+          fallback={
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                height: "100%",
+                color: "#555577",
+                fontSize: 13,
+              }}
+            >
+              Loading…
+            </div>
+          }
+        >
+          <GenomePageInner />
+        </Suspense>
+      </GenomeErrorBoundary>
     </GenomeDataCtx.Provider>
   );
 }
