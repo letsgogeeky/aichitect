@@ -3,6 +3,7 @@
 import { memo } from "react";
 import { Handle, Position, NodeProps } from "reactflow";
 import { Tool, getCategoryColor } from "@/lib/types";
+import { ColorDot } from "@/components/ui/ColorDot";
 
 export interface ToolNodeData extends Tool {
   dimmed?: boolean;
@@ -113,7 +114,7 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
         {/* Top row: category label + stars */}
         <div className="flex items-center justify-between mb-1.5">
           <div className="flex items-center gap-1.5 min-w-0">
-            <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: color }} />
+            <ColorDot color={color} />
             <span
               className="text-[10px] font-medium uppercase tracking-wide truncate"
               style={{ color }}

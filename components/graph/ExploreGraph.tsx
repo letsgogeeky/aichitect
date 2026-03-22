@@ -41,6 +41,8 @@ import ComparisonPanel from "@/components/panels/ComparisonPanel";
 import { useSuggestTool } from "@/components/ui/SuggestToolContext";
 import BottomSheet from "@/components/mobile/BottomSheet";
 import ToolDetailSheet from "@/components/mobile/ToolDetailSheet";
+import { CloseButton } from "@/components/ui/CloseButton";
+import { ColorDot } from "@/components/ui/ColorDot";
 
 const staticTools = toolsData as Tool[];
 const staticRelationships = relationshipsData as Relationship[];
@@ -356,12 +358,10 @@ export default function ExploreGraph({
               Build your stack →
             </a>
           </p>
-          <button
+          <CloseButton
             onClick={() => setBannerDismissed(true)}
-            className="ml-4 text-[var(--text-muted)] hover:text-[var(--text-secondary)] text-xs flex-shrink-0 transition-colors"
-          >
-            ✕
-          </button>
+            className="ml-4 text-xs flex-shrink-0"
+          />
         </div>
       )}
 
@@ -575,9 +575,9 @@ export default function ExploreGraph({
             >
               {selectedTool ? (
                 <>
-                  <div
-                    className="w-2 h-2 rounded-full"
-                    style={{ background: getCategoryColor(selectedTool.category) }}
+                  <ColorDot
+                    color={getCategoryColor(selectedTool.category)}
+                    className="flex-shrink-0"
                   />
                   <p className="text-xs font-medium" style={{ color: "var(--text-primary)" }}>
                     {selectedTool.name}

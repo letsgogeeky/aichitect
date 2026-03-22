@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { CATEGORIES, STACK_LAYERS, RelationshipType } from "@/lib/types";
+import { ColorDot } from "@/components/ui/ColorDot";
 import { useSuggestTool } from "@/components/ui/SuggestToolContext";
 
 interface Props {
@@ -176,10 +177,7 @@ export default function FilterPanel({
                             className="w-full flex items-center gap-2 px-2 py-1 rounded-md text-left transition-colors hover:bg-[var(--surface-2)]"
                             style={{ opacity: active ? 1 : 0.35 }}
                           >
-                            <div
-                              className="w-2 h-2 rounded-full flex-shrink-0"
-                              style={{ background: cat.color }}
-                            />
+                            <ColorDot color={cat.color} />
                             <span className="text-[11px] text-[var(--text-secondary)] truncate">
                               {cat.label}
                             </span>

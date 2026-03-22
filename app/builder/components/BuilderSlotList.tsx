@@ -2,6 +2,7 @@
 
 import type { MouseEvent } from "react";
 import { Slot, Tool, getCategoryColor } from "@/lib/types";
+import { CloseButton } from "@/components/ui/CloseButton";
 import { SLOT_AUTONOMY } from "@/lib/stackStory";
 import StackHealthPanel from "@/components/panels/StackHealthPanel";
 
@@ -65,12 +66,11 @@ export function BuilderSlotList({
             />
             <span className="truncate font-medium">{compareA.name}</span>
             <span className="text-[#7c6bff66] flex-shrink-0">· pick one more</span>
-            <button
+            <CloseButton
               onClick={onClearCompare}
-              className="ml-auto flex-shrink-0 text-[#7c6bff88] hover:text-[#7c6bff] transition-colors"
-            >
-              ✕
-            </button>
+              variant="accent"
+              className="ml-auto flex-shrink-0"
+            />
           </div>
         )}
 

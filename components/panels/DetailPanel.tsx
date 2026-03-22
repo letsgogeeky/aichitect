@@ -12,6 +12,8 @@ import { useSuggestTool } from "@/components/ui/SuggestToolContext";
 import { getToolHealthDetails, ToolHealthDetails } from "@/lib/data/tools";
 import { formatRelativeTime, formatStarDelta } from "@/lib/format";
 import { healthColor, healthLabel } from "@/lib/health";
+import { CloseButton } from "@/components/ui/CloseButton";
+import { ColorDot } from "@/components/ui/ColorDot";
 
 const relationships = relationshipsData as Relationship[];
 const allTools = toolsData as Tool[];
@@ -112,10 +114,7 @@ export default function DetailPanel({ tool, onClose }: Props) {
         <div className="flex items-start justify-between">
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-1">
-              <div
-                className="w-2.5 h-2.5 rounded-full flex-shrink-0"
-                style={{ background: color }}
-              />
+              <ColorDot color={color} className="w-2.5 h-2.5" />
               <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color }}>
                 {categoryLabel}
               </span>
@@ -167,12 +166,7 @@ export default function DetailPanel({ tool, onClose }: Props) {
               </div>
             )}
           </div>
-          <button
-            onClick={onClose}
-            className="text-[var(--text-muted)] hover:text-[var(--text-secondary)] ml-2 mt-0.5 flex-shrink-0 transition-colors"
-          >
-            ✕
-          </button>
+          <CloseButton onClick={onClose} className="ml-2 mt-0.5 flex-shrink-0" />
         </div>
 
         {/* Description */}
