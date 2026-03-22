@@ -1,11 +1,10 @@
 import { ImageResponse } from "next/og";
+import { type NextRequest } from "next/server";
 import toolsData from "@/data/tools.json";
 import { getCategoryColor } from "@/lib/types";
 import type { Tool } from "@/lib/types";
 
 export const runtime = "edge";
-export const size = { width: 1200, height: 630 };
-export const contentType = "image/png";
 
 const CATEGORY_LABEL: Record<string, string> = {
   "coding-assistants": "Coding",
@@ -26,9 +25,16 @@ const CATEGORY_LABEL: Record<string, string> = {
   "browser-automation": "Browser",
 };
 
-export default async function Image({ searchParams }: { searchParams: Promise<{ s?: string }> }) {
-  const { s } = (await searchParams) ?? {};
-  const toolIds = (s ?? "").split(",").filter(Boolean);
+const W = 1200;
+const H = 630;
+const COL_WIDTH = 260;
+const CARD_GAP = 16;
+const CARD_H = 88;
+const COLS = 4;
+
+export async function GET(request: NextRequest) {
+  const s = new URL(request.url).searchParams.get("s") ?? "";
+  const toolIds = s.split(",").filter(Boolean);
   const tools = toolIds
     .map((id) => (toolsData as Tool[]).find((t) => t.id === id))
     .filter((t): t is Tool => Boolean(t))
@@ -36,7 +42,6 @@ export default async function Image({ searchParams }: { searchParams: Promise<{ 
 
   const hasTools = tools.length > 0;
 
-  // Pick up to 2 unique category colors for the atmospheric background gradients
   const bgColors: string[] = [];
   for (const t of tools) {
     const c = getCategoryColor(t.category);
@@ -46,12 +51,6 @@ export default async function Image({ searchParams }: { searchParams: Promise<{ 
   const grad1 = bgColors[0] ?? "#7c6bff";
   const grad2 = bgColors[1] ?? "#00d4aa";
 
-  // 4 cols, 16px gap, 56px side padding → content width = 1088px → col = 260px
-  const COL_WIDTH = 260;
-  const CARD_GAP = 16;
-  const CARD_H = 88;
-  const COLS = 4;
-
   const rows: Tool[][] = [];
   for (let i = 0; i < tools.length; i += COLS) {
     rows.push(tools.slice(i, i + COLS));
@@ -60,8 +59,8 @@ export default async function Image({ searchParams }: { searchParams: Promise<{ 
   return new ImageResponse(
     <div
       style={{
-        width: 1200,
-        height: 630,
+        width: W,
+        height: H,
         background: "#0a0a0f",
         display: "flex",
         flexDirection: "column",
@@ -70,7 +69,6 @@ export default async function Image({ searchParams }: { searchParams: Promise<{ 
         overflow: "hidden",
       }}
     >
-      {/* Atmospheric gradients — two separate divs to avoid multi-value background (not supported in satori) */}
       <div
         style={{
           position: "absolute",
@@ -92,7 +90,6 @@ export default async function Image({ searchParams }: { searchParams: Promise<{ 
         }}
       />
 
-      {/* Content */}
       <div
         style={{
           display: "flex",
@@ -105,7 +102,6 @@ export default async function Image({ searchParams }: { searchParams: Promise<{ 
       >
         {/* ── TOP: brand + headline ── */}
         <div style={{ display: "flex", flexDirection: "column" }}>
-          {/* Header row */}
           <div
             style={{
               display: "flex",
@@ -170,7 +166,6 @@ export default async function Image({ searchParams }: { searchParams: Promise<{ 
             )}
           </div>
 
-          {/* Gradient accent bar */}
           <div
             style={{
               height: 2,
@@ -180,7 +175,6 @@ export default async function Image({ searchParams }: { searchParams: Promise<{ 
             }}
           />
 
-          {/* Headline */}
           <div
             style={{
               fontSize: 54,
@@ -194,13 +188,7 @@ export default async function Image({ searchParams }: { searchParams: Promise<{ 
             My AI Stack
           </div>
 
-          <div
-            style={{
-              fontSize: 18,
-              color: "#44446a",
-              letterSpacing: 0.2,
-            }}
-          >
+          <div style={{ fontSize: 18, color: "#44446a", letterSpacing: 0.2 }}>
             {hasTools ? "Built with AIchitect · aichitect.dev" : "Build yours at aichitect.dev"}
           </div>
         </div>
@@ -268,20 +256,8 @@ export default async function Image({ searchParams }: { searchParams: Promise<{ 
             ))}
           </div>
         ) : (
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <div
-              style={{
-                fontSize: 22,
-                color: "#2a2a44",
-                textAlign: "center",
-              }}
-            >
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={{ fontSize: 22, color: "#2a2a44", textAlign: "center" }}>
               Pick your tools and share your AI stack.
             </div>
           </div>
@@ -300,6 +276,6 @@ export default async function Image({ searchParams }: { searchParams: Promise<{ 
         </div>
       </div>
     </div>,
-    { ...size }
+    { width: W, height: H }
   );
 }

@@ -12,7 +12,7 @@ export default async function Image({
 }: {
   searchParams: Promise<{ compare?: string }>;
 }) {
-  const { compare } = await searchParams;
+  const { compare } = (await searchParams) ?? {};
   const tools = toolsData as Tool[];
 
   const compared = compare
