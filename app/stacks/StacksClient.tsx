@@ -73,13 +73,13 @@ function StacksContent({ stacks, allTools }: { stacks: Stack[]; allTools: Tool[]
   const router = useRouter();
   const searchParams = useSearchParams();
   const stackId = searchParams.get("stack");
-  const activeCluster = (searchParams.get("cluster") as StackCluster) ?? "build";
+  const clusterParam = (searchParams.get("cluster") as StackCluster) ?? "build";
 
+  // Find by stack ID first — cluster is derivable from the stack itself
+  const requestedStack = stackId ? stacks.find((s) => s.id === stackId) : null;
+  const activeCluster = requestedStack?.cluster ?? clusterParam;
   const clusterStacks = stacks.filter((s) => s.cluster === activeCluster);
-  const selected =
-    stacks.find((s) => s.id === stackId && s.cluster === activeCluster) ??
-    clusterStacks[0] ??
-    stacks[0];
+  const selected = requestedStack ?? clusterStacks[0] ?? stacks[0];
 
   const [compareA, setCompareA] = useState<Tool | null>(null);
   const [compareB, setCompareB] = useState<Tool | null>(null);
@@ -98,7 +98,7 @@ function StacksContent({ stacks, allTools }: { stacks: Stack[]; allTools: Tool[]
   function selectStack(s: Stack) {
     const params = new URLSearchParams(searchParams.toString());
     params.set("stack", s.id);
-    params.set("cluster", s.cluster);
+    params.delete("cluster"); // cluster is derived from the stack
     router.push(`?${params.toString()}`, { scroll: false });
     setCompareA(null);
     setCompareB(null);
