@@ -106,6 +106,13 @@ export default function DetailPanel({ tool, onClose }: Props) {
 
   const featuredIn = stacks.filter((s) => s.tools.includes(tool.id));
 
+  const rejectedBy = stacks
+    .map((s) => {
+      const rejection = s.not_in_stack?.find((r) => r.tool === tool.id);
+      return rejection ? { stack: s, reason: rejection.reason } : null;
+    })
+    .filter(Boolean) as { stack: (typeof stacks)[0]; reason: string }[];
+
   return (
     <aside
       className="w-72 flex-shrink-0 border-l overflow-y-auto"
@@ -340,6 +347,31 @@ export default function DetailPanel({ tool, onClose }: Props) {
             </div>
           </div>
         )}
+        {/* Rejected by stacks */}
+        {rejectedBy.length > 0 && (
+          <div>
+            <h3 className="text-[10px] font-semibold uppercase tracking-widest text-[var(--text-muted)] mb-2">
+              Ruled out by {rejectedBy.length} stack{rejectedBy.length !== 1 ? "s" : ""}
+            </h3>
+            <div className="space-y-1.5">
+              {rejectedBy.map(({ stack, reason }) => (
+                <div
+                  key={stack.id}
+                  className="px-2 py-1.5 rounded-md"
+                  style={{ background: "#ff6b6b08", border: "1px solid #ff6b6b18" }}
+                >
+                  <div className="text-[10px] font-semibold text-[var(--text-secondary)] mb-0.5">
+                    {stack.name}
+                  </div>
+                  <div className="text-[10px] leading-snug" style={{ color: "#ff6b6b99" }}>
+                    &ldquo;{reason}&rdquo;
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Suggest a related tool */}
         <div
           style={{

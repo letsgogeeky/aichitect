@@ -98,6 +98,7 @@ function StacksContent({ stacks, allTools }: { stacks: Stack[]; allTools: Tool[]
   function selectStack(s: Stack) {
     const params = new URLSearchParams(searchParams.toString());
     params.set("stack", s.id);
+    params.set("cluster", s.cluster);
     router.push(`?${params.toString()}`, { scroll: false });
     setCompareA(null);
     setCompareB(null);

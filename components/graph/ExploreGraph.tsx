@@ -21,10 +21,12 @@ import "reactflow/dist/style.css";
 
 import toolsData from "@/data/tools.json";
 import relationshipsData from "@/data/relationships.json";
+import stacksData from "@/data/stacks.json";
 import {
   Tool,
   Relationship,
   RelationshipType,
+  Stack,
   getCategoryColor,
   STACK_LAYERS,
   CategoryId,
@@ -42,6 +44,17 @@ import ToolDetailSheet from "@/components/mobile/ToolDetailSheet";
 
 const staticTools = toolsData as Tool[];
 const staticRelationships = relationshipsData as Relationship[];
+const staticStacks = stacksData as Stack[];
+
+// Aggregate rejection reasons per tool for search
+const toolRejectionReasons = new Map<string, string[]>();
+for (const stack of staticStacks) {
+  for (const r of stack.not_in_stack ?? []) {
+    const existing = toolRejectionReasons.get(r.tool) ?? [];
+    existing.push(r.reason);
+    toolRejectionReasons.set(r.tool, existing);
+  }
+}
 
 const nodeTypes: NodeTypes = { tool: ToolNode, laneLabel: LaneLabel };
 
@@ -97,7 +110,12 @@ function ExploreGraphInner({
     const q = searchQuery.toLowerCase();
     return new Set(
       tools
-        .filter((t) => t.name.toLowerCase().includes(q) || t.tagline.toLowerCase().includes(q))
+        .filter(
+          (t) =>
+            t.name.toLowerCase().includes(q) ||
+            t.tagline.toLowerCase().includes(q) ||
+            toolRejectionReasons.get(t.id)?.some((r) => r.toLowerCase().includes(q))
+        )
         .map((t) => t.id)
     );
   }, [searchQuery, tools]);
