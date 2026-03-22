@@ -2,65 +2,11 @@
 
 import { useState, useEffect } from "react";
 import { getChecklistItems, generateChecklist, ChecklistItem } from "@/lib/getStarted";
+import { IconCopy, IconClose, IconExternalLink } from "@/components/icons";
 
 interface Props {
   toolIds: string[];
   onClose: () => void;
-}
-
-function IconCopy() {
-  return (
-    <svg
-      width="13"
-      height="13"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
-      <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
-    </svg>
-  );
-}
-
-function IconClose() {
-  return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <line x1="18" y1="6" x2="6" y2="18" />
-      <line x1="6" y1="6" x2="18" y2="18" />
-    </svg>
-  );
-}
-
-function IconExternalLink() {
-  return (
-    <svg
-      width="11"
-      height="11"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-      <polyline points="15 3 21 3 21 9" />
-      <line x1="10" y1="14" x2="21" y2="3" />
-    </svg>
-  );
 }
 
 function ChecklistRow({ item }: { item: ChecklistItem }) {
@@ -159,7 +105,7 @@ function ChecklistRow({ item }: { item: ChecklistItem }) {
             }}
           >
             Get started
-            <IconExternalLink />
+            <IconExternalLink size={11} />
           </a>
         )}
       </div>
@@ -308,7 +254,7 @@ export default function GetStartedModal({ toolIds, onClose }: Props) {
                 cursor: "pointer",
               }}
             >
-              <IconCopy />
+              <IconCopy size={13} />
               {copied ? "Copied!" : "Copy Markdown"}
             </button>
           </div>
