@@ -1,8 +1,8 @@
 import { Suspense } from "react";
 import { Metadata } from "next";
 import ExploreGraph from "@/components/graph/ExploreGraph";
+import { loadGraphData } from "@/lib/data-loaders";
 import { getTools } from "@/lib/data/tools";
-import { getRelationships } from "@/lib/data/relationships";
 
 export async function generateMetadata({
   searchParams,
@@ -31,7 +31,7 @@ export async function generateMetadata({
 }
 
 export default async function ExplorePage() {
-  const [tools, relationships] = await Promise.all([getTools(), getRelationships()]);
+  const { tools, relationships } = await loadGraphData();
   return (
     <Suspense fallback={null}>
       <ExploreGraph initialTools={tools} initialRelationships={relationships} />
