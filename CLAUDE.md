@@ -18,8 +18,29 @@ The exception: once we have production data that can't be migrated cheaply, or a
 ## Dev workflow
 
 - **Docker only** — never run `npm` or `node` locally. All dev runs through docker-compose.
-- Use `make run` to start (foreground), `make down` to stop, `make rebuild` after adding packages.
 - Hot reload via volume mounts. Rebuild image only when adding new packages to `package.json`.
+
+### Make targets
+
+| Command                  | When to use                                                                               |
+| ------------------------ | ----------------------------------------------------------------------------------------- |
+| `make run`               | Start dev server (applies local migrations + seeds, then tails logs)                      |
+| `make down`              | Stop and remove containers                                                                |
+| `make rebuild`           | After adding packages to `package.json` — full reinstall + rebuild                        |
+| `make restart`           | Restart containers without rebuilding                                                     |
+| `make shell`             | Open a shell inside the running container                                                 |
+| `make logs`              | Tail logs without restarting                                                              |
+| `make typecheck`         | Run `tsc --noEmit` inside the container                                                   |
+| `make lint`              | Run ESLint                                                                                |
+| `make format`            | Run Prettier                                                                              |
+| `make test`              | Run Vitest test suite                                                                     |
+| `make check`             | Run lint + typecheck + test in one shot                                                   |
+| `make sync-counts`       | After modifying data files — syncs tool/stack/relationship counts in README and CLAUDE.md |
+| `make seed-validate`     | Validate JSON data integrity without a DB connection                                      |
+| `make db-push-local`     | Apply pending migrations to local Postgres                                                |
+| `make db-push`           | Promote verified migrations to remote Supabase                                            |
+| `make db-migrate name=X` | Scaffold a new migration file                                                             |
+| `make db-reset-local`    | Wipe and re-apply all migrations locally (destructive)                                    |
 
 ## Git & PR workflow
 
@@ -105,6 +126,87 @@ public/
   favicon.svg           → same 3-node graph design as Logo
   llms.txt              → LLM crawler optimization
 ```
+
+## Type system rules
+
+All TypeScript types and interfaces live in `lib/types.ts`. It is the single source of truth.
+
+- **Never use raw string literals for category IDs** — import and use the `CategoryId` union type.
+- **Never hardcode category hex colors** — always call `getCategoryColor(id: CategoryId)` from `lib/types.ts`. Adding a new category means adding it to the `CATEGORIES` array there; the color propagates everywhere automatically.
+- **When a type changes, update all call sites** — no casting, no intermediate adapters. The project is pre-1.0 so a clean sweep is always the right call.
+- **`STACK_LAYERS` and `STACK_CLUSTERS`** are defined in `lib/types.ts`; do not duplicate them inline in components.
+
+## Data integrity
+
+`data/tools.json`, `data/relationships.json`, `data/stacks.json`, and `data/slots.json` are the source of truth until Phase 1 (Supabase migration). Every edit to these files must satisfy:
+
+### tools.json constraints
+
+- `id` — kebab-case, globally unique
+- `category` — must be a valid `CategoryId` from `lib/types.ts`
+- `slot` — must match an `id` in `data/slots.json`; if no slot fits, add one to slots.json first
+- `type` — must be `"oss"` or `"commercial"` (never `null`)
+- `github_stars` — `null` for commercial tools with no public repo; a number otherwise
+- `health_score`, `last_synced_at`, `is_stale` — leave as `null` until the health pipeline populates them
+
+### relationships.json constraints
+
+- Both `source` and `target` must reference valid tool `id`s that exist in tools.json
+- No orphaned references — adding or removing a tool requires auditing relationships
+
+### After modifying data files
+
+1. `make sync-counts` — patches counts in README.md and CLAUDE.md automatically
+2. `make seed-validate` — validates JSON integrity without a DB connection; fix any errors before proceeding
+3. `lib/constants.ts` derives `TOOL_COUNT`, `STACK_COUNT`, `RELATIONSHIP_COUNT` from the JSON at build time — never hardcode these in UI components, always import from `lib/constants.ts`
+
+## Edge runtime & SSR rules
+
+Two routes run in Next.js edge runtime (no Node.js APIs, no `fs`, no `crypto`, no server-only imports):
+
+- `app/badge/route.ts` — SVG badge endpoint
+- `app/builder/opengraph-image.tsx` — OG image generator
+- `app/opengraph-image.tsx` — root OG image
+
+If you touch these files: no `require()`, no Node built-ins, no Supabase server client (edge-compatible client only).
+
+**Heavy browser libs that break SSR** must be lazily imported:
+
+```ts
+// Good — Three.js and react-force-graph-3d
+const ExploreGraph3D = dynamic(() => import("./ExploreGraph3D"), { ssr: false });
+```
+
+Never import `react-force-graph-3d` at the top of a file that is server-rendered.
+
+## Testing
+
+Tests live in `__tests__/lib/` using **Vitest**. Run with `make test`.
+
+When to add tests:
+
+- New pure functions in `lib/` — always add a test
+- New data-shape constants or lookup utilities — add coverage
+- Bug fixes that had a specific repro case — add a regression test
+
+When not to add tests:
+
+- React components (no component tests currently; don't add a testing library for them without discussion)
+- One-off scripts in `scripts/`
+
+## Database & Supabase migrations
+
+Migrations live in `supabase/migrations/`. Always scaffold new migrations with `make db-migrate name=<snake_case_name>`.
+
+Workflow for any schema change:
+
+1. `make db-migrate name=add_foo_column` — creates a timestamped migration file
+2. Edit the generated SQL
+3. `make db-push-local` — apply to local Postgres, verify `make run` still works
+4. `make db-push` — promote to remote Supabase when satisfied
+5. If you add a new column visible to the app, update the `Tool` / `Stack` interface in `lib/types.ts` and re-run `make typecheck`
+
+Never edit migration files that have already been pushed to the remote — scaffold a new one instead.
 
 ### Component responsibility rules
 
