@@ -173,7 +173,7 @@ function NavViewLinks() {
   return (
     <div
       className="flex items-center"
-      style={{ background: "#1c1c28", borderRadius: 8, padding: 3, gap: 2, height: 34 }}
+      style={{ background: "var(--btn)", borderRadius: 8, padding: 3, gap: 2, height: 34 }}
     >
       {VIEWS.map(({ href, label, Icon }) => {
         const active = href === "/compare" ? pathname.startsWith("/compare") : pathname === href;
@@ -223,8 +223,6 @@ export default function Navbar() {
           ? "builder"
           : null;
 
-  const isComparePage = pathname.startsWith("/compare");
-
   function openGetStarted() {
     setGetStartedOpen(true);
   }
@@ -249,35 +247,40 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className="flex items-center justify-between flex-shrink-0 border-b"
+        className="relative flex items-center justify-between flex-shrink-0 border-b"
         style={{
-          background: "#111118",
+          background: "var(--surface-2)",
           borderColor: "var(--border)",
           height: 56,
           padding: "0 20px",
-          gap: 16,
         }}
       >
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 flex-shrink-0">
           <Logo size={28} id="nav-logo-g" />
-          <span style={{ fontSize: 15, fontWeight: 600, color: "#f0f0f8" }}>AIchitect</span>
+          <span style={{ fontSize: 15, fontWeight: 600, color: "var(--text-primary)" }}>
+            AIchitect
+          </span>
         </Link>
 
-        {/* Spacer */}
-        <div style={{ flex: 1 }} />
+        {/* Spacer — mobile only; on desktop VIEWS are absolutely centered */}
+        <div className="flex-1 sm:hidden" />
 
-        {/* View toggle */}
-        <Suspense
-          fallback={
-            <div
-              className="flex items-center"
-              style={{ background: "#1c1c28", borderRadius: 8, padding: 3, gap: 2, height: 34 }}
-            >
-              {VIEWS.map(({ href, label, Icon }) => {
-                const active =
-                  href === "/compare" ? pathname.startsWith("/compare") : pathname === href;
-                return (
+        {/* View toggle — absolutely centered on desktop so it never shifts with right-side content */}
+        <div className="sm:absolute sm:left-1/2 sm:-translate-x-1/2">
+          <Suspense
+            fallback={
+              <div
+                className="flex items-center"
+                style={{
+                  background: "var(--btn)",
+                  borderRadius: 8,
+                  padding: 3,
+                  gap: 2,
+                  height: 34,
+                }}
+              >
+                {VIEWS.map(({ href, label, Icon }) => (
                   <Link
                     key={href}
                     href={href}
@@ -288,93 +291,70 @@ export default function Navbar() {
                       height: "100%",
                       borderRadius: 6,
                       fontSize: 12,
-                      fontWeight: active ? 500 : 400,
-                      background: active ? "#7c6bff" : "transparent",
-                      color: active ? "#ffffff" : "#8888aa",
-                      transition: "background 150ms, color 150ms",
+                      color: "var(--text-secondary)",
                     }}
                   >
                     <Icon />
                     <span className="hidden sm:inline">{label}</span>
                   </Link>
-                );
-              })}
-            </div>
-          }
-        >
-          <NavViewLinks />
-        </Suspense>
-
-        {/* Mobile: ⋯ menu button */}
-        <button
-          className="sm:hidden flex items-center justify-center flex-shrink-0"
-          style={{
-            width: 34,
-            height: 34,
-            borderRadius: 8,
-            background: "#1c1c28",
-            border: "1px solid #2a2a3a",
-            color: "#8888aa",
-            fontSize: 16,
-            cursor: "pointer",
-          }}
-          onClick={() => setMobileMenuOpen(true)}
-          aria-label="More options"
-        >
-          ···
-        </button>
-
-        {/* Right slot */}
-        {pathname === "/explore" && (
-          <div
-            className="hidden sm:flex items-center flex-shrink-0"
-            style={{
-              gap: 6,
-              padding: "4px 10px",
-              borderRadius: 20,
-              background: "#1c1c28",
-              border: "1px solid #2a2a3a",
-            }}
+                ))}
+              </div>
+            }
           >
-            <div
-              style={{
-                width: 6,
-                height: 6,
-                borderRadius: "50%",
-                background: "#00d4aa",
-                flexShrink: 0,
-              }}
-            />
-            <span style={{ fontSize: 11, color: "#8888aa" }}>
-              {TOOL_COUNT} tools · {STACK_COUNT} stacks
-            </span>
-          </div>
-        )}
+            <NavViewLinks />
+          </Suspense>
+        </div>
 
-        {isComparePage && (
-          <Link
-            href="/compare"
-            className="hidden sm:flex"
+        {/* Right actions */}
+        <div className="flex items-center gap-2 flex-shrink-0">
+          {/* Mobile: ⋯ menu button */}
+          <button
+            className="sm:hidden flex items-center justify-center"
             style={{
-              alignItems: "center",
-              gap: 6,
-              padding: "0 12px",
+              width: 34,
               height: 34,
               borderRadius: 8,
-              background: "#7c6bff18",
-              border: "1px solid #7c6bff44",
-              color: "#7c6bff",
-              fontSize: 11,
-              fontWeight: 500,
-              textDecoration: "none",
+              background: "var(--btn)",
+              border: "1px solid var(--btn-border)",
+              color: "var(--text-secondary)",
+              fontSize: 16,
+              cursor: "pointer",
             }}
+            onClick={() => setMobileMenuOpen(true)}
+            aria-label="More options"
           >
-            ← New comparison
-          </Link>
-        )}
+            ···
+          </button>
 
-        {pathname === "/builder" && (
-          <div className="flex items-center flex-shrink-0" style={{ gap: 8 }}>
+          {/* Explore: tools & stacks count */}
+          {pathname === "/explore" && (
+            <div
+              className="hidden sm:flex items-center"
+              style={{
+                gap: 6,
+                padding: "4px 10px",
+                borderRadius: 20,
+                background: "var(--btn)",
+                border: "1px solid var(--btn-border)",
+              }}
+            >
+              <div
+                style={{
+                  width: 6,
+                  height: 6,
+                  borderRadius: "50%",
+                  background: "var(--accent-2)",
+                  flexShrink: 0,
+                }}
+              />
+              <span style={{ fontSize: 11, color: "var(--text-secondary)" }}>
+                {TOOL_COUNT} tools · {STACK_COUNT} stacks
+              </span>
+            </div>
+          )}
+
+          {/* Builder: get started */}
+          {pathname === "/builder" && (
             <button
               onClick={openGetStarted}
               className="hidden sm:flex items-center transition-all"
@@ -385,7 +365,7 @@ export default function Navbar() {
                 borderRadius: 8,
                 background: "#7c6bff18",
                 border: "1px solid #7c6bff44",
-                color: "#7c6bff",
+                color: "var(--accent)",
                 fontSize: 12,
                 fontWeight: 500,
                 cursor: "pointer",
@@ -393,10 +373,14 @@ export default function Navbar() {
             >
               Get Started →
             </button>
+          )}
+
+          {/* Builder: share stack — hidden on mobile (already in bottom sheet) */}
+          {pathname === "/builder" && (
             <button
               data-tour="builder-share"
               onClick={copyStack}
-              className="flex items-center transition-all"
+              className="hidden sm:flex items-center transition-all"
               style={{
                 gap: 6,
                 padding: "0 14px",
@@ -404,7 +388,7 @@ export default function Navbar() {
                 borderRadius: 8,
                 background: copied ? "#00d4aa30" : "#00d4aa18",
                 border: `1px solid ${copied ? "#00d4aa88" : "#00d4aa44"}`,
-                color: "#00d4aa",
+                color: "var(--accent-2)",
                 fontSize: 12,
                 fontWeight: 500,
                 cursor: "pointer",
@@ -413,81 +397,72 @@ export default function Navbar() {
               <IconShare />
               {copied ? "Copied!" : "Share Stack"}
             </button>
-          </div>
-        )}
+          )}
 
-        {/* Tour button — visible on app routes, hidden on mobile */}
-        {tourRoute && (
+          {/* Tour button */}
+          {tourRoute && (
+            <button
+              onClick={() => openWalkthrough(tourRoute)}
+              className="hidden sm:flex items-center flex-shrink-0 transition-colors text-text-secondary hover:text-text-primary"
+              style={{
+                gap: 5,
+                padding: "0 10px",
+                height: 34,
+                borderRadius: 8,
+                background: "var(--btn)",
+                border: "1px solid var(--btn-border)",
+                fontSize: 11,
+                fontWeight: 500,
+                cursor: "pointer",
+              }}
+              title="Start page tour"
+            >
+              <IconTour />
+              Tour
+            </button>
+          )}
+
+          {/* Suggest a Tool */}
           <button
-            onClick={() => openWalkthrough(tourRoute)}
-            className="hidden sm:flex items-center flex-shrink-0 transition-colors"
+            onClick={() => openSuggest()}
+            className="hidden sm:flex items-center flex-shrink-0 transition-colors text-text-secondary hover:text-text-primary"
             style={{
               gap: 5,
               padding: "0 10px",
               height: 34,
               borderRadius: 8,
-              background: "#1c1c28",
-              border: "1px solid #2a2a3a",
-              color: "#8888aa",
+              background: "var(--btn)",
+              border: "1px solid var(--btn-border)",
               fontSize: 11,
               fontWeight: 500,
               cursor: "pointer",
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "#f0f0f8")}
-            onMouseLeave={(e) => (e.currentTarget.style.color = "#8888aa")}
-            title="Start page tour"
           >
-            <IconTour />
-            Tour
+            + Suggest a Tool
           </button>
-        )}
 
-        {/* Suggest a Tool — hidden on mobile */}
-        <button
-          onClick={() => openSuggest()}
-          className="hidden sm:flex items-center flex-shrink-0 transition-colors"
-          style={{
-            gap: 5,
-            padding: "0 10px",
-            height: 34,
-            borderRadius: 8,
-            background: "#1c1c28",
-            border: "1px solid #2a2a3a",
-            color: "#8888aa",
-            fontSize: 11,
-            fontWeight: 500,
-            cursor: "pointer",
-          }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = "#f0f0f8")}
-          onMouseLeave={(e) => (e.currentTarget.style.color = "#8888aa")}
-        >
-          + Suggest a Tool
-        </button>
-
-        {/* GitHub link — hidden on mobile */}
-        <a
-          href={GITHUB_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hidden sm:flex items-center flex-shrink-0 transition-colors"
-          style={{
-            gap: 5,
-            padding: "0 10px",
-            height: 34,
-            borderRadius: 8,
-            background: "#1c1c28",
-            border: "1px solid #2a2a3a",
-            color: "#8888aa",
-            fontSize: 11,
-            fontWeight: 500,
-            textDecoration: "none",
-          }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = "#f0f0f8")}
-          onMouseLeave={(e) => (e.currentTarget.style.color = "#8888aa")}
-        >
-          <IconGitHub />
-          GitHub
-        </a>
+          {/* GitHub */}
+          <a
+            href={GITHUB_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden sm:flex items-center flex-shrink-0 transition-colors text-text-secondary hover:text-text-primary"
+            style={{
+              gap: 5,
+              padding: "0 10px",
+              height: 34,
+              borderRadius: 8,
+              background: "var(--btn)",
+              border: "1px solid var(--btn-border)",
+              fontSize: 11,
+              fontWeight: 500,
+              textDecoration: "none",
+            }}
+          >
+            <IconGitHub />
+            GitHub
+          </a>
+        </div>
       </nav>
 
       {getStartedOpen && (
