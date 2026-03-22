@@ -5,6 +5,8 @@ import { Tool, Relationship, getCategoryColor, CATEGORIES } from "@/lib/types";
 import relationshipsData from "@/data/relationships.json";
 import toolsData from "@/data/tools.json";
 import { healthColor, healthLabel, relLabel, relBadgeStyle } from "@/lib/health";
+import { CloseButton } from "@/components/ui/CloseButton";
+import { ColorDot } from "@/components/ui/ColorDot";
 
 const relationships = relationshipsData as Relationship[];
 const allTools = toolsData as Tool[];
@@ -84,20 +86,14 @@ export default function ComparisonPanel({ toolA, toolB, onClose, onSwap }: Compa
             {/* Tool names */}
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-1.5 min-w-0">
-                <div
-                  className="w-2 h-2 rounded-full flex-shrink-0"
-                  style={{ background: colorA }}
-                />
+                <ColorDot color={colorA} />
                 <span className="text-sm font-semibold text-[var(--text-primary)] truncate">
                   {toolA.name}
                 </span>
               </div>
               <span className="text-[var(--text-muted)] text-xs flex-shrink-0">vs</span>
               <div className="flex items-center gap-1.5 min-w-0">
-                <div
-                  className="w-2 h-2 rounded-full flex-shrink-0"
-                  style={{ background: colorB }}
-                />
+                <ColorDot color={colorB} />
                 <span className="text-sm font-semibold text-[var(--text-primary)] truncate">
                   {toolB.name}
                 </span>
@@ -120,12 +116,7 @@ export default function ComparisonPanel({ toolA, toolB, onClose, onSwap }: Compa
             >
               ⇄
             </button>
-            <button
-              onClick={onClose}
-              className="text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors p-1"
-            >
-              ✕
-            </button>
+            <CloseButton onClick={onClose} className="p-1" />
           </div>
         </div>
 

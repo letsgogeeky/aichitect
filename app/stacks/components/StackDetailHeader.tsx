@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Stack, Tool, StackCluster, getCategoryColor } from "@/lib/types";
 import { COMPLEXITY_META } from "../stacksConstants";
+import { CloseButton } from "@/components/ui/CloseButton";
 
 export function StackDetailHeader({
   selected,
@@ -361,12 +362,7 @@ export function StackDetailHeader({
           >
             <span className="font-medium">{compareA.name}</span>
             <span className="text-[#7c6bff66]">· pick one more</span>
-            <button
-              onClick={onClearCompare}
-              className="text-[#7c6bff88] hover:text-[#7c6bff] transition-colors leading-none"
-            >
-              ✕
-            </button>
+            <CloseButton onClick={onClearCompare} variant="accent" className="leading-none" />
           </div>
         )}
       </div>
