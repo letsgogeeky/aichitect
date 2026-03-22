@@ -71,7 +71,7 @@ export function ScanStep({ onNext }: { onNext: (detectedIds: string[]) => void }
         style={{
           width: "100%",
           maxWidth: 560,
-          background: "#0e0e18",
+          background: "var(--surface)",
           border: "1px solid #1e1e2e",
           borderRadius: 12,
           overflow: "hidden",
@@ -90,10 +90,10 @@ export function ScanStep({ onNext }: { onNext: (detectedIds: string[]) => void }
                   padding: "10px 14px",
                   fontSize: 11,
                   fontWeight: active ? 500 : 400,
-                  color: active ? "#f0f0f8" : filled ? "#00d4aa" : "#555577",
+                  color: active ? "#f0f0f8" : filled ? "var(--accent-2)" : "#555577",
                   background: "transparent",
                   border: "none",
-                  borderBottom: active ? "2px solid #7c6bff" : "2px solid transparent",
+                  borderBottom: active ? "2px solid var(--accent)" : "2px solid transparent",
                   cursor: "pointer",
                   whiteSpace: "nowrap",
                   display: "flex",
@@ -101,7 +101,9 @@ export function ScanStep({ onNext }: { onNext: (detectedIds: string[]) => void }
                   gap: 5,
                 }}
               >
-                {filled && !active && <span style={{ color: "#00d4aa", fontSize: 9 }}>✓</span>}
+                {filled && !active && (
+                  <span style={{ color: "var(--accent-2)", fontSize: 9 }}>✓</span>
+                )}
                 {tab.label}
               </button>
             );
@@ -167,7 +169,7 @@ export function ScanStep({ onNext }: { onNext: (detectedIds: string[]) => void }
                 borderRadius: 8,
                 fontSize: 12,
                 fontWeight: 500,
-                background: "#7c6bff",
+                background: "var(--accent)",
                 color: "#fff",
                 border: "none",
                 cursor: "pointer",

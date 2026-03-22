@@ -27,7 +27,7 @@ export function SlotGrid({ report }: { report: GenomeReport }) {
             style={{
               borderRadius: 8,
               padding: "10px 12px",
-              background: f ? color + "12" : "#0e0e18",
+              background: f ? color + "12" : "var(--surface)",
               border: `1px solid ${f ? color + "33" : "#1e1e2e"}`,
               opacity: !f && slot.priority === "optional" ? 0.45 : 1,
             }}

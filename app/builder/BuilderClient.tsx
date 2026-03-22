@@ -64,7 +64,7 @@ function BuilderGraph({
     )
     .map((r) => {
       const sourceTool = allTools.find((t) => t.id === r.source);
-      const color = sourceTool ? getCategoryColor(sourceTool.category) : "#00d4aa";
+      const color = sourceTool ? getCategoryColor(sourceTool.category) : "var(--accent-2)";
       const isPaired = r.type === "commonly-paired-with";
       return {
         id: `builder-${r.source}-${r.target}`,
@@ -78,7 +78,7 @@ function BuilderGraph({
         },
         label: isPaired ? "often used together" : undefined,
         labelStyle: isPaired ? { fill: "#555577", fontSize: 9 } : undefined,
-        labelBgStyle: isPaired ? { fill: "#0e0e18", fillOpacity: 0.8 } : undefined,
+        labelBgStyle: isPaired ? { fill: "var(--surface)", fillOpacity: 0.8 } : undefined,
       };
     });
 
@@ -187,7 +187,7 @@ function BuilderPageContent({
           className="sm:hidden absolute left-3 z-20 flex items-center gap-2 px-3 py-2 rounded-lg text-xs"
           style={{
             bottom: "calc(1rem + env(safe-area-inset-bottom, 0px))",
-            background: "#7c6bff",
+            background: "var(--accent)",
             color: "#fff",
           }}
         >

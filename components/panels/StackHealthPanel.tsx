@@ -117,7 +117,7 @@ export default function StackHealthPanel({ selected, slots, allTools, onAddTool 
         className="rounded-lg px-3 py-2.5 text-center"
         style={{ background: "#26de8110", border: "1px solid #26de8122" }}
       >
-        <p className="text-[10px] font-semibold" style={{ color: "#26de81" }}>
+        <p className="text-[10px] font-semibold" style={{ color: "var(--success)" }}>
           Stack looks solid
         </p>
         <p className="text-[9px] mt-0.5" style={{ color: "#26de8188" }}>
@@ -146,7 +146,8 @@ export default function StackHealthPanel({ selected, slots, allTools, onAddTool 
               className="h-full rounded-full transition-all duration-500"
               style={{
                 width: `${pct}%`,
-                background: pct === 100 ? "#26de81" : pct >= 60 ? "#fd9644" : "#ff6b6b",
+                background:
+                  pct === 100 ? "var(--success)" : pct >= 60 ? "#fd9644" : "var(--danger)",
               }}
             />
           </div>
@@ -250,7 +251,7 @@ function HealthRow({
   onAdd: (slotId: string, toolId: string) => void;
 }) {
   const isRequired = variant === "required";
-  const accentColor = isRequired ? "#ff6b6b" : "#fd9644";
+  const accentColor = isRequired ? "var(--danger)" : "#fd9644";
   const label = isRequired ? "required" : "recommended";
 
   return (

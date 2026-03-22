@@ -56,7 +56,7 @@ function NavViewLinks() {
               borderRadius: 6,
               fontSize: 12,
               fontWeight: active ? 500 : 400,
-              background: active ? "#7c6bff" : "transparent",
+              background: active ? "var(--accent)" : "transparent",
               color: active ? "#ffffff" : "#8888aa",
               transition: "background 150ms, color 150ms",
             }}
@@ -352,7 +352,7 @@ export default function Navbar({ counts }: { counts?: Counts }) {
               style={{
                 background: copied ? "#00d4aa18" : "var(--surface-2)",
                 border: `1px solid ${copied ? "#00d4aa44" : "var(--border)"}`,
-                color: copied ? "#00d4aa" : "var(--text-primary)",
+                color: copied ? "var(--accent-2)" : "var(--text-primary)",
               }}
             >
               <IconShare size={13} />

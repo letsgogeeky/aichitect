@@ -37,7 +37,7 @@ export default function Error({
           borderRadius: 8,
           background: "#7c6bff22",
           border: "1px solid #7c6bff66",
-          color: "#7c6bff",
+          color: "var(--accent)",
           fontSize: 12,
           fontWeight: 500,
           cursor: "pointer",

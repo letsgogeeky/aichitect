@@ -30,7 +30,7 @@ export function MissingPanel({ report }: { report: GenomeReport }) {
               style={{
                 borderRadius: 8,
                 padding: "10px 12px",
-                background: "#0e0e18",
+                background: "var(--surface)",
                 border: `1px solid ${color}33`,
                 display: "flex",
                 alignItems: "flex-start",
@@ -85,7 +85,7 @@ export function MissingPanel({ report }: { report: GenomeReport }) {
                   style={{
                     fontSize: 10,
                     fontWeight: 500,
-                    color: "#7c6bff",
+                    color: "var(--accent)",
                     background: "#7c6bff18",
                     border: "1px solid #7c6bff33",
                     borderRadius: 6,

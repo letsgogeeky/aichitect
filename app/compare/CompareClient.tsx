@@ -45,7 +45,7 @@ function ToolPicker({
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
 
-  const color = value ? getCategoryColor(value.category) : "#7c6bff";
+  const color = value ? getCategoryColor(value.category) : "var(--accent)";
 
   const searchResults = useMemo(() => {
     if (!query) return [];
@@ -186,7 +186,7 @@ function ToolPicker({
                         textAlign: "left",
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.background = "#1c1c28";
+                        e.currentTarget.style.background = "var(--btn)";
                       }}
                       onMouseLeave={(e) => {
                         e.currentTarget.style.background = "none";
@@ -268,7 +268,7 @@ function ToolPicker({
                           textAlign: "left",
                         }}
                         onMouseEnter={(e) => {
-                          e.currentTarget.style.background = "#1c1c28";
+                          e.currentTarget.style.background = "var(--btn)";
                         }}
                         onMouseLeave={(e) => {
                           e.currentTarget.style.background = "none";
@@ -281,7 +281,7 @@ function ToolPicker({
                           <span
                             style={{
                               fontSize: 9,
-                              color: "#00d4aa",
+                              color: "var(--accent-2)",
                               border: "1px solid #00d4aa33",
                               borderRadius: 4,
                               padding: "1px 5px",
@@ -294,7 +294,7 @@ function ToolPicker({
                           <span
                             style={{
                               fontSize: 9,
-                              color: "#26de81",
+                              color: "var(--success)",
                               border: "1px solid #26de8133",
                               borderRadius: 4,
                               padding: "1px 5px",
@@ -415,7 +415,7 @@ export default function CompareClient({
           width: "100%",
           height: 44,
           borderRadius: 10,
-          background: canCompare ? "#7c6bff" : "#1c1c28",
+          background: canCompare ? "var(--accent)" : "var(--btn)",
           border: "none",
           color: canCompare ? "#fff" : "var(--text-muted)",
           fontSize: 14,
@@ -462,7 +462,7 @@ export default function CompareClient({
                   transition: "border-color 150ms",
                 }}
                 onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.borderColor = "#2a2a3a";
+                  (e.currentTarget as HTMLElement).style.borderColor = "var(--btn-border)";
                 }}
                 onMouseLeave={(e) => {
                   (e.currentTarget as HTMLElement).style.borderColor = "var(--border)";

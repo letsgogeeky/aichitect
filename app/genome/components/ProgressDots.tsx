@@ -8,7 +8,8 @@ export function ProgressDots({ total, current }: { total: number; current: numbe
             width: i < current ? 20 : 6,
             height: 6,
             borderRadius: 3,
-            background: i < current ? "#7c6bff" : i === current ? "#7c6bff88" : "#2a2a3a",
+            background:
+              i < current ? "var(--accent)" : i === current ? "#7c6bff88" : "var(--btn-border)",
             transition: "all 220ms ease",
           }}
         />

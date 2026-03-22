@@ -62,7 +62,7 @@ export function MobileSlotPicker({
                         {tool.name}
                       </span>
                       {tool.type === "oss" && (
-                        <span className="text-[9px]" style={{ color: "#26de81" }}>
+                        <span className="text-[9px]" style={{ color: "var(--success)" }}>
                           OSS
                         </span>
                       )}
@@ -81,7 +81,7 @@ export function MobileSlotPicker({
         <div className="pt-2 pb-2">
           <button
             className="w-full py-2.5 rounded-lg text-sm font-semibold"
-            style={{ background: "#7c6bff", color: "#fff" }}
+            style={{ background: "var(--accent)", color: "#fff" }}
             onClick={onClose}
           >
             Build my stack

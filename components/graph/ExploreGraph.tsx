@@ -274,7 +274,7 @@ function ExploreGraphInner({
               borderRadius: 8,
               background: "#7c6bff22",
               border: "1px solid #7c6bff44",
-              color: "#7c6bff",
+              color: "var(--accent)",
               fontSize: 12,
               fontWeight: 500,
               cursor: "pointer",
@@ -353,7 +353,7 @@ export default function ExploreGraph({
             <a
               href="/builder"
               className="underline underline-offset-2"
-              style={{ color: "#7c6bff" }}
+              style={{ color: "var(--accent)" }}
             >
               Build your stack →
             </a>
@@ -397,7 +397,7 @@ export default function ExploreGraph({
                 className="px-2.5 py-1 text-[10px] font-medium transition-colors flex items-center gap-1.5"
                 style={{
                   background: compareMode ? "#7c6bff22" : "transparent",
-                  color: compareMode ? "#7c6bff" : "var(--text-muted)",
+                  color: compareMode ? "var(--accent)" : "var(--text-muted)",
                 }}
               >
                 <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
@@ -447,7 +447,7 @@ export default function ExploreGraph({
                   className="px-2.5 py-1 text-[10px] font-medium transition-colors"
                   style={{
                     background: viewMode === mode ? "#7c6bff22" : "transparent",
-                    color: viewMode === mode ? "#7c6bff" : "var(--text-muted)",
+                    color: viewMode === mode ? "var(--accent)" : "var(--text-muted)",
                     borderLeft: i > 0 ? "1px solid var(--border)" : undefined,
                   }}
                 >
@@ -482,7 +482,7 @@ export default function ExploreGraph({
                 <button
                   onClick={() => setMobileDetailOpen(true)}
                   className="text-xs px-3 py-1.5 rounded-lg"
-                  style={{ background: "#7c6bff", color: "#fff" }}
+                  style={{ background: "var(--accent)", color: "#fff" }}
                 >
                   Details →
                 </button>
@@ -512,7 +512,7 @@ export default function ExploreGraph({
             {activeCategories.size < allCategories.size && (
               <span
                 style={{
-                  background: "#7c6bff",
+                  background: "var(--accent)",
                   color: "#fff",
                   borderRadius: 10,
                   padding: "0 5px",
@@ -621,7 +621,7 @@ export default function ExploreGraph({
         <div className="px-4 pb-4 pt-2">
           <button
             className="w-full py-2.5 rounded-lg text-sm font-semibold"
-            style={{ background: "#7c6bff", color: "#fff" }}
+            style={{ background: "var(--accent)", color: "#fff" }}
             onClick={() => setMobileFilterOpen(false)}
           >
             Show results

@@ -76,7 +76,11 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
             height: 8,
             borderRadius: "50%",
             background:
-              data.health_score >= 70 ? "#26de81" : data.health_score >= 40 ? "#fdcb6e" : "#ff6b6b",
+              data.health_score >= 70
+                ? "var(--success)"
+                : data.health_score >= 40
+                  ? "var(--warning)"
+                  : "var(--danger)",
             zIndex: 10,
             cursor: "help",
           }}
@@ -95,7 +99,7 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
           style={{
             background: "#ff6b6b18",
             border: "1px solid #ff6b6b44",
-            color: "#ff6b6b",
+            color: "var(--danger)",
             fontSize: 10,
             lineHeight: 1,
           }}
@@ -149,7 +153,7 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
                   padding: "2px 7px",
                   borderRadius: 4,
                   background: "#26de8120",
-                  color: "#26de81",
+                  color: "var(--success)",
                   border: "1px solid #26de8140",
                   fontWeight: 600,
                   letterSpacing: 0.3,
@@ -166,7 +170,7 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
                   padding: "2px 7px",
                   borderRadius: 4,
                   background: "#00d4aa15",
-                  color: "#00d4aa",
+                  color: "var(--accent-2)",
                   border: "1px solid #00d4aa40",
                   fontWeight: 600,
                   letterSpacing: 0.3,

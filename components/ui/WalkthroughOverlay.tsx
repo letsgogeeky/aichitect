@@ -179,7 +179,7 @@ export default function WalkthroughOverlay() {
               height={spotlight.height}
               rx="8"
               fill="none"
-              stroke="#7c6bff"
+              stroke="var(--accent)"
               strokeWidth="1.5"
               opacity="0.5"
             />
@@ -198,7 +198,7 @@ export default function WalkthroughOverlay() {
           left: tooltip.x,
           width: TOOLTIP_WIDTH,
           background: "#111118",
-          border: "1px solid #2a2a3a",
+          border: "1px solid var(--btn-border)",
           borderRadius: 12,
           boxShadow: "0 24px 64px rgba(0,0,0,0.8), 0 0 0 1px rgba(124,107,255,0.08)",
           zIndex: 10000,
@@ -212,7 +212,7 @@ export default function WalkthroughOverlay() {
         <div
           style={{
             height: 2,
-            background: "linear-gradient(90deg, #7c6bff 0%, #00d4aa 100%)",
+            background: "linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%)",
           }}
         />
 
@@ -268,7 +268,7 @@ export default function WalkthroughOverlay() {
                 borderRadius: 8,
                 background: "#7c6bff22",
                 border: "1px solid #7c6bff44",
-                color: "#7c6bff",
+                color: "var(--accent)",
                 fontSize: 12,
                 fontWeight: 600,
                 cursor: "pointer",
@@ -295,7 +295,7 @@ export default function WalkthroughOverlay() {
             style={{
               background: "transparent",
               border: "none",
-              color: isFirst ? "#2a2a3a" : "#8888aa",
+              color: isFirst ? "var(--btn-border)" : "#8888aa",
               fontSize: 12,
               cursor: isFirst ? "default" : "pointer",
               padding: "4px 0",
@@ -320,7 +320,7 @@ export default function WalkthroughOverlay() {
                   width: i === stepIndex ? 18 : 5,
                   height: 5,
                   borderRadius: 3,
-                  background: i === stepIndex ? "#7c6bff" : "#222233",
+                  background: i === stepIndex ? "var(--accent)" : "#222233",
                   transition: "width 200ms ease, background 200ms ease",
                 }}
               />
@@ -330,9 +330,9 @@ export default function WalkthroughOverlay() {
           <button
             onClick={next}
             style={{
-              background: isLast ? "#00d4aa22" : "#7c6bff",
+              background: isLast ? "#00d4aa22" : "var(--accent)",
               border: isLast ? "1px solid #00d4aa44" : "none",
-              color: isLast ? "#00d4aa" : "#fff",
+              color: isLast ? "var(--accent-2)" : "#fff",
               fontSize: 12,
               fontWeight: 600,
               padding: "5px 14px",
@@ -357,8 +357,8 @@ export default function WalkthroughOverlay() {
           width: 32,
           height: 32,
           borderRadius: "50%",
-          background: "#1c1c28",
-          border: "1px solid #2a2a3a",
+          background: "var(--btn)",
+          border: "1px solid var(--btn-border)",
           color: "#555577",
           fontSize: 13,
           cursor: "pointer",
@@ -375,7 +375,7 @@ export default function WalkthroughOverlay() {
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.color = "#555577";
-          e.currentTarget.style.borderColor = "#2a2a3a";
+          e.currentTarget.style.borderColor = "var(--btn-border)";
         }}
       >
         ✕

@@ -49,7 +49,7 @@ export function BuilderSlotList({
         {selectedCount > 0 && (
           <div
             className="text-[10px] px-2 py-1 rounded-md"
-            style={{ background: "#7c6bff18", color: "#7c6bff" }}
+            style={{ background: "#7c6bff18", color: "var(--accent)" }}
           >
             {selectedCount} of {slots.length} slots filled
           </div>
@@ -58,7 +58,11 @@ export function BuilderSlotList({
         {compareA && !compareB && (
           <div
             className="flex items-center gap-1.5 text-[10px] px-2 py-1.5 rounded-md"
-            style={{ background: "#7c6bff14", border: "1px solid #7c6bff33", color: "#7c6bff" }}
+            style={{
+              background: "#7c6bff14",
+              border: "1px solid #7c6bff33",
+              color: "var(--accent)",
+            }}
           >
             <div
               className="w-1.5 h-1.5 rounded-full flex-shrink-0"
@@ -175,7 +179,7 @@ export function BuilderSlotList({
                               {t.name}
                             </span>
                             {t.type === "oss" && (
-                              <span className="ml-auto text-[9px] text-[#26de81]">OSS</span>
+                              <span className="ml-auto text-[9px] text-[var(--success)]">OSS</span>
                             )}
                           </button>
                           <button
@@ -185,7 +189,7 @@ export function BuilderSlotList({
                             style={{
                               opacity: isCompared ? 1 : undefined,
                               background: isCompared ? "#7c6bff22" : "transparent",
-                              color: isCompared ? "#7c6bff" : "var(--text-muted)",
+                              color: isCompared ? "var(--accent)" : "var(--text-muted)",
                             }}
                           >
                             <svg

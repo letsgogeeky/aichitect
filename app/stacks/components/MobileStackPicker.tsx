@@ -53,7 +53,7 @@ export function MobileStackPicker({
               {clStacks.map((s) => {
                 const isSelected = selectedId === s.id;
                 const firstTool = allTools.find((t) => t.id === s.tools[0]);
-                const color = firstTool ? getCategoryColor(firstTool.category) : "#7c6bff";
+                const color = firstTool ? getCategoryColor(firstTool.category) : "var(--accent)";
                 return (
                   <button
                     key={s.id}

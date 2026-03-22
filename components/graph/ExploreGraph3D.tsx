@@ -347,7 +347,7 @@ export default function ExploreGraph3D({
           Connections
         </p>
         {[
-          { color: "#7c6bff", label: "Integrates with" },
+          { color: "var(--accent)", label: "Integrates with" },
           { color: "#4a4a7a", label: "Often used together" },
           { color: "#5a2a2a", label: "Competes with" },
         ].map(({ color, label }) => (
