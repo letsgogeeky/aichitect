@@ -280,7 +280,7 @@ export default function ExploreGraph({
   );
   const [searchQuery, setSearchQuery] = useState("");
   const [bannerDismissed, setBannerDismissed] = useState(false);
-  const [viewMode, setViewMode] = useState<"grid" | "layers" | "3d">("grid");
+  const [viewMode, setViewMode] = useState<"grid" | "layers" | "3d">("3d");
 
   return (
     <div className="flex flex-col h-full overflow-hidden">
@@ -326,7 +326,7 @@ export default function ExploreGraph({
           />
         </div>
 
-        <div className="flex-1 relative">
+        <div className="flex-1 relative overflow-hidden">
           {/* Compare toggle button — top-left */}
           {viewMode !== "3d" && (
             <div
@@ -480,7 +480,7 @@ export default function ExploreGraph({
               activeRelTypes={activeRelTypes}
               searchQuery={searchQuery}
               selectedTool={selectedTool}
-              onSelectTool={setSelectedTool}
+              onSelectTool={handleNodeSelect}
               onWebGLUnavailable={() => setViewMode("grid")}
             />
           ) : (

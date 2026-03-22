@@ -34,7 +34,7 @@ interface Props {
   activeRelTypes: Set<RelationshipType>;
   searchQuery: string;
   selectedTool: Tool | null;
-  onSelectTool: (tool: Tool | null) => void;
+  onSelectTool: (tool: Tool) => void;
   onWebGLUnavailable?: () => void;
 }
 
@@ -122,6 +122,43 @@ export default function ExploreGraph3D({
     };
     el.addEventListener("wheel", onWheel, { passive: false, capture: true });
     return () => el.removeEventListener("wheel", onWheel, { capture: true });
+  }, []);
+
+  const hoveredNodeRef = useRef<Node3D | null>(null);
+  // Keep a stable ref to onSelectTool so the pointer handlers below never go stale.
+  const onSelectToolRef = useRef(onSelectTool);
+  useEffect(() => {
+    onSelectToolRef.current = onSelectTool;
+  }, [onSelectTool]);
+
+  // Native pointerdown/pointerup pair: snapshot the hovered node on press,
+  // fire selection on release only if the pointer didn't travel (i.e. a real click,
+  // not an orbit drag). This completely sidesteps the library's drag-suppression logic.
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    let downNode: Node3D | null = null;
+    let downX = 0,
+      downY = 0;
+    const onDown = (e: PointerEvent) => {
+      if (e.button !== 0) return;
+      downNode = hoveredNodeRef.current;
+      downX = e.clientX;
+      downY = e.clientY;
+    };
+    const onUp = (e: PointerEvent) => {
+      if (e.button !== 0) return;
+      const moved = Math.hypot(e.clientX - downX, e.clientY - downY);
+      if (!downNode) return;
+      if (moved < 5 && downNode.tool) onSelectToolRef.current(downNode.tool);
+      downNode = null;
+    };
+    el.addEventListener("pointerdown", onDown);
+    el.addEventListener("pointerup", onUp);
+    return () => {
+      el.removeEventListener("pointerdown", onDown);
+      el.removeEventListener("pointerup", onUp);
+    };
   }, []);
 
   const visibleTools = useMemo(
@@ -275,13 +312,12 @@ export default function ExploreGraph3D({
     return l.type === "integrates-with" ? 3 : 0;
   }, []);
 
-  const onNodeClick = useCallback(
-    (node: object) => {
-      const n = node as Node3D;
-      onSelectTool(n.tool?.id === selectedTool?.id ? null : n.tool);
-    },
-    [selectedTool, onSelectTool]
-  );
+  const onNodeHover = useCallback((node: object | null) => {
+    hoveredNodeRef.current = node ? (node as Node3D) : null;
+    if (containerRef.current) {
+      containerRef.current.style.cursor = node ? "pointer" : "default";
+    }
+  }, []);
 
   if (webglUnavailable) {
     return (
@@ -341,7 +377,7 @@ export default function ExploreGraph3D({
           linkDirectionalParticles={linkDirectionalParticles}
           linkDirectionalParticleWidth={1.5}
           linkDirectionalParticleSpeed={0.005}
-          onNodeClick={onNodeClick}
+          onNodeHover={onNodeHover}
           onEngineStop={onEngineStop}
           enableNodeDrag
         />
