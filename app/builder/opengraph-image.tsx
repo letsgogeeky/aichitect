@@ -70,23 +70,25 @@ export default async function Image({ searchParams }: { searchParams: Promise<{ 
         overflow: "hidden",
       }}
     >
-      {/* Atmospheric radial gradients derived from the selected tool categories */}
+      {/* Atmospheric gradients — two separate divs to avoid multi-value background (not supported in satori) */}
       <div
         style={{
           position: "absolute",
-          inset: 0,
-          background: `radial-gradient(ellipse 55% 50% at -8% -8%, ${grad1}1c 0%, transparent 58%),
-                         radial-gradient(ellipse 50% 45% at 108% 112%, ${grad2}18 0%, transparent 55%)`,
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 0,
+          backgroundImage: `radial-gradient(ellipse 55% 50% at -8% -8%, ${grad1}1c 0%, transparent 58%)`,
         }}
       />
-
-      {/* Dot-grid texture */}
       <div
         style={{
           position: "absolute",
-          inset: 0,
-          backgroundImage: `radial-gradient(circle, #ffffff07 1px, transparent 1px)`,
-          backgroundSize: "28px 28px",
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 0,
+          backgroundImage: `radial-gradient(ellipse 50% 45% at 108% 112%, ${grad2}18 0%, transparent 55%)`,
         }}
       />
 

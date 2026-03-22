@@ -17,9 +17,7 @@ export async function generateMetadata({
   searchParams: Promise<{ s?: string }>;
 }): Promise<Metadata> {
   const { s } = await searchParams;
-  const ogImage = s?.trim()
-    ? `/builder/opengraph-image?s=${encodeURIComponent(s)}`
-    : "/builder/opengraph-image";
+  const ogImage = s?.trim() ? `/builder/opengraph-image?s=${s}` : "/builder/opengraph-image";
   return pageMeta({ ...BASE_META, ogImage });
 }
 
