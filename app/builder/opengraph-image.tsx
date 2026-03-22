@@ -7,11 +7,26 @@ export const runtime = "edge";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default async function Image({
-  searchParams,
-}: {
-  searchParams: Promise<{ s?: string }>;
-}) {
+const CATEGORY_LABEL: Record<string, string> = {
+  "coding-assistants": "Coding",
+  "autonomous-agents": "Agents",
+  "agent-frameworks": "Frameworks",
+  "pipelines-rag": "RAG / Pipelines",
+  "llm-infra": "LLM Infra",
+  design: "Design",
+  devops: "DevOps",
+  docs: "Docs",
+  "product-mgmt": "Product",
+  mcp: "MCP",
+  "prompt-eval": "Eval",
+  specifications: "Spec",
+  "fine-tuning": "Fine-tuning",
+  "voice-ai": "Voice AI",
+  multimodal: "Multimodal",
+  "browser-automation": "Browser",
+};
+
+export default async function Image({ searchParams }: { searchParams: Promise<{ s?: string }> }) {
   const { s } = await searchParams;
   const toolIds = (s ?? "").split(",").filter(Boolean);
   const tools = toolIds
@@ -21,151 +36,268 @@ export default async function Image({
 
   const hasTools = tools.length > 0;
 
+  // Pick up to 2 unique category colors for the atmospheric background gradients
+  const bgColors: string[] = [];
+  for (const t of tools) {
+    const c = getCategoryColor(t.category);
+    if (!bgColors.includes(c)) bgColors.push(c);
+    if (bgColors.length >= 2) break;
+  }
+  const grad1 = bgColors[0] ?? "#7c6bff";
+  const grad2 = bgColors[1] ?? "#00d4aa";
+
+  // 4 cols, 16px gap, 56px side padding → content width = 1088px → col = 260px
+  const COL_WIDTH = 260;
+  const CARD_GAP = 16;
+  const CARD_H = 88;
+  const COLS = 4;
+
+  const rows: Tool[][] = [];
+  for (let i = 0; i < tools.length; i += COLS) {
+    rows.push(tools.slice(i, i + COLS));
+  }
+
   return new ImageResponse(
-    (
+    <div
+      style={{
+        width: 1200,
+        height: 630,
+        background: "#0a0a0f",
+        display: "flex",
+        flexDirection: "column",
+        fontFamily: "Inter, sans-serif",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      {/* Atmospheric radial gradients derived from the selected tool categories */}
       <div
         style={{
-          width: 1200,
-          height: 630,
-          background: "#0a0a0f",
+          position: "absolute",
+          inset: 0,
+          background: `radial-gradient(ellipse 55% 50% at -8% -8%, ${grad1}1c 0%, transparent 58%),
+                         radial-gradient(ellipse 50% 45% at 108% 112%, ${grad2}18 0%, transparent 55%)`,
+        }}
+      />
+
+      {/* Dot-grid texture */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage: `radial-gradient(circle, #ffffff07 1px, transparent 1px)`,
+          backgroundSize: "28px 28px",
+        }}
+      />
+
+      {/* Content */}
+      <div
+        style={{
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          fontFamily: "Inter, sans-serif",
-          padding: "0 80px",
-          gap: 0,
+          justifyContent: "space-between",
+          padding: "44px 56px",
+          flex: 1,
+          position: "relative",
         }}
       >
-        {/* Subtle grid backdrop */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            backgroundImage:
-              "radial-gradient(circle at 50% 50%, #7c6bff08 0%, transparent 70%)",
-          }}
-        />
+        {/* ── TOP: brand + headline ── */}
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          {/* Header row */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginBottom: 20,
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+              <div
+                style={{
+                  width: 40,
+                  height: 40,
+                  borderRadius: 10,
+                  background: "linear-gradient(135deg, #7c6bff, #00d4aa)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: 22,
+                  fontWeight: 800,
+                  color: "#fff",
+                }}
+              >
+                A
+              </div>
+              <span
+                style={{
+                  fontSize: 26,
+                  fontWeight: 700,
+                  color: "#e8e8f4",
+                  letterSpacing: -0.5,
+                }}
+              >
+                AIchitect
+              </span>
+            </div>
 
-        {/* Logo row */}
+            {hasTools && (
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  padding: "8px 20px",
+                  borderRadius: 999,
+                  background: "#ffffff08",
+                  borderWidth: 1,
+                  borderStyle: "solid",
+                  borderColor: "#ffffff14",
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: 15,
+                    fontWeight: 600,
+                    color: "#6666aa",
+                    letterSpacing: 0.3,
+                  }}
+                >
+                  {tools.length} tool{tools.length !== 1 ? "s" : ""} selected
+                </span>
+              </div>
+            )}
+          </div>
+
+          {/* Gradient accent bar */}
+          <div
+            style={{
+              height: 2,
+              borderRadius: 2,
+              background: `linear-gradient(to right, ${grad1}cc, ${grad2}99, transparent)`,
+              marginBottom: 20,
+            }}
+          />
+
+          {/* Headline */}
+          <div
+            style={{
+              fontSize: 54,
+              fontWeight: 800,
+              color: "#f0f0f8",
+              letterSpacing: -2,
+              lineHeight: 1,
+              marginBottom: 10,
+            }}
+          >
+            My AI Stack
+          </div>
+
+          <div
+            style={{
+              fontSize: 18,
+              color: "#44446a",
+              letterSpacing: 0.2,
+            }}
+          >
+            {hasTools ? "Built with AIchitect · aichitect.dev" : "Build yours at aichitect.dev"}
+          </div>
+        </div>
+
+        {/* ── MIDDLE: tool grid or empty state ── */}
+        {hasTools ? (
+          <div style={{ display: "flex", flexDirection: "column", gap: CARD_GAP }}>
+            {rows.map((row, ri) => (
+              <div key={ri} style={{ display: "flex", gap: CARD_GAP }}>
+                {row.map((t) => {
+                  const c = getCategoryColor(t.category);
+                  return (
+                    <div
+                      key={t.id}
+                      style={{
+                        width: COL_WIDTH,
+                        height: CARD_H,
+                        flexShrink: 0,
+                        display: "flex",
+                        alignItems: "center",
+                        paddingLeft: 20,
+                        paddingRight: 16,
+                        borderRadius: 12,
+                        background: c + "0d",
+                        borderTopWidth: 1,
+                        borderTopStyle: "solid",
+                        borderTopColor: c + "2a",
+                        borderRightWidth: 1,
+                        borderRightStyle: "solid",
+                        borderRightColor: c + "2a",
+                        borderBottomWidth: 1,
+                        borderBottomStyle: "solid",
+                        borderBottomColor: c + "2a",
+                        borderLeftWidth: 3,
+                        borderLeftStyle: "solid",
+                        borderLeftColor: c,
+                      }}
+                    >
+                      <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
+                        <span
+                          style={{
+                            fontSize: 20,
+                            fontWeight: 700,
+                            color: "#f0f0f8",
+                            lineHeight: 1,
+                          }}
+                        >
+                          {t.name}
+                        </span>
+                        <span
+                          style={{
+                            fontSize: 12,
+                            fontWeight: 500,
+                            color: c,
+                            lineHeight: 1,
+                          }}
+                        >
+                          {CATEGORY_LABEL[t.category] ?? t.category}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <div
+              style={{
+                fontSize: 22,
+                color: "#2a2a44",
+                textAlign: "center",
+              }}
+            >
+              Pick your tools and share your AI stack.
+            </div>
+          </div>
+        )}
+
+        {/* ── FOOTER ── */}
         <div
           style={{
             display: "flex",
             alignItems: "center",
-            gap: 14,
-            marginBottom: hasTools ? 48 : 24,
+            justifyContent: "space-between",
           }}
         >
-          <div
-            style={{
-              width: 48,
-              height: 48,
-              borderRadius: 12,
-              background: "linear-gradient(135deg, #7c6bff, #00d4aa)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: 24,
-              fontWeight: 800,
-              color: "#fff",
-            }}
-          >
-            A
-          </div>
-          <span
-            style={{ fontSize: 32, fontWeight: 700, color: "#f0f0f8", letterSpacing: -0.5 }}
-          >
-            AIchitect
-          </span>
-        </div>
-
-        {hasTools ? (
-          <>
-            {/* Label */}
-            <div
-              style={{
-                fontSize: 14,
-                color: "#555577",
-                letterSpacing: 2,
-                textTransform: "uppercase",
-                marginBottom: 24,
-              }}
-            >
-              Custom AI Stack
-            </div>
-
-            {/* Tool pills */}
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                gap: 12,
-                justifyContent: "center",
-                maxWidth: 960,
-                marginBottom: 52,
-              }}
-            >
-              {tools.map((t) => {
-                const c = getCategoryColor(t.category);
-                return (
-                  <div
-                    key={t.id}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 10,
-                      padding: "10px 20px",
-                      borderRadius: 10,
-                      background: c + "18",
-                      border: `1px solid ${c}44`,
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: 8,
-                        height: 8,
-                        borderRadius: "50%",
-                        background: c,
-                        flexShrink: 0,
-                      }}
-                    />
-                    <span
-                      style={{ fontSize: 20, fontWeight: 600, color: "#f0f0f8" }}
-                    >
-                      {t.name}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-          </>
-        ) : (
-          <div
-            style={{
-              fontSize: 22,
-              color: "#8888aa",
-              marginBottom: 52,
-              textAlign: "center",
-              maxWidth: 700,
-              lineHeight: 1.5,
-            }}
-          >
-            Build your AI stack — pick one tool per slot and see how they wire together.
-          </div>
-        )}
-
-        {/* Footer tagline */}
-        <div
-          style={{
-            fontSize: 16,
-            color: "#333355",
-            letterSpacing: 0.3,
-          }}
-        >
-          aichitect.dev · pick the right stack, without the noise
+          <span style={{ fontSize: 14, color: "#2a2a44" }}>aichitect.dev</span>
+          <span style={{ fontSize: 14, color: "#2a2a44" }}>cut the noise. pick your AI stack.</span>
         </div>
       </div>
-    ),
+    </div>,
     { ...size }
   );
 }
