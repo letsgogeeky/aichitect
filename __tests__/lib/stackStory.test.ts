@@ -16,9 +16,24 @@ function makeTool(overrides: Partial<Tool> & Pick<Tool, "id" | "name" | "categor
   };
 }
 
-const cursor = makeTool({ id: "cursor", name: "Cursor", category: "coding-assistants" });
-const langgraph = makeTool({ id: "langgraph", name: "LangGraph", category: "agent-frameworks" });
-const openai = makeTool({ id: "openai", name: "OpenAI", category: "llm-infra" });
+const cursor = makeTool({
+  id: "cursor",
+  name: "Cursor",
+  category: "coding-assistants",
+  slot: "code-editor",
+});
+const langgraph = makeTool({
+  id: "langgraph",
+  name: "LangGraph",
+  category: "agent-frameworks",
+  slot: "agent-framework",
+});
+const openai = makeTool({
+  id: "openai",
+  name: "OpenAI",
+  category: "llm-infra",
+  slot: "llm-provider",
+});
 
 describe("generateStackStory", () => {
   it("returns null for fewer than 2 tools", () => {
@@ -34,7 +49,7 @@ describe("generateStackStory", () => {
     expect(result!.flow).toContain("LangGraph");
   });
 
-  it("sorts tools by stack layer order (coding-assistants before agent-frameworks before llm-infra)", () => {
+  it("sorts tools by slot order (code-editor before agent-framework before llm-provider)", () => {
     // Pass in reverse order — output should still be sorted
     const result = generateStackStory([openai, langgraph, cursor]);
     expect(result!.flow).toBe("Cursor → LangGraph → OpenAI");
