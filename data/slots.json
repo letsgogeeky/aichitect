@@ -307,5 +307,41 @@
       "openapi-generator"
     ],
     "priority": "optional"
+  },
+  {
+    "id": "fine-tuning",
+    "name": "How do you adapt models to your domain?",
+    "description": "Fine-tuning frameworks and platforms for training custom model adaptations with LoRA, QLoRA, or full fine-tuning",
+    "tools": ["axolotl", "unsloth", "llama-factory", "torchtune", "predibase"],
+    "priority": "optional",
+    "suggest": "unsloth",
+    "suggest_reason": "2× faster LoRA fine-tuning with minimal memory — the most efficient OSS option"
+  },
+  {
+    "id": "voice-ai",
+    "name": "How does your AI speak and listen?",
+    "description": "Speech synthesis and recognition APIs — text-to-speech, speech-to-text, and real-time audio intelligence",
+    "tools": ["vapi", "retell-ai", "elevenlabs", "deepgram", "assemblyai", "cartesia", "playht"],
+    "priority": "optional",
+    "suggest": "elevenlabs",
+    "suggest_reason": "Best-in-class TTS with ultra-realistic voice cloning and low latency"
+  },
+  {
+    "id": "multimodal",
+    "name": "How does your AI see and understand images?",
+    "description": "Vision-language models for image understanding, captioning, visual QA, and document parsing",
+    "tools": ["fal-ai", "moondream", "llava", "paligemma", "pixtral", "qwen-vl", "internvl2"],
+    "priority": "optional",
+    "suggest": "moondream",
+    "suggest_reason": "Smallest OSS vision model — runs on a single GPU with surprisingly good results"
+  },
+  {
+    "id": "browser-automation",
+    "name": "How does your AI navigate the web?",
+    "description": "AI-powered browser control for agents that need to navigate, extract, fill forms, and interact with any website",
+    "tools": ["browser-use", "stagehand", "skyvern", "firecrawl"],
+    "priority": "optional",
+    "suggest": "browser-use",
+    "suggest_reason": "50K GitHub stars — most-adopted OSS AI browser agent, ~$0.07/task on WebVoyager"
   }
 ]
