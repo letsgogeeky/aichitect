@@ -316,6 +316,13 @@ export default function ExploreGraph({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const initialTool = useMemo((): Tool | null => {
+    const param = searchParams.get("tool");
+    if (!param) return null;
+    return tools.find((t) => t.id === param) ?? null;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const {
     selectedTool,
     setSelectedTool,
@@ -326,7 +333,7 @@ export default function ExploreGraph({
     handleNodeSelect,
     highlightedIds,
     panelMode,
-  } = useComparisonMode(initialComparison);
+  } = useComparisonMode(initialComparison, initialTool);
 
   const [activeCategories, setActiveCategories] = useState<Set<string>>(allCategories);
   const [activeRelTypes, setActiveRelTypes] = useState<Set<RelationshipType>>(

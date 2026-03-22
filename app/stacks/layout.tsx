@@ -5,7 +5,7 @@ import { pageMeta } from "@/lib/metadata";
 import { getCounts } from "@/lib/data/counts";
 
 export const metadata = pageMeta({
-  title: "Stacks — 25 Mission-Driven AI Stacks",
+  title: "Curated Stacks",
   description:
     "Skip the research. 25 curated AI stacks organized by what you're trying to do — Build, Automate, Ship & Harden, Comply, or Understand. Each with a mission brief, explicit rejections, and kill conditions.",
   path: "/stacks",

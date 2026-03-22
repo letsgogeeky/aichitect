@@ -3,7 +3,7 @@ import { pageMeta } from "@/lib/metadata";
 import { getCounts } from "@/lib/data/counts";
 
 export const metadata = pageMeta({
-  title: "Genome — Score Your AI Stack",
+  title: "Stack Genome",
   description:
     "Paste your dependency files and get a fitness score for your AI stack. See which slots are covered, which are missing, and what to add next.",
   path: "/genome",

@@ -5,7 +5,7 @@ import { pageMeta } from "@/lib/metadata";
 import { getCounts } from "@/lib/data/counts";
 
 export const metadata = pageMeta({
-  title: "Explore — AI Tool Landscape Map",
+  title: "Explore",
   description:
     "Browse 123 AI tools across 12 categories — code editors, agent frameworks, LLM providers, observability, vector databases, and more — mapped with their integrations and relationships.",
   path: "/explore",

@@ -4,9 +4,12 @@ import { Tool } from "@/lib/types";
 
 type PanelMode = "compare" | "detail" | "compare-hint" | "none";
 
-export function useComparisonMode(initialComparison: [Tool, Tool] | null) {
+export function useComparisonMode(
+  initialComparison: [Tool, Tool] | null,
+  initialTool: Tool | null = null
+) {
   const router = useRouter();
-  const [selectedTool, setSelectedTool] = useState<Tool | null>(null);
+  const [selectedTool, setSelectedTool] = useState<Tool | null>(initialTool);
   const [compareMode, setCompareMode] = useState(!!initialComparison);
   const [comparisonTools, setComparisonTools] = useState<[Tool, Tool] | null>(initialComparison);
 
@@ -19,6 +22,16 @@ export function useComparisonMode(initialComparison: [Tool, Tool] | null) {
     }
     router.replace(url.pathname + url.search, { scroll: false });
   }, [comparisonTools, router]);
+
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    if (selectedTool && !compareMode && !comparisonTools) {
+      url.searchParams.set("tool", selectedTool.id);
+    } else {
+      url.searchParams.delete("tool");
+    }
+    router.replace(url.pathname + url.search, { scroll: false });
+  }, [selectedTool, compareMode, comparisonTools, router]);
 
   const handleNodeSelect = useCallback(
     (tool: Tool) => {

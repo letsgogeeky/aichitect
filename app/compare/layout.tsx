@@ -3,7 +3,7 @@ import { pageMeta } from "@/lib/metadata";
 import { getCounts } from "@/lib/data/counts";
 
 export const metadata = pageMeta({
-  title: "Compare — AI Tool Head-to-Head",
+  title: "Compare Tools",
   description:
     "Pick any two AI tools and get a side-by-side breakdown of pricing, integrations, GitHub stars, and ecosystem connections.",
   path: "/compare",
