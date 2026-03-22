@@ -612,9 +612,9 @@ export default async function LandingPage() {
     {
       href: "/stacks",
       label: "Stacks",
-      tagline: `${stackCount} curated starting points`,
+      tagline: `${stackCount} stacks with rejection reasoning`,
       description:
-        "Pre-built stacks for common AI workflows — with honest reasoning and tradeoffs for each. A great place to start.",
+        "Each stack lists what was considered and rejected — and why. Plus kill conditions for when to move on and where to graduate next.",
       Icon: IconLayers,
       accent: "#00d4aa",
       Preview: StacksPreview,
@@ -848,8 +848,8 @@ export default async function LandingPage() {
             position: "relative",
           }}
         >
-          AIchitect maps the full AI ecosystem — {toolCount} tools across {categoryCount} categories
-          — so you can cut the noise and pick the right stack.
+          Not just a map — an opinion. {toolCount} tools across {categoryCount} categories, with the
+          reasoning behind every recommendation: what to pick, what to reject, and when to move on.
         </p>
 
         {/* CTAs */}
@@ -919,6 +919,283 @@ export default async function LandingPage() {
               <div style={{ fontSize: 12, color: "#555577", marginTop: 2 }}>{label}</div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* ── Decision framework callouts ── */}
+      <section
+        style={{
+          maxWidth: 1100,
+          margin: "0 auto",
+          padding: "0 24px 60px",
+        }}
+      >
+        {/* Section header */}
+        <div style={{ textAlign: "center", marginBottom: 48 }}>
+          <p
+            style={{
+              fontSize: 11,
+              fontWeight: 600,
+              color: "#555577",
+              textTransform: "uppercase",
+              letterSpacing: "0.1em",
+              marginBottom: 12,
+            }}
+          >
+            Not a directory. A decision tool.
+          </p>
+          <h2
+            style={{
+              fontSize: "clamp(22px, 3.5vw, 32px)",
+              fontWeight: 700,
+              letterSpacing: -0.5,
+              color: "#f0f0f8",
+              margin: 0,
+            }}
+          >
+            Every stack has opinions baked in
+          </h2>
+        </div>
+
+        {/* 3-column callouts */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+            gap: 16,
+            marginBottom: 56,
+          }}
+        >
+          {/* Rejection reasoning */}
+          <div
+            style={{
+              background: "#111118",
+              border: "1px solid #1e1e2e",
+              borderRadius: 12,
+              padding: "24px",
+            }}
+          >
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                padding: "4px 10px",
+                borderRadius: 6,
+                background: "#ff6b6b15",
+                border: "1px solid #ff6b6b33",
+                color: "#ff6b6b",
+                fontSize: 11,
+                fontWeight: 600,
+                marginBottom: 16,
+              }}
+            >
+              ✕ Not in this stack
+            </div>
+            <h3
+              style={{
+                fontSize: 16,
+                fontWeight: 600,
+                color: "#f0f0f8",
+                marginBottom: 8,
+              }}
+            >
+              Rejection reasoning
+            </h3>
+            <p style={{ fontSize: 13, color: "#6666aa", lineHeight: 1.65, marginBottom: 20 }}>
+              Every stack tells you what was considered and explicitly ruled out — and why. No other
+              tool in this space does this.
+            </p>
+            <div
+              style={{
+                background: "#0e0e18",
+                border: "1px solid #1e1e2e",
+                borderRadius: 8,
+                padding: "12px 14px",
+                fontSize: 12,
+                lineHeight: 1.6,
+              }}
+            >
+              <span style={{ color: "#ff6b6b", fontWeight: 500 }}>LangGraph</span>
+              <span style={{ color: "#444466" }}> — not in </span>
+              <span style={{ color: "#8888aa" }}>Indie Hacker</span>
+              <br />
+              <span style={{ color: "#555577", fontStyle: "italic" }}>
+                &ldquo;Orchestration overhead kills solo velocity at this stage&rdquo;
+              </span>
+            </div>
+          </div>
+
+          {/* Kill conditions */}
+          <div
+            style={{
+              background: "#111118",
+              border: "1px solid #1e1e2e",
+              borderRadius: 12,
+              padding: "24px",
+            }}
+          >
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                padding: "4px 10px",
+                borderRadius: 6,
+                background: "#fd964415",
+                border: "1px solid #fd964433",
+                color: "#fd9644",
+                fontSize: 11,
+                fontWeight: 600,
+                marginBottom: 16,
+              }}
+            >
+              ⚡ When to move on
+            </div>
+            <h3
+              style={{
+                fontSize: 16,
+                fontWeight: 600,
+                color: "#f0f0f8",
+                marginBottom: 8,
+              }}
+            >
+              Kill conditions
+            </h3>
+            <p style={{ fontSize: 13, color: "#6666aa", lineHeight: 1.65, marginBottom: 20 }}>
+              Each stack defines exactly when it stops being the right choice. Know your exit before
+              you&apos;re stuck.
+            </p>
+            <div
+              style={{
+                background: "#0e0e18",
+                border: "1px solid #1e1e2e",
+                borderRadius: 8,
+                padding: "12px 14px",
+                fontSize: 12,
+                lineHeight: 1.6,
+              }}
+            >
+              <span style={{ color: "#fd9644", fontWeight: 500 }}>Indie Hacker stack</span>
+              <br />
+              <span style={{ color: "#555577", fontStyle: "italic" }}>
+                &ldquo;Team grows beyond 3 engineers&rdquo;
+              </span>
+            </div>
+          </div>
+
+          {/* Graduation paths */}
+          <div
+            style={{
+              background: "#111118",
+              border: "1px solid #1e1e2e",
+              borderRadius: 12,
+              padding: "24px",
+            }}
+          >
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                padding: "4px 10px",
+                borderRadius: 6,
+                background: "#26de8115",
+                border: "1px solid #26de8133",
+                color: "#26de81",
+                fontSize: 11,
+                fontWeight: 600,
+                marginBottom: 16,
+              }}
+            >
+              → Graduation path
+            </div>
+            <h3
+              style={{
+                fontSize: 16,
+                fontWeight: 600,
+                color: "#f0f0f8",
+                marginBottom: 8,
+              }}
+            >
+              Scale-aware progression
+            </h3>
+            <p style={{ fontSize: 13, color: "#6666aa", lineHeight: 1.65, marginBottom: 20 }}>
+              When you hit a kill condition, the next stack is already mapped. Your progression arc
+              is visible from the start.
+            </p>
+            <div
+              style={{
+                background: "#0e0e18",
+                border: "1px solid #1e1e2e",
+                borderRadius: 8,
+                padding: "12px 14px",
+                fontSize: 12,
+                lineHeight: 1.6,
+                display: "flex",
+                alignItems: "center",
+                gap: 6,
+              }}
+            >
+              <span style={{ color: "#8888aa" }}>Indie Hacker</span>
+              <span style={{ color: "#26de81" }}>→</span>
+              <span style={{ color: "#8888aa" }}>LLM Startup</span>
+              <span style={{ color: "#26de81" }}>→</span>
+              <span style={{ color: "#8888aa" }}>Production RAG</span>
+            </div>
+          </div>
+        </div>
+
+        {/* 5 decision clusters */}
+        <div style={{ textAlign: "center" }}>
+          <p style={{ fontSize: 12, color: "#444466", marginBottom: 16 }}>
+            25 stacks organized across 5 decision clusters
+          </p>
+          <div
+            style={{
+              display: "flex",
+              gap: 8,
+              justifyContent: "center",
+              flexWrap: "wrap",
+            }}
+          >
+            {[
+              { label: "Build", count: 6, color: "#7c6bff" },
+              { label: "Automate", count: 5, color: "#ff6b6b" },
+              { label: "Ship & Harden", count: 6, color: "#fd9644" },
+              { label: "Understand", count: 4, color: "#00d4aa" },
+              { label: "Comply & Restrict", count: 4, color: "#26de81" },
+            ].map(({ label, count, color }) => (
+              <div
+                key={label}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 6,
+                  padding: "6px 14px",
+                  borderRadius: 20,
+                  background: `${color}10`,
+                  border: `1px solid ${color}30`,
+                  fontSize: 12,
+                  fontWeight: 500,
+                  color,
+                }}
+              >
+                {label}
+                <span
+                  style={{
+                    fontSize: 10,
+                    color: `${color}88`,
+                    background: `${color}18`,
+                    borderRadius: 10,
+                    padding: "1px 6px",
+                  }}
+                >
+                  {count}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
