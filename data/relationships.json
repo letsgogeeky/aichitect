@@ -28,7 +28,7 @@
     "source": "cursor",
     "target": "claude-code",
     "type": "commonly-paired",
-    "how": "Cursor handles in-editor AI refinement while Claude Code runs autonomous multi-step tasks in the terminal — same repo, different surfaces.",
+    "how": "Cursor handles in-editor AI refinement while Claude Code runs autonomous multi-step tasks in the terminal \u2014 same repo, different surfaces.",
     "achieves": "Full AI coverage of the dev loop: interactive editing in Cursor, hands-off automation in Claude Code."
   },
   {
@@ -36,13 +36,13 @@
     "target": "v0",
     "type": "commonly-paired",
     "how": "v0 generates React/Tailwind components from prompts, which are copied or exported directly into a Cursor project for further editing.",
-    "achieves": "Skip the UI boilerplate phase — paste v0 output into Cursor and immediately start refining with AI assistance."
+    "achieves": "Skip the UI boilerplate phase \u2014 paste v0 output into Cursor and immediately start refining with AI assistance."
   },
   {
     "source": "cursor",
     "target": "mcp-sdk-ts",
     "type": "integrates-with",
-    "how": "Cursor is a full MCP client — any server built with the TypeScript SDK and registered in Cursor's settings becomes a callable tool in agent mode.",
+    "how": "Cursor is a full MCP client \u2014 any server built with the TypeScript SDK and registered in Cursor's settings becomes a callable tool in agent mode.",
     "achieves": "Every MCP server you build or install extends Cursor's agent with new capabilities: repo access, browser control, code execution."
   },
   {
@@ -50,7 +50,7 @@
     "target": "langsmith",
     "type": "commonly-paired",
     "how": "LangSmith traces LLM calls from applications developed in Cursor via environment variable injection during dev and testing.",
-    "achieves": "Observability on the apps you build in Cursor — every LLM call traced without adding instrumentation code."
+    "achieves": "Observability on the apps you build in Cursor \u2014 every LLM call traced without adding instrumentation code."
   },
   {
     "source": "cursor",
@@ -64,7 +64,7 @@
     "target": "langgraph",
     "type": "commonly-paired",
     "how": "LangGraph graphs are authored, debugged, and iterated on inside Cursor using its multi-file context and agent mode to reason about state transitions.",
-    "achieves": "Faster LangGraph development — Cursor understands the graph structure and suggests correct node wiring, state shapes, and tool integrations."
+    "achieves": "Faster LangGraph development \u2014 Cursor understands the graph structure and suggests correct node wiring, state shapes, and tool integrations."
   },
   {
     "source": "cursor",
@@ -77,7 +77,7 @@
     "source": "cursor",
     "target": "vercel-ai-sdk",
     "type": "integrates-with",
-    "how": "Cursor authors Next.js and Node.js apps that use the Vercel AI SDK — its agent mode understands the SDK's streaming and tool-calling patterns.",
+    "how": "Cursor authors Next.js and Node.js apps that use the Vercel AI SDK \u2014 its agent mode understands the SDK's streaming and tool-calling patterns.",
     "achieves": "Faster AI-powered app development with Cursor's context awareness covering the SDK's provider switching and streaming UI patterns."
   },
   {
@@ -99,14 +99,14 @@
     "target": "qodo",
     "type": "commonly-paired",
     "how": "Qodo's VS Code extension runs alongside Cursor, generating test cases for functions and components written with Cursor's AI assistance.",
-    "achieves": "AI-written code with AI-generated tests in the same editor session — coverage without the manual test-writing overhead."
+    "achieves": "AI-written code with AI-generated tests in the same editor session \u2014 coverage without the manual test-writing overhead."
   },
   {
     "source": "windsurf",
     "target": "mcp-sdk-ts",
     "type": "integrates-with",
     "how": "Windsurf connects to MCP servers as a client, making any server registered via the TypeScript SDK available to its Cascade agent.",
-    "achieves": "The same MCP tool ecosystem as Cursor — browser, repo, and code execution — accessible inside Windsurf's Cascade agentic editor."
+    "achieves": "The same MCP tool ecosystem as Cursor \u2014 browser, repo, and code execution \u2014 accessible inside Windsurf's Cascade agentic editor."
   },
   {
     "source": "windsurf",
@@ -122,29 +122,29 @@
     "source": "continue",
     "target": "ollama",
     "type": "integrates-with",
-    "how": "Continue's config accepts Ollama's local API as a model provider — any model running in Ollama appears as a completion and chat option in Continue.",
-    "achieves": "Full AI pair programming with zero API costs or data egress — local models power the editor experience."
+    "how": "Continue's config accepts Ollama's local API as a model provider \u2014 any model running in Ollama appears as a completion and chat option in Continue.",
+    "achieves": "Full AI pair programming with zero API costs or data egress \u2014 local models power the editor experience."
   },
   {
     "source": "continue",
     "target": "litellm",
     "type": "integrates-with",
     "how": "Continue points to LiteLLM's OpenAI-compatible proxy endpoint, routing all completions and chat through any provider LiteLLM supports.",
-    "achieves": "Model flexibility in Continue without changing editor config — swap providers at the LiteLLM level."
+    "achieves": "Model flexibility in Continue without changing editor config \u2014 swap providers at the LiteLLM level."
   },
   {
     "source": "continue",
     "target": "mcp-sdk-ts",
     "type": "integrates-with",
-    "how": "Continue supports MCP as a client — any MCP server registered in its config becomes a tool available during chat and agent sessions.",
-    "achieves": "Continue gains the same MCP tool ecosystem as Cursor and Claude Code — context7, GitHub, browser, and custom servers."
+    "how": "Continue supports MCP as a client \u2014 any MCP server registered in its config becomes a tool available during chat and agent sessions.",
+    "achieves": "Continue gains the same MCP tool ecosystem as Cursor and Claude Code \u2014 context7, GitHub, browser, and custom servers."
   },
   {
     "source": "aider",
     "target": "litellm",
     "type": "integrates-with",
     "how": "Aider accepts LiteLLM's OpenAI-compatible proxy as its model backend via the --openai-api-base flag.",
-    "achieves": "Model-agnostic Aider sessions — route to Claude, GPT-4o, Gemini, or local models through one LiteLLM config."
+    "achieves": "Model-agnostic Aider sessions \u2014 route to Claude, GPT-4o, Gemini, or local models through one LiteLLM config."
   },
   {
     "source": "aider",
@@ -155,22 +155,22 @@
     "source": "claude-code",
     "target": "mcp-sdk-ts",
     "type": "integrates-with",
-    "how": "Claude Code is a full MCP client — it connects to registered MCP servers at startup and exposes their tools in every autonomous task.",
-    "achieves": "Every MCP server you add extends Claude Code's autonomous reach: repos, browsers, databases, APIs — all callable in the same task."
+    "how": "Claude Code is a full MCP client \u2014 it connects to registered MCP servers at startup and exposes their tools in every autonomous task.",
+    "achieves": "Every MCP server you add extends Claude Code's autonomous reach: repos, browsers, databases, APIs \u2014 all callable in the same task."
   },
   {
     "source": "claude-code",
     "target": "e2b",
     "type": "integrates-with",
     "how": "Claude Code routes code execution to E2B cloud sandboxes via the E2B MCP server, isolating all agent-generated code from the local environment.",
-    "achieves": "Safe, isolated execution for AI-generated code — Claude Code can run and iterate on code without any risk to the host machine."
+    "achieves": "Safe, isolated execution for AI-generated code \u2014 Claude Code can run and iterate on code without any risk to the host machine."
   },
   {
     "source": "claude-code",
     "target": "litellm",
     "type": "commonly-paired",
-    "how": "Claude Code builds and iterates on applications that use LiteLLM as their model router — the CLI agent and the app's model layer operate in the same codebase.",
-    "achieves": "Claude Code builds the product; LiteLLM handles the product's model routing — both concerns developed in one autonomous loop."
+    "how": "Claude Code builds and iterates on applications that use LiteLLM as their model router \u2014 the CLI agent and the app's model layer operate in the same codebase.",
+    "achieves": "Claude Code builds the product; LiteLLM handles the product's model routing \u2014 both concerns developed in one autonomous loop."
   },
   {
     "source": "claude-code",
@@ -184,13 +184,13 @@
     "target": "coderabbit",
     "type": "commonly-paired",
     "how": "Claude Code opens PRs after completing autonomous coding tasks; CodeRabbit reviews those PRs automatically before any human sees them.",
-    "achieves": "A fully automated coding loop — Claude Code writes and submits, CodeRabbit reviews and flags, humans only see reviewed PRs."
+    "achieves": "A fully automated coding loop \u2014 Claude Code writes and submits, CodeRabbit reviews and flags, humans only see reviewed PRs."
   },
   {
     "source": "cline",
     "target": "mcp-sdk-ts",
     "type": "integrates-with",
-    "how": "Cline is a VS Code MCP client — it auto-discovers and connects to configured MCP servers, making their tools available during agent sessions.",
+    "how": "Cline is a VS Code MCP client \u2014 it auto-discovers and connects to configured MCP servers, making their tools available during agent sessions.",
     "achieves": "The same MCP server ecosystem as Cursor and Claude Code, running as a VS Code extension without switching editors."
   },
   {
@@ -202,7 +202,7 @@
     "source": "cline",
     "target": "claude-code",
     "type": "commonly-paired",
-    "how": "Cline handles in-editor VS Code tasks while Claude Code runs multi-step terminal operations — both work on the same codebase.",
+    "how": "Cline handles in-editor VS Code tasks while Claude Code runs multi-step terminal operations \u2014 both work on the same codebase.",
     "achieves": "Two AI coding surfaces in one dev environment: Cline for interactive in-editor tasks, Claude Code for autonomous terminal automation."
   },
   {
@@ -255,28 +255,28 @@
     "target": "e2b",
     "type": "integrates-with",
     "how": "OpenHands runs all agent tasks in E2B cloud sandboxes by default, isolating file writes and command execution from the host.",
-    "achieves": "Safe, observable autonomous coding — every agent action happens in a reproducible cloud sandbox with no local environment risk."
+    "achieves": "Safe, observable autonomous coding \u2014 every agent action happens in a reproducible cloud sandbox with no local environment risk."
   },
   {
     "source": "openhands",
     "target": "langfuse",
     "type": "integrates-with",
     "how": "OpenHands emits OpenTelemetry traces that Langfuse ingests via its OTEL endpoint, capturing every LLM call and tool invocation.",
-    "achieves": "Full trace visibility into autonomous OpenHands runs — cost, latency, and reasoning steps per task."
+    "achieves": "Full trace visibility into autonomous OpenHands runs \u2014 cost, latency, and reasoning steps per task."
   },
   {
     "source": "openhands",
     "target": "litellm",
     "type": "integrates-with",
-    "how": "OpenHands routes all LLM calls through LiteLLM, making it model-agnostic — swap Claude, GPT-4o, or a local model via config.",
-    "achieves": "Model flexibility for autonomous agents without changing OpenHands code — route to the best model per task type."
+    "how": "OpenHands routes all LLM calls through LiteLLM, making it model-agnostic \u2014 swap Claude, GPT-4o, or a local model via config.",
+    "achieves": "Model flexibility for autonomous agents without changing OpenHands code \u2014 route to the best model per task type."
   },
   {
     "source": "openhands",
     "target": "langchain",
     "type": "integrates-with",
     "how": "OpenHands uses LangChain tool interfaces for its agent scaffolding, giving its agents access to LangChain's tool and retrieval ecosystem.",
-    "achieves": "OpenHands agents can use any LangChain tool — vector retrieval, API calls, and data transforms — within autonomous task runs."
+    "achieves": "OpenHands agents can use any LangChain tool \u2014 vector retrieval, API calls, and data transforms \u2014 within autonomous task runs."
   },
   {
     "source": "openhands",
@@ -290,7 +290,7 @@
     "target": "coderabbit",
     "type": "commonly-paired",
     "how": "OpenHands opens PRs after completing autonomous tasks; CodeRabbit reviews them automatically before any human sees them.",
-    "achieves": "A fully autonomous dev loop — OpenHands writes and submits, CodeRabbit reviews, humans only approve."
+    "achieves": "A fully autonomous dev loop \u2014 OpenHands writes and submits, CodeRabbit reviews, humans only approve."
   },
   {
     "source": "openhands",
@@ -332,14 +332,14 @@
     "target": "litellm",
     "type": "integrates-with",
     "how": "Plandex accepts LiteLLM-proxied endpoints as its model backend, routing its multi-step planning to any provider.",
-    "achieves": "Model-agnostic long-horizon coding plans — use Claude for reasoning-heavy planning, cheaper models for mechanical steps."
+    "achieves": "Model-agnostic long-horizon coding plans \u2014 use Claude for reasoning-heavy planning, cheaper models for mechanical steps."
   },
   {
     "source": "goose",
     "target": "mcp-sdk-ts",
     "type": "integrates-with",
-    "how": "Goose is a full MCP client — it discovers and connects to MCP servers at startup, exposing their tools in every local agent session.",
-    "achieves": "An open-source local agent with the same MCP tool reach as Cursor and Claude Code — entirely self-hosted."
+    "how": "Goose is a full MCP client \u2014 it discovers and connects to MCP servers at startup, exposing their tools in every local agent session.",
+    "achieves": "An open-source local agent with the same MCP tool reach as Cursor and Claude Code \u2014 entirely self-hosted."
   },
   {
     "source": "goose",
@@ -356,21 +356,21 @@
     "target": "langchain",
     "type": "integrates-with",
     "how": "CrewAI is built on LangChain's tool and model abstractions, using its LLM connectors and tool interfaces as underlying primitives.",
-    "achieves": "CrewAI agents inherit LangChain's broad model and tool compatibility — every LangChain integration is available to the crew."
+    "achieves": "CrewAI agents inherit LangChain's broad model and tool compatibility \u2014 every LangChain integration is available to the crew."
   },
   {
     "source": "crewai",
     "target": "langfuse",
     "type": "integrates-with",
     "how": "CrewAI exports OpenTelemetry traces that Langfuse ingests, capturing every agent step, tool call, and LLM invocation across the crew.",
-    "achieves": "Full multi-agent observability — which agent did what, at what cost, in what order, with what output."
+    "achieves": "Full multi-agent observability \u2014 which agent did what, at what cost, in what order, with what output."
   },
   {
     "source": "crewai",
     "target": "litellm",
     "type": "integrates-with",
     "how": "CrewAI routes LLM calls through LiteLLM, making any model accessible to any agent in the crew via a unified API.",
-    "achieves": "Mix models across agents in the same crew — one agent on Claude, another on GPT-4o — through one LiteLLM config change."
+    "achieves": "Mix models across agents in the same crew \u2014 one agent on Claude, another on GPT-4o \u2014 through one LiteLLM config change."
   },
   {
     "source": "crewai",
@@ -403,14 +403,14 @@
     "target": "litellm",
     "type": "integrates-with",
     "how": "AutoGen accepts LiteLLM-proxied endpoints as model backends via its model_client configuration.",
-    "achieves": "Provider-flexible AutoGen agents — route different agent roles to different models through one LiteLLM config."
+    "achieves": "Provider-flexible AutoGen agents \u2014 route different agent roles to different models through one LiteLLM config."
   },
   {
     "source": "autogen",
     "target": "langfuse",
     "type": "integrates-with",
     "how": "AutoGen emits OpenTelemetry traces that Langfuse captures, recording every agent message, tool call, and LLM interaction.",
-    "achieves": "Conversation-level observability across multi-agent AutoGen runs — trace which agent said what and at what token cost."
+    "achieves": "Conversation-level observability across multi-agent AutoGen runs \u2014 trace which agent said what and at what token cost."
   },
   {
     "source": "autogen",
@@ -430,14 +430,14 @@
     "source": "langgraph",
     "target": "langchain",
     "type": "integrates-with",
-    "how": "LangGraph is LangChain's state machine layer — it uses LangChain's runnable interface, tools, and model connectors as its graph primitives.",
-    "achieves": "Stateful, cyclical agent graphs built on LangChain's full ecosystem — every LangChain tool is a potential graph node."
+    "how": "LangGraph is LangChain's state machine layer \u2014 it uses LangChain's runnable interface, tools, and model connectors as its graph primitives.",
+    "achieves": "Stateful, cyclical agent graphs built on LangChain's full ecosystem \u2014 every LangChain tool is a potential graph node."
   },
   {
     "source": "langgraph",
     "target": "langsmith",
     "type": "integrates-with",
-    "how": "LangGraph sends traces to LangSmith automatically when LANGCHAIN_TRACING_V2 is set — every node execution becomes a separate trace span.",
+    "how": "LangGraph sends traces to LangSmith automatically when LANGCHAIN_TRACING_V2 is set \u2014 every node execution becomes a separate trace span.",
     "achieves": "Step-by-step graph execution visibility: see which nodes ran, in what order, with what inputs, outputs, and token cost."
   },
   {
@@ -445,55 +445,55 @@
     "target": "litellm",
     "type": "integrates-with",
     "how": "LangGraph nodes call LiteLLM-proxied endpoints, routing each node's LLM calls to any provider without changing graph code.",
-    "achieves": "Model-agnostic LangGraph agents — route different nodes to Claude, GPT-4o, or local models via one LiteLLM config."
+    "achieves": "Model-agnostic LangGraph agents \u2014 route different nodes to Claude, GPT-4o, or local models via one LiteLLM config."
   },
   {
     "source": "langgraph",
     "target": "llamaindex",
     "type": "commonly-paired",
-    "how": "LangGraph nodes call LlamaIndex query engines for retrieval — a retrieval node fetches context before passing it to a generation node.",
-    "achieves": "Stateful agents with structured retrieval at every step — LangGraph controls the flow, LlamaIndex handles the indexing."
+    "how": "LangGraph nodes call LlamaIndex query engines for retrieval \u2014 a retrieval node fetches context before passing it to a generation node.",
+    "achieves": "Stateful agents with structured retrieval at every step \u2014 LangGraph controls the flow, LlamaIndex handles the indexing."
   },
   {
     "source": "langgraph",
     "target": "langfuse",
     "type": "integrates-with",
     "how": "LangGraph integrates with Langfuse via its callback system or OpenTelemetry, capturing every node execution as a nested trace span.",
-    "achieves": "Full execution traces of complex agent graphs — cost per node, latency per step, and LLM call details in one view."
+    "achieves": "Full execution traces of complex agent graphs \u2014 cost per node, latency per step, and LLM call details in one view."
   },
   {
     "source": "langgraph",
     "target": "qdrant",
     "type": "commonly-paired",
     "how": "LangGraph retrieval nodes call Qdrant's API directly for semantic search, embedding the retrieval step as an explicit node in the graph.",
-    "achieves": "Structured RAG within a stateful agent — retrieval and generation are explicit, inspectable graph nodes, not implicit chain steps."
+    "achieves": "Structured RAG within a stateful agent \u2014 retrieval and generation are explicit, inspectable graph nodes, not implicit chain steps."
   },
   {
     "source": "langgraph",
     "target": "e2b",
     "type": "integrates-with",
     "how": "LangGraph routes code-execution tool calls to E2B sandboxes, giving code-generation nodes a safe isolated environment to run output.",
-    "achieves": "Agentic code generation with sandboxed execution built into the graph — iterate on code safely without leaving the agent loop."
+    "achieves": "Agentic code generation with sandboxed execution built into the graph \u2014 iterate on code safely without leaving the agent loop."
   },
   {
     "source": "langgraph",
     "target": "pgvector",
     "type": "integrates-with",
     "how": "LangGraph retrieval nodes query pgvector via psycopg2 or SQLAlchemy, keeping vector search within the existing Postgres database.",
-    "achieves": "Enterprise RAG with no separate vector DB — LangGraph agents retrieve from the same Postgres instance the rest of the app uses."
+    "achieves": "Enterprise RAG with no separate vector DB \u2014 LangGraph agents retrieve from the same Postgres instance the rest of the app uses."
   },
   {
     "source": "langgraph",
     "target": "claude-code",
     "type": "commonly-paired",
-    "how": "LangGraph orchestrates task assignment — it sends implementation tasks to Claude Code as an agent node that executes in the terminal.",
+    "how": "LangGraph orchestrates task assignment \u2014 it sends implementation tasks to Claude Code as an agent node that executes in the terminal.",
     "achieves": "Multi-agent DevOps automation: LangGraph coordinates the workflow, Claude Code executes the actual code changes."
   },
   {
     "source": "langgraph",
     "target": "sweep-ai",
     "type": "commonly-paired",
-    "how": "LangGraph triggers Sweep AI for automated fix tasks via its GitHub integration — Sweep handles small, well-scoped code changes as a graph node.",
+    "how": "LangGraph triggers Sweep AI for automated fix tasks via its GitHub integration \u2014 Sweep handles small, well-scoped code changes as a graph node.",
     "achieves": "Automated issue-to-PR pipeline: LangGraph triages and routes, Sweep generates the fix, the graph waits for review."
   },
   {
@@ -506,14 +506,14 @@
     "target": "litellm",
     "type": "integrates-with",
     "how": "Semantic Kernel accepts LiteLLM's OpenAI-compatible endpoint as a custom connector configuration.",
-    "achieves": "Model-agnostic Semantic Kernel agents — swap providers at the LiteLLM layer without changing .NET or Python agent code."
+    "achieves": "Model-agnostic Semantic Kernel agents \u2014 swap providers at the LiteLLM layer without changing .NET or Python agent code."
   },
   {
     "source": "langchain",
     "target": "langsmith",
     "type": "integrates-with",
-    "how": "LangSmith is LangChain's native tracing platform — one env var enables automatic tracing of every chain, LLM call, and tool invocation.",
-    "achieves": "Zero-friction observability for any LangChain app — complete execution traces without adding a single line of instrumentation."
+    "how": "LangSmith is LangChain's native tracing platform \u2014 one env var enables automatic tracing of every chain, LLM call, and tool invocation.",
+    "achieves": "Zero-friction observability for any LangChain app \u2014 complete execution traces without adding a single line of instrumentation."
   },
   {
     "source": "langchain",
@@ -526,7 +526,7 @@
     "source": "langchain",
     "target": "qdrant",
     "type": "integrates-with",
-    "how": "LangChain has a native Qdrant vectorstore integration — pass a Qdrant client and it handles embedding storage and similarity search.",
+    "how": "LangChain has a native Qdrant vectorstore integration \u2014 pass a Qdrant client and it handles embedding storage and similarity search.",
     "achieves": "Semantic retrieval inside any LangChain chain or agent without writing custom retrieval code."
   },
   {
@@ -534,48 +534,48 @@
     "target": "chroma",
     "type": "integrates-with",
     "how": "LangChain's Chroma integration spins up a local vector store in two lines and plugs it into any retrieval chain or agent.",
-    "achieves": "Zero-infrastructure RAG for development and testing — Chroma runs in-memory, LangChain handles the chain logic."
+    "achieves": "Zero-infrastructure RAG for development and testing \u2014 Chroma runs in-memory, LangChain handles the chain logic."
   },
   {
     "source": "langchain",
     "target": "pinecone",
     "type": "integrates-with",
     "how": "LangChain wraps the Pinecone client in its vectorstore interface, making managed vector search available in any retrieval chain.",
-    "achieves": "Production-scale semantic search inside LangChain — no infrastructure to manage, retrieval scales automatically with Pinecone."
+    "achieves": "Production-scale semantic search inside LangChain \u2014 no infrastructure to manage, retrieval scales automatically with Pinecone."
   },
   {
     "source": "langchain",
     "target": "weaviate",
     "type": "integrates-with",
     "how": "LangChain wraps Weaviate's client in a vectorstore interface compatible with all LangChain retrievers.",
-    "achieves": "Multimodal and multi-tenant semantic search within LangChain agents — Weaviate's object-level memory accessible from any chain."
+    "achieves": "Multimodal and multi-tenant semantic search within LangChain agents \u2014 Weaviate's object-level memory accessible from any chain."
   },
   {
     "source": "langchain",
     "target": "pgvector",
     "type": "integrates-with",
     "how": "LangChain's pgvector integration stores and retrieves embeddings from Postgres via the pgvector extension using standard SQL.",
-    "achieves": "RAG without a separate vector database — the app's existing Postgres becomes the retrieval layer."
+    "achieves": "RAG without a separate vector database \u2014 the app's existing Postgres becomes the retrieval layer."
   },
   {
     "source": "langchain",
     "target": "litellm",
     "type": "integrates-with",
     "how": "LangChain accepts LiteLLM's OpenAI-compatible endpoint as a drop-in model connector, routing all LLM calls through the proxy.",
-    "achieves": "Provider-agnostic LangChain chains — swap between Claude, GPT-4o, and open models by changing one LiteLLM config line."
+    "achieves": "Provider-agnostic LangChain chains \u2014 swap between Claude, GPT-4o, and open models by changing one LiteLLM config line."
   },
   {
     "source": "langchain",
     "target": "langfuse",
     "type": "integrates-with",
     "how": "Langfuse provides a LangChain callback handler that captures every chain, LLM call, and tool invocation as a nested trace.",
-    "achieves": "Full execution traces for any LangChain application — cost, latency, and prompt quality in one view."
+    "achieves": "Full execution traces for any LangChain application \u2014 cost, latency, and prompt quality in one view."
   },
   {
     "source": "langchain",
     "target": "ragas",
     "type": "integrates-with",
-    "how": "Ragas evaluates LangChain RAG pipelines end-to-end — pass chain outputs to Ragas metrics for faithfulness, relevance, and groundedness scores.",
+    "how": "Ragas evaluates LangChain RAG pipelines end-to-end \u2014 pass chain outputs to Ragas metrics for faithfulness, relevance, and groundedness scores.",
     "achieves": "Automated quality metrics for LangChain RAG pipelines, runnable in CI to catch retrieval regressions before they reach production."
   },
   {
@@ -603,7 +603,7 @@
     "source": "llamaindex",
     "target": "chroma",
     "type": "integrates-with",
-    "how": "LlamaIndex uses Chroma as a local vector store via its ChromaVectorStore adapter — zero infrastructure required.",
+    "how": "LlamaIndex uses Chroma as a local vector store via its ChromaVectorStore adapter \u2014 zero infrastructure required.",
     "achieves": "Fast local RAG development: LlamaIndex handles chunking and indexing, Chroma stores embeddings without any external service."
   },
   {
@@ -611,14 +611,14 @@
     "target": "pgvector",
     "type": "integrates-with",
     "how": "LlamaIndex stores embeddings in Postgres via its PGVectorStore adapter, colocating vector and relational queries.",
-    "achieves": "RAG on top of an existing Postgres database — no separate vector DB, structured and vector queries in the same store."
+    "achieves": "RAG on top of an existing Postgres database \u2014 no separate vector DB, structured and vector queries in the same store."
   },
   {
     "source": "llamaindex",
     "target": "weaviate",
     "type": "integrates-with",
     "how": "LlamaIndex connects to Weaviate as a vector store, using its GraphQL API for multimodal and multi-tenant retrieval.",
-    "achieves": "Multimodal RAG within LlamaIndex — retrieve across text, images, and structured data from a single Weaviate index."
+    "achieves": "Multimodal RAG within LlamaIndex \u2014 retrieve across text, images, and structured data from a single Weaviate index."
   },
   {
     "source": "llamaindex",
@@ -632,13 +632,13 @@
     "target": "litellm",
     "type": "integrates-with",
     "how": "LlamaIndex accepts LiteLLM's OpenAI-compatible proxy as its LLM backend, routing all generation through any provider.",
-    "achieves": "Model-agnostic LlamaIndex pipelines — swap the generation model without touching retrieval or indexing code."
+    "achieves": "Model-agnostic LlamaIndex pipelines \u2014 swap the generation model without touching retrieval or indexing code."
   },
   {
     "source": "llamaindex",
     "target": "ollama",
     "type": "integrates-with",
-    "how": "LlamaIndex connects to Ollama's local API for both completions and embeddings — the same pipeline works fully offline.",
+    "how": "LlamaIndex connects to Ollama's local API for both completions and embeddings \u2014 the same pipeline works fully offline.",
     "achieves": "Fully local RAG: documents indexed and retrieved locally, generation running on local models via Ollama with no API costs."
   },
   {
@@ -646,14 +646,14 @@
     "target": "ragas",
     "type": "integrates-with",
     "how": "Ragas evaluates LlamaIndex pipeline outputs using retrieval and generation quality metrics against the source documents.",
-    "achieves": "Automated quality scoring for LlamaIndex RAG — faithfulness, context relevance, and answer correctness measurable in CI."
+    "achieves": "Automated quality scoring for LlamaIndex RAG \u2014 faithfulness, context relevance, and answer correctness measurable in CI."
   },
   {
     "source": "llamaindex",
     "target": "openai-api",
     "type": "integrates-with",
     "how": "LlamaIndex uses OpenAI's API for both embedding generation and completions via its native adapters.",
-    "achieves": "Best-in-class embeddings and generation in LlamaIndex pipelines — ada-002 or text-embedding-3 for retrieval, GPT-4o for generation."
+    "achieves": "Best-in-class embeddings and generation in LlamaIndex pipelines \u2014 ada-002 or text-embedding-3 for retrieval, GPT-4o for generation."
   },
   {
     "source": "llamaindex",
@@ -674,14 +674,14 @@
     "target": "langchain",
     "type": "commonly-paired",
     "how": "DSPy compiles optimized prompts that are deployed as components inside LangChain chains.",
-    "achieves": "Systematic prompt optimization for LangChain pipelines — replace hand-tuned prompts with DSPy-compiled variants that measurably outperform."
+    "achieves": "Systematic prompt optimization for LangChain pipelines \u2014 replace hand-tuned prompts with DSPy-compiled variants that measurably outperform."
   },
   {
     "source": "dspy",
     "target": "litellm",
     "type": "integrates-with",
     "how": "DSPy routes its compilation and inference calls through LiteLLM, enabling multi-provider optimization runs.",
-    "achieves": "Model-agnostic DSPy compilation — optimize prompts across Claude, GPT-4o, and open models in one run to find the best-performing variant."
+    "achieves": "Model-agnostic DSPy compilation \u2014 optimize prompts across Claude, GPT-4o, and open models in one run to find the best-performing variant."
   },
   {
     "source": "haystack",
@@ -697,7 +697,7 @@
     "source": "haystack",
     "target": "qdrant",
     "type": "integrates-with",
-    "how": "Haystack has a native Qdrant document store integration — Qdrant becomes a retrieval backend in Haystack pipelines.",
+    "how": "Haystack has a native Qdrant document store integration \u2014 Qdrant becomes a retrieval backend in Haystack pipelines.",
     "achieves": "Production-grade vector retrieval inside Haystack pipelines using Qdrant's filtered search and payload storage."
   },
   {
@@ -712,7 +712,7 @@
     "target": "langchain",
     "type": "integrates-with",
     "how": "Flowise is a visual no-code builder that generates and runs LangChain pipelines under the hood.",
-    "achieves": "LangChain-powered AI workflows built visually — accessible to non-engineers, exportable to LangChain code if needed."
+    "achieves": "LangChain-powered AI workflows built visually \u2014 accessible to non-engineers, exportable to LangChain code if needed."
   },
   {
     "source": "flowise",
@@ -723,8 +723,8 @@
     "source": "langflow",
     "target": "langchain",
     "type": "integrates-with",
-    "how": "Langflow is a visual IDE for LangChain — drag-and-drop chains compile and execute as LangChain runnables.",
-    "achieves": "Visual LangChain prototyping with full code export — explore pipeline architectures without writing chain boilerplate."
+    "how": "Langflow is a visual IDE for LangChain \u2014 drag-and-drop chains compile and execute as LangChain runnables.",
+    "achieves": "Visual LangChain prototyping with full code export \u2014 explore pipeline architectures without writing chain boilerplate."
   },
   {
     "source": "langflow",
@@ -736,13 +736,13 @@
     "target": "langfuse",
     "type": "integrates-with",
     "how": "Dify exports traces via its observability integration to Langfuse, capturing every LLM call and tool invocation in its workflows.",
-    "achieves": "Observability on top of Dify's no-code AI apps — trace costs and latency even without writing pipeline code."
+    "achieves": "Observability on top of Dify's no-code AI apps \u2014 trace costs and latency even without writing pipeline code."
   },
   {
     "source": "dify",
     "target": "qdrant",
     "type": "integrates-with",
-    "how": "Dify connects to a self-hosted Qdrant instance as its knowledge base vector store — documents are chunked, embedded, and stored in Qdrant.",
+    "how": "Dify connects to a self-hosted Qdrant instance as its knowledge base vector store \u2014 documents are chunked, embedded, and stored in Qdrant.",
     "achieves": "Self-hosted knowledge retrieval inside Dify workflows, keeping document data on your own infrastructure."
   },
   {
@@ -756,15 +756,15 @@
     "source": "n8n",
     "target": "langchain",
     "type": "commonly-paired",
-    "how": "n8n has a LangChain node module — LangChain agents and chains are called as steps within n8n automation workflows.",
-    "achieves": "LangChain AI reasoning embedded in n8n automation — combine AI decision-making with n8n's 400+ integrations."
+    "how": "n8n has a LangChain node module \u2014 LangChain agents and chains are called as steps within n8n automation workflows.",
+    "achieves": "LangChain AI reasoning embedded in n8n automation \u2014 combine AI decision-making with n8n's 400+ integrations."
   },
   {
     "source": "n8n",
     "target": "litellm",
     "type": "commonly-paired",
     "how": "n8n's HTTP node calls LiteLLM's OpenAI-compatible endpoint, routing LLM calls in automation steps through any provider.",
-    "achieves": "Model flexibility in n8n workflows — swap providers at the LiteLLM layer without updating any workflow nodes."
+    "achieves": "Model flexibility in n8n workflows \u2014 swap providers at the LiteLLM layer without updating any workflow nodes."
   },
   {
     "source": "mastra",
@@ -785,7 +785,7 @@
     "target": "langfuse",
     "type": "integrates-with",
     "how": "Mastra integrates with Langfuse via OpenTelemetry, tracing every agent step and LLM call automatically.",
-    "achieves": "Out-of-the-box observability for Mastra agents — cost, latency, and full trace quality without custom instrumentation."
+    "achieves": "Out-of-the-box observability for Mastra agents \u2014 cost, latency, and full trace quality without custom instrumentation."
   },
   {
     "source": "mastra",
@@ -799,27 +799,27 @@
     "target": "openai-api",
     "type": "integrates-with",
     "how": "PydanticAI wraps OpenAI's API with a typed model interface, enforcing structured outputs through Pydantic models.",
-    "achieves": "Type-safe GPT-4o responses in agent pipelines — structured data comes out of the model, not raw text."
+    "achieves": "Type-safe GPT-4o responses in agent pipelines \u2014 structured data comes out of the model, not raw text."
   },
   {
     "source": "pydantic-ai",
     "target": "anthropic-api",
     "type": "integrates-with",
     "how": "PydanticAI connects to Anthropic's API and enforces Claude's outputs into typed Pydantic models.",
-    "achieves": "Fully typed Claude responses with compile-time safety — structured agent data extraction without parsing."
+    "achieves": "Fully typed Claude responses with compile-time safety \u2014 structured agent data extraction without parsing."
   },
   {
     "source": "pydantic-ai",
     "target": "langsmith",
     "type": "integrates-with",
     "how": "PydanticAI sends traces to LangSmith via its OpenTelemetry exporter.",
-    "achieves": "Structured observability for PydanticAI agents — typed inputs and outputs visible alongside raw traces in LangSmith."
+    "achieves": "Structured observability for PydanticAI agents \u2014 typed inputs and outputs visible alongside raw traces in LangSmith."
   },
   {
     "source": "pydantic-ai",
     "target": "logfire",
     "type": "integrates-with",
-    "how": "Logfire is PydanticAI's native observability platform — traces are sent automatically with zero configuration.",
+    "how": "Logfire is PydanticAI's native observability platform \u2014 traces are sent automatically with zero configuration.",
     "achieves": "First-class PydanticAI observability: every agent run, tool call, and structured output captured with full Pydantic type metadata."
   },
   {
@@ -834,14 +834,14 @@
     "target": "anthropic-api",
     "type": "integrates-with",
     "how": "SmolAgents connects to Anthropic's API for Claude-powered code generation and reasoning.",
-    "achieves": "Claude-powered SmolAgents — high-quality code generation with strong instruction following for tool use."
+    "achieves": "Claude-powered SmolAgents \u2014 high-quality code generation with strong instruction following for tool use."
   },
   {
     "source": "smolagents",
     "target": "huggingface",
     "type": "integrates-with",
     "how": "SmolAgents is built by HuggingFace and runs models from the HuggingFace Hub locally or via Inference API natively.",
-    "achieves": "Open-model SmolAgents with no API costs — run fully local or serverless on HuggingFace's hosted inference."
+    "achieves": "Open-model SmolAgents with no API costs \u2014 run fully local or serverless on HuggingFace's hosted inference."
   },
   {
     "source": "agno",
@@ -862,14 +862,14 @@
     "target": "litellm",
     "type": "integrates-with",
     "how": "Agno accepts LiteLLM-proxied endpoints as model backends, giving its agents access to any provider through the gateway.",
-    "achieves": "Model flexibility across Agno agents — route different agent roles to different models through one LiteLLM config."
+    "achieves": "Model flexibility across Agno agents \u2014 route different agent roles to different models through one LiteLLM config."
   },
   {
     "source": "agno",
     "target": "langfuse",
     "type": "integrates-with",
     "how": "Agno sends traces to Langfuse via its built-in OpenTelemetry integration.",
-    "achieves": "Full observability on Agno agent runs — multi-step traces with per-step cost and latency breakdown."
+    "achieves": "Full observability on Agno agent runs \u2014 multi-step traces with per-step cost and latency breakdown."
   },
   {
     "source": "litellm",
@@ -885,7 +885,7 @@
     "source": "litellm",
     "target": "langfuse",
     "type": "integrates-with",
-    "how": "LiteLLM sends callback events to Langfuse after every LLM call — one config line captures cost, model, tokens, and latency per request.",
+    "how": "LiteLLM sends callback events to Langfuse after every LLM call \u2014 one config line captures cost, model, tokens, and latency per request.",
     "achieves": "Per-request observability across every provider in your stack without changing application code."
   },
   {
@@ -900,42 +900,42 @@
     "target": "ollama",
     "type": "integrates-with",
     "how": "LiteLLM recognises Ollama's local API and includes its models in the unified provider list alongside cloud providers.",
-    "achieves": "Local Ollama models treated identically to cloud providers — route between local and cloud by changing one parameter."
+    "achieves": "Local Ollama models treated identically to cloud providers \u2014 route between local and cloud by changing one parameter."
   },
   {
     "source": "litellm",
     "target": "groq",
     "type": "integrates-with",
     "how": "LiteLLM routes to Groq's API using its provider prefix, normalising Groq's interface into the unified format.",
-    "achieves": "Ultra-fast inference on latency-sensitive paths — route to Groq for speed, other providers for quality, via one config."
+    "achieves": "Ultra-fast inference on latency-sensitive paths \u2014 route to Groq for speed, other providers for quality, via one config."
   },
   {
     "source": "litellm",
     "target": "together-ai",
     "type": "integrates-with",
     "how": "LiteLLM routes to Together AI's inference API, including its open-source model catalogue.",
-    "achieves": "Open-source model access at scale via LiteLLM — route cost-sensitive paths to Together AI without changing application code."
+    "achieves": "Open-source model access at scale via LiteLLM \u2014 route cost-sensitive paths to Together AI without changing application code."
   },
   {
     "source": "litellm",
     "target": "vllm",
     "type": "integrates-with",
     "how": "LiteLLM connects to a self-hosted vLLM endpoint via its OpenAI-compatible API, treating it as any other provider.",
-    "achieves": "Self-hosted GPU inference via vLLM accessible through the same LiteLLM interface as cloud providers — one config for everything."
+    "achieves": "Self-hosted GPU inference via vLLM accessible through the same LiteLLM interface as cloud providers \u2014 one config for everything."
   },
   {
     "source": "litellm",
     "target": "anthropic-api",
     "type": "integrates-with",
     "how": "LiteLLM wraps Anthropic's API with its provider prefix, normalising Claude's API into OpenAI-compatible format.",
-    "achieves": "Claude accessible via the same interface as every other provider — swap with a config change, no code modifications."
+    "achieves": "Claude accessible via the same interface as every other provider \u2014 swap with a config change, no code modifications."
   },
   {
     "source": "litellm",
     "target": "openai-api",
     "type": "integrates-with",
     "how": "LiteLLM routes to OpenAI's API natively, treating it as the default provider in its unified format.",
-    "achieves": "OpenAI access through LiteLLM's multi-provider interface — add fallbacks, cost controls, and model swapping without touching app code."
+    "achieves": "OpenAI access through LiteLLM's multi-provider interface \u2014 add fallbacks, cost controls, and model swapping without touching app code."
   },
   {
     "source": "litellm",
@@ -949,7 +949,7 @@
     "target": "cohere-api",
     "type": "integrates-with",
     "how": "LiteLLM routes to Cohere's API for both generation and embedding models.",
-    "achieves": "Cohere's strong embedding models accessible alongside generation models through one LiteLLM config — useful for RAG pipelines."
+    "achieves": "Cohere's strong embedding models accessible alongside generation models through one LiteLLM config \u2014 useful for RAG pipelines."
   },
   {
     "source": "litellm",
@@ -962,7 +962,7 @@
     "source": "openrouter",
     "target": "together-ai",
     "type": "commonly-paired",
-    "how": "OpenRouter includes Together AI's model catalogue — requests to OpenRouter can route to Together AI's infrastructure.",
+    "how": "OpenRouter includes Together AI's model catalogue \u2014 requests to OpenRouter can route to Together AI's infrastructure.",
     "achieves": "Access to Together AI's open models through OpenRouter's unified endpoint and model comparison dashboard."
   },
   {
@@ -970,20 +970,20 @@
     "target": "langfuse",
     "type": "integrates-with",
     "how": "Portkey's gateway logs metadata to Langfuse via webhook integration, enriching Langfuse traces with gateway-level cost and caching data.",
-    "achieves": "Combined gateway analytics and LLM trace quality in one view — Portkey's proxy layer meets Langfuse's evaluation depth."
+    "achieves": "Combined gateway analytics and LLM trace quality in one view \u2014 Portkey's proxy layer meets Langfuse's evaluation depth."
   },
   {
     "source": "portkey",
     "target": "openai-api",
     "type": "integrates-with",
-    "how": "Portkey proxies OpenAI's API — change one base URL and every OpenAI call gets caching, retries, and load balancing.",
+    "how": "Portkey proxies OpenAI's API \u2014 change one base URL and every OpenAI call gets caching, retries, and load balancing.",
     "achieves": "Production-hardened OpenAI calls with automatic retry, prompt caching, and cost savings through Portkey's proxy layer."
   },
   {
     "source": "portkey",
     "target": "anthropic-api",
     "type": "integrates-with",
-    "how": "Portkey proxies Anthropic's API with the same gateway features — caching, retries, and automatic fallbacks.",
+    "how": "Portkey proxies Anthropic's API with the same gateway features \u2014 caching, retries, and automatic fallbacks.",
     "achieves": "Reliable Claude API calls with gateway-level resilience and prompt caching at the proxy layer."
   },
   {
@@ -996,7 +996,7 @@
     "target": "langchain",
     "type": "integrates-with",
     "how": "Portkey provides a LangChain-compatible wrapper that routes all model calls through its gateway.",
-    "achieves": "Caching, retries, and fallbacks for any LangChain chain without changing chain code — reliability added at the gateway."
+    "achieves": "Caching, retries, and fallbacks for any LangChain chain without changing chain code \u2014 reliability added at the gateway."
   },
   {
     "source": "langfuse",
@@ -1008,21 +1008,21 @@
     "target": "langchain",
     "type": "integrates-with",
     "how": "Langfuse provides a LangChain callback handler that auto-traces every chain execution without any boilerplate.",
-    "achieves": "Nested, structured traces for every LangChain run — LLM calls, tool invocations, and retrieval steps all captured in one view."
+    "achieves": "Nested, structured traces for every LangChain run \u2014 LLM calls, tool invocations, and retrieval steps all captured in one view."
   },
   {
     "source": "langfuse",
     "target": "ragas",
     "type": "integrates-with",
     "how": "Ragas uploads evaluation scores directly to Langfuse as trace scores, linking eval results to the specific traces they evaluated.",
-    "achieves": "Eval results pinned to the exact traces that generated them — jump from a poor metric score directly to the failing trace."
+    "achieves": "Eval results pinned to the exact traces that generated them \u2014 jump from a poor metric score directly to the failing trace."
   },
   {
     "source": "langfuse",
     "target": "deepeval",
     "type": "integrates-with",
     "how": "DeepEval sends evaluation results to Langfuse as trace scores via its Langfuse integration.",
-    "achieves": "Quality metrics — faithfulness, hallucination rate, G-Eval scores — visible alongside the raw traces that produced them."
+    "achieves": "Quality metrics \u2014 faithfulness, hallucination rate, G-Eval scores \u2014 visible alongside the raw traces that produced them."
   },
   {
     "source": "langfuse",
@@ -1034,7 +1034,7 @@
     "target": "openai-api",
     "type": "integrates-with",
     "how": "Langfuse's SDK wraps OpenAI's client, capturing every API call with token counts, cost, and latency automatically.",
-    "achieves": "Per-call observability on OpenAI usage — see exactly which prompts are expensive, slow, or producing poor outputs."
+    "achieves": "Per-call observability on OpenAI usage \u2014 see exactly which prompts are expensive, slow, or producing poor outputs."
   },
   {
     "source": "langfuse",
@@ -1048,7 +1048,7 @@
     "target": "braintrust",
     "type": "integrates-with",
     "how": "Langfuse traces are exported as datasets to Braintrust, where they become versioned experiment inputs for systematic eval tracking.",
-    "achieves": "Production traces feed directly into structured experiments — Langfuse captures what happened, Braintrust measures whether it was good."
+    "achieves": "Production traces feed directly into structured experiments \u2014 Langfuse captures what happened, Braintrust measures whether it was good."
   },
   {
     "source": "langsmith",
@@ -1064,8 +1064,8 @@
     "source": "helicone",
     "target": "openai-api",
     "type": "integrates-with",
-    "how": "Helicone is a drop-in proxy for OpenAI's API — change one base URL and every OpenAI call is logged, cached, and monitored.",
-    "achieves": "Immediate cost and request logging for OpenAI usage with zero code changes — one URL swap covers the entire app."
+    "how": "Helicone is a drop-in proxy for OpenAI's API \u2014 change one base URL and every OpenAI call is logged, cached, and monitored.",
+    "achieves": "Immediate cost and request logging for OpenAI usage with zero code changes \u2014 one URL swap covers the entire app."
   },
   {
     "source": "helicone",
@@ -1079,7 +1079,7 @@
     "target": "litellm",
     "type": "integrates-with",
     "how": "Helicone sits in front of LiteLLM as a proxy layer, logging all requests before they reach LiteLLM's routing logic.",
-    "achieves": "Request-level logging and caching on top of LiteLLM's multi-provider routing — Helicone sees every request, LiteLLM routes it."
+    "achieves": "Request-level logging and caching on top of LiteLLM's multi-provider routing \u2014 Helicone sees every request, LiteLLM routes it."
   },
   {
     "source": "arize-phoenix",
@@ -1100,8 +1100,8 @@
     "source": "ollama",
     "target": "continue",
     "type": "integrates-with",
-    "how": "Continue's model config accepts Ollama's local API endpoint — any model in Ollama appears as a provider in Continue's completions and chat.",
-    "achieves": "Local AI pair programming in VS Code with Continue, using any Ollama model — zero cloud dependency or API costs."
+    "how": "Continue's model config accepts Ollama's local API endpoint \u2014 any model in Ollama appears as a provider in Continue's completions and chat.",
+    "achieves": "Local AI pair programming in VS Code with Continue, using any Ollama model \u2014 zero cloud dependency or API costs."
   },
   {
     "source": "ollama",
@@ -1112,7 +1112,7 @@
     "source": "ollama",
     "target": "llama-cpp",
     "type": "commonly-paired",
-    "how": "Ollama uses llama.cpp under the hood for model execution — they serve the same role at different abstraction levels.",
+    "how": "Ollama uses llama.cpp under the hood for model execution \u2014 they serve the same role at different abstraction levels.",
     "achieves": "Full understanding of the local inference stack: Ollama for developer convenience, llama.cpp for custom quantization and fine-tuning control."
   },
   {
@@ -1125,7 +1125,7 @@
     "target": "llamaindex",
     "type": "integrates-with",
     "how": "LlamaIndex connects to a vLLM-hosted endpoint via its OpenAI-compatible API, treating self-hosted vLLM as a generation provider.",
-    "achieves": "LlamaIndex RAG pipelines backed by self-hosted GPU inference — enterprise-grade retrieval and generation with full data residency."
+    "achieves": "LlamaIndex RAG pipelines backed by self-hosted GPU inference \u2014 enterprise-grade retrieval and generation with full data residency."
   },
   {
     "source": "groq",
@@ -1146,8 +1146,8 @@
     "source": "modal",
     "target": "vllm",
     "type": "commonly-paired",
-    "how": "vLLM is deployed on Modal's serverless GPU infrastructure — Modal handles provisioning and scaling, vLLM handles inference serving.",
-    "achieves": "Production vLLM inference without managing GPU servers — Modal scales to zero when idle, spins up instantly under load."
+    "how": "vLLM is deployed on Modal's serverless GPU infrastructure \u2014 Modal handles provisioning and scaling, vLLM handles inference serving.",
+    "achieves": "Production vLLM inference without managing GPU servers \u2014 Modal scales to zero when idle, spins up instantly under load."
   },
   {
     "source": "openai-api",
@@ -1194,7 +1194,7 @@
     "target": "openai-api",
     "type": "integrates-with",
     "how": "The Vercel AI SDK wraps OpenAI's API in its unified provider interface, handling streaming, tool calling, and structured output natively.",
-    "achieves": "Streaming AI UIs backed by OpenAI with one import — useChat, useCompletion, and tool calling work out of the box."
+    "achieves": "Streaming AI UIs backed by OpenAI with one import \u2014 useChat, useCompletion, and tool calling work out of the box."
   },
   {
     "source": "vercel-ai-sdk",
@@ -1215,21 +1215,21 @@
     "target": "langfuse",
     "type": "integrates-with",
     "how": "Langfuse's SDK wraps the Vercel AI SDK's model calls, capturing every streaming generation with token counts and latency.",
-    "achieves": "Per-request observability on all AI calls made through the Vercel AI SDK — cost and quality metrics without changing streaming code."
+    "achieves": "Per-request observability on all AI calls made through the Vercel AI SDK \u2014 cost and quality metrics without changing streaming code."
   },
   {
     "source": "vercel-ai-sdk",
     "target": "litellm",
     "type": "integrates-with",
     "how": "The Vercel AI SDK can point to LiteLLM's OpenAI-compatible endpoint as a custom provider, routing all SDK calls through LiteLLM.",
-    "achieves": "Provider-agnostic Vercel AI SDK apps — swap between Claude, GPT-4o, and open models at the LiteLLM layer without changing SDK code."
+    "achieves": "Provider-agnostic Vercel AI SDK apps \u2014 swap between Claude, GPT-4o, and open models at the LiteLLM layer without changing SDK code."
   },
   {
     "source": "vercel-ai-sdk",
     "target": "qdrant",
     "type": "integrates-with",
     "how": "Apps built with the Vercel AI SDK call Qdrant directly for retrieval in RAG endpoints, fetching context before passing it to the SDK's generate function.",
-    "achieves": "Semantic retrieval in Vercel AI SDK streaming endpoints — context from Qdrant enriches every generation without breaking streaming."
+    "achieves": "Semantic retrieval in Vercel AI SDK streaming endpoints \u2014 context from Qdrant enriches every generation without breaking streaming."
   },
   {
     "source": "huggingface",
@@ -1311,7 +1311,7 @@
     "target": "cursor",
     "type": "commonly-paired",
     "how": "v0 generates React/Tailwind components from prompts, which are directly pasted into Cursor for editing, refining, and wiring into the full app.",
-    "achieves": "Skip UI boilerplate entirely — generate the component in v0, refine it with Cursor's AI, ship without writing from scratch."
+    "achieves": "Skip UI boilerplate entirely \u2014 generate the component in v0, refine it with Cursor's AI, ship without writing from scratch."
   },
   {
     "source": "v0",
@@ -1343,7 +1343,7 @@
     "target": "cursor",
     "type": "commonly-paired",
     "how": "Locofy converts Figma designs to React/Vue code, which engineers then import into Cursor to refine, extend, and wire into the application.",
-    "achieves": "Design-to-production in one flow: Locofy closes the Figma gap, Cursor handles the engineering refinement — no manual translation."
+    "achieves": "Design-to-production in one flow: Locofy closes the Figma gap, Cursor handles the engineering refinement \u2014 no manual translation."
   },
   {
     "source": "framer-ai",
@@ -1410,14 +1410,14 @@
     "target": "cursor",
     "type": "commonly-paired",
     "how": "Google Stitch converts a screenshot or mockup into HTML/CSS/JS, which is then imported into Cursor to refine, componentize, and wire into the full application.",
-    "achieves": "Visual-to-production in one flow: Stitch handles the translation from design reference, Cursor handles the engineering — no manual pixel-matching."
+    "achieves": "Visual-to-production in one flow: Stitch handles the translation from design reference, Cursor handles the engineering \u2014 no manual pixel-matching."
   },
   {
     "source": "sweep-ai",
     "target": "coderabbit",
     "type": "commonly-paired",
     "how": "Sweep creates automated fix PRs for GitHub issues; CodeRabbit reviews those PRs immediately after they're opened.",
-    "achieves": "Fully automated issue-to-reviewed-PR pipeline — Sweep writes the fix, CodeRabbit reviews it, humans only approve."
+    "achieves": "Fully automated issue-to-reviewed-PR pipeline \u2014 Sweep writes the fix, CodeRabbit reviews it, humans only approve."
   },
   {
     "source": "coderabbit",
@@ -1429,7 +1429,7 @@
     "target": "graphite",
     "type": "commonly-paired",
     "how": "Graphite manages PR stacking and merge queues; CodeRabbit reviews each PR in the stack before it advances.",
-    "achieves": "High-velocity PR stacking with AI review on every layer — Graphite handles the merge logistics, CodeRabbit ensures quality."
+    "achieves": "High-velocity PR stacking with AI review on every layer \u2014 Graphite handles the merge logistics, CodeRabbit ensures quality."
   },
   {
     "source": "sourcery",
@@ -1441,7 +1441,7 @@
     "target": "sourcery",
     "type": "commonly-paired",
     "how": "Grit.io handles automated large-scale codebase migrations and refactors; Sourcery reviews the resulting code for quality.",
-    "achieves": "Automated refactoring at scale with quality review — Grit makes the structural changes, Sourcery checks the output."
+    "achieves": "Automated refactoring at scale with quality review \u2014 Grit makes the structural changes, Sourcery checks the output."
   },
   {
     "source": "grit-io",
@@ -1463,55 +1463,55 @@
     "target": "qodo",
     "type": "commonly-paired",
     "how": "Pixee automatically fixes security vulnerabilities in PRs; Qodo generates tests to verify the fix didn't break behaviour.",
-    "achieves": "Security patches with regression coverage — Pixee closes the vulnerability, Qodo confirms nothing else broke."
+    "achieves": "Security patches with regression coverage \u2014 Pixee closes the vulnerability, Qodo confirms nothing else broke."
   },
   {
     "source": "mcp-sdk-ts",
     "target": "fastmcp",
     "type": "integrates-with",
-    "how": "Both implement the same MCP protocol — servers built with the TypeScript SDK and FastMCP are compatible with the same MCP clients.",
-    "achieves": "TypeScript and Python MCP servers coexist in the same ecosystem — Cursor and Claude Code connect to both identically."
+    "how": "Both implement the same MCP protocol \u2014 servers built with the TypeScript SDK and FastMCP are compatible with the same MCP clients.",
+    "achieves": "TypeScript and Python MCP servers coexist in the same ecosystem \u2014 Cursor and Claude Code connect to both identically."
   },
   {
     "source": "mcp-sdk-ts",
     "target": "smithery",
     "type": "integrates-with",
     "how": "MCP servers built with the TypeScript SDK can be published to and discovered via the Smithery registry.",
-    "achieves": "Community distribution for custom MCP servers — build with the SDK, list on Smithery, install with one command."
+    "achieves": "Community distribution for custom MCP servers \u2014 build with the SDK, list on Smithery, install with one command."
   },
   {
     "source": "mcp-sdk-ts",
     "target": "mcp-sdk-python",
     "type": "commonly-paired",
-    "how": "The TypeScript and Python SDKs implement the same protocol — teams use both to build servers in their preferred language.",
-    "achieves": "Language flexibility for MCP server development — Python for ML-adjacent servers, TypeScript for Node.js services."
+    "how": "The TypeScript and Python SDKs implement the same protocol \u2014 teams use both to build servers in their preferred language.",
+    "achieves": "Language flexibility for MCP server development \u2014 Python for ML-adjacent servers, TypeScript for Node.js services."
   },
   {
     "source": "smithery",
     "target": "e2b",
     "type": "integrates-with",
     "how": "Smithery hosts and lists the E2B MCP server, making it discoverable and installable via the Smithery registry in one command.",
-    "achieves": "One-command E2B sandbox installation for any MCP client — discover on Smithery, install, and code execution is available."
+    "achieves": "One-command E2B sandbox installation for any MCP client \u2014 discover on Smithery, install, and code execution is available."
   },
   {
     "source": "smithery",
     "target": "cursor",
     "type": "integrates-with",
     "how": "Smithery's registry surfaces MCP servers that Cursor users can install directly into their Cursor MCP configuration.",
-    "achieves": "Cursor gains access to the full Smithery server catalogue — every listed server is one config line away from being a Cursor tool."
+    "achieves": "Cursor gains access to the full Smithery server catalogue \u2014 every listed server is one config line away from being a Cursor tool."
   },
   {
     "source": "smithery",
     "target": "claude-code",
     "type": "integrates-with",
     "how": "Smithery lists MCP servers that Claude Code users can discover and install into their Claude Code MCP configuration.",
-    "achieves": "Claude Code's tool ecosystem expands with every Smithery-listed server — community-built tools available without building from scratch."
+    "achieves": "Claude Code's tool ecosystem expands with every Smithery-listed server \u2014 community-built tools available without building from scratch."
   },
   {
     "source": "fastmcp",
     "target": "mcp-sdk-python",
     "type": "commonly-paired",
-    "how": "FastMCP is a higher-level Python wrapper; the official MCP Python SDK is lower-level — teams pick based on the level of control needed.",
+    "how": "FastMCP is a higher-level Python wrapper; the official MCP Python SDK is lower-level \u2014 teams pick based on the level of control needed.",
     "achieves": "Right abstraction for the task: FastMCP for rapid server scaffolding, the official SDK for full protocol control and custom transport."
   },
   {
@@ -1526,35 +1526,35 @@
     "target": "mcp-sdk-python",
     "type": "integrates-with",
     "how": "Context7 is accessible from any MCP client including Python-based agents and tools built with the Python MCP SDK.",
-    "achieves": "Library documentation access from Python agents — accurate, version-specific docs without leaving the agent session."
+    "achieves": "Library documentation access from Python agents \u2014 accurate, version-specific docs without leaving the agent session."
   },
   {
     "source": "playwright-mcp",
     "target": "mcp-sdk-ts",
     "type": "integrates-with",
     "how": "Playwright MCP is implemented using the TypeScript MCP SDK, exposing browser automation as callable MCP tools.",
-    "achieves": "Browser automation available to any MCP client — navigate, click, screenshot, and scrape via natural language agent instructions."
+    "achieves": "Browser automation available to any MCP client \u2014 navigate, click, screenshot, and scrape via natural language agent instructions."
   },
   {
     "source": "playwright-mcp",
     "target": "e2b",
     "type": "commonly-paired",
-    "how": "Playwright MCP handles browser automation while E2B handles code execution — together they cover the two core agent interaction modalities.",
-    "achieves": "Agents that can browse the web and run code in the same session — the two most common real-world interaction needs covered."
+    "how": "Playwright MCP handles browser automation while E2B handles code execution \u2014 together they cover the two core agent interaction modalities.",
+    "achieves": "Agents that can browse the web and run code in the same session \u2014 the two most common real-world interaction needs covered."
   },
   {
     "source": "github-mcp",
     "target": "mcp-sdk-ts",
     "type": "integrates-with",
     "how": "GitHub MCP is implemented using the TypeScript MCP SDK, exposing GitHub's API as structured MCP tool calls.",
-    "achieves": "Any MCP client gets GitHub API access — read files, open issues, create PRs, and search code via standardised tool calls."
+    "achieves": "Any MCP client gets GitHub API access \u2014 read files, open issues, create PRs, and search code via standardised tool calls."
   },
   {
     "source": "github-mcp",
     "target": "claude-code",
     "type": "commonly-paired",
     "how": "Claude Code connects to GitHub MCP to read repo state, reference issues, and open PRs as part of autonomous coding tasks.",
-    "achieves": "Full GitHub workflow automation from within Claude Code — read, implement, commit, and create a reviewed PR without leaving the terminal."
+    "achieves": "Full GitHub workflow automation from within Claude Code \u2014 read, implement, commit, and create a reviewed PR without leaving the terminal."
   },
   {
     "source": "ragas",
@@ -1573,14 +1573,14 @@
     "target": "openai-api",
     "type": "integrates-with",
     "how": "Promptfoo calls OpenAI's API directly to run prompts through configured test cases and compare outputs against assertions.",
-    "achieves": "Automated prompt regression testing against GPT-4o — catch output quality changes before they reach production."
+    "achieves": "Automated prompt regression testing against GPT-4o \u2014 catch output quality changes before they reach production."
   },
   {
     "source": "deepeval",
     "target": "openai-api",
     "type": "integrates-with",
     "how": "DeepEval uses OpenAI's API as the judge model to score generated outputs on metrics like faithfulness, relevance, and hallucination rate.",
-    "achieves": "LLM-as-judge quality metrics powered by GPT-4o — structured, reproducible evaluation scores for any AI output."
+    "achieves": "LLM-as-judge quality metrics powered by GPT-4o \u2014 structured, reproducible evaluation scores for any AI output."
   },
   {
     "source": "vellum",
@@ -1626,7 +1626,7 @@
     "source": "notion-ai",
     "target": "linear-ai",
     "type": "commonly-paired",
-    "how": "Linear tracks engineering tasks and sprints; Notion AI captures specs, docs, and research — teams use both for different knowledge layers.",
+    "how": "Linear tracks engineering tasks and sprints; Notion AI captures specs, docs, and research \u2014 teams use both for different knowledge layers.",
     "achieves": "Structured project management in Linear backed by richer, AI-searchable documentation and context in Notion."
   },
   {
@@ -1669,35 +1669,35 @@
     "target": "claude-code",
     "type": "integrates-with",
     "how": "Spec Kit generates structured context files from specs and architecture docs that Claude Code reads at task start to constrain its scope.",
-    "achieves": "Claude Code works from well-defined specs instead of improvised prompts — better output quality and fewer scope deviations."
+    "achieves": "Claude Code works from well-defined specs instead of improvised prompts \u2014 better output quality and fewer scope deviations."
   },
   {
     "source": "spec-kit",
     "target": "github-copilot",
     "type": "integrates-with",
     "how": "Spec Kit outputs structured context that GitHub Copilot picks up as in-repo files, steering its suggestions toward spec-defined patterns.",
-    "achieves": "Copilot completions aligned with the defined architecture — less improvised code, more spec-consistent output."
+    "achieves": "Copilot completions aligned with the defined architecture \u2014 less improvised code, more spec-consistent output."
   },
   {
     "source": "spec-kit",
     "target": "github-mcp",
     "type": "integrates-with",
     "how": "Spec Kit pushes structured context files to the repo via the GitHub MCP server, making specs available to all agents connected to the repo.",
-    "achieves": "Specs live in the repo and propagate to every AI agent that has GitHub MCP access — one source of truth for the whole stack."
+    "achieves": "Specs live in the repo and propagate to every AI agent that has GitHub MCP access \u2014 one source of truth for the whole stack."
   },
   {
     "source": "spec-kit",
     "target": "mermaid",
     "type": "commonly-paired",
-    "how": "Spec Kit generates architecture specs while Mermaid renders the associated diagrams — text and visuals stay in sync.",
-    "achieves": "Specs with embedded diagrams that agents can read — structured text from Spec Kit, visual architecture from Mermaid."
+    "how": "Spec Kit generates architecture specs while Mermaid renders the associated diagrams \u2014 text and visuals stay in sync.",
+    "achieves": "Specs with embedded diagrams that agents can read \u2014 structured text from Spec Kit, visual architecture from Mermaid."
   },
   {
     "source": "spec-kit",
     "target": "cursor",
     "type": "commonly-paired",
     "how": "Spec Kit's context files are loaded into Cursor's project context, steering AI completions and agent tasks toward spec-defined outcomes.",
-    "achieves": "Cursor code suggestions constrained by the defined architecture — less guesswork, more spec-consistent output."
+    "achieves": "Cursor code suggestions constrained by the defined architecture \u2014 less guesswork, more spec-consistent output."
   },
   {
     "source": "mermaid",
@@ -1713,15 +1713,15 @@
     "source": "mermaid",
     "target": "notion-ai",
     "type": "integrates-with",
-    "how": "Notion AI renders Mermaid diagram blocks natively — embed Mermaid code in Notion pages and they render as visual diagrams.",
-    "achieves": "Architecture diagrams embedded in living Notion docs — diagrams stay editable as code, render as visuals for stakeholders."
+    "how": "Notion AI renders Mermaid diagram blocks natively \u2014 embed Mermaid code in Notion pages and they render as visual diagrams.",
+    "achieves": "Architecture diagrams embedded in living Notion docs \u2014 diagrams stay editable as code, render as visuals for stakeholders."
   },
   {
     "source": "mermaid",
     "target": "swimm",
     "type": "commonly-paired",
     "how": "Swimm embeds Mermaid diagrams in its code-coupled docs, keeping architecture visuals synchronized with the codebase.",
-    "achieves": "Code docs that include always-current architecture diagrams — Swimm handles the code coupling, Mermaid handles the visuals."
+    "achieves": "Code docs that include always-current architecture diagrams \u2014 Swimm handles the code coupling, Mermaid handles the visuals."
   },
   {
     "source": "eraser",
@@ -1733,28 +1733,28 @@
     "target": "cursor",
     "type": "commonly-paired",
     "how": "Eraser diagrams and design docs are referenced in Cursor as architecture context, guiding AI completions toward the intended design.",
-    "achieves": "Visual architecture docs that feed directly into Cursor's AI context — design intent translates into code intent."
+    "achieves": "Visual architecture docs that feed directly into Cursor's AI context \u2014 design intent translates into code intent."
   },
   {
     "source": "eraser",
     "target": "github-mcp",
     "type": "integrates-with",
     "how": "Eraser connects to GitHub via its integration to pull in repo structure and code for diagram generation.",
-    "achieves": "Architecture diagrams generated from live repo state — Eraser reads the actual code, not a stale copy."
+    "achieves": "Architecture diagrams generated from live repo state \u2014 Eraser reads the actual code, not a stale copy."
   },
   {
     "source": "structurizr",
     "target": "swimm",
     "type": "commonly-paired",
     "how": "Structurizr generates C4 architecture models that Swimm embeds in its code-coupled documentation.",
-    "achieves": "Deep architectural context in code docs — Structurizr provides the model, Swimm keeps it linked to the actual code."
+    "achieves": "Deep architectural context in code docs \u2014 Structurizr provides the model, Swimm keeps it linked to the actual code."
   },
   {
     "source": "structurizr",
     "target": "mintlify",
     "type": "commonly-paired",
     "how": "Structurizr's architecture diagrams are embedded in Mintlify docs pages as reference material for API and system documentation.",
-    "achieves": "API docs enriched with architecture context — Mintlify handles the public-facing docs, Structurizr provides the system diagrams."
+    "achieves": "API docs enriched with architecture context \u2014 Mintlify handles the public-facing docs, Structurizr provides the system diagrams."
   },
   {
     "source": "swagger",
@@ -1771,42 +1771,42 @@
     "target": "speakeasy",
     "type": "integrates-with",
     "how": "Speakeasy reads a Swagger/OpenAPI spec file and generates typed SDKs in multiple languages from it automatically.",
-    "achieves": "Production-quality SDKs auto-generated from the API spec — when the spec changes, the SDK regenerates without manual work."
+    "achieves": "Production-quality SDKs auto-generated from the API spec \u2014 when the spec changes, the SDK regenerates without manual work."
   },
   {
     "source": "swagger",
     "target": "fern",
     "type": "integrates-with",
     "how": "Fern reads OpenAPI/Swagger specs and generates idiomatic client SDKs and server stubs from them.",
-    "achieves": "Client and server code generated from the API contract — spec drift between code and docs becomes structurally impossible."
+    "achieves": "Client and server code generated from the API contract \u2014 spec drift between code and docs becomes structurally impossible."
   },
   {
     "source": "swagger",
     "target": "stainless",
     "type": "integrates-with",
     "how": "Stainless reads OpenAPI/Swagger specs and generates polished, production-ready SDKs with retry logic, pagination, and type safety.",
-    "achieves": "Enterprise-grade SDKs auto-generated from the Swagger spec — the same quality as handwritten Stripe or OpenAI SDKs."
+    "achieves": "Enterprise-grade SDKs auto-generated from the Swagger spec \u2014 the same quality as handwritten Stripe or OpenAI SDKs."
   },
   {
     "source": "swagger",
     "target": "openapi-generator",
     "type": "integrates-with",
     "how": "OpenAPI Generator reads Swagger/OpenAPI specs and generates client SDKs and server stubs across 50+ languages.",
-    "achieves": "Broad language coverage from one spec — generate clients for any consumer language without maintaining them manually."
+    "achieves": "Broad language coverage from one spec \u2014 generate clients for any consumer language without maintaining them manually."
   },
   {
     "source": "swagger",
     "target": "mintlify",
     "type": "integrates-with",
     "how": "Mintlify ingests OpenAPI/Swagger specs to auto-generate API reference documentation with interactive try-it panels.",
-    "achieves": "Beautiful, always-current API docs generated directly from the spec — documentation and spec stay in sync automatically."
+    "achieves": "Beautiful, always-current API docs generated directly from the spec \u2014 documentation and spec stay in sync automatically."
   },
   {
     "source": "swagger",
     "target": "cursor",
     "type": "commonly-paired",
     "how": "Cursor imports OpenAPI/Swagger spec files as project context, using the defined endpoints, types, and schemas to guide code generation.",
-    "achieves": "Spec-aware code generation in Cursor — AI completions respect the actual API contract instead of guessing the interface."
+    "achieves": "Spec-aware code generation in Cursor \u2014 AI completions respect the actual API contract instead of guessing the interface."
   },
   {
     "source": "redocly",
@@ -1823,20 +1823,20 @@
     "target": "speakeasy",
     "type": "integrates-with",
     "how": "Speakeasy reads OpenAPI specs linted and validated by Redocly, generating SDKs from a spec that's already been quality-checked.",
-    "achieves": "SDK generation from a validated spec — Redocly catches spec errors before Speakeasy generates code from them."
+    "achieves": "SDK generation from a validated spec \u2014 Redocly catches spec errors before Speakeasy generates code from them."
   },
   {
     "source": "redocly",
     "target": "fern",
     "type": "integrates-with",
     "how": "Fern reads OpenAPI specs managed and validated by Redocly, generating SDKs from a well-structured spec.",
-    "achieves": "Clean SDK generation starting from a Redocly-validated spec — spec quality directly improves generated SDK quality."
+    "achieves": "Clean SDK generation starting from a Redocly-validated spec \u2014 spec quality directly improves generated SDK quality."
   },
   {
     "source": "asyncapi",
     "target": "swagger",
     "type": "commonly-paired",
-    "how": "AsyncAPI describes event-driven APIs (Kafka, WebSockets) while Swagger/OpenAPI covers REST — teams use both for full API coverage.",
+    "how": "AsyncAPI describes event-driven APIs (Kafka, WebSockets) while Swagger/OpenAPI covers REST \u2014 teams use both for full API coverage.",
     "achieves": "Complete API documentation covering both synchronous REST and asynchronous event-driven interfaces in one spec-driven workflow."
   },
   {
@@ -1844,21 +1844,21 @@
     "target": "redocly",
     "type": "integrates-with",
     "how": "Redocly supports rendering AsyncAPI specs alongside OpenAPI specs, providing a unified documentation experience.",
-    "achieves": "Unified API docs covering REST and event-driven APIs — both spec formats rendered and validated through one toolchain."
+    "achieves": "Unified API docs covering REST and event-driven APIs \u2014 both spec formats rendered and validated through one toolchain."
   },
   {
     "source": "stoplight",
     "target": "speakeasy",
     "type": "integrates-with",
     "how": "Speakeasy generates SDKs from OpenAPI specs designed and validated in Stoplight Studio.",
-    "achieves": "SDK generation from a visually designed, validated spec — Stoplight handles spec authoring, Speakeasy handles code generation."
+    "achieves": "SDK generation from a visually designed, validated spec \u2014 Stoplight handles spec authoring, Speakeasy handles code generation."
   },
   {
     "source": "stoplight",
     "target": "fern",
     "type": "integrates-with",
     "how": "Fern reads OpenAPI specs from Stoplight, generating SDKs from specs that have been visually authored and validated.",
-    "achieves": "Visual API design in Stoplight feeds directly into Fern's SDK generation pipeline — design once, generate everywhere."
+    "achieves": "Visual API design in Stoplight feeds directly into Fern's SDK generation pipeline \u2014 design once, generate everywhere."
   },
   {
     "source": "speakeasy",
@@ -1880,14 +1880,14 @@
     "target": "mcp-sdk-ts",
     "type": "integrates-with",
     "how": "Speakeasy can generate MCP server wrappers from OpenAPI specs, turning any REST API into a callable MCP tool.",
-    "achieves": "Any API with an OpenAPI spec becomes an MCP server — Speakeasy bridges the spec world and the MCP tool ecosystem."
+    "achieves": "Any API with an OpenAPI spec becomes an MCP server \u2014 Speakeasy bridges the spec world and the MCP tool ecosystem."
   },
   {
     "source": "speakeasy",
     "target": "mcp-sdk-python",
     "type": "integrates-with",
     "how": "Speakeasy generates Python MCP server wrappers from OpenAPI specs using the Python MCP SDK under the hood.",
-    "achieves": "Python-based MCP servers generated from existing API specs — instant MCP access to any Python-friendly REST API."
+    "achieves": "Python-based MCP servers generated from existing API specs \u2014 instant MCP access to any Python-friendly REST API."
   },
   {
     "source": "fern",
@@ -1904,7 +1904,7 @@
     "target": "mintlify",
     "type": "integrates-with",
     "how": "Fern generates API reference docs and sends them to Mintlify for rendering as a polished public documentation site.",
-    "achieves": "Beautiful API docs generated directly from Fern's SDK generation pipeline — code and docs generate together from the same spec."
+    "achieves": "Beautiful API docs generated directly from Fern's SDK generation pipeline \u2014 code and docs generate together from the same spec."
   },
   {
     "source": "stainless",
@@ -1915,15 +1915,15 @@
     "source": "stainless",
     "target": "anthropic-api",
     "type": "commonly-paired",
-    "how": "Stainless generates the official Anthropic SDK itself — the anthropic Python and TypeScript packages are built with Stainless.",
-    "achieves": "The same SDK quality as Anthropic's official libraries — Stainless generates production-grade SDKs from any API spec."
+    "how": "Stainless generates the official Anthropic SDK itself \u2014 the anthropic Python and TypeScript packages are built with Stainless.",
+    "achieves": "The same SDK quality as Anthropic's official libraries \u2014 Stainless generates production-grade SDKs from any API spec."
   },
   {
     "source": "stainless",
     "target": "openai-api",
     "type": "commonly-paired",
-    "how": "Stainless generates the official OpenAI SDK — the openai Python and TypeScript packages are built with Stainless.",
-    "achieves": "The same SDK quality as OpenAI's official libraries — Stainless generates polished, reliable SDKs with retry logic and pagination."
+    "how": "Stainless generates the official OpenAI SDK \u2014 the openai Python and TypeScript packages are built with Stainless.",
+    "achieves": "The same SDK quality as OpenAI's official libraries \u2014 Stainless generates polished, reliable SDKs with retry logic and pagination."
   },
   {
     "source": "google-adk",
@@ -2171,21 +2171,21 @@
     "source": "sentry-mcp",
     "target": "github-mcp",
     "type": "commonly-paired",
-    "how": "Sentry MCP provides error context while GitHub MCP provides code context — together they give agents full incident-to-PR visibility.",
+    "how": "Sentry MCP provides error context while GitHub MCP provides code context \u2014 together they give agents full incident-to-PR visibility.",
     "achieves": "AI agents that can find the bug in the error, locate it in the code, and create a fix PR automatically."
   },
   {
     "source": "snyk",
     "target": "semgrep",
     "type": "commonly-paired",
-    "how": "Snyk handles dependency and container security while Semgrep covers custom code pattern detection — complementary layers of the security stack.",
+    "how": "Snyk handles dependency and container security while Semgrep covers custom code pattern detection \u2014 complementary layers of the security stack.",
     "achieves": "Comprehensive security coverage: known CVEs in dependencies and custom vulnerabilities in application code."
   },
   {
     "source": "sonarqube",
     "target": "snyk",
     "type": "commonly-paired",
-    "how": "SonarQube handles code quality and technical debt while Snyk focuses on security vulnerabilities — used together they cover both quality and security.",
+    "how": "SonarQube handles code quality and technical debt while Snyk focuses on security vulnerabilities \u2014 used together they cover both quality and security.",
     "achieves": "Full code health coverage: clean code quality metrics from SonarQube plus vulnerability scanning from Snyk."
   },
   {
@@ -2217,7 +2217,7 @@
     "source": "jira-ai",
     "target": "confluence-ai",
     "type": "commonly-paired",
-    "how": "Jira AI manages tickets and sprints while Confluence AI handles the wiki and specs — Atlassian Intelligence connects both seamlessly.",
+    "how": "Jira AI manages tickets and sprints while Confluence AI handles the wiki and specs \u2014 Atlassian Intelligence connects both seamlessly.",
     "achieves": "End-to-end AI assistance from product planning in Confluence to execution tracking in Jira."
   },
   {
@@ -2240,6 +2240,216 @@
     "target": "linear-ai",
     "type": "commonly-paired",
     "how": "Grain captures and summarizes user interviews while Linear manages the resulting feature tickets and roadmap.",
-    "achieves": "Closed loop from user research to tracked feature work — customer insights directly linked to engineering tasks."
+    "achieves": "Closed loop from user research to tracked feature work \u2014 customer insights directly linked to engineering tasks."
+  },
+  {
+    "source": "kilo-code",
+    "target": "cline",
+    "type": "competes-with"
+  },
+  {
+    "source": "kilo-code",
+    "target": "roocode",
+    "type": "competes-with"
+  },
+  {
+    "source": "kilo-code",
+    "target": "cursor",
+    "type": "competes-with"
+  },
+  {
+    "source": "kilo-code",
+    "target": "mcp-sdk-ts",
+    "type": "integrates-with"
+  },
+  {
+    "source": "kilo-code",
+    "target": "claude-code",
+    "type": "commonly-paired-with"
+  },
+  {
+    "source": "roocode",
+    "target": "cline",
+    "type": "competes-with"
+  },
+  {
+    "source": "roocode",
+    "target": "kilo-code",
+    "type": "competes-with"
+  },
+  {
+    "source": "roocode",
+    "target": "claude-code",
+    "type": "commonly-paired-with"
+  },
+  {
+    "source": "roocode",
+    "target": "mcp-sdk-ts",
+    "type": "integrates-with"
+  },
+  {
+    "source": "warp",
+    "target": "claude-code",
+    "type": "integrates-with"
+  },
+  {
+    "source": "warp",
+    "target": "codex-cli",
+    "type": "integrates-with"
+  },
+  {
+    "source": "warp",
+    "target": "aider",
+    "type": "commonly-paired-with"
+  },
+  {
+    "source": "openai-agents-sdk",
+    "target": "openai-api",
+    "type": "integrates-with"
+  },
+  {
+    "source": "openai-agents-sdk",
+    "target": "langgraph",
+    "type": "competes-with"
+  },
+  {
+    "source": "openai-agents-sdk",
+    "target": "crewai",
+    "type": "competes-with"
+  },
+  {
+    "source": "openai-agents-sdk",
+    "target": "google-adk",
+    "type": "competes-with"
+  },
+  {
+    "source": "manus-ai",
+    "target": "devin",
+    "type": "competes-with"
+  },
+  {
+    "source": "manus-ai",
+    "target": "openhands",
+    "type": "competes-with"
+  },
+  {
+    "source": "manus-ai",
+    "target": "openai-api",
+    "type": "commonly-paired-with"
+  },
+  {
+    "source": "mcp-so",
+    "target": "smithery",
+    "type": "competes-with"
+  },
+  {
+    "source": "mcp-so",
+    "target": "mcp-sdk-ts",
+    "type": "integrates-with"
+  },
+  {
+    "source": "mcp-so",
+    "target": "mcp-sdk-python",
+    "type": "integrates-with"
+  },
+  {
+    "source": "mcp-so",
+    "target": "fastmcp",
+    "type": "commonly-paired-with"
+  },
+  {
+    "source": "runpod",
+    "target": "vllm",
+    "type": "integrates-with"
+  },
+  {
+    "source": "runpod",
+    "target": "llama-cpp",
+    "type": "integrates-with"
+  },
+  {
+    "source": "runpod",
+    "target": "huggingface",
+    "type": "commonly-paired-with"
+  },
+  {
+    "source": "runpod",
+    "target": "lambda-labs",
+    "type": "competes-with"
+  },
+  {
+    "source": "runpod",
+    "target": "baseten",
+    "type": "competes-with"
+  },
+  {
+    "source": "runpod",
+    "target": "modal",
+    "type": "competes-with"
+  },
+  {
+    "source": "fal-ai",
+    "target": "replicate",
+    "type": "competes-with"
+  },
+  {
+    "source": "fal-ai",
+    "target": "baseten",
+    "type": "competes-with"
+  },
+  {
+    "source": "fal-ai",
+    "target": "openai-api",
+    "type": "commonly-paired-with"
+  },
+  {
+    "source": "fal-ai",
+    "target": "huggingface",
+    "type": "integrates-with"
+  },
+  {
+    "source": "maxim-ai",
+    "target": "agentops",
+    "type": "competes-with"
+  },
+  {
+    "source": "maxim-ai",
+    "target": "opik",
+    "type": "competes-with"
+  },
+  {
+    "source": "maxim-ai",
+    "target": "langgraph",
+    "type": "integrates-with"
+  },
+  {
+    "source": "maxim-ai",
+    "target": "crewai",
+    "type": "integrates-with"
+  },
+  {
+    "source": "galileo-eval",
+    "target": "deepeval",
+    "type": "competes-with"
+  },
+  {
+    "source": "galileo-eval",
+    "target": "promptfoo",
+    "type": "competes-with"
+  },
+  {
+    "source": "galileo-eval",
+    "target": "humanloop",
+    "type": "competes-with"
+  },
+  {
+    "source": "galileo-eval",
+    "target": "langchain",
+    "type": "integrates-with"
+  },
+  {
+    "source": "galileo-eval",
+    "target": "openai-api",
+    "type": "integrates-with"
   }
 ]
