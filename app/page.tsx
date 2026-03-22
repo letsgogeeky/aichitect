@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Logo from "@/components/ui/Logo";
-import { GITHUB_URL, TOOL_COUNT, CATEGORY_COUNT, STACK_COUNT } from "@/lib/constants";
+import { GITHUB_URL } from "@/lib/constants";
 import { FindMyStackButton } from "@/components/ui/StackQuizModal";
+import { getCounts } from "@/lib/data/counts";
 
 function IconNetwork() {
   return (
@@ -604,59 +605,61 @@ function GenomePreview() {
   );
 }
 
-const VIEWS = [
-  {
-    href: "/stacks",
-    label: "Stacks",
-    tagline: `${STACK_COUNT} curated starting points`,
-    description:
-      "Pre-built stacks for common AI workflows — with honest reasoning and tradeoffs for each. A great place to start.",
-    Icon: IconLayers,
-    accent: "#00d4aa",
-    Preview: StacksPreview,
-  },
-  {
-    href: "/explore",
-    label: "Graph",
-    tagline: "Explore the full AI ecosystem",
-    description: `Map ${TOOL_COUNT} tools across ${CATEGORY_COUNT} categories. Browse relationships, filter by category, and explore in 2D or 3D.`,
-    Icon: IconNetwork,
-    accent: "#7c6bff",
-    Preview: GraphPreview,
-  },
-  {
-    href: "/builder",
-    label: "Builder",
-    tagline: "Design your own stack",
-    description:
-      "Pick one tool per slot and watch your stack wire together. Share it with a single URL.",
-    Icon: IconSettings2,
-    accent: "#ff6b6b",
-    Preview: BuilderPreview,
-  },
-  {
-    href: "/compare",
-    label: "Compare",
-    tagline: "Side-by-side tool analysis",
-    description:
-      "Pick any two tools and see pricing, type, GitHub stars, shared connections, and unique integrations in one view.",
-    Icon: IconCompare,
-    accent: "#fd9644",
-    Preview: ComparePreview,
-  },
-  {
-    href: "/genome",
-    label: "Genome",
-    tagline: "Score your AI stack",
-    description:
-      "Paste your dependency files and get a fitness score for your stack — see which slots are covered, which are missing, and what to add next.",
-    Icon: IconGenome,
-    accent: "#26de81",
-    Preview: GenomePreview,
-  },
-];
+export default async function LandingPage() {
+  const { toolCount, categoryCount, stackCount } = await getCounts();
 
-export default function LandingPage() {
+  const VIEWS = [
+    {
+      href: "/stacks",
+      label: "Stacks",
+      tagline: `${stackCount} curated starting points`,
+      description:
+        "Pre-built stacks for common AI workflows — with honest reasoning and tradeoffs for each. A great place to start.",
+      Icon: IconLayers,
+      accent: "#00d4aa",
+      Preview: StacksPreview,
+    },
+    {
+      href: "/explore",
+      label: "Graph",
+      tagline: "Explore the full AI ecosystem",
+      description: `Map ${toolCount} tools across ${categoryCount} categories. Browse relationships, filter by category, and explore in 2D or 3D.`,
+      Icon: IconNetwork,
+      accent: "#7c6bff",
+      Preview: GraphPreview,
+    },
+    {
+      href: "/builder",
+      label: "Builder",
+      tagline: "Design your own stack",
+      description:
+        "Pick one tool per slot and watch your stack wire together. Share it with a single URL.",
+      Icon: IconSettings2,
+      accent: "#ff6b6b",
+      Preview: BuilderPreview,
+    },
+    {
+      href: "/compare",
+      label: "Compare",
+      tagline: "Side-by-side tool analysis",
+      description:
+        "Pick any two tools and see pricing, type, GitHub stars, shared connections, and unique integrations in one view.",
+      Icon: IconCompare,
+      accent: "#fd9644",
+      Preview: ComparePreview,
+    },
+    {
+      href: "/genome",
+      label: "Genome",
+      tagline: "Score your AI stack",
+      description:
+        "Paste your dependency files and get a fitness score for your stack — see which slots are covered, which are missing, and what to add next.",
+      Icon: IconGenome,
+      accent: "#26de81",
+      Preview: GenomePreview,
+    },
+  ];
+
   return (
     <div
       style={{
@@ -845,8 +848,8 @@ export default function LandingPage() {
             position: "relative",
           }}
         >
-          AIchitect maps the full AI ecosystem — {TOOL_COUNT} tools across {CATEGORY_COUNT}{" "}
-          categories — so you can cut the noise and pick the right stack.
+          AIchitect maps the full AI ecosystem — {toolCount} tools across {categoryCount} categories
+          — so you can cut the noise and pick the right stack.
         </p>
 
         {/* CTAs */}
@@ -904,9 +907,9 @@ export default function LandingPage() {
           }}
         >
           {[
-            { value: `${TOOL_COUNT}`, label: "tools mapped", color: "#7c6bff" },
-            { value: `${CATEGORY_COUNT}`, label: "categories", color: "#00d4aa" },
-            { value: `${STACK_COUNT}`, label: "curated stacks", color: "#26de81" },
+            { value: `${toolCount}`, label: "tools mapped", color: "#7c6bff" },
+            { value: `${categoryCount}`, label: "categories", color: "#00d4aa" },
+            { value: `${stackCount}`, label: "curated stacks", color: "#26de81" },
             { value: "100%", label: "open source", color: "#ff6b6b" },
           ].map(({ value, label, color }) => (
             <div key={label} style={{ textAlign: "center" }}>

@@ -302,20 +302,20 @@ export default function ToolDetailSheet({ tool, open, onClose }: Props) {
                           background:
                             type === "integrates-with"
                               ? "#7c6bff22"
-                              : type === "commonly-paired"
+                              : type === "commonly-paired-with"
                                 ? "#4a4a7a44"
                                 : "#3a3a4a44",
                           color:
                             type === "integrates-with"
                               ? "#7c6bff"
-                              : type === "commonly-paired"
+                              : type === "commonly-paired-with"
                                 ? "#8888aa"
                                 : "#555577",
                         }}
                       >
                         {type === "integrates-with"
                           ? "integrates"
-                          : type === "commonly-paired"
+                          : type === "commonly-paired-with"
                             ? "paired"
                             : "competes"}
                       </span>

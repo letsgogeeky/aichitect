@@ -47,14 +47,14 @@ export async function generateStaticParams() {
 
 function relLabel(type: string) {
   if (type === "integrates-with") return "integrates with";
-  if (type === "commonly-paired") return "often paired with";
+  if (type === "commonly-paired-with") return "often paired with";
   return "competes with";
 }
 
 function relBadgeStyle(type: string): React.CSSProperties {
   if (type === "integrates-with")
     return { background: "#7c6bff22", color: "#7c6bff", border: "1px solid #7c6bff44" };
-  if (type === "commonly-paired")
+  if (type === "commonly-paired-with")
     return { background: "#4a4a7a44", color: "#8888aa", border: "1px solid #4a4a7a88" };
   return { background: "#ff6b6b22", color: "#ff6b6b", border: "1px solid #ff6b6b44" };
 }

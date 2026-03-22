@@ -1,6 +1,6 @@
 export type ToolType = "oss" | "commercial";
 
-export type RelationshipType = "integrates-with" | "commonly-paired" | "competes-with";
+export type RelationshipType = "integrates-with" | "commonly-paired-with" | "competes-with";
 
 export type CategoryId =
   | "coding-assistants"
@@ -14,7 +14,11 @@ export type CategoryId =
   | "product-mgmt"
   | "mcp"
   | "prompt-eval"
-  | "specifications";
+  | "specifications"
+  | "fine-tuning"
+  | "voice-ai"
+  | "multimodal"
+  | "browser-automation";
 
 export interface PricingPlan {
   name: string;
@@ -163,15 +167,25 @@ export const STACK_LAYERS: StackLayer[] = [
     id: "models-infra",
     label: "Models & Infra",
     question: "Which models and infrastructure power it?",
-    description: "LLM providers, model routing, vector databases, and compute infrastructure.",
-    categories: ["llm-infra"],
+    description:
+      "LLM providers, model routing, vector databases, compute infrastructure, fine-tuning, and multimodal models.",
+    categories: ["llm-infra", "fine-tuning", "multimodal"],
   },
   {
     id: "tooling",
     label: "Tooling",
     question: "How do you build, observe, and extend it?",
-    description: "DevOps automation, observability, MCP servers, evals, docs, and design tooling.",
-    categories: ["devops", "prompt-eval", "mcp", "design", "docs"],
+    description:
+      "DevOps automation, observability, MCP servers, evals, docs, design tooling, voice AI, and browser automation.",
+    categories: [
+      "devops",
+      "prompt-eval",
+      "mcp",
+      "design",
+      "docs",
+      "voice-ai",
+      "browser-automation",
+    ],
   },
 ];
 
@@ -188,6 +202,10 @@ export const CATEGORIES: CategoryMeta[] = [
   { id: "mcp", label: "MCP Servers", color: "#a29bfe" },
   { id: "prompt-eval", label: "Prompt & Eval", color: "#55efc4" },
   { id: "specifications", label: "Specifications", color: "#e17055" },
+  { id: "fine-tuning", label: "Fine-tuning", color: "#e84393" },
+  { id: "voice-ai", label: "Voice AI", color: "#00b894" },
+  { id: "multimodal", label: "Multimodal", color: "#6c5ce7" },
+  { id: "browser-automation", label: "Browser Automation", color: "#f0932b" },
 ];
 
 export function getCategoryColor(id: CategoryId): string {

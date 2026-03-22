@@ -5903,7 +5903,7 @@
   {
     "id": "fal-ai",
     "name": "Fal.ai",
-    "category": "llm-infra",
+    "category": "multimodal",
     "tagline": "Fast serverless inference API for image, video, and audio models",
     "description": "Developer API platform for running image, video, and audio generation models (Flux, SDXL, Whisper, and more) at low latency. Popular as a serverless GPU layer for multimodal AI apps, with a clean Python/JS SDK and pay-per-use pricing.",
     "type": "commercial",
@@ -5917,7 +5917,7 @@
       ]
     },
     "github_stars": 10000,
-    "slot": "inference",
+    "slot": "multimodal",
     "prominent": false,
     "choose_if": [
       "You're building multimodal apps that generate images, video, or audio",
@@ -6006,5 +6006,730 @@
     },
     "website_url": "https://rungalileo.io",
     "github_url": null
+  },
+  {
+    "id": "axolotl",
+    "name": "Axolotl",
+    "category": "fine-tuning",
+    "tagline": "Streamlined LoRA & QLoRA fine-tuning",
+    "description": "OSS fine-tuning framework built on HuggingFace Transformers. Supports LoRA, QLoRA, full fine-tuning, and FSDP. Config-driven — define your training run in a YAML file.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 9800,
+    "slot": "fine-tuning",
+    "prominent": true,
+    "choose_if": [
+      "You want a config-driven OSS fine-tuning pipeline",
+      "You need support for LoRA, QLoRA, and FSDP in one tool",
+      "You prefer HuggingFace-native workflows"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["axolotl"],
+      "env_vars": [],
+      "config_files": ["axolotl.yaml", "config.yaml"]
+    },
+    "website_url": "https://axolotl.ai",
+    "github_url": "https://github.com/axolotl-ai-cloud/axolotl"
+  },
+  {
+    "id": "unsloth",
+    "name": "Unsloth",
+    "category": "fine-tuning",
+    "tagline": "2× faster, 70% less memory LoRA fine-tuning",
+    "description": "Dramatically speeds up LoRA and QLoRA fine-tuning by rewriting GPU kernels. Compatible with HuggingFace and works with Llama, Mistral, Gemma, and more. No accuracy loss.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Pro",
+          "price": "$29/mo"
+        }
+      ]
+    },
+    "github_stars": 32000,
+    "slot": "fine-tuning",
+    "prominent": true,
+    "choose_if": [
+      "You want the fastest OSS LoRA fine-tuning with minimal GPU memory",
+      "You're fine-tuning Llama, Mistral, or Gemma models",
+      "Memory constraints are the bottleneck in your training setup"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["unsloth", "unsloth_zoo"],
+      "env_vars": [],
+      "config_files": []
+    },
+    "website_url": "https://unsloth.ai",
+    "github_url": "https://github.com/unslothai/unsloth"
+  },
+  {
+    "id": "llama-factory",
+    "name": "LlamaFactory",
+    "category": "fine-tuning",
+    "tagline": "Unified fine-tuning for 100+ LLMs",
+    "description": "Supports full fine-tuning, LoRA, QLoRA, DPO, RLHF, and reward modeling across 100+ models. Web UI (LlamaBoard) for no-code training. The most feature-complete OSS fine-tuning framework.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 42000,
+    "slot": "fine-tuning",
+    "prominent": false,
+    "choose_if": [
+      "You need DPO, RLHF, or reward modeling in addition to SFT",
+      "You want a no-code web UI for training runs",
+      "You're working across many different model families"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["llamafactory"],
+      "env_vars": [],
+      "config_files": ["examples/train_lora/llama3_lora_sft.yaml"]
+    },
+    "website_url": "https://github.com/hiyouga/LLaMA-Factory",
+    "github_url": "https://github.com/hiyouga/LLaMA-Factory"
+  },
+  {
+    "id": "torchtune",
+    "name": "Torchtune",
+    "category": "fine-tuning",
+    "tagline": "PyTorch-native LLM fine-tuning from Meta",
+    "description": "Meta's official fine-tuning library. Pure PyTorch — no abstraction layers. Supports LoRA, QLoRA, and full fine-tuning for Llama models. Designed for reproducibility and research.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 5200,
+    "slot": "fine-tuning",
+    "prominent": false,
+    "choose_if": [
+      "You want pure PyTorch with no abstraction layers over training",
+      "You're primarily working with Meta's Llama models",
+      "Reproducibility and research clarity are priorities"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["torchtune"],
+      "env_vars": [],
+      "config_files": []
+    },
+    "website_url": "https://pytorch.org/torchtune",
+    "github_url": "https://github.com/pytorch/torchtune"
+  },
+  {
+    "id": "predibase",
+    "name": "Predibase",
+    "category": "fine-tuning",
+    "tagline": "Managed fine-tuning and serving for LoRA adapters",
+    "description": "Commercial platform for fine-tuning and serving open-source LLMs. Specializes in LoRA adapter training with serverless serving. Built by the creators of Ludwig and LoRAX.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Developer",
+          "price": "Usage-based"
+        },
+        {
+          "name": "Enterprise",
+          "price": "Custom"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "fine-tuning",
+    "prominent": false,
+    "choose_if": [
+      "You want managed fine-tuning without running your own GPU infrastructure",
+      "You need to serve many LoRA adapters efficiently on shared base models",
+      "You're moving from experimentation to production fine-tuning"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["predibase"],
+      "env_vars": ["PREDIBASE_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://predibase.com",
+    "github_url": null
+  },
+  {
+    "id": "elevenlabs",
+    "name": "ElevenLabs",
+    "category": "voice-ai",
+    "tagline": "Ultra-realistic text-to-speech and voice cloning",
+    "description": "State-of-the-art TTS API with voice cloning, multilingual support, and low-latency streaming. Used in podcasts, audiobooks, conversational AI agents, and game NPCs.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Starter",
+          "price": "$5/mo"
+        },
+        {
+          "name": "Creator",
+          "price": "$22/mo"
+        },
+        {
+          "name": "Pro",
+          "price": "$99/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "voice-ai",
+    "prominent": true,
+    "choose_if": [
+      "You need the most realistic TTS for user-facing applications",
+      "You want voice cloning from audio samples",
+      "You're building multilingual voice agents"
+    ],
+    "aliases": {
+      "npm": ["elevenlabs"],
+      "pip": ["elevenlabs"],
+      "env_vars": ["ELEVENLABS_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://elevenlabs.io",
+    "github_url": null
+  },
+  {
+    "id": "deepgram",
+    "name": "Deepgram",
+    "category": "voice-ai",
+    "tagline": "Fast, accurate speech-to-text API",
+    "description": "Real-time and batch speech recognition API with <300ms latency. Supports 30+ languages, speaker diarization, and custom vocabulary. Nova-3 model is best-in-class for English accuracy.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Pay-as-you-go",
+          "price": "$0.0043/min"
+        },
+        {
+          "name": "Growth",
+          "price": "Custom"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "voice-ai",
+    "prominent": true,
+    "choose_if": [
+      "You need real-time speech-to-text with <300ms latency",
+      "Accuracy on noisy audio or accented speech matters",
+      "You need speaker diarization or custom vocabulary"
+    ],
+    "aliases": {
+      "npm": ["@deepgram/sdk"],
+      "pip": ["deepgram-sdk"],
+      "env_vars": ["DEEPGRAM_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://deepgram.com",
+    "github_url": null
+  },
+  {
+    "id": "assemblyai",
+    "name": "AssemblyAI",
+    "category": "voice-ai",
+    "tagline": "Audio intelligence API — transcription + LLM understanding",
+    "description": "Transcription API with built-in AI features: speaker labels, sentiment analysis, topic detection, PII redaction, and LeMUR (LLM over audio). Best for extracting structured insight from audio.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Pay-as-you-go",
+          "price": "$0.65/hr"
+        },
+        {
+          "name": "Enterprise",
+          "price": "Custom"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "voice-ai",
+    "prominent": false,
+    "choose_if": [
+      "You need structured intelligence from audio beyond raw transcription",
+      "You want LLM-powered Q&A over audio content",
+      "PII redaction or compliance on audio data is required"
+    ],
+    "aliases": {
+      "npm": ["assemblyai"],
+      "pip": ["assemblyai"],
+      "env_vars": ["ASSEMBLYAI_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://assemblyai.com",
+    "github_url": null
+  },
+  {
+    "id": "cartesia",
+    "name": "Cartesia",
+    "category": "voice-ai",
+    "tagline": "Real-time TTS optimized for conversational AI",
+    "description": "Ultra-low-latency streaming TTS (<80ms) built for real-time voice agents and phone systems. State Space Model architecture (Sonic) delivers natural prosody at production latency.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Pay-as-you-go",
+          "price": "$0.09/1000 chars"
+        },
+        {
+          "name": "Scale",
+          "price": "Custom"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "voice-ai",
+    "prominent": false,
+    "choose_if": [
+      "You're building real-time voice agents where latency is critical (<80ms)",
+      "You need streaming TTS that works well in phone systems",
+      "You want SSM-based TTS as an alternative to diffusion models"
+    ],
+    "aliases": {
+      "npm": ["@cartesia/cartesia-js"],
+      "pip": ["cartesia"],
+      "env_vars": ["CARTESIA_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://cartesia.ai",
+    "github_url": null
+  },
+  {
+    "id": "playht",
+    "name": "PlayHT",
+    "category": "voice-ai",
+    "tagline": "TTS with instant voice cloning",
+    "description": "Text-to-speech API with instant voice cloning from a 3-second audio sample. Supports 900+ voices, 142 languages, and real-time streaming. Popular for content creation and audiobooks.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Creator",
+          "price": "$31.20/mo"
+        },
+        {
+          "name": "Pro",
+          "price": "$49/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "voice-ai",
+    "prominent": false,
+    "choose_if": [
+      "You need voice cloning from minimal audio samples",
+      "You're building multilingual TTS across 100+ languages",
+      "Content generation (audiobooks, podcasts) is the primary use case"
+    ],
+    "aliases": {
+      "npm": ["playht"],
+      "pip": [],
+      "env_vars": ["PLAYHT_API_KEY", "PLAYHT_USER_ID"],
+      "config_files": []
+    },
+    "website_url": "https://play.ht",
+    "github_url": null
+  },
+  {
+    "id": "moondream",
+    "name": "Moondream",
+    "category": "multimodal",
+    "tagline": "Tiny OSS vision language model",
+    "description": "2B parameter vision-language model optimized to run on edge devices and single GPUs. Supports image captioning, visual QA, and object detection. Runs via Ollama or directly with Python.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 11000,
+    "slot": "multimodal",
+    "prominent": true,
+    "choose_if": [
+      "You need a vision model that runs on a single GPU or edge device",
+      "You want a compact model for image captioning and visual QA",
+      "Low memory footprint is a hard constraint"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["moondream"],
+      "env_vars": [],
+      "config_files": []
+    },
+    "website_url": "https://moondream.ai",
+    "github_url": "https://github.com/vikhyat/moondream"
+  },
+  {
+    "id": "llava",
+    "name": "LLaVA",
+    "category": "multimodal",
+    "tagline": "Open-source multimodal LLM assistant",
+    "description": "Large Language and Vision Assistant — connects a vision encoder to an LLM for instruction-following with images. OSS research model widely used as a multimodal base. Runs via Ollama.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 22000,
+    "slot": "multimodal",
+    "prominent": true,
+    "choose_if": [
+      "You want an open-source multimodal model for self-hosted deployment",
+      "You're doing research on vision-language instruction following",
+      "You need a well-documented baseline for multimodal tasks"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": [],
+      "env_vars": [],
+      "config_files": []
+    },
+    "website_url": "https://llava-vl.github.io",
+    "github_url": "https://github.com/haotian-liu/LLaVA"
+  },
+  {
+    "id": "paligemma",
+    "name": "PaliGemma",
+    "category": "multimodal",
+    "tagline": "Google's OSS vision-language model",
+    "description": "Google's open-source multimodal model combining SigLIP vision encoder with Gemma LLM. Strong at document understanding, OCR, image captioning, and visual QA. Available via HuggingFace.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 3200,
+    "slot": "multimodal",
+    "prominent": false,
+    "choose_if": [
+      "You need strong OCR and document understanding capabilities",
+      "You prefer Google's model family and research provenance",
+      "You want a well-maintained open-weight model from a major lab"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["transformers"],
+      "env_vars": ["HF_TOKEN"],
+      "config_files": []
+    },
+    "website_url": "https://ai.google.dev/gemma/docs/paligemma",
+    "github_url": "https://github.com/google-research/big_vision"
+  },
+  {
+    "id": "pixtral",
+    "name": "Pixtral",
+    "category": "multimodal",
+    "tagline": "Mistral's multimodal vision model",
+    "description": "Mistral's vision-language model available via Mistral API and as open weights. Supports multiple images per prompt, high-resolution understanding, and code extraction from screenshots.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": false,
+      "plans": [
+        {
+          "name": "Pixtral 12B",
+          "price": "$0.15/1M tokens"
+        },
+        {
+          "name": "Pixtral Large",
+          "price": "$2/1M tokens"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "multimodal",
+    "prominent": false,
+    "choose_if": [
+      "You want a commercial vision model with competitive pricing",
+      "You need multi-image understanding in a single prompt",
+      "You're already using Mistral's API ecosystem"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["mistralai"],
+      "env_vars": ["MISTRAL_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://mistral.ai/news/pixtral-12b",
+    "github_url": null
+  },
+  {
+    "id": "qwen-vl",
+    "name": "Qwen-VL",
+    "category": "multimodal",
+    "tagline": "Alibaba's open-weight vision-language model",
+    "description": "Qwen Visual Language model series from Alibaba. Strong at multilingual visual understanding, document parsing, and chart reading. Available as open weights on HuggingFace. Runs via vLLM.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 15000,
+    "slot": "multimodal",
+    "prominent": false,
+    "choose_if": [
+      "You need multilingual visual understanding (especially CJK languages)",
+      "Chart, table, and document parsing is the primary use case",
+      "You want strong performance across multiple model sizes"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["transformers"],
+      "env_vars": [],
+      "config_files": []
+    },
+    "website_url": "https://qwenlm.github.io/blog/qwen-vl",
+    "github_url": "https://github.com/QwenLM/Qwen-VL"
+  },
+  {
+    "id": "internvl2",
+    "name": "InternVL2",
+    "category": "multimodal",
+    "tagline": "Top OSS multimodal model from OpenGVLab",
+    "description": "InternVL2 series from Shanghai AI Lab — consistently top-ranked on open-source multimodal benchmarks. Strong at document understanding, chart analysis, and multi-image reasoning.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 7800,
+    "slot": "multimodal",
+    "prominent": false,
+    "choose_if": [
+      "You want the highest benchmark scores among open-source vision models",
+      "Multi-image and high-resolution document understanding is required",
+      "You're comparing models and want the strongest open-weight option"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["transformers"],
+      "env_vars": [],
+      "config_files": []
+    },
+    "website_url": "https://internvl.github.io",
+    "github_url": "https://github.com/OpenGVLab/InternVL"
+  },
+  {
+    "id": "vapi",
+    "name": "Vapi",
+    "category": "voice-ai",
+    "tagline": "Voice agent middleware for production phone and web agents",
+    "description": "Full-stack platform for building, testing, and deploying voice AI agents. Handles real-time telephony, multi-provider LLM routing, interruption detection, and call analytics. Most-adopted voice agent infrastructure in production.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Pay-as-you-go",
+          "price": "$0.05/min"
+        },
+        {
+          "name": "Enterprise",
+          "price": "Custom"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "voice-ai",
+    "prominent": true,
+    "choose_if": [
+      "You're building phone or web voice agents with real-time conversation",
+      "You need multi-provider LLM + TTS + STT routing in one platform",
+      "You want production-grade call analytics and interruption handling"
+    ],
+    "aliases": {
+      "npm": ["@vapi-ai/web", "@vapi-ai/server-sdk"],
+      "pip": ["vapi_python"],
+      "env_vars": ["VAPI_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://vapi.ai",
+    "github_url": null
+  },
+  {
+    "id": "retell-ai",
+    "name": "Retell AI",
+    "category": "voice-ai",
+    "tagline": "Low-latency conversational voice AI platform",
+    "description": "Platform for building production voice agents with sub-800ms latency end-to-end. Handles telephony, turn-taking, backchannels, and interruptions natively. Strong on call reliability and HIPAA compliance for healthcare use cases.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Pay-as-you-go",
+          "price": "$0.07/min"
+        },
+        {
+          "name": "Enterprise",
+          "price": "Custom"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "voice-ai",
+    "prominent": false,
+    "choose_if": [
+      "Latency is critical — sub-800ms end-to-end response is required",
+      "You're building healthcare or compliance-sensitive voice agents (HIPAA)",
+      "You want native backchannels and human-like turn-taking out of the box"
+    ],
+    "aliases": {
+      "npm": ["retell-sdk"],
+      "pip": ["retell-sdk"],
+      "env_vars": ["RETELL_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://retellai.com",
+    "github_url": null
+  },
+  {
+    "id": "browser-use",
+    "name": "Browser Use",
+    "category": "browser-automation",
+    "tagline": "OSS AI agent library for browser control",
+    "description": "Python library that gives AI agents full browser control — navigate, click, fill forms, extract data. Built on Playwright. Reached 50K GitHub stars faster than most AI infra projects. Works with any LLM.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 52000,
+    "slot": "browser-automation",
+    "prominent": true,
+    "choose_if": [
+      "You need AI agents to control a browser and interact with any website",
+      "You want OSS browser automation that works with your existing LLM",
+      "Tasks involve form filling, navigation, or multi-step web workflows"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["browser-use"],
+      "env_vars": [],
+      "config_files": []
+    },
+    "website_url": "https://browser-use.com",
+    "github_url": "https://github.com/browser-use/browser-use"
+  },
+  {
+    "id": "stagehand",
+    "name": "Stagehand",
+    "category": "browser-automation",
+    "tagline": "AI-native browser automation framework by Browserbase",
+    "description": "TypeScript framework for AI browser automation built on Playwright. Introduces act/extract/observe primitives that let LLMs control browsers with natural language. Action caching (v3) makes repeated flows deterministic and cheap.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Browserbase Cloud",
+          "price": "Usage-based"
+        }
+      ]
+    },
+    "github_stars": 9800,
+    "slot": "browser-automation",
+    "prominent": true,
+    "choose_if": [
+      "You're building in TypeScript and want idiomatic browser automation",
+      "You need action caching to make LLM-driven flows deterministic",
+      "You want Browserbase's managed browser infrastructure under the hood"
+    ],
+    "aliases": {
+      "npm": ["@browserbasehq/stagehand"],
+      "pip": [],
+      "env_vars": ["BROWSERBASE_API_KEY", "BROWSERBASE_PROJECT_ID"],
+      "config_files": []
+    },
+    "website_url": "https://stagehand.dev",
+    "github_url": "https://github.com/browserbase/stagehand"
+  },
+  {
+    "id": "skyvern",
+    "name": "Skyvern",
+    "category": "browser-automation",
+    "tagline": "Vision-based browser automation for complex web tasks",
+    "description": "Uses vision + LLMs to navigate websites without fragile CSS selectors. Specializes in complex portals, insurance forms, and government sites that break traditional automation. Self-hosted or managed cloud.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Cloud",
+          "price": "Usage-based"
+        }
+      ]
+    },
+    "github_stars": 11000,
+    "slot": "browser-automation",
+    "prominent": false,
+    "choose_if": [
+      "You're automating complex portals or forms that break selector-based tools",
+      "Vision-based navigation is needed for dynamic or legacy web UIs",
+      "You want self-hostable browser automation with a workflow engine"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["skyvern"],
+      "env_vars": ["SKYVERN_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://skyvern.com",
+    "github_url": "https://github.com/Skyvern-AI/skyvern"
+  },
+  {
+    "id": "firecrawl",
+    "name": "Firecrawl",
+    "category": "browser-automation",
+    "tagline": "Turn any website into clean data for AI",
+    "description": "Crawl and scrape websites into clean markdown or structured JSON — handles JavaScript rendering, PDFs, and dynamic content. LLM-ready output. Used as the data-ingestion layer for RAG pipelines and AI research agents.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Hobby",
+          "price": "$16/mo"
+        },
+        {
+          "name": "Standard",
+          "price": "$83/mo"
+        }
+      ]
+    },
+    "github_stars": 26000,
+    "slot": "browser-automation",
+    "prominent": false,
+    "choose_if": [
+      "You need to turn websites into clean markdown for RAG pipelines",
+      "Your agent needs to research the web and extract structured data",
+      "You're building a crawler that handles JS-rendered and dynamic sites"
+    ],
+    "aliases": {
+      "npm": ["@mendable/firecrawl-js"],
+      "pip": ["firecrawl-py"],
+      "env_vars": ["FIRECRAWL_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://firecrawl.dev",
+    "github_url": "https://github.com/mendableai/firecrawl"
   }
 ]

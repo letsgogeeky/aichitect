@@ -12,9 +12,9 @@
     <a href="https://aichitect.dev/compare">Compare</a>
   </p>
 
-  <img src="https://img.shields.io/badge/tools-185-7c6bff?style=flat-square" alt="185 tools" />
+  <img src="https://img.shields.io/badge/tools-207-7c6bff?style=flat-square" alt="207 tools" />
   <img src="https://img.shields.io/badge/stacks-25-00d4aa?style=flat-square" alt="25 stacks" />
-  <img src="https://img.shields.io/badge/categories-12-26de81?style=flat-square" alt="13 categories" />
+  <img src="https://img.shields.io/badge/categories-12-26de81?style=flat-square" alt="17 categories" />
   <img src="https://img.shields.io/badge/license-MIT-ff9f43?style=flat-square" alt="MIT license" />
   <img src="https://img.shields.io/badge/open%20source-%E2%9D%A4-ff6b6b?style=flat-square" alt="Open Source" />
 </div>
@@ -29,13 +29,13 @@
 
 ---
 
-AI tools are all over the place. Every week there's a new framework, a new model, a new "essential" addition to your stack. AIchitect gives you a structured, visual map of the ecosystem — **185 tools** across **13 categories** — with their integrations and relationships mapped out so you can pick the right stack based on data, not hype.
+AI tools are all over the place. Every week there's a new framework, a new model, a new "essential" addition to your stack. AIchitect gives you a structured, visual map of the ecosystem — **207 tools** across **17 categories** — with their integrations and relationships mapped out so you can pick the right stack based on data, not hype.
 
 ## Features
 
 ### Graph View — Explore the full ecosystem
 
-Browse all 185 tools as an interactive force graph. Filter by category or relationship type, search by name, and switch between three view modes:
+Browse all 207 tools as an interactive force graph. Filter by category or relationship type, search by name, and switch between three view modes:
 
 - **2D Grid** — clean, scannable card layout
 - **2D Layers** — swimlane view organized by stack layer (Development → AI Logic → Models & Infra → Tooling)
@@ -137,8 +137,8 @@ components/
     Navbar.tsx                    # Top nav with route-aware controls
     Logo.tsx                      # SVG logo component
 data/
-  tools.json            # 185 tools, 12 categories
-  relationships.json    # ~411 edges (integrates-with / commonly-paired / competes-with)
+  tools.json            # 207 tools, 12 categories
+  relationships.json    # ~455 edges (integrates-with / commonly-paired / competes-with)
   stacks.json           # 25 curated stacks across 5 clusters
   slots.json            # 15 builder slot types
 lib/

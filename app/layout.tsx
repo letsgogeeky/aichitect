@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { SITE_URL, GITHUB_URL, TOOL_COUNT, CATEGORY_COUNT, STACK_COUNT } from "@/lib/constants";
+import { getCounts } from "@/lib/data/counts";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SuggestToolProvider } from "@/components/ui/SuggestToolContext";
@@ -81,7 +82,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const { toolCount, stackCount } = await getCounts();
   return (
     <html lang="en">
       <head>
@@ -99,8 +101,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               isAccessibleForFree: true,
               offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
               featureList: [
-                `Interactive AI tool graph with ${TOOL_COUNT} tools`,
-                `${STACK_COUNT} curated AI stacks`,
+                `Interactive AI tool graph with ${toolCount} tools`,
+                `${stackCount} curated AI stacks`,
                 "Custom stack builder with URL sharing",
                 "3D graph visualization",
                 "Open source",

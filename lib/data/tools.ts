@@ -18,6 +18,29 @@ export async function getToolById(id: string): Promise<Tool | null> {
   return data as unknown as Tool;
 }
 
+export interface ToolEvent {
+  id: string;
+  tool_id: string;
+  type: string;
+  detected_at: string;
+  old_hash: string | null;
+  new_hash: string | null;
+  metadata: Record<string, unknown>;
+}
+
+export async function getToolEvents(toolId: string, type?: string): Promise<ToolEvent[]> {
+  if (!supabase) return [];
+  let query = supabase
+    .from("tool_events")
+    .select("*")
+    .eq("tool_id", toolId)
+    .order("detected_at", { ascending: false });
+  if (type) query = query.eq("type", type);
+  const { data, error } = await query;
+  if (error || !data) return [];
+  return data as ToolEvent[];
+}
+
 export interface ToolHealthDetails {
   starDelta: number | null;
   lastCommitAt: string | null;

@@ -92,10 +92,10 @@ components/
     Navbar.tsx          → 56px, Logo component, icon tabs, route-aware right slot, GitHub button
     Logo.tsx            → inline SVG 3-node graph logo on gradient rect; id + size props
 data/
-  tools.json            → 185 tools, 13 categories
-  relationships.json    → ~411 edges (integrates-with / often-used-together / competes-with)
+  tools.json            → 207 tools, 17 categories
+  relationships.json    → ~455 edges (integrates-with / often-used-together / competes-with)
   stacks.json           → 25 curated stacks with flow edges
-  slots.json            → 15 slot types for the Builder
+  slots.json            → 20 slot types for the Builder
 lib/
   types.ts              → all TS interfaces + getCategoryColor() + STACK_LAYERS
   graph.ts              → applyDagreLayout() + gridLayout() + swimlaneLayout()
@@ -130,20 +130,24 @@ Keep individual files under ~300 lines. When a file grows beyond that, extract a
 
 ## Category colors
 
-| Category          | Color   |
-| ----------------- | ------- |
-| coding-assistants | #7c6bff |
-| autonomous-agents | #ff6b6b |
-| agent-frameworks  | #26de81 |
-| llm-providers     | #00d4aa |
-| observability     | #fd9644 |
-| vector-databases  | #4ecdc4 |
-| deployment        | #ff9f43 |
-| mcp               | #a29bfe |
-| design            | #74b9ff |
-| data-auth         | #fd79a8 |
-| prompt-eval       | #55efc4 |
-| specifications    | #e17055 |
+| Category           | Color   |
+| ------------------ | ------- |
+| coding-assistants  | #7c6bff |
+| autonomous-agents  | #ff6b6b |
+| agent-frameworks   | #26de81 |
+| llm-providers      | #00d4aa |
+| observability      | #fd9644 |
+| vector-databases   | #4ecdc4 |
+| deployment         | #ff9f43 |
+| mcp                | #a29bfe |
+| design             | #74b9ff |
+| data-auth          | #fd79a8 |
+| prompt-eval        | #55efc4 |
+| specifications     | #e17055 |
+| fine-tuning        | #e84393 |
+| voice-ai           | #00b894 |
+| multimodal         | #6c5ce7 |
+| browser-automation | #f0932b |
 
 ## Sharing system
 

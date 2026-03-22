@@ -1,5 +1,6 @@
 export const dynamic = "force-dynamic";
 
+import { createHash } from "node:crypto";
 import { createClient } from "@supabase/supabase-js";
 import { fetchToolGitHubData, type GitHubToolData } from "@/lib/github";
 
@@ -153,10 +154,65 @@ export async function GET(request: Request) {
     processed++;
   }
 
+  // ── Pricing change detection ──────────────────────────────────────────────
+  // Fetches ALL tools, hashes their pricing JSON, and records a tool_event
+  // when the hash differs from what's stored. First run sets the baseline.
+
+  const { data: allTools, error: allToolsError } = await db
+    .from("tools")
+    .select("id, name, pricing, pricing_hash");
+
+  let pricingChecked = 0;
+  let pricingChanged = 0;
+
+  if (allToolsError || !allTools) {
+    console.error(`[sync-health] pricing check — failed to fetch tools: ${allToolsError?.message}`);
+  } else {
+    for (const tool of allTools) {
+      const newHash = createHash("sha256").update(JSON.stringify(tool.pricing)).digest("hex");
+
+      if (tool.pricing_hash === null) {
+        // First run — set baseline hash, no event written
+        await db.from("tools").update({ pricing_hash: newHash }).eq("id", tool.id);
+        pricingChecked++;
+        continue;
+      }
+
+      if (tool.pricing_hash !== newHash) {
+        const { error: eventError } = await db.from("tool_events").insert({
+          tool_id: tool.id,
+          type: "pricing_change",
+          old_hash: tool.pricing_hash,
+          new_hash: newHash,
+        });
+
+        if (eventError) {
+          console.error(
+            `[sync-health] pricing ✗ ${tool.name} — event insert failed: ${eventError.message}`
+          );
+        } else {
+          await db.from("tools").update({ pricing_hash: newHash }).eq("id", tool.id);
+          console.log(`[sync-health] pricing change detected: ${tool.name}`);
+          pricingChanged++;
+        }
+      }
+
+      pricingChecked++;
+    }
+    console.log(`[sync-health] pricing — checked: ${pricingChecked}, changed: ${pricingChanged}`);
+  }
+
   const duration_ms = Date.now() - startTime;
   console.log(
     `[sync-health] Done — processed: ${processed}, skipped: ${skipped}, errors: ${errors}, duration: ${duration_ms}ms`
   );
 
-  return Response.json({ processed, skipped, errors, duration_ms });
+  return Response.json({
+    processed,
+    skipped,
+    errors,
+    pricing_checked: pricingChecked,
+    pricing_changed: pricingChanged,
+    duration_ms,
+  });
 }
