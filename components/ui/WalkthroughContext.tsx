@@ -11,6 +11,7 @@ import {
 } from "react";
 import { usePathname } from "next/navigation";
 import WalkthroughOverlay from "./WalkthroughOverlay";
+import { TOOL_COUNT, CATEGORY_COUNT } from "@/lib/constants";
 
 export type TourRoute = "explore" | "stacks" | "builder";
 export type StepPlacement = "right" | "left" | "bottom" | "top" | "center";
@@ -31,7 +32,7 @@ const TOUR_STEPS: Record<TourRoute, WalkthroughStep[]> = {
       anchor: null,
       placement: "center",
       title: "Welcome to AIchitect",
-      body: "AI tools are all over the place. This graph maps the full ecosystem — 111 tools across 12 categories — so you can find the right stack without the noise. Let's take 60 seconds to show you around.",
+      body: `AI tools are all over the place. This graph maps the full ecosystem — ${TOOL_COUNT} tools across ${CATEGORY_COUNT} categories — so you can find the right stack without the noise. Let's take 60 seconds to show you around.`,
     },
     {
       id: "filter",
@@ -160,7 +161,31 @@ export function useWalkthrough() {
   return useContext(WalkthroughContext);
 }
 
-const STORAGE_KEY = "aichitect:tour:seen";
+const ROUTE_STORAGE_KEYS: Record<TourRoute, string> = {
+  explore: "aichitect:tour:seen:explore",
+  stacks: "aichitect:tour:seen:stacks",
+  builder: "aichitect:tour:seen:builder",
+};
+
+const PATHNAME_TO_ROUTE: Record<string, TourRoute> = {
+  "/explore": "explore",
+  "/stacks": "stacks",
+  "/builder": "builder",
+};
+
+function hasSeenTour(r: TourRoute): boolean {
+  try {
+    return !!localStorage.getItem(ROUTE_STORAGE_KEYS[r]);
+  } catch {
+    return false;
+  }
+}
+
+function markTourSeen(r: TourRoute): void {
+  try {
+    localStorage.setItem(ROUTE_STORAGE_KEYS[r], "1");
+  } catch {}
+}
 
 export function WalkthroughProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
@@ -169,22 +194,20 @@ export function WalkthroughProvider({ children }: { children: ReactNode }) {
   const [route, setRoute] = useState<TourRoute | null>(null);
   const [stepIndex, setStepIndex] = useState(0);
   const dismissTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const hasAutoTriggered = useRef(false);
+  const autoTriggered = useRef<Set<TourRoute>>(new Set());
 
   const steps = route ? TOUR_STEPS[route] : [];
 
   const dismiss = useCallback(() => {
     setExiting(true);
-    try {
-      localStorage.setItem(STORAGE_KEY, "1");
-    } catch {}
+    if (route) markTourSeen(route);
     dismissTimer.current = setTimeout(() => {
       setActive(false);
       setExiting(false);
       setRoute(null);
       setStepIndex(0);
     }, 200);
-  }, []);
+  }, [route]);
 
   const openWalkthrough = useCallback((r: TourRoute) => {
     if (dismissTimer.current) {
@@ -210,15 +233,14 @@ export function WalkthroughProvider({ children }: { children: ReactNode }) {
     setStepIndex((i) => Math.max(0, i - 1));
   }, []);
 
-  // Auto-trigger on first visit to /explore
+  // Auto-trigger on first visit to each tour route
   useEffect(() => {
-    if (hasAutoTriggered.current) return;
-    if (pathname !== "/explore") return;
-    try {
-      if (localStorage.getItem(STORAGE_KEY)) return;
-    } catch {}
-    hasAutoTriggered.current = true;
-    const t = setTimeout(() => openWalkthrough("explore"), 900);
+    const tourRoute = PATHNAME_TO_ROUTE[pathname];
+    if (!tourRoute) return;
+    if (autoTriggered.current.has(tourRoute)) return;
+    if (hasSeenTour(tourRoute)) return;
+    autoTriggered.current.add(tourRoute);
+    const t = setTimeout(() => openWalkthrough(tourRoute), 900);
     return () => clearTimeout(t);
   }, [pathname, openWalkthrough]);
 
