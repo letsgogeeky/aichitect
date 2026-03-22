@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Tool, Relationship, getCategoryColor, CATEGORIES } from "@/lib/types";
 import relationshipsData from "@/data/relationships.json";
 import toolsData from "@/data/tools.json";
+import { healthColor, healthLabel, relLabel, relBadgeStyle } from "@/lib/health";
 
 const relationships = relationshipsData as Relationship[];
 const allTools = toolsData as Tool[];
@@ -13,30 +14,6 @@ interface ComparisonPanelProps {
   toolB: Tool;
   onClose: () => void;
   onSwap: () => void;
-}
-
-function healthColor(score: number): string {
-  if (score >= 70) return "#26de81";
-  if (score >= 40) return "#fdcb6e";
-  return "#ff6b6b";
-}
-
-function healthLabel(score: number): string {
-  if (score >= 70) return "Active";
-  if (score >= 40) return "Slowing";
-  return "Low activity";
-}
-
-function relLabel(type: string) {
-  if (type === "integrates-with") return "integrates with";
-  if (type === "commonly-paired-with") return "often paired";
-  return "competes with";
-}
-
-function relBadgeStyle(type: string) {
-  if (type === "integrates-with") return { background: "#7c6bff22", color: "#7c6bff" };
-  if (type === "commonly-paired-with") return { background: "#4a4a7a44", color: "#8888aa" };
-  return { background: "#ff6b6b22", color: "#ff6b6b" };
 }
 
 export default function ComparisonPanel({ toolA, toolB, onClose, onSwap }: ComparisonPanelProps) {

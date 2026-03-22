@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Tool, Relationship, getCategoryColor, CATEGORIES } from "@/lib/types";
+import { relLabel, relBadgeStyle } from "@/lib/health";
 
 function getSuggestedPairs(
   tools: Tool[],
@@ -26,18 +27,6 @@ function getSuggestedPairs(
     }
   }
   return pairs;
-}
-
-function relLabel(type: string) {
-  if (type === "integrates-with") return "integrates with";
-  if (type === "commonly-paired-with") return "often paired with";
-  return "competes with";
-}
-
-function relColor(type: string) {
-  if (type === "integrates-with") return "#7c6bff";
-  if (type === "commonly-paired-with") return "#8888aa";
-  return "#ff6b6b";
 }
 
 function ToolPicker({
@@ -456,7 +445,7 @@ export default function CompareClient({
           {suggestedPairs.map(({ a, b, type }) => {
             const cA = getCategoryColor(a.category);
             const cB = getCategoryColor(b.category);
-            const rc = relColor(type);
+            const rc = relBadgeStyle(type).color;
             return (
               <Link
                 key={`${a.id}-${b.id}`}
