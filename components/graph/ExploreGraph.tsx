@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useState, Component, ReactNode } from "react";
 import { useSearchParams } from "next/navigation";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { useComparisonMode } from "@/hooks/useComparisonMode";
@@ -57,6 +57,40 @@ for (const stack of staticStacks) {
 }
 
 const nodeTypes: NodeTypes = { tool: ToolNode, laneLabel: LaneLabel };
+
+class Graph3DErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean }> {
+  constructor(props: { children: ReactNode }) {
+    super(props);
+    this.state = { hasError: false };
+  }
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            height: "100%",
+            gap: 8,
+            color: "#8888aa",
+            fontSize: 13,
+            textAlign: "center",
+            padding: 32,
+          }}
+        >
+          <p>3D view failed to load.</p>
+          <p style={{ fontSize: 11 }}>Switch to Grid or Layers using the toggle above.</p>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 
 const FIT_VIEW_OPTIONS: FitViewOptions = { padding: 0.12, duration: 400 };
 
@@ -491,16 +525,18 @@ export default function ExploreGraph({
           </button>
 
           {viewMode === "3d" ? (
-            <ExploreGraph3D
-              tools={tools}
-              relationships={activeRelationships}
-              activeCategories={activeCategories}
-              activeRelTypes={activeRelTypes}
-              searchQuery={searchQuery}
-              selectedTool={selectedTool}
-              onSelectTool={handleNodeSelect}
-              onWebGLUnavailable={() => setViewMode("grid")}
-            />
+            <Graph3DErrorBoundary>
+              <ExploreGraph3D
+                tools={tools}
+                relationships={activeRelationships}
+                activeCategories={activeCategories}
+                activeRelTypes={activeRelTypes}
+                searchQuery={searchQuery}
+                selectedTool={selectedTool}
+                onSelectTool={handleNodeSelect}
+                onWebGLUnavailable={() => setViewMode("grid")}
+              />
+            </Graph3DErrorBoundary>
           ) : (
             <ReactFlowProvider key={viewMode}>
               <ExploreGraphInner
