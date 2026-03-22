@@ -29,13 +29,13 @@ function healthLabel(score: number): string {
 
 function relLabel(type: string) {
   if (type === "integrates-with") return "integrates with";
-  if (type === "commonly-paired") return "often paired";
+  if (type === "commonly-paired-with") return "often paired";
   return "competes with";
 }
 
 function relBadgeStyle(type: string) {
   if (type === "integrates-with") return { background: "#7c6bff22", color: "#7c6bff" };
-  if (type === "commonly-paired") return { background: "#4a4a7a44", color: "#8888aa" };
+  if (type === "commonly-paired-with") return { background: "#4a4a7a44", color: "#8888aa" };
   return { background: "#ff6b6b22", color: "#ff6b6b" };
 }
 

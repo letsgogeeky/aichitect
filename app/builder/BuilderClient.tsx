@@ -60,12 +60,12 @@ function BuilderGraph({
       (r) =>
         toolSet.has(r.source) &&
         toolSet.has(r.target) &&
-        (r.type === "integrates-with" || r.type === "commonly-paired")
+        (r.type === "integrates-with" || r.type === "commonly-paired-with")
     )
     .map((r) => {
       const sourceTool = allTools.find((t) => t.id === r.source);
       const color = sourceTool ? getCategoryColor(sourceTool.category) : "#00d4aa";
-      const isPaired = r.type === "commonly-paired";
+      const isPaired = r.type === "commonly-paired-with";
       return {
         id: `builder-${r.source}-${r.target}`,
         source: r.source,

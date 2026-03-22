@@ -1,5 +1,6 @@
 import Navbar from "@/components/ui/Navbar";
 import { pageMeta } from "@/lib/metadata";
+import { getCounts } from "@/lib/data/counts";
 
 export const metadata = pageMeta({
   title: "Builder — Build Your AI Stack",
@@ -10,10 +11,11 @@ export const metadata = pageMeta({
   ogImageAlt: "AIchitect Builder — Build Your AI Stack",
 });
 
-export default function BuilderLayout({ children }: { children: React.ReactNode }) {
+export default async function BuilderLayout({ children }: { children: React.ReactNode }) {
+  const counts = await getCounts();
   return (
     <div className="flex flex-col h-screen overflow-hidden">
-      <Navbar />
+      <Navbar counts={counts} />
       <main className="flex-1 overflow-hidden">{children}</main>
     </div>
   );

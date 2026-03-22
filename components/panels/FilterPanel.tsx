@@ -15,7 +15,7 @@ interface Props {
 
 const REL_TYPES: { id: RelationshipType; label: string; style: string }[] = [
   { id: "integrates-with", label: "Integrates with", style: "solid" },
-  { id: "commonly-paired", label: "Often used together", style: "dashed" },
+  { id: "commonly-paired-with", label: "Often used together", style: "dashed" },
   { id: "competes-with", label: "Competes with", style: "dotted" },
 ];
 

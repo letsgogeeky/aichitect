@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import Logo from "./Logo";
 import { GITHUB_URL, TOOL_COUNT, STACK_COUNT } from "@/lib/constants";
+import type { Counts } from "@/lib/data/counts";
 import { useSuggestTool } from "./SuggestToolContext";
 import { useWalkthrough, TourRoute } from "./WalkthroughContext";
 import GetStartedModal from "./GetStartedModal";
@@ -206,7 +207,9 @@ function NavViewLinks() {
   );
 }
 
-export default function Navbar() {
+export default function Navbar({ counts }: { counts?: Counts }) {
+  const toolCount = counts?.toolCount ?? TOOL_COUNT;
+  const stackCount = counts?.stackCount ?? STACK_COUNT;
   const pathname = usePathname();
   const [copied, setCopied] = useState(false);
   const [getStartedOpen, setGetStartedOpen] = useState(false);
@@ -348,7 +351,7 @@ export default function Navbar() {
                 }}
               />
               <span style={{ fontSize: 11, color: "var(--text-secondary)" }}>
-                {TOOL_COUNT} tools · {STACK_COUNT} stacks
+                {toolCount} tools · {stackCount} stacks
               </span>
             </div>
           )}

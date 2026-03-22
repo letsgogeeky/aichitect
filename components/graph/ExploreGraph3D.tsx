@@ -261,7 +261,7 @@ export default function ExploreGraph3D({
   const linkColor = useCallback((link: object) => {
     const l = link as Link3D;
     if (l.type === "integrates-with") return "#7c6bff99";
-    if (l.type === "commonly-paired") return "#4a4a7a99";
+    if (l.type === "commonly-paired-with") return "#4a4a7a99";
     return "#5a2a2a88";
   }, []);
 

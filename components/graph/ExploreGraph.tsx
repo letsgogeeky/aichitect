@@ -56,7 +56,7 @@ function edgeStyle(type: RelationshipType, sourceCategory: string) {
       strokeDasharray: undefined,
     };
   }
-  if (type === "commonly-paired") {
+  if (type === "commonly-paired-with") {
     return { stroke: "#4a4a7a", strokeWidth: 1.5, strokeDasharray: "5,4" };
   }
   return { stroke: "#3a3a4a", strokeWidth: 1, strokeDasharray: "2,4" };
@@ -276,7 +276,7 @@ export default function ExploreGraph({
 
   const [activeCategories, setActiveCategories] = useState<Set<string>>(allCategories);
   const [activeRelTypes, setActiveRelTypes] = useState<Set<RelationshipType>>(
-    new Set(["integrates-with", "commonly-paired", "competes-with"])
+    new Set(["integrates-with", "commonly-paired-with", "competes-with"])
   );
   const [searchQuery, setSearchQuery] = useState("");
   const [bannerDismissed, setBannerDismissed] = useState(false);

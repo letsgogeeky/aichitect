@@ -30,13 +30,13 @@ function getSuggestedPairs(
 
 function relLabel(type: string) {
   if (type === "integrates-with") return "integrates with";
-  if (type === "commonly-paired") return "often paired with";
+  if (type === "commonly-paired-with") return "often paired with";
   return "competes with";
 }
 
 function relColor(type: string) {
   if (type === "integrates-with") return "#7c6bff";
-  if (type === "commonly-paired") return "#8888aa";
+  if (type === "commonly-paired-with") return "#8888aa";
   return "#ff6b6b";
 }
 
