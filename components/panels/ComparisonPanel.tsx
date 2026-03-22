@@ -7,6 +7,17 @@ import toolsData from "@/data/tools.json";
 import { healthColor, healthLabel, relLabel, relBadgeStyle } from "@/lib/health";
 import { CloseButton } from "@/components/ui/CloseButton";
 import { ColorDot } from "@/components/ui/ColorDot";
+import {
+  Row,
+  CategoryPill,
+  TypeBadge,
+  FreeTierCell,
+  PlanPills,
+  DescriptionCard,
+  LinksCard,
+  ChooseIfCard,
+  ToolPill,
+} from "@/components/comparison";
 
 const relationships = relationshipsData as Relationship[];
 const allTools = toolsData as Tool[];
@@ -283,176 +294,5 @@ export default function ComparisonPanel({ toolA, toolB, onClose, onSwap }: Compa
         </div>
       </div>
     </aside>
-  );
-}
-
-// ─── Sub-components ──────────────────────────────────────────────────────────
-
-function Row({
-  label,
-  children,
-  align = "center",
-}: {
-  label: string;
-  children: [React.ReactNode, React.ReactNode];
-  align?: "center" | "top";
-}) {
-  const [a, b] = children;
-  return (
-    <div
-      className={`grid grid-cols-[120px_1fr_1fr] ${align === "top" ? "items-start" : "items-center"}`}
-      style={{ borderTop: "1px solid var(--border)" }}
-    >
-      <div className="px-3 py-2 text-[10px] text-[var(--text-muted)]">{label}</div>
-      <div className="px-3 py-2 border-l" style={{ borderColor: "var(--border)" }}>
-        {a}
-      </div>
-      <div className="px-3 py-2 border-l" style={{ borderColor: "var(--border)" }}>
-        {b}
-      </div>
-    </div>
-  );
-}
-
-function CategoryPill({ label, color }: { label: string; color: string }) {
-  return (
-    <span
-      className="text-[10px] px-2 py-0.5 rounded-full font-medium"
-      style={{ background: color + "22", color }}
-    >
-      {label}
-    </span>
-  );
-}
-
-function TypeBadge({ type }: { type: string }) {
-  const isOss = type === "oss";
-  return (
-    <span
-      className="text-[9px] font-semibold px-1.5 py-0.5 rounded uppercase"
-      style={
-        isOss
-          ? { background: "#26de8122", color: "#26de81" }
-          : { background: "#4ecdc422", color: "#4ecdc4" }
-      }
-    >
-      {isOss ? "OSS" : "SaaS"}
-    </span>
-  );
-}
-
-function FreeTierCell({ has }: { has: boolean }) {
-  return (
-    <span className={`text-xs font-medium ${has ? "text-[#26de81]" : "text-[var(--text-muted)]"}`}>
-      {has ? "✓ Yes" : "✗ No"}
-    </span>
-  );
-}
-
-function PlanPills({ plans }: { plans: { name: string; price: string }[] }) {
-  if (plans.length === 0) return <span className="text-xs text-[var(--text-muted)]">—</span>;
-  return (
-    <div className="flex flex-wrap gap-1">
-      {plans.slice(0, 3).map((p, i) => (
-        <span
-          key={i}
-          className="text-[9px] px-1.5 py-0.5 rounded border border-[var(--border)] text-[var(--text-secondary)]"
-        >
-          {p.name}: {p.price}
-        </span>
-      ))}
-    </div>
-  );
-}
-
-function DescriptionCard({ tool, color }: { tool: Tool; color: string }) {
-  return (
-    <div
-      className="rounded-md p-3 space-y-1"
-      style={{ background: "var(--surface-2)", borderTop: `2px solid ${color}` }}
-    >
-      <p className="text-[10px] font-semibold uppercase tracking-wide" style={{ color }}>
-        {tool.name}
-      </p>
-      <p className="text-[11px] text-[var(--text-secondary)] leading-relaxed">{tool.description}</p>
-    </div>
-  );
-}
-
-function LinksCard({ tool, color }: { tool: Tool; color: string }) {
-  const hasAny = tool.website_url || tool.github_url;
-  if (!hasAny) return <div />;
-  return (
-    <div className="flex flex-col gap-1.5">
-      {tool.website_url && (
-        <a
-          href={tool.website_url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-center text-[11px] py-1.5 px-3 rounded-md font-medium transition-colors"
-          style={{ background: color + "22", color, border: `1px solid ${color}44` }}
-        >
-          {tool.name} Website ↗
-        </a>
-      )}
-      {tool.github_url && (
-        <a
-          href={tool.github_url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-center text-[11px] py-1.5 px-3 rounded-md font-medium border border-[var(--border)] text-[var(--text-secondary)] transition-colors hover:border-[var(--border-2)]"
-        >
-          GitHub ↗
-        </a>
-      )}
-    </div>
-  );
-}
-
-function ChooseIfCard({ tool, color }: { tool: Tool; color: string }) {
-  if (!tool.choose_if || tool.choose_if.length === 0) {
-    return (
-      <div
-        className="rounded-md p-3"
-        style={{ background: "var(--surface-2)", borderTop: `2px solid ${color}` }}
-      >
-        <p className="text-[10px] font-semibold uppercase tracking-wide mb-2" style={{ color }}>
-          Choose {tool.name} when…
-        </p>
-        <p className="text-[10px] text-[var(--text-muted)] italic">No signals added yet</p>
-      </div>
-    );
-  }
-  return (
-    <div
-      className="rounded-md p-3"
-      style={{ background: "var(--surface-2)", borderTop: `2px solid ${color}` }}
-    >
-      <p className="text-[10px] font-semibold uppercase tracking-wide mb-2" style={{ color }}>
-        Choose {tool.name} when…
-      </p>
-      <ul className="space-y-1.5">
-        {tool.choose_if.map((signal, i) => (
-          <li key={i} className="flex items-start gap-1.5">
-            <span className="text-[9px] mt-0.5 flex-shrink-0" style={{ color }}>
-              •
-            </span>
-            <span className="text-[11px] text-[var(--text-secondary)] leading-snug">{signal}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-function ToolPill({ tool }: { tool: Tool }) {
-  const color = getCategoryColor(tool.category);
-  return (
-    <span
-      className="text-[10px] px-2 py-0.5 rounded-full"
-      style={{ background: color + "18", color, border: `1px solid ${color}33` }}
-    >
-      {tool.name}
-    </span>
   );
 }
