@@ -11,6 +11,9 @@
   --text-muted: #555577;
   --accent: #7c6bff;
   --accent-2: #00d4aa;
+  /* Navbar / action button tokens */
+  --btn: #1c1c28;
+  --btn-border: #2a2a3a;
 }
 
 @theme inline {
@@ -24,6 +27,8 @@
   --color-text-muted: var(--text-muted);
   --color-accent: var(--accent);
   --color-accent-2: var(--accent-2);
+  --color-btn: var(--btn);
+  --color-btn-border: var(--btn-border);
 }
 
 * {

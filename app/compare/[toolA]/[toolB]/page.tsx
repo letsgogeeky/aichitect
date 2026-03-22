@@ -176,6 +176,20 @@ export default async function ComparePage({ params }: Props) {
           <span style={{ color: "var(--text-secondary)" }}>
             {a.name} vs {b.name}
           </span>
+          <Link
+            href="/compare"
+            className="ml-auto flex-shrink-0"
+            style={{
+              padding: "3px 10px",
+              borderRadius: 6,
+              background: "#7c6bff18",
+              border: "1px solid #7c6bff44",
+              color: "var(--accent)",
+              textDecoration: "none",
+            }}
+          >
+            ← New comparison
+          </Link>
         </nav>
 
         {/* Hero */}
