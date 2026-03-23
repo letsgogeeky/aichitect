@@ -10,6 +10,7 @@ function makeTool(overrides: Partial<Tool> & Pick<Tool, "id" | "name" | "categor
     pricing: { free_tier: true, plans: [] },
     github_stars: null,
     slot: "orchestration",
+    use_context: "both",
     website_url: null,
     github_url: null,
     ...overrides,
