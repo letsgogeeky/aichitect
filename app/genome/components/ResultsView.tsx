@@ -13,6 +13,7 @@ import { Stat } from "./Stat";
 import { SlotGrid } from "./SlotGrid";
 import { MissingPanel } from "./MissingPanel";
 import { GraduationBanner } from "./GraduationBanner";
+import { RoastPanel } from "./RoastPanel";
 
 function scoreNarrative(report: GenomeReport): string {
   const critical = report.missingSlots.filter((m) => m.priority === "required").length;
@@ -327,6 +328,8 @@ export function ResultsView({
         {/* Main */}
         <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: 20 }}>
           <GraduationBanner allIds={allIds} />
+
+          <RoastPanel report={report} allIds={allIds} />
 
           <div>
             <p
