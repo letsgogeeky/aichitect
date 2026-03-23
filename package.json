@@ -16,6 +16,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.0",
     "@supabase/supabase-js": "^2",
     "@dagrejs/dagre": "^2.0.4",
     "@vercel/analytics": "^1",
