@@ -159,6 +159,7 @@ function BuilderPageContent({
         allTools={allTools}
         selected={selected}
         selectedCount={selectedCount}
+        stackParam={stackParam}
         collapsedSlots={collapsedSlots}
         compareA={compareA}
         compareB={compareB}

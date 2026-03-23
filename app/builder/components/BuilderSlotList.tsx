@@ -1,16 +1,19 @@
 "use client";
 
 import type { MouseEvent } from "react";
+import { useState } from "react";
 import { Slot, Tool, getCategoryColor } from "@/lib/types";
 import { CloseButton } from "@/components/ui/CloseButton";
 import { SLOT_AUTONOMY } from "@/lib/stackStory";
 import StackHealthPanel from "@/components/panels/StackHealthPanel";
+import { SITE_URL } from "@/lib/constants";
 
 export function BuilderSlotList({
   slots,
   allTools,
   selected,
   selectedCount,
+  stackParam,
   collapsedSlots,
   compareA,
   compareB,
@@ -23,6 +26,7 @@ export function BuilderSlotList({
   allTools: Tool[];
   selected: Record<string, string>;
   selectedCount: number;
+  stackParam: string;
   collapsedSlots: Record<string, boolean>;
   compareA: Tool | null;
   compareB: Tool | null;
@@ -31,6 +35,18 @@ export function BuilderSlotList({
   onCompareClick: (tool: Tool, e: MouseEvent) => void;
   onClearCompare: () => void;
 }) {
+  const [copied, setCopied] = useState(false);
+
+  const badgeUrl = `${SITE_URL}/badge?s=${stackParam}`;
+  const builderUrl = `${SITE_URL}/builder?s=${stackParam}`;
+  const badgeMarkdown = `[![AI Stack](${badgeUrl})](${builderUrl})`;
+
+  function copyBadge() {
+    navigator.clipboard.writeText(badgeMarkdown).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  }
   return (
     <aside
       data-tour="builder-slots"
@@ -232,6 +248,39 @@ export function BuilderSlotList({
             </div>
           );
         })}
+
+        {selectedCount > 0 && (
+          <div
+            className="mt-4 rounded-lg p-3 space-y-2"
+            style={{ background: "var(--surface-2)", border: "1px solid var(--border)" }}
+          >
+            <p className="text-[10px] font-semibold text-[var(--text-primary)]">Add to README</p>
+            <p className="text-[9px] text-[var(--text-muted)] leading-relaxed">
+              Show your AI stack in your GitHub README — links back to this build.
+            </p>
+            {/* Badge preview */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={badgeUrl} alt="AI Stack badge preview" className="h-5" />
+            {/* Snippet */}
+            <div
+              className="rounded px-2 py-1.5 font-mono text-[9px] break-all leading-relaxed"
+              style={{ background: "var(--surface)", color: "var(--text-muted)" }}
+            >
+              {badgeMarkdown}
+            </div>
+            <button
+              onClick={copyBadge}
+              className="w-full py-1.5 rounded text-[10px] font-semibold transition-all"
+              style={{
+                background: copied ? "#26de8122" : "var(--accent)",
+                color: copied ? "var(--success)" : "#fff",
+                border: copied ? "1px solid #26de8144" : "none",
+              }}
+            >
+              {copied ? "Copied!" : "Copy badge snippet"}
+            </button>
+          </div>
+        )}
       </div>
     </aside>
   );

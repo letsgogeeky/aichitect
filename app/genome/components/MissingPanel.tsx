@@ -1,9 +1,14 @@
-import Link from "next/link";
 import { PRIORITY_COLOR } from "../genomeConstants";
 import { GenomeReport } from "@/lib/genomeAnalysis";
-import { getCategoryColor } from "@/lib/types";
+import { getCategoryColor, Tool } from "@/lib/types";
 
-export function MissingPanel({ report }: { report: GenomeReport }) {
+export function MissingPanel({
+  report,
+  onLearnMore,
+}: {
+  report: GenomeReport;
+  onLearnMore: (tool: Tool) => void;
+}) {
   const visible = report.missingSlots.filter((m) => m.priority !== "optional");
   if (visible.length === 0) return null;
 
@@ -80,23 +85,23 @@ export function MissingPanel({ report }: { report: GenomeReport }) {
                 )}
               </div>
               {m.suggestTool && (
-                <Link
-                  href={`/builder?s=${m.suggestTool.id}`}
+                <button
+                  onClick={() => onLearnMore(m.suggestTool!)}
                   style={{
                     fontSize: 10,
                     fontWeight: 500,
-                    color: "var(--accent)",
-                    background: "#7c6bff18",
-                    border: "1px solid #7c6bff33",
+                    color: "#8888aa",
+                    background: "#ffffff08",
+                    border: "1px solid #1e1e2e",
                     borderRadius: 6,
                     padding: "3px 8px",
-                    textDecoration: "none",
+                    cursor: "pointer",
                     flexShrink: 0,
                     whiteSpace: "nowrap",
                   }}
                 >
-                  Add →
-                </Link>
+                  Learn more
+                </button>
               )}
             </div>
           );
