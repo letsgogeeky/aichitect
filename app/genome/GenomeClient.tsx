@@ -2,7 +2,7 @@
 
 import { useState, useMemo, Suspense, Component, ReactNode } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { Tool, Slot, Relationship } from "@/lib/types";
+import { Tool, Slot, Relationship, Stack } from "@/lib/types";
 import { analyzeGenome } from "@/lib/genomeAnalysis";
 import { GenomeDataCtx, useGenomeData } from "./GenomeContext";
 import { GenomeStep } from "./genomeConstants";
@@ -117,6 +117,7 @@ function GenomePageInner() {
       {step === "workflow" && (
         <WorkflowStep
           detectedCount={detectedIds.length}
+          detectedIds={detectedIds}
           onBack={() => setStep("scan")}
           onNext={handleWorkflowNext}
         />
@@ -163,14 +164,21 @@ export default function GenomeClient({
   tools,
   slots,
   relationships,
+  stacks,
 }: {
   tools: Tool[];
   slots: Slot[];
   relationships: Relationship[];
+  stacks: Stack[];
 }) {
   return (
     <GenomeDataCtx.Provider
-      value={{ allTools: tools, allSlots: slots, allRelationships: relationships }}
+      value={{
+        allTools: tools,
+        allSlots: slots,
+        allRelationships: relationships,
+        allStacks: stacks,
+      }}
     >
       <GenomeErrorBoundary>
         <Suspense

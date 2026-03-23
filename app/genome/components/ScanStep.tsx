@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useGenomeData } from "../GenomeContext";
 import { INPUT_TABS, InputTab } from "../genomeConstants";
 import { detectTools, ProjectSnapshot } from "@/lib/parseStack";
+import { getCategoryColor } from "@/lib/types";
 import { ProgressDots } from "./ProgressDots";
 
 export function ScanStep({ onNext }: { onNext: (detectedIds: string[]) => void }) {
@@ -15,6 +16,30 @@ export function ScanStep({ onNext }: { onNext: (detectedIds: string[]) => void }
     "pyproject.toml": "",
     ".env.example": "",
   });
+  const [previewIds, setPreviewIds] = useState<string[]>([]);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(() => {
+      const hasAny = Object.values(inputs).some((v) => v.trim().length > 0);
+      if (!hasAny) {
+        setPreviewIds([]);
+        return;
+      }
+      const snapshot: ProjectSnapshot = {
+        packageJson: inputs["package.json"] || undefined,
+        requirementsTxt: inputs["requirements.txt"] || undefined,
+        pyprojectToml: inputs["pyproject.toml"] || undefined,
+        envExample: inputs[".env.example"] || undefined,
+      };
+      const results = detectTools(snapshot, allTools);
+      setPreviewIds(results.map((r) => r.toolId));
+    }, 300);
+    return () => {
+      if (debounceRef.current) clearTimeout(debounceRef.current);
+    };
+  }, [inputs, allTools]);
 
   function handleNext() {
     const snapshot: ProjectSnapshot = {
@@ -181,9 +206,58 @@ export function ScanStep({ onNext }: { onNext: (detectedIds: string[]) => void }
         </div>
       </div>
 
-      <p style={{ marginTop: 20, fontSize: 11, color: "#333355" }}>
-        All processing is client-side — nothing leaves your browser.
-      </p>
+      {/* Live detection preview */}
+      {previewIds.length > 0 ? (
+        <div
+          style={{
+            marginTop: 14,
+            width: "100%",
+            maxWidth: 560,
+            display: "flex",
+            flexDirection: "column",
+            gap: 7,
+          }}
+        >
+          <span
+            style={{
+              fontSize: 10,
+              fontWeight: 600,
+              color: "#555577",
+              letterSpacing: "0.06em",
+              textTransform: "uppercase",
+            }}
+          >
+            Detected so far — {previewIds.length} tool{previewIds.length !== 1 ? "s" : ""}
+          </span>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 5 }}>
+            {previewIds.map((id) => {
+              const tool = allTools.find((t) => t.id === id);
+              if (!tool) return null;
+              const color = getCategoryColor(tool.category);
+              return (
+                <span
+                  key={id}
+                  style={{
+                    fontSize: 11,
+                    fontWeight: 500,
+                    color,
+                    background: color + "18",
+                    border: `1px solid ${color}33`,
+                    borderRadius: 5,
+                    padding: "3px 9px",
+                  }}
+                >
+                  {tool.name}
+                </span>
+              );
+            })}
+          </div>
+        </div>
+      ) : (
+        <p style={{ marginTop: 20, fontSize: 11, color: "#333355" }}>
+          All processing is client-side — nothing leaves your browser.
+        </p>
+      )}
     </div>
   );
 }

@@ -8,10 +8,12 @@ import { ProgressDots } from "./ProgressDots";
 
 export function WorkflowStep({
   detectedCount,
+  detectedIds,
   onBack,
   onNext,
 }: {
   detectedCount: number;
+  detectedIds: string[];
   onBack: () => void;
   onNext: (workflowIds: string[]) => void;
 }) {
@@ -31,6 +33,10 @@ export function WorkflowStep({
   }
 
   const toolById = useMemo(() => new Map(allTools.map((t) => [t.id, t])), [allTools]);
+  const detectedTools = useMemo(
+    () => detectedIds.map((id) => toolById.get(id)).filter(Boolean) as Tool[],
+    [detectedIds, toolById]
+  );
 
   return (
     <div
@@ -65,19 +71,46 @@ export function WorkflowStep({
         >
           What&apos;s your dev workflow?
         </h1>
-        <p style={{ fontSize: 13, color: "#8888aa", lineHeight: 1.6, margin: 0 }}>
+        <p style={{ fontSize: 13, color: "#8888aa", lineHeight: 1.6, margin: "0 0 12px" }}>
           These tools don&apos;t show up in dependency files.
-          {detectedCount > 0 && (
-            <>
-              {" "}
-              We found <span style={{ color: "#f0f0f8" }}>{detectedCount} tools</span> in your code
-              — now add the rest.
-            </>
-          )}
           {detectedCount === 0 && (
             <> Select everything you use — nothing is wrong with skipping code scanning.</>
           )}
         </p>
+        {detectedTools.length > 0 && (
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              alignItems: "center",
+              gap: 5,
+              padding: "8px 12px",
+              borderRadius: 8,
+              background: "#ffffff06",
+              border: "1px solid #1e1e2e",
+            }}
+          >
+            <span style={{ fontSize: 10, color: "#555577", flexShrink: 0, marginRight: 2 }}>
+              Already found:
+            </span>
+            {detectedTools.map((t) => (
+              <span
+                key={t.id}
+                style={{
+                  fontSize: 10,
+                  fontWeight: 500,
+                  color: "#555577",
+                  background: "#ffffff0a",
+                  border: "1px solid #2e2e4e",
+                  borderRadius: 4,
+                  padding: "2px 7px",
+                }}
+              >
+                {t.name}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Groups */}

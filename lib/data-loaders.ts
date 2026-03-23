@@ -5,7 +5,8 @@ import { getStacks } from "@/lib/data/stacks";
 import toolsJson from "@/data/tools.json";
 import slotsJson from "@/data/slots.json";
 import relationshipsJson from "@/data/relationships.json";
-import type { Tool, Slot, Relationship } from "@/lib/types";
+import stacksJson from "@/data/stacks.json";
+import type { Tool, Slot, Relationship, Stack } from "@/lib/types";
 
 export async function loadGraphData() {
   const [tools, relationships] = await Promise.all([getTools(), getRelationships()]);
@@ -31,19 +32,22 @@ export async function loadGenomeData(): Promise<{
   tools: Tool[];
   slots: Slot[];
   relationships: Relationship[];
+  stacks: Stack[];
 }> {
   try {
-    const [tools, slots, relationships] = await Promise.all([
+    const [tools, slots, relationships, stacks] = await Promise.all([
       getTools(),
       getSlots(),
       getRelationships(),
+      getStacks(),
     ]);
-    return { tools, slots, relationships };
+    return { tools, slots, relationships, stacks };
   } catch {
     return {
       tools: toolsJson as Tool[],
       slots: slotsJson as Slot[],
       relationships: relationshipsJson as Relationship[],
+      stacks: stacksJson as Stack[],
     };
   }
 }

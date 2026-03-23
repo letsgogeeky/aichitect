@@ -22,6 +22,6 @@ export async function generateMetadata({
 }
 
 export default async function GenomePage() {
-  const { tools, slots, relationships } = await loadGenomeData();
-  return <GenomeClient tools={tools} slots={slots} relationships={relationships} />;
+  const { tools, slots, relationships, stacks } = await loadGenomeData();
+  return <GenomeClient tools={tools} slots={slots} relationships={relationships} stacks={stacks} />;
 }

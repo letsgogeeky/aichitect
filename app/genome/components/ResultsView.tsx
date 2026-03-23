@@ -1,14 +1,52 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import Link from "next/link";
+import DetailPanel from "@/components/panels/DetailPanel";
 import { useGenomeData } from "../GenomeContext";
-import { GenomeReport } from "@/lib/genomeAnalysis";
-import { getCategoryColor } from "@/lib/types";
+import { GenomeReport, GenomeTier, TIER_COLORS } from "@/lib/genomeAnalysis";
+import { getCategoryColor, Tool } from "@/lib/types";
+import { SITE_URL } from "@/lib/constants";
+import { detectGraduation } from "@/lib/graduationDetection";
 import { FitnessGauge } from "./FitnessGauge";
 import { Stat } from "./Stat";
 import { SlotGrid } from "./SlotGrid";
 import { MissingPanel } from "./MissingPanel";
+import { GraduationBanner } from "./GraduationBanner";
+
+function scoreNarrative(report: GenomeReport): string {
+  const critical = report.missingSlots.filter((m) => m.priority === "required").length;
+  const recommended = report.missingSlots.filter((m) => m.priority === "recommended").length;
+  const tier = report.tier;
+
+  if (tier === "Cutting-Edge") return "Your stack is firing on all cylinders.";
+  if (tier === "Production-Grade") {
+    return recommended > 0
+      ? `Solid foundation — ${recommended} recommended layer${recommended !== 1 ? "s" : ""} left to close.`
+      : "Production-ready across the board.";
+  }
+  if (tier === "Competent") {
+    if (critical > 0)
+      return `Essentials covered, but ${critical} critical gap${critical !== 1 ? "s" : ""} need attention.`;
+    return `Good coverage — ${recommended} recommended layer${recommended !== 1 ? "s" : ""} would round this out.`;
+  }
+  if (tier === "Emerging") {
+    return critical > 0
+      ? `Getting there — ${critical} required layer${critical !== 1 ? "s" : ""} still missing.`
+      : "A solid start. Fill in the recommended layers to level up.";
+  }
+  return "Just getting started. Add the required layers to build a real stack.";
+}
+
+function ScoreNarrative({ report }: { report: GenomeReport }) {
+  const color = TIER_COLORS[report.tier as GenomeTier];
+  return (
+    <p style={{ fontSize: 11, color: "#8888aa", margin: 0, lineHeight: 1.5, textAlign: "center" }}>
+      <span style={{ color }}>{report.tier}:</span>{" "}
+      {scoreNarrative(report).replace(/^[^:]+: ?/, "")}
+    </p>
+  );
+}
 
 export function ResultsView({
   report,
@@ -19,19 +57,64 @@ export function ResultsView({
   allIds: string[];
   onReset: () => void;
 }) {
-  const { allSlots } = useGenomeData();
+  const { allSlots, allStacks } = useGenomeData();
   const [copied, setCopied] = useState(false);
+  const [detailTool, setDetailTool] = useState<Tool | null>(null);
+
+  const graduation = detectGraduation(allIds, allStacks);
+  const genomeUrl = `${SITE_URL}/genome?deps=${allIds.join(",")}`;
+
+  const tweetText = graduation
+    ? `Just graduated my AI stack from "${graduation.currentStack.name}" to "${graduation.targetStack.name}" on @aichitect_dev 🎓\n\n${genomeUrl}`
+    : `My AI stack scored ${report.fitnessScore}/100 (${report.tier}) on @aichitect_dev 🧬\n\n${genomeUrl}`;
 
   function copyLink() {
-    const url = `${window.location.origin}/genome?deps=${allIds.join(",")}`;
-    navigator.clipboard.writeText(url).then(() => {
+    navigator.clipboard.writeText(genomeUrl).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     });
   }
 
+  function shareOnX() {
+    window.open(
+      `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`,
+      "_blank",
+      "noopener,noreferrer"
+    );
+  }
+
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "100%", overflow: "hidden" }}>
+      {detailTool && (
+        <Suspense fallback={null}>
+          <div
+            style={{
+              position: "fixed",
+              inset: 0,
+              zIndex: 50,
+              display: "flex",
+              justifyContent: "flex-end",
+            }}
+          >
+            {/* Backdrop */}
+            <div
+              onClick={() => setDetailTool(null)}
+              style={{ position: "absolute", inset: 0, background: "#00000055" }}
+            />
+            {/* Panel */}
+            <div
+              style={{
+                position: "relative",
+                height: "100%",
+                overflowY: "auto",
+                zIndex: 1,
+              }}
+            >
+              <DetailPanel tool={detailTool} onClose={() => setDetailTool(null)} />
+            </div>
+          </div>
+        </Suspense>
+      )}
       {/* Results header */}
       <div
         style={{
@@ -64,45 +147,65 @@ export function ResultsView({
             genome
           </span>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          <button
+            onClick={shareOnX}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 5,
+              padding: "0 12px",
+              height: 32,
+              borderRadius: 8,
+              fontSize: 11,
+              fontWeight: 500,
+              background: graduation ? "#26de8118" : "#7c6bff18",
+              border: `1px solid ${graduation ? "#26de8144" : "#7c6bff44"}`,
+              color: graduation ? "#26de81" : "var(--accent)",
+              cursor: "pointer",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {graduation ? "Share graduation" : "Share on X"}
+          </button>
+          <button
+            onClick={copyLink}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              padding: "0 12px",
+              height: 32,
+              borderRadius: 8,
+              fontSize: 11,
+              fontWeight: 500,
+              background: copied ? "#00d4aa18" : "#ffffff08",
+              border: `1px solid ${copied ? "#00d4aa44" : "#1e1e2e"}`,
+              color: copied ? "var(--accent-2)" : "#8888aa",
+              cursor: "pointer",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {copied ? "Copied!" : "Copy link"}
+          </button>
           <Link
             href={`/builder?s=${allIds.join(",")}`}
             style={{
               display: "flex",
               alignItems: "center",
-              padding: "0 14px",
+              padding: "0 12px",
               height: 32,
               borderRadius: 8,
               fontSize: 11,
               fontWeight: 500,
-              background: "#7c6bff18",
-              border: "1px solid #7c6bff44",
-              color: "var(--accent)",
+              background: "#ffffff08",
+              border: "1px solid #1e1e2e",
+              color: "#8888aa",
               textDecoration: "none",
               whiteSpace: "nowrap",
             }}
           >
             Open in Builder →
           </Link>
-          <button
-            onClick={copyLink}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 5,
-              padding: "0 14px",
-              height: 32,
-              borderRadius: 8,
-              fontSize: 11,
-              fontWeight: 500,
-              background: copied ? "#00d4aa30" : "#00d4aa18",
-              border: `1px solid ${copied ? "#00d4aa88" : "#00d4aa44"}`,
-              color: "var(--accent-2)",
-              cursor: "pointer",
-            }}
-          >
-            {copied ? "Copied!" : "Share genome"}
-          </button>
         </div>
       </div>
 
@@ -143,6 +246,7 @@ export function ResultsView({
             }}
           >
             <FitnessGauge score={report.fitnessScore} tier={report.tier} />
+            <ScoreNarrative report={report} />
             <div
               style={{
                 width: "100%",
@@ -163,6 +267,9 @@ export function ResultsView({
               />
             </div>
           </div>
+
+          {/* Score narrative */}
+          <ScoreNarrative report={report} />
 
           {/* Tool list */}
           <div
@@ -219,6 +326,8 @@ export function ResultsView({
 
         {/* Main */}
         <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: 20 }}>
+          <GraduationBanner allIds={allIds} />
+
           <div>
             <p
               style={{
@@ -235,7 +344,7 @@ export function ResultsView({
             <SlotGrid report={report} />
           </div>
 
-          <MissingPanel report={report} />
+          <MissingPanel report={report} onLearnMore={setDetailTool} />
         </div>
       </div>
     </div>
