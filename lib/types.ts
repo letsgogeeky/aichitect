@@ -2,6 +2,8 @@ export type ToolType = "oss" | "commercial";
 
 export type UseContext = "dev-productivity" | "app-infrastructure" | "both";
 
+export type StackArchetype = "dev-productivity" | "app-infrastructure" | "hybrid";
+
 export type RelationshipType = "integrates-with" | "commonly-paired-with" | "competes-with";
 
 export type CategoryId =
@@ -103,6 +105,7 @@ export interface Stack {
   not_in_stack: StackRejection[];
   kill_conditions: string[];
   graduates_to?: string;
+  archetype: StackArchetype;
   tags?: string[];
   why?: string;
   tradeoffs?: string;
