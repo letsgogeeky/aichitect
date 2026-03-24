@@ -50,28 +50,32 @@
     "target": "langsmith",
     "type": "commonly-paired-with",
     "how": "LangSmith traces LLM calls from applications developed in Cursor via environment variable injection during dev and testing.",
-    "achieves": "Observability on the apps you build in Cursor \u2014 every LLM call traced without adding instrumentation code."
+    "achieves": "Observability on the apps you build in Cursor \u2014 every LLM call traced without adding instrumentation code.",
+    "context": "hybrid"
   },
   {
     "source": "cursor",
     "target": "langfuse",
     "type": "commonly-paired-with",
     "how": "Langfuse captures LLM calls from app code being written and tested in Cursor via its SDK or OpenTelemetry.",
-    "achieves": "Real-time trace visibility on the AI features you're building, surfaced in Langfuse while you iterate in Cursor."
+    "achieves": "Real-time trace visibility on the AI features you're building, surfaced in Langfuse while you iterate in Cursor.",
+    "context": "hybrid"
   },
   {
     "source": "cursor",
     "target": "langgraph",
     "type": "commonly-paired-with",
     "how": "LangGraph graphs are authored, debugged, and iterated on inside Cursor using its multi-file context and agent mode to reason about state transitions.",
-    "achieves": "Faster LangGraph development \u2014 Cursor understands the graph structure and suggests correct node wiring, state shapes, and tool integrations."
+    "achieves": "Faster LangGraph development \u2014 Cursor understands the graph structure and suggests correct node wiring, state shapes, and tool integrations.",
+    "context": "hybrid"
   },
   {
     "source": "cursor",
     "target": "llamaindex",
     "type": "commonly-paired-with",
     "how": "LlamaIndex pipelines are built and refactored in Cursor, which holds full multi-file context across the pipeline's loaders, transformers, and retrievers.",
-    "achieves": "AI-assisted RAG pipeline iteration with context-aware completions across the entire LlamaIndex pipeline graph."
+    "achieves": "AI-assisted RAG pipeline iteration with context-aware completions across the entire LlamaIndex pipeline graph.",
+    "context": "hybrid"
   },
   {
     "source": "cursor",
@@ -174,13 +178,6 @@
   },
   {
     "source": "claude-code",
-    "target": "langfuse",
-    "type": "commonly-paired-with",
-    "how": "Claude Code instruments the apps it builds with Langfuse's SDK, and its own agent traces can be captured via OpenTelemetry.",
-    "achieves": "End-to-end observability: trace both the AI agent doing the building and the AI features it ships."
-  },
-  {
-    "source": "claude-code",
     "target": "coderabbit",
     "type": "commonly-paired-with",
     "how": "Claude Code opens PRs after completing autonomous coding tasks; CodeRabbit reviews those PRs automatically before any human sees them.",
@@ -259,13 +256,6 @@
   },
   {
     "source": "openhands",
-    "target": "langfuse",
-    "type": "integrates-with",
-    "how": "OpenHands emits OpenTelemetry traces that Langfuse ingests via its OTEL endpoint, capturing every LLM call and tool invocation.",
-    "achieves": "Full trace visibility into autonomous OpenHands runs \u2014 cost, latency, and reasoning steps per task."
-  },
-  {
-    "source": "openhands",
     "target": "litellm",
     "type": "integrates-with",
     "how": "OpenHands routes all LLM calls through LiteLLM, making it model-agnostic \u2014 swap Claude, GPT-4o, or a local model via config.",
@@ -276,7 +266,8 @@
     "target": "langchain",
     "type": "integrates-with",
     "how": "OpenHands uses LangChain tool interfaces for its agent scaffolding, giving its agents access to LangChain's tool and retrieval ecosystem.",
-    "achieves": "OpenHands agents can use any LangChain tool \u2014 vector retrieval, API calls, and data transforms \u2014 within autonomous task runs."
+    "achieves": "OpenHands agents can use any LangChain tool \u2014 vector retrieval, API calls, and data transforms \u2014 within autonomous task runs.",
+    "context": "hybrid"
   },
   {
     "source": "openhands",
@@ -487,14 +478,16 @@
     "target": "claude-code",
     "type": "commonly-paired-with",
     "how": "LangGraph orchestrates task assignment \u2014 it sends implementation tasks to Claude Code as an agent node that executes in the terminal.",
-    "achieves": "Multi-agent DevOps automation: LangGraph coordinates the workflow, Claude Code executes the actual code changes."
+    "achieves": "Multi-agent DevOps automation: LangGraph coordinates the workflow, Claude Code executes the actual code changes.",
+    "context": "hybrid"
   },
   {
     "source": "langgraph",
     "target": "sweep-ai",
     "type": "commonly-paired-with",
     "how": "LangGraph triggers Sweep AI for automated fix tasks via its GitHub integration \u2014 Sweep handles small, well-scoped code changes as a graph node.",
-    "achieves": "Automated issue-to-PR pipeline: LangGraph triages and routes, Sweep generates the fix, the graph waits for review."
+    "achieves": "Automated issue-to-PR pipeline: LangGraph triages and routes, Sweep generates the fix, the graph waits for review.",
+    "context": "hybrid"
   },
   {
     "source": "semantic-kernel",
@@ -1916,14 +1909,16 @@
     "target": "anthropic-api",
     "type": "commonly-paired-with",
     "how": "Stainless generates the official Anthropic SDK itself \u2014 the anthropic Python and TypeScript packages are built with Stainless.",
-    "achieves": "The same SDK quality as Anthropic's official libraries \u2014 Stainless generates production-grade SDKs from any API spec."
+    "achieves": "The same SDK quality as Anthropic's official libraries \u2014 Stainless generates production-grade SDKs from any API spec.",
+    "context": "hybrid"
   },
   {
     "source": "stainless",
     "target": "openai-api",
     "type": "commonly-paired-with",
     "how": "Stainless generates the official OpenAI SDK \u2014 the openai Python and TypeScript packages are built with Stainless.",
-    "achieves": "The same SDK quality as OpenAI's official libraries \u2014 Stainless generates polished, reliable SDKs with retry logic and pagination."
+    "achieves": "The same SDK quality as OpenAI's official libraries \u2014 Stainless generates polished, reliable SDKs with retry logic and pagination.",
+    "context": "hybrid"
   },
   {
     "source": "google-adk",
@@ -2333,11 +2328,6 @@
     "type": "competes-with"
   },
   {
-    "source": "manus-ai",
-    "target": "openai-api",
-    "type": "commonly-paired-with"
-  },
-  {
     "source": "mcp-so",
     "target": "smithery",
     "type": "competes-with"
@@ -2452,48 +2442,224 @@
     "target": "openai-api",
     "type": "integrates-with"
   },
-  { "source": "axolotl", "target": "unsloth", "type": "competes-with" },
-  { "source": "axolotl", "target": "llama-factory", "type": "competes-with" },
-  { "source": "unsloth", "target": "llama-factory", "type": "competes-with" },
-  { "source": "unsloth", "target": "torchtune", "type": "competes-with" },
-  { "source": "axolotl", "target": "vllm", "type": "integrates-with" },
-  { "source": "unsloth", "target": "vllm", "type": "integrates-with" },
-  { "source": "llama-factory", "target": "vllm", "type": "integrates-with" },
-  { "source": "torchtune", "target": "vllm", "type": "integrates-with" },
-  { "source": "predibase", "target": "vllm", "type": "integrates-with" },
-  { "source": "predibase", "target": "unsloth", "type": "competes-with" },
-  { "source": "elevenlabs", "target": "playht", "type": "competes-with" },
-  { "source": "elevenlabs", "target": "cartesia", "type": "competes-with" },
-  { "source": "cartesia", "target": "playht", "type": "competes-with" },
-  { "source": "deepgram", "target": "assemblyai", "type": "competes-with" },
-  { "source": "elevenlabs", "target": "langgraph", "type": "integrates-with" },
-  { "source": "deepgram", "target": "langgraph", "type": "integrates-with" },
-  { "source": "assemblyai", "target": "langgraph", "type": "integrates-with" },
-  { "source": "cartesia", "target": "langgraph", "type": "integrates-with" },
-  { "source": "moondream", "target": "llava", "type": "competes-with" },
-  { "source": "llava", "target": "internvl2", "type": "competes-with" },
-  { "source": "paligemma", "target": "qwen-vl", "type": "competes-with" },
-  { "source": "pixtral", "target": "qwen-vl", "type": "competes-with" },
-  { "source": "internvl2", "target": "qwen-vl", "type": "competes-with" },
-  { "source": "llava", "target": "ollama", "type": "integrates-with" },
-  { "source": "moondream", "target": "ollama", "type": "integrates-with" },
-  { "source": "qwen-vl", "target": "vllm", "type": "integrates-with" },
-  { "source": "internvl2", "target": "vllm", "type": "integrates-with" },
-  { "source": "pixtral", "target": "litellm", "type": "integrates-with" },
-  { "source": "vapi", "target": "retell-ai", "type": "competes-with" },
-  { "source": "vapi", "target": "langgraph", "type": "integrates-with" },
-  { "source": "retell-ai", "target": "langgraph", "type": "integrates-with" },
-  { "source": "vapi", "target": "elevenlabs", "type": "integrates-with" },
-  { "source": "vapi", "target": "deepgram", "type": "integrates-with" },
-  { "source": "retell-ai", "target": "elevenlabs", "type": "integrates-with" },
-  { "source": "fal-ai", "target": "langchain", "type": "integrates-with" },
-  { "source": "browser-use", "target": "stagehand", "type": "competes-with" },
-  { "source": "browser-use", "target": "skyvern", "type": "competes-with" },
-  { "source": "stagehand", "target": "skyvern", "type": "competes-with" },
-  { "source": "browser-use", "target": "langgraph", "type": "integrates-with" },
-  { "source": "browser-use", "target": "playwright-mcp", "type": "integrates-with" },
-  { "source": "stagehand", "target": "playwright-mcp", "type": "integrates-with" },
-  { "source": "firecrawl", "target": "langchain", "type": "integrates-with" },
-  { "source": "firecrawl", "target": "llamaindex", "type": "integrates-with" },
-  { "source": "firecrawl", "target": "browser-use", "type": "commonly-paired-with" }
+  {
+    "source": "axolotl",
+    "target": "unsloth",
+    "type": "competes-with"
+  },
+  {
+    "source": "axolotl",
+    "target": "llama-factory",
+    "type": "competes-with"
+  },
+  {
+    "source": "unsloth",
+    "target": "llama-factory",
+    "type": "competes-with"
+  },
+  {
+    "source": "unsloth",
+    "target": "torchtune",
+    "type": "competes-with"
+  },
+  {
+    "source": "axolotl",
+    "target": "vllm",
+    "type": "integrates-with"
+  },
+  {
+    "source": "unsloth",
+    "target": "vllm",
+    "type": "integrates-with"
+  },
+  {
+    "source": "llama-factory",
+    "target": "vllm",
+    "type": "integrates-with"
+  },
+  {
+    "source": "torchtune",
+    "target": "vllm",
+    "type": "integrates-with"
+  },
+  {
+    "source": "predibase",
+    "target": "vllm",
+    "type": "integrates-with"
+  },
+  {
+    "source": "predibase",
+    "target": "unsloth",
+    "type": "competes-with"
+  },
+  {
+    "source": "elevenlabs",
+    "target": "playht",
+    "type": "competes-with"
+  },
+  {
+    "source": "elevenlabs",
+    "target": "cartesia",
+    "type": "competes-with"
+  },
+  {
+    "source": "cartesia",
+    "target": "playht",
+    "type": "competes-with"
+  },
+  {
+    "source": "deepgram",
+    "target": "assemblyai",
+    "type": "competes-with"
+  },
+  {
+    "source": "elevenlabs",
+    "target": "langgraph",
+    "type": "integrates-with"
+  },
+  {
+    "source": "deepgram",
+    "target": "langgraph",
+    "type": "integrates-with"
+  },
+  {
+    "source": "assemblyai",
+    "target": "langgraph",
+    "type": "integrates-with"
+  },
+  {
+    "source": "cartesia",
+    "target": "langgraph",
+    "type": "integrates-with"
+  },
+  {
+    "source": "moondream",
+    "target": "llava",
+    "type": "competes-with"
+  },
+  {
+    "source": "llava",
+    "target": "internvl2",
+    "type": "competes-with"
+  },
+  {
+    "source": "paligemma",
+    "target": "qwen-vl",
+    "type": "competes-with"
+  },
+  {
+    "source": "pixtral",
+    "target": "qwen-vl",
+    "type": "competes-with"
+  },
+  {
+    "source": "internvl2",
+    "target": "qwen-vl",
+    "type": "competes-with"
+  },
+  {
+    "source": "llava",
+    "target": "ollama",
+    "type": "integrates-with"
+  },
+  {
+    "source": "moondream",
+    "target": "ollama",
+    "type": "integrates-with"
+  },
+  {
+    "source": "qwen-vl",
+    "target": "vllm",
+    "type": "integrates-with"
+  },
+  {
+    "source": "internvl2",
+    "target": "vllm",
+    "type": "integrates-with"
+  },
+  {
+    "source": "pixtral",
+    "target": "litellm",
+    "type": "integrates-with"
+  },
+  {
+    "source": "vapi",
+    "target": "retell-ai",
+    "type": "competes-with"
+  },
+  {
+    "source": "vapi",
+    "target": "langgraph",
+    "type": "integrates-with"
+  },
+  {
+    "source": "retell-ai",
+    "target": "langgraph",
+    "type": "integrates-with"
+  },
+  {
+    "source": "vapi",
+    "target": "elevenlabs",
+    "type": "integrates-with"
+  },
+  {
+    "source": "vapi",
+    "target": "deepgram",
+    "type": "integrates-with"
+  },
+  {
+    "source": "retell-ai",
+    "target": "elevenlabs",
+    "type": "integrates-with"
+  },
+  {
+    "source": "fal-ai",
+    "target": "langchain",
+    "type": "integrates-with"
+  },
+  {
+    "source": "browser-use",
+    "target": "stagehand",
+    "type": "competes-with"
+  },
+  {
+    "source": "browser-use",
+    "target": "skyvern",
+    "type": "competes-with"
+  },
+  {
+    "source": "stagehand",
+    "target": "skyvern",
+    "type": "competes-with"
+  },
+  {
+    "source": "browser-use",
+    "target": "langgraph",
+    "type": "integrates-with"
+  },
+  {
+    "source": "browser-use",
+    "target": "playwright-mcp",
+    "type": "integrates-with"
+  },
+  {
+    "source": "stagehand",
+    "target": "playwright-mcp",
+    "type": "integrates-with"
+  },
+  {
+    "source": "firecrawl",
+    "target": "langchain",
+    "type": "integrates-with"
+  },
+  {
+    "source": "firecrawl",
+    "target": "llamaindex",
+    "type": "integrates-with"
+  },
+  {
+    "source": "firecrawl",
+    "target": "browser-use",
+    "type": "commonly-paired-with"
+  }
 ]

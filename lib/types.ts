@@ -78,6 +78,8 @@ export interface Relationship {
   how?: string;
   /** What outcome the pairing achieves (enriched relationships only) */
   achieves?: string;
+  /** Archetype context — if set, this edge only applies within that archetype ("hybrid" | "dev-productivity" | "app-infrastructure") */
+  context?: string;
 }
 
 export interface StackFlowEdge {

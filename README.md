@@ -138,7 +138,7 @@ components/
     Logo.tsx                      # SVG logo component
 data/
   tools.json            # 207 tools, 12 categories
-  relationships.json    # ~455 edges (integrates-with / commonly-paired / competes-with)
+  relationships.json    # ~452 edges (integrates-with / commonly-paired / competes-with)
   stacks.json           # 25 curated stacks across 5 clusters
   slots.json            # 15 builder slot types
 lib/
