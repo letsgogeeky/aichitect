@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, useEffect, useRef } from "react";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { useBuilderState } from "@/hooks/useBuilderState";
 import ReactFlow, {
@@ -11,6 +11,7 @@ import ReactFlow, {
   Edge,
   NodeTypes,
   ReactFlowProvider,
+  useReactFlow,
 } from "reactflow";
 import "reactflow/dist/style.css";
 
@@ -38,6 +39,17 @@ function BuilderGraph({
   allTools: Tool[];
   relationships: Relationship[];
 }) {
+  const { fitView } = useReactFlow();
+  const prevLengthRef = useRef(toolIds.length);
+
+  // Re-fit when tools are added or removed, but not on expand/collapse or other re-renders.
+  useEffect(() => {
+    if (toolIds.length !== prevLengthRef.current) {
+      prevLengthRef.current = toolIds.length;
+      fitView({ padding: 0.25, duration: 300 });
+    }
+  }, [toolIds.length, fitView]);
+
   const toolSet = new Set(toolIds);
 
   const nodes: Node[] = toolIds
@@ -112,6 +124,7 @@ function BuilderGraph({
       fitViewOptions={{ padding: 0.25, duration: 300 }}
       proOptions={{ hideAttribution: true }}
       minZoom={0.3}
+      nodesDraggable={false}
     >
       <Background variant={BackgroundVariant.Dots} color="#1e1e2e" gap={20} size={1} />
       <Controls showInteractive={false} />
@@ -173,7 +186,7 @@ function BuilderPageContent({
 
       {/* Builder graph */}
       <div className="flex-1 overflow-hidden relative">
-        <ReactFlowProvider key={stackParam}>
+        <ReactFlowProvider>
           <BuilderGraph
             toolIds={urlToolIds}
             expandedId={expandedId}

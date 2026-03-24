@@ -156,20 +156,18 @@ function ExploreGraphInner({
     );
   }, [searchQuery, tools]);
 
-  const nodes: Node[] = useMemo(() => {
+  // Layout computation — only reruns when visible tools or view mode change.
+  // Kept separate from interactive state so clicking a node doesn't re-trigger layout.
+  const { positionedToolNodes, laneNodes } = useMemo(() => {
     const toolNodeInputs = visibleTools.map((t) => ({
       id: t.id,
-      type: "tool",
-      data: {
-        ...t,
-        dimmed: searchMatch != null && !searchMatch.has(t.id),
-        highlighted: highlightedIds.has(t.id),
-      },
+      type: "tool" as const,
+      data: { ...t },
       position: { x: 0, y: 0 },
     }));
 
     if (viewMode === "grid") {
-      return gridLayout(toolNodeInputs, 6, 220, 90, 24);
+      return { positionedToolNodes: gridLayout(toolNodeInputs, 6, 220, 90, 24), laneNodes: [] };
     }
 
     // Build layer index map: tool id → layer index
@@ -183,7 +181,7 @@ function ExploreGraphInner({
       }
     }
 
-    const { toolNodes, laneNodes } = swimlaneLayout(
+    const result = swimlaneLayout(
       toolNodeInputs,
       (id) => toolLayerIndex.get(id) ?? -1,
       STACK_LAYERS.map((l) => ({ label: l.label, question: l.question })),
@@ -197,9 +195,21 @@ function ExploreGraphInner({
       14 // padV
     );
 
-    // laneNodes first so they render behind tool nodes
+    return { positionedToolNodes: result.toolNodes, laneNodes: result.laneNodes };
+  }, [visibleTools, viewMode]);
+
+  // Apply interactive state on top of stable positions — cheap, never re-layouts.
+  const nodes: Node[] = useMemo(() => {
+    const toolNodes = positionedToolNodes.map((node) => ({
+      ...node,
+      data: {
+        ...node.data,
+        dimmed: searchMatch != null && !searchMatch.has(node.id),
+        highlighted: highlightedIds.has(node.id),
+      },
+    }));
     return [...laneNodes, ...toolNodes];
-  }, [visibleTools, searchMatch, highlightedIds, viewMode]);
+  }, [positionedToolNodes, laneNodes, searchMatch, highlightedIds]);
 
   const edges: Edge[] = useMemo(() => {
     const visibleIds = new Set(visibleTools.map((t) => t.id));
