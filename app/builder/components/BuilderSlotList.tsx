@@ -2,7 +2,7 @@
 
 import type { MouseEvent } from "react";
 import { useState } from "react";
-import { Slot, Tool, getCategoryColor } from "@/lib/types";
+import { Slot, Tool, StackArchetype, getCategoryColor } from "@/lib/types";
 import { CloseButton } from "@/components/ui/CloseButton";
 import { SLOT_AUTONOMY } from "@/lib/stackStory";
 import StackHealthPanel from "@/components/panels/StackHealthPanel";
@@ -15,6 +15,7 @@ export function BuilderSlotList({
   selectedCount,
   stackParam,
   collapsedSlots,
+  archetype,
   compareA,
   compareB,
   onPickTool,
@@ -28,6 +29,7 @@ export function BuilderSlotList({
   selectedCount: number;
   stackParam: string;
   collapsedSlots: Record<string, boolean>;
+  archetype: StackArchetype;
   compareA: Tool | null;
   compareB: Tool | null;
   onPickTool: (slotId: string, toolId: string) => void;
@@ -36,6 +38,11 @@ export function BuilderSlotList({
   onClearCompare: () => void;
 }) {
   const [copied, setCopied] = useState(false);
+  const [showNotApplicable, setShowNotApplicable] = useState(false);
+
+  const applicableSlots = slots.filter((s) => s.priority[archetype] !== "not-applicable");
+  const notApplicableSlots = slots.filter((s) => s.priority[archetype] === "not-applicable");
+  const applicableSelectedCount = applicableSlots.filter((s) => !!selected[s.id]).length;
 
   const badgeUrl = `${SITE_URL}/badge?s=${stackParam}`;
   const builderUrl = `${SITE_URL}/builder?s=${stackParam}`;
@@ -67,7 +74,7 @@ export function BuilderSlotList({
             className="text-[10px] px-2 py-1 rounded-md"
             style={{ background: "#7c6bff18", color: "var(--accent)" }}
           >
-            {selectedCount} of {slots.length} slots filled
+            {applicableSelectedCount} of {applicableSlots.length} slots filled
           </div>
         )}
 
@@ -103,7 +110,7 @@ export function BuilderSlotList({
           />
         </div>
 
-        {slots.map((slot) => {
+        {applicableSlots.map((slot) => {
           const selectedId = selected[slot.id];
           const slotTools = slot.tools
             .map((id) => allTools.find((t) => t.id === id))
@@ -248,6 +255,137 @@ export function BuilderSlotList({
             </div>
           );
         })}
+
+        {notApplicableSlots.length > 0 && (
+          <div>
+            <button
+              onClick={() => setShowNotApplicable((v) => !v)}
+              className="w-full flex items-center gap-1.5 text-left py-1"
+            >
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                fill="none"
+                className="flex-shrink-0 text-[var(--text-muted)]"
+                style={{
+                  transform: showNotApplicable ? "rotate(0deg)" : "rotate(-90deg)",
+                  transition: "transform 180ms ease",
+                }}
+              >
+                <path
+                  d="M2 3.5L5 6.5L8 3.5"
+                  stroke="currentColor"
+                  strokeWidth="1.4"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              <span className="text-[10px] text-[var(--text-muted)]">
+                {showNotApplicable ? "Hide" : "Show"} {notApplicableSlots.length} slots not relevant
+                to your stack
+              </span>
+            </button>
+            {showNotApplicable && (
+              <div className="mt-1 space-y-3 opacity-50">
+                {notApplicableSlots.map((slot) => {
+                  const selectedId = selected[slot.id];
+                  const slotTools = slot.tools
+                    .map((id) => allTools.find((t) => t.id === id))
+                    .filter(Boolean) as Tool[];
+                  const isOpen = !collapsedSlots[slot.id];
+                  const selectedTool = slotTools.find((t) => t.id === selectedId);
+                  return (
+                    <div key={slot.id}>
+                      <button
+                        onClick={() => onToggleSlot(slot.id)}
+                        className="w-full flex items-start gap-2 mb-1 text-left group"
+                      >
+                        <svg
+                          width="10"
+                          height="10"
+                          viewBox="0 0 10 10"
+                          fill="none"
+                          className="mt-0.5 flex-shrink-0 text-[var(--text-muted)]"
+                          style={{
+                            transform: isOpen ? "rotate(0deg)" : "rotate(-90deg)",
+                            transition: "transform 180ms ease",
+                          }}
+                        >
+                          <path
+                            d="M2 3.5L5 6.5L8 3.5"
+                            stroke="currentColor"
+                            strokeWidth="1.4"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-[11px] font-semibold text-[var(--text-primary)] leading-tight">
+                            {slot.name}
+                          </p>
+                          {!isOpen && selectedTool && (
+                            <p
+                              className="text-[10px] mt-0.5 truncate"
+                              style={{ color: getCategoryColor(selectedTool.category) }}
+                            >
+                              {selectedTool.name}
+                            </p>
+                          )}
+                          {!isOpen && !selectedTool && (
+                            <p className="text-[10px] text-[var(--text-muted)] mt-0.5">not set</p>
+                          )}
+                        </div>
+                      </button>
+                      {isOpen && (
+                        <>
+                          <p className="text-[10px] text-[var(--text-muted)] mb-1.5 pl-4 leading-relaxed">
+                            {slot.description}
+                          </p>
+                          <div className="space-y-0.5">
+                            {slotTools.map((t) => {
+                              const active = selectedId === t.id;
+                              const color = getCategoryColor(t.category);
+                              return (
+                                <button
+                                  key={t.id}
+                                  onClick={() => onPickTool(slot.id, t.id)}
+                                  className="w-full flex items-center gap-2 px-2.5 py-2 rounded-lg text-left transition-all"
+                                  style={{
+                                    background: active ? color + "22" : "var(--surface-2)",
+                                    border: active
+                                      ? `1px solid ${color}66`
+                                      : "1px solid var(--border)",
+                                  }}
+                                >
+                                  <div
+                                    className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                                    style={{ background: color }}
+                                  />
+                                  <span
+                                    className="text-xs font-medium"
+                                    style={{ color: active ? color : "var(--text-primary)" }}
+                                  >
+                                    {t.name}
+                                  </span>
+                                  {t.type === "oss" && (
+                                    <span className="ml-auto text-[9px] text-[var(--success)]">
+                                      OSS
+                                    </span>
+                                  )}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        )}
 
         {selectedCount > 0 && (
           <div

@@ -134,6 +134,7 @@ function BuilderPageContent({
     selected,
     selectedCount,
     story,
+    archetype,
     expandedId,
     setExpandedId,
     compareA,
@@ -161,6 +162,7 @@ function BuilderPageContent({
         selectedCount={selectedCount}
         stackParam={stackParam}
         collapsedSlots={collapsedSlots}
+        archetype={archetype}
         compareA={compareA}
         compareB={compareB}
         onPickTool={pickTool}
@@ -237,6 +239,7 @@ function BuilderPageContent({
         allTools={allTools}
         selected={selected}
         selectedCount={selectedCount}
+        archetype={archetype}
         onPickTool={pickTool}
         onClose={() => setMobileSlotPickerOpen(false)}
       />

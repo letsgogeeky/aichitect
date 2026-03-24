@@ -2,6 +2,7 @@ import { useState, useMemo, useCallback, type MouseEvent } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Slot, Tool } from "@/lib/types";
 import { generateStackStory } from "@/lib/stackStory";
+import { detectArchetype } from "@/lib/genomeAnalysis";
 
 export function useBuilderState(slots: Slot[], allTools: Tool[]) {
   const router = useRouter();
@@ -37,6 +38,8 @@ export function useBuilderState(slots: Slot[], allTools: Tool[]) {
   );
 
   const story = useMemo(() => generateStackStory(selectedTools), [selectedTools]);
+
+  const archetype = useMemo(() => detectArchetype(urlToolIds, allTools), [urlToolIds, allTools]);
 
   const pickTool = useCallback(
     (slotId: string, toolId: string) => {
@@ -108,6 +111,7 @@ export function useBuilderState(slots: Slot[], allTools: Tool[]) {
     selectedCount,
     selectedTools,
     story,
+    archetype,
     expandedId,
     setExpandedId,
     compareA,
