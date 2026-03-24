@@ -148,6 +148,7 @@ function BuilderPageContent({
     selectedCount,
     story,
     archetype,
+    stackParam,
     expandedId,
     setExpandedId,
     compareA,
@@ -163,8 +164,6 @@ function BuilderPageContent({
     toggleSlot,
     clearCompare,
   } = useBuilderState(slots, allTools);
-
-  const stackParam = urlToolIds.join(",");
 
   return (
     <div className="flex h-full">

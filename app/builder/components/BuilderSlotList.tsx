@@ -6,6 +6,7 @@ import { Slot, Tool, StackArchetype, getCategoryColor } from "@/lib/types";
 import { CloseButton } from "@/components/ui/CloseButton";
 import { SLOT_AUTONOMY } from "@/lib/stackStory";
 import StackHealthPanel from "@/components/panels/StackHealthPanel";
+import Link from "next/link";
 import { SITE_URL } from "@/lib/constants";
 
 export function BuilderSlotList({
@@ -385,6 +386,27 @@ export function BuilderSlotList({
               </div>
             )}
           </div>
+        )}
+
+        {selectedCount > 0 && (
+          <Link
+            href={`/explore?s=${stackParam}`}
+            className="flex items-center justify-center gap-1.5 w-full py-1.5 rounded-lg text-[10px] font-medium transition-colors"
+            style={{
+              background: "var(--surface-2)",
+              border: "1px solid var(--border)",
+              color: "var(--text-secondary)",
+            }}
+          >
+            <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+              <circle cx="3" cy="6" r="2" stroke="currentColor" strokeWidth="1.3" />
+              <circle cx="9" cy="3" r="2" stroke="currentColor" strokeWidth="1.3" />
+              <circle cx="9" cy="9" r="2" stroke="currentColor" strokeWidth="1.3" />
+              <line x1="5" y1="5.2" x2="7.2" y2="3.8" stroke="currentColor" strokeWidth="1.1" />
+              <line x1="5" y1="6.8" x2="7.2" y2="8.2" stroke="currentColor" strokeWidth="1.1" />
+            </svg>
+            See in graph
+          </Link>
         )}
 
         {selectedCount > 0 && (

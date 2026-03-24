@@ -1,13 +1,28 @@
 import { useState, useMemo, useCallback, type MouseEvent } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { Slot, Tool } from "@/lib/types";
 import { generateStackStory } from "@/lib/stackStory";
 import { detectArchetype } from "@/lib/genomeAnalysis";
 
+function syncUrl(param: string) {
+  const url = new URL(window.location.href);
+  if (param) {
+    url.searchParams.set("s", param);
+  } else {
+    url.searchParams.delete("s");
+  }
+  window.history.replaceState(null, "", url.pathname + url.search);
+}
+
 export function useBuilderState(slots: Slot[], allTools: Tool[]) {
-  const router = useRouter();
   const searchParams = useSearchParams();
-  const stackParam = searchParams.get("s") ?? "";
+
+  // Local state is the source of truth for the UI — initialized from URL on mount.
+  // URL is synced via window.history.replaceState (no router round-trip = no lag).
+  const [toolIds, setToolIds] = useState<string[]>(() => {
+    const param = searchParams.get("s") ?? "";
+    return param.split(",").filter(Boolean);
+  });
 
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [compareA, setCompareA] = useState<Tool | null>(null);
@@ -17,29 +32,29 @@ export function useBuilderState(slots: Slot[], allTools: Tool[]) {
   );
   const [mobileSlotPickerOpen, setMobileSlotPickerOpen] = useState(false);
 
-  // All tool IDs from the URL — used directly by the graph (no slot constraint)
-  const urlToolIds = useMemo(() => stackParam.split(",").filter(Boolean), [stackParam]);
-
   // Slot-constrained selection for the sidebar — first occurrence per slot wins
   const selected = useMemo<Record<string, string>>(() => {
     const result: Record<string, string> = {};
-    for (const toolId of urlToolIds) {
+    for (const toolId of toolIds) {
       const slot = slots.find((s) => s.tools.includes(toolId));
       if (slot && !result[slot.id]) result[slot.id] = toolId;
     }
     return result;
-  }, [urlToolIds, slots]);
+  }, [toolIds, slots]);
 
   const selectedCount = Object.values(selected).filter(Boolean).length;
 
   const selectedTools = useMemo(
-    () => urlToolIds.map((id) => allTools.find((t) => t.id === id)).filter(Boolean) as Tool[],
-    [urlToolIds, allTools]
+    () => toolIds.map((id) => allTools.find((t) => t.id === id)).filter(Boolean) as Tool[],
+    [toolIds, allTools]
   );
 
   const story = useMemo(() => generateStackStory(selectedTools), [selectedTools]);
 
-  const archetype = useMemo(() => detectArchetype(urlToolIds, allTools), [urlToolIds, allTools]);
+  const archetype = useMemo(() => detectArchetype(toolIds, allTools), [toolIds, allTools]);
+
+  // stackParam for badge/share URLs — derived from local state, not URL
+  const stackParam = toolIds.join(",");
 
   const pickTool = useCallback(
     (slotId: string, toolId: string) => {
@@ -48,30 +63,22 @@ export function useBuilderState(slots: Slot[], allTools: Tool[]) {
         [slotId]: selected[slotId] === toolId ? "" : toolId,
       };
       const param = Object.values(next).filter(Boolean).join(",");
-      const url = new URL(window.location.href);
-      if (param) {
-        url.searchParams.set("s", param);
-      } else {
-        url.searchParams.delete("s");
-      }
-      router.replace(url.pathname + url.search, { scroll: false });
+      const nextIds = param.split(",").filter(Boolean);
+      setToolIds(nextIds);
+      syncUrl(param);
     },
-    [selected, router]
+    [selected]
   );
 
   const removeTool = useCallback(
     (toolId: string) => {
-      const next = urlToolIds.filter((id) => id !== toolId);
-      const url = new URL(window.location.href);
-      if (next.length > 0) {
-        url.searchParams.set("s", next.join(","));
-      } else {
-        url.searchParams.delete("s");
-      }
-      router.replace(url.pathname + url.search, { scroll: false });
+      const next = toolIds.filter((id) => id !== toolId);
+      const param = next.join(",");
+      setToolIds(next);
+      syncUrl(param);
       if (expandedId === toolId) setExpandedId(null);
     },
-    [urlToolIds, router, expandedId]
+    [toolIds, expandedId]
   );
 
   function handleCompareClick(tool: Tool, e: MouseEvent) {
@@ -106,12 +113,13 @@ export function useBuilderState(slots: Slot[], allTools: Tool[]) {
   }
 
   return {
-    urlToolIds,
+    urlToolIds: toolIds,
     selected,
     selectedCount,
     selectedTools,
     story,
     archetype,
+    stackParam,
     expandedId,
     setExpandedId,
     compareA,
