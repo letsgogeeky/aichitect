@@ -224,22 +224,38 @@ export default function DetailPanel({ tool, onClose }: Props) {
         </div>
 
         {/* Add to My Stack */}
-        <button
-          onClick={toggleStack}
-          className="w-full flex items-center justify-center gap-2 transition-all"
-          style={{
-            padding: "8px 12px",
-            borderRadius: 8,
-            background: inStack ? "#00d4aa18" : "#7c6bff18",
-            border: `1px solid ${inStack ? "#00d4aa44" : "#7c6bff44"}`,
-            color: inStack ? "var(--accent-2)" : "var(--accent)",
-            fontSize: 12,
-            fontWeight: 600,
-            cursor: "pointer",
-          }}
-        >
-          {inStack ? "✓ In My Stack" : "+ Add to My Stack"}
-        </button>
+        <div className="flex gap-2">
+          <button
+            onClick={toggleStack}
+            className="flex-1 flex items-center justify-center gap-2 transition-all"
+            style={{
+              padding: "8px 12px",
+              borderRadius: 8,
+              background: inStack ? "#00d4aa18" : "#7c6bff18",
+              border: `1px solid ${inStack ? "#00d4aa44" : "#7c6bff44"}`,
+              color: inStack ? "var(--accent-2)" : "var(--accent)",
+              fontSize: 12,
+              fontWeight: 600,
+              cursor: "pointer",
+            }}
+          >
+            {inStack ? "✓ In My Stack" : "+ Add to My Stack"}
+          </button>
+          {stackIds.length > 0 && (
+            <Link
+              href={`/builder?s=${stackIds.join(",")}`}
+              className="flex items-center justify-center px-3 rounded-lg text-[11px] font-medium transition-colors"
+              style={{
+                background: "var(--surface-2)",
+                border: "1px solid var(--border)",
+                color: "var(--text-secondary)",
+                whiteSpace: "nowrap",
+              }}
+            >
+              Build →
+            </Link>
+          )}
+        </div>
 
         {/* Connected tools */}
         {connected.length > 0 && (

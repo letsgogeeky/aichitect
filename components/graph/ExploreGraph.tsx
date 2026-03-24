@@ -34,6 +34,7 @@ import {
 import { gridLayout, swimlaneLayout } from "@/lib/graph";
 import ToolNode from "./ToolNode";
 import LaneLabel from "./LaneLabel";
+import EnrichedEdge from "./EnrichedEdge";
 const ExploreGraph3D = dynamic(() => import("./ExploreGraph3D"), { ssr: false });
 import FilterPanel from "@/components/panels/FilterPanel";
 import DetailPanel from "@/components/panels/DetailPanel";
@@ -59,6 +60,7 @@ for (const stack of staticStacks) {
 }
 
 const nodeTypes: NodeTypes = { tool: ToolNode, laneLabel: LaneLabel };
+const edgeTypes = { enriched: EnrichedEdge };
 
 class Graph3DErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean }> {
   constructor(props: { children: ReactNode }) {
@@ -223,12 +225,18 @@ function ExploreGraphInner({
       .map((r) => {
         const sourceTool = tools.find((t) => t.id === r.source);
         const style = edgeStyle(r.type as RelationshipType, sourceTool?.category ?? "");
+        const isIntegration = r.type === "integrates-with";
+        const color = getCategoryColor((sourceTool?.category as never) ?? "");
+        // Enriched edges (with how field) get a bolder stroke
+        const strokeWidth = isIntegration ? (r.how ? 2 : 1.2) : 1.5;
         return {
           id: `${r.source}-${r.target}`,
           source: r.source,
           target: r.target,
-          animated: r.type === "integrates-with",
-          style,
+          type: isIntegration ? "enriched" : "default",
+          animated: isIntegration && !r.how, // only animate non-enriched integrations
+          style: isIntegration ? undefined : style,
+          data: isIntegration ? { how: r.how, color, strokeWidth } : undefined,
         };
       });
   }, [visibleTools, activeRelTypes, tools, relationships]);
@@ -249,6 +257,7 @@ function ExploreGraphInner({
         nodes={nodes}
         edges={edges}
         nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
         onNodeClick={onNodeClick}
         fitView
         fitViewOptions={FIT_VIEW_OPTIONS}
@@ -345,9 +354,21 @@ export default function ExploreGraph({
     panelMode,
   } = useComparisonMode(initialComparison, initialTool);
 
+  // Pre-highlight tools passed via ?s= (e.g. "See in graph" from Builder)
+   
+  const initialStackIds = useMemo(
+    () => new Set((searchParams.get("s") ?? "").split(",").filter(Boolean)),
+    []
+  );
+  const mergedHighlightedIds = useMemo(
+    () =>
+      initialStackIds.size > 0 ? new Set([...highlightedIds, ...initialStackIds]) : highlightedIds,
+    [highlightedIds, initialStackIds]
+  );
+
   const [activeCategories, setActiveCategories] = useState<Set<string>>(allCategories);
   const [activeRelTypes, setActiveRelTypes] = useState<Set<RelationshipType>>(
-    new Set(["integrates-with", "commonly-paired-with", "competes-with"])
+    new Set<RelationshipType>(["integrates-with"])
   );
   const [searchQuery, setSearchQuery] = useState("");
   const [bannerDismissed, setBannerDismissed] = useState(false);
@@ -562,7 +583,7 @@ export default function ExploreGraph({
                 activeCategories={activeCategories}
                 activeRelTypes={activeRelTypes}
                 searchQuery={searchQuery}
-                highlightedIds={highlightedIds}
+                highlightedIds={mergedHighlightedIds}
                 onSelectTool={handleNodeSelect}
                 viewMode={viewMode}
                 onSuggest={openSuggest}
