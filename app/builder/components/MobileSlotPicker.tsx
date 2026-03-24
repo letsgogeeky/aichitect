@@ -1,7 +1,7 @@
 "use client";
 
 import BottomSheet from "@/components/mobile/BottomSheet";
-import { Slot, Tool, getCategoryColor } from "@/lib/types";
+import { Slot, Tool, StackArchetype, getCategoryColor } from "@/lib/types";
 
 export function MobileSlotPicker({
   open,
@@ -9,6 +9,7 @@ export function MobileSlotPicker({
   allTools,
   selected,
   selectedCount,
+  archetype,
   onPickTool,
   onClose,
 }: {
@@ -17,9 +18,12 @@ export function MobileSlotPicker({
   allTools: Tool[];
   selected: Record<string, string>;
   selectedCount: number;
+  archetype: StackArchetype;
   onPickTool: (slotId: string, toolId: string) => void;
   onClose: () => void;
 }) {
+  const applicableSlots = slots.filter((s) => s.priority[archetype] !== "not-applicable");
+
   return (
     <BottomSheet
       open={open}
@@ -28,7 +32,7 @@ export function MobileSlotPicker({
       snapPoints={[75, 92]}
     >
       <div className="p-3 space-y-3">
-        {slots.map((slot) => {
+        {applicableSlots.map((slot) => {
           const selectedId = selected[slot.id];
           const slotTools = slot.tools
             .map((id) => allTools.find((t) => t.id === id))
