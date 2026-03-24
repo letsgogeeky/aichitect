@@ -533,9 +533,9 @@ export default async function LandingPage() {
     {
       href: "/genome",
       label: "Genome",
-      tagline: "Score your AI stack",
+      tagline: "Is your stack production-ready?",
       description:
-        "Paste your dependency files and get a fitness score for your stack — see which slots are covered, which are missing, and what to add next.",
+        "Paste your package.json or requirements.txt and get a fitness score, slot coverage analysis, and an adversarial challenge of every tool choice.",
       Icon: IconGenome,
       accent: "#26de81",
       Preview: GenomePreview,
@@ -1077,6 +1077,315 @@ export default async function LandingPage() {
                 </span>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Genome feature callout ── */}
+      <section
+        style={{
+          borderTop: "1px solid #26de8118",
+          borderBottom: "1px solid #26de8118",
+          background: "linear-gradient(180deg, #0d120f 0%, #0a0a0f 100%)",
+          margin: "0 0 0 0",
+          padding: "72px 24px",
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        {/* Background glow */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            backgroundImage:
+              "radial-gradient(ellipse 800px 400px at 20% 50%, #26de8109 0%, transparent 70%)",
+            pointerEvents: "none",
+          }}
+        />
+
+        <div
+          style={{
+            maxWidth: 1100,
+            margin: "0 auto",
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: 64,
+            alignItems: "center",
+            position: "relative",
+          }}
+        >
+          {/* Left — copy */}
+          <div>
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 7,
+                padding: "4px 12px",
+                borderRadius: 20,
+                background: "#26de8112",
+                border: "1px solid #26de8133",
+                color: "#26de81",
+                fontSize: 11,
+                fontWeight: 600,
+                letterSpacing: "0.04em",
+                marginBottom: 24,
+              }}
+            >
+              <IconGenome />
+              Genome
+            </div>
+
+            <h2
+              style={{
+                fontSize: "clamp(26px, 3.5vw, 42px)",
+                fontWeight: 800,
+                letterSpacing: -1,
+                lineHeight: 1.1,
+                color: "#f0f0f8",
+                marginBottom: 16,
+              }}
+            >
+              You already have a stack.
+              <br />
+              <span style={{ color: "#26de81" }}>Is it any good?</span>
+            </h2>
+
+            <p
+              style={{
+                fontSize: 15,
+                color: "#6666aa",
+                lineHeight: 1.7,
+                marginBottom: 32,
+                maxWidth: 440,
+              }}
+            >
+              Paste your <code style={{ color: "#8888aa", fontSize: 13 }}>package.json</code> or{" "}
+              <code style={{ color: "#8888aa", fontSize: 13 }}>requirements.txt</code> and get a
+              fitness score for your AI stack — which slots are covered, which are missing, and
+              where you&apos;re leaving performance on the table.
+            </p>
+
+            {/* Feature pills */}
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 36 }}>
+              {[
+                { label: "Fitness score 0–100", color: "#26de81" },
+                { label: "Slot coverage analysis", color: "#00d4aa" },
+                { label: "Roast mode", color: "#ff6b6b" },
+                { label: "Challenge mode", color: "#7c6bff" },
+              ].map(({ label, color }) => (
+                <span
+                  key={label}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 5,
+                    padding: "5px 12px",
+                    borderRadius: 20,
+                    background: `${color}10`,
+                    border: `1px solid ${color}30`,
+                    fontSize: 12,
+                    fontWeight: 500,
+                    color,
+                  }}
+                >
+                  {label}
+                </span>
+              ))}
+            </div>
+
+            <Link
+              href="/genome"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "0 28px",
+                height: 50,
+                borderRadius: 12,
+                background: "#26de81",
+                color: "#0a0a0f",
+                fontSize: 15,
+                fontWeight: 700,
+                textDecoration: "none",
+                letterSpacing: -0.2,
+              }}
+            >
+              Scan my stack
+              <IconArrowRight />
+            </Link>
+          </div>
+
+          {/* Right — static Genome results mockup */}
+          <div
+            style={{
+              background: "#0e0e18",
+              border: "1px solid #26de8122",
+              borderRadius: 16,
+              overflow: "hidden",
+              boxShadow: "0 0 60px #26de8109",
+            }}
+          >
+            {/* Mock header */}
+            <div
+              style={{
+                padding: "12px 16px",
+                borderBottom: "1px solid #1e1e2e",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <span style={{ fontSize: 11, color: "#555577" }}>6 tools in your genome</span>
+              <span
+                style={{
+                  fontSize: 10,
+                  fontWeight: 600,
+                  color: "#26de81",
+                  background: "#26de8115",
+                  border: "1px solid #26de8133",
+                  borderRadius: 10,
+                  padding: "2px 8px",
+                }}
+              >
+                Production-Grade
+              </span>
+            </div>
+
+            {/* Mock body */}
+            <div style={{ padding: "20px 20px 24px", display: "flex", gap: 20 }}>
+              {/* Gauge */}
+              <div
+                style={{
+                  flexShrink: 0,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  gap: 8,
+                }}
+              >
+                <svg width="88" height="88" viewBox="0 0 88 88" fill="none">
+                  <circle cx="44" cy="44" r="34" stroke="#1e1e2e" strokeWidth="7" fill="none" />
+                  <circle
+                    cx="44"
+                    cy="44"
+                    r="34"
+                    stroke="#26de81"
+                    strokeWidth="7"
+                    fill="none"
+                    strokeDasharray="155 214"
+                    strokeLinecap="round"
+                    transform="rotate(-90 44 44)"
+                    opacity="0.9"
+                  />
+                  <text
+                    x="44"
+                    y="40"
+                    textAnchor="middle"
+                    fill="#f0f0f8"
+                    fontSize="15"
+                    fontWeight="700"
+                    fontFamily="monospace"
+                  >
+                    78
+                  </text>
+                  <text
+                    x="44"
+                    y="52"
+                    textAnchor="middle"
+                    fill="#555577"
+                    fontSize="7"
+                    fontFamily="monospace"
+                  >
+                    / 100
+                  </text>
+                </svg>
+                <span
+                  style={{ fontSize: 9, color: "#555577", textAlign: "center", lineHeight: 1.4 }}
+                >
+                  6 of 8<br />
+                  slots filled
+                </span>
+              </div>
+
+              {/* Slots + panels */}
+              <div
+                style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: 10 }}
+              >
+                {/* Filled slots */}
+                {[
+                  { slot: "Code Editor", tool: "Cursor", color: "#7c6bff" },
+                  { slot: "Agent Framework", tool: "LangGraph", color: "#26de81" },
+                  { slot: "LLM Provider", tool: "Claude API", color: "#00d4aa" },
+                  { slot: "Observability", tool: "Langfuse", color: "#fd9644" },
+                ].map(({ slot, tool, color }) => (
+                  <div
+                    key={slot}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      padding: "6px 10px",
+                      borderRadius: 7,
+                      background: `${color}0d`,
+                      border: `1px solid ${color}28`,
+                    }}
+                  >
+                    <span style={{ fontSize: 10, color: "#555577" }}>{slot}</span>
+                    <span style={{ fontSize: 10, fontWeight: 600, color }}>{tool} ✓</span>
+                  </div>
+                ))}
+                {/* Missing slots */}
+                {[
+                  { slot: "Eval Layer", suggest: "PromptFoo" },
+                  { slot: "Vector DB", suggest: "Qdrant" },
+                ].map(({ slot, suggest }) => (
+                  <div
+                    key={slot}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      padding: "6px 10px",
+                      borderRadius: 7,
+                      background: "#ffffff04",
+                      border: "1px solid #1e1e2e",
+                    }}
+                  >
+                    <span style={{ fontSize: 10, color: "#333355" }}>{slot}</span>
+                    <span style={{ fontSize: 10, color: "#333355" }}>→ {suggest}</span>
+                  </div>
+                ))}
+
+                {/* Roast line */}
+                <div
+                  style={{
+                    marginTop: 2,
+                    padding: "8px 10px",
+                    borderRadius: 7,
+                    background: "#ff6b6b08",
+                    border: "1px solid #ff6b6b22",
+                    borderLeft: "2px solid #ff6b6b55",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: 9,
+                      fontWeight: 700,
+                      color: "#ff6b6b",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.06em",
+                    }}
+                  >
+                    🔥 Roast
+                  </span>
+                  <p style={{ margin: "4px 0 0", fontSize: 10, color: "#8888aa", lineHeight: 1.5 }}>
+                    No eval layer. You&apos;re shipping vibes to production.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
