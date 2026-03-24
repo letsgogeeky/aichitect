@@ -16,8 +16,14 @@ export function SlotGrid({ report }: { report: GenomeReport }) {
   // Only show slots that are applicable for this archetype (present in filled or missing)
   const applicableSlots = allSlots.filter((s) => filled.has(s.id) || missing.has(s.id));
 
+  // Optional missing slots without a suggestion have nothing actionable to show — exclude always.
   const visibleSlots = showOptional
-    ? applicableSlots
+    ? applicableSlots.filter((s) => {
+        if (filled.has(s.id)) return true;
+        const m = missing.get(s.id);
+        if (!m || m.priority !== "optional") return true;
+        return !!m.suggestTool;
+      })
     : applicableSlots.filter((s) => {
         if (filled.has(s.id)) return true;
         const m = missing.get(s.id);
@@ -26,7 +32,7 @@ export function SlotGrid({ report }: { report: GenomeReport }) {
 
   const hiddenOptionalCount = applicableSlots.filter((s) => {
     const m = missing.get(s.id);
-    return m && m.priority === "optional";
+    return m && m.priority === "optional" && !!m.suggestTool;
   }).length;
 
   return (
