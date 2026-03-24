@@ -56,6 +56,30 @@ export const WORKFLOW_GROUPS: { label: string; toolIds: string[] }[] = [
     label: "Product",
     toolIds: ["linear-ai", "height-ai", "cycle", "kraftful"],
   },
+  {
+    label: "Browser automation",
+    toolIds: ["browser-use", "stagehand", "skyvern", "firecrawl"],
+  },
+  {
+    label: "AI providers & infra",
+    toolIds: [
+      "anthropic-api",
+      "openai-api",
+      "google-gemini-api",
+      "groq",
+      "mistral-api",
+      "pinecone",
+      "weaviate",
+      "qdrant",
+      "chroma",
+      "langfuse",
+      "langsmith",
+      "helicone",
+      "litellm",
+      "vercel-ai-sdk",
+      "fastmcp",
+    ],
+  },
 ];
 
 export const PRIORITY_COLOR: Record<SlotPriority, string> = {

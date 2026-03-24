@@ -55,7 +55,9 @@
       "dev-productivity": "optional",
       "app-infrastructure": "not-applicable",
       "hybrid": "optional"
-    }
+    },
+    "suggest": "openhands",
+    "suggest_reason": "36K stars — OSS autonomous agent that handles full features and PRs end-to-end"
   },
   {
     "id": "agent-framework",
@@ -326,7 +328,9 @@
       "dev-productivity": "optional",
       "app-infrastructure": "optional",
       "hybrid": "optional"
-    }
+    },
+    "suggest": "mintlify",
+    "suggest_reason": "Auto-generates and hosts docs from your codebase — zero manual writing"
   },
   {
     "id": "product-mgmt",
@@ -346,7 +350,9 @@
       "dev-productivity": "optional",
       "app-infrastructure": "optional",
       "hybrid": "optional"
-    }
+    },
+    "suggest": "linear-ai",
+    "suggest_reason": "AI issue writing, triage, and summaries baked into the tool most engineering teams already use"
   },
   {
     "id": "specifications",
@@ -370,7 +376,9 @@
       "dev-productivity": "optional",
       "app-infrastructure": "optional",
       "hybrid": "optional"
-    }
+    },
+    "suggest": "mermaid",
+    "suggest_reason": "87K stars — text-to-diagram natively supported by GitHub and Notion, zero setup"
   },
   {
     "id": "fine-tuning",

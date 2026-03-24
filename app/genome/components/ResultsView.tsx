@@ -5,7 +5,7 @@ import Link from "next/link";
 import DetailPanel from "@/components/panels/DetailPanel";
 import { useGenomeData } from "../GenomeContext";
 import { GenomeReport, GenomeTier, TIER_COLORS } from "@/lib/genomeAnalysis";
-import { getCategoryColor, Tool } from "@/lib/types";
+import { getCategoryColor, Tool, StackArchetype } from "@/lib/types";
 import { SITE_URL } from "@/lib/constants";
 import { detectGraduation } from "@/lib/graduationDetection";
 import { FitnessGauge } from "./FitnessGauge";
@@ -37,6 +37,42 @@ function scoreNarrative(report: GenomeReport): string {
       : "A solid start. Fill in the recommended layers to level up.";
   }
   return "Just getting started. Add the required layers to build a real stack.";
+}
+
+const ARCHETYPE_LABEL: Record<StackArchetype, string> = {
+  "dev-productivity": "Dev Productivity",
+  "app-infrastructure": "App Infrastructure",
+  hybrid: "Hybrid Stack",
+};
+
+const ARCHETYPE_COLOR: Record<StackArchetype, string> = {
+  "dev-productivity": "#7c6bff",
+  "app-infrastructure": "#00d4aa",
+  hybrid: "#ff9f43",
+};
+
+function ArchetypeBadge({ archetype }: { archetype: StackArchetype }) {
+  const color = ARCHETYPE_COLOR[archetype];
+  return (
+    <div
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 5,
+        padding: "3px 8px",
+        borderRadius: 6,
+        background: `${color}18`,
+        border: `1px solid ${color}44`,
+        fontSize: 10,
+        fontWeight: 600,
+        color,
+        letterSpacing: "0.04em",
+        alignSelf: "center",
+      }}
+    >
+      {ARCHETYPE_LABEL[archetype]}
+    </div>
+  );
 }
 
 function ScoreNarrative({ report }: { report: GenomeReport }) {
@@ -246,6 +282,7 @@ export function ResultsView({
               gap: 12,
             }}
           >
+            <ArchetypeBadge archetype={report.archetype} />
             <FitnessGauge score={report.fitnessScore} tier={report.tier} />
             <ScoreNarrative report={report} />
             <div
@@ -263,7 +300,7 @@ export function ResultsView({
                 value={`${report.filledSlots.length} / ${report.filledSlots.length + report.missingSlots.length}`}
               />
               <Stat
-                label="Integration pairs"
+                label="Common pairings"
                 value={`${report.criticalPairsCovered} / ${report.criticalPairsTotal}`}
               />
             </div>

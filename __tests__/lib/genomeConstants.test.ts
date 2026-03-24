@@ -38,8 +38,8 @@ describe("INPUT_TABS", () => {
 // ─── WORKFLOW_GROUPS ─────────────────────────────────────────────────────────
 
 describe("WORKFLOW_GROUPS", () => {
-  it("has seven groups", () => {
-    expect(WORKFLOW_GROUPS).toHaveLength(7);
+  it("has nine groups", () => {
+    expect(WORKFLOW_GROUPS).toHaveLength(9);
   });
 
   it("every group has a label and at least one tool id", () => {

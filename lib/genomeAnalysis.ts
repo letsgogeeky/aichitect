@@ -32,7 +32,7 @@ export interface GenomeReport {
   fitnessScore: number;
   /** Label derived from score */
   tier: GenomeTier;
-  /** How many integrates-with pairs are relevant (at least one side detected) */
+  /** How many commonly-paired-with edges are relevant (at least one side detected) */
   criticalPairsTotal: number;
   /** Of those, how many have both sides detected */
   criticalPairsCovered: number;
@@ -208,7 +208,14 @@ export function analyzeGenome(
 
   // ── 2. Critical pairs (integrates-with coverage) ──────────────────────────
 
-  const integrateEdges = relationships.filter((r) => r.type === "integrates-with");
+  // Use commonly-paired-with edges for pair coverage scoring — these capture
+  // tools that real teams use together, so having both sides is meaningful.
+  // integrates-with is a technical API edge; one side absent just means an
+  // unused capability, not a gap. Exclude context-qualified edges that don't
+  // apply to this archetype.
+  const integrateEdges = relationships.filter(
+    (r) => r.type === "commonly-paired-with" && (r.context == null || r.context === archetype)
+  );
 
   // Only edges where at least one side is in the detected set
   const relevantEdges = integrateEdges.filter(
