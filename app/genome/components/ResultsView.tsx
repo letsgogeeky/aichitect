@@ -14,6 +14,7 @@ import { SlotGrid } from "./SlotGrid";
 import { MissingPanel } from "./MissingPanel";
 import { GraduationBanner } from "./GraduationBanner";
 import { RoastPanel } from "./RoastPanel";
+import { ChallengePanel } from "./ChallengePanel";
 
 function scoreNarrative(report: GenomeReport): string {
   const critical = report.missingSlots.filter((m) => m.priority === "required").length;
@@ -367,6 +368,8 @@ export function ResultsView({
           <GraduationBanner allIds={allIds} />
 
           <RoastPanel report={report} allIds={allIds} />
+
+          <ChallengePanel report={report} allIds={allIds} />
 
           <div>
             <p
