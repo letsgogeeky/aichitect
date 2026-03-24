@@ -1,13 +1,15 @@
 "use client";
 
 import { useMemo } from "react";
-import { Slot, Tool, getCategoryColor } from "@/lib/types";
+import { Slot, Tool, StackArchetype, getCategoryColor } from "@/lib/types";
 
 interface Props {
   selected: Record<string, string>; // slotId → toolId
   slots: Slot[];
   allTools: Tool[];
   onAddTool: (slotId: string, toolId: string) => void;
+  /** Archetype used to resolve per-slot priority. Defaults to "hybrid" until AIC-68 adds detection. */
+  archetype?: StackArchetype;
 }
 
 interface SlotHealth {
@@ -41,7 +43,13 @@ const PROVIDER_LABEL: Record<string, string> = {
   cohere: "Cohere",
 };
 
-export default function StackHealthPanel({ selected, slots, allTools, onAddTool }: Props) {
+export default function StackHealthPanel({
+  selected,
+  slots,
+  allTools,
+  onAddTool,
+  archetype = "hybrid",
+}: Props) {
   // Collect all selected Tool objects that carry a provider tag
   const providerTools = useMemo(() => {
     return Object.values(selected)
@@ -97,8 +105,8 @@ export default function StackHealthPanel({ selected, slots, allTools, onAddTool 
     });
   }, [selected, slots, allTools, dominantProvider]);
 
-  const required = health.filter((h) => h.slot.priority === "required");
-  const recommended = health.filter((h) => h.slot.priority === "recommended");
+  const required = health.filter((h) => h.slot.priority[archetype] === "required");
+  const recommended = health.filter((h) => h.slot.priority[archetype] === "recommended");
 
   const requiredFilled = required.filter((h) => h.filled).length;
   const recommendedFilled = recommended.filter((h) => h.filled).length;

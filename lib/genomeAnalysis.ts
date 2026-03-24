@@ -1,4 +1,4 @@
-import type { Tool, Slot, Relationship } from "./types";
+import type { Tool, Slot, Relationship, StackArchetype, SlotPriority } from "./types";
 
 // ---------------------------------------------------------------------------
 // Output types
@@ -8,13 +8,13 @@ export interface FilledSlotInfo {
   slotId: string;
   slotName: string;
   tool: Tool;
-  priority: Slot["priority"];
+  priority: SlotPriority;
 }
 
 export interface MissingSlotInfo {
   slotId: string;
   slotName: string;
-  priority: Slot["priority"];
+  priority: SlotPriority;
   suggestTool?: Tool;
   suggestReason?: string;
 }
@@ -36,19 +36,37 @@ export interface GenomeReport {
   criticalPairsTotal: number;
   /** Of those, how many have both sides detected */
   criticalPairsCovered: number;
+  /** Detected stack archetype — used for archetype-aware slot scoring */
+  archetype: StackArchetype;
 }
 
 // ---------------------------------------------------------------------------
-// Score weights (must sum to 1)
+// Score weights — archetype-aware (must sum to 1 per archetype)
 // ---------------------------------------------------------------------------
-const SLOT_WEIGHT = 0.6;
-const PAIRS_WEIGHT = 0.4;
 
-// Slot priority weights — determines how much each slot type is worth
-const SLOT_PTS: Record<Slot["priority"], number> = {
-  required: 2,
-  recommended: 1,
-  optional: 0,
+// Dev-productivity stacks are scored purely on slot coverage because their
+// integrations point outward to LLMs/APIs that aren't scanned as tools
+// (Cursor integrates with Claude, not with Linear). Pairs scoring would
+// always read 0 and unfairly cap every dev stack at 60.
+const SLOT_WEIGHT: Record<StackArchetype, number> = {
+  "dev-productivity": 1.0,
+  "app-infrastructure": 0.6,
+  hybrid: 0.6,
+};
+const PAIRS_WEIGHT: Record<StackArchetype, number> = {
+  "dev-productivity": 0.0,
+  "app-infrastructure": 0.4,
+  hybrid: 0.4,
+};
+
+// Slot priority points — archetype-aware.
+// For dev-productivity, optional slots carry real weight (1 pt) because
+// almost everything beyond the first two slots is optional; without this,
+// filling 6 extra tools has zero scoring impact.
+const SLOT_PTS: Record<StackArchetype, Record<SlotPriority, number>> = {
+  "dev-productivity": { required: 4, recommended: 2, optional: 1, "not-applicable": 0 },
+  "app-infrastructure": { required: 2, recommended: 1, optional: 0, "not-applicable": 0 },
+  hybrid: { required: 2, recommended: 1, optional: 0, "not-applicable": 0 },
 };
 
 // ---------------------------------------------------------------------------
@@ -75,22 +93,56 @@ export const TIER_COLORS: Record<GenomeTier, string> = {
 };
 
 // ---------------------------------------------------------------------------
+// Archetype detection
+// ---------------------------------------------------------------------------
+
+/**
+ * Infers the stack archetype from the detected tools' use_context values.
+ *
+ * Rules:
+ *  - Tools with use_context "both" are context-agnostic and don't tip the scale.
+ *  - If strictly dev-productivity tools outnumber app-infrastructure tools → "dev-productivity"
+ *  - If strictly app-infrastructure tools outnumber dev-productivity tools → "app-infrastructure"
+ *  - Otherwise (equal counts or only "both" tools) → "hybrid"
+ */
+export function detectArchetype(detectedIds: string[], tools: Tool[]): StackArchetype {
+  const detectedTools = detectedIds
+    .map((id) => tools.find((t) => t.id === id))
+    .filter((t): t is Tool => !!t);
+
+  let devCount = 0;
+  let appCount = 0;
+
+  for (const tool of detectedTools) {
+    if (tool.use_context === "dev-productivity") devCount++;
+    else if (tool.use_context === "app-infrastructure") appCount++;
+    // "both" tools don't tip the scale
+  }
+
+  if (devCount > appCount) return "dev-productivity";
+  if (appCount > devCount) return "app-infrastructure";
+  return "hybrid";
+}
+
+// ---------------------------------------------------------------------------
 // Main analysis function
 // ---------------------------------------------------------------------------
 
 /**
  * Given a list of detected tool IDs, returns a complete GenomeReport.
  *
- * @param detectedIds — tool IDs confirmed present (from detectTools + manual additions)
- * @param tools       — full tools list
- * @param slots       — full slots list (with priority)
+ * @param detectedIds   — tool IDs confirmed present (from detectTools + manual additions)
+ * @param tools         — full tools list
+ * @param slots         — full slots list (with archetype-aware priority)
  * @param relationships — full relationships list
+ * @param archetype     — detected stack archetype; defaults to "hybrid" (shows all slots)
  */
 export function analyzeGenome(
   detectedIds: string[],
   tools: Tool[],
   slots: Slot[],
-  relationships: Relationship[]
+  relationships: Relationship[],
+  archetype: StackArchetype = "hybrid"
 ): GenomeReport {
   const detectedSet = new Set(detectedIds);
 
@@ -104,6 +156,11 @@ export function analyzeGenome(
   const missingSlots: MissingSlotInfo[] = [];
 
   for (const slot of slots) {
+    const slotPriority = slot.priority[archetype];
+
+    // Skip slots that don't apply to this archetype
+    if (slotPriority === "not-applicable") continue;
+
     const matchedId = slot.tools.find((tid) => detectedSet.has(tid));
 
     if (matchedId) {
@@ -112,14 +169,14 @@ export function analyzeGenome(
         slotId: slot.id,
         slotName: slot.name,
         tool,
-        priority: slot.priority,
+        priority: slotPriority,
       });
     } else {
       const suggestTool = slot.suggest ? tools.find((t) => t.id === slot.suggest) : undefined;
       missingSlots.push({
         slotId: slot.id,
         slotName: slot.name,
-        priority: slot.priority,
+        priority: slotPriority,
         suggestTool,
         suggestReason: slot.suggest_reason,
       });
@@ -127,19 +184,22 @@ export function analyzeGenome(
   }
 
   // Sort missing: required → recommended → optional
-  const PRIORITY_ORDER: Record<Slot["priority"], number> = {
+  const PRIORITY_ORDER: Record<SlotPriority, number> = {
     required: 0,
     recommended: 1,
     optional: 2,
+    "not-applicable": 3,
   };
   missingSlots.sort((a, b) => PRIORITY_ORDER[a.priority] - PRIORITY_ORDER[b.priority]);
 
-  // Compute slot score (weighted)
+  // Compute slot score (weighted) — only applicable slots count
   let maxPts = 0;
   let earnedPts = 0;
 
   for (const slot of slots) {
-    const pts = SLOT_PTS[slot.priority];
+    const slotPriority = slot.priority[archetype];
+    if (slotPriority === "not-applicable") continue;
+    const pts = SLOT_PTS[archetype][slotPriority];
     maxPts += pts;
     if (filledSlots.some((f) => f.slotId === slot.id)) earnedPts += pts;
   }
@@ -174,7 +234,7 @@ export function analyzeGenome(
 
   // ── 3. Composite fitness score ─────────────────────────────────────────────
 
-  const rawScore = slotScore * SLOT_WEIGHT + pairsScore * PAIRS_WEIGHT;
+  const rawScore = slotScore * SLOT_WEIGHT[archetype] + pairsScore * PAIRS_WEIGHT[archetype];
   const fitnessScore = Math.round(rawScore * 100);
 
   return {
@@ -185,5 +245,6 @@ export function analyzeGenome(
     tier: tierFromScore(fitnessScore),
     criticalPairsTotal: uniquePairs.length,
     criticalPairsCovered: coveredPairs.length,
+    archetype,
   };
 }

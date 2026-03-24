@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useMemo, Suspense, Component, ReactNode } from "react";
+import { useState, useMemo, useEffect, Suspense, Component, ReactNode } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Tool, Slot, Relationship, Stack } from "@/lib/types";
-import { analyzeGenome } from "@/lib/genomeAnalysis";
+import { analyzeGenome, detectArchetype } from "@/lib/genomeAnalysis";
 import { GenomeDataCtx, useGenomeData } from "./GenomeContext";
 import { GenomeStep } from "./genomeConstants";
 import { ScanStep } from "./components/ScanStep";
@@ -58,28 +58,33 @@ function GenomePageInner() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const urlDeps = useMemo(
-    () =>
-      (searchParams.get("deps") ?? "")
-        .split(",")
-        .map((s) => s.trim())
-        .filter(Boolean),
-    [searchParams]
-  );
-
-  const [step, setStep] = useState<GenomeStep>(urlDeps.length > 0 ? "results" : "scan");
-  const [detectedIds, setDetectedIds] = useState<string[]>(urlDeps);
+  // Always start in a consistent SSR-safe state; sync from URL after mount to avoid hydration mismatch
+  const [step, setStep] = useState<GenomeStep>("scan");
+  const [detectedIds, setDetectedIds] = useState<string[]>([]);
   const [workflowIds, setWorkflowIds] = useState<string[]>([]);
+
+  useEffect(() => {
+    const deps = (searchParams.get("deps") ?? "")
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean);
+    if (deps.length > 0) {
+      setDetectedIds(deps);
+      setStep("results");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const allIds = useMemo(
     () => [...new Set([...detectedIds, ...workflowIds])],
     [detectedIds, workflowIds]
   );
 
-  const report = useMemo(
-    () => (step === "results" ? analyzeGenome(allIds, allTools, allSlots, allRelationships) : null),
-    [step, allIds, allTools, allSlots, allRelationships]
-  );
+  const report = useMemo(() => {
+    if (step !== "results") return null;
+    const archetype = detectArchetype(allIds, allTools);
+    return analyzeGenome(allIds, allTools, allSlots, allRelationships, archetype);
+  }, [step, allIds, allTools, allSlots, allRelationships]);
 
   function handleScanNext(ids: string[]) {
     setDetectedIds(ids);

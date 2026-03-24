@@ -27,6 +27,7 @@ export interface DbTool {
   aliases: Tool["aliases"];
   website_url: string | null;
   github_url: string | null;
+  use_context: Tool["use_context"];
 }
 
 export interface DbStack {
@@ -46,6 +47,7 @@ export interface DbStack {
   tradeoffs: string | null;
   complexity: "beginner" | "intermediate" | "advanced" | null;
   monthly_cost: string | null;
+  archetype: Stack["archetype"];
 }
 
 export interface DbSlot {
@@ -84,6 +86,7 @@ export const tools: DbTool[] = (toolsData as Tool[]).map((t) => ({
   aliases: t.aliases ?? { npm: [], pip: [], env_vars: [], config_files: [] },
   website_url: t.website_url ?? null,
   github_url: t.github_url ?? null,
+  use_context: t.use_context ?? "both",
 }));
 
 export const stacks: DbStack[] = (stacksData as Stack[]).map((s) => ({
@@ -103,6 +106,7 @@ export const stacks: DbStack[] = (stacksData as Stack[]).map((s) => ({
   tradeoffs: s.tradeoffs ?? null,
   complexity: s.complexity ?? null,
   monthly_cost: s.monthly_cost ?? null,
+  archetype: s.archetype ?? "app-infrastructure",
 }));
 
 export const slots: DbSlot[] = (slotsData as Slot[]).map((s) => ({

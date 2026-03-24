@@ -260,7 +260,7 @@ export function ResultsView({
             >
               <Stat
                 label="Slots covered"
-                value={`${report.filledSlots.length} / ${allSlots.length}`}
+                value={`${report.filledSlots.length} / ${report.filledSlots.length + report.missingSlots.length}`}
               />
               <Stat
                 label="Integration pairs"
@@ -342,7 +342,8 @@ export function ResultsView({
                 margin: "0 0 10px",
               }}
             >
-              Stack genome — {report.filledSlots.length} of {allSlots.length} slots filled
+              Stack genome — {report.filledSlots.length} of{" "}
+              {report.filledSlots.length + report.missingSlots.length} slots filled
             </p>
             <SlotGrid report={report} />
           </div>

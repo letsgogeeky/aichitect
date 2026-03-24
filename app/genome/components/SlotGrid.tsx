@@ -13,13 +13,21 @@ export function SlotGrid({ report }: { report: GenomeReport }) {
   const filled = new Map(report.filledSlots.map((f) => [f.slotId, f]));
   const missing = new Map(report.missingSlots.map((m) => [m.slotId, m]));
 
-  const visibleSlots = showOptional
-    ? allSlots
-    : allSlots.filter((s) => filled.has(s.id) || s.priority !== "optional");
+  // Only show slots that are applicable for this archetype (present in filled or missing)
+  const applicableSlots = allSlots.filter((s) => filled.has(s.id) || missing.has(s.id));
 
-  const hiddenOptionalCount = allSlots.filter(
-    (s) => !filled.has(s.id) && s.priority === "optional"
-  ).length;
+  const visibleSlots = showOptional
+    ? applicableSlots
+    : applicableSlots.filter((s) => {
+        if (filled.has(s.id)) return true;
+        const m = missing.get(s.id);
+        return m ? m.priority !== "optional" : false;
+      });
+
+  const hiddenOptionalCount = applicableSlots.filter((s) => {
+    const m = missing.get(s.id);
+    return m && m.priority === "optional";
+  }).length;
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
@@ -33,7 +41,9 @@ export function SlotGrid({ report }: { report: GenomeReport }) {
         {visibleSlots.map((slot) => {
           const f = filled.get(slot.id);
           const m = missing.get(slot.id);
-          const color = f ? getCategoryColor(f.tool.category) : PRIORITY_COLOR[slot.priority];
+          const color = f
+            ? getCategoryColor(f.tool.category)
+            : PRIORITY_COLOR[m?.priority ?? "optional"];
           const suggestTool = m?.suggestTool
             ? allTools.find((t) => t.id === m.suggestTool!.id)
             : undefined;

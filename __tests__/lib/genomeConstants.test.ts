@@ -74,6 +74,7 @@ describe("PRIORITY_COLOR", () => {
     expect(PRIORITY_COLOR.required).toBeDefined();
     expect(PRIORITY_COLOR.recommended).toBeDefined();
     expect(PRIORITY_COLOR.optional).toBeDefined();
+    expect(PRIORITY_COLOR["not-applicable"]).toBeDefined();
   });
 
   it("all values are valid hex color strings", () => {

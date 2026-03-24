@@ -14,6 +14,7 @@ Instead, report it privately via one of these channels:
 - **Email:** open a GitHub issue asking for a private contact and a maintainer will reply with an email address
 
 Please include:
+
 - A description of the issue
 - Steps to reproduce or a proof of concept
 - The potential impact

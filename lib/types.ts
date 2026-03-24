@@ -121,12 +121,15 @@ export const STACK_CLUSTERS: { id: StackCluster; label: string; tagline: string 
   { id: "understand", label: "Understand", tagline: "Data is the product" },
 ];
 
+export type SlotPriority = "required" | "recommended" | "optional" | "not-applicable";
+
 export interface Slot {
   id: string;
   name: string;
   description: string;
   tools: string[];
-  priority: "required" | "recommended" | "optional";
+  /** Per-archetype priority — use the detected stack archetype to look up the right value */
+  priority: Record<StackArchetype, SlotPriority>;
   suggest?: string; // tool id to recommend when slot is empty
   suggest_reason?: string; // one-line reason shown in health panel
 }
