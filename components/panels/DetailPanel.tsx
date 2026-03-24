@@ -152,6 +152,9 @@ export default function DetailPanel({ tool, onClose }: Props) {
                     {formatStarDelta(healthDetails.starDelta).text}
                   </span>
                 )}
+                <span className="text-[10px] text-[var(--text-muted)] opacity-60">
+                  · synced {formatRelativeTime(tool.last_synced_at)}
+                </span>
               </div>
             )}
             {tool.health_score != null && (

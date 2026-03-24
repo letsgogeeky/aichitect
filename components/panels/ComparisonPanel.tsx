@@ -18,6 +18,7 @@ import {
   ChooseIfCard,
   ToolPill,
 } from "@/components/comparison";
+import { formatRelativeTime } from "@/lib/format";
 
 const relationships = relationshipsData as Relationship[];
 const allTools = toolsData as Tool[];
@@ -222,6 +223,18 @@ export default function ComparisonPanel({ toolA, toolB, onClose, onSwap }: Compa
               <span className="text-xs text-[var(--text-muted)]">—</span>
             )}
           </Row>
+
+          {/* Synced */}
+          {(toolA.last_synced_at || toolB.last_synced_at) && (
+            <Row label="Synced">
+              <span className="text-xs text-[var(--text-muted)]">
+                {toolA.last_synced_at ? formatRelativeTime(toolA.last_synced_at) : "—"}
+              </span>
+              <span className="text-xs text-[var(--text-muted)]">
+                {toolB.last_synced_at ? formatRelativeTime(toolB.last_synced_at) : "—"}
+              </span>
+            </Row>
+          )}
         </div>
 
         {/* Descriptions */}
