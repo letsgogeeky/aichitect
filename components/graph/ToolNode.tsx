@@ -18,6 +18,21 @@ function formatStars(n: number): string {
   return String(n);
 }
 
+function isNewTool(added_at: string | null | undefined): boolean {
+  if (!added_at) return false;
+  const ms = Date.now() - new Date(added_at).getTime();
+  return ms < 30 * 24 * 60 * 60 * 1000;
+}
+
+function formatSyncedDate(iso: string): string {
+  const days = Math.floor((Date.now() - new Date(iso).getTime()) / (1000 * 60 * 60 * 24));
+  if (days === 0) return "today";
+  if (days === 1) return "yesterday";
+  if (days < 7) return `${days}d ago`;
+  if (days < 30) return `${Math.floor(days / 7)}w ago`;
+  return new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric" });
+}
+
 function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
   const color = getCategoryColor(data.category);
   // Expansion is explicit only — driven by data.expanded, never by ReactFlow's selected state.
@@ -28,6 +43,7 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
   const nodeWidth = isExpanded ? 280 : isProminent ? 220 : 190;
   const isOss = data.type === "oss";
   const hasFree = data.pricing.free_tier;
+  const isNew = isNewTool(data.added_at);
 
   return (
     <div
@@ -143,8 +159,8 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
           </span>
         </div>
 
-        {/* OSS + Free Tier + Stale tags */}
-        {(isOss || hasFree || data.is_stale) && (
+        {/* OSS + Free Tier + Stale + New tags */}
+        {(isOss || hasFree || data.is_stale || isNew) && (
           <div className="flex items-center gap-1.5 mb-1.5 flex-wrap">
             {isOss && (
               <span
@@ -197,6 +213,23 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
                 ⚠ Stale
               </span>
             )}
+            {isNew && (
+              <span
+                style={{
+                  fontSize: 9,
+                  padding: "2px 7px",
+                  borderRadius: 4,
+                  background: "#7c6bff20",
+                  color: "var(--accent)",
+                  border: "1px solid #7c6bff44",
+                  fontWeight: 600,
+                  letterSpacing: 0.3,
+                  lineHeight: 1.6,
+                }}
+              >
+                ✦ New
+              </span>
+            )}
           </div>
         )}
 
@@ -221,6 +254,16 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
             style={{ animation: "fadeIn 180ms ease" }}
           >
             {data.description}
+          </p>
+        )}
+
+        {/* Sync timestamp — only when expanded and data is present */}
+        {isExpanded && data.last_synced_at && (
+          <p
+            className="text-[9px] text-[var(--text-muted)]"
+            style={{ marginBottom: 6, opacity: 0.6 }}
+          >
+            Synced {formatSyncedDate(data.last_synced_at)}
           </p>
         )}
 

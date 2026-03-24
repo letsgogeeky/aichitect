@@ -68,6 +68,8 @@ export interface Tool {
   health_score?: number | null; // 0–100 composite score
   last_synced_at?: string | null; // ISO timestamp of last GitHub sync
   is_stale?: boolean | null; // true if no commits in 90d or repo is archived
+  /** ISO date when this tool was first added to the directory — drives "New" badge */
+  added_at?: string | null;
 }
 
 export interface Relationship {
