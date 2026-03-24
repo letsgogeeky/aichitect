@@ -9,7 +9,7 @@ ALTER TABLE slots
   DROP CONSTRAINT IF EXISTS slots_priority_check;
 
 ALTER TABLE slots
-  ALTER COLUMN priority TYPE jsonb USING priority::jsonb;
+  ALTER COLUMN priority TYPE jsonb USING to_jsonb(priority);
 
 -- 2. Back-fill all 20 slots with their per-archetype priority maps.
 UPDATE slots SET priority = '{"dev-productivity": "required", "app-infrastructure": "not-applicable", "hybrid": "optional"}' WHERE id = 'code-editor';
