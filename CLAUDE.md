@@ -114,7 +114,7 @@ components/
     Logo.tsx            → inline SVG 3-node graph logo on gradient rect; id + size props
 data/
   tools.json            → 207 tools, 17 categories
-  relationships.json    → ~455 edges (integrates-with / often-used-together / competes-with)
+  relationships.json    → ~452 edges (integrates-with / often-used-together / competes-with)
   stacks.json           → 25 curated stacks with flow edges
   slots.json            → 20 slot types for the Builder
 lib/
