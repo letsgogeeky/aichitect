@@ -41,6 +41,10 @@
   box-sizing: border-box;
 }
 
+button {
+  cursor: pointer;
+}
+
 body {
   background: var(--bg);
   color: var(--text-primary);
