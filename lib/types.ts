@@ -1,5 +1,9 @@
 export type ToolType = "oss" | "commercial";
 
+export type UseContext = "dev-productivity" | "app-infrastructure" | "both";
+
+export type StackArchetype = "dev-productivity" | "app-infrastructure" | "hybrid";
+
 export type RelationshipType = "integrates-with" | "commonly-paired-with" | "competes-with";
 
 export type CategoryId =
@@ -58,6 +62,8 @@ export interface Tool {
   aliases?: ToolAliases; // Stack Genome detection signals
   website_url: string | null;
   github_url: string | null;
+  /** Which paradigm this tool belongs to — used by the Genome for archetype detection */
+  use_context: UseContext;
   // Health fields populated by nightly GitHub sync (AIC-9)
   health_score?: number | null; // 0–100 composite score
   last_synced_at?: string | null; // ISO timestamp of last GitHub sync
@@ -99,6 +105,7 @@ export interface Stack {
   not_in_stack: StackRejection[];
   kill_conditions: string[];
   graduates_to?: string;
+  archetype: StackArchetype;
   tags?: string[];
   why?: string;
   tradeoffs?: string;
@@ -114,12 +121,15 @@ export const STACK_CLUSTERS: { id: StackCluster; label: string; tagline: string 
   { id: "understand", label: "Understand", tagline: "Data is the product" },
 ];
 
+export type SlotPriority = "required" | "recommended" | "optional" | "not-applicable";
+
 export interface Slot {
   id: string;
   name: string;
   description: string;
   tools: string[];
-  priority: "required" | "recommended" | "optional";
+  /** Per-archetype priority — use the detected stack archetype to look up the right value */
+  priority: Record<StackArchetype, SlotPriority>;
   suggest?: string; // tool id to recommend when slot is empty
   suggest_reason?: string; // one-line reason shown in health panel
 }

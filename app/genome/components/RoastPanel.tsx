@@ -12,10 +12,24 @@ interface RoastPanelProps {
 
 type RoastState = "idle" | "loading" | "done" | "error";
 
+const ROAST_LEVELS = [
+  { level: 1, name: "Gentle Nudge", color: "#00d4aa" },
+  { level: 2, name: "Honest Opinion", color: "#7c6bff" },
+  { level: 3, name: "No Mercy", color: "#fd9644" },
+  { level: 4, name: "Brutally Honest", color: "#ff6b6b" },
+  { level: 5, name: "Full Destruction", color: "#ff2255" },
+] as const;
+
+const DEFAULT_LEVEL = 3;
+
 export function RoastPanel({ report, allIds }: RoastPanelProps) {
   const [state, setState] = useState<RoastState>("idle");
   const [lines, setLines] = useState<string[]>([]);
   const [tweetCopied, setTweetCopied] = useState(false);
+  const [roastnessLevel, setRoastnessLevel] = useState(DEFAULT_LEVEL);
+
+  const currentLevel = ROAST_LEVELS[roastnessLevel - 1];
+  const accentColor = state === "done" ? currentLevel.color : "#ff6b6b";
 
   async function requestRoast() {
     setState("loading");
@@ -32,6 +46,7 @@ export function RoastPanel({ report, allIds }: RoastPanelProps) {
         .map((s) => s.slotName),
       criticalPairsCovered: report.criticalPairsCovered,
       criticalPairsTotal: report.criticalPairsTotal,
+      roastnessLevel: roastnessLevel as 1 | 2 | 3 | 4 | 5,
     };
 
     try {
@@ -49,6 +64,11 @@ export function RoastPanel({ report, allIds }: RoastPanelProps) {
     } catch {
       setState("error");
     }
+  }
+
+  function handleReRoast() {
+    setLines([]);
+    setState("idle");
   }
 
   function shareRoast() {
@@ -76,7 +96,7 @@ export function RoastPanel({ report, allIds }: RoastPanelProps) {
     <div
       style={{
         background: "var(--surface)",
-        border: "1px solid #2e1e1e",
+        border: `1px solid ${accentColor}22`,
         borderRadius: 12,
         overflow: "hidden",
       }}
@@ -88,7 +108,7 @@ export function RoastPanel({ report, allIds }: RoastPanelProps) {
           alignItems: "center",
           justifyContent: "space-between",
           padding: "10px 14px",
-          borderBottom: state === "done" ? "1px solid #2e1e1e" : "none",
+          borderBottom: state === "done" ? `1px solid ${accentColor}22` : "none",
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
@@ -99,94 +119,160 @@ export function RoastPanel({ report, allIds }: RoastPanelProps) {
               fontWeight: 700,
               textTransform: "uppercase",
               letterSpacing: "0.08em",
-              color: "#ff6b6b",
+              color: accentColor,
             }}
           >
             Roast my stack
           </span>
         </div>
 
-        {state === "idle" && (
-          <button
-            onClick={requestRoast}
-            style={{
-              padding: "4px 12px",
-              height: 28,
-              borderRadius: 7,
-              fontSize: 11,
-              fontWeight: 500,
-              background: "#ff6b6b18",
-              border: "1px solid #ff6b6b44",
-              color: "#ff6b6b",
-              cursor: "pointer",
-              whiteSpace: "nowrap",
-            }}
-          >
-            Get roasted
-          </button>
-        )}
-
-        {state === "loading" && (
-          <span style={{ fontSize: 11, color: "#555577" }}>reading your stack…</span>
-        )}
-
-        {state === "error" && (
-          <button
-            onClick={requestRoast}
-            style={{
-              padding: "4px 12px",
-              height: 28,
-              borderRadius: 7,
-              fontSize: 11,
-              fontWeight: 500,
-              background: "#ffffff08",
-              border: "1px solid #1e1e2e",
-              color: "#8888aa",
-              cursor: "pointer",
-            }}
-          >
-            Try again
-          </button>
-        )}
-
-        {state === "done" && (
-          <div style={{ display: "flex", gap: 6 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          {state === "idle" && (
             <button
-              onClick={shareRoast}
+              onClick={requestRoast}
               style={{
                 padding: "4px 12px",
                 height: 28,
                 borderRadius: 7,
                 fontSize: 11,
                 fontWeight: 500,
-                background: "#ff6b6b18",
-                border: "1px solid #ff6b6b44",
-                color: "#ff6b6b",
+                background: `${accentColor}18`,
+                border: `1px solid ${accentColor}44`,
+                color: accentColor,
                 cursor: "pointer",
                 whiteSpace: "nowrap",
               }}
             >
-              Share on X
+              Get roasted
             </button>
+          )}
+
+          {state === "loading" && (
+            <span style={{ fontSize: 11, color: "#555577" }}>reading your stack…</span>
+          )}
+
+          {state === "error" && (
             <button
-              onClick={copyRoast}
+              onClick={requestRoast}
               style={{
                 padding: "4px 12px",
                 height: 28,
                 borderRadius: 7,
                 fontSize: 11,
                 fontWeight: 500,
-                background: tweetCopied ? "#00d4aa18" : "#ffffff08",
-                border: `1px solid ${tweetCopied ? "#00d4aa44" : "#1e1e2e"}`,
-                color: tweetCopied ? "#00d4aa" : "#8888aa",
+                background: "#ffffff08",
+                border: "1px solid #1e1e2e",
+                color: "#8888aa",
                 cursor: "pointer",
-                whiteSpace: "nowrap",
               }}
             >
-              {tweetCopied ? "Copied!" : "Copy"}
+              Try again
             </button>
-          </div>
-        )}
+          )}
+
+          {state === "done" && (
+            <>
+              <button
+                onClick={handleReRoast}
+                style={{
+                  padding: "4px 12px",
+                  height: 28,
+                  borderRadius: 7,
+                  fontSize: 11,
+                  fontWeight: 500,
+                  background: "#ffffff08",
+                  border: "1px solid #1e1e2e",
+                  color: "#8888aa",
+                  cursor: "pointer",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                Re-roast
+              </button>
+              <button
+                onClick={shareRoast}
+                style={{
+                  padding: "4px 12px",
+                  height: 28,
+                  borderRadius: 7,
+                  fontSize: 11,
+                  fontWeight: 500,
+                  background: `${accentColor}18`,
+                  border: `1px solid ${accentColor}44`,
+                  color: accentColor,
+                  cursor: "pointer",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                Share on X
+              </button>
+              <button
+                onClick={copyRoast}
+                style={{
+                  padding: "4px 12px",
+                  height: 28,
+                  borderRadius: 7,
+                  fontSize: 11,
+                  fontWeight: 500,
+                  background: tweetCopied ? "#00d4aa18" : "#ffffff08",
+                  border: `1px solid ${tweetCopied ? "#00d4aa44" : "#1e1e2e"}`,
+                  color: tweetCopied ? "#00d4aa" : "#8888aa",
+                  cursor: "pointer",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {tweetCopied ? "Copied!" : "Copy"}
+              </button>
+            </>
+          )}
+        </div>
+      </div>
+
+      {/* Slider — always visible */}
+      <div
+        style={{
+          padding: "10px 14px",
+          borderBottom: state === "done" ? `1px solid ${accentColor}22` : "none",
+          display: "flex",
+          alignItems: "center",
+          gap: 10,
+        }}
+      >
+        <span style={{ fontSize: 10, color: "#555577", whiteSpace: "nowrap" }}>Gentle Nudge</span>
+        <div style={{ flex: 1, position: "relative" }}>
+          <input
+            type="range"
+            min={1}
+            max={5}
+            step={1}
+            value={roastnessLevel}
+            disabled={state === "loading"}
+            onChange={(e) => {
+              setRoastnessLevel(Number(e.target.value));
+              if (state === "done") setState("idle");
+            }}
+            style={{
+              width: "100%",
+              accentColor: currentLevel.color,
+              cursor: state === "loading" ? "not-allowed" : "pointer",
+            }}
+          />
+        </div>
+        <span style={{ fontSize: 10, color: "#555577", whiteSpace: "nowrap" }}>
+          Full Destruction
+        </span>
+        <span
+          style={{
+            fontSize: 10,
+            fontWeight: 600,
+            color: currentLevel.color,
+            whiteSpace: "nowrap",
+            minWidth: 90,
+            textAlign: "right",
+          }}
+        >
+          {currentLevel.name}
+        </span>
       </div>
 
       {/* Roast lines */}
@@ -208,7 +294,7 @@ export function RoastPanel({ report, allIds }: RoastPanelProps) {
                 lineHeight: 1.55,
                 color: "#f0f0f8",
                 paddingLeft: 10,
-                borderLeft: "2px solid #ff6b6b55",
+                borderLeft: `2px solid ${accentColor}55`,
               }}
             >
               {line}

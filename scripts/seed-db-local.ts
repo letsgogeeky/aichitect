@@ -25,12 +25,13 @@ async function main(): Promise<void> {
         `INSERT INTO tools
            (id, name, category, tagline, description, type, pricing,
             github_stars, slot, prominent, provider, choose_if, aliases,
-            website_url, github_url)
-         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)
+            website_url, github_url, use_context)
+         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16)
          ON CONFLICT (id) DO UPDATE SET
            name=$2, category=$3, tagline=$4, description=$5, type=$6,
            pricing=$7, github_stars=$8, slot=$9, prominent=$10, provider=$11,
-           choose_if=$12, aliases=$13, website_url=$14, github_url=$15`,
+           choose_if=$12, aliases=$13, website_url=$14, github_url=$15,
+           use_context=$16`,
         [
           t.id,
           t.name,
@@ -47,6 +48,7 @@ async function main(): Promise<void> {
           JSON.stringify(t.aliases),
           t.website_url,
           t.github_url,
+          t.use_context ?? "both",
         ]
       );
     }
@@ -61,13 +63,13 @@ async function main(): Promise<void> {
         `INSERT INTO stacks
            (id, name, description, target, cluster, mission, tools, flow,
             not_in_stack, kill_conditions, graduates_to, tags, why,
-            tradeoffs, complexity, monthly_cost)
-         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,NULL,$11,$12,$13,$14,$15)
+            tradeoffs, complexity, monthly_cost, archetype)
+         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,NULL,$11,$12,$13,$14,$15,$16)
          ON CONFLICT (id) DO UPDATE SET
            name=$2, description=$3, target=$4, cluster=$5, mission=$6,
            tools=$7, flow=$8, not_in_stack=$9, kill_conditions=$10,
            graduates_to=NULL, tags=$11, why=$12, tradeoffs=$13,
-           complexity=$14, monthly_cost=$15`,
+           complexity=$14, monthly_cost=$15, archetype=$16`,
         [
           s.id,
           s.name,
@@ -84,6 +86,7 @@ async function main(): Promise<void> {
           s.tradeoffs,
           s.complexity,
           s.monthly_cost,
+          s.archetype ?? "app-infrastructure",
         ]
       );
     }
@@ -107,7 +110,15 @@ async function main(): Promise<void> {
          ON CONFLICT (id) DO UPDATE SET
            name=$2, description=$3, tools=$4, priority=$5,
            suggest=$6, suggest_reason=$7`,
-        [s.id, s.name, s.description, s.tools, s.priority, s.suggest, s.suggest_reason]
+        [
+          s.id,
+          s.name,
+          s.description,
+          s.tools,
+          JSON.stringify(s.priority),
+          s.suggest,
+          s.suggest_reason,
+        ]
       );
     }
     console.log(`✓ slots: ${slots.length} rows`);

@@ -5,6 +5,7 @@
 AIchitect is an open and welcoming project. We expect all contributors to engage respectfully — in issues, pull requests, and any other project spaces.
 
 Specifically:
+
 - Be kind and constructive in feedback
 - Assume good intent
 - Stay on topic — this is a technical project

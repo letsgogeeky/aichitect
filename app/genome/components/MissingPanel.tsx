@@ -9,7 +9,9 @@ export function MissingPanel({
   report: GenomeReport;
   onLearnMore: (tool: Tool) => void;
 }) {
-  const visible = report.missingSlots.filter((m) => m.priority !== "optional");
+  // Always show required + recommended missing slots.
+  // Also show optional slots that have an actionable suggestion.
+  const visible = report.missingSlots.filter((m) => m.priority !== "optional" || m.suggestTool);
   if (visible.length === 0) return null;
 
   return (

@@ -1,4 +1,4 @@
-import { Slot } from "@/lib/types";
+import type { SlotPriority } from "@/lib/types";
 
 export type GenomeStep = "scan" | "workflow" | "results";
 
@@ -58,8 +58,9 @@ export const WORKFLOW_GROUPS: { label: string; toolIds: string[] }[] = [
   },
 ];
 
-export const PRIORITY_COLOR: Record<Slot["priority"], string> = {
+export const PRIORITY_COLOR: Record<SlotPriority, string> = {
   required: "#ff6b6b",
   recommended: "#fd9644",
   optional: "#555577",
+  "not-applicable": "#2a2a3a",
 };

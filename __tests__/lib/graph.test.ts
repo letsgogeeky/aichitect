@@ -62,11 +62,7 @@ describe("swimlaneLayout", () => {
   const getLayerIndex = (id: string) => (id === "a" ? 0 : id === "b" ? 1 : -1);
 
   it("produces a lane node for each non-empty layer", () => {
-    const { laneNodes } = swimlaneLayout(
-      [makeNode("a"), makeNode("b")],
-      getLayerIndex,
-      layers
-    );
+    const { laneNodes } = swimlaneLayout([makeNode("a"), makeNode("b")], getLayerIndex, layers);
     expect(laneNodes).toHaveLength(2);
     expect(laneNodes[0].data.label).toBe("Development");
     expect(laneNodes[1].data.label).toBe("AI Logic");
@@ -80,11 +76,7 @@ describe("swimlaneLayout", () => {
   });
 
   it("places orphan nodes after all lanes", () => {
-    const { toolNodes } = swimlaneLayout(
-      [makeNode("a"), makeNode("c")],
-      getLayerIndex,
-      layers
-    );
+    const { toolNodes } = swimlaneLayout([makeNode("a"), makeNode("c")], getLayerIndex, layers);
     const orphan = toolNodes.find((n) => n.id === "c");
     const layered = toolNodes.find((n) => n.id === "a");
     expect(orphan).toBeDefined();

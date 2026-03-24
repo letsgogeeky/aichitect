@@ -34,7 +34,8 @@
       "config_files": [".cursor/settings.json", ".cursorrules", ".cursorignore"]
     },
     "website_url": "https://cursor.sh",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "github-copilot",
@@ -72,7 +73,8 @@
       "config_files": [".github/copilot-instructions.md"]
     },
     "website_url": "https://github.com/features/copilot",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "windsurf",
@@ -104,7 +106,8 @@
       "config_files": [".windsurfrules"]
     },
     "website_url": "https://windsurf.com",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "zed",
@@ -131,7 +134,8 @@
       "config_files": [".zed/settings.json"]
     },
     "website_url": "https://zed.dev",
-    "github_url": "https://github.com/zed-industries/zed"
+    "github_url": "https://github.com/zed-industries/zed",
+    "use_context": "dev-productivity"
   },
   {
     "id": "continue",
@@ -158,7 +162,8 @@
       "config_files": [".continue/config.json", ".continue/config.ts", ".continue/"]
     },
     "website_url": "https://continue.dev",
-    "github_url": "https://github.com/continuedev/continue"
+    "github_url": "https://github.com/continuedev/continue",
+    "use_context": "dev-productivity"
   },
   {
     "id": "aider",
@@ -185,7 +190,8 @@
       "config_files": [".aider.conf.yml", ".aider.model.settings.yml"]
     },
     "website_url": "https://aider.chat",
-    "github_url": "https://github.com/paul-gauthier/aider"
+    "github_url": "https://github.com/paul-gauthier/aider",
+    "use_context": "dev-productivity"
   },
   {
     "id": "claude-code",
@@ -218,7 +224,8 @@
       "config_files": [".claude/settings.json", "CLAUDE.md"]
     },
     "website_url": "https://claude.ai/code",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "tabnine",
@@ -250,7 +257,8 @@
       "config_files": [".tabnine/"]
     },
     "website_url": "https://tabnine.com",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "supermaven",
@@ -282,7 +290,8 @@
       "config_files": []
     },
     "website_url": "https://supermaven.com",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "plandex",
@@ -314,7 +323,8 @@
       "config_files": [".plandex/"]
     },
     "website_url": "https://plandex.ai",
-    "github_url": "https://github.com/plandex-ai/plandex"
+    "github_url": "https://github.com/plandex-ai/plandex",
+    "use_context": "dev-productivity"
   },
   {
     "id": "goose",
@@ -341,7 +351,8 @@
       "config_files": [".goose/"]
     },
     "website_url": "https://block.github.io/goose",
-    "github_url": "https://github.com/block/goose"
+    "github_url": "https://github.com/block/goose",
+    "use_context": "dev-productivity"
   },
   {
     "id": "aide",
@@ -368,7 +379,8 @@
       "config_files": [".aide/"]
     },
     "website_url": "https://aide.dev",
-    "github_url": "https://github.com/codestoryai/aide"
+    "github_url": "https://github.com/codestoryai/aide",
+    "use_context": "dev-productivity"
   },
   {
     "id": "replit-ghostwriter",
@@ -400,7 +412,8 @@
       "config_files": []
     },
     "website_url": "https://replit.com/ai",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "jetbrains-ai",
@@ -432,7 +445,8 @@
       "config_files": []
     },
     "website_url": "https://www.jetbrains.com/ai",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "cline",
@@ -459,7 +473,8 @@
       "config_files": [".cline/"]
     },
     "website_url": "https://cline.bot",
-    "github_url": "https://github.com/cline/cline"
+    "github_url": "https://github.com/cline/cline",
+    "use_context": "dev-productivity"
   },
   {
     "id": "bolt-new",
@@ -491,7 +506,8 @@
       "config_files": []
     },
     "website_url": "https://bolt.new",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "devin",
@@ -524,7 +540,8 @@
       "config_files": []
     },
     "website_url": "https://cognition.ai",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "openhands",
@@ -552,7 +569,8 @@
       "config_files": [".openhands/"]
     },
     "website_url": "https://docs.all-hands.dev",
-    "github_url": "https://github.com/All-Hands-AI/OpenHands"
+    "github_url": "https://github.com/All-Hands-AI/OpenHands",
+    "use_context": "dev-productivity"
   },
   {
     "id": "swe-agent",
@@ -579,7 +597,8 @@
       "config_files": []
     },
     "website_url": "https://swe-agent.com",
-    "github_url": "https://github.com/princeton-nlp/SWE-agent"
+    "github_url": "https://github.com/princeton-nlp/SWE-agent",
+    "use_context": "dev-productivity"
   },
   {
     "id": "crewai",
@@ -607,7 +626,8 @@
       "config_files": []
     },
     "website_url": "https://crewai.com",
-    "github_url": "https://github.com/joaomdmoura/crewAI"
+    "github_url": "https://github.com/joaomdmoura/crewAI",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "autogen",
@@ -635,7 +655,8 @@
       "config_files": []
     },
     "website_url": "https://microsoft.github.io/autogen",
-    "github_url": "https://github.com/microsoft/autogen"
+    "github_url": "https://github.com/microsoft/autogen",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "langgraph",
@@ -665,7 +686,8 @@
     "github_url": "https://github.com/langchain-ai/langgraph",
     "health_score": 85,
     "last_synced_at": "2026-03-21T02:00:00Z",
-    "is_stale": false
+    "is_stale": false,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "metagpt",
@@ -692,7 +714,8 @@
       "config_files": []
     },
     "website_url": "https://metagpt.com",
-    "github_url": "https://github.com/geekan/MetaGPT"
+    "github_url": "https://github.com/geekan/MetaGPT",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "semantic-kernel",
@@ -719,7 +742,8 @@
       "config_files": []
     },
     "website_url": "https://learn.microsoft.com/en-us/semantic-kernel",
-    "github_url": "https://github.com/microsoft/semantic-kernel"
+    "github_url": "https://github.com/microsoft/semantic-kernel",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "lovable",
@@ -751,7 +775,8 @@
       "config_files": []
     },
     "website_url": "https://lovable.dev",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "gpt-pilot",
@@ -778,7 +803,8 @@
       "config_files": []
     },
     "website_url": "https://github.com/Pythagora-io/gpt-pilot",
-    "github_url": "https://github.com/Pythagora-io/gpt-pilot"
+    "github_url": "https://github.com/Pythagora-io/gpt-pilot",
+    "use_context": "dev-productivity"
   },
   {
     "id": "v0",
@@ -811,7 +837,8 @@
       "config_files": []
     },
     "website_url": "https://v0.dev",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "galileo",
@@ -843,7 +870,8 @@
       "config_files": []
     },
     "website_url": "https://www.usegalileo.ai",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "locofy",
@@ -879,7 +907,8 @@
       "config_files": []
     },
     "website_url": "https://locofy.ai",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "builder-io",
@@ -911,7 +940,8 @@
       "config_files": []
     },
     "website_url": "https://builder.io",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "framer-ai",
@@ -943,7 +973,8 @@
       "config_files": []
     },
     "website_url": "https://framer.com/ai",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "uizard",
@@ -975,7 +1006,8 @@
       "config_files": []
     },
     "website_url": "https://uizard.io",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "relume",
@@ -1007,7 +1039,8 @@
       "config_files": []
     },
     "website_url": "https://relume.io",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "webflow-ai",
@@ -1039,7 +1072,8 @@
       "config_files": []
     },
     "website_url": "https://webflow.com/ai",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "anima",
@@ -1071,7 +1105,8 @@
       "config_files": []
     },
     "website_url": "https://animaapp.com",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "kombai",
@@ -1103,7 +1138,8 @@
       "config_files": []
     },
     "website_url": "https://kombai.com",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "google-stitch",
@@ -1136,7 +1172,8 @@
       "config_files": []
     },
     "website_url": "https://stitch.withgoogle.com",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "langchain",
@@ -1173,7 +1210,8 @@
     "github_url": "https://github.com/langchain-ai/langchain",
     "health_score": 48,
     "last_synced_at": "2026-03-21T02:00:00Z",
-    "is_stale": false
+    "is_stale": false,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "llamaindex",
@@ -1201,7 +1239,8 @@
       "config_files": []
     },
     "website_url": "https://llamaindex.ai",
-    "github_url": "https://github.com/run-llama/llama_index"
+    "github_url": "https://github.com/run-llama/llama_index",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "dspy",
@@ -1228,7 +1267,8 @@
       "config_files": []
     },
     "website_url": "https://dspy-docs.vercel.app",
-    "github_url": "https://github.com/stanfordnlp/dspy"
+    "github_url": "https://github.com/stanfordnlp/dspy",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "flowise",
@@ -1263,7 +1303,8 @@
     "github_url": "https://github.com/FlowiseAI/Flowise",
     "health_score": 22,
     "last_synced_at": "2026-03-21T02:00:00Z",
-    "is_stale": true
+    "is_stale": true,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "dify",
@@ -1296,7 +1337,8 @@
       "config_files": []
     },
     "website_url": "https://dify.ai",
-    "github_url": "https://github.com/langgenius/dify"
+    "github_url": "https://github.com/langgenius/dify",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "n8n",
@@ -1329,7 +1371,8 @@
       "config_files": []
     },
     "website_url": "https://n8n.io",
-    "github_url": "https://github.com/n8n-io/n8n"
+    "github_url": "https://github.com/n8n-io/n8n",
+    "use_context": "both"
   },
   {
     "id": "haystack",
@@ -1361,7 +1404,8 @@
       "config_files": []
     },
     "website_url": "https://haystack.deepset.ai",
-    "github_url": "https://github.com/deepset-ai/haystack"
+    "github_url": "https://github.com/deepset-ai/haystack",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "langflow",
@@ -1393,7 +1437,8 @@
       "config_files": []
     },
     "website_url": "https://langflow.org",
-    "github_url": "https://github.com/langflow-ai/langflow"
+    "github_url": "https://github.com/langflow-ai/langflow",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "mastra",
@@ -1420,7 +1465,8 @@
       "config_files": []
     },
     "website_url": "https://mastra.ai",
-    "github_url": "https://github.com/mastra-ai/mastra"
+    "github_url": "https://github.com/mastra-ai/mastra",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "pydantic-ai",
@@ -1447,7 +1493,8 @@
       "config_files": []
     },
     "website_url": "https://ai.pydantic.dev",
-    "github_url": "https://github.com/pydantic/pydantic-ai"
+    "github_url": "https://github.com/pydantic/pydantic-ai",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "smolagents",
@@ -1474,7 +1521,8 @@
       "config_files": []
     },
     "website_url": "https://huggingface.co/docs/smolagents",
-    "github_url": "https://github.com/huggingface/smolagents"
+    "github_url": "https://github.com/huggingface/smolagents",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "agno",
@@ -1501,7 +1549,8 @@
       "config_files": []
     },
     "website_url": "https://agno.com",
-    "github_url": "https://github.com/agno-agi/agno"
+    "github_url": "https://github.com/agno-agi/agno",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "sweep-ai",
@@ -1533,7 +1582,8 @@
       "config_files": ["sweep.yaml", ".github/sweep.yaml"]
     },
     "website_url": "https://sweep.dev",
-    "github_url": "https://github.com/sweepai/sweep"
+    "github_url": "https://github.com/sweepai/sweep",
+    "use_context": "dev-productivity"
   },
   {
     "id": "coderabbit",
@@ -1565,7 +1615,8 @@
       "config_files": [".coderabbit.yaml", ".coderabbit.yml"]
     },
     "website_url": "https://coderabbit.ai",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "qodo",
@@ -1597,7 +1648,8 @@
       "config_files": []
     },
     "website_url": "https://qodo.ai",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "graphite",
@@ -1629,7 +1681,8 @@
       "config_files": []
     },
     "website_url": "https://graphite.dev",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "sourcery",
@@ -1661,7 +1714,8 @@
       "config_files": [".sourcery.yaml"]
     },
     "website_url": "https://sourcery.ai",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "grit-io",
@@ -1693,7 +1747,8 @@
       "config_files": [".grit/", "grit.yaml"]
     },
     "website_url": "https://grit.io",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "pixee",
@@ -1725,7 +1780,8 @@
       "config_files": [".pixee.yml"]
     },
     "website_url": "https://pixee.ai",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "trunk",
@@ -1757,7 +1813,8 @@
       "config_files": [".trunk/trunk.yaml", "trunk.yaml"]
     },
     "website_url": "https://trunk.io",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "codegen",
@@ -1789,7 +1846,8 @@
       "config_files": []
     },
     "website_url": "https://codegen.com",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "mintlify",
@@ -1822,7 +1880,8 @@
       "config_files": ["mint.json", "docs.json"]
     },
     "website_url": "https://mintlify.com",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "swimm",
@@ -1854,7 +1913,8 @@
       "config_files": [".swm/"]
     },
     "website_url": "https://swimm.io",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "notion-ai",
@@ -1886,7 +1946,8 @@
       "config_files": []
     },
     "website_url": "https://notion.so/ai",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "gitbook-ai",
@@ -1918,7 +1979,8 @@
       "config_files": [".gitbook.yaml"]
     },
     "website_url": "https://gitbook.com",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "linear-ai",
@@ -1950,7 +2012,8 @@
       "config_files": []
     },
     "website_url": "https://linear.app",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "height-ai",
@@ -1982,7 +2045,8 @@
       "config_files": []
     },
     "website_url": "https://height.app",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "cycle",
@@ -2014,7 +2078,8 @@
       "config_files": []
     },
     "website_url": "https://cycle.app",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "kraftful",
@@ -2046,7 +2111,8 @@
       "config_files": []
     },
     "website_url": "https://kraftful.com",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "litellm",
@@ -2079,7 +2145,8 @@
       "config_files": ["litellm_config.yaml"]
     },
     "website_url": "https://litellm.ai",
-    "github_url": "https://github.com/BerriAI/litellm"
+    "github_url": "https://github.com/BerriAI/litellm",
+    "use_context": "both"
   },
   {
     "id": "openrouter",
@@ -2112,7 +2179,8 @@
       "config_files": []
     },
     "website_url": "https://openrouter.ai",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "portkey",
@@ -2144,7 +2212,8 @@
       "config_files": []
     },
     "website_url": "https://portkey.ai",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "langsmith",
@@ -2176,7 +2245,8 @@
       "config_files": []
     },
     "website_url": "https://smith.langchain.com",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "langfuse",
@@ -2209,7 +2279,8 @@
       "config_files": []
     },
     "website_url": "https://langfuse.com",
-    "github_url": "https://github.com/langfuse/langfuse"
+    "github_url": "https://github.com/langfuse/langfuse",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "helicone",
@@ -2241,7 +2312,8 @@
       "config_files": []
     },
     "website_url": "https://helicone.ai",
-    "github_url": "https://github.com/Helicone/helicone"
+    "github_url": "https://github.com/Helicone/helicone",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "arize-phoenix",
@@ -2273,7 +2345,8 @@
       "config_files": []
     },
     "website_url": "https://phoenix.arize.com",
-    "github_url": "https://github.com/Arize-ai/phoenix"
+    "github_url": "https://github.com/Arize-ai/phoenix",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "braintrust",
@@ -2305,7 +2378,8 @@
       "config_files": []
     },
     "website_url": "https://braintrustdata.com",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "ollama",
@@ -2333,7 +2407,8 @@
       "config_files": ["Modelfile"]
     },
     "website_url": "https://ollama.ai",
-    "github_url": "https://github.com/ollama/ollama"
+    "github_url": "https://github.com/ollama/ollama",
+    "use_context": "both"
   },
   {
     "id": "vllm",
@@ -2360,7 +2435,8 @@
       "config_files": []
     },
     "website_url": "https://vllm.ai",
-    "github_url": "https://github.com/vllm-project/vllm"
+    "github_url": "https://github.com/vllm-project/vllm",
+    "use_context": "both"
   },
   {
     "id": "groq",
@@ -2392,7 +2468,8 @@
       "config_files": []
     },
     "website_url": "https://groq.com",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "together-ai",
@@ -2424,7 +2501,8 @@
       "config_files": []
     },
     "website_url": "https://together.ai",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "fireworks-ai",
@@ -2456,7 +2534,8 @@
       "config_files": []
     },
     "website_url": "https://fireworks.ai",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "llama-cpp",
@@ -2484,7 +2563,8 @@
       "config_files": ["Modelfile"]
     },
     "website_url": "https://github.com/ggerganov/llama.cpp",
-    "github_url": "https://github.com/ggerganov/llama.cpp"
+    "github_url": "https://github.com/ggerganov/llama.cpp",
+    "use_context": "both"
   },
   {
     "id": "modal",
@@ -2516,7 +2596,8 @@
       "config_files": []
     },
     "website_url": "https://modal.com",
-    "github_url": null
+    "github_url": null,
+    "use_context": "both"
   },
   {
     "id": "qdrant",
@@ -2548,7 +2629,8 @@
       "config_files": []
     },
     "website_url": "https://qdrant.tech",
-    "github_url": "https://github.com/qdrant/qdrant"
+    "github_url": "https://github.com/qdrant/qdrant",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "chroma",
@@ -2575,7 +2657,8 @@
       "config_files": []
     },
     "website_url": "https://trychroma.com",
-    "github_url": "https://github.com/chroma-core/chroma"
+    "github_url": "https://github.com/chroma-core/chroma",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "pgvector",
@@ -2602,7 +2685,8 @@
       "config_files": []
     },
     "website_url": "https://github.com/pgvector/pgvector",
-    "github_url": "https://github.com/pgvector/pgvector"
+    "github_url": "https://github.com/pgvector/pgvector",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "pinecone",
@@ -2635,7 +2719,8 @@
       "config_files": []
     },
     "website_url": "https://pinecone.io",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "weaviate",
@@ -2667,7 +2752,8 @@
       "config_files": []
     },
     "website_url": "https://weaviate.io",
-    "github_url": "https://github.com/weaviate/weaviate"
+    "github_url": "https://github.com/weaviate/weaviate",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "milvus",
@@ -2699,7 +2785,8 @@
       "config_files": []
     },
     "website_url": "https://milvus.io",
-    "github_url": "https://github.com/milvus-io/milvus"
+    "github_url": "https://github.com/milvus-io/milvus",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "anthropic-api",
@@ -2733,7 +2820,8 @@
       "config_files": []
     },
     "website_url": "https://anthropic.com/api",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "openai-api",
@@ -2767,7 +2855,8 @@
       "config_files": []
     },
     "website_url": "https://platform.openai.com",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "mistral-api",
@@ -2800,7 +2889,8 @@
       "config_files": []
     },
     "website_url": "https://mistral.ai/api",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "cohere-api",
@@ -2833,7 +2923,8 @@
       "config_files": []
     },
     "website_url": "https://cohere.com",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "replicate",
@@ -2865,7 +2956,8 @@
       "config_files": []
     },
     "website_url": "https://replicate.com",
-    "github_url": null
+    "github_url": null,
+    "use_context": "both"
   },
   {
     "id": "huggingface",
@@ -2898,7 +2990,8 @@
       "config_files": []
     },
     "website_url": "https://huggingface.co",
-    "github_url": "https://github.com/huggingface/transformers"
+    "github_url": "https://github.com/huggingface/transformers",
+    "use_context": "both"
   },
   {
     "id": "vercel-ai-sdk",
@@ -2925,7 +3018,8 @@
       "config_files": []
     },
     "website_url": "https://sdk.vercel.ai",
-    "github_url": "https://github.com/vercel/ai"
+    "github_url": "https://github.com/vercel/ai",
+    "use_context": "both"
   },
   {
     "id": "ray",
@@ -2957,7 +3051,8 @@
       "config_files": []
     },
     "website_url": "https://ray.io",
-    "github_url": "https://github.com/ray-project/ray"
+    "github_url": "https://github.com/ray-project/ray",
+    "use_context": "both"
   },
   {
     "id": "logfire",
@@ -2989,7 +3084,8 @@
       "config_files": []
     },
     "website_url": "https://logfire.pydantic.dev",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "mcp-sdk-ts",
@@ -3017,7 +3113,8 @@
       "config_files": []
     },
     "website_url": "https://modelcontextprotocol.io",
-    "github_url": "https://github.com/modelcontextprotocol/typescript-sdk"
+    "github_url": "https://github.com/modelcontextprotocol/typescript-sdk",
+    "use_context": "both"
   },
   {
     "id": "mcp-sdk-python",
@@ -3044,7 +3141,8 @@
       "config_files": []
     },
     "website_url": "https://modelcontextprotocol.io",
-    "github_url": "https://github.com/modelcontextprotocol/python-sdk"
+    "github_url": "https://github.com/modelcontextprotocol/python-sdk",
+    "use_context": "both"
   },
   {
     "id": "fastmcp",
@@ -3071,7 +3169,8 @@
       "config_files": []
     },
     "website_url": "https://github.com/jlowin/fastmcp",
-    "github_url": "https://github.com/jlowin/fastmcp"
+    "github_url": "https://github.com/jlowin/fastmcp",
+    "use_context": "both"
   },
   {
     "id": "smithery",
@@ -3098,7 +3197,8 @@
       "config_files": []
     },
     "website_url": "https://smithery.ai",
-    "github_url": null
+    "github_url": null,
+    "use_context": "both"
   },
   {
     "id": "e2b",
@@ -3130,7 +3230,8 @@
       "config_files": []
     },
     "website_url": "https://e2b.dev",
-    "github_url": "https://github.com/e2b-dev/e2b"
+    "github_url": "https://github.com/e2b-dev/e2b",
+    "use_context": "both"
   },
   {
     "id": "context7",
@@ -3157,7 +3258,8 @@
       "config_files": []
     },
     "website_url": "https://context7.com",
-    "github_url": "https://github.com/upstash/context7"
+    "github_url": "https://github.com/upstash/context7",
+    "use_context": "both"
   },
   {
     "id": "playwright-mcp",
@@ -3184,7 +3286,8 @@
       "config_files": []
     },
     "website_url": "https://github.com/microsoft/playwright-mcp",
-    "github_url": "https://github.com/microsoft/playwright-mcp"
+    "github_url": "https://github.com/microsoft/playwright-mcp",
+    "use_context": "both"
   },
   {
     "id": "github-mcp",
@@ -3211,7 +3314,8 @@
       "config_files": []
     },
     "website_url": "https://github.com/github/github-mcp-server",
-    "github_url": "https://github.com/github/github-mcp-server"
+    "github_url": "https://github.com/github/github-mcp-server",
+    "use_context": "both"
   },
   {
     "id": "promptfoo",
@@ -3238,7 +3342,8 @@
       "config_files": ["promptfooconfig.yaml", "promptfooconfig.yml"]
     },
     "website_url": "https://promptfoo.dev",
-    "github_url": "https://github.com/promptfoo/promptfoo"
+    "github_url": "https://github.com/promptfoo/promptfoo",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "deepeval",
@@ -3265,7 +3370,8 @@
       "config_files": []
     },
     "website_url": "https://deepeval.com",
-    "github_url": "https://github.com/confident-ai/deepeval"
+    "github_url": "https://github.com/confident-ai/deepeval",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "ragas",
@@ -3293,7 +3399,8 @@
       "config_files": []
     },
     "website_url": "https://ragas.io",
-    "github_url": "https://github.com/explodinggradients/ragas"
+    "github_url": "https://github.com/explodinggradients/ragas",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "vellum",
@@ -3325,7 +3432,8 @@
       "config_files": []
     },
     "website_url": "https://vellum.ai",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "promptlayer",
@@ -3357,7 +3465,8 @@
       "config_files": []
     },
     "website_url": "https://promptlayer.com",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "agenta",
@@ -3389,7 +3498,8 @@
       "config_files": []
     },
     "website_url": "https://agenta.ai",
-    "github_url": "https://github.com/Agenta-AI/agenta"
+    "github_url": "https://github.com/Agenta-AI/agenta",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "weights-biases",
@@ -3421,7 +3531,8 @@
       "config_files": []
     },
     "website_url": "https://wandb.ai",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "traceloop",
@@ -3453,7 +3564,8 @@
       "config_files": []
     },
     "website_url": "https://traceloop.com",
-    "github_url": "https://github.com/traceloop/openllmetry"
+    "github_url": "https://github.com/traceloop/openllmetry",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "spec-kit",
@@ -3481,7 +3593,8 @@
       "config_files": [".specify/"]
     },
     "website_url": "https://github.com/github/spec-kit",
-    "github_url": "https://github.com/github/spec-kit"
+    "github_url": "https://github.com/github/spec-kit",
+    "use_context": "dev-productivity"
   },
   {
     "id": "mermaid",
@@ -3509,7 +3622,8 @@
       "config_files": []
     },
     "website_url": "https://mermaid.js.org",
-    "github_url": "https://github.com/mermaid-js/mermaid"
+    "github_url": "https://github.com/mermaid-js/mermaid",
+    "use_context": "dev-productivity"
   },
   {
     "id": "eraser",
@@ -3545,7 +3659,8 @@
       "config_files": []
     },
     "website_url": "https://www.eraser.io",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "structurizr",
@@ -3577,7 +3692,8 @@
       "config_files": ["workspace.dsl", ".structurizr/"]
     },
     "website_url": "https://structurizr.com",
-    "github_url": "https://github.com/structurizr/dsl"
+    "github_url": "https://github.com/structurizr/dsl",
+    "use_context": "dev-productivity"
   },
   {
     "id": "swagger",
@@ -3615,7 +3731,8 @@
       "config_files": ["openapi.yaml", "openapi.json", "swagger.yaml", "swagger.json"]
     },
     "website_url": "https://swagger.io",
-    "github_url": "https://github.com/swagger-api/swagger-ui"
+    "github_url": "https://github.com/swagger-api/swagger-ui",
+    "use_context": "dev-productivity"
   },
   {
     "id": "redocly",
@@ -3647,7 +3764,8 @@
       "config_files": ["redocly.yaml", ".redocly.yaml"]
     },
     "website_url": "https://redocly.com",
-    "github_url": "https://github.com/Redocly/redoc"
+    "github_url": "https://github.com/Redocly/redoc",
+    "use_context": "dev-productivity"
   },
   {
     "id": "asyncapi",
@@ -3674,7 +3792,8 @@
       "config_files": []
     },
     "website_url": "https://www.asyncapi.com",
-    "github_url": "https://github.com/asyncapi/spec"
+    "github_url": "https://github.com/asyncapi/spec",
+    "use_context": "dev-productivity"
   },
   {
     "id": "stoplight",
@@ -3710,7 +3829,8 @@
       "config_files": []
     },
     "website_url": "https://stoplight.io",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "speakeasy",
@@ -3743,7 +3863,8 @@
       "config_files": []
     },
     "website_url": "https://www.speakeasy.com",
-    "github_url": "https://github.com/speakeasy-api/speakeasy"
+    "github_url": "https://github.com/speakeasy-api/speakeasy",
+    "use_context": "dev-productivity"
   },
   {
     "id": "fern",
@@ -3775,7 +3896,8 @@
       "config_files": []
     },
     "website_url": "https://buildwithfern.com",
-    "github_url": "https://github.com/fern-api/fern"
+    "github_url": "https://github.com/fern-api/fern",
+    "use_context": "dev-productivity"
   },
   {
     "id": "stainless",
@@ -3808,7 +3930,8 @@
       "config_files": []
     },
     "website_url": "https://www.stainless.com",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "openapi-generator",
@@ -3835,7 +3958,8 @@
       "config_files": []
     },
     "website_url": "https://openapi-generator.tech",
-    "github_url": "https://github.com/OpenAPITools/openapi-generator"
+    "github_url": "https://github.com/OpenAPITools/openapi-generator",
+    "use_context": "dev-productivity"
   },
   {
     "id": "google-adk",
@@ -3868,7 +3992,8 @@
       "config_files": []
     },
     "website_url": "https://google.github.io/adk-docs/",
-    "github_url": "https://github.com/google/adk-python"
+    "github_url": "https://github.com/google/adk-python",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "julep",
@@ -3905,7 +4030,8 @@
       "config_files": []
     },
     "website_url": "https://julep.ai",
-    "github_url": "https://github.com/julep-ai/julep"
+    "github_url": "https://github.com/julep-ai/julep",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "letta",
@@ -3942,7 +4068,8 @@
       "config_files": [".letta/"]
     },
     "website_url": "https://letta.com",
-    "github_url": "https://github.com/letta-ai/letta"
+    "github_url": "https://github.com/letta-ai/letta",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "bee-agent",
@@ -3975,7 +4102,8 @@
       "config_files": []
     },
     "website_url": "https://i-am-bee.github.io/bee-agent-framework/",
-    "github_url": "https://github.com/i-am-bee/bee-agent-framework"
+    "github_url": "https://github.com/i-am-bee/bee-agent-framework",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "controlflow",
@@ -4008,7 +4136,8 @@
       "config_files": []
     },
     "website_url": "https://controlflow.ai",
-    "github_url": "https://github.com/PrefectHQ/ControlFlow"
+    "github_url": "https://github.com/PrefectHQ/ControlFlow",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "griptape",
@@ -4045,7 +4174,8 @@
       "config_files": []
     },
     "website_url": "https://www.griptape.ai",
-    "github_url": "https://github.com/griptape-ai/griptape"
+    "github_url": "https://github.com/griptape-ai/griptape",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "rivet",
@@ -4078,7 +4208,8 @@
       "config_files": []
     },
     "website_url": "https://rivet.ironcladapp.com",
-    "github_url": "https://github.com/Ironclad/rivet"
+    "github_url": "https://github.com/Ironclad/rivet",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "taskweaver",
@@ -4111,7 +4242,8 @@
       "config_files": ["taskweaver_config.json"]
     },
     "website_url": "https://microsoft.github.io/TaskWeaver/",
-    "github_url": "https://github.com/microsoft/TaskWeaver"
+    "github_url": "https://github.com/microsoft/TaskWeaver",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "unify-ai",
@@ -4148,7 +4280,8 @@
       "config_files": []
     },
     "website_url": "https://unify.ai",
-    "github_url": "https://github.com/unifyai/unify"
+    "github_url": "https://github.com/unifyai/unify",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "martian",
@@ -4185,7 +4318,8 @@
       "config_files": []
     },
     "website_url": "https://withmartian.com",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "not-diamond",
@@ -4222,7 +4356,8 @@
       "config_files": []
     },
     "website_url": "https://notdiamond.ai",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "cerebras",
@@ -4259,7 +4394,8 @@
       "config_files": []
     },
     "website_url": "https://cloud.cerebras.ai",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "deepinfra",
@@ -4296,7 +4432,8 @@
       "config_files": []
     },
     "website_url": "https://deepinfra.com",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "baseten",
@@ -4333,7 +4470,8 @@
       "config_files": []
     },
     "website_url": "https://baseten.co",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "lambda-labs",
@@ -4370,7 +4508,8 @@
       "config_files": []
     },
     "website_url": "https://lambdalabs.com",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "perplexity-api",
@@ -4403,7 +4542,8 @@
       "config_files": []
     },
     "website_url": "https://docs.perplexity.ai",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "redis-vector",
@@ -4440,7 +4580,8 @@
       "config_files": []
     },
     "website_url": "https://redis.io/docs/stack/search/reference/vectors/",
-    "github_url": "https://github.com/redis/redis"
+    "github_url": "https://github.com/redis/redis",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "turbopuffer",
@@ -4477,7 +4618,8 @@
       "config_files": []
     },
     "website_url": "https://turbopuffer.com",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "lancedb",
@@ -4514,7 +4656,8 @@
       "config_files": []
     },
     "website_url": "https://lancedb.github.io/lancedb/",
-    "github_url": "https://github.com/lancedb/lancedb"
+    "github_url": "https://github.com/lancedb/lancedb",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "opik",
@@ -4551,7 +4694,8 @@
       "config_files": []
     },
     "website_url": "https://www.comet.com/site/products/opik/",
-    "github_url": "https://github.com/comet-ml/opik"
+    "github_url": "https://github.com/comet-ml/opik",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "agentops",
@@ -4588,7 +4732,8 @@
       "config_files": []
     },
     "website_url": "https://agentops.ai",
-    "github_url": "https://github.com/AgentOps-AI/agentops"
+    "github_url": "https://github.com/AgentOps-AI/agentops",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "mlflow",
@@ -4625,7 +4770,8 @@
       "config_files": ["MLproject", "mlflow.yaml"]
     },
     "website_url": "https://mlflow.org",
-    "github_url": "https://github.com/mlflow/mlflow"
+    "github_url": "https://github.com/mlflow/mlflow",
+    "use_context": "both"
   },
   {
     "id": "trulens",
@@ -4658,7 +4804,8 @@
       "config_files": []
     },
     "website_url": "https://www.trulens.org",
-    "github_url": "https://github.com/truera/trulens"
+    "github_url": "https://github.com/truera/trulens",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "humanloop",
@@ -4695,7 +4842,8 @@
       "config_files": []
     },
     "website_url": "https://humanloop.com",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "inspect-ai",
@@ -4728,7 +4876,8 @@
       "config_files": []
     },
     "website_url": "https://ukgovernment.github.io/inspect_ai/",
-    "github_url": "https://github.com/UKGovernmentBEIS/inspect_ai"
+    "github_url": "https://github.com/UKGovernmentBEIS/inspect_ai",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "amp",
@@ -4765,7 +4914,8 @@
       "config_files": []
     },
     "website_url": "https://ampcode.com",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "codex-cli",
@@ -4798,7 +4948,8 @@
       "config_files": []
     },
     "website_url": "https://github.com/openai/codex",
-    "github_url": "https://github.com/openai/codex"
+    "github_url": "https://github.com/openai/codex",
+    "use_context": "dev-productivity"
   },
   {
     "id": "kodu-ai",
@@ -4835,7 +4986,8 @@
       "config_files": []
     },
     "website_url": "https://kodu.ai",
-    "github_url": "https://github.com/kodu-ai/claude-coder"
+    "github_url": "https://github.com/kodu-ai/claude-coder",
+    "use_context": "dev-productivity"
   },
   {
     "id": "factory-ai",
@@ -4872,7 +5024,8 @@
       "config_files": []
     },
     "website_url": "https://factory.ai",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "github-copilot-workspace",
@@ -4905,7 +5058,8 @@
       "config_files": []
     },
     "website_url": "https://githubnext.com/projects/copilot-workspace",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "replit-agent",
@@ -4942,7 +5096,8 @@
       "config_files": [".replit", "replit.nix"]
     },
     "website_url": "https://replit.com/ai",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "desktop-commander",
@@ -4975,7 +5130,8 @@
       "config_files": []
     },
     "website_url": "https://desktopcommander.app",
-    "github_url": "https://github.com/wonderwhy-er/DesktopCommanderMCP"
+    "github_url": "https://github.com/wonderwhy-er/DesktopCommanderMCP",
+    "use_context": "both"
   },
   {
     "id": "brave-search-mcp",
@@ -5012,7 +5168,8 @@
       "config_files": []
     },
     "website_url": "https://brave.com/search/api/",
-    "github_url": "https://github.com/modelcontextprotocol/servers"
+    "github_url": "https://github.com/modelcontextprotocol/servers",
+    "use_context": "both"
   },
   {
     "id": "sequential-thinking-mcp",
@@ -5045,7 +5202,8 @@
       "config_files": []
     },
     "website_url": "https://github.com/modelcontextprotocol/servers",
-    "github_url": "https://github.com/modelcontextprotocol/servers"
+    "github_url": "https://github.com/modelcontextprotocol/servers",
+    "use_context": "both"
   },
   {
     "id": "sentry-mcp",
@@ -5078,7 +5236,8 @@
       "config_files": []
     },
     "website_url": "https://docs.sentry.io/product/sentry-mcp/",
-    "github_url": "https://github.com/getsentry/sentry-mcp"
+    "github_url": "https://github.com/getsentry/sentry-mcp",
+    "use_context": "both"
   },
   {
     "id": "snyk",
@@ -5115,7 +5274,8 @@
       "config_files": [".snyk"]
     },
     "website_url": "https://snyk.io",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "sonarqube",
@@ -5152,7 +5312,8 @@
       "config_files": ["sonar-project.properties"]
     },
     "website_url": "https://www.sonarsource.com/products/sonarqube/",
-    "github_url": "https://github.com/SonarSource/sonarqube"
+    "github_url": "https://github.com/SonarSource/sonarqube",
+    "use_context": "dev-productivity"
   },
   {
     "id": "semgrep",
@@ -5189,7 +5350,8 @@
       "config_files": [".semgrepignore", "semgrep.yml"]
     },
     "website_url": "https://semgrep.dev",
-    "github_url": "https://github.com/semgrep/semgrep"
+    "github_url": "https://github.com/semgrep/semgrep",
+    "use_context": "dev-productivity"
   },
   {
     "id": "archbee",
@@ -5226,7 +5388,8 @@
       "config_files": []
     },
     "website_url": "https://www.archbee.com",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "tettra",
@@ -5263,7 +5426,8 @@
       "config_files": []
     },
     "website_url": "https://tettra.com",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "coda-ai",
@@ -5300,7 +5464,8 @@
       "config_files": []
     },
     "website_url": "https://coda.io/product/ai",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "confluence-ai",
@@ -5337,7 +5502,8 @@
       "config_files": []
     },
     "website_url": "https://www.atlassian.com/software/confluence/ai",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "productboard-ai",
@@ -5374,7 +5540,8 @@
       "config_files": []
     },
     "website_url": "https://www.productboard.com",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "jira-ai",
@@ -5411,7 +5578,8 @@
       "config_files": []
     },
     "website_url": "https://www.atlassian.com/software/jira/ai",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "aha-ai",
@@ -5448,7 +5616,8 @@
       "config_files": []
     },
     "website_url": "https://www.aha.io",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "grain",
@@ -5485,7 +5654,8 @@
       "config_files": []
     },
     "website_url": "https://grain.com",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "google-gemini-api",
@@ -5523,7 +5693,8 @@
       "config_files": []
     },
     "website_url": "https://ai.google.dev",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "amazon-bedrock",
@@ -5561,7 +5732,8 @@
       "config_files": ["~/.aws/credentials"]
     },
     "website_url": "https://aws.amazon.com/bedrock/",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "azure-openai",
@@ -5599,7 +5771,8 @@
       "config_files": []
     },
     "website_url": "https://azure.microsoft.com/en-us/products/ai-services/openai-service",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "xai-grok",
@@ -5637,7 +5810,8 @@
       "config_files": []
     },
     "website_url": "https://x.ai/api",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "deepseek-api",
@@ -5675,7 +5849,8 @@
       "config_files": []
     },
     "website_url": "https://platform.deepseek.com",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "kilo-code",
@@ -5703,7 +5878,8 @@
       "config_files": [".kilocode/"]
     },
     "website_url": "https://kilocode.ai",
-    "github_url": "https://github.com/Kilo-Org/kilocode"
+    "github_url": "https://github.com/Kilo-Org/kilocode",
+    "use_context": "dev-productivity"
   },
   {
     "id": "roocode",
@@ -5731,7 +5907,8 @@
       "config_files": [".roo/"]
     },
     "website_url": "https://github.com/RooVetGit/Roo-Code",
-    "github_url": "https://github.com/RooVetGit/Roo-Code"
+    "github_url": "https://github.com/RooVetGit/Roo-Code",
+    "use_context": "dev-productivity"
   },
   {
     "id": "warp",
@@ -5768,7 +5945,8 @@
       "config_files": []
     },
     "website_url": "https://warp.dev",
-    "github_url": "https://github.com/warpdotdev/Warp"
+    "github_url": "https://github.com/warpdotdev/Warp",
+    "use_context": "dev-productivity"
   },
   {
     "id": "openai-agents-sdk",
@@ -5796,7 +5974,8 @@
       "config_files": []
     },
     "website_url": "https://openai.github.io/openai-agents-python",
-    "github_url": "https://github.com/openai/openai-agents-python"
+    "github_url": "https://github.com/openai/openai-agents-python",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "manus-ai",
@@ -5833,7 +6012,8 @@
       "config_files": []
     },
     "website_url": "https://manus.ai",
-    "github_url": null
+    "github_url": null,
+    "use_context": "dev-productivity"
   },
   {
     "id": "mcp-so",
@@ -5861,7 +6041,8 @@
       "config_files": []
     },
     "website_url": "https://mcp.so",
-    "github_url": null
+    "github_url": null,
+    "use_context": "both"
   },
   {
     "id": "runpod",
@@ -5898,7 +6079,8 @@
       "config_files": []
     },
     "website_url": "https://runpod.io",
-    "github_url": "https://github.com/runpod/runpod-python"
+    "github_url": "https://github.com/runpod/runpod-python",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "fal-ai",
@@ -5931,7 +6113,8 @@
       "config_files": []
     },
     "website_url": "https://fal.ai",
-    "github_url": "https://github.com/fal-ai/fal"
+    "github_url": "https://github.com/fal-ai/fal",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "maxim-ai",
@@ -5968,7 +6151,8 @@
       "config_files": []
     },
     "website_url": "https://getmaxim.ai",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "galileo-eval",
@@ -6005,14 +6189,15 @@
       "config_files": []
     },
     "website_url": "https://rungalileo.io",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "axolotl",
     "name": "Axolotl",
     "category": "fine-tuning",
     "tagline": "Streamlined LoRA & QLoRA fine-tuning",
-    "description": "OSS fine-tuning framework built on HuggingFace Transformers. Supports LoRA, QLoRA, full fine-tuning, and FSDP. Config-driven — define your training run in a YAML file.",
+    "description": "OSS fine-tuning framework built on HuggingFace Transformers. Supports LoRA, QLoRA, full fine-tuning, and FSDP. Config-driven \u2014 define your training run in a YAML file.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -6033,13 +6218,14 @@
       "config_files": ["axolotl.yaml", "config.yaml"]
     },
     "website_url": "https://axolotl.ai",
-    "github_url": "https://github.com/axolotl-ai-cloud/axolotl"
+    "github_url": "https://github.com/axolotl-ai-cloud/axolotl",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "unsloth",
     "name": "Unsloth",
     "category": "fine-tuning",
-    "tagline": "2× faster, 70% less memory LoRA fine-tuning",
+    "tagline": "2\u00d7 faster, 70% less memory LoRA fine-tuning",
     "description": "Dramatically speeds up LoRA and QLoRA fine-tuning by rewriting GPU kernels. Compatible with HuggingFace and works with Llama, Mistral, Gemma, and more. No accuracy loss.",
     "type": "oss",
     "pricing": {
@@ -6066,7 +6252,8 @@
       "config_files": []
     },
     "website_url": "https://unsloth.ai",
-    "github_url": "https://github.com/unslothai/unsloth"
+    "github_url": "https://github.com/unslothai/unsloth",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "llama-factory",
@@ -6094,14 +6281,15 @@
       "config_files": ["examples/train_lora/llama3_lora_sft.yaml"]
     },
     "website_url": "https://github.com/hiyouga/LLaMA-Factory",
-    "github_url": "https://github.com/hiyouga/LLaMA-Factory"
+    "github_url": "https://github.com/hiyouga/LLaMA-Factory",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "torchtune",
     "name": "Torchtune",
     "category": "fine-tuning",
     "tagline": "PyTorch-native LLM fine-tuning from Meta",
-    "description": "Meta's official fine-tuning library. Pure PyTorch — no abstraction layers. Supports LoRA, QLoRA, and full fine-tuning for Llama models. Designed for reproducibility and research.",
+    "description": "Meta's official fine-tuning library. Pure PyTorch \u2014 no abstraction layers. Supports LoRA, QLoRA, and full fine-tuning for Llama models. Designed for reproducibility and research.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -6122,7 +6310,8 @@
       "config_files": []
     },
     "website_url": "https://pytorch.org/torchtune",
-    "github_url": "https://github.com/pytorch/torchtune"
+    "github_url": "https://github.com/pytorch/torchtune",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "predibase",
@@ -6159,7 +6348,8 @@
       "config_files": []
     },
     "website_url": "https://predibase.com",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "elevenlabs",
@@ -6200,7 +6390,8 @@
       "config_files": []
     },
     "website_url": "https://elevenlabs.io",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "deepgram",
@@ -6237,13 +6428,14 @@
       "config_files": []
     },
     "website_url": "https://deepgram.com",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "assemblyai",
     "name": "AssemblyAI",
     "category": "voice-ai",
-    "tagline": "Audio intelligence API — transcription + LLM understanding",
+    "tagline": "Audio intelligence API \u2014 transcription + LLM understanding",
     "description": "Transcription API with built-in AI features: speaker labels, sentiment analysis, topic detection, PII redaction, and LeMUR (LLM over audio). Best for extracting structured insight from audio.",
     "type": "commercial",
     "pricing": {
@@ -6274,7 +6466,8 @@
       "config_files": []
     },
     "website_url": "https://assemblyai.com",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "cartesia",
@@ -6311,7 +6504,8 @@
       "config_files": []
     },
     "website_url": "https://cartesia.ai",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "playht",
@@ -6348,7 +6542,8 @@
       "config_files": []
     },
     "website_url": "https://play.ht",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "moondream",
@@ -6376,14 +6571,15 @@
       "config_files": []
     },
     "website_url": "https://moondream.ai",
-    "github_url": "https://github.com/vikhyat/moondream"
+    "github_url": "https://github.com/vikhyat/moondream",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "llava",
     "name": "LLaVA",
     "category": "multimodal",
     "tagline": "Open-source multimodal LLM assistant",
-    "description": "Large Language and Vision Assistant — connects a vision encoder to an LLM for instruction-following with images. OSS research model widely used as a multimodal base. Runs via Ollama.",
+    "description": "Large Language and Vision Assistant \u2014 connects a vision encoder to an LLM for instruction-following with images. OSS research model widely used as a multimodal base. Runs via Ollama.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -6404,7 +6600,8 @@
       "config_files": []
     },
     "website_url": "https://llava-vl.github.io",
-    "github_url": "https://github.com/haotian-liu/LLaVA"
+    "github_url": "https://github.com/haotian-liu/LLaVA",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "paligemma",
@@ -6432,7 +6629,8 @@
       "config_files": []
     },
     "website_url": "https://ai.google.dev/gemma/docs/paligemma",
-    "github_url": "https://github.com/google-research/big_vision"
+    "github_url": "https://github.com/google-research/big_vision",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "pixtral",
@@ -6469,7 +6667,8 @@
       "config_files": []
     },
     "website_url": "https://mistral.ai/news/pixtral-12b",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "qwen-vl",
@@ -6497,14 +6696,15 @@
       "config_files": []
     },
     "website_url": "https://qwenlm.github.io/blog/qwen-vl",
-    "github_url": "https://github.com/QwenLM/Qwen-VL"
+    "github_url": "https://github.com/QwenLM/Qwen-VL",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "internvl2",
     "name": "InternVL2",
     "category": "multimodal",
     "tagline": "Top OSS multimodal model from OpenGVLab",
-    "description": "InternVL2 series from Shanghai AI Lab — consistently top-ranked on open-source multimodal benchmarks. Strong at document understanding, chart analysis, and multi-image reasoning.",
+    "description": "InternVL2 series from Shanghai AI Lab \u2014 consistently top-ranked on open-source multimodal benchmarks. Strong at document understanding, chart analysis, and multi-image reasoning.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -6525,7 +6725,8 @@
       "config_files": []
     },
     "website_url": "https://internvl.github.io",
-    "github_url": "https://github.com/OpenGVLab/InternVL"
+    "github_url": "https://github.com/OpenGVLab/InternVL",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "vapi",
@@ -6562,7 +6763,8 @@
       "config_files": []
     },
     "website_url": "https://vapi.ai",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "retell-ai",
@@ -6588,7 +6790,7 @@
     "slot": "voice-ai",
     "prominent": false,
     "choose_if": [
-      "Latency is critical — sub-800ms end-to-end response is required",
+      "Latency is critical \u2014 sub-800ms end-to-end response is required",
       "You're building healthcare or compliance-sensitive voice agents (HIPAA)",
       "You want native backchannels and human-like turn-taking out of the box"
     ],
@@ -6599,14 +6801,15 @@
       "config_files": []
     },
     "website_url": "https://retellai.com",
-    "github_url": null
+    "github_url": null,
+    "use_context": "app-infrastructure"
   },
   {
     "id": "browser-use",
     "name": "Browser Use",
     "category": "browser-automation",
     "tagline": "OSS AI agent library for browser control",
-    "description": "Python library that gives AI agents full browser control — navigate, click, fill forms, extract data. Built on Playwright. Reached 50K GitHub stars faster than most AI infra projects. Works with any LLM.",
+    "description": "Python library that gives AI agents full browser control \u2014 navigate, click, fill forms, extract data. Built on Playwright. Reached 50K GitHub stars faster than most AI infra projects. Works with any LLM.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -6627,7 +6830,8 @@
       "config_files": []
     },
     "website_url": "https://browser-use.com",
-    "github_url": "https://github.com/browser-use/browser-use"
+    "github_url": "https://github.com/browser-use/browser-use",
+    "use_context": "both"
   },
   {
     "id": "stagehand",
@@ -6660,7 +6864,8 @@
       "config_files": []
     },
     "website_url": "https://stagehand.dev",
-    "github_url": "https://github.com/browserbase/stagehand"
+    "github_url": "https://github.com/browserbase/stagehand",
+    "use_context": "both"
   },
   {
     "id": "skyvern",
@@ -6693,14 +6898,15 @@
       "config_files": []
     },
     "website_url": "https://skyvern.com",
-    "github_url": "https://github.com/Skyvern-AI/skyvern"
+    "github_url": "https://github.com/Skyvern-AI/skyvern",
+    "use_context": "app-infrastructure"
   },
   {
     "id": "firecrawl",
     "name": "Firecrawl",
     "category": "browser-automation",
     "tagline": "Turn any website into clean data for AI",
-    "description": "Crawl and scrape websites into clean markdown or structured JSON — handles JavaScript rendering, PDFs, and dynamic content. LLM-ready output. Used as the data-ingestion layer for RAG pipelines and AI research agents.",
+    "description": "Crawl and scrape websites into clean markdown or structured JSON \u2014 handles JavaScript rendering, PDFs, and dynamic content. LLM-ready output. Used as the data-ingestion layer for RAG pipelines and AI research agents.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -6730,6 +6936,7 @@
       "config_files": []
     },
     "website_url": "https://firecrawl.dev",
-    "github_url": "https://github.com/mendableai/firecrawl"
+    "github_url": "https://github.com/mendableai/firecrawl",
+    "use_context": "both"
   }
 ]

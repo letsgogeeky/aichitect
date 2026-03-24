@@ -11,11 +11,20 @@ export interface RoastRequest {
   missingRecommended: string[];
   criticalPairsCovered: number;
   criticalPairsTotal: number;
+  roastnessLevel: 1 | 2 | 3 | 4 | 5;
 }
 
 export interface RoastResponse {
   lines: string[];
 }
+
+const TONE_INSTRUCTIONS: Record<number, string> = {
+  1: "Tone: Be honest but gentle and constructive. You're a helpful mentor who wants them to succeed. Acknowledge what's working before pointing out gaps. Encouraging, not discouraging.",
+  2: "Tone: Be direct and honest. Pull no punches but stay professional — like a thoughtful colleague giving a code review. No flattery, but no savagery either.",
+  3: "Tone: Be opinionated and slightly savage. Like a senior engineer who's seen too many production fires. Every observation should sting a little — because it's true.",
+  4: "Tone: Be harsh and relentless. No softening, no silver linings. Call out every gap with maximum bluntness. This should be uncomfortable to read.",
+  5: "Tone: Go scorched earth. Maximum savagery. No mercy whatsoever. Every line should be a gut punch. This stack should feel ashamed of itself by the end.",
+};
 
 export async function POST(request: Request) {
   const apiKey = process.env.GOOGLE_AI_API_KEY;
@@ -38,21 +47,25 @@ export async function POST(request: Request) {
     missingRecommended,
     criticalPairsCovered,
     criticalPairsTotal,
+    roastnessLevel = 3,
   } = body;
 
   if (!tools || tools.length === 0) {
     return NextResponse.json({ error: "No tools provided" }, { status: 400 });
   }
 
-  const systemInstruction = `You are a brutally honest AI stack reviewer. Your job is to roast AI developer stacks — not with random insults, but with specific, accurate observations that sting because they're true.
+  const toneInstruction = TONE_INSTRUCTIONS[roastnessLevel] ?? TONE_INSTRUCTIONS[3];
+
+  const systemInstruction = `You are a brutally honest AI stack reviewer. Your job is to roast AI developer stacks — not with random insults, but with specific, accurate observations that are grounded in the data.
 
 Rules:
 - Output ONLY a JSON object: {"lines": ["...", "...", "..."]}
 - 2 to 4 lines. Each line must be under 120 characters.
 - Every line must reference specific tools or missing layers from the data — no generic platitudes.
-- Tone: opinionated, slightly savage, but earned. Like a senior engineer who's seen too many production fires.
-- Do NOT be sycophantic. Do NOT say "great stack" or soften the blow. If the stack is genuinely good, be grudgingly impressed.
-- No markdown, no explanation outside the JSON object.`;
+- Do NOT be sycophantic. If the stack is genuinely good, be grudgingly impressed — don't fabricate problems.
+- No markdown, no explanation outside the JSON object.
+
+${toneInstruction}`;
 
   const userPrompt = buildPrompt({
     tools,
@@ -62,6 +75,7 @@ Rules:
     missingRecommended,
     criticalPairsCovered,
     criticalPairsTotal,
+    roastnessLevel,
   });
 
   try {
