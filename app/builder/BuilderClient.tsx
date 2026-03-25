@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect, useRef } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { useBuilderState } from "@/hooks/useBuilderState";
 import ReactFlow, {
@@ -21,6 +21,9 @@ import ToolNode from "@/components/graph/ToolNode";
 import ComparisonPanel from "@/components/panels/ComparisonPanel";
 import { BuilderSlotList } from "./components/BuilderSlotList";
 import { MobileSlotPicker } from "./components/MobileSlotPicker";
+import GetStartedModal from "@/components/ui/GetStartedModal";
+import { ProductionUsageSection } from "@/components/ui/ProductionUsageSection";
+import { IconShare } from "@/components/icons";
 
 const nodeTypes: NodeTypes = { tool: ToolNode };
 
@@ -138,6 +141,19 @@ function BuilderPageContent({
   relationships: Relationship[];
 }) {
   const isMobile = useIsMobile();
+  const [copied, setCopied] = useState(false);
+  const [getStartedOpen, setGetStartedOpen] = useState(false);
+
+  function copyStack() {
+    navigator.clipboard
+      .writeText(window.location.href)
+      .then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      })
+      .catch(() => {});
+  }
+
   const {
     urlToolIds,
     selected,
@@ -181,6 +197,61 @@ function BuilderPageContent({
 
       {/* Builder graph */}
       <div className="flex-1 overflow-hidden relative">
+        {/* Floating action bar — desktop only, shown when tools are selected */}
+        {selectedCount > 0 && (
+          <div
+            className="hidden sm:flex absolute top-0 left-0 right-0 z-10 items-center justify-end gap-2 px-3 py-2"
+            style={{
+              background: "linear-gradient(to bottom, var(--surface-2) 60%, transparent)",
+              pointerEvents: "none",
+            }}
+          >
+            <div style={{ pointerEvents: "auto" }}>
+              <ProductionUsageSection tools={stackParam.split(",").filter(Boolean)} />
+            </div>
+            <button
+              data-tour="builder-share"
+              onClick={copyStack}
+              className="flex items-center transition-all"
+              style={{
+                gap: 6,
+                padding: "0 12px",
+                height: 30,
+                borderRadius: 7,
+                background: copied ? "#00d4aa30" : "#00d4aa18",
+                border: `1px solid ${copied ? "#00d4aa88" : "#00d4aa44"}`,
+                color: "var(--accent-2)",
+                fontSize: 11,
+                fontWeight: 500,
+                cursor: "pointer",
+                pointerEvents: "auto",
+              }}
+            >
+              <IconShare size={12} />
+              {copied ? "Copied!" : "Share Stack"}
+            </button>
+            <button
+              onClick={() => setGetStartedOpen(true)}
+              className="flex items-center transition-all"
+              style={{
+                gap: 6,
+                padding: "0 12px",
+                height: 30,
+                borderRadius: 7,
+                background: "#7c6bff18",
+                border: "1px solid #7c6bff44",
+                color: "var(--accent)",
+                fontSize: 11,
+                fontWeight: 500,
+                cursor: "pointer",
+                pointerEvents: "auto",
+              }}
+            >
+              Get Started →
+            </button>
+          </div>
+        )}
+
         <ReactFlowProvider>
           <BuilderGraph
             toolIds={urlToolIds}
@@ -251,6 +322,13 @@ function BuilderPageContent({
         onPickTool={pickTool}
         onClose={() => setMobileSlotPickerOpen(false)}
       />
+
+      {getStartedOpen && (
+        <GetStartedModal
+          toolIds={stackParam.split(",").filter(Boolean)}
+          onClose={() => setGetStartedOpen(false)}
+        />
+      )}
     </div>
   );
 }

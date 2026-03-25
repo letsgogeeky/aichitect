@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Stack, Tool, StackCluster, getCategoryColor } from "@/lib/types";
 import { COMPLEXITY_META } from "../stacksConstants";
 import { CloseButton } from "@/components/ui/CloseButton";
+import { ProductionUsageSection } from "@/components/ui/ProductionUsageSection";
 
 export function StackDetailHeader({
   selected,
@@ -81,7 +82,7 @@ export function StackDetailHeader({
         </div>
       )}
 
-      {/* Top row: name + CTA */}
+      {/* Top row: name + CTAs */}
       <div className="flex items-start justify-between gap-4 mb-3">
         <div className="flex-1 min-w-0">
           <h2
@@ -94,24 +95,27 @@ export function StackDetailHeader({
             {selected.description}
           </p>
         </div>
-        <Link
-          data-tour="stacks-builder-cta"
-          href={builderUrl}
-          className="flex items-center gap-1.5 flex-shrink-0 transition-all"
-          style={{
-            padding: "0 14px",
-            height: 32,
-            borderRadius: 7,
-            background: accentColor + "20",
-            border: `1px solid ${accentColor}44`,
-            color: accentColor,
-            fontSize: 12,
-            fontWeight: 600,
-            textDecoration: "none",
-          }}
-        >
-          Try in Builder →
-        </Link>
+        <div className="flex items-center gap-2 flex-shrink-0">
+          <ProductionUsageSection stackId={selected.id} />
+          <Link
+            data-tour="stacks-builder-cta"
+            href={builderUrl}
+            className="flex items-center gap-1.5 flex-shrink-0 transition-all"
+            style={{
+              padding: "0 14px",
+              height: 32,
+              borderRadius: 7,
+              background: accentColor + "20",
+              border: `1px solid ${accentColor}44`,
+              color: accentColor,
+              fontSize: 12,
+              fontWeight: 600,
+              textDecoration: "none",
+            }}
+          >
+            Try in Builder →
+          </Link>
+        </div>
       </div>
 
       {/* Badges row */}

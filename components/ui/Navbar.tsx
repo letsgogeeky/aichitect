@@ -9,7 +9,6 @@ import { GITHUB_URL, TOOL_COUNT, STACK_COUNT } from "@/lib/constants";
 import type { Counts } from "@/lib/data/counts";
 import { useSuggestTool } from "./SuggestToolContext";
 import { useWalkthrough, TourRoute } from "./WalkthroughContext";
-import GetStartedModal from "./GetStartedModal";
 import {
   IconNetwork,
   IconLayers,
@@ -76,7 +75,6 @@ export default function Navbar({ counts }: { counts?: Counts }) {
   const stackCount = counts?.stackCount ?? STACK_COUNT;
   const pathname = usePathname();
   const [copied, setCopied] = useState(false);
-  const [getStartedOpen, setGetStartedOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { openSuggest } = useSuggestTool();
   const { openWalkthrough } = useWalkthrough();
@@ -90,15 +88,6 @@ export default function Navbar({ counts }: { counts?: Counts }) {
         : pathname === "/builder"
           ? "builder"
           : null;
-
-  function openGetStarted() {
-    setGetStartedOpen(true);
-  }
-
-  function getStartedToolIds(): string[] {
-    if (typeof window === "undefined") return [];
-    return (new URLSearchParams(window.location.search).get("s") ?? "").split(",").filter(Boolean);
-  }
 
   function copyStack() {
     navigator.clipboard
@@ -219,52 +208,6 @@ export default function Navbar({ counts }: { counts?: Counts }) {
                 {toolCount} tools · {stackCount} stacks
               </span>
             </div>
-          )}
-
-          {/* Builder: get started */}
-          {pathname === "/builder" && (
-            <button
-              onClick={openGetStarted}
-              className="hidden sm:flex items-center transition-all"
-              style={{
-                gap: 6,
-                padding: "0 14px",
-                height: 34,
-                borderRadius: 8,
-                background: "#7c6bff18",
-                border: "1px solid #7c6bff44",
-                color: "var(--accent)",
-                fontSize: 12,
-                fontWeight: 500,
-                cursor: "pointer",
-              }}
-            >
-              Get Started →
-            </button>
-          )}
-
-          {/* Builder: share stack — hidden on mobile (already in bottom sheet) */}
-          {pathname === "/builder" && (
-            <button
-              data-tour="builder-share"
-              onClick={copyStack}
-              className="hidden sm:flex items-center transition-all"
-              style={{
-                gap: 6,
-                padding: "0 14px",
-                height: 34,
-                borderRadius: 8,
-                background: copied ? "#00d4aa30" : "#00d4aa18",
-                border: `1px solid ${copied ? "#00d4aa88" : "#00d4aa44"}`,
-                color: "var(--accent-2)",
-                fontSize: 12,
-                fontWeight: 500,
-                cursor: "pointer",
-              }}
-            >
-              <IconShare size={13} />
-              {copied ? "Copied!" : "Share Stack"}
-            </button>
           )}
 
           {/* Tour button */}
@@ -395,10 +338,6 @@ export default function Navbar({ counts }: { counts?: Counts }) {
           </a>
         </div>
       </nav>
-
-      {getStartedOpen && (
-        <GetStartedModal toolIds={getStartedToolIds()} onClose={() => setGetStartedOpen(false)} />
-      )}
 
       {/* Mobile: ⋯ menu bottom sheet */}
       <BottomSheet
