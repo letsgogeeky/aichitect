@@ -14,6 +14,8 @@ import { formatRelativeTime, formatStarDelta } from "@/lib/format";
 import { healthColor, healthLabel } from "@/lib/health";
 import { CloseButton } from "@/components/ui/CloseButton";
 import { ColorDot } from "@/components/ui/ColorDot";
+import { ToolUsageButton } from "@/components/ui/ToolUsageButton";
+import { SITE_URL } from "@/lib/constants";
 
 const relationships = relationshipsData as Relationship[];
 const allTools = toolsData as Tool[];
@@ -29,6 +31,7 @@ export default function DetailPanel({ tool, onClose }: Props) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [healthDetails, setHealthDetails] = useState<ToolHealthDetails | null>(null);
+  const [copiedBadge, setCopiedBadge] = useState(false);
 
   useEffect(() => {
     if (!tool) return;
@@ -50,6 +53,16 @@ export default function DetailPanel({ tool, onClose }: Props) {
   const stackIds = (searchParams.get("s") ?? "").split(",").filter(Boolean);
   const inStack = stackIds.includes(tool.id);
   const toolId = tool.id;
+
+  function copyBadge() {
+    if (!tool) return;
+    const badgeUrl = `${SITE_URL}/badge/tool/${tool.id}`;
+    const markdown = `[![${tool.name}](${badgeUrl})](${SITE_URL}/explore)`;
+    navigator.clipboard.writeText(markdown).then(() => {
+      setCopiedBadge(true);
+      setTimeout(() => setCopiedBadge(false), 2000);
+    });
+  }
 
   function toggleStack() {
     const next = inStack ? stackIds.filter((id) => id !== toolId) : [...stackIds, toolId];
@@ -258,6 +271,35 @@ export default function DetailPanel({ tool, onClose }: Props) {
               Build →
             </Link>
           )}
+        </div>
+
+        {/* I use this + copy badge */}
+        <div className="flex gap-2">
+          <div className="flex-1">
+            <ToolUsageButton toolId={tool.id} color={color} />
+          </div>
+          <button
+            onClick={copyBadge}
+            title="Copy badge Markdown"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              padding: "0 10px",
+              height: 32,
+              borderRadius: 7,
+              fontSize: 11,
+              fontWeight: 600,
+              cursor: "pointer",
+              background: copiedBadge ? "#26de8118" : "var(--btn)",
+              border: `1px solid ${copiedBadge ? "#26de8144" : "var(--btn-border)"}`,
+              color: copiedBadge ? "var(--success)" : "var(--text-muted)",
+              transition: "all 150ms",
+              flexShrink: 0,
+              whiteSpace: "nowrap",
+            }}
+          >
+            {copiedBadge ? "Copied!" : "Badge"}
+          </button>
         </div>
 
         {/* Connected tools */}

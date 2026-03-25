@@ -8,6 +8,7 @@ import { SLOT_AUTONOMY } from "@/lib/stackStory";
 import StackHealthPanel from "@/components/panels/StackHealthPanel";
 import Link from "next/link";
 import { SITE_URL } from "@/lib/constants";
+import { ToolUsageButton } from "@/components/ui/ToolUsageButton";
 
 export function BuilderSlotList({
   slots,
@@ -206,6 +207,7 @@ export function BuilderSlotList({
                               <span className="ml-auto text-[9px] text-[var(--success)]">OSS</span>
                             )}
                           </button>
+                          {active && <ToolUsageButton toolId={t.id} color={color} compact />}
                           <button
                             onClick={(e) => onCompareClick(t, e)}
                             title={isCompareA ? "Staged for comparison" : `Compare ${t.name}`}

@@ -39,9 +39,12 @@ export function useUser(): UseUserResult {
 
   async function signIn() {
     if (!supabase) return;
+    const next = window.location.pathname + window.location.search;
     await supabase.auth.signInWithOAuth({
       provider: "github",
-      options: { redirectTo: `${window.location.origin}/auth/callback` },
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`,
+      },
     });
   }
 
