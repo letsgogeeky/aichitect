@@ -1,9 +1,57 @@
 "use client";
 
 import { useState } from "react";
-import { CATEGORIES, STACK_LAYERS, RelationshipType } from "@/lib/types";
+import {
+  CATEGORIES,
+  STACK_LAYERS,
+  STACK_CLUSTERS,
+  RelationshipType,
+  TeamSize,
+  BudgetTier,
+  UseCase,
+  Stage,
+  StackCluster,
+} from "@/lib/types";
 import { ColorDot } from "@/components/ui/ColorDot";
 import { useSuggestTool } from "@/components/ui/SuggestToolContext";
+
+export interface StackFilters {
+  team: TeamSize | null;
+  budget: BudgetTier | null;
+  use: UseCase | null;
+  stage: Stage | null;
+  cluster: StackCluster | null;
+}
+
+const TEAM_OPTIONS: { id: TeamSize; label: string }[] = [
+  { id: "solo", label: "Solo" },
+  { id: "small", label: "2–5" },
+  { id: "team", label: "6–20" },
+  { id: "org", label: "20+" },
+];
+
+const BUDGET_OPTIONS: { id: BudgetTier; label: string }[] = [
+  { id: "free", label: "Free" },
+  { id: "low", label: "<$500/mo" },
+  { id: "mid", label: "$500–5k" },
+  { id: "high", label: "Unlimited" },
+];
+
+const USE_CASE_OPTIONS: { id: UseCase; label: string }[] = [
+  { id: "rag", label: "RAG" },
+  { id: "chatbot", label: "Chatbot" },
+  { id: "coding-assistant", label: "Coding" },
+  { id: "automation", label: "Automation" },
+  { id: "observability", label: "Observability" },
+  { id: "compliance", label: "Compliance" },
+];
+
+const STAGE_OPTIONS: { id: Stage; label: string }[] = [
+  { id: "prototype", label: "Prototype" },
+  { id: "mvp", label: "MVP" },
+  { id: "production", label: "Production" },
+  { id: "scale", label: "Scale" },
+];
 
 interface Props {
   activeCategories: Set<string>;
@@ -12,6 +60,9 @@ interface Props {
   setActiveRelTypes: (v: Set<RelationshipType>) => void;
   searchQuery: string;
   setSearchQuery: (v: string) => void;
+  stackFilters: StackFilters;
+  setStackFilters: (v: StackFilters) => void;
+  matchingStackCount: number;
 }
 
 const REL_TYPES: { id: RelationshipType; label: string; style: string }[] = [
@@ -51,6 +102,9 @@ export default function FilterPanel({
   setActiveRelTypes,
   searchQuery,
   setSearchQuery,
+  stackFilters,
+  setStackFilters,
+  matchingStackCount,
 }: Props) {
   const { openSuggest } = useSuggestTool();
   const allOn = activeCategories.size === CATEGORIES.length;
@@ -58,6 +112,22 @@ export default function FilterPanel({
   // Each layer starts open; track collapsed state per layer id
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
   const [edgesCollapsed, setEdgesCollapsed] = useState(false);
+  const [stackFilterCollapsed, setStackFilterCollapsed] = useState(false);
+
+  const hasStackFilter =
+    stackFilters.team ||
+    stackFilters.budget ||
+    stackFilters.use ||
+    stackFilters.stage ||
+    stackFilters.cluster;
+
+  function toggleStackFilter<K extends keyof StackFilters>(key: K, value: StackFilters[K]) {
+    setStackFilters({ ...stackFilters, [key]: stackFilters[key] === value ? null : value });
+  }
+
+  function clearStackFilters() {
+    setStackFilters({ team: null, budget: null, use: null, stage: null, cluster: null });
+  }
 
   function toggleLayerCollapsed(layerId: string) {
     setCollapsed((prev) => ({ ...prev, [layerId]: !prev[layerId] }));
@@ -113,6 +183,198 @@ export default function FilterPanel({
             color: "var(--text-primary)",
           }}
         />
+
+        {/* Stack Filter */}
+        <div>
+          <div className="w-full flex items-center gap-1.5 mb-1.5">
+            <button
+              className="flex items-center gap-1.5 flex-1 min-w-0"
+              onClick={() => setStackFilterCollapsed((v) => !v)}
+            >
+              <ChevronIcon open={!stackFilterCollapsed} />
+              <span className="text-[10px] font-semibold uppercase tracking-widest text-[var(--text-muted)] text-left">
+                Find Stacks
+              </span>
+            </button>
+            {hasStackFilter && (
+              <button
+                onClick={clearStackFilters}
+                className="text-[9px] px-1.5 py-0.5 rounded flex-shrink-0"
+                style={{ background: "#7c6bff22", color: "var(--accent)" }}
+              >
+                Clear
+              </button>
+            )}
+          </div>
+
+          {!stackFilterCollapsed && (
+            <div className="space-y-2.5">
+              {/* Team size */}
+              <div>
+                <p className="text-[9px] uppercase tracking-widest text-[var(--text-muted)] mb-1 px-1">
+                  Team size
+                </p>
+                <div className="flex flex-wrap gap-1">
+                  {TEAM_OPTIONS.map((opt) => (
+                    <button
+                      key={opt.id}
+                      onClick={() => toggleStackFilter("team", opt.id)}
+                      className="text-[10px] px-2 py-0.5 rounded-full transition-colors"
+                      style={
+                        stackFilters.team === opt.id
+                          ? {
+                              background: "#7c6bff33",
+                              color: "var(--accent)",
+                              border: "1px solid #7c6bff66",
+                            }
+                          : {
+                              background: "var(--surface-2)",
+                              color: "var(--text-muted)",
+                              border: "1px solid var(--border)",
+                            }
+                      }
+                    >
+                      {opt.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Budget */}
+              <div>
+                <p className="text-[9px] uppercase tracking-widest text-[var(--text-muted)] mb-1 px-1">
+                  Budget
+                </p>
+                <div className="flex flex-wrap gap-1">
+                  {BUDGET_OPTIONS.map((opt) => (
+                    <button
+                      key={opt.id}
+                      onClick={() => toggleStackFilter("budget", opt.id)}
+                      className="text-[10px] px-2 py-0.5 rounded-full transition-colors"
+                      style={
+                        stackFilters.budget === opt.id
+                          ? {
+                              background: "#7c6bff33",
+                              color: "var(--accent)",
+                              border: "1px solid #7c6bff66",
+                            }
+                          : {
+                              background: "var(--surface-2)",
+                              color: "var(--text-muted)",
+                              border: "1px solid var(--border)",
+                            }
+                      }
+                    >
+                      {opt.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Use case */}
+              <div>
+                <p className="text-[9px] uppercase tracking-widest text-[var(--text-muted)] mb-1 px-1">
+                  Use case
+                </p>
+                <div className="flex flex-wrap gap-1">
+                  {USE_CASE_OPTIONS.map((opt) => (
+                    <button
+                      key={opt.id}
+                      onClick={() => toggleStackFilter("use", opt.id)}
+                      className="text-[10px] px-2 py-0.5 rounded-full transition-colors"
+                      style={
+                        stackFilters.use === opt.id
+                          ? {
+                              background: "#7c6bff33",
+                              color: "var(--accent)",
+                              border: "1px solid #7c6bff66",
+                            }
+                          : {
+                              background: "var(--surface-2)",
+                              color: "var(--text-muted)",
+                              border: "1px solid var(--border)",
+                            }
+                      }
+                    >
+                      {opt.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Stage */}
+              <div>
+                <p className="text-[9px] uppercase tracking-widest text-[var(--text-muted)] mb-1 px-1">
+                  Stage
+                </p>
+                <div className="flex flex-wrap gap-1">
+                  {STAGE_OPTIONS.map((opt) => (
+                    <button
+                      key={opt.id}
+                      onClick={() => toggleStackFilter("stage", opt.id)}
+                      className="text-[10px] px-2 py-0.5 rounded-full transition-colors"
+                      style={
+                        stackFilters.stage === opt.id
+                          ? {
+                              background: "#7c6bff33",
+                              color: "var(--accent)",
+                              border: "1px solid #7c6bff66",
+                            }
+                          : {
+                              background: "var(--surface-2)",
+                              color: "var(--text-muted)",
+                              border: "1px solid var(--border)",
+                            }
+                      }
+                    >
+                      {opt.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Cluster */}
+              <div>
+                <p className="text-[9px] uppercase tracking-widest text-[var(--text-muted)] mb-1 px-1">
+                  Cluster
+                </p>
+                <div className="flex flex-wrap gap-1">
+                  {STACK_CLUSTERS.map((opt) => (
+                    <button
+                      key={opt.id}
+                      onClick={() => toggleStackFilter("cluster", opt.id)}
+                      className="text-[10px] px-2 py-0.5 rounded-full transition-colors"
+                      style={
+                        stackFilters.cluster === opt.id
+                          ? {
+                              background: "#7c6bff33",
+                              color: "var(--accent)",
+                              border: "1px solid #7c6bff66",
+                            }
+                          : {
+                              background: "var(--surface-2)",
+                              color: "var(--text-muted)",
+                              border: "1px solid var(--border)",
+                            }
+                      }
+                    >
+                      {opt.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Result count */}
+              {hasStackFilter && (
+                <p className="text-[9px] text-[var(--text-muted)] px-1">
+                  {matchingStackCount === 0
+                    ? "No matching stacks"
+                    : `${matchingStackCount} stack${matchingStackCount !== 1 ? "s" : ""} match — tools highlighted`}
+                </p>
+              )}
+            </div>
+          )}
+        </div>
 
         {/* Categories grouped by stack layer */}
         <div>

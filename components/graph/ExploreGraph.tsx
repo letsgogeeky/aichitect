@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useMemo, useState, Component, ReactNode } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { useComparisonMode } from "@/hooks/useComparisonMode";
 import dynamic from "next/dynamic";
@@ -30,7 +30,13 @@ import {
   getCategoryColor,
   STACK_LAYERS,
   CategoryId,
+  TeamSize,
+  BudgetTier,
+  UseCase,
+  Stage,
+  StackCluster,
 } from "@/lib/types";
+import { StackFilters } from "@/components/panels/FilterPanel";
 import { gridLayout, swimlaneLayout } from "@/lib/graph";
 import ToolNode from "./ToolNode";
 import LaneLabel from "./LaneLabel";
@@ -355,16 +361,13 @@ export default function ExploreGraph({
   } = useComparisonMode(initialComparison, initialTool);
 
   // Pre-highlight tools passed via ?s= (e.g. "See in graph" from Builder)
-   
   const initialStackIds = useMemo(
     () => new Set((searchParams.get("s") ?? "").split(",").filter(Boolean)),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
-  const mergedHighlightedIds = useMemo(
-    () =>
-      initialStackIds.size > 0 ? new Set([...highlightedIds, ...initialStackIds]) : highlightedIds,
-    [highlightedIds, initialStackIds]
-  );
+
+  const router = useRouter();
 
   const [activeCategories, setActiveCategories] = useState<Set<string>>(allCategories);
   const [activeRelTypes, setActiveRelTypes] = useState<Set<RelationshipType>>(
@@ -373,6 +376,64 @@ export default function ExploreGraph({
   const [searchQuery, setSearchQuery] = useState("");
   const [bannerDismissed, setBannerDismissed] = useState(false);
   const [viewMode, setViewMode] = useState<"grid" | "layers" | "3d">("3d");
+
+  // Stack filters — read initial values from URL
+  const [stackFilters, setStackFiltersState] = useState<StackFilters>({
+    team: (searchParams.get("team") as TeamSize | null) ?? null,
+    budget: (searchParams.get("budget") as BudgetTier | null) ?? null,
+    use: (searchParams.get("use") as UseCase | null) ?? null,
+    stage: (searchParams.get("stage") as Stage | null) ?? null,
+    cluster: (searchParams.get("cluster") as StackCluster | null) ?? null,
+  });
+
+  function setStackFilters(next: StackFilters) {
+    setStackFiltersState(next);
+    // Sync to URL for shareability
+    const url = new URL(window.location.href);
+    const keys: (keyof StackFilters)[] = ["team", "budget", "use", "stage", "cluster"];
+    for (const k of keys) {
+      if (next[k]) url.searchParams.set(k, next[k] as string);
+      else url.searchParams.delete(k);
+    }
+    router.replace(url.pathname + url.search, { scroll: false });
+  }
+
+  // Compute which stacks match all active filters
+  const matchingStacks = useMemo(() => {
+    const { team, budget, use, stage, cluster } = stackFilters;
+    const hasFilter = team || budget || use || stage || cluster;
+    if (!hasFilter) return null;
+    return staticStacks.filter((s) => {
+      if (cluster && s.cluster !== cluster) return false;
+      if (team && !s.target_team_size?.includes(team)) return false;
+      if (budget && s.budget_tier !== budget) return false;
+      if (use && !s.use_cases?.includes(use)) return false;
+      if (stage && !s.stage?.includes(stage)) return false;
+      return true;
+    });
+  }, [stackFilters]);
+
+  const stackFilteredToolIds = useMemo(() => {
+    if (!matchingStacks) return null;
+    const ids = new Set<string>();
+    for (const stack of matchingStacks) {
+      for (const toolId of stack.tools) ids.add(toolId);
+    }
+    return ids;
+  }, [matchingStacks]);
+
+  // When stack filters are active, narrow the visible tool set to matching stacks only.
+  // This works for all view modes (grid, layers, 3D) because both inner components
+  // accept a tools prop and apply their own category filter on top.
+  const displayTools = useMemo(() => {
+    if (!stackFilteredToolIds) return tools;
+    return tools.filter((t) => stackFilteredToolIds.has(t.id));
+  }, [tools, stackFilteredToolIds]);
+
+  const mergedHighlightedIds = useMemo(() => {
+    if (initialStackIds.size > 0) return new Set([...highlightedIds, ...initialStackIds]);
+    return highlightedIds;
+  }, [highlightedIds, initialStackIds]);
 
   return (
     <div className="flex flex-col h-full overflow-hidden">
@@ -413,6 +474,9 @@ export default function ExploreGraph({
             setActiveRelTypes={setActiveRelTypes}
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
+            stackFilters={stackFilters}
+            setStackFilters={setStackFilters}
+            matchingStackCount={matchingStacks?.length ?? 0}
           />
         </div>
 
@@ -565,7 +629,7 @@ export default function ExploreGraph({
           {viewMode === "3d" ? (
             <Graph3DErrorBoundary>
               <ExploreGraph3D
-                tools={tools}
+                tools={displayTools}
                 relationships={activeRelationships}
                 activeCategories={activeCategories}
                 activeRelTypes={activeRelTypes}
@@ -578,7 +642,7 @@ export default function ExploreGraph({
           ) : (
             <ReactFlowProvider key={viewMode}>
               <ExploreGraphInner
-                tools={tools}
+                tools={displayTools}
                 relationships={activeRelationships}
                 activeCategories={activeCategories}
                 activeRelTypes={activeRelTypes}
@@ -655,6 +719,9 @@ export default function ExploreGraph({
           setActiveRelTypes={setActiveRelTypes}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
+          stackFilters={stackFilters}
+          setStackFilters={setStackFilters}
+          matchingStackCount={matchingStacks?.length ?? 0}
         />
         <div className="px-4 pb-4 pt-2">
           <button

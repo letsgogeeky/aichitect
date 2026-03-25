@@ -92,6 +92,22 @@ export interface StackFlowEdge {
 
 export type StackCluster = "build" | "automate" | "ship" | "comply" | "understand";
 
+/** 1 = solo, 2-5 = small, 6-20 = team, 20+ = org */
+export type TeamSize = "solo" | "small" | "team" | "org";
+
+/** free = $0, low = <$500/mo, mid = $500–$5k, high = unlimited/enterprise */
+export type BudgetTier = "free" | "low" | "mid" | "high";
+
+export type UseCase =
+  | "rag"
+  | "chatbot"
+  | "coding-assistant"
+  | "automation"
+  | "observability"
+  | "compliance";
+
+export type Stage = "prototype" | "mvp" | "production" | "scale";
+
 export interface StackRejection {
   tool: string; // tool id
   reason: string;
@@ -115,6 +131,14 @@ export interface Stack {
   tradeoffs?: string;
   complexity?: "beginner" | "intermediate" | "advanced";
   monthly_cost?: string;
+  /** Team sizes this stack is designed for */
+  target_team_size?: TeamSize[];
+  /** Budget tier this stack fits */
+  budget_tier?: BudgetTier;
+  /** Primary use cases this stack addresses */
+  use_cases?: UseCase[];
+  /** Project stages where this stack applies */
+  stage?: Stage[];
 }
 
 export const STACK_CLUSTERS: { id: StackCluster; label: string; tagline: string }[] = [
