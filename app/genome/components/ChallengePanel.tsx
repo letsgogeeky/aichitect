@@ -10,7 +10,7 @@ interface ChallengePanelProps {
   allIds: string[];
 }
 
-type ChallengeState = "idle" | "loading" | "done" | "error";
+type ChallengeState = "idle" | "loading" | "done" | "error" | "rate-limited";
 
 const ACCENT = "#7c6bff";
 
@@ -42,6 +42,10 @@ export function ChallengePanel({ report, allIds }: ChallengePanelProps) {
         body: JSON.stringify(payload),
       });
 
+      if (res.status === 429) {
+        setState("rate-limited");
+        return;
+      }
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
       const data: ChallengeResponse = await res.json();
@@ -149,7 +153,7 @@ export function ChallengePanel({ report, allIds }: ChallengePanelProps) {
             <span style={{ fontSize: 11, color: "#555577" }}>analyzing choices…</span>
           )}
 
-          {state === "error" && (
+          {(state === "error" || state === "rate-limited") && (
             <button
               onClick={requestChallenge}
               style={{
@@ -287,6 +291,14 @@ export function ChallengePanel({ report, allIds }: ChallengePanelProps) {
         <div style={{ padding: "12px 14px" }}>
           <p style={{ margin: 0, fontSize: 11, color: "#555577" }}>
             Failed to generate challenge. Make sure GOOGLE_AI_API_KEY is set.
+          </p>
+        </div>
+      )}
+
+      {state === "rate-limited" && (
+        <div style={{ padding: "12px 14px" }}>
+          <p style={{ margin: 0, fontSize: 11, color: "#fdcb6e" }}>
+            Rate limit reached. Wait a moment before trying again.
           </p>
         </div>
       )}

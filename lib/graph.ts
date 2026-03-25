@@ -1,6 +1,21 @@
 import dagre from "@dagrejs/dagre";
 import { Node, Edge } from "reactflow";
 
+/**
+ * Returns a consistent edge style for a given relationship type.
+ * Used by BuilderClient and ExploreGraph to keep edge rendering consistent.
+ */
+export function relationshipEdgeStyle(type: string, categoryColor: string) {
+  if (type === "commonly-paired-with") {
+    return { stroke: "#4a4a7a", strokeWidth: 1.5, strokeDasharray: "5,4" } as const;
+  }
+  if (type === "integrates-with") {
+    return { stroke: categoryColor, strokeWidth: 1.5, strokeDasharray: undefined } as const;
+  }
+  // competes-with and anything else
+  return { stroke: "#3a3a4a", strokeWidth: 1, strokeDasharray: "2,4" } as const;
+}
+
 export function applyDagreLayout(
   nodes: Node[],
   edges: Edge[],

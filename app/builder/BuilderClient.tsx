@@ -16,7 +16,7 @@ import ReactFlow, {
 import "reactflow/dist/style.css";
 
 import { Slot, Tool, Relationship, getCategoryColor } from "@/lib/types";
-import { applyDagreLayout } from "@/lib/graph";
+import { applyDagreLayout, relationshipEdgeStyle } from "@/lib/graph";
 import ToolNode from "@/components/graph/ToolNode";
 import ComparisonPanel from "@/components/panels/ComparisonPanel";
 import { BuilderSlotList } from "./components/BuilderSlotList";
@@ -83,11 +83,7 @@ function BuilderGraph({
         source: r.source,
         target: r.target,
         animated: !isPaired,
-        style: {
-          stroke: isPaired ? "#4a4a7a" : color,
-          strokeWidth: isPaired ? 1 : 1.5,
-          strokeDasharray: isPaired ? "5,4" : undefined,
-        },
+        style: relationshipEdgeStyle(r.type, color),
         label: isPaired ? "often used together" : undefined,
         labelStyle: isPaired ? { fill: "#555577", fontSize: 9 } : undefined,
         labelBgStyle: isPaired ? { fill: "var(--surface)", fillOpacity: 0.8 } : undefined,

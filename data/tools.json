@@ -141,7 +141,7 @@
     "id": "continue",
     "name": "Continue",
     "category": "coding-assistants",
-    "tagline": "OSS VS Code plugin \u2014 bring your own LLM",
+    "tagline": "OSS VS Code plugin — bring your own LLM",
     "description": "Open-source VS Code and JetBrains extension. Connect any LLM via ollama, LiteLLM, or cloud APIs. Fully customizable.",
     "type": "oss",
     "pricing": {
@@ -453,7 +453,7 @@
     "name": "Cline",
     "category": "coding-assistants",
     "tagline": "Autonomous AI coding agent in VS Code",
-    "description": "VS Code extension that gives Claude and other LLMs full agentic control \u2014 file edits, terminal commands, browser automation, and MCP tool use.",
+    "description": "VS Code extension that gives Claude and other LLMs full agentic control — file edits, terminal commands, browser automation, and MCP tool use.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -496,7 +496,7 @@
     "slot": "code-editor",
     "choose_if": [
       "You want to go from prompt to full-stack app instantly",
-      "You need no local setup \u2014 browser-only",
+      "You need no local setup — browser-only",
       "You're prototyping or demoing a product fast"
     ],
     "aliases": {
@@ -750,7 +750,7 @@
     "name": "Lovable",
     "category": "autonomous-agents",
     "tagline": "AI that builds full-stack web apps from prompts",
-    "description": "Lovable generates complete full-stack web applications from natural language. It handles frontend, backend, auth, and database \u2014 editable in real time.",
+    "description": "Lovable generates complete full-stack web applications from natural language. It handles frontend, backend, auth, and database — editable in real time.",
     "type": "commercial",
     "pricing": {
       "free_tier": true,
@@ -810,7 +810,7 @@
     "id": "v0",
     "name": "v0",
     "category": "design",
-    "tagline": "Prompt \u2192 production React/Tailwind components",
+    "tagline": "Prompt → production React/Tailwind components",
     "description": "Vercel's AI that generates production-ready React and Tailwind UI from prompts. Exports directly to code. Legitimized AI design-to-code.",
     "type": "commercial",
     "pricing": {
@@ -844,7 +844,7 @@
     "id": "galileo",
     "name": "Galileo AI",
     "category": "design",
-    "tagline": "Text \u2192 Figma-ready UI generation",
+    "tagline": "Text → Figma-ready UI generation",
     "description": "Generates complete Figma-ready UI designs from text prompts. Targets design teams looking to accelerate early-stage UI generation.",
     "type": "commercial",
     "pricing": {
@@ -877,7 +877,7 @@
     "id": "locofy",
     "name": "Locofy.ai",
     "category": "design",
-    "tagline": "Figma/XD \u2192 production React/Next.js code",
+    "tagline": "Figma/XD → production React/Next.js code",
     "description": "Converts Figma and Adobe XD designs into production-ready React, Next.js, and React Native code with accurate styling.",
     "type": "commercial",
     "pricing": {
@@ -1079,7 +1079,7 @@
     "id": "anima",
     "name": "Anima",
     "category": "design",
-    "tagline": "Figma \u2192 React/Vue/HTML code generation",
+    "tagline": "Figma → React/Vue/HTML code generation",
     "description": "Converts Figma designs to production-ready React, Vue, and HTML code. Supports design tokens, responsive layouts, and interactive components.",
     "type": "commercial",
     "pricing": {
@@ -1145,7 +1145,7 @@
     "id": "google-stitch",
     "name": "Google Stitch",
     "category": "design",
-    "tagline": "Gemini-powered screenshot or prompt \u2192 production web code",
+    "tagline": "Gemini-powered screenshot or prompt → production web code",
     "description": "Google's design-to-code tool powered by Gemini. Converts screenshots, mockups, or text prompts into production-ready HTML, CSS, and JavaScript. Integrated with Google AI Studio and targets rapid UI prototyping directly from visual references.",
     "type": "commercial",
     "pricing": {
@@ -1556,7 +1556,7 @@
     "id": "sweep-ai",
     "name": "Sweep AI",
     "category": "devops",
-    "tagline": "GitHub bot: issues \u2192 PRs automatically",
+    "tagline": "GitHub bot: issues → PRs automatically",
     "description": "GitHub bot that converts issues and bug reports into working pull requests. Handles simple to medium complexity tasks autonomously.",
     "type": "oss",
     "pricing": {
@@ -1722,7 +1722,7 @@
     "name": "Grit.io",
     "category": "devops",
     "tagline": "AI-powered code migrations and upgrades at scale",
-    "description": "Automates large-scale code migrations \u2014 upgrading frameworks, removing deprecated APIs, and enforcing patterns across entire codebases.",
+    "description": "Automates large-scale code migrations — upgrading frameworks, removing deprecated APIs, and enforcing patterns across entire codebases.",
     "type": "commercial",
     "pricing": {
       "free_tier": true,
@@ -2020,7 +2020,7 @@
     "name": "Height AI",
     "category": "product-mgmt",
     "tagline": "AI task management with autonomous project ops",
-    "description": "Project management tool with an AI agent that can autonomously triage tasks, draft specs, and manage backlog \u2014 without being explicitly asked.",
+    "description": "Project management tool with an AI agent that can autonomously triage tasks, draft specs, and manage backlog — without being explicitly asked.",
     "type": "commercial",
     "pricing": {
       "free_tier": true,
@@ -2118,7 +2118,7 @@
     "id": "litellm",
     "name": "LiteLLM",
     "category": "llm-infra",
-    "tagline": "Universal LLM proxy \u2014 100+ models, one API",
+    "tagline": "Universal LLM proxy — 100+ models, one API",
     "description": "OSS proxy that normalizes 100+ LLMs to the OpenAI format. Add routing, fallbacks, caching, and cost tracking in one layer.",
     "type": "oss",
     "pricing": {
@@ -2805,7 +2805,7 @@
       ]
     },
     "github_stars": null,
-    "slot": "llm-provider",
+    "slot": "inference",
     "provider": "anthropic",
     "prominent": true,
     "choose_if": [
@@ -2840,7 +2840,7 @@
       ]
     },
     "github_stars": null,
-    "slot": "llm-provider",
+    "slot": "inference",
     "provider": "openai",
     "prominent": true,
     "choose_if": [
@@ -2875,7 +2875,7 @@
       ]
     },
     "github_stars": null,
-    "slot": "llm-provider",
+    "slot": "inference",
     "provider": "mistral",
     "choose_if": [
       "You want a fast, affordable European AI provider",
@@ -2909,7 +2909,7 @@
       ]
     },
     "github_stars": null,
-    "slot": "llm-provider",
+    "slot": "inference",
     "provider": "cohere",
     "choose_if": [
       "Enterprise RAG or search is your primary use case",
@@ -2976,7 +2976,7 @@
       ]
     },
     "github_stars": 135000,
-    "slot": "llm-provider",
+    "slot": "inference",
     "prominent": true,
     "choose_if": [
       "You want access to thousands of open models",
@@ -3349,7 +3349,7 @@
     "id": "deepeval",
     "name": "DeepEval",
     "category": "prompt-eval",
-    "tagline": "LLM evaluation framework \u2014 14+ metrics",
+    "tagline": "LLM evaluation framework — 14+ metrics",
     "description": "Open-source evaluation framework with 14+ metrics including faithfulness, relevancy, and hallucination detection. Integrates with CI/CD.",
     "type": "oss",
     "pricing": {
@@ -3572,7 +3572,7 @@
     "name": "Spec Kit",
     "category": "specifications",
     "tagline": "GitHub's OSS toolkit for spec-driven AI coding workflows",
-    "description": "Open-source scaffold from GitHub that operationalizes spec-driven development with AI coding agents. Creates structured .specify/ folders that serve as the source of truth for Claude Code, GitHub Copilot, and Gemini CLI \u2014 steering AI generation from upfront specs rather than improvised prompts.",
+    "description": "Open-source scaffold from GitHub that operationalizes spec-driven development with AI coding agents. Creates structured .specify/ folders that serve as the source of truth for Claude Code, GitHub Copilot, and Gemini CLI — steering AI generation from upfront specs rather than improvised prompts.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -3667,7 +3667,7 @@
     "name": "Structurizr",
     "category": "specifications",
     "tagline": "Code-first C4 model architecture diagrams as structured text",
-    "description": "Implements the C4 model as a diagrams-as-code DSL \u2014 write Structurizr DSL and render multiple architecture views (Context, Container, Component, Code) from a single model. Version-controlled alongside code with full ADR integration. Free OSS CLI plus paid cloud workspace for team collaboration.",
+    "description": "Implements the C4 model as a diagrams-as-code DSL — write Structurizr DSL and render multiple architecture views (Context, Container, Component, Code) from a single model. Version-controlled alongside code with full ADR integration. Free OSS CLI plus paid cloud workspace for team collaboration.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -3772,7 +3772,7 @@
     "name": "AsyncAPI",
     "category": "specifications",
     "tagline": "Open standard for defining event-driven async APIs",
-    "description": "The specification standard for async, event-driven APIs over Kafka, MQTT, WebSockets, and more \u2014 the async equivalent of OpenAPI. The ecosystem includes CLI, parser, code generators, and server stub templates. Widely adopted in microservices and streaming architectures.",
+    "description": "The specification standard for async, event-driven APIs over Kafka, MQTT, WebSockets, and more — the async equivalent of OpenAPI. The ecosystem includes CLI, parser, code generators, and server stub templates. Widely adopted in microservices and streaming architectures.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -3836,7 +3836,7 @@
     "id": "speakeasy",
     "name": "Speakeasy",
     "category": "specifications",
-    "tagline": "OpenAPI \u2192 idiomatic SDKs, MCP servers, and contract tests",
+    "tagline": "OpenAPI → idiomatic SDKs, MCP servers, and contract tests",
     "description": "Takes an OpenAPI spec and generates polished, type-safe client SDKs across multiple languages, Terraform providers, and MCP servers for AI agent integration. Handles pagination, retries, webhooks, and streaming out of the box. Increasingly positioning itself as the API platform for the agent era.",
     "type": "commercial",
     "pricing": {
@@ -4037,8 +4037,8 @@
     "id": "letta",
     "name": "Letta",
     "category": "agent-frameworks",
-    "tagline": "Stateful agents with long-term memory \u2014 formerly MemGPT",
-    "description": "Letta (formerly MemGPT) is an open-source framework for building stateful AI agents with persistent, editable memory. Agents remember conversations across sessions, search their own memory, and update their knowledge over time \u2014 solving context window limitations.",
+    "tagline": "Stateful agents with long-term memory — formerly MemGPT",
+    "description": "Letta (formerly MemGPT) is an open-source framework for building stateful AI agents with persistent, editable memory. Agents remember conversations across sessions, search their own memory, and update their knowledge over time — solving context window limitations.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -4182,7 +4182,7 @@
     "name": "Rivet",
     "category": "pipelines-rag",
     "tagline": "Visual node-based IDE for building and debugging AI agent pipelines",
-    "description": "Rivet is an open-source visual programming environment for building complex AI agent workflows. Drag-and-drop nodes represent LLM calls, conditionals, loops, and tool uses \u2014 making it easy to prototype, debug, and understand AI pipeline behavior without writing code.",
+    "description": "Rivet is an open-source visual programming environment for building complex AI agent workflows. Drag-and-drop nodes represent LLM calls, conditionals, loops, and tool uses — making it easy to prototype, debug, and understand AI pipeline behavior without writing code.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -4363,8 +4363,8 @@
     "id": "cerebras",
     "name": "Cerebras",
     "category": "llm-infra",
-    "tagline": "Wafer-scale chip inference \u2014 the fastest LLM API available",
-    "description": "Cerebras offers ultra-fast LLM inference powered by its wafer-scale AI chips, delivering 2,000+ tokens/second \u2014 far exceeding GPU-based providers. It hosts Llama, Mistral, and other open models, making it ideal for latency-sensitive applications.",
+    "tagline": "Wafer-scale chip inference — the fastest LLM API available",
+    "description": "Cerebras offers ultra-fast LLM inference powered by its wafer-scale AI chips, delivering 2,000+ tokens/second — far exceeding GPU-based providers. It hosts Llama, Mistral, and other open models, making it ideal for latency-sensitive applications.",
     "type": "commercial",
     "pricing": {
       "free_tier": true,
@@ -4402,7 +4402,7 @@
     "name": "DeepInfra",
     "category": "llm-infra",
     "tagline": "Serverless GPU inference for open-source LLMs at low cost",
-    "description": "DeepInfra provides serverless inference for hundreds of open-source models including Llama, Mistral, and Falcon, with pay-per-token pricing and an OpenAI-compatible API. No infrastructure management \u2014 just call the API and scale automatically.",
+    "description": "DeepInfra provides serverless inference for hundreds of open-source models including Llama, Mistral, and Falcon, with pay-per-token pricing and an OpenAI-compatible API. No infrastructure management — just call the API and scale automatically.",
     "type": "commercial",
     "pricing": {
       "free_tier": true,
@@ -4549,7 +4549,7 @@
     "id": "redis-vector",
     "name": "Redis Vector",
     "category": "llm-infra",
-    "tagline": "In-memory vector search built into Redis \u2014 no separate DB needed",
+    "tagline": "In-memory vector search built into Redis — no separate DB needed",
     "description": "Redis Vector Search adds native vector similarity search to Redis, enabling low-latency semantic search on data already in Redis. With Redis Stack, you get vector indexing, hybrid search, and filtering alongside your existing caching and pub/sub workloads.",
     "type": "oss",
     "pricing": {
@@ -4587,7 +4587,7 @@
     "id": "turbopuffer",
     "name": "turbopuffer",
     "category": "llm-infra",
-    "tagline": "Serverless vector database built for scale \u2014 no infrastructure to manage",
+    "tagline": "Serverless vector database built for scale — no infrastructure to manage",
     "description": "turbopuffer is a serverless vector database designed for high-scale production workloads, offering fast nearest-neighbor search with automatic scaling and a simple HTTP API. It handles billions of vectors without capacity planning, charging only for storage and queries.",
     "type": "commercial",
     "pricing": {
@@ -4625,7 +4625,7 @@
     "id": "lancedb",
     "name": "LanceDB",
     "category": "llm-infra",
-    "tagline": "Serverless vector DB built on Apache Arrow \u2014 embedded or cloud",
+    "tagline": "Serverless vector DB built on Apache Arrow — embedded or cloud",
     "description": "LanceDB is an open-source vector database built on the Lance columnar format, offering embedded usage (no server) and a serverless cloud option. It supports multimodal data, blazing-fast queries on large datasets, and seamless interop with pandas, PyArrow, and LangChain.",
     "type": "oss",
     "pricing": {
@@ -4702,7 +4702,7 @@
     "name": "AgentOps",
     "category": "observability",
     "tagline": "Observability and replay platform built specifically for AI agents",
-    "description": "AgentOps provides session replay, cost tracking, and error monitoring designed for AI agents \u2014 not just LLM calls. It captures the full agent execution tree including tool calls, decisions, and multi-agent interactions, with a visual session replay for debugging.",
+    "description": "AgentOps provides session replay, cost tracking, and error monitoring designed for AI agents — not just LLM calls. It captures the full agent execution tree including tool calls, decisions, and multi-agent interactions, with a visual session replay for debugging.",
     "type": "commercial",
     "pricing": {
       "free_tier": true,
@@ -4793,7 +4793,7 @@
     "slot": "prompt-eval",
     "prominent": false,
     "choose_if": [
-      "evaluating RAG pipeline quality \u2014 groundedness and relevance",
+      "evaluating RAG pipeline quality — groundedness and relevance",
       "want open-source evals with a visual results dashboard",
       "building with LangChain or LlamaIndex and need eval integration"
     ],
@@ -4812,7 +4812,7 @@
     "name": "Humanloop",
     "category": "prompt-eval",
     "tagline": "Prompt management, A/B testing, and evals for production LLM apps",
-    "description": "Humanloop is a platform for managing prompts, running experiments, and evaluating LLM outputs in production. It provides a prompt editor, version history, A/B testing across models, and human plus automated eval workflows \u2014 keeping your prompts in sync with your code.",
+    "description": "Humanloop is a platform for managing prompts, running experiments, and evaluating LLM outputs in production. It provides a prompt editor, version history, A/B testing across models, and human plus automated eval workflows — keeping your prompts in sync with your code.",
     "type": "commercial",
     "pricing": {
       "free_tier": true,
@@ -4922,7 +4922,7 @@
     "name": "OpenAI Codex CLI",
     "category": "coding-assistants",
     "tagline": "OpenAI's open-source terminal agent for autonomous coding tasks",
-    "description": "OpenAI Codex CLI is an open-source terminal agent that applies natural language instructions to your local codebase. Running in your terminal, it reads files, writes code, runs tests, and iterates until the task is complete \u2014 powered by OpenAI's o4-mini model.",
+    "description": "OpenAI Codex CLI is an open-source terminal agent that applies natural language instructions to your local codebase. Running in your terminal, it reads files, writes code, runs tests, and iterates until the task is complete — powered by OpenAI's o4-mini model.",
     "type": "oss",
     "pricing": {
       "free_tier": false,
@@ -4994,7 +4994,7 @@
     "name": "Factory",
     "category": "autonomous-agents",
     "tagline": "AI software engineers that autonomously build features and fix bugs",
-    "description": "Factory provides Droids \u2014 AI software engineers that autonomously handle development tasks including coding, testing, debugging, and PR creation. They integrate with GitHub and Jira, accept natural language task descriptions, and operate continuously without human intervention.",
+    "description": "Factory provides Droids — AI software engineers that autonomously handle development tasks including coding, testing, debugging, and PR creation. They integrate with GitHub and Jira, accept natural language task descriptions, and operate continuously without human intervention.",
     "type": "commercial",
     "pricing": {
       "free_tier": false,
@@ -5065,7 +5065,7 @@
     "id": "replit-agent",
     "name": "Replit Agent",
     "category": "autonomous-agents",
-    "tagline": "Build full apps from a prompt \u2014 Replit's autonomous AI developer",
+    "tagline": "Build full apps from a prompt — Replit's autonomous AI developer",
     "description": "Replit Agent is an AI that builds complete web apps from a natural language description, handling frontend, backend, and deployment automatically inside Replit's cloud IDE. It creates, iterates, and deploys apps end-to-end, making it ideal for rapid prototyping.",
     "type": "commercial",
     "pricing": {
@@ -5104,7 +5104,7 @@
     "name": "Desktop Commander",
     "category": "mcp",
     "tagline": "MCP server giving AI agents terminal access and file system control",
-    "description": "Desktop Commander is an MCP server that provides AI agents with terminal execution, file system operations, process management, and text editor access. It enables agents to run shell commands, manage files, and control desktop applications \u2014 all through the MCP protocol.",
+    "description": "Desktop Commander is an MCP server that provides AI agents with terminal execution, file system operations, process management, and text editor access. It enables agents to run shell commands, manage files, and control desktop applications — all through the MCP protocol.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -5138,7 +5138,7 @@
     "name": "Brave Search MCP",
     "category": "mcp",
     "tagline": "MCP server for web and local search via Brave Search API",
-    "description": "Brave Search MCP provides AI agents with web search and local search capabilities through Brave's privacy-respecting search API. It supports general web queries, news search, image search, and local business lookups \u2014 giving agents real-time information access.",
+    "description": "Brave Search MCP provides AI agents with web search and local search capabilities through Brave's privacy-respecting search API. It supports general web queries, news search, image search, and local business lookups — giving agents real-time information access.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -5176,7 +5176,7 @@
     "name": "Sequential Thinking MCP",
     "category": "mcp",
     "tagline": "MCP server that enables structured step-by-step reasoning for agents",
-    "description": "Sequential Thinking MCP is a Model Context Protocol server that provides a tool for dynamic, reflective problem-solving. It enables AI agents to break complex problems into sequential steps, revise earlier thinking, and branch into alternative approaches \u2014 improving reasoning quality.",
+    "description": "Sequential Thinking MCP is a Model Context Protocol server that provides a tool for dynamic, reflective problem-solving. It enables AI agents to break complex problems into sequential steps, revise earlier thinking, and branch into alternative approaches — improving reasoning quality.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -5434,7 +5434,7 @@
     "name": "Coda AI",
     "category": "docs",
     "tagline": "Doc-meets-spreadsheet platform with AI built directly into every page",
-    "description": "Coda AI integrates AI writing, summarization, and data manipulation directly into Coda's doc-spreadsheet hybrid. Teams use it to draft PRDs, summarize meeting notes, generate tables from data, and automate repetitive documentation tasks \u2014 all within a collaborative workspace.",
+    "description": "Coda AI integrates AI writing, summarization, and data manipulation directly into Coda's doc-spreadsheet hybrid. Teams use it to draft PRDs, summarize meeting notes, generate tables from data, and automate repetitive documentation tasks — all within a collaborative workspace.",
     "type": "commercial",
     "pricing": {
       "free_tier": true,
@@ -5547,7 +5547,7 @@
     "id": "jira-ai",
     "name": "Jira AI",
     "category": "product-mgmt",
-    "tagline": "Atlassian Intelligence in Jira \u2014 AI backlog management and sprint planning",
+    "tagline": "Atlassian Intelligence in Jira — AI backlog management and sprint planning",
     "description": "Jira AI brings Atlassian Intelligence to issue tracking, enabling AI-generated ticket summaries, automatic subtask creation, sprint retrospective insights, and work-breakdown suggestions. It connects with Confluence AI for end-to-end project documentation and planning.",
     "type": "commercial",
     "pricing": {
@@ -5661,8 +5661,8 @@
     "id": "google-gemini-api",
     "name": "Google Gemini API",
     "category": "llm-infra",
-    "tagline": "Google's frontier multimodal model API \u2014 Gemini Pro and Flash",
-    "description": "Google's Gemini API provides access to Gemini Pro, Flash, and Ultra \u2014 Google's state-of-the-art multimodal models with native image, audio, and video understanding. With a 1M+ token context window and competitive pricing, it's a strong alternative to GPT-4 for production workloads.",
+    "tagline": "Google's frontier multimodal model API — Gemini Pro and Flash",
+    "description": "Google's Gemini API provides access to Gemini Pro, Flash, and Ultra — Google's state-of-the-art multimodal models with native image, audio, and video understanding. With a 1M+ token context window and competitive pricing, it's a strong alternative to GPT-4 for production workloads.",
     "type": "commercial",
     "pricing": {
       "free_tier": true,
@@ -5678,7 +5678,7 @@
       ]
     },
     "github_stars": null,
-    "slot": "llm-provider",
+    "slot": "inference",
     "provider": "google",
     "prominent": true,
     "choose_if": [
@@ -5701,7 +5701,7 @@
     "name": "Amazon Bedrock",
     "category": "llm-infra",
     "tagline": "AWS managed AI service with access to frontier models from every provider",
-    "description": "Amazon Bedrock provides API access to foundation models from Anthropic, Meta, Mistral, Cohere, and Amazon's own Titan models \u2014 all through a single AWS API. It handles compliance, security, and private deployment within your AWS account for enterprise-grade AI applications.",
+    "description": "Amazon Bedrock provides API access to foundation models from Anthropic, Meta, Mistral, Cohere, and Amazon's own Titan models — all through a single AWS API. It handles compliance, security, and private deployment within your AWS account for enterprise-grade AI applications.",
     "type": "commercial",
     "pricing": {
       "free_tier": true,
@@ -5717,7 +5717,7 @@
       ]
     },
     "github_stars": null,
-    "slot": "llm-provider",
+    "slot": "inference",
     "provider": "aws",
     "prominent": true,
     "choose_if": [
@@ -5756,7 +5756,7 @@
       ]
     },
     "github_stars": null,
-    "slot": "llm-provider",
+    "slot": "inference",
     "provider": "microsoft",
     "prominent": true,
     "choose_if": [
@@ -5795,7 +5795,7 @@
       ]
     },
     "github_stars": null,
-    "slot": "llm-provider",
+    "slot": "inference",
     "provider": "xai",
     "prominent": false,
     "choose_if": [
@@ -5818,7 +5818,7 @@
     "name": "DeepSeek API",
     "category": "llm-infra",
     "tagline": "High-performance frontier model API at a fraction of the cost",
-    "description": "DeepSeek's API provides access to DeepSeek-R1 and DeepSeek-V3 \u2014 frontier models matching GPT-4 performance on benchmarks at dramatically lower per-token costs. Its reasoning model (R1) supports extended chain-of-thought for complex coding and math tasks.",
+    "description": "DeepSeek's API provides access to DeepSeek-R1 and DeepSeek-V3 — frontier models matching GPT-4 performance on benchmarks at dramatically lower per-token costs. Its reasoning model (R1) supports extended chain-of-thought for complex coding and math tasks.",
     "type": "commercial",
     "pricing": {
       "free_tier": true,
@@ -5834,7 +5834,7 @@
       ]
     },
     "github_stars": null,
-    "slot": "llm-provider",
+    "slot": "inference",
     "provider": "deepseek",
     "prominent": false,
     "choose_if": [
@@ -5915,7 +5915,7 @@
     "name": "Warp",
     "category": "coding-assistants",
     "tagline": "GPU-accelerated terminal with built-in AI agent capabilities",
-    "description": "Rust-built terminal replacement with native AI agent capabilities. Runs Claude Code, OpenAI Codex CLI, and Gemini CLI simultaneously in one interface. Pioneering the 'agentic terminal' category \u2014 distinct from editor-based AI assistants.",
+    "description": "Rust-built terminal replacement with native AI agent capabilities. Runs Claude Code, OpenAI Codex CLI, and Gemini CLI simultaneously in one interface. Pioneering the 'agentic terminal' category — distinct from editor-based AI assistants.",
     "type": "commercial",
     "pricing": {
       "free_tier": true,
@@ -6160,7 +6160,7 @@
     "name": "Galileo",
     "category": "prompt-eval",
     "tagline": "Real-time LLM evaluation with sub-200ms guardrail models",
-    "description": "LLM evaluation platform with evaluation models that run in under 200ms \u2014 fast enough to use as production guardrails, not just offline eval. Covers hallucination detection, RAG quality, and safety scoring. Distinct from Galileo AI (the UI design tool).",
+    "description": "LLM evaluation platform with evaluation models that run in under 200ms — fast enough to use as production guardrails, not just offline eval. Covers hallucination detection, RAG quality, and safety scoring. Distinct from Galileo AI (the UI design tool).",
     "type": "commercial",
     "pricing": {
       "free_tier": true,
@@ -6198,7 +6198,7 @@
     "name": "Axolotl",
     "category": "fine-tuning",
     "tagline": "Streamlined LoRA & QLoRA fine-tuning",
-    "description": "OSS fine-tuning framework built on HuggingFace Transformers. Supports LoRA, QLoRA, full fine-tuning, and FSDP. Config-driven \u2014 define your training run in a YAML file.",
+    "description": "OSS fine-tuning framework built on HuggingFace Transformers. Supports LoRA, QLoRA, full fine-tuning, and FSDP. Config-driven — define your training run in a YAML file.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -6227,7 +6227,7 @@
     "id": "unsloth",
     "name": "Unsloth",
     "category": "fine-tuning",
-    "tagline": "2\u00d7 faster, 70% less memory LoRA fine-tuning",
+    "tagline": "2× faster, 70% less memory LoRA fine-tuning",
     "description": "Dramatically speeds up LoRA and QLoRA fine-tuning by rewriting GPU kernels. Compatible with HuggingFace and works with Llama, Mistral, Gemma, and more. No accuracy loss.",
     "type": "oss",
     "pricing": {
@@ -6291,7 +6291,7 @@
     "name": "Torchtune",
     "category": "fine-tuning",
     "tagline": "PyTorch-native LLM fine-tuning from Meta",
-    "description": "Meta's official fine-tuning library. Pure PyTorch \u2014 no abstraction layers. Supports LoRA, QLoRA, and full fine-tuning for Llama models. Designed for reproducibility and research.",
+    "description": "Meta's official fine-tuning library. Pure PyTorch — no abstraction layers. Supports LoRA, QLoRA, and full fine-tuning for Llama models. Designed for reproducibility and research.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -6438,7 +6438,7 @@
     "id": "assemblyai",
     "name": "AssemblyAI",
     "category": "voice-ai",
-    "tagline": "Audio intelligence API \u2014 transcription + LLM understanding",
+    "tagline": "Audio intelligence API — transcription + LLM understanding",
     "description": "Transcription API with built-in AI features: speaker labels, sentiment analysis, topic detection, PII redaction, and LeMUR (LLM over audio). Best for extracting structured insight from audio.",
     "type": "commercial",
     "pricing": {
@@ -6582,7 +6582,7 @@
     "name": "LLaVA",
     "category": "multimodal",
     "tagline": "Open-source multimodal LLM assistant",
-    "description": "Large Language and Vision Assistant \u2014 connects a vision encoder to an LLM for instruction-following with images. OSS research model widely used as a multimodal base. Runs via Ollama.",
+    "description": "Large Language and Vision Assistant — connects a vision encoder to an LLM for instruction-following with images. OSS research model widely used as a multimodal base. Runs via Ollama.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -6707,7 +6707,7 @@
     "name": "InternVL2",
     "category": "multimodal",
     "tagline": "Top OSS multimodal model from OpenGVLab",
-    "description": "InternVL2 series from Shanghai AI Lab \u2014 consistently top-ranked on open-source multimodal benchmarks. Strong at document understanding, chart analysis, and multi-image reasoning.",
+    "description": "InternVL2 series from Shanghai AI Lab — consistently top-ranked on open-source multimodal benchmarks. Strong at document understanding, chart analysis, and multi-image reasoning.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -6794,7 +6794,7 @@
     "slot": "voice-ai",
     "prominent": false,
     "choose_if": [
-      "Latency is critical \u2014 sub-800ms end-to-end response is required",
+      "Latency is critical — sub-800ms end-to-end response is required",
       "You're building healthcare or compliance-sensitive voice agents (HIPAA)",
       "You want native backchannels and human-like turn-taking out of the box"
     ],
@@ -6813,7 +6813,7 @@
     "name": "Browser Use",
     "category": "browser-automation",
     "tagline": "OSS AI agent library for browser control",
-    "description": "Python library that gives AI agents full browser control \u2014 navigate, click, fill forms, extract data. Built on Playwright. Reached 50K GitHub stars faster than most AI infra projects. Works with any LLM.",
+    "description": "Python library that gives AI agents full browser control — navigate, click, fill forms, extract data. Built on Playwright. Reached 50K GitHub stars faster than most AI infra projects. Works with any LLM.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -6912,7 +6912,7 @@
     "name": "Firecrawl",
     "category": "browser-automation",
     "tagline": "Turn any website into clean data for AI",
-    "description": "Crawl and scrape websites into clean markdown or structured JSON \u2014 handles JavaScript rendering, PDFs, and dynamic content. LLM-ready output. Used as the data-ingestion layer for RAG pipelines and AI research agents.",
+    "description": "Crawl and scrape websites into clean markdown or structured JSON — handles JavaScript rendering, PDFs, and dynamic content. LLM-ready output. Used as the data-ingestion layer for RAG pipelines and AI research agents.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
