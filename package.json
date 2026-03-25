@@ -20,7 +20,7 @@
     "@supabase/supabase-js": "^2",
     "@supabase/ssr": "^0.5",
     "@dagrejs/dagre": "^2.0.4",
-    "@vercel/analytics": "^1",
+    "@vercel/analytics": "^2",
     "@vercel/speed-insights": "^2.0.0",
     "elkjs": "^0.11.1",
     "next": "16.2.0",
