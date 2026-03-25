@@ -92,6 +92,17 @@ export async function POST(request: Request) {
     return NextResponse.json({ challenges } satisfies ChallengeResponse);
   } catch (err) {
     console.error("[challenge] Gemini API error:", err);
+    const msg = err instanceof Error ? err.message : String(err);
+    if (
+      msg.includes("429") ||
+      msg.toLowerCase().includes("quota") ||
+      msg.toLowerCase().includes("rate")
+    ) {
+      return NextResponse.json(
+        { error: "Rate limit reached. Try again in a moment." },
+        { status: 429 }
+      );
+    }
     return NextResponse.json({ error: "Gemini API error" }, { status: 500 });
   }
 }

@@ -10,7 +10,7 @@ interface RoastPanelProps {
   allIds: string[];
 }
 
-type RoastState = "idle" | "loading" | "done" | "error";
+type RoastState = "idle" | "loading" | "done" | "error" | "rate-limited";
 
 const ROAST_LEVELS = [
   { level: 1, name: "Gentle Nudge", color: "#00d4aa" },
@@ -29,7 +29,8 @@ export function RoastPanel({ report, allIds }: RoastPanelProps) {
   const [roastnessLevel, setRoastnessLevel] = useState(DEFAULT_LEVEL);
 
   const currentLevel = ROAST_LEVELS[roastnessLevel - 1];
-  const accentColor = state === "done" ? currentLevel.color : "#ff6b6b";
+  const accentColor =
+    state === "done" ? currentLevel.color : state === "rate-limited" ? "#fdcb6e" : "#ff6b6b";
 
   async function requestRoast() {
     setState("loading");
@@ -56,6 +57,10 @@ export function RoastPanel({ report, allIds }: RoastPanelProps) {
         body: JSON.stringify(payload),
       });
 
+      if (res.status === 429) {
+        setState("rate-limited");
+        return;
+      }
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
       const data: RoastResponse = await res.json();
@@ -151,7 +156,7 @@ export function RoastPanel({ report, allIds }: RoastPanelProps) {
             <span style={{ fontSize: 11, color: "#555577" }}>reading your stack…</span>
           )}
 
-          {state === "error" && (
+          {(state === "error" || state === "rate-limited") && (
             <button
               onClick={requestRoast}
               style={{
@@ -307,6 +312,14 @@ export function RoastPanel({ report, allIds }: RoastPanelProps) {
         <div style={{ padding: "12px 14px" }}>
           <p style={{ margin: 0, fontSize: 11, color: "#555577" }}>
             Failed to generate roast. Make sure GOOGLE_AI_API_KEY is set.
+          </p>
+        </div>
+      )}
+
+      {state === "rate-limited" && (
+        <div style={{ padding: "12px 14px" }}>
+          <p style={{ margin: 0, fontSize: 11, color: "#fdcb6e" }}>
+            Rate limit reached. Wait a moment before trying again.
           </p>
         </div>
       )}
