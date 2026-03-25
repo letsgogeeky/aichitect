@@ -1,3 +1,11 @@
+export interface Profile {
+  id: string; // uuid — matches auth.users.id
+  github_id: number;
+  github_username: string;
+  avatar_url: string | null;
+  created_at: string;
+}
+
 export type ToolType = "oss" | "commercial";
 
 export type UseContext = "dev-productivity" | "app-infrastructure" | "both";

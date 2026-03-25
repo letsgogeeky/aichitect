@@ -20,6 +20,7 @@ import {
   IconTour,
   IconGitHub,
 } from "@/components/icons";
+import { useUser } from "@/hooks/useUser";
 
 const VIEWS = [
   { href: "/stacks", label: "Stacks", Icon: IconLayers },
@@ -79,6 +80,7 @@ export default function Navbar({ counts }: { counts?: Counts }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { openSuggest } = useSuggestTool();
   const { openWalkthrough } = useWalkthrough();
+  const { user, loading: userLoading, signIn, signOut } = useUser();
 
   const tourRoute: TourRoute | null =
     pathname === "/explore"
@@ -307,6 +309,69 @@ export default function Navbar({ counts }: { counts?: Counts }) {
             + Suggest a Tool
           </button>
 
+          {/* Auth: sign in / user menu */}
+          {!userLoading && !user && (
+            <button
+              onClick={signIn}
+              className="hidden sm:flex items-center flex-shrink-0 transition-colors text-text-secondary hover:text-text-primary"
+              style={{
+                gap: 5,
+                padding: "0 10px",
+                height: 34,
+                borderRadius: 8,
+                background: "var(--btn)",
+                border: "1px solid var(--btn-border)",
+                fontSize: 11,
+                fontWeight: 500,
+                cursor: "pointer",
+              }}
+            >
+              <IconGitHub size={14} />
+              Sign in
+            </button>
+          )}
+          {!userLoading && user && (
+            <div className="hidden sm:flex items-center gap-2 flex-shrink-0">
+              {user.user_metadata?.avatar_url && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={user.user_metadata.avatar_url}
+                  alt={user.user_metadata.user_name ?? "avatar"}
+                  width={24}
+                  height={24}
+                  style={{ borderRadius: "50%", flexShrink: 0 }}
+                />
+              )}
+              <span
+                style={{
+                  fontSize: 11,
+                  color: "var(--text-secondary)",
+                  maxWidth: 80,
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {user.user_metadata?.user_name}
+              </span>
+              <button
+                onClick={signOut}
+                style={{
+                  fontSize: 10,
+                  color: "var(--text-secondary)",
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  padding: "2px 4px",
+                  opacity: 0.6,
+                }}
+                title="Sign out"
+              >
+                ✕
+              </button>
+            </div>
+          )}
+
           {/* GitHub */}
           <a
             href={GITHUB_URL}
@@ -407,6 +472,39 @@ export default function Navbar({ counts }: { counts?: Counts }) {
             <IconGitHub size={14} />
             GitHub
           </a>
+          {!userLoading && !user && (
+            <button
+              onClick={() => {
+                signIn();
+                setMobileMenuOpen(false);
+              }}
+              className="w-full flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium"
+              style={{
+                background: "var(--surface-2)",
+                border: "1px solid var(--border)",
+                color: "var(--text-primary)",
+              }}
+            >
+              <IconGitHub size={14} />
+              Sign in with GitHub
+            </button>
+          )}
+          {!userLoading && user && (
+            <button
+              onClick={() => {
+                signOut();
+                setMobileMenuOpen(false);
+              }}
+              className="w-full flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium"
+              style={{
+                background: "var(--surface-2)",
+                border: "1px solid var(--border)",
+                color: "var(--text-primary)",
+              }}
+            >
+              Sign out (@{user.user_metadata?.user_name})
+            </button>
+          )}
         </div>
       </BottomSheet>
     </>
