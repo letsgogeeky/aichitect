@@ -5,7 +5,7 @@ import BottomSheet from "@/components/mobile/BottomSheet";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import Logo from "./Logo";
-import { GITHUB_URL, TOOL_COUNT, STACK_COUNT } from "@/lib/constants";
+import { TOOL_COUNT, STACK_COUNT } from "@/lib/constants";
 import type { Counts } from "@/lib/data/counts";
 import { useSuggestTool } from "./SuggestToolContext";
 import { useWalkthrough, TourRoute } from "./WalkthroughContext";
@@ -314,28 +314,6 @@ export default function Navbar({ counts }: { counts?: Counts }) {
               </button>
             </div>
           )}
-
-          {/* GitHub */}
-          <a
-            href={GITHUB_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden sm:flex items-center flex-shrink-0 transition-colors text-text-secondary hover:text-text-primary"
-            style={{
-              gap: 5,
-              padding: "0 10px",
-              height: 34,
-              borderRadius: 8,
-              background: "var(--btn)",
-              border: "1px solid var(--btn-border)",
-              fontSize: 11,
-              fontWeight: 500,
-              textDecoration: "none",
-            }}
-          >
-            <IconGitHub size={14} />
-            GitHub
-          </a>
         </div>
       </nav>
 
@@ -394,23 +372,6 @@ export default function Navbar({ counts }: { counts?: Counts }) {
           >
             + Suggest a Tool
           </button>
-          <a
-            href={GITHUB_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium"
-            style={{
-              background: "var(--surface-2)",
-              border: "1px solid var(--border)",
-              color: "var(--text-primary)",
-              textDecoration: "none",
-              display: "flex",
-            }}
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            <IconGitHub size={14} />
-            GitHub
-          </a>
           {!userLoading && !user && (
             <button
               onClick={() => {

@@ -595,29 +595,6 @@ export default async function LandingPage() {
               {label}
             </Link>
           ))}
-          <div style={{ width: 1, height: 20, background: "#1e1e2e", margin: "0 6px" }} />
-          <a
-            href={GITHUB_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 6,
-              padding: "0 12px",
-              height: 34,
-              borderRadius: 8,
-              background: "#1c1c28",
-              border: "1px solid #2a2a3a",
-              color: "#8888aa",
-              fontSize: 12,
-              fontWeight: 500,
-              textDecoration: "none",
-            }}
-          >
-            <IconGitHub />
-            GitHub
-          </a>
         </div>
       </header>
 
