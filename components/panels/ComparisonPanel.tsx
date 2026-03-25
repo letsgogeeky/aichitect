@@ -7,6 +7,7 @@ import toolsData from "@/data/tools.json";
 import { healthColor, healthLabel, relLabel, relBadgeStyle } from "@/lib/health";
 import { CloseButton } from "@/components/ui/CloseButton";
 import { ColorDot } from "@/components/ui/ColorDot";
+import { ToolUsageButton } from "@/components/ui/ToolUsageButton";
 import {
   Row,
   CategoryPill,
@@ -102,6 +103,7 @@ export default function ComparisonPanel({ toolA, toolB, onClose, onSwap }: Compa
                 <span className="text-sm font-semibold text-[var(--text-primary)] truncate">
                   {toolA.name}
                 </span>
+                <ToolUsageButton toolId={toolA.id} color={colorA} compact />
               </div>
               <span className="text-[var(--text-muted)] text-xs flex-shrink-0">vs</span>
               <div className="flex items-center gap-1.5 min-w-0">
@@ -109,6 +111,7 @@ export default function ComparisonPanel({ toolA, toolB, onClose, onSwap }: Compa
                 <span className="text-sm font-semibold text-[var(--text-primary)] truncate">
                   {toolB.name}
                 </span>
+                <ToolUsageButton toolId={toolB.id} color={colorB} compact />
               </div>
             </div>
           </div>
