@@ -145,20 +145,36 @@ function GenomePageInner() {
           }}
         >
           <p style={{ fontSize: 13, margin: 0 }}>No analysis to show.</p>
-          <button
-            onClick={handleReset}
-            style={{
-              padding: "6px 16px",
-              fontSize: 12,
-              borderRadius: 6,
-              background: "#1e1e2e",
-              border: "1px solid #2e2e4e",
-              color: "#f0f0f8",
-              cursor: "pointer",
-            }}
-          >
-            Start over
-          </button>
+          <div style={{ display: "flex", gap: 8 }}>
+            <button
+              onClick={() => setStep("workflow")}
+              style={{
+                padding: "6px 16px",
+                fontSize: 12,
+                borderRadius: 6,
+                background: "#1e1e2e",
+                border: "1px solid #2e2e4e",
+                color: "#8888aa",
+                cursor: "pointer",
+              }}
+            >
+              ← Back
+            </button>
+            <button
+              onClick={handleReset}
+              style={{
+                padding: "6px 16px",
+                fontSize: 12,
+                borderRadius: 6,
+                background: "#1e1e2e",
+                border: "1px solid #2e2e4e",
+                color: "#f0f0f8",
+                cursor: "pointer",
+              }}
+            >
+              Start over
+            </button>
+          </div>
         </div>
       )}
     </div>

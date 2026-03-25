@@ -19,12 +19,19 @@ export function ToolUsageButton({ toolId, color, compact = false }: Props) {
   useEffect(() => {
     const supabase = createSupabaseBrowserClient();
     if (!supabase) return;
-    async function load() {
-      const { data } = await supabase!.from("tool_usage").select("user_id").eq("tool_id", toolId);
-      setCount(data?.length ?? 0);
-      setUsed(data?.some((r: { user_id: string }) => r.user_id === user?.id) ?? false);
-    }
-    load();
+    let cancelled = false;
+    supabase
+      .from("tool_usage")
+      .select("user_id")
+      .eq("tool_id", toolId)
+      .then(({ data }) => {
+        if (cancelled) return;
+        setCount(data?.length ?? 0);
+        setUsed(data?.some((r: { user_id: string }) => r.user_id === user?.id) ?? false);
+      });
+    return () => {
+      cancelled = true;
+    };
   }, [toolId, user?.id]);
 
   async function toggle() {

@@ -6,7 +6,12 @@ import { getCategoryColor } from "@/lib/types";
 export const runtime = "edge";
 
 export async function GET(_req: NextRequest, { params }: { params: Promise<{ toolId: string }> }) {
-  const { toolId } = await params;
+  let toolId: string;
+  try {
+    ({ toolId } = await params);
+  } catch {
+    return new NextResponse("Bad request", { status: 400 });
+  }
   const tool = (toolsData as Tool[]).find((t) => t.id === toolId);
 
   if (!tool) {

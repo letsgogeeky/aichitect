@@ -18,20 +18,23 @@ export function ProductionUsageSection({ stackId, tools }: Props) {
   useEffect(() => {
     const supabase = createSupabaseBrowserClient();
     if (!supabase || (!stackId && !tools?.length)) return;
+    let cancelled = false;
 
-    async function load() {
-      let query = supabase!.from("production_usage").select("user_id");
-      if (stackId) {
-        query = query.eq("stack_id", stackId);
-      } else if (tools?.length) {
-        query = query.contains("tools", tools);
-      }
-      const { data } = await query;
+    let query = supabase.from("production_usage").select("user_id");
+    if (stackId) {
+      query = query.eq("stack_id", stackId);
+    } else if (tools?.length) {
+      query = query.contains("tools", tools);
+    }
+    query.then(({ data }) => {
+      if (cancelled) return;
       setCount(data?.length ?? 0);
       setReported(data?.some((r: { user_id: string }) => r.user_id === user?.id) ?? false);
-    }
+    });
 
-    load();
+    return () => {
+      cancelled = true;
+    };
   }, [stackId, tools, user?.id]);
 
   async function toggle() {

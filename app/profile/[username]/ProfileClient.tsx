@@ -24,19 +24,25 @@ export default function ProfileClient({ username }: Props) {
   const [loading, setLoading] = useState(createSupabaseBrowserClient() !== null);
   const [copiedAll, setCopiedAll] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [failedBadges, setFailedBadges] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     const supabase = createSupabaseBrowserClient();
     if (!supabase) return;
+    let cancelled = false;
     supabase
       .from("tool_usage")
       .select("tool_id, avatar_url, used_at")
       .eq("github_username", username)
       .order("used_at", { ascending: false })
       .then(({ data }) => {
+        if (cancelled) return;
         setRows((data as ToolUsageRow[]) ?? []);
         setLoading(false);
       });
+    return () => {
+      cancelled = true;
+    };
   }, [username]);
 
   const tools = rows.map((r) => allTools.find((t) => t.id === r.tool_id)).filter(Boolean) as Tool[];
@@ -147,6 +153,7 @@ export default function ProfileClient({ username }: Props) {
             {tools.map((tool) => {
               const color = getCategoryColor(tool.category);
               const isCopied = copiedId === tool.id;
+              const badgeFailed = failedBadges.has(tool.id);
               return (
                 <button
                   key={tool.id}
@@ -155,15 +162,26 @@ export default function ProfileClient({ username }: Props) {
                   className="group relative"
                   style={{ background: "none", border: "none", padding: 0, cursor: "pointer" }}
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={badgeUrl(tool.id)}
-                    alt={`${tool.name} badge`}
-                    className="h-5 transition-opacity"
-                    style={{ opacity: isCopied ? 0.6 : 1 }}
-                  />
+                  {badgeFailed ? (
+                    <span
+                      className="flex items-center px-2 h-5 rounded text-[9px] font-semibold"
+                      style={{ background: color + "22", color, border: `1px solid ${color}44` }}
+                    >
+                      {tool.name}
+                    </span>
+                  ) : (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={badgeUrl(tool.id)}
+                      alt={`${tool.name} badge`}
+                      className="h-5 transition-opacity"
+                      style={{ opacity: isCopied ? 0.6 : 1 }}
+                      onError={() => setFailedBadges((prev) => new Set([...prev, tool.id]))}
+                    />
+                  )}
+                  {/* Overlay: show on hover OR immediately after copy (works on touch too) */}
                   <span
-                    className="absolute inset-0 flex items-center justify-center text-[9px] font-semibold rounded opacity-0 group-hover:opacity-100 transition-opacity"
+                    className={`absolute inset-0 flex items-center justify-center text-[9px] font-semibold rounded transition-opacity ${isCopied ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}
                     style={{
                       background: color + "dd",
                       color: "#fff",

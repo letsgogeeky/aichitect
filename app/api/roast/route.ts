@@ -85,7 +85,10 @@ ${toneInstruction}`;
       systemInstruction,
     });
 
-    const result = await model.generateContent(userPrompt);
+    const timeout = new Promise<never>((_, reject) =>
+      setTimeout(() => reject(new Error("Request timed out")), 25000)
+    );
+    const result = await Promise.race([model.generateContent(userPrompt), timeout]);
     const text = result.response.text().trim();
 
     let lines: string[] = [];
@@ -122,7 +125,10 @@ ${toneInstruction}`;
         { status: 429 }
       );
     }
-    return NextResponse.json({ error: "Gemini API error" }, { status: 500 });
+    if (msg.toLowerCase().includes("timed out")) {
+      return NextResponse.json({ error: "Request timed out. Try again." }, { status: 504 });
+    }
+    return NextResponse.json({ error: "Failed to generate roast. Try again." }, { status: 500 });
   }
 }
 
