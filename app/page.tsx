@@ -4,6 +4,7 @@ import { LandingAuthButton } from "@/components/ui/LandingAuthButton";
 import { GITHUB_URL } from "@/lib/constants";
 import { FindMyStackButton } from "@/components/ui/StackQuizModal";
 import { getCounts } from "@/lib/data/counts";
+import { LlmPromptSection } from "@/components/ui/LlmPromptSection";
 import {
   IconNetwork,
   IconLayers,
@@ -784,6 +785,8 @@ export default async function LandingPage() {
           ))}
         </div>
       </section>
+
+      <LlmPromptSection />
 
       {/* ── Decision framework callouts ── */}
       <section
