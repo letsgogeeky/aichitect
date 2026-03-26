@@ -24,6 +24,7 @@ import { MobileSlotPicker } from "./components/MobileSlotPicker";
 import GetStartedModal from "@/components/ui/GetStartedModal";
 import { ProductionUsageSection } from "@/components/ui/ProductionUsageSection";
 import { IconShare } from "@/components/icons";
+import Link from "next/link";
 
 const nodeTypes: NodeTypes = { tool: ToolNode };
 
@@ -209,6 +210,26 @@ function BuilderPageContent({
             <div style={{ pointerEvents: "auto" }}>
               <ProductionUsageSection tools={stackParam.split(",").filter(Boolean)} />
             </div>
+            <Link
+              href={`/case?s=${stackParam}`}
+              className="flex items-center transition-all"
+              style={{
+                gap: 6,
+                padding: "0 12px",
+                height: 30,
+                borderRadius: 7,
+                background: "#fdcb6e18",
+                border: "1px solid #fdcb6e44",
+                color: "#fdcb6e",
+                fontSize: 11,
+                fontWeight: 500,
+                cursor: "pointer",
+                pointerEvents: "auto",
+                textDecoration: "none",
+              }}
+            >
+              Make a case →
+            </Link>
             <button
               data-tour="builder-share"
               onClick={copyStack}
