@@ -9,8 +9,6 @@ export interface RoastRequest {
   fitnessScore: number;
   missingRequired: string[];
   missingRecommended: string[];
-  criticalPairsCovered: number;
-  criticalPairsTotal: number;
   roastnessLevel: 1 | 2 | 3 | 4 | 5;
 }
 
@@ -19,11 +17,11 @@ export interface RoastResponse {
 }
 
 const TONE_INSTRUCTIONS: Record<number, string> = {
-  1: "Tone: Be honest but gentle and constructive. You're a helpful mentor who wants them to succeed. Acknowledge what's working before pointing out gaps. Encouraging, not discouraging.",
-  2: "Tone: Be direct and honest. Pull no punches but stay professional — like a thoughtful colleague giving a code review. No flattery, but no savagery either.",
-  3: "Tone: Be opinionated and slightly savage. Like a senior engineer who's seen too many production fires. Every observation should sting a little — because it's true.",
-  4: "Tone: Be harsh and relentless. No softening, no silver linings. Call out every gap with maximum bluntness. This should be uncomfortable to read.",
-  5: "Tone: Go scorched earth. Maximum savagery. No mercy whatsoever. Every line should be a gut punch. This stack should feel ashamed of itself by the end.",
+  1: "Tone: Warm but precise — like a senior dev who actually wants you to ship. Find one thing to genuinely praise, then gently twist the knife on the gaps. Leave them motivated, not embarrassed.",
+  2: "Tone: Dry and direct. Think Hacker News comment that aged well. No softening, but no theatrics. The kind of feedback that stings because it's calm and correct.",
+  3: "Tone: Opinionated and a little ruthless — like a CTO who's rebuilt this stack twice and has opinions. Mix metaphors, analogies, and specific callouts. Should be entertaining *and* accurate.",
+  4: "Tone: Savage tech-bro energy. Every line lands like a failed code review on a Friday afternoon. Use vivid comparisons, name the disasters waiting to happen, and enjoy it.",
+  5: "Tone: Full scorched-earth comedian mode. Maximum creativity, zero mercy. Comparisons to infamous tech disasters welcome. Should feel like a roast at a dev conference where everyone is slightly drunk.",
 };
 
 export async function POST(request: Request) {
@@ -45,8 +43,6 @@ export async function POST(request: Request) {
     fitnessScore,
     missingRequired,
     missingRecommended,
-    criticalPairsCovered,
-    criticalPairsTotal,
     roastnessLevel = 3,
   } = body;
 
@@ -56,13 +52,15 @@ export async function POST(request: Request) {
 
   const toneInstruction = TONE_INSTRUCTIONS[roastnessLevel] ?? TONE_INSTRUCTIONS[3];
 
-  const systemInstruction = `You are a brutally honest AI stack reviewer. Your job is to roast AI developer stacks — not with random insults, but with specific, accurate observations that are grounded in the data.
+  const systemInstruction = `You are a sharp, opinionated AI stack critic. Your job is to roast developer stacks with wit, specificity, and flair — not random insults, but observations that are grounded in the actual tools, gaps, and choices in the data.
 
 Rules:
 - Output ONLY a JSON object: {"lines": ["...", "...", "..."]}
-- 2 to 4 lines. Each line must be under 120 characters.
-- Every line must reference specific tools or missing layers from the data — no generic platitudes.
-- Do NOT be sycophantic. If the stack is genuinely good, be grudgingly impressed — don't fabricate problems.
+- 2 to 4 lines. Each line must be under 140 characters.
+- Every line must reference specific tools or missing layers from the input — no generic platitudes.
+- Metaphors, analogies, pop-culture references, and vivid comparisons are encouraged — as long as they're accurate.
+- If the stack is genuinely strong, be grudgingly impressed with a twist — don't fabricate problems, but find the one real risk worth poking.
+- Vary the structure: not every line needs to be a criticism. A backhanded compliment or a "wait, actually..." reversal adds texture.
 - No markdown, no explanation outside the JSON object.
 
 ${toneInstruction}`;
@@ -73,8 +71,6 @@ ${toneInstruction}`;
     fitnessScore,
     missingRequired,
     missingRecommended,
-    criticalPairsCovered,
-    criticalPairsTotal,
     roastnessLevel,
   });
 
@@ -144,11 +140,5 @@ function buildPrompt(data: RoastRequest): string {
   if (data.missingRecommended.length > 0) {
     lines.push(`Missing recommended layers: ${data.missingRecommended.join(", ")}`);
   }
-  if (data.criticalPairsTotal > 0) {
-    lines.push(
-      `Integration coverage: ${data.criticalPairsCovered}/${data.criticalPairsTotal} critical pairs connected`
-    );
-  }
-
   return lines.join("\n");
 }

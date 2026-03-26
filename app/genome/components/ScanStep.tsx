@@ -7,7 +7,13 @@ import { detectTools, ProjectSnapshot } from "@/lib/parseStack";
 import { getCategoryColor } from "@/lib/types";
 import { ProgressDots } from "./ProgressDots";
 
-export function ScanStep({ onNext }: { onNext: (detectedIds: string[]) => void }) {
+export function ScanStep({
+  onBack,
+  onNext,
+}: {
+  onBack: () => void;
+  onNext: (detectedIds: string[]) => void;
+}) {
   const { allTools } = useGenomeData();
   const [activeTab, setActiveTab] = useState<InputTab>("package.json");
   const [inputs, setInputs] = useState<Record<InputTab, string>>({
@@ -60,7 +66,7 @@ export function ScanStep({ onNext }: { onNext: (detectedIds: string[]) => void }
       {/* Header */}
       <div className="text-center mb-8" style={{ maxWidth: 500 }}>
         <div className="flex justify-center mb-4">
-          <ProgressDots total={2} current={0} />
+          <ProgressDots total={2} current={1} />
         </div>
         <p
           style={{
@@ -72,7 +78,7 @@ export function ScanStep({ onNext }: { onNext: (detectedIds: string[]) => void }
             marginBottom: 10,
           }}
         >
-          Step 1 of 2 — Scan your codebase
+          Step 2 of 2 — Scan your codebase
         </p>
         <h1
           style={{
@@ -167,9 +173,19 @@ export function ScanStep({ onNext }: { onNext: (detectedIds: string[]) => void }
           className="flex items-center justify-between border-t"
           style={{ borderColor: "#1e1e2e", padding: "12px 16px", background: "#111118" }}
         >
-          <span style={{ fontSize: 11, color: "#555577" }}>
-            Fill one or more tabs — more = better coverage
-          </span>
+          <button
+            onClick={onBack}
+            style={{
+              background: "none",
+              border: "none",
+              color: "#555577",
+              fontSize: 12,
+              cursor: "pointer",
+              padding: 0,
+            }}
+          >
+            ← Back
+          </button>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <button
               onClick={() => onNext([])}
@@ -184,7 +200,7 @@ export function ScanStep({ onNext }: { onNext: (detectedIds: string[]) => void }
                 padding: 0,
               }}
             >
-              Skip
+              Skip to results
             </button>
             <button
               onClick={handleNext}

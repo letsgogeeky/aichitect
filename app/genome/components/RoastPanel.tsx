@@ -45,8 +45,6 @@ export function RoastPanel({ report, allIds }: RoastPanelProps) {
       missingRecommended: report.missingSlots
         .filter((s) => s.priority === "recommended")
         .map((s) => s.slotName),
-      criticalPairsCovered: report.criticalPairsCovered,
-      criticalPairsTotal: report.criticalPairsTotal,
       roastnessLevel: roastnessLevel as 1 | 2 | 3 | 4 | 5,
     };
 

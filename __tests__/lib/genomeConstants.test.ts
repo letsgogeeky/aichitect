@@ -1,10 +1,5 @@
 import { describe, it, expect } from "vitest";
-import {
-  INPUT_TABS,
-  WORKFLOW_GROUPS,
-  PRIORITY_COLOR,
-  type InputTab,
-} from "@/app/genome/genomeConstants";
+import { INPUT_TABS, PRIORITY_COLOR, type InputTab } from "@/app/genome/genomeConstants";
 
 // ─── INPUT_TABS ─────────────────────────────────────────────────────────────
 
@@ -32,38 +27,6 @@ describe("INPUT_TABS", () => {
     for (const tab of INPUT_TABS) {
       expect(tab.label).toBe(tab.id);
     }
-  });
-});
-
-// ─── WORKFLOW_GROUPS ─────────────────────────────────────────────────────────
-
-describe("WORKFLOW_GROUPS", () => {
-  it("has nine groups", () => {
-    expect(WORKFLOW_GROUPS).toHaveLength(9);
-  });
-
-  it("every group has a label and at least one tool id", () => {
-    for (const group of WORKFLOW_GROUPS) {
-      expect(group.label.length).toBeGreaterThan(0);
-      expect(group.toolIds.length).toBeGreaterThan(0);
-    }
-  });
-
-  it("no tool id appears in more than one group", () => {
-    const seen = new Set<string>();
-    for (const group of WORKFLOW_GROUPS) {
-      for (const id of group.toolIds) {
-        expect(seen.has(id), `Duplicate tool id "${id}" in WORKFLOW_GROUPS`).toBe(false);
-        seen.add(id);
-      }
-    }
-  });
-
-  it("contains expected group labels", () => {
-    const labels = WORKFLOW_GROUPS.map((g) => g.label);
-    expect(labels).toContain("Code editor");
-    expect(labels).toContain("CLI agent");
-    expect(labels).toContain("Autonomous agent");
   });
 });
 
