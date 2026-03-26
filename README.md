@@ -9,7 +9,8 @@
     <a href="https://aichitect.dev/explore">Explore Graph</a> ·
     <a href="https://aichitect.dev/stacks">Stacks</a> ·
     <a href="https://aichitect.dev/builder">Builder</a> ·
-    <a href="https://aichitect.dev/compare">Compare</a>
+    <a href="https://aichitect.dev/compare">Compare</a> ·
+    <a href="https://aichitect.dev/genome">Genome</a>
   </p>
 
   <img src="https://img.shields.io/badge/tools-207-7c6bff?style=flat-square" alt="207 tools" />
@@ -23,13 +24,17 @@
 
 ## Screenshots
 
-|                     Graph                     |                    Stacks                     |
-| :-------------------------------------------: | :-------------------------------------------: |
-| ![Graph view](public/screenshots/explore.png) | ![Stacks view](public/screenshots/stacks.png) |
+|                     Landing                     |                    Stacks                     |
+| :---------------------------------------------: | :-------------------------------------------: |
+| ![Landing page](public/screenshots/landing.png) | ![Stacks view](public/screenshots/stacks.png) |
+
+|                      Genome                       |                     Graph                     |
+| :-----------------------------------------------: | :-------------------------------------------: |
+| ![Genome analysis](public/screenshots/genome.png) | ![Graph view](public/screenshots/explore.png) |
 
 ---
 
-AI tools are all over the place. Every week there's a new framework, a new model, a new "essential" addition to your stack. AIchitect gives you a structured, visual map of the ecosystem — **207 tools** across **17 categories** — with their integrations and relationships mapped out so you can pick the right stack based on data, not hype.
+AI tools are all over the place. Every week there's a new framework, a new model, a new "essential" addition to your stack. AIchitect gives you a structured, visual map of the ecosystem — **207 tools** across **16 categories** — with their integrations and relationships mapped out so you can pick the right stack based on data, not hype.
 
 ## Features
 
@@ -68,6 +73,16 @@ Pick one tool per slot and watch your stack wire together with live integration 
 ### Compare — Side-by-side tool analysis
 
 Compare any two tools head-to-head: category, pricing, OSS vs. SaaS, GitHub stars, integrations, and a plain-language summary of the tradeoffs. Shareable via URL (`/compare/cursor/windsurf`).
+
+### Genome — Analyse your existing stack
+
+Paste your dependency files (`package.json`, `requirements.txt`, `.env`, etc.) and Genome detects which AI tools you're already using, scores your stack's fitness, and surfaces gaps and swap recommendations:
+
+- **Fitness score** — arc gauge showing your stack's overall health tier
+- **Detected tools** — maps your deps to known tools via aliases, env vars, and config file patterns
+- **Gap analysis** — flags required slots your stack doesn't fill
+- **Swap recommendations** — suggests replacements for stale or low-health tools in the same slot
+- **Roast mode** — opinionated, personality-driven feedback on your choices
 
 ## Tech Stack
 
