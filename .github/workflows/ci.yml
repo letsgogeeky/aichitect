@@ -3,8 +3,28 @@ name: CI
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - "**.md"
+      - "LICENSE"
+      - "CODE_OF_CONDUCT"
+      - ".github/ISSUE_TEMPLATE/**"
+      - ".vscode/**"
+      - ".editorconfig"
+      - ".prettierrc*"
+      - ".prettierignore"
+      - "public/llms.txt"
   pull_request:
     branches: [main]
+    paths-ignore:
+      - "**.md"
+      - "LICENSE"
+      - "CODE_OF_CONDUCT"
+      - ".github/ISSUE_TEMPLATE/**"
+      - ".vscode/**"
+      - ".editorconfig"
+      - ".prettierrc*"
+      - ".prettierignore"
+      - "public/llms.txt"
 
 jobs:
   ci:
