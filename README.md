@@ -14,7 +14,7 @@
 
   <img src="https://img.shields.io/badge/tools-207-7c6bff?style=flat-square" alt="207 tools" />
   <img src="https://img.shields.io/badge/stacks-25-00d4aa?style=flat-square" alt="25 stacks" />
-  <img src="https://img.shields.io/badge/categories-12-26de81?style=flat-square" alt="17 categories" />
+  <img src="https://img.shields.io/badge/categories-16-26de81?style=flat-square" alt="16 categories" />
   <img src="https://img.shields.io/badge/license-MIT-ff9f43?style=flat-square" alt="MIT license" />
   <img src="https://img.shields.io/badge/open%20source-%E2%9D%A4-ff6b6b?style=flat-square" alt="Open Source" />
 </div>
@@ -137,8 +137,8 @@ components/
     Navbar.tsx                    # Top nav with route-aware controls
     Logo.tsx                      # SVG logo component
 data/
-  tools.json            # 207 tools, 12 categories
-  relationships.json    # ~452 edges (integrates-with / commonly-paired / competes-with)
+  tools.json            # 207 tools, 16 categories
+  relationships.json    # ~452 edges (integrates-with / commonly-paired-with / competes-with)
   stacks.json           # 25 curated stacks across 5 clusters
   slots.json            # 15 builder slot types
 lib/
@@ -219,7 +219,7 @@ Found a missing tool, broken edge, or UI bug? [Open an issue](https://github.com
 
 1. Fork the repo
 2. Create a branch: `git checkout -b feat/my-change`
-3. Make your changes and verify with `make typecheck`
+3. Make your changes and verify with `make check` (lint + typecheck + tests)
 4. Open a PR with a clear description of what changed and why
 
 ## License

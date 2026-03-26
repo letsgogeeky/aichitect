@@ -31,7 +31,7 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added
 
 - MIT `LICENSE` file
-- `.env.example` documenting that no environment variables are required
+- `.env.example` documenting required and optional environment variables
 - Prettier formatting with `.prettierrc` and `.prettierignore`
 - `.editorconfig` for consistent cross-editor settings
 - Pre-commit hooks via Husky + lint-staged (format + lint on staged files)

@@ -2,7 +2,7 @@
 
 ## Scope
 
-AIchitect is a fully static, client-side web application. It has no backend, no database, no authentication, and no user data collection. The attack surface is limited to the deployed Next.js app and its npm dependencies.
+AIchitect is a Next.js web application with a Supabase backend, GitHub OAuth authentication, and server-side API routes. The attack surface includes the deployed Next.js app, Supabase database and auth, API endpoints (`/api/roast`, `/api/challenge`, `/api/cron/sync-health`), and npm dependencies.
 
 ## Reporting a vulnerability
 

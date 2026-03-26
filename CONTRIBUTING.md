@@ -69,16 +69,15 @@ Not sure where to start? Browse [open issues](https://github.com/letsgogeeky/aic
   "type": "oss",
   "pricing": { "free_tier": true, "plans": [] },
   "github_stars": 12000,
-  "slot": "orchestration",
+  "slot": "agent-framework",
   "prominent": false,
-  "urls": {
-    "website": "https://mytool.dev",
-    "github": "https://github.com/org/repo"
-  }
+  "use_context": "app-infrastructure",
+  "website_url": "https://mytool.dev",
+  "github_url": "https://github.com/org/repo"
 }
 ```
 
-Valid categories: `coding-assistants`, `autonomous-agents`, `agent-frameworks`, `llm-providers`, `observability`, `vector-databases`, `deployment`, `mcp`, `design`, `data-auth`, `prompt-eval`, `specifications`.
+Valid categories: `coding-assistants`, `autonomous-agents`, `agent-frameworks`, `pipelines-rag`, `llm-infra`, `design`, `devops`, `docs`, `product-mgmt`, `mcp`, `prompt-eval`, `specifications`, `fine-tuning`, `voice-ai`, `multimodal`, `browser-automation`.
 
 2. Optionally add edges in `data/relationships.json`:
 
@@ -86,9 +85,9 @@ Valid categories: `coding-assistants`, `autonomous-agents`, `agent-frameworks`, 
 { "source": "my-tool", "target": "langchain", "type": "integrates-with" }
 ```
 
-Valid edge types: `integrates-with`, `often-used-together`, `competes-with`.
+Valid edge types: `integrates-with`, `commonly-paired-with`, `competes-with`.
 
-3. Update `TOOL_COUNT` in `lib/constants.ts`.
+3. Run `make sync-counts` — this patches the counts in `README.md` and `CLAUDE.md` automatically. Never hardcode counts manually.
 
 ---
 
