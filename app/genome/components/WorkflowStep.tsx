@@ -2,8 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { useGenomeData } from "../GenomeContext";
-import { WORKFLOW_GROUPS } from "../genomeConstants";
-import { Tool, getCategoryColor } from "@/lib/types";
+import { Tool, getCategoryColor, CATEGORIES } from "@/lib/types";
 import { ProgressDots } from "./ProgressDots";
 
 function ToolChip({
@@ -87,17 +86,7 @@ function ToolChip({
   );
 }
 
-export function WorkflowStep({
-  detectedCount,
-  detectedIds,
-  onBack,
-  onNext,
-}: {
-  detectedCount: number;
-  detectedIds: string[];
-  onBack: () => void;
-  onNext: (workflowIds: string[]) => void;
-}) {
+export function WorkflowStep({ onNext }: { onNext: (workflowIds: string[]) => void }) {
   const { allTools } = useGenomeData();
   const [selected, setSelected] = useState<Set<string>>(new Set());
 
@@ -110,21 +99,16 @@ export function WorkflowStep({
     });
   }
 
-  const detectedSet = useMemo(() => new Set(detectedIds), [detectedIds]);
-  const toolById = useMemo(() => new Map(allTools.map((t) => [t.id, t])), [allTools]);
-
-  const groups = useMemo(
-    () =>
-      WORKFLOW_GROUPS.map((g) => {
-        const all = g.toolIds.map((id) => toolById.get(id)).filter((t): t is Tool => !!t);
-        const available = all.filter((t) => !detectedSet.has(t.id));
-        const coveredCount = all.length - available.length;
-        return { label: g.label, available, coveredCount };
-      }),
-    [toolById, detectedSet]
-  );
-
-  const totalCovered = groups.reduce((sum, g) => sum + g.coveredCount, 0);
+  const groups = useMemo(() => {
+    const workflowTools = allTools.filter(
+      (t) => t.use_context === "dev-productivity" || t.use_context === "both"
+    );
+    return CATEGORIES.flatMap((cat) => {
+      const tools = workflowTools.filter((t) => t.category === cat.id);
+      if (tools.length === 0) return [];
+      return [{ label: cat.label, tools }];
+    });
+  }, [allTools]);
 
   return (
     <div
@@ -134,7 +118,7 @@ export function WorkflowStep({
       {/* Header */}
       <div className="text-center mb-8" style={{ maxWidth: 620, width: "100%" }}>
         <div className="flex justify-center mb-4">
-          <ProgressDots total={2} current={1} />
+          <ProgressDots total={2} current={0} />
         </div>
         <p
           style={{
@@ -146,7 +130,7 @@ export function WorkflowStep({
             marginBottom: 10,
           }}
         >
-          Step 2 of 2 — Workflow tools
+          Step 1 of 2 — Workflow tools
         </p>
         <h1
           style={{
@@ -160,37 +144,8 @@ export function WorkflowStep({
           What&apos;s your dev workflow?
         </h1>
         <p style={{ fontSize: 13, color: "#8888aa", lineHeight: 1.6, margin: "0 0 12px" }}>
-          These tools don&apos;t always show up in dependency files.{" "}
-          {detectedCount === 0 && (
-            <>Select everything you use — nothing is wrong with skipping code scanning.</>
-          )}
+          These tools don&apos;t always show up in dependency files. Select everything you use.
         </p>
-        {totalCovered > 0 && (
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 6,
-              padding: "5px 12px",
-              borderRadius: 6,
-              background: "#26de8110",
-              border: "1px solid #26de8130",
-              fontSize: 11,
-              color: "#26de81",
-            }}
-          >
-            <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
-              <polyline
-                points="2,6 5,9 10,3"
-                stroke="#26de81"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            {totalCovered} tool{totalCovered !== 1 ? "s" : ""} already detected from your files
-          </div>
-        )}
       </div>
 
       {/* Groups */}
@@ -204,81 +159,32 @@ export function WorkflowStep({
           marginBottom: 28,
         }}
       >
-        {groups.map((group) => {
-          if (group.available.length === 0) {
-            if (group.coveredCount === 0) return null;
-            return (
-              <div key={group.label}>
-                <p
-                  style={{
-                    fontSize: 10,
-                    fontWeight: 700,
-                    textTransform: "uppercase",
-                    letterSpacing: "0.08em",
-                    color: "#333355",
-                    margin: "0 0 6px",
-                  }}
-                >
-                  {group.label}
-                </p>
-                <p style={{ fontSize: 11, color: "#333355", margin: 0 }}>
-                  ✓ All {group.coveredCount} tool{group.coveredCount !== 1 ? "s" : ""} already
-                  detected
-                </p>
-              </div>
-            );
-          }
-
-          return (
-            <div key={group.label}>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 8,
-                  marginBottom: 10,
-                }}
-              >
-                <p
-                  style={{
-                    fontSize: 10,
-                    fontWeight: 700,
-                    textTransform: "uppercase",
-                    letterSpacing: "0.08em",
-                    color: "#555577",
-                    margin: 0,
-                  }}
-                >
-                  {group.label}
-                </p>
-                {group.coveredCount > 0 && (
-                  <span
-                    style={{
-                      fontSize: 9,
-                      color: "#26de81",
-                      background: "#26de8110",
-                      border: "1px solid #26de8120",
-                      borderRadius: 4,
-                      padding: "1px 6px",
-                    }}
-                  >
-                    +{group.coveredCount} detected
-                  </span>
-                )}
-              </div>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-                {group.available.map((t) => (
-                  <ToolChip
-                    key={t.id}
-                    tool={t}
-                    active={selected.has(t.id)}
-                    onToggle={() => toggle(t.id)}
-                  />
-                ))}
-              </div>
+        {groups.map((group) => (
+          <div key={group.label}>
+            <p
+              style={{
+                fontSize: 10,
+                fontWeight: 700,
+                textTransform: "uppercase",
+                letterSpacing: "0.08em",
+                color: "#555577",
+                margin: "0 0 10px",
+              }}
+            >
+              {group.label}
+            </p>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+              {group.tools.map((t) => (
+                <ToolChip
+                  key={t.id}
+                  tool={t}
+                  active={selected.has(t.id)}
+                  onToggle={() => toggle(t.id)}
+                />
+              ))}
             </div>
-          );
-        })}
+          </div>
+        ))}
       </div>
 
       {/* Footer nav */}
@@ -288,43 +194,29 @@ export function WorkflowStep({
           maxWidth: 620,
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-between",
+          justifyContent: "flex-end",
+          gap: 10,
         }}
       >
+        {selected.size > 0 && (
+          <span style={{ fontSize: 11, color: "var(--accent)" }}>{selected.size} selected</span>
+        )}
         <button
-          onClick={onBack}
+          onClick={() => onNext(Array.from(selected))}
           style={{
-            background: "none",
+            padding: "0 24px",
+            height: 38,
+            borderRadius: 8,
+            fontSize: 13,
+            fontWeight: 600,
+            background: "var(--accent)",
+            color: "#fff",
             border: "none",
-            color: "#555577",
-            fontSize: 12,
             cursor: "pointer",
-            padding: 0,
           }}
         >
-          ← Back
+          {selected.size > 0 ? "Next →" : "Skip →"}
         </button>
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          {selected.size > 0 && (
-            <span style={{ fontSize: 11, color: "var(--accent)" }}>{selected.size} selected</span>
-          )}
-          <button
-            onClick={() => onNext(Array.from(selected))}
-            style={{
-              padding: "0 24px",
-              height: 38,
-              borderRadius: 8,
-              fontSize: 13,
-              fontWeight: 600,
-              background: "var(--accent)",
-              color: "#fff",
-              border: "none",
-              cursor: "pointer",
-            }}
-          >
-            {selected.size > 0 ? "See my genome →" : "Skip →"}
-          </button>
-        </div>
       </div>
     </div>
   );

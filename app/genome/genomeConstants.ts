@@ -27,61 +27,6 @@ export const INPUT_TABS: { id: InputTab; label: string; placeholder: string }[] 
   },
 ];
 
-export const WORKFLOW_GROUPS: { label: string; toolIds: string[] }[] = [
-  {
-    label: "Code editor",
-    toolIds: ["cursor", "windsurf", "github-copilot", "zed", "jetbrains-ai", "continue", "cline"],
-  },
-  {
-    label: "CLI agent",
-    toolIds: ["claude-code", "aider", "goose", "plandex"],
-  },
-  {
-    label: "Autonomous agent",
-    toolIds: ["devin", "lovable", "openhands", "bolt-new", "gpt-pilot"],
-  },
-  {
-    label: "DevOps & CI",
-    toolIds: ["coderabbit", "sweep-ai", "qodo", "trunk", "sourcery", "graphite"],
-  },
-  {
-    label: "Design to code",
-    toolIds: ["v0", "framer-ai", "webflow-ai", "locofy", "galileo", "google-stitch"],
-  },
-  {
-    label: "Docs",
-    toolIds: ["mintlify", "notion-ai", "gitbook-ai", "swimm"],
-  },
-  {
-    label: "Product",
-    toolIds: ["linear-ai", "height-ai", "cycle", "kraftful"],
-  },
-  {
-    label: "Browser automation",
-    toolIds: ["browser-use", "stagehand", "skyvern", "firecrawl"],
-  },
-  {
-    label: "AI providers & infra",
-    toolIds: [
-      "anthropic-api",
-      "openai-api",
-      "google-gemini-api",
-      "groq",
-      "mistral-api",
-      "pinecone",
-      "weaviate",
-      "qdrant",
-      "chroma",
-      "langfuse",
-      "langsmith",
-      "helicone",
-      "litellm",
-      "vercel-ai-sdk",
-      "fastmcp",
-    ],
-  },
-];
-
 export const PRIORITY_COLOR: Record<SlotPriority, string> = {
   required: "#ff6b6b",
   recommended: "#fd9644",

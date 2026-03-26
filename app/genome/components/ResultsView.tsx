@@ -300,10 +300,6 @@ export function ResultsView({
                 label="Slots covered"
                 value={`${report.filledSlots.length} / ${report.filledSlots.length + report.missingSlots.length}`}
               />
-              <Stat
-                label="Common pairings"
-                value={`${report.criticalPairsCovered} / ${report.criticalPairsTotal}`}
-              />
             </div>
           </div>
 
