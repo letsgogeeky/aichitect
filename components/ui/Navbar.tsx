@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, Suspense } from "react";
+import { useState, useEffect, Suspense } from "react";
 import BottomSheet from "@/components/mobile/BottomSheet";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
@@ -20,6 +20,7 @@ import {
   IconGitHub,
 } from "@/components/icons";
 import { useUser } from "@/hooks/useUser";
+import { createSupabaseBrowserClient } from "@/lib/db";
 
 const VIEWS = [
   { href: "/stacks", label: "Stacks", Icon: IconLayers },
@@ -76,9 +77,29 @@ export default function Navbar({ counts }: { counts?: Counts }) {
   const pathname = usePathname();
   const [copied, setCopied] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [userToolCount, setUserToolCount] = useState(0);
   const { openSuggest } = useSuggestTool();
   const { openWalkthrough } = useWalkthrough();
   const { user, loading: userLoading, signIn, signOut } = useUser();
+
+  const username = user?.user_metadata?.user_name as string | undefined;
+
+  useEffect(() => {
+    if (!user?.id) return;
+    const supabase = createSupabaseBrowserClient();
+    if (!supabase) return;
+    let cancelled = false;
+    supabase
+      .from("tool_usage")
+      .select("tool_id", { count: "exact", head: true })
+      .eq("user_id", user.id)
+      .then(({ count }) => {
+        if (!cancelled) setUserToolCount(count ?? 0);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [user?.id]);
 
   const tourRoute: TourRoute | null =
     pathname === "/explore"
@@ -110,6 +131,9 @@ export default function Navbar({ counts }: { counts?: Counts }) {
           borderColor: "var(--border)",
           height: 56,
           padding: "0 20px",
+          position: "sticky",
+          top: 0,
+          zIndex: 50,
         }}
       >
         {/* Logo */}
@@ -273,30 +297,60 @@ export default function Navbar({ counts }: { counts?: Counts }) {
               Sign in
             </button>
           )}
-          {!userLoading && user && (
+          {!userLoading && user && username && (
             <div className="hidden sm:flex items-center gap-2 flex-shrink-0">
-              {user.user_metadata?.avatar_url && (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={user.user_metadata.avatar_url}
-                  alt={user.user_metadata.user_name ?? "avatar"}
-                  width={24}
-                  height={24}
-                  style={{ borderRadius: "50%", flexShrink: 0 }}
-                />
-              )}
-              <span
+              <Link
+                href={`/profile/${username}`}
+                className="flex items-center gap-2"
                 style={{
-                  fontSize: 12,
-                  color: "var(--text-secondary)",
-                  maxWidth: 80,
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  whiteSpace: "nowrap",
+                  borderRadius: 8,
+                  padding: "3px 8px 3px 3px",
+                  background: "var(--btn)",
+                  border: "1px solid var(--btn-border)",
+                  textDecoration: "none",
+                  transition: "filter 150ms",
                 }}
+                title="My profile"
               >
-                {user.user_metadata?.user_name}
-              </span>
+                {user.user_metadata?.avatar_url && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={user.user_metadata.avatar_url}
+                    alt={username}
+                    width={22}
+                    height={22}
+                    style={{ borderRadius: "50%", flexShrink: 0 }}
+                  />
+                )}
+                <span
+                  style={{
+                    fontSize: 12,
+                    color: "var(--text-secondary)",
+                    maxWidth: 80,
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {username}
+                </span>
+                {userToolCount > 0 && (
+                  <span
+                    style={{
+                      fontSize: 10,
+                      fontWeight: 600,
+                      color: "var(--accent-2)",
+                      background: "var(--accent-2-bg, #00d4aa14)",
+                      border: "1px solid #00d4aa33",
+                      borderRadius: 4,
+                      padding: "1px 5px",
+                      flexShrink: 0,
+                    }}
+                  >
+                    {userToolCount}
+                  </span>
+                )}
+              </Link>
               <button
                 onClick={signOut}
                 style={{
@@ -389,21 +443,58 @@ export default function Navbar({ counts }: { counts?: Counts }) {
               Sign in with GitHub
             </button>
           )}
-          {!userLoading && user && (
-            <button
-              onClick={() => {
-                signOut();
-                setMobileMenuOpen(false);
-              }}
-              className="w-full flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium"
-              style={{
-                background: "var(--surface-2)",
-                border: "1px solid var(--border)",
-                color: "var(--text-primary)",
-              }}
-            >
-              Sign out (@{user.user_metadata?.user_name})
-            </button>
+          {!userLoading && user && username && (
+            <>
+              <Link
+                href={`/profile/${username}`}
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium"
+                style={{
+                  background: "var(--surface-2)",
+                  border: "1px solid var(--border)",
+                  color: "var(--text-primary)",
+                  textDecoration: "none",
+                  display: "flex",
+                }}
+              >
+                {user.user_metadata?.avatar_url && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={user.user_metadata.avatar_url}
+                    alt={username}
+                    width={20}
+                    height={20}
+                    style={{ borderRadius: "50%", flexShrink: 0 }}
+                  />
+                )}
+                <span style={{ flex: 1 }}>My profile</span>
+                {userToolCount > 0 && (
+                  <span
+                    style={{
+                      fontSize: 11,
+                      fontWeight: 600,
+                      color: "var(--accent-2)",
+                    }}
+                  >
+                    {userToolCount} tools
+                  </span>
+                )}
+              </Link>
+              <button
+                onClick={() => {
+                  signOut();
+                  setMobileMenuOpen(false);
+                }}
+                className="w-full flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium"
+                style={{
+                  background: "var(--surface-2)",
+                  border: "1px solid var(--border)",
+                  color: "var(--text-secondary)",
+                }}
+              >
+                Sign out
+              </button>
+            </>
           )}
         </div>
       </BottomSheet>

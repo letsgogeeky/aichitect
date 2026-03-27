@@ -1,6 +1,6 @@
 import Link from "next/link";
+import Navbar from "@/components/ui/Navbar";
 import Logo from "@/components/ui/Logo";
-import { LandingAuthButton } from "@/components/ui/LandingAuthButton";
 import { GITHUB_URL } from "@/lib/constants";
 import { FindMyStackButton } from "@/components/ui/StackQuizModal";
 import { getCounts } from "@/lib/data/counts";
@@ -490,7 +490,8 @@ function GenomePreview() {
 }
 
 export default async function LandingPage() {
-  const { toolCount, categoryCount, stackCount } = await getCounts();
+  const counts = await getCounts();
+  const { toolCount, categoryCount, stackCount } = counts;
 
   const VIEWS = [
     {
@@ -554,54 +555,7 @@ export default async function LandingPage() {
         overflowX: "hidden",
       }}
     >
-      {/* ── Top bar ── */}
-      <header
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "0 32px",
-          height: 56,
-          borderBottom: "1px solid #1e1e2e",
-          background: "#111118",
-          position: "sticky",
-          top: 0,
-          zIndex: 50,
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <Logo size={28} id="hero-logo-g" />
-          <span style={{ fontSize: 15, fontWeight: 600, color: "#f0f0f8" }}>AIchitect</span>
-        </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-            {[
-              { href: "/stacks", label: "Stacks", Icon: IconLayers },
-              { href: "/explore", label: "Graph", Icon: IconNetwork },
-              { href: "/builder", label: "Builder", Icon: IconSettings2 },
-              { href: "/compare", label: "Compare", Icon: IconCompare },
-              { href: "/genome", label: "Genome", Icon: IconGenome },
-            ].map(({ href, label, Icon }) => (
-              <Link
-                key={href}
-                href={href}
-                className="flex items-center gap-[6px] rounded-[7px] text-[#8888aa] hover:text-[#f0f0f8] hover:bg-[#1c1c28] transition-colors"
-                style={{
-                  padding: "0 10px",
-                  height: 34,
-                  fontSize: 12,
-                  fontWeight: 500,
-                  textDecoration: "none",
-                }}
-              >
-                <Icon />
-                {label}
-              </Link>
-            ))}
-          </div>
-          <LandingAuthButton />
-        </div>
-      </header>
+      <Navbar counts={counts} />
 
       {/* ── Hero ── */}
       <section
