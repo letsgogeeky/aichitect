@@ -157,7 +157,7 @@ export default async function ComparePage({ params }: Props) {
       <div className="max-w-4xl mx-auto px-6 py-8">
         {/* Breadcrumb */}
         <nav
-          className="flex items-center gap-1.5 text-[11px] mb-6"
+          className="flex items-center gap-1.5 text-xs mb-6"
           style={{ color: "var(--text-muted)" }}
         >
           <Link href="/" className="hover:underline">
@@ -299,7 +299,7 @@ export default async function ComparePage({ params }: Props) {
 
           {/* Column headers */}
           <div
-            className="grid grid-cols-[160px_1fr_1fr] text-[11px] font-semibold uppercase tracking-wide"
+            className="grid grid-cols-[160px_1fr_1fr] text-xs font-semibold uppercase tracking-wide"
             style={{ background: "var(--surface-2)", borderBottom: "1px solid var(--border)" }}
           >
             <div className="px-4 py-3 text-[var(--text-muted)]">Field</div>
@@ -341,7 +341,7 @@ export default async function ComparePage({ params }: Props) {
               label: "Type",
               cellA: (
                 <span
-                  className="text-[11px] font-semibold px-1.5 py-0.5 rounded uppercase"
+                  className="text-xs font-semibold px-1.5 py-0.5 rounded uppercase"
                   style={
                     a.type === "oss"
                       ? { background: "#26de8122", color: "var(--success)" }
@@ -353,7 +353,7 @@ export default async function ComparePage({ params }: Props) {
               ),
               cellB: (
                 <span
-                  className="text-[11px] font-semibold px-1.5 py-0.5 rounded uppercase"
+                  className="text-xs font-semibold px-1.5 py-0.5 rounded uppercase"
                   style={
                     b.type === "oss"
                       ? { background: "#26de8122", color: "var(--success)" }

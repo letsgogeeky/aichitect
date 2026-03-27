@@ -40,7 +40,7 @@ export function MobileSlotPicker({
           return (
             <div key={slot.id}>
               <div
-                className="text-[11px] font-semibold mb-1.5 px-1"
+                className="text-xs font-semibold mb-1.5 px-1"
                 style={{ color: "var(--text-secondary)" }}
               >
                 {slot.name}
@@ -66,7 +66,7 @@ export function MobileSlotPicker({
                         {tool.name}
                       </span>
                       {tool.type === "oss" && (
-                        <span className="text-[9px]" style={{ color: "var(--success)" }}>
+                        <span className="text-[10px]" style={{ color: "var(--success)" }}>
                           OSS
                         </span>
                       )}

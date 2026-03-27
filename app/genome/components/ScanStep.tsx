@@ -70,7 +70,7 @@ export function ScanStep({
         </div>
         <p
           style={{
-            fontSize: 11,
+            fontSize: 12,
             fontWeight: 600,
             color: "#555577",
             textTransform: "uppercase",
@@ -119,7 +119,7 @@ export function ScanStep({
                 onClick={() => setActiveTab(tab.id)}
                 style={{
                   padding: "10px 14px",
-                  fontSize: 11,
+                  fontSize: 12,
                   fontWeight: active ? 500 : 400,
                   color: active ? "#f0f0f8" : filled ? "var(--accent-2)" : "#555577",
                   background: "transparent",
@@ -133,7 +133,7 @@ export function ScanStep({
                 }}
               >
                 {filled && !active && (
-                  <span style={{ color: "var(--accent-2)", fontSize: 9 }}>✓</span>
+                  <span style={{ color: "var(--accent-2)", fontSize: 10 }}>✓</span>
                 )}
                 {tab.label}
               </button>
@@ -192,7 +192,7 @@ export function ScanStep({
               style={{
                 background: "none",
                 border: "none",
-                fontSize: 11,
+                fontSize: 12,
                 color: "#555577",
                 cursor: "pointer",
                 textDecoration: "underline",
@@ -254,7 +254,7 @@ export function ScanStep({
                 <span
                   key={id}
                   style={{
-                    fontSize: 11,
+                    fontSize: 12,
                     fontWeight: 500,
                     color,
                     background: color + "18",
@@ -270,7 +270,7 @@ export function ScanStep({
           </div>
         </div>
       ) : (
-        <p style={{ marginTop: 20, fontSize: 11, color: "#333355" }}>
+        <p style={{ marginTop: 20, fontSize: 12, color: "#333355" }}>
           All processing is client-side — nothing leaves your browser.
         </p>
       )}

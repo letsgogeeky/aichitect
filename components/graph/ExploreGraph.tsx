@@ -94,7 +94,7 @@ class Graph3DErrorBoundary extends Component<{ children: ReactNode }, { hasError
           }}
         >
           <p>3D view failed to load.</p>
-          <p style={{ fontSize: 11 }}>Switch to Grid or Layers using the toggle above.</p>
+          <p style={{ fontSize: 12 }}>Switch to Grid or Layers using the toggle above.</p>
         </div>
       );
     }

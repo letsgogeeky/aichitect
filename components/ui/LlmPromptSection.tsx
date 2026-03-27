@@ -141,7 +141,7 @@ export function LlmPromptSection() {
               <span style={{ fontSize: 12 }}>🤫</span>
               <span
                 style={{
-                  fontSize: 11,
+                  fontSize: 12,
                   fontWeight: 600,
                   color: "#444466",
                   letterSpacing: "0.09em",
@@ -207,7 +207,7 @@ export function LlmPromptSection() {
                 <div style={{ width: 9, height: 9, borderRadius: "50%", background: "#28c840" }} />
                 <span
                   style={{
-                    fontSize: 11,
+                    fontSize: 12,
                     color: "#2a2a44",
                     marginLeft: 10,
                     fontFamily: "'SF Mono', 'Fira Code', monospace",
@@ -227,7 +227,7 @@ export function LlmPromptSection() {
                   background: copied ? "#26de8118" : "#ffffff08",
                   border: copied ? "1px solid #26de8138" : "1px solid #1e1e30",
                   color: copied ? "#26de81" : "#555577",
-                  fontSize: 11,
+                  fontSize: 12,
                   fontWeight: 600,
                   cursor: "pointer",
                   transition: "all 160ms ease",
@@ -376,7 +376,7 @@ export function LlmPromptSection() {
                   <div style={{ display: "flex", alignItems: "flex-start", gap: 8 }}>
                     <span
                       style={{
-                        fontSize: 9,
+                        fontSize: 10,
                         fontWeight: 700,
                         color: "#252535",
                         flexShrink: 0,
@@ -387,14 +387,14 @@ export function LlmPromptSection() {
                     >
                       Prompt
                     </span>
-                    <span style={{ fontSize: 11, color: "#333350", lineHeight: 1.5 }}>
+                    <span style={{ fontSize: 12, color: "#333350", lineHeight: 1.5 }}>
                       {prompt}
                     </span>
                   </div>
                   <div style={{ display: "flex", alignItems: "flex-start", gap: 8 }}>
                     <span
                       style={{
-                        fontSize: 9,
+                        fontSize: 10,
                         fontWeight: 700,
                         color,
                         flexShrink: 0,
@@ -405,7 +405,7 @@ export function LlmPromptSection() {
                     >
                       Here
                     </span>
-                    <span style={{ fontSize: 11, color: "#7070a0", lineHeight: 1.5 }}>{app}</span>
+                    <span style={{ fontSize: 12, color: "#7070a0", lineHeight: 1.5 }}>{app}</span>
                   </div>
                 </div>
               </div>

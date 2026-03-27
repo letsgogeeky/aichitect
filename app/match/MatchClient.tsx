@@ -176,7 +176,7 @@ function OptionButton({
       <div>
         <div style={{ lineHeight: 1.3 }}>{option.label}</div>
         {option.sub && (
-          <div style={{ fontSize: 11, color: "#555577", marginTop: 2, lineHeight: 1.3 }}>
+          <div style={{ fontSize: 12, color: "#555577", marginTop: 2, lineHeight: 1.3 }}>
             {option.sub}
           </div>
         )}
@@ -276,7 +276,7 @@ function PrimaryMatchCard({ match, stack }: { match: StackMatch; stack: Stack })
         {stack.target && (
           <p
             style={{
-              fontSize: 11,
+              fontSize: 12,
               color: "#555577",
               lineHeight: 1.4,
               margin: "0 0 14px",
@@ -358,7 +358,7 @@ function PrimaryMatchCard({ match, stack }: { match: StackMatch; stack: Stack })
                 <li
                   key={i}
                   style={{
-                    fontSize: 11,
+                    fontSize: 12,
                     color: "#8888aa",
                     lineHeight: 1.45,
                     display: "flex",
@@ -448,7 +448,7 @@ function RunnerUpCard({ match, stack }: { match: StackMatch; stack: Stack }) {
         </div>
         <p
           style={{
-            fontSize: 11,
+            fontSize: 12,
             color: "#555577",
             margin: 0,
             lineHeight: 1.4,
@@ -465,7 +465,7 @@ function RunnerUpCard({ match, stack }: { match: StackMatch; stack: Stack }) {
         href={builderUrl}
         style={{
           flexShrink: 0,
-          fontSize: 11,
+          fontSize: 12,
           fontWeight: 500,
           padding: "5px 12px",
           borderRadius: 6,
@@ -571,7 +571,7 @@ export default function MatchClient() {
         <div style={{ marginBottom: 32, textAlign: "center" }}>
           <p
             style={{
-              fontSize: 11,
+              fontSize: 12,
               color: "var(--accent)",
               margin: "0 0 10px",
               textTransform: "uppercase",
@@ -619,7 +619,7 @@ export default function MatchClient() {
               }}
             >
               <ProgressDots total={QUESTIONS.length} current={step} />
-              <span style={{ fontSize: 11, color: "#555577" }}>
+              <span style={{ fontSize: 12, color: "#555577" }}>
                 {step + 1} / {QUESTIONS.length}
               </span>
             </div>
@@ -713,7 +713,7 @@ export default function MatchClient() {
                   background: "none",
                   border: "none",
                   color: "#555577",
-                  fontSize: 11,
+                  fontSize: 12,
                   cursor: "pointer",
                   textDecoration: "underline",
                   textUnderlineOffset: 3,
@@ -733,7 +733,7 @@ export default function MatchClient() {
                   background: copied ? "#00d4aa18" : "var(--btn)",
                   border: `1px solid ${copied ? "#00d4aa44" : "var(--btn-border)"}`,
                   color: copied ? "var(--accent-2)" : "#8888aa",
-                  fontSize: 11,
+                  fontSize: 12,
                   fontWeight: 500,
                   cursor: "pointer",
                   transition: "all 150ms",

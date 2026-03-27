@@ -7,7 +7,6 @@ import { CloseButton } from "@/components/ui/CloseButton";
 import { SLOT_AUTONOMY } from "@/lib/stackStory";
 import StackHealthPanel from "@/components/panels/StackHealthPanel";
 import Link from "next/link";
-import { SITE_URL } from "@/lib/constants";
 import { ToolUsageButton } from "@/components/ui/ToolUsageButton";
 
 export function BuilderSlotList({
@@ -39,23 +38,12 @@ export function BuilderSlotList({
   onCompareClick: (tool: Tool, e: MouseEvent) => void;
   onClearCompare: () => void;
 }) {
-  const [copied, setCopied] = useState(false);
   const [showNotApplicable, setShowNotApplicable] = useState(false);
 
   const applicableSlots = slots.filter((s) => s.priority[archetype] !== "not-applicable");
   const notApplicableSlots = slots.filter((s) => s.priority[archetype] === "not-applicable");
   const applicableSelectedCount = applicableSlots.filter((s) => !!selected[s.id]).length;
 
-  const badgeUrl = `${SITE_URL}/badge?s=${stackParam}`;
-  const builderUrl = `${SITE_URL}/builder?s=${stackParam}`;
-  const badgeMarkdown = `[![AI Stack](${badgeUrl})](${builderUrl})`;
-
-  function copyBadge() {
-    navigator.clipboard.writeText(badgeMarkdown).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
-  }
   return (
     <aside
       data-tour="builder-slots"
@@ -67,7 +55,7 @@ export function BuilderSlotList({
           <p className="text-xs font-semibold text-[var(--text-primary)] mb-1">
             Your stack, no bloat.
           </p>
-          <p className="text-[10px] text-[var(--text-muted)] leading-relaxed">
+          <p className="text-xs text-[var(--text-muted)] leading-relaxed">
             Answer each question. We&apos;ll map how the tools wire together.
           </p>
         </div>
@@ -146,12 +134,12 @@ export function BuilderSlotList({
                   />
                 </svg>
                 <div className="flex-1 min-w-0">
-                  <p className="text-[11px] font-semibold text-[var(--text-primary)] leading-tight">
+                  <p className="text-xs font-semibold text-[var(--text-primary)] leading-tight">
                     {slot.name}
                   </p>
                   {SLOT_AUTONOMY[slot.id] && (
                     <span
-                      className="text-[9px] font-medium"
+                      className="text-[10px] font-medium"
                       style={{ color: SLOT_AUTONOMY[slot.id].color, opacity: 0.75 }}
                     >
                       {SLOT_AUTONOMY[slot.id].label}
@@ -173,7 +161,7 @@ export function BuilderSlotList({
 
               {isOpen && (
                 <>
-                  <p className="text-[10px] text-[var(--text-muted)] mb-1.5 pl-4 leading-relaxed">
+                  <p className="text-xs text-[var(--text-muted)] mb-1.5 pl-4 leading-relaxed">
                     {slot.description}
                   </p>
                   <div className="space-y-0.5">
@@ -204,7 +192,7 @@ export function BuilderSlotList({
                               {t.name}
                             </span>
                             {t.type === "oss" && (
-                              <span className="ml-auto text-[9px] text-[var(--success)]">OSS</span>
+                              <span className="ml-auto text-[10px] text-[var(--success)]">OSS</span>
                             )}
                           </button>
                           {active && <ToolUsageButton toolId={t.id} color={color} compact />}
@@ -324,7 +312,7 @@ export function BuilderSlotList({
                           />
                         </svg>
                         <div className="flex-1 min-w-0">
-                          <p className="text-[11px] font-semibold text-[var(--text-primary)] leading-tight">
+                          <p className="text-xs font-semibold text-[var(--text-primary)] leading-tight">
                             {slot.name}
                           </p>
                           {!isOpen && selectedTool && (
@@ -372,7 +360,7 @@ export function BuilderSlotList({
                                     {t.name}
                                   </span>
                                   {t.type === "oss" && (
-                                    <span className="ml-auto text-[9px] text-[var(--success)]">
+                                    <span className="ml-auto text-[10px] text-[var(--success)]">
                                       OSS
                                     </span>
                                   )}
@@ -409,39 +397,6 @@ export function BuilderSlotList({
             </svg>
             See in graph
           </Link>
-        )}
-
-        {selectedCount > 0 && (
-          <div
-            className="mt-4 rounded-lg p-3 space-y-2"
-            style={{ background: "var(--surface-2)", border: "1px solid var(--border)" }}
-          >
-            <p className="text-[10px] font-semibold text-[var(--text-primary)]">Add to README</p>
-            <p className="text-[9px] text-[var(--text-muted)] leading-relaxed">
-              Show your AI stack in your GitHub README — links back to this build.
-            </p>
-            {/* Badge preview */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={badgeUrl} alt="AI Stack badge preview" className="h-5" />
-            {/* Snippet */}
-            <div
-              className="rounded px-2 py-1.5 font-mono text-[9px] break-all leading-relaxed"
-              style={{ background: "var(--surface)", color: "var(--text-muted)" }}
-            >
-              {badgeMarkdown}
-            </div>
-            <button
-              onClick={copyBadge}
-              className="w-full py-1.5 rounded text-[10px] font-semibold transition-all"
-              style={{
-                background: copied ? "#26de8122" : "var(--accent)",
-                color: copied ? "var(--success)" : "#fff",
-                border: copied ? "1px solid #26de8144" : "none",
-              }}
-            >
-              {copied ? "Copied!" : "Copy badge snippet"}
-            </button>
-          </div>
         )}
       </div>
     </aside>

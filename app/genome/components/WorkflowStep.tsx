@@ -122,7 +122,7 @@ export function WorkflowStep({ onNext }: { onNext: (workflowIds: string[]) => vo
         </div>
         <p
           style={{
-            fontSize: 11,
+            fontSize: 12,
             fontWeight: 600,
             color: "#555577",
             textTransform: "uppercase",
@@ -199,7 +199,7 @@ export function WorkflowStep({ onNext }: { onNext: (workflowIds: string[]) => vo
         }}
       >
         {selected.size > 0 && (
-          <span style={{ fontSize: 11, color: "var(--accent)" }}>{selected.size} selected</span>
+          <span style={{ fontSize: 12, color: "var(--accent)" }}>{selected.size} selected</span>
         )}
         <button
           onClick={() => onNext(Array.from(selected))}

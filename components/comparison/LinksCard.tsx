@@ -15,7 +15,7 @@ export function LinksCard({ tool, color }: LinksCardProps) {
           href={tool.website_url}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-center text-[11px] py-1.5 px-3 rounded-md font-medium transition-colors"
+          className="text-center text-xs py-1.5 px-3 rounded-md font-medium transition-colors"
           style={{ background: color + "22", color, border: `1px solid ${color}44` }}
         >
           {tool.name} Website ↗
@@ -26,7 +26,7 @@ export function LinksCard({ tool, color }: LinksCardProps) {
           href={tool.github_url}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-center text-[11px] py-1.5 px-3 rounded-md font-medium border border-[var(--border)] text-[var(--text-secondary)] transition-colors hover:border-[var(--border-2)]"
+          className="text-center text-xs py-1.5 px-3 rounded-md font-medium border border-[var(--border)] text-[var(--text-secondary)] transition-colors hover:border-[var(--border-2)]"
         >
           GitHub ↗
         </a>

@@ -75,7 +75,7 @@ export function MissingPanel({
                   </span>
                 </div>
                 {m.suggestTool && (
-                  <p style={{ fontSize: 11, color: "#8888aa", margin: 0 }}>
+                  <p style={{ fontSize: 12, color: "#8888aa", margin: 0 }}>
                     Consider{" "}
                     <span
                       style={{ color: getCategoryColor(m.suggestTool.category), fontWeight: 500 }}

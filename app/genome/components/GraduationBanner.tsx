@@ -57,7 +57,7 @@ export function GraduationBanner({ allIds }: { allIds: string[] }) {
       <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
         <span
           style={{
-            fontSize: 9,
+            fontSize: 10,
             fontWeight: 700,
             textTransform: "uppercase",
             letterSpacing: "0.1em",
@@ -85,7 +85,7 @@ export function GraduationBanner({ allIds }: { allIds: string[] }) {
         <div style={{ display: "flex", flexDirection: "column", gap: 3, flex: 1, minWidth: 0 }}>
           <span
             style={{
-              fontSize: 9,
+              fontSize: 10,
               fontWeight: 600,
               color: "#555577",
               textTransform: "uppercase",
@@ -96,7 +96,7 @@ export function GraduationBanner({ allIds }: { allIds: string[] }) {
           </span>
           <span
             style={{
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 600,
               color: "#8888aa",
               whiteSpace: "nowrap",
@@ -108,7 +108,7 @@ export function GraduationBanner({ allIds }: { allIds: string[] }) {
           </span>
           <span
             style={{
-              fontSize: 9,
+              fontSize: 10,
               color: COMPLEXITY_COLOR[fromComplexity] ?? "#555577",
             }}
           >
@@ -121,7 +121,7 @@ export function GraduationBanner({ allIds }: { allIds: string[] }) {
         <div style={{ display: "flex", flexDirection: "column", gap: 3, flex: 1, minWidth: 0 }}>
           <span
             style={{
-              fontSize: 9,
+              fontSize: 10,
               fontWeight: 600,
               color: toColor,
               textTransform: "uppercase",
@@ -132,7 +132,7 @@ export function GraduationBanner({ allIds }: { allIds: string[] }) {
           </span>
           <span
             style={{
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 700,
               color: "#f0f0f8",
               whiteSpace: "nowrap",
@@ -142,7 +142,7 @@ export function GraduationBanner({ allIds }: { allIds: string[] }) {
           >
             {targetStack.name}
           </span>
-          <span style={{ fontSize: 9, color: toColor }}>{COMPLEXITY_LABEL[toComplexity]}</span>
+          <span style={{ fontSize: 10, color: toColor }}>{COMPLEXITY_LABEL[toComplexity]}</span>
         </div>
       </div>
 
@@ -151,7 +151,7 @@ export function GraduationBanner({ allIds }: { allIds: string[] }) {
         <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
           <span
             style={{
-              fontSize: 9,
+              fontSize: 10,
               fontWeight: 600,
               color: "#555577",
               textTransform: "uppercase",
@@ -192,7 +192,7 @@ export function GraduationBanner({ allIds }: { allIds: string[] }) {
           width: "100%",
           padding: "8px 0",
           borderRadius: 7,
-          fontSize: 11,
+          fontSize: 12,
           fontWeight: 600,
           cursor: "pointer",
           border: "none",

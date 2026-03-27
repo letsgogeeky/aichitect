@@ -67,16 +67,10 @@ export function StackDetailHeader({
           className="rounded-lg px-3 py-2.5 mb-3"
           style={{ background: accentColor + "0a", border: `1px solid ${accentColor}22` }}
         >
-          <div
-            className="text-[9px] font-bold uppercase tracking-widest mb-1"
-            style={{ color: accentColor + "99" }}
-          >
+          <div className="type-overline mb-1" style={{ color: accentColor + "99" }}>
             The Situation
           </div>
-          <p
-            className="text-[12px] leading-relaxed font-medium"
-            style={{ color: "var(--text-primary)" }}
-          >
+          <p className="type-body font-medium" style={{ color: "var(--text-primary)" }}>
             {selected.mission}
           </p>
         </div>
@@ -85,13 +79,10 @@ export function StackDetailHeader({
       {/* Top row: name + CTAs */}
       <div className="flex items-start justify-between gap-4 mb-3">
         <div className="flex-1 min-w-0">
-          <h2
-            className="text-base font-bold leading-tight mb-1"
-            style={{ color: "var(--text-primary)" }}
-          >
+          <h2 className="type-title mb-1" style={{ color: "var(--text-primary)" }}>
             {selected.name}
           </h2>
-          <p className="text-[12px] leading-relaxed" style={{ color: "var(--text-secondary)" }}>
+          <p className="type-body" style={{ color: "var(--text-secondary)" }}>
             {selected.description}
           </p>
         </div>
@@ -100,7 +91,7 @@ export function StackDetailHeader({
           <Link
             data-tour="stacks-builder-cta"
             href={builderUrl}
-            className="flex items-center gap-1.5 flex-shrink-0 transition-all"
+            className="flex items-center gap-1.5 flex-shrink-0 type-label transition-all"
             style={{
               padding: "0 14px",
               height: 32,
@@ -108,8 +99,6 @@ export function StackDetailHeader({
               background: accentColor + "20",
               border: `1px solid ${accentColor}44`,
               color: accentColor,
-              fontSize: 12,
-              fontWeight: 600,
               textDecoration: "none",
             }}
           >
@@ -122,7 +111,7 @@ export function StackDetailHeader({
       <div className="flex items-center gap-2 mb-3 flex-wrap">
         {complexity && (
           <span
-            className="text-[10px] font-semibold px-2 py-0.5 rounded-full uppercase tracking-wide"
+            className="type-tag px-2 py-0.5 rounded-full uppercase tracking-wide"
             style={{
               background: complexity.color + "18",
               border: `1px solid ${complexity.color}44`,
@@ -134,7 +123,7 @@ export function StackDetailHeader({
         )}
         {selected.monthly_cost && (
           <span
-            className="text-[10px] font-medium px-2 py-0.5 rounded-full"
+            className="type-tag px-2 py-0.5 rounded-full"
             style={{
               background: "var(--btn)",
               border: "1px solid var(--btn-border)",
@@ -147,7 +136,7 @@ export function StackDetailHeader({
         {selected.tags?.map((tag) => (
           <span
             key={tag}
-            className="text-[10px] px-2 py-0.5 rounded-full"
+            className="type-caption px-2 py-0.5 rounded-full"
             style={{
               background: "var(--btn)",
               border: "1px solid var(--btn-border)",
@@ -169,13 +158,10 @@ export function StackDetailHeader({
             className="rounded-lg px-3 py-2"
             style={{ background: "#7c6bff0a", border: "1px solid #7c6bff1a" }}
           >
-            <div
-              className="text-[9px] font-bold uppercase tracking-widest mb-1"
-              style={{ color: "#7c6bff88" }}
-            >
+            <div className="type-overline mb-1" style={{ color: "#7c6bff88" }}>
               Why this stack
             </div>
-            <p className="text-[11px] leading-relaxed" style={{ color: "var(--text-muted)" }}>
+            <p className="type-body" style={{ color: "var(--text-muted)" }}>
               {selected.why}
             </p>
           </div>
@@ -185,13 +171,10 @@ export function StackDetailHeader({
             className="rounded-lg px-3 py-2"
             style={{ background: "#ff6b6b08", border: "1px solid #ff6b6b1a" }}
           >
-            <div
-              className="text-[9px] font-bold uppercase tracking-widest mb-1"
-              style={{ color: "#ff6b6b88" }}
-            >
+            <div className="type-overline mb-1" style={{ color: "#ff6b6b88" }}>
               Tradeoff
             </div>
-            <p className="text-[11px] leading-relaxed" style={{ color: "var(--text-muted)" }}>
+            <p className="type-body" style={{ color: "var(--text-muted)" }}>
               {selected.tradeoffs}
             </p>
           </div>
@@ -204,10 +187,7 @@ export function StackDetailHeader({
           className="rounded-lg px-3 py-2 mb-3"
           style={{ background: "#ff6b6b06", border: "1px solid #ff6b6b18" }}
         >
-          <div
-            className="text-[9px] font-bold uppercase tracking-widest mb-1.5"
-            style={{ color: "#ff6b6b88" }}
-          >
+          <div className="type-overline mb-1.5" style={{ color: "#ff6b6b88" }}>
             Not in this stack
           </div>
           <div className="flex flex-col gap-1">
@@ -215,26 +195,23 @@ export function StackDetailHeader({
               const color = tool ? getCategoryColor(tool.category) : "#555577";
               return (
                 <div key={reason} className="flex items-baseline gap-2">
-                  <span className="text-[10px] flex-shrink-0" style={{ color: "#ff6b6b66" }}>
+                  <span className="type-caption flex-shrink-0" style={{ color: "#ff6b6b66" }}>
                     ✗
                   </span>
                   {tool ? (
                     <Link
                       href={`/explore?tool=${tool.id}`}
-                      className="text-[11px] font-semibold flex-shrink-0 hover:underline"
+                      className="type-label flex-shrink-0 hover:underline"
                       style={{ color }}
                     >
                       {tool.name}
                     </Link>
                   ) : (
-                    <span
-                      className="text-[11px] font-semibold flex-shrink-0"
-                      style={{ color: "#555577" }}
-                    >
+                    <span className="type-label flex-shrink-0" style={{ color: "#555577" }}>
                       {reason}
                     </span>
                   )}
-                  <span className="text-[11px] leading-snug" style={{ color: "var(--text-muted)" }}>
+                  <span className="type-body-tight" style={{ color: "var(--text-muted)" }}>
                     — {reason}
                   </span>
                 </div>
@@ -251,13 +228,10 @@ export function StackDetailHeader({
             onClick={() => setKillOpen((v) => !v)}
             className="flex items-center gap-2 w-full text-left"
           >
-            <div
-              className="text-[9px] font-bold uppercase tracking-widest"
-              style={{ color: "#fdcb6e88" }}
-            >
+            <div className="type-overline" style={{ color: "#fdcb6e88" }}>
               When to move on
             </div>
-            <span className="text-[9px]" style={{ color: "#fdcb6e66" }}>
+            <span className="type-caption" style={{ color: "#fdcb6e66" }}>
               {killOpen ? "▲" : "▼"}
             </span>
           </button>
@@ -269,13 +243,10 @@ export function StackDetailHeader({
               <div className="flex flex-col gap-1 mb-2">
                 {selected.kill_conditions!.map((condition, i) => (
                   <div key={i} className="flex items-baseline gap-2">
-                    <span className="text-[10px] flex-shrink-0" style={{ color: "#fdcb6e66" }}>
+                    <span className="type-caption flex-shrink-0" style={{ color: "#fdcb6e66" }}>
                       •
                     </span>
-                    <span
-                      className="text-[11px] leading-snug"
-                      style={{ color: "var(--text-muted)" }}
-                    >
+                    <span className="type-body-tight" style={{ color: "var(--text-muted)" }}>
                       {condition}
                     </span>
                   </div>
@@ -287,7 +258,7 @@ export function StackDetailHeader({
                     onSelectCluster(graduatesTo.cluster);
                     onSelectStack(graduatesTo);
                   }}
-                  className="flex items-center gap-1.5 text-[11px] font-medium transition-colors hover:opacity-100"
+                  className="flex items-center gap-1.5 type-label transition-colors hover:opacity-100"
                   style={{ color: "var(--warning)", opacity: 0.8 }}
                 >
                   <span>→ Graduate to:</span>
@@ -312,7 +283,7 @@ export function StackDetailHeader({
           return (
             <div key={t.id} className="relative group/chip inline-flex">
               <span
-                className="text-[11px] font-medium px-2.5 py-0.5 rounded-full transition-all"
+                className="type-label px-2.5 py-0.5 rounded-full transition-all"
                 style={{
                   background: isCompared ? c + "30" : c + "18",
                   border: isCompared ? `1px solid ${c}66` : `1px solid ${c}33`,
@@ -329,7 +300,7 @@ export function StackDetailHeader({
                   background: inStack ? "var(--accent-2)" : "var(--surface)",
                   border: `1px solid ${inStack ? "var(--accent-2)" : "var(--border)"}`,
                   color: inStack ? "#0a0a0f" : "var(--text-muted)",
-                  fontSize: 9,
+                  fontSize: 10,
                   fontWeight: 700,
                 }}
               >
@@ -371,7 +342,7 @@ export function StackDetailHeader({
         })}
         {compareA && !compareB && (
           <div
-            className="flex items-center gap-1.5 text-[10px] px-2 py-0.5 rounded-full ml-1"
+            className="flex items-center gap-1.5 type-caption px-2 py-0.5 rounded-full ml-1"
             style={{
               background: "#7c6bff14",
               border: "1px solid #7c6bff33",

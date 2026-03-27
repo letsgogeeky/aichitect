@@ -128,7 +128,7 @@ export default function StackHealthPanel({
         <p className="text-[10px] font-semibold" style={{ color: "var(--success)" }}>
           Stack looks solid
         </p>
-        <p className="text-[9px] mt-0.5" style={{ color: "#26de8188" }}>
+        <p className="text-[10px] mt-0.5" style={{ color: "#26de8188" }}>
           All essentials covered
         </p>
       </div>
@@ -159,7 +159,7 @@ export default function StackHealthPanel({
               }}
             />
           </div>
-          <span className="text-[9px] font-medium" style={{ color: "var(--text-muted)" }}>
+          <span className="text-[10px] font-medium" style={{ color: "var(--text-muted)" }}>
             {totalFilled}/{totalEssentials}
           </span>
         </div>
@@ -235,7 +235,7 @@ function ProviderConflictRow({
           heads up
         </span>
       </div>
-      <p className="text-[9px] leading-relaxed pl-2.5" style={{ color: "var(--text-muted)" }}>
+      <p className="text-[10px] leading-relaxed pl-2.5" style={{ color: "var(--text-muted)" }}>
         <span style={{ color: "#f0f0f8" }}>{dominantNames}</span> ({dominantLabel}) and{" "}
         <span style={{ color: "#f0f0f8" }}>{conflictNames}</span> ({conflictLabel}) serve different
         layers but are from competing providers — intentional if you&apos;re comparing, but consider
@@ -291,14 +291,14 @@ function HealthRow({
               {suggestedTool.name}
             </p>
             {suggestReason && (
-              <p className="text-[9px] text-[var(--text-muted)] leading-relaxed mt-0.5">
+              <p className="text-[10px] text-[var(--text-muted)] leading-relaxed mt-0.5">
                 {suggestReason}
               </p>
             )}
           </div>
           <button
             onClick={() => onAdd(slot.id, suggestedTool.id)}
-            className="flex-shrink-0 text-[9px] font-semibold px-1.5 py-0.5 rounded transition-colors"
+            className="flex-shrink-0 text-[10px] font-semibold px-1.5 py-0.5 rounded transition-colors"
             style={{
               background: getCategoryColor(suggestedTool.category) + "18",
               color: getCategoryColor(suggestedTool.category),
@@ -309,7 +309,7 @@ function HealthRow({
           </button>
         </div>
       ) : (
-        <p className="text-[9px] text-[var(--text-muted)] pl-2.5">Not set</p>
+        <p className="text-[10px] text-[var(--text-muted)] pl-2.5">Not set</p>
       )}
     </div>
   );

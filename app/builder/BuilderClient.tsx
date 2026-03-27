@@ -25,6 +25,7 @@ import GetStartedModal from "@/components/ui/GetStartedModal";
 import { ProductionUsageSection } from "@/components/ui/ProductionUsageSection";
 import { IconShare } from "@/components/icons";
 import Link from "next/link";
+import { SITE_URL } from "@/lib/constants";
 
 const nodeTypes: NodeTypes = { tool: ToolNode };
 
@@ -89,7 +90,7 @@ function BuilderGraph({
         animated: !isPaired,
         style: relationshipEdgeStyle(r.type, color),
         label: isPaired ? "often used together" : undefined,
-        labelStyle: isPaired ? { fill: "#555577", fontSize: 9 } : undefined,
+        labelStyle: isPaired ? { fill: "#555577", fontSize: 10 } : undefined,
         labelBgStyle: isPaired ? { fill: "var(--surface)", fillOpacity: 0.8 } : undefined,
       };
     });
@@ -124,7 +125,7 @@ function BuilderGraph({
       fitViewOptions={{ padding: 0.25, duration: 300 }}
       proOptions={{ hideAttribution: true }}
       minZoom={0.3}
-      nodesDraggable={false}
+      nodesDraggable
     >
       <Background variant={BackgroundVariant.Dots} color="#1e1e2e" gap={20} size={1} />
       <Controls showInteractive={false} />
@@ -143,6 +144,7 @@ function BuilderPageContent({
 }) {
   const isMobile = useIsMobile();
   const [copied, setCopied] = useState(false);
+  const [copiedBadge, setCopiedBadge] = useState(false);
   const [getStartedOpen, setGetStartedOpen] = useState(false);
 
   function copyStack() {
@@ -177,6 +179,16 @@ function BuilderPageContent({
     toggleSlot,
     clearCompare,
   } = useBuilderState(slots, allTools);
+
+  const badgeUrl = `${SITE_URL}/badge?s=${stackParam}`;
+  const badgeMarkdown = `[![AI Stack](${badgeUrl})](${SITE_URL}/builder?s=${stackParam})`;
+
+  function copyBadge() {
+    navigator.clipboard.writeText(badgeMarkdown).then(() => {
+      setCopiedBadge(true);
+      setTimeout(() => setCopiedBadge(false), 2000);
+    });
+  }
 
   return (
     <div className="flex h-full">
@@ -221,7 +233,7 @@ function BuilderPageContent({
                 background: "#fdcb6e18",
                 border: "1px solid #fdcb6e44",
                 color: "#fdcb6e",
-                fontSize: 11,
+                fontSize: 12,
                 fontWeight: 500,
                 cursor: "pointer",
                 pointerEvents: "auto",
@@ -242,7 +254,7 @@ function BuilderPageContent({
                 background: copied ? "#00d4aa30" : "#00d4aa18",
                 border: `1px solid ${copied ? "#00d4aa88" : "#00d4aa44"}`,
                 color: "var(--accent-2)",
-                fontSize: 11,
+                fontSize: 12,
                 fontWeight: 500,
                 cursor: "pointer",
                 pointerEvents: "auto",
@@ -262,13 +274,43 @@ function BuilderPageContent({
                 background: "#7c6bff18",
                 border: "1px solid #7c6bff44",
                 color: "var(--accent)",
-                fontSize: 11,
+                fontSize: 12,
                 fontWeight: 500,
                 cursor: "pointer",
                 pointerEvents: "auto",
               }}
             >
               Get Started →
+            </button>
+          </div>
+        )}
+
+        {/* Floating badge strip — below the action bar, desktop only */}
+        {selectedCount > 0 && (
+          <div
+            className="hidden sm:flex absolute z-10 items-center gap-2 px-2.5 py-1.5 rounded-lg"
+            style={{
+              top: 46,
+              right: 12,
+              background: "var(--surface-2)",
+              border: "1px solid var(--border)",
+            }}
+          >
+            <span className="type-caption text-[var(--text-muted)]">Add to your README</span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={badgeUrl} alt="AI Stack badge" className="h-4" />
+            <button
+              onClick={copyBadge}
+              className="type-tag transition-all"
+              style={{
+                padding: "2px 8px",
+                borderRadius: 5,
+                background: copiedBadge ? "#26de8118" : "var(--btn)",
+                border: `1px solid ${copiedBadge ? "#26de8144" : "var(--btn-border)"}`,
+                color: copiedBadge ? "var(--success)" : "var(--text-muted)",
+              }}
+            >
+              {copiedBadge ? "Copied!" : "Copy snippet"}
             </button>
           </div>
         )}
@@ -309,10 +351,10 @@ function BuilderPageContent({
               animation: "fadeIn 220ms ease",
             }}
           >
-            <p className="text-[9px] font-semibold uppercase tracking-widest text-[#7c6bff88] mb-1.5">
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-[#7c6bff88] mb-1.5">
               Your stack reads
             </p>
-            <p className="text-[11px] text-[var(--text-primary)] font-mono mb-1 leading-relaxed">
+            <p className="text-xs text-[var(--text-primary)] font-mono mb-1 leading-relaxed">
               {story.flow}
             </p>
             <p className="text-[10px] text-[var(--text-muted)] leading-relaxed">{story.prose}</p>

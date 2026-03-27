@@ -46,7 +46,7 @@ function FieldLabel({ children }: { children: React.ReactNode }) {
     <label
       style={{
         display: "block",
-        fontSize: 11,
+        fontSize: 12,
         fontWeight: 500,
         color: "#8888aa",
         marginBottom: 5,
@@ -177,7 +177,7 @@ function Step1({
               borderRadius: 6,
               background: "#ff9f4318",
               border: "1px solid #ff9f4340",
-              fontSize: 11,
+              fontSize: 12,
               color: "#ff9f43",
             }}
           >
@@ -250,7 +250,7 @@ function Step2({
                   background: active ? cat.color + "20" : "var(--btn)",
                   border: `1px solid ${active ? cat.color + "60" : "var(--btn-border)"}`,
                   color: active ? cat.color : "#8888aa",
-                  fontSize: 11,
+                  fontSize: 12,
                   fontWeight: active ? 500 : 400,
                   cursor: "pointer",
                   textAlign: "left",
@@ -411,7 +411,7 @@ function PreviewCard({ form, color }: { form: FormData; color: string }) {
             {isOss && (
               <span
                 style={{
-                  fontSize: 9,
+                  fontSize: 10,
                   padding: "2px 7px",
                   borderRadius: 4,
                   background: "#26de8120",
@@ -427,7 +427,7 @@ function PreviewCard({ form, color }: { form: FormData; color: string }) {
             {form.hasFreeTier && (
               <span
                 style={{
-                  fontSize: 9,
+                  fontSize: 10,
                   padding: "2px 7px",
                   borderRadius: 4,
                   background: "#00d4aa15",
@@ -446,7 +446,7 @@ function PreviewCard({ form, color }: { form: FormData; color: string }) {
         {/* Tagline */}
         <p
           style={{
-            fontSize: 11,
+            fontSize: 12,
             color: "#8888aa",
             lineHeight: 1.4,
             margin: 0,
@@ -460,7 +460,7 @@ function PreviewCard({ form, color }: { form: FormData; color: string }) {
           <div style={{ marginTop: 8 }}>
             <span
               style={{
-                fontSize: 9,
+                fontSize: 10,
                 padding: "2px 7px",
                 borderRadius: 12,
                 border: "1px solid var(--btn-border)",
@@ -480,7 +480,7 @@ function Step4({ form, color, onSubmit }: { form: FormData; color: string; onSub
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <div>
-        <p style={{ fontSize: 11, color: "#8888aa", marginBottom: 10 }}>
+        <p style={{ fontSize: 12, color: "#8888aa", marginBottom: 10 }}>
           Here&apos;s how your tool card will look in the graph:
         </p>
         <PreviewCard form={form} color={color} />
@@ -492,7 +492,7 @@ function Step4({ form, color, onSubmit }: { form: FormData; color: string; onSub
           borderRadius: 8,
           background: "var(--btn)",
           border: "1px solid var(--btn-border)",
-          fontSize: 11,
+          fontSize: 12,
           color: "#8888aa",
           lineHeight: 1.5,
         }}
@@ -554,7 +554,7 @@ function SuccessView({
         </p>
         <p
           style={{
-            fontSize: 11,
+            fontSize: 12,
             color: "#8888aa",
             marginTop: 6,
             lineHeight: 1.5,
@@ -723,7 +723,7 @@ export default function SuggestToolModal({ onClose, prefillName = "" }: Props) {
             <h2 style={{ fontSize: 15, fontWeight: 600, color: "#f0f0f8", margin: 0 }}>
               Suggest a Tool
             </h2>
-            <p style={{ fontSize: 11, color: "#8888aa", marginTop: 3, marginBottom: 0 }}>
+            <p style={{ fontSize: 12, color: "#8888aa", marginTop: 3, marginBottom: 0 }}>
               Help grow the dataset — every submission counts
             </p>
           </div>

@@ -183,7 +183,7 @@ function OptionButton({
       <div>
         <div style={{ lineHeight: 1.3 }}>{option.label}</div>
         {option.sub && (
-          <div style={{ fontSize: 11, color: "#555577", marginTop: 2, lineHeight: 1.3 }}>
+          <div style={{ fontSize: 12, color: "#555577", marginTop: 2, lineHeight: 1.3 }}>
             {option.sub}
           </div>
         )}
@@ -238,7 +238,7 @@ function MatchCard({
           </div>
           <p
             style={{
-              fontSize: 11,
+              fontSize: 12,
               color: "#555577",
               margin: 0,
               lineHeight: 1.4,
@@ -255,7 +255,7 @@ function MatchCard({
           href={builderUrl}
           style={{
             flexShrink: 0,
-            fontSize: 11,
+            fontSize: 12,
             fontWeight: 500,
             padding: "5px 12px",
             borderRadius: 6,
@@ -367,7 +367,7 @@ function MatchCard({
         {stack.target && (
           <p
             style={{
-              fontSize: 11,
+              fontSize: 12,
               color: "#555577",
               lineHeight: 1.4,
               margin: "0 0 14px",
@@ -537,7 +537,7 @@ export function StackQuizModal({ onClose }: Props) {
           <div>
             <p
               style={{
-                fontSize: 11,
+                fontSize: 12,
                 color: "#555577",
                 margin: "0 0 4px",
                 textTransform: "uppercase",
@@ -635,7 +635,7 @@ export function StackQuizModal({ onClose }: Props) {
                   background: "none",
                   border: "none",
                   color: "#555577",
-                  fontSize: 11,
+                  fontSize: 12,
                   cursor: "pointer",
                   textDecoration: "underline",
                   textUnderlineOffset: 3,

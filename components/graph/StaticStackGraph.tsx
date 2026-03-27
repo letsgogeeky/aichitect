@@ -54,7 +54,7 @@ function StaticGraphInner({
         animated: !isPaired,
         style: relationshipEdgeStyle(r.type, color),
         label: isPaired ? "often used together" : undefined,
-        labelStyle: isPaired ? { fill: "#555577", fontSize: 9 } : undefined,
+        labelStyle: isPaired ? { fill: "#555577", fontSize: 10 } : undefined,
         labelBgStyle: isPaired ? { fill: "var(--surface)", fillOpacity: 0.8 } : undefined,
       };
     });

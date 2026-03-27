@@ -343,7 +343,7 @@ export default function ExploreGraph3D({
           backdropFilter: "blur(8px)",
         }}
       >
-        <p className="text-[9px] font-semibold uppercase tracking-widest text-[#7c6bff88] mb-2">
+        <p className="text-[10px] font-semibold uppercase tracking-widest text-[#7c6bff88] mb-2">
           Connections
         </p>
         {[
@@ -356,7 +356,7 @@ export default function ExploreGraph3D({
             <span className="text-[10px] text-[var(--text-muted)]">{label}</span>
           </div>
         ))}
-        <p className="text-[9px] text-[var(--text-muted)] mt-1.5 pt-1.5 border-t border-[var(--border)]">
+        <p className="text-[10px] text-[var(--text-muted)] mt-1.5 pt-1.5 border-t border-[var(--border)]">
           Drag to rotate · Scroll to zoom · Click for details
         </p>
       </div>
