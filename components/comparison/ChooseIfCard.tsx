@@ -30,10 +30,10 @@ export function ChooseIfCard({ tool, color }: ChooseIfCardProps) {
       <ul className="space-y-1.5">
         {tool.choose_if.map((signal, i) => (
           <li key={i} className="flex items-start gap-1.5">
-            <span className="text-[9px] mt-0.5 flex-shrink-0" style={{ color }}>
+            <span className="text-[10px] mt-0.5 flex-shrink-0" style={{ color }}>
               •
             </span>
-            <span className="text-[11px] text-[var(--text-secondary)] leading-snug">{signal}</span>
+            <span className="text-xs text-[var(--text-secondary)] leading-snug">{signal}</span>
           </li>
         ))}
       </ul>

@@ -118,7 +118,7 @@ export function StackSidebar({
           </div>
         )}
         {q && filteredResults.length === 0 && (
-          <div className="px-4 py-3 text-[11px]" style={{ color: "var(--text-muted)" }}>
+          <div className="px-4 py-3 text-xs" style={{ color: "var(--text-muted)" }}>
             No stacks include or reject this tool.
           </div>
         )}
@@ -150,15 +150,12 @@ export function StackSidebar({
               >
                 {s.name}
               </div>
-              <div
-                className="text-[11px] leading-snug mb-1.5"
-                style={{ color: "var(--text-muted)" }}
-              >
+              <div className="text-xs leading-snug mb-1.5" style={{ color: "var(--text-muted)" }}>
                 {s.target}
               </div>
               {q && (
                 <div
-                  className="text-[9px] mb-1.5 font-semibold uppercase tracking-wide"
+                  className="text-[10px] mb-1.5 font-semibold uppercase tracking-wide"
                   style={{ color: "#555577" }}
                 >
                   {STACK_CLUSTERS.find((c) => c.id === s.cluster)?.label}
@@ -190,11 +187,11 @@ export function StackSidebar({
                             flexShrink: 0,
                           }}
                         />
-                        <span style={{ fontSize: 11, color: cx.color }}>{cx.label}</span>
+                        <span style={{ fontSize: 12, color: cx.color }}>{cx.label}</span>
                       </>
                     )}
                     {s.monthly_cost && (
-                      <span style={{ fontSize: 11, color: "var(--text-muted)" }}>
+                      <span style={{ fontSize: 12, color: "var(--text-muted)" }}>
                         · {s.monthly_cost}
                       </span>
                     )}

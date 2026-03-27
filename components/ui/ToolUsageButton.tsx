@@ -73,7 +73,7 @@ export function ToolUsageButton({ toolId, color, compact = false }: Props) {
           padding: "0 6px",
           height: 22,
           borderRadius: 5,
-          fontSize: 9,
+          fontSize: 10,
           fontWeight: 600,
           cursor: loading ? "default" : "pointer",
           opacity: loading ? 0.6 : 1,

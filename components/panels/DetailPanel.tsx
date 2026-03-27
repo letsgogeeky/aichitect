@@ -109,13 +109,13 @@ export default function DetailPanel({ tool, onClose }: Props) {
         {/* Stale warning banner */}
         {tool.is_stale && (
           <div
+            className="type-body"
             style={{
               background: "#f39c1218",
               border: "1px solid #f39c1240",
               borderRadius: 8,
               padding: "8px 12px",
               color: "#f39c12",
-              fontSize: 11,
               fontWeight: 500,
             }}
           >
@@ -128,11 +128,11 @@ export default function DetailPanel({ tool, onClose }: Props) {
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-1">
               <ColorDot color={color} className="w-2.5 h-2.5" />
-              <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color }}>
+              <span className="type-overline" style={{ color }}>
                 {categoryLabel}
               </span>
               <span
-                className={`text-[9px] font-semibold px-1.5 py-0.5 rounded uppercase ${
+                className={`type-tag px-1.5 py-0.5 rounded uppercase ${
                   tool.type === "oss"
                     ? "bg-[#26de8122] text-[var(--success)]"
                     : "bg-[#4ecdc422] text-[#4ecdc4]"
@@ -141,17 +141,15 @@ export default function DetailPanel({ tool, onClose }: Props) {
                 {tool.type === "oss" ? "OSS" : "SaaS"}
               </span>
             </div>
-            <h2 className="text-base font-semibold text-[var(--text-primary)] leading-tight">
-              {tool.name}
-            </h2>
+            <h2 className="type-title text-[var(--text-primary)] leading-tight">{tool.name}</h2>
             {tool.github_stars && (
-              <div className="text-xs text-[var(--text-muted)] mt-0.5">
+              <div className="type-caption text-[var(--text-muted)] mt-0.5">
                 ⭐ {tool.github_stars.toLocaleString()} GitHub stars
               </div>
             )}
             {tool.last_synced_at && (
               <div className="flex items-center gap-2 mt-0.5 flex-wrap">
-                <span className="text-xs text-[var(--text-muted)]">
+                <span className="type-caption text-[var(--text-muted)]">
                   Last commit:{" "}
                   {healthDetails?.lastCommitAt
                     ? formatRelativeTime(healthDetails.lastCommitAt)
@@ -159,22 +157,22 @@ export default function DetailPanel({ tool, onClose }: Props) {
                 </span>
                 {healthDetails?.starDelta != null && (
                   <span
-                    className="text-xs"
+                    className="type-caption"
                     style={{ color: formatStarDelta(healthDetails.starDelta).color }}
                   >
                     {formatStarDelta(healthDetails.starDelta).text}
                   </span>
                 )}
-                <span className="text-[10px] text-[var(--text-muted)] opacity-60">
+                <span className="type-caption text-[var(--text-muted)] opacity-60">
                   · synced {formatRelativeTime(tool.last_synced_at)}
                 </span>
               </div>
             )}
             {tool.health_score != null && (
               <div className="flex items-center gap-1.5 mt-0.5">
-                <span className="text-xs text-[var(--text-muted)]">Health:</span>
+                <span className="type-caption text-[var(--text-muted)]">Health:</span>
                 <span
-                  className="text-xs font-semibold"
+                  className="type-caption font-semibold"
                   style={{ color: healthColor(tool.health_score) }}
                 >
                   {tool.health_score} — {healthLabel(tool.health_score)}
@@ -186,23 +184,21 @@ export default function DetailPanel({ tool, onClose }: Props) {
         </div>
 
         {/* Description */}
-        <p className="text-xs text-[var(--text-secondary)] leading-relaxed">{tool.description}</p>
+        <p className="type-body text-[var(--text-secondary)]">{tool.description}</p>
 
         {/* Pricing */}
         <div>
-          <h3 className="text-[10px] font-semibold uppercase tracking-widest text-[var(--text-muted)] mb-2">
-            Pricing
-          </h3>
+          <h3 className="type-overline text-[var(--text-muted)] mb-2">Pricing</h3>
           <div className="flex flex-wrap gap-1.5">
             {tool.pricing.free_tier && (
-              <span className="text-[10px] px-2 py-1 rounded-full border border-[var(--border)] text-[var(--text-secondary)]">
+              <span className="type-tag px-2 py-1 rounded-full border border-[var(--border)] text-[var(--text-secondary)]">
                 Free tier
               </span>
             )}
             {tool.pricing.plans.map((p, i) => (
               <span
                 key={i}
-                className="text-[10px] px-2 py-1 rounded-full border border-[var(--border)] text-[var(--text-secondary)]"
+                className="type-tag px-2 py-1 rounded-full border border-[var(--border)] text-[var(--text-secondary)]"
               >
                 {p.name}: {p.price}
               </span>
@@ -217,7 +213,7 @@ export default function DetailPanel({ tool, onClose }: Props) {
               href={tool.website_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 text-center text-xs py-1.5 px-3 rounded-md font-medium transition-colors"
+              className="flex-1 text-center type-label py-1.5 px-3 rounded-md transition-colors"
               style={{
                 background: color + "22",
                 color,
@@ -232,7 +228,7 @@ export default function DetailPanel({ tool, onClose }: Props) {
               href={tool.github_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 text-center text-xs py-1.5 px-3 rounded-md font-medium border border-[var(--border)] text-[var(--text-secondary)] transition-colors hover:border-[var(--border-2)]"
+              className="flex-1 text-center type-label py-1.5 px-3 rounded-md border border-[var(--border)] text-[var(--text-secondary)] transition-colors hover:border-[var(--border-2)]"
             >
               GitHub ↗
             </a>
@@ -243,15 +239,13 @@ export default function DetailPanel({ tool, onClose }: Props) {
         <div className="flex gap-2">
           <button
             onClick={toggleStack}
-            className="flex-1 flex items-center justify-center gap-2 transition-all"
+            className="flex-1 flex items-center justify-center gap-2 type-label transition-all"
             style={{
               padding: "8px 12px",
               borderRadius: 8,
               background: inStack ? "#00d4aa18" : "#7c6bff18",
               border: `1px solid ${inStack ? "#00d4aa44" : "#7c6bff44"}`,
               color: inStack ? "var(--accent-2)" : "var(--accent)",
-              fontSize: 12,
-              fontWeight: 600,
               cursor: "pointer",
             }}
           >
@@ -260,7 +254,7 @@ export default function DetailPanel({ tool, onClose }: Props) {
           {stackIds.length > 0 && (
             <Link
               href={`/builder?s=${stackIds.join(",")}`}
-              className="flex items-center justify-center px-3 rounded-lg text-[11px] font-medium transition-colors"
+              className="flex items-center justify-center px-3 rounded-lg type-label transition-colors"
               style={{
                 background: "var(--surface-2)",
                 border: "1px solid var(--border)",
@@ -281,14 +275,13 @@ export default function DetailPanel({ tool, onClose }: Props) {
           <button
             onClick={copyBadge}
             title="Copy badge Markdown"
+            className="type-label"
             style={{
               display: "flex",
               alignItems: "center",
               padding: "0 10px",
               height: 32,
               borderRadius: 7,
-              fontSize: 11,
-              fontWeight: 600,
               cursor: "pointer",
               background: copiedBadge ? "#26de8118" : "var(--btn)",
               border: `1px solid ${copiedBadge ? "#26de8144" : "var(--btn-border)"}`,
@@ -305,9 +298,7 @@ export default function DetailPanel({ tool, onClose }: Props) {
         {/* Connected tools */}
         {connected.length > 0 && (
           <div>
-            <h3 className="text-[10px] font-semibold uppercase tracking-widest text-[var(--text-muted)] mb-2">
-              Connections
-            </h3>
+            <h3 className="type-overline text-[var(--text-muted)] mb-2">Connections</h3>
             <div className="space-y-1">
               {connected.slice(0, 8).map(({ tool: other, type }) => (
                 <div
@@ -315,10 +306,12 @@ export default function DetailPanel({ tool, onClose }: Props) {
                   className="flex items-center justify-between py-1 px-2 rounded-md group"
                   style={{ background: "var(--surface-2)" }}
                 >
-                  <span className="text-xs text-[var(--text-primary)] truncate">{other.name}</span>
+                  <span className="type-body text-[var(--text-primary)] truncate">
+                    {other.name}
+                  </span>
                   <div className="flex items-center gap-1.5 ml-2 flex-shrink-0">
                     <span
-                      className="text-[9px] px-1.5 py-0.5 rounded group-hover:hidden"
+                      className="type-tag px-1.5 py-0.5 rounded group-hover:hidden"
                       style={{
                         background:
                           type === "integrates-with"
@@ -342,7 +335,7 @@ export default function DetailPanel({ tool, onClose }: Props) {
                     </span>
                     <Link
                       href={`/compare/${tool.id}/${other.id}`}
-                      className="hidden group-hover:block text-[9px] px-1.5 py-0.5 rounded"
+                      className="hidden group-hover:block type-tag px-1.5 py-0.5 rounded"
                       style={{ background: "#7c6bff22", color: "var(--accent)" }}
                       title={`Compare ${tool.name} vs ${other.name}`}
                     >
@@ -358,14 +351,12 @@ export default function DetailPanel({ tool, onClose }: Props) {
         {/* Featured in stacks */}
         {featuredIn.length > 0 && (
           <div>
-            <h3 className="text-[10px] font-semibold uppercase tracking-widest text-[var(--text-muted)] mb-2">
-              Featured in stacks
-            </h3>
+            <h3 className="type-overline text-[var(--text-muted)] mb-2">Featured in stacks</h3>
             <div className="space-y-1">
               {featuredIn.map((stack) => (
                 <div
                   key={stack.id}
-                  className="text-xs text-[var(--text-secondary)] px-2 py-1 rounded-md"
+                  className="type-body text-[var(--text-secondary)] px-2 py-1 rounded-md"
                   style={{ background: "var(--surface-2)" }}
                 >
                   {stack.name}
@@ -374,10 +365,11 @@ export default function DetailPanel({ tool, onClose }: Props) {
             </div>
           </div>
         )}
+
         {/* Rejected by stacks */}
         {rejectedBy.length > 0 && (
           <div>
-            <h3 className="text-[10px] font-semibold uppercase tracking-widest text-[var(--text-muted)] mb-2">
+            <h3 className="type-overline text-[var(--text-muted)] mb-2">
               Ruled out by {rejectedBy.length} stack{rejectedBy.length !== 1 ? "s" : ""}
             </h3>
             <div className="space-y-1.5">
@@ -387,10 +379,8 @@ export default function DetailPanel({ tool, onClose }: Props) {
                   className="px-2 py-1.5 rounded-md"
                   style={{ background: "#ff6b6b08", border: "1px solid #ff6b6b18" }}
                 >
-                  <div className="text-[10px] font-semibold text-[var(--text-secondary)] mb-0.5">
-                    {stack.name}
-                  </div>
-                  <div className="text-[10px] leading-snug" style={{ color: "#ff6b6b99" }}>
+                  <div className="type-label text-[var(--text-secondary)] mb-0.5">{stack.name}</div>
+                  <div className="type-body-tight" style={{ color: "#ff6b6b99" }}>
                     &ldquo;{reason}&rdquo;
                   </div>
                 </div>
@@ -409,14 +399,13 @@ export default function DetailPanel({ tool, onClose }: Props) {
         >
           <button
             onClick={() => openSuggest()}
-            className="w-full text-left transition-colors"
+            className="w-full text-left type-label transition-colors"
             style={{
               padding: "8px 10px",
               borderRadius: 7,
               background: "var(--btn)",
               border: "1px solid var(--btn-border)",
               color: "#555577",
-              fontSize: 11,
               cursor: "pointer",
             }}
             onMouseEnter={(e) => {

@@ -21,7 +21,7 @@ export function LandingAuthButton() {
         )}
         <span
           style={{
-            fontSize: 11,
+            fontSize: 12,
             color: "#8888aa",
             maxWidth: 80,
             overflow: "hidden",
@@ -62,7 +62,7 @@ export function LandingAuthButton() {
         background: "#1c1c28",
         border: "1px solid #2a2a3a",
         color: "#8888aa",
-        fontSize: 11,
+        fontSize: 12,
         fontWeight: 500,
         cursor: "pointer",
         flexShrink: 0,

@@ -29,7 +29,7 @@ export default function LaneLabel({ data }: NodeProps) {
       >
         <span
           style={{
-            fontSize: 9,
+            fontSize: 10,
             fontWeight: 700,
             letterSpacing: "0.1em",
             textTransform: "uppercase",
@@ -40,7 +40,7 @@ export default function LaneLabel({ data }: NodeProps) {
         </span>
         <span
           style={{
-            fontSize: 9,
+            fontSize: 10,
             color: "rgba(160, 155, 210, 0.35)",
             fontStyle: "italic",
           }}

@@ -58,7 +58,7 @@ export default function MyStackTray() {
                 flexShrink: 0,
               }}
             />
-            <span style={{ fontSize: 11, color: "#8888aa" }}>
+            <span style={{ fontSize: 12, color: "#8888aa" }}>
               {stackTools.length} tool{stackTools.length !== 1 ? "s" : ""} in stack
             </span>
           </div>
@@ -66,7 +66,7 @@ export default function MyStackTray() {
           <Link
             href={builderUrl}
             style={{
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 600,
               color: "var(--accent)",
               textDecoration: "none",
@@ -112,7 +112,7 @@ export default function MyStackTray() {
                       flexShrink: 0,
                     }}
                   />
-                  <span style={{ fontSize: 11, fontWeight: 500, color: c }}>{t.name}</span>
+                  <span style={{ fontSize: 12, fontWeight: 500, color: c }}>{t.name}</span>
                   {/* Remove on hover */}
                   <button
                     onClick={() => removeTool(t.id)}
@@ -132,7 +132,7 @@ export default function MyStackTray() {
               );
             })}
             {overflow > 0 && (
-              <span style={{ fontSize: 11, color: "#555577", flexShrink: 0 }}>
+              <span style={{ fontSize: 12, color: "#555577", flexShrink: 0 }}>
                 +{overflow} more
               </span>
             )}
@@ -150,7 +150,7 @@ export default function MyStackTray() {
               borderRadius: 7,
               background: "var(--accent)",
               color: "#fff",
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 600,
               textDecoration: "none",
               whiteSpace: "nowrap",

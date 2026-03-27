@@ -204,7 +204,7 @@ export default function Navbar({ counts }: { counts?: Counts }) {
                   flexShrink: 0,
                 }}
               />
-              <span style={{ fontSize: 11, color: "var(--text-secondary)" }}>
+              <span style={{ fontSize: 12, color: "var(--text-secondary)" }}>
                 {toolCount} tools · {stackCount} stacks
               </span>
             </div>
@@ -222,7 +222,7 @@ export default function Navbar({ counts }: { counts?: Counts }) {
                 borderRadius: 8,
                 background: "var(--btn)",
                 border: "1px solid var(--btn-border)",
-                fontSize: 11,
+                fontSize: 12,
                 fontWeight: 500,
                 cursor: "pointer",
               }}
@@ -244,7 +244,7 @@ export default function Navbar({ counts }: { counts?: Counts }) {
               borderRadius: 8,
               background: "var(--btn)",
               border: "1px solid var(--btn-border)",
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 500,
               cursor: "pointer",
             }}
@@ -264,7 +264,7 @@ export default function Navbar({ counts }: { counts?: Counts }) {
                 borderRadius: 8,
                 background: "var(--btn)",
                 border: "1px solid var(--btn-border)",
-                fontSize: 11,
+                fontSize: 12,
                 fontWeight: 500,
                 cursor: "pointer",
               }}
@@ -287,7 +287,7 @@ export default function Navbar({ counts }: { counts?: Counts }) {
               )}
               <span
                 style={{
-                  fontSize: 11,
+                  fontSize: 12,
                   color: "var(--text-secondary)",
                   maxWidth: 80,
                   overflow: "hidden",

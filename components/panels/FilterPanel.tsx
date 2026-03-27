@@ -199,7 +199,7 @@ export default function FilterPanel({
             {hasStackFilter && (
               <button
                 onClick={clearStackFilters}
-                className="text-[9px] px-1.5 py-0.5 rounded flex-shrink-0"
+                className="text-[10px] px-1.5 py-0.5 rounded flex-shrink-0"
                 style={{ background: "#7c6bff22", color: "var(--accent)" }}
               >
                 Clear
@@ -211,7 +211,7 @@ export default function FilterPanel({
             <div className="space-y-2.5">
               {/* Team size */}
               <div>
-                <p className="text-[9px] uppercase tracking-widest text-[var(--text-muted)] mb-1 px-1">
+                <p className="text-[10px] uppercase tracking-widest text-[var(--text-muted)] mb-1 px-1">
                   Team size
                 </p>
                 <div className="flex flex-wrap gap-1">
@@ -242,7 +242,7 @@ export default function FilterPanel({
 
               {/* Budget */}
               <div>
-                <p className="text-[9px] uppercase tracking-widest text-[var(--text-muted)] mb-1 px-1">
+                <p className="text-[10px] uppercase tracking-widest text-[var(--text-muted)] mb-1 px-1">
                   Budget
                 </p>
                 <div className="flex flex-wrap gap-1">
@@ -273,7 +273,7 @@ export default function FilterPanel({
 
               {/* Use case */}
               <div>
-                <p className="text-[9px] uppercase tracking-widest text-[var(--text-muted)] mb-1 px-1">
+                <p className="text-[10px] uppercase tracking-widest text-[var(--text-muted)] mb-1 px-1">
                   Use case
                 </p>
                 <div className="flex flex-wrap gap-1">
@@ -304,7 +304,7 @@ export default function FilterPanel({
 
               {/* Stage */}
               <div>
-                <p className="text-[9px] uppercase tracking-widest text-[var(--text-muted)] mb-1 px-1">
+                <p className="text-[10px] uppercase tracking-widest text-[var(--text-muted)] mb-1 px-1">
                   Stage
                 </p>
                 <div className="flex flex-wrap gap-1">
@@ -335,7 +335,7 @@ export default function FilterPanel({
 
               {/* Cluster */}
               <div>
-                <p className="text-[9px] uppercase tracking-widest text-[var(--text-muted)] mb-1 px-1">
+                <p className="text-[10px] uppercase tracking-widest text-[var(--text-muted)] mb-1 px-1">
                   Cluster
                 </p>
                 <div className="flex flex-wrap gap-1">
@@ -366,7 +366,7 @@ export default function FilterPanel({
 
               {/* Result count */}
               {hasStackFilter && (
-                <p className="text-[9px] text-[var(--text-muted)] px-1">
+                <p className="text-[10px] text-[var(--text-muted)] px-1">
                   {matchingStackCount === 0
                     ? "No matching stacks"
                     : `${matchingStackCount} stack${matchingStackCount !== 1 ? "s" : ""} match — tools highlighted`}
@@ -421,7 +421,7 @@ export default function FilterPanel({
                         e.stopPropagation();
                         toggleLayerCategories(layer.categories as string[]);
                       }}
-                      className="opacity-0 group-hover:opacity-100 transition-opacity text-[9px] text-[var(--text-muted)] hover:text-[var(--text-secondary)]"
+                      className="opacity-0 group-hover:opacity-100 transition-opacity text-[10px] text-[var(--text-muted)] hover:text-[var(--text-secondary)]"
                     >
                       {allLayerActive ? "−" : "+"}
                     </button>
@@ -440,7 +440,7 @@ export default function FilterPanel({
                             style={{ opacity: active ? 1 : 0.35 }}
                           >
                             <ColorDot color={cat.color} />
-                            <span className="text-[11px] text-[var(--text-secondary)] truncate">
+                            <span className="text-xs text-[var(--text-secondary)] truncate">
                               {cat.label}
                             </span>
                           </button>
@@ -492,7 +492,7 @@ export default function FilterPanel({
                         }}
                       />
                     </div>
-                    <span className="text-[11px] text-[var(--text-secondary)]">{rt.label}</span>
+                    <span className="text-xs text-[var(--text-secondary)]">{rt.label}</span>
                   </button>
                 );
               })}
@@ -518,7 +518,7 @@ export default function FilterPanel({
             background: "var(--btn)",
             border: "1px solid var(--btn-border)",
             color: "#555577",
-            fontSize: 11,
+            fontSize: 12,
             cursor: "pointer",
             textAlign: "center",
             transition: "color 150ms, border-color 150ms",

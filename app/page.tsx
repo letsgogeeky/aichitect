@@ -800,7 +800,7 @@ export default async function LandingPage() {
         <div style={{ textAlign: "center", marginBottom: 48 }}>
           <p
             style={{
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 600,
               color: "#555577",
               textTransform: "uppercase",
@@ -851,7 +851,7 @@ export default async function LandingPage() {
                 background: "#ff6b6b15",
                 border: "1px solid #ff6b6b33",
                 color: "#ff6b6b",
-                fontSize: 11,
+                fontSize: 12,
                 fontWeight: 600,
                 marginBottom: 16,
               }}
@@ -911,7 +911,7 @@ export default async function LandingPage() {
                 background: "#fd964415",
                 border: "1px solid #fd964433",
                 color: "#fd9644",
-                fontSize: 11,
+                fontSize: 12,
                 fontWeight: 600,
                 marginBottom: 16,
               }}
@@ -969,7 +969,7 @@ export default async function LandingPage() {
                 background: "#26de8115",
                 border: "1px solid #26de8133",
                 color: "#26de81",
-                fontSize: 11,
+                fontSize: 12,
                 fontWeight: 600,
                 marginBottom: 16,
               }}
@@ -1111,7 +1111,7 @@ export default async function LandingPage() {
                 background: "#26de8112",
                 border: "1px solid #26de8133",
                 color: "#26de81",
-                fontSize: 11,
+                fontSize: 12,
                 fontWeight: 600,
                 letterSpacing: "0.04em",
                 marginBottom: 24,
@@ -1221,7 +1221,7 @@ export default async function LandingPage() {
                 justifyContent: "space-between",
               }}
             >
-              <span style={{ fontSize: 11, color: "#555577" }}>6 tools in your genome</span>
+              <span style={{ fontSize: 12, color: "#555577" }}>6 tools in your genome</span>
               <span
                 style={{
                   fontSize: 10,
@@ -1286,7 +1286,7 @@ export default async function LandingPage() {
                   </text>
                 </svg>
                 <span
-                  style={{ fontSize: 9, color: "#555577", textAlign: "center", lineHeight: 1.4 }}
+                  style={{ fontSize: 10, color: "#555577", textAlign: "center", lineHeight: 1.4 }}
                 >
                   6 of 8<br />
                   slots filled
@@ -1355,7 +1355,7 @@ export default async function LandingPage() {
                 >
                   <span
                     style={{
-                      fontSize: 9,
+                      fontSize: 10,
                       fontWeight: 700,
                       color: "#ff6b6b",
                       textTransform: "uppercase",
@@ -1493,7 +1493,7 @@ export default async function LandingPage() {
                   background: `${accent}18`,
                   border: `1px solid ${accent}33`,
                   color: accent,
-                  fontSize: 11,
+                  fontSize: 12,
                   fontWeight: 600,
                   marginBottom: 12,
                 }}

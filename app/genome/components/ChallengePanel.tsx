@@ -119,7 +119,7 @@ export function ChallengePanel({ report, allIds }: ChallengePanelProps) {
           </span>
           <span
             style={{
-              fontSize: 9,
+              fontSize: 10,
               color: "#555577",
               fontStyle: "italic",
             }}
@@ -136,7 +136,7 @@ export function ChallengePanel({ report, allIds }: ChallengePanelProps) {
                 padding: "4px 12px",
                 height: 28,
                 borderRadius: 7,
-                fontSize: 11,
+                fontSize: 12,
                 fontWeight: 500,
                 background: `${ACCENT}18`,
                 border: `1px solid ${ACCENT}44`,
@@ -150,7 +150,7 @@ export function ChallengePanel({ report, allIds }: ChallengePanelProps) {
           )}
 
           {state === "loading" && (
-            <span style={{ fontSize: 11, color: "#555577" }}>analyzing choices…</span>
+            <span style={{ fontSize: 12, color: "#555577" }}>analyzing choices…</span>
           )}
 
           {(state === "error" || state === "rate-limited") && (
@@ -160,7 +160,7 @@ export function ChallengePanel({ report, allIds }: ChallengePanelProps) {
                 padding: "4px 12px",
                 height: 28,
                 borderRadius: 7,
-                fontSize: 11,
+                fontSize: 12,
                 fontWeight: 500,
                 background: "#ffffff08",
                 border: "1px solid #1e1e2e",
@@ -180,7 +180,7 @@ export function ChallengePanel({ report, allIds }: ChallengePanelProps) {
                   padding: "4px 12px",
                   height: 28,
                   borderRadius: 7,
-                  fontSize: 11,
+                  fontSize: 12,
                   fontWeight: 500,
                   background: "#ffffff08",
                   border: "1px solid #1e1e2e",
@@ -197,7 +197,7 @@ export function ChallengePanel({ report, allIds }: ChallengePanelProps) {
                   padding: "4px 12px",
                   height: 28,
                   borderRadius: 7,
-                  fontSize: 11,
+                  fontSize: 12,
                   fontWeight: 500,
                   background: `${ACCENT}18`,
                   border: `1px solid ${ACCENT}44`,
@@ -214,7 +214,7 @@ export function ChallengePanel({ report, allIds }: ChallengePanelProps) {
                   padding: "4px 12px",
                   height: 28,
                   borderRadius: 7,
-                  fontSize: 11,
+                  fontSize: 12,
                   fontWeight: 500,
                   background: copied ? "#00d4aa18" : "#ffffff08",
                   border: `1px solid ${copied ? "#00d4aa44" : "#1e1e2e"}`,
@@ -275,7 +275,7 @@ export function ChallengePanel({ report, allIds }: ChallengePanelProps) {
               <p
                 style={{
                   margin: 0,
-                  fontSize: 11,
+                  fontSize: 12,
                   lineHeight: 1.5,
                   color: "#00d4aa",
                 }}
@@ -289,7 +289,7 @@ export function ChallengePanel({ report, allIds }: ChallengePanelProps) {
 
       {state === "error" && (
         <div style={{ padding: "12px 14px" }}>
-          <p style={{ margin: 0, fontSize: 11, color: "#555577" }}>
+          <p style={{ margin: 0, fontSize: 12, color: "#555577" }}>
             Failed to generate challenge. Make sure GOOGLE_AI_API_KEY is set.
           </p>
         </div>
@@ -297,7 +297,7 @@ export function ChallengePanel({ report, allIds }: ChallengePanelProps) {
 
       {state === "rate-limited" && (
         <div style={{ padding: "12px 14px" }}>
-          <p style={{ margin: 0, fontSize: 11, color: "#fdcb6e" }}>
+          <p style={{ margin: 0, fontSize: 12, color: "#fdcb6e" }}>
             Rate limit reached. Wait a moment before trying again.
           </p>
         </div>

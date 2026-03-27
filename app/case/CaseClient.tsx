@@ -265,7 +265,7 @@ export function CaseClient({
               background: shared ? "#fdcb6e20" : "var(--surface-2)",
               border: `1px solid ${shared ? "#fdcb6e66" : "var(--border)"}`,
               color: shared ? "#fdcb6e" : "var(--text-muted)",
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 500,
               cursor: "pointer",
               whiteSpace: "nowrap",
@@ -284,7 +284,7 @@ export function CaseClient({
               background: copied ? "#00d4aa20" : "var(--surface-2)",
               border: `1px solid ${copied ? "#00d4aa66" : "var(--border)"}`,
               color: copied ? "var(--accent-2)" : "var(--text-muted)",
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 500,
               cursor: "pointer",
               whiteSpace: "nowrap",
@@ -303,7 +303,7 @@ export function CaseClient({
               background: "var(--surface-2)",
               border: "1px solid var(--border)",
               color: "var(--text-muted)",
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 500,
               cursor: "pointer",
               whiteSpace: "nowrap",
@@ -558,7 +558,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   return (
     <div className="mb-8">
       <h2
-        className="text-[11px] font-semibold uppercase tracking-widest mb-3"
+        className="text-xs font-semibold uppercase tracking-widest mb-3"
         style={{ color: "var(--text-muted)" }}
       >
         {title}

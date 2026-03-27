@@ -54,7 +54,7 @@ export default async function ChangelogPage() {
       <div style={{ marginBottom: 48 }}>
         <p
           style={{
-            fontSize: 11,
+            fontSize: 12,
             color: "var(--accent)",
             margin: "0 0 10px",
             textTransform: "uppercase",
@@ -122,7 +122,7 @@ export default async function ChangelogPage() {
                       </span>
                       <span
                         style={{
-                          fontSize: 9,
+                          fontSize: 10,
                           fontWeight: 700,
                           color: "var(--accent)",
                           background: "#7c6bff20",
@@ -147,7 +147,7 @@ export default async function ChangelogPage() {
                     </div>
                     <p
                       style={{
-                        fontSize: 11,
+                        fontSize: 12,
                         color: "#555577",
                         margin: 0,
                         lineHeight: 1.4,
@@ -249,7 +249,7 @@ export default async function ChangelogPage() {
             >
               <span
                 style={{
-                  fontSize: 9,
+                  fontSize: 10,
                   fontWeight: 700,
                   color: "#fd9644",
                   background: "#fd964418",
@@ -265,7 +265,7 @@ export default async function ChangelogPage() {
               <span style={{ flex: 1, fontSize: 12, color: "#8888aa" }}>{item.label}</span>
               <span
                 style={{
-                  fontSize: 9,
+                  fontSize: 10,
                   color: "#555577",
                   textTransform: "uppercase",
                   letterSpacing: "0.06em",
@@ -276,7 +276,7 @@ export default async function ChangelogPage() {
             </div>
           ))}
         </div>
-        <p style={{ fontSize: 11, color: "#444466", margin: "12px 0 0", lineHeight: 1.5 }}>
+        <p style={{ fontSize: 12, color: "#444466", margin: "12px 0 0", lineHeight: 1.5 }}>
           Want to contribute or suggest a tool?{" "}
           <Link
             href="https://github.com/ramymoussa/aichitect"
@@ -311,7 +311,7 @@ function Section({
         <div style={{ width: 3, height: 14, borderRadius: 2, background: accent, flexShrink: 0 }} />
         <h2 style={{ fontSize: 15, fontWeight: 700, color: "#f0f0f8", margin: 0 }}>{title}</h2>
       </div>
-      <p style={{ fontSize: 11, color: "#555577", margin: "0 0 14px 13px" }}>{subtitle}</p>
+      <p style={{ fontSize: 12, color: "#555577", margin: "0 0 14px 13px" }}>{subtitle}</p>
       {children}
     </div>
   );

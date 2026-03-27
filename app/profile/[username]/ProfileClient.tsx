@@ -76,7 +76,7 @@ export default function ProfileClient({ username }: Props) {
     <div className="max-w-2xl mx-auto px-6 py-10">
       {/* Breadcrumb */}
       <nav
-        className="flex items-center gap-1.5 text-[11px] mb-8"
+        className="flex items-center gap-1.5 text-xs mb-8"
         style={{ color: "var(--text-muted)" }}
       >
         <Link href="/" className="hover:underline">
@@ -164,7 +164,7 @@ export default function ProfileClient({ username }: Props) {
                 >
                   {badgeFailed ? (
                     <span
-                      className="flex items-center px-2 h-5 rounded text-[9px] font-semibold"
+                      className="flex items-center px-2 h-5 rounded text-[10px] font-semibold"
                       style={{ background: color + "22", color, border: `1px solid ${color}44` }}
                     >
                       {tool.name}
@@ -181,11 +181,11 @@ export default function ProfileClient({ username }: Props) {
                   )}
                   {/* Overlay: show on hover OR immediately after copy (works on touch too) */}
                   <span
-                    className={`absolute inset-0 flex items-center justify-center text-[9px] font-semibold rounded transition-opacity ${isCopied ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}
+                    className={`absolute inset-0 flex items-center justify-center text-[10px] font-semibold rounded transition-opacity ${isCopied ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}
                     style={{
                       background: color + "dd",
                       color: "#fff",
-                      fontSize: 9,
+                      fontSize: 10,
                     }}
                   >
                     {isCopied ? "Copied!" : "Copy"}
@@ -201,7 +201,7 @@ export default function ProfileClient({ username }: Props) {
             style={{ background: "var(--surface)", border: "1px solid var(--border)" }}
           >
             <div>
-              <p className="text-[11px] font-semibold" style={{ color: "var(--text-primary)" }}>
+              <p className="text-xs font-semibold" style={{ color: "var(--text-primary)" }}>
                 Add to your GitHub README
               </p>
               <p className="text-[10px] mt-0.5" style={{ color: "var(--text-muted)" }}>
@@ -210,7 +210,7 @@ export default function ProfileClient({ username }: Props) {
               </p>
             </div>
             <div
-              className="rounded px-2 py-2 font-mono text-[9px] break-all leading-relaxed max-h-24 overflow-y-auto"
+              className="rounded px-2 py-2 font-mono text-[10px] break-all leading-relaxed max-h-24 overflow-y-auto"
               style={{ background: "var(--surface-2)", color: "var(--text-muted)" }}
             >
               {tools.map(badgeMarkdown).join("\n")}

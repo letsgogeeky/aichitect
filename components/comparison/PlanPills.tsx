@@ -9,7 +9,7 @@ export function PlanPills({ plans }: PlanPillsProps) {
       {plans.slice(0, 3).map((p, i) => (
         <span
           key={i}
-          className="text-[9px] px-1.5 py-0.5 rounded border border-[var(--border)] text-[var(--text-secondary)]"
+          className="text-[10px] px-1.5 py-0.5 rounded border border-[var(--border)] text-[var(--text-secondary)]"
         >
           {p.name}: {p.price}
         </span>

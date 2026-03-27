@@ -102,6 +102,71 @@ body {
   stroke-width: 1.5;
 }
 
+/*
+ * ─── Typography scale ────────────────────────────────────────────────────────
+ *
+ * Semantic utility classes for the app type system.
+ * Use these instead of arbitrary text-[Npx] combinations so that
+ * a single edit here propagates everywhere.
+ *
+ * Colour is intentionally excluded — it varies by context and is already
+ * covered by the colour token classes (text-[var(--text-muted)] etc.).
+ * These classes own only: size, weight, line-height, transform, tracking.
+ *
+ * Scale (readable floor = 12px; tags/labels floor = 10px):
+ *   type-overline  10px 700  uppercase  tracking 0.08em  — section labels
+ *   type-tag       10px 600  —                           — badges / chips / pills
+ *   type-caption   10px 400  —                           — metadata / timestamps
+ *   type-body      12px 400  line-height relaxed (1.625) — primary prose
+ *   type-body-tight 12px 400 line-height snug   (1.375) — compact prose / lists
+ *   type-label     12px 600  —                           — sub-headings / emphasis
+ *   type-title     16px 700  line-height tight  (1.2)   — card / panel titles
+ */
+
+@utility type-overline {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+}
+
+@utility type-tag {
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+@utility type-caption {
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+@utility type-body {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.625;
+}
+
+@utility type-body-tight {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.375;
+}
+
+@utility type-label {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+@utility type-title {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;

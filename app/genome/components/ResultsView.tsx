@@ -79,7 +79,7 @@ function ArchetypeBadge({ archetype }: { archetype: StackArchetype }) {
 function ScoreNarrative({ report }: { report: GenomeReport }) {
   const color = TIER_COLORS[report.tier as GenomeTier];
   return (
-    <p style={{ fontSize: 11, color: "#8888aa", margin: 0, lineHeight: 1.5, textAlign: "center" }}>
+    <p style={{ fontSize: 12, color: "#8888aa", margin: 0, lineHeight: 1.5, textAlign: "center" }}>
       <span style={{ color }}>{report.tier}:</span>{" "}
       {scoreNarrative(report).replace(/^[^:]+: ?/, "")}
     </p>
@@ -171,7 +171,7 @@ export function ResultsView({
             style={{
               background: "none",
               border: "none",
-              fontSize: 11,
+              fontSize: 12,
               color: "#8888aa",
               cursor: "pointer",
               padding: 0,
@@ -195,7 +195,7 @@ export function ResultsView({
               padding: "0 12px",
               height: 32,
               borderRadius: 8,
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 500,
               background: graduation ? "#26de8118" : "#7c6bff18",
               border: `1px solid ${graduation ? "#26de8144" : "#7c6bff44"}`,
@@ -214,7 +214,7 @@ export function ResultsView({
               padding: "0 12px",
               height: 32,
               borderRadius: 8,
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 500,
               background: copied ? "#00d4aa18" : "#ffffff08",
               border: `1px solid ${copied ? "#00d4aa44" : "#1e1e2e"}`,
@@ -233,7 +233,7 @@ export function ResultsView({
               padding: "0 12px",
               height: 32,
               borderRadius: 8,
-              fontSize: 11,
+              fontSize: 12,
               fontWeight: 500,
               background: "#ffffff08",
               border: "1px solid #1e1e2e",
@@ -318,7 +318,7 @@ export function ResultsView({
             <div style={{ padding: "8px 12px", borderBottom: "1px solid #1e1e2e" }}>
               <span
                 style={{
-                  fontSize: 9,
+                  fontSize: 10,
                   fontWeight: 700,
                   color: "#555577",
                   textTransform: "uppercase",
@@ -349,11 +349,11 @@ export function ResultsView({
                       flexShrink: 0,
                     }}
                   />
-                  <span style={{ fontSize: 11, color: "#f0f0f8" }}>{t.name}</span>
+                  <span style={{ fontSize: 12, color: "#f0f0f8" }}>{t.name}</span>
                 </div>
               ))}
               {report.detectedTools.length === 0 && (
-                <p style={{ fontSize: 11, color: "#555577", margin: 0 }}>No tools detected</p>
+                <p style={{ fontSize: 12, color: "#555577", margin: 0 }}>No tools detected</p>
               )}
             </div>
           </div>

@@ -32,7 +32,7 @@ function ChecklistRow({ item }: { item: ChecklistItem }) {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          fontSize: 11,
+          fontSize: 12,
           fontWeight: 600,
           color: "#555577",
           marginTop: 1,
@@ -88,7 +88,7 @@ function ChecklistRow({ item }: { item: ChecklistItem }) {
           gap: 6,
         }}
       >
-        <span style={{ fontSize: 11, color: "#555577" }}>≈{item.timeEst}</span>
+        <span style={{ fontSize: 12, color: "#555577" }}>≈{item.timeEst}</span>
         {item.link && (
           <a
             href={item.link}
@@ -98,7 +98,7 @@ function ChecklistRow({ item }: { item: ChecklistItem }) {
               display: "flex",
               alignItems: "center",
               gap: 4,
-              fontSize: 11,
+              fontSize: 12,
               color: "var(--accent)",
               textDecoration: "none",
               fontWeight: 500,
@@ -172,7 +172,7 @@ export default function GetStartedModal({ toolIds, onClose }: Props) {
           <div>
             <p
               style={{
-                fontSize: 11,
+                fontSize: 12,
                 color: "#555577",
                 margin: "0 0 4px",
                 textTransform: "uppercase",

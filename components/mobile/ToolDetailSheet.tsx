@@ -93,7 +93,7 @@ export default function ToolDetailSheet({ tool, open, onClose }: Props) {
                 borderRadius: 8,
                 padding: "8px 12px",
                 color: "#f39c12",
-                fontSize: 11,
+                fontSize: 12,
                 fontWeight: 500,
               }}
             >
@@ -116,7 +116,7 @@ export default function ToolDetailSheet({ tool, open, onClose }: Props) {
                   {categoryLabel}
                 </span>
                 <span
-                  className={`text-[9px] font-semibold px-1.5 py-0.5 rounded uppercase ${
+                  className={`text-[10px] font-semibold px-1.5 py-0.5 rounded uppercase ${
                     tool.type === "oss"
                       ? "bg-[#26de8122] text-[var(--success)]"
                       : "bg-[#4ecdc422] text-[#4ecdc4]"
@@ -269,7 +269,7 @@ export default function ToolDetailSheet({ tool, open, onClose }: Props) {
                     </span>
                     <div className="flex items-center gap-1.5 ml-2 flex-shrink-0">
                       <span
-                        className="text-[9px] px-1.5 py-0.5 rounded"
+                        className="text-[10px] px-1.5 py-0.5 rounded"
                         style={{
                           background:
                             type === "integrates-with"
@@ -293,7 +293,7 @@ export default function ToolDetailSheet({ tool, open, onClose }: Props) {
                       </span>
                       <Link
                         href={`/compare/${tool.id}/${other.id}`}
-                        className="text-[9px] px-1.5 py-0.5 rounded"
+                        className="text-[10px] px-1.5 py-0.5 rounded"
                         style={{ background: "#7c6bff22", color: "var(--accent)" }}
                       >
                         vs →
@@ -339,7 +339,7 @@ export default function ToolDetailSheet({ tool, open, onClose }: Props) {
                 background: "var(--btn)",
                 border: "1px solid var(--btn-border)",
                 color: "#555577",
-                fontSize: 11,
+                fontSize: 12,
                 cursor: "pointer",
               }}
             >

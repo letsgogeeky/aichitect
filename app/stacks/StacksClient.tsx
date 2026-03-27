@@ -51,7 +51,9 @@ function StackGraph({ stack, allTools }: { stack: Stack; allTools: Tool[] }) {
     };
   });
 
-  const laidOut = applyDagreLayout(nodes, edges, "LR", 280, 130);
+  // nodeHeight=260 matches the actual rendered height of expanded ToolNode cards.
+  // Giving dagre the true height prevents vertical overlap between rows.
+  const laidOut = applyDagreLayout(nodes, edges, "LR", 280, 260);
 
   return (
     <ReactFlow
@@ -62,6 +64,7 @@ function StackGraph({ stack, allTools }: { stack: Stack; allTools: Tool[] }) {
       fitViewOptions={{ padding: 0.25, duration: 300 }}
       proOptions={{ hideAttribution: true }}
       minZoom={0.2}
+      nodesDraggable
     >
       <Background variant={BackgroundVariant.Dots} color="#1e1e2e" gap={20} size={1} />
       <Controls showInteractive={false} />
@@ -253,7 +256,7 @@ function StacksContent({ stacks, allTools }: { stacks: Stack[]; allTools: Tool[]
               style={{ background: accentColor + "0a", border: `1px solid ${accentColor}22` }}
             >
               <div
-                className="text-[9px] font-bold uppercase tracking-widest mb-1"
+                className="text-[10px] font-bold uppercase tracking-widest mb-1"
                 style={{ color: accentColor + "99" }}
               >
                 The Situation
@@ -301,12 +304,12 @@ function StacksContent({ stacks, allTools }: { stacks: Stack[]; allTools: Tool[]
               style={{ background: "#7c6bff0a", border: "1px solid #7c6bff1a" }}
             >
               <div
-                className="text-[9px] font-bold uppercase tracking-widest mb-1"
+                className="text-[10px] font-bold uppercase tracking-widest mb-1"
                 style={{ color: "#7c6bff88" }}
               >
                 Why this stack
               </div>
-              <p className="text-[11px] leading-relaxed" style={{ color: "var(--text-muted)" }}>
+              <p className="text-xs leading-relaxed" style={{ color: "var(--text-muted)" }}>
                 {selected.why}
               </p>
             </div>
@@ -317,12 +320,12 @@ function StacksContent({ stacks, allTools }: { stacks: Stack[]; allTools: Tool[]
               style={{ background: "#ff6b6b08", border: "1px solid #ff6b6b1a" }}
             >
               <div
-                className="text-[9px] font-bold uppercase tracking-widest mb-1"
+                className="text-[10px] font-bold uppercase tracking-widest mb-1"
                 style={{ color: "#ff6b6b88" }}
               >
                 Tradeoff
               </div>
-              <p className="text-[11px] leading-relaxed" style={{ color: "var(--text-muted)" }}>
+              <p className="text-xs leading-relaxed" style={{ color: "var(--text-muted)" }}>
                 {selected.tradeoffs}
               </p>
             </div>

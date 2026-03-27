@@ -235,7 +235,7 @@ function ToolPicker({
                       />
                       <span
                         style={{
-                          fontSize: 9,
+                          fontSize: 10,
                           fontWeight: 700,
                           textTransform: "uppercase",
                           letterSpacing: "0.1em",
@@ -244,7 +244,7 @@ function ToolPicker({
                       >
                         {cat.label}
                       </span>
-                      <span style={{ fontSize: 9, color: "#444466", marginLeft: "auto" }}>
+                      <span style={{ fontSize: 10, color: "#444466", marginLeft: "auto" }}>
                         {items.length}
                       </span>
                     </div>
@@ -280,7 +280,7 @@ function ToolPicker({
                         {t.pricing?.free_tier && (
                           <span
                             style={{
-                              fontSize: 9,
+                              fontSize: 10,
                               color: "var(--accent-2)",
                               border: "1px solid #00d4aa33",
                               borderRadius: 4,
@@ -293,7 +293,7 @@ function ToolPicker({
                         {t.type === "oss" && (
                           <span
                             style={{
-                              fontSize: 9,
+                              fontSize: 10,
                               color: "var(--success)",
                               border: "1px solid #26de8133",
                               borderRadius: 4,
@@ -473,7 +473,7 @@ export default function CompareClient({
                   {relLabel(type)}
                 </span>
                 <span style={{ fontSize: 13, fontWeight: 500, color: cB }}>{b.name}</span>
-                <span style={{ fontSize: 11, color: "var(--text-muted)", marginLeft: 6 }}>→</span>
+                <span style={{ fontSize: 12, color: "var(--text-muted)", marginLeft: 6 }}>→</span>
               </Link>
             );
           })}

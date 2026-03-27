@@ -76,7 +76,7 @@ export function SlotGrid({ report }: { report: GenomeReport }) {
                 />
                 <span
                   style={{
-                    fontSize: 9,
+                    fontSize: 10,
                     fontWeight: 600,
                     color: "#555577",
                     textTransform: "uppercase",
@@ -89,9 +89,9 @@ export function SlotGrid({ report }: { report: GenomeReport }) {
               {f ? (
                 <p style={{ fontSize: 12, fontWeight: 500, color, margin: 0 }}>{f.tool.name}</p>
               ) : suggestTool ? (
-                <p style={{ fontSize: 11, color: "#444466", margin: 0 }}>→ {suggestTool.name}</p>
+                <p style={{ fontSize: 12, color: "#444466", margin: 0 }}>→ {suggestTool.name}</p>
               ) : (
-                <p style={{ fontSize: 11, color: "#333355", margin: 0, fontStyle: "italic" }}>
+                <p style={{ fontSize: 12, color: "#333355", margin: 0, fontStyle: "italic" }}>
                   empty
                 </p>
               )}
@@ -107,7 +107,7 @@ export function SlotGrid({ report }: { report: GenomeReport }) {
             alignSelf: "flex-start",
             background: "none",
             border: "none",
-            fontSize: 11,
+            fontSize: 12,
             color: "#555577",
             cursor: "pointer",
             textDecoration: "underline",

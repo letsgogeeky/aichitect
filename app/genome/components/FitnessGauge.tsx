@@ -36,7 +36,7 @@ export function FitnessGauge({ score, tier }: { score: number; tier: GenomeTier 
           <span style={{ fontSize: 26, fontWeight: 700, color: "#f0f0f8", lineHeight: 1 }}>
             {score}
           </span>
-          <span style={{ fontSize: 9, color: "#8888aa", marginTop: 2 }}>/ 100</span>
+          <span style={{ fontSize: 10, color: "#8888aa", marginTop: 2 }}>/ 100</span>
         </div>
       </div>
       <div

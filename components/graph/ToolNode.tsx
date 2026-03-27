@@ -165,7 +165,7 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
             {isOss && (
               <span
                 style={{
-                  fontSize: 9,
+                  fontSize: 10,
                   padding: "2px 7px",
                   borderRadius: 4,
                   background: "#26de8120",
@@ -182,7 +182,7 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
             {hasFree && (
               <span
                 style={{
-                  fontSize: 9,
+                  fontSize: 10,
                   padding: "2px 7px",
                   borderRadius: 4,
                   background: "#00d4aa15",
@@ -199,7 +199,7 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
             {data.is_stale && (
               <span
                 style={{
-                  fontSize: 9,
+                  fontSize: 10,
                   padding: "2px 7px",
                   borderRadius: 4,
                   background: "#f39c1220",
@@ -216,7 +216,7 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
             {isNew && (
               <span
                 style={{
-                  fontSize: 9,
+                  fontSize: 10,
                   padding: "2px 7px",
                   borderRadius: 4,
                   background: "#7c6bff20",
@@ -235,7 +235,7 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
 
         {/* Tagline — 2-line clamp normally, full when expanded */}
         <p
-          className="text-[11px] text-[var(--text-secondary)] leading-snug"
+          className="text-xs text-[var(--text-secondary)] leading-snug"
           style={{
             overflow: isExpanded ? "visible" : "hidden",
             display: isExpanded ? "block" : "-webkit-box",
@@ -250,7 +250,7 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
         {/* Description — only when expanded */}
         {isExpanded && (
           <p
-            className="text-[10px] text-[var(--text-muted)] leading-relaxed mb-2"
+            className="text-xs text-[var(--text-muted)] leading-relaxed mb-2"
             style={{ animation: "fadeIn 180ms ease" }}
           >
             {data.description}
@@ -260,7 +260,7 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
         {/* Sync timestamp — only when expanded and data is present */}
         {isExpanded && data.last_synced_at && (
           <p
-            className="text-[9px] text-[var(--text-muted)]"
+            className="text-[10px] text-[var(--text-muted)]"
             style={{ marginBottom: 6, opacity: 0.6 }}
           >
             Synced {formatSyncedDate(data.last_synced_at)}
@@ -270,7 +270,7 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
         {/* Bottom row: plan price + visit link */}
         <div className="flex items-center gap-1 flex-wrap">
           {data.pricing.plans[0] && (
-            <span className="text-[9px] px-1.5 py-0.5 rounded-full border border-[var(--border)] text-[var(--text-muted)]">
+            <span className="text-[10px] px-1.5 py-0.5 rounded-full border border-[var(--border)] text-[var(--text-muted)]">
               {data.pricing.plans[0].price}
             </span>
           )}
@@ -280,7 +280,7 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className="ml-auto text-[9px] px-2 py-0.5 rounded-full font-medium"
+              className="ml-auto text-[10px] px-2 py-0.5 rounded-full font-medium"
               style={{
                 background: color + "22",
                 color,

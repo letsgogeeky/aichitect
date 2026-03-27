@@ -14,7 +14,7 @@ export function DescriptionCard({ tool, color }: DescriptionCardProps) {
       <p className="text-[10px] font-semibold uppercase tracking-wide" style={{ color }}>
         {tool.name}
       </p>
-      <p className="text-[11px] text-[var(--text-secondary)] leading-relaxed">{tool.description}</p>
+      <p className="text-xs text-[var(--text-secondary)] leading-relaxed">{tool.description}</p>
     </div>
   );
 }
