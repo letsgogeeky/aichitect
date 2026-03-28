@@ -196,10 +196,12 @@ function MatchCard({
   match,
   stack,
   primary,
+  onApply,
 }: {
   match: StackMatch;
   stack: Stack;
   primary: boolean;
+  onApply?: (toolIds: string[]) => void;
 }) {
   const labelColor = LABEL_COLOR[match.label] ?? "#8888aa";
   const complexityColor = COMPLEXITY_COLOR[stack.complexity ?? "beginner"] ?? "#8888aa";
@@ -251,22 +253,41 @@ function MatchCard({
             {stack.description}
           </p>
         </div>
-        <Link
-          href={builderUrl}
-          style={{
-            flexShrink: 0,
-            fontSize: 12,
-            fontWeight: 500,
-            padding: "5px 12px",
-            borderRadius: 6,
-            background: "var(--btn)",
-            border: "1px solid var(--btn-border)",
-            color: "#8888aa",
-            textDecoration: "none",
-          }}
-        >
-          Try it →
-        </Link>
+        {onApply ? (
+          <button
+            onClick={() => onApply(stack.tools)}
+            style={{
+              flexShrink: 0,
+              fontSize: 12,
+              fontWeight: 500,
+              padding: "5px 12px",
+              borderRadius: 6,
+              background: "var(--btn)",
+              border: "1px solid var(--btn-border)",
+              color: "#8888aa",
+              cursor: "pointer",
+            }}
+          >
+            Try it →
+          </button>
+        ) : (
+          <Link
+            href={builderUrl}
+            style={{
+              flexShrink: 0,
+              fontSize: 12,
+              fontWeight: 500,
+              padding: "5px 12px",
+              borderRadius: 6,
+              background: "var(--btn)",
+              border: "1px solid var(--btn-border)",
+              color: "#8888aa",
+              textDecoration: "none",
+            }}
+          >
+            Try it →
+          </Link>
+        )}
       </div>
     );
   }
@@ -414,22 +435,41 @@ function MatchCard({
 
         {/* CTAs */}
         <div style={{ display: "flex", gap: 8 }}>
-          <Link
-            href={builderUrl}
-            style={{
-              flex: 1,
-              padding: "9px 16px",
-              borderRadius: 8,
-              background: "var(--accent)",
-              color: "#fff",
-              fontSize: 12,
-              fontWeight: 600,
-              textDecoration: "none",
-              textAlign: "center",
-            }}
-          >
-            Open in Builder →
-          </Link>
+          {onApply ? (
+            <button
+              onClick={() => onApply(stack.tools)}
+              style={{
+                flex: 1,
+                padding: "9px 16px",
+                borderRadius: 8,
+                background: "var(--accent)",
+                color: "#fff",
+                fontSize: 12,
+                fontWeight: 600,
+                cursor: "pointer",
+                border: "none",
+              }}
+            >
+              Open in Builder →
+            </button>
+          ) : (
+            <Link
+              href={builderUrl}
+              style={{
+                flex: 1,
+                padding: "9px 16px",
+                borderRadius: 8,
+                background: "var(--accent)",
+                color: "#fff",
+                fontSize: 12,
+                fontWeight: 600,
+                textDecoration: "none",
+                textAlign: "center",
+              }}
+            >
+              Open in Builder →
+            </Link>
+          )}
           <Link
             href="/stacks"
             style={{
@@ -455,9 +495,10 @@ function MatchCard({
 
 interface Props {
   onClose: () => void;
+  onApply?: (toolIds: string[]) => void;
 }
 
-export function StackQuizModal({ onClose }: Props) {
+export function StackQuizModal({ onClose, onApply }: Props) {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Partial<QuizAnswers>>({});
 
@@ -603,7 +644,12 @@ export function StackQuizModal({ onClose }: Props) {
 
           {isComplete && topMatches.length > 0 && (
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-              <MatchCard match={topMatches[0].match} stack={topMatches[0].stack} primary />
+              <MatchCard
+                match={topMatches[0].match}
+                stack={topMatches[0].stack}
+                primary
+                onApply={onApply}
+              />
 
               {topMatches[1] && (
                 <div>
@@ -623,6 +669,7 @@ export function StackQuizModal({ onClose }: Props) {
                     match={topMatches[1].match}
                     stack={topMatches[1].stack}
                     primary={false}
+                    onApply={onApply}
                   />
                 </div>
               )}

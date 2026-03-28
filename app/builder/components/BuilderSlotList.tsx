@@ -23,6 +23,7 @@ export function BuilderSlotList({
   onToggleSlot,
   onCompareClick,
   onClearCompare,
+  onOpenQuiz,
 }: {
   slots: Slot[];
   allTools: Tool[];
@@ -37,10 +38,12 @@ export function BuilderSlotList({
   onToggleSlot: (slotId: string) => void;
   onCompareClick: (tool: Tool, e: MouseEvent) => void;
   onClearCompare: () => void;
+  onOpenQuiz: () => void;
 }) {
   const [showNotApplicable, setShowNotApplicable] = useState(false);
 
   const applicableSlots = slots.filter((s) => s.priority[archetype] !== "not-applicable");
+
   const notApplicableSlots = slots.filter((s) => s.priority[archetype] === "not-applicable");
   const applicableSelectedCount = applicableSlots.filter((s) => !!selected[s.id]).length;
 
@@ -59,6 +62,41 @@ export function BuilderSlotList({
             Answer each question. We&apos;ll map how the tools wire together.
           </p>
         </div>
+        {selectedCount === 0 && (
+          <div
+            className="rounded-lg px-3 py-2.5 space-y-2"
+            style={{ background: "var(--surface-2)", border: "1px solid var(--border)" }}
+          >
+            <p className="text-[10px] text-[var(--text-muted)] leading-relaxed">
+              Not sure where to start?
+            </p>
+            <div className="flex gap-1.5">
+              <button
+                onClick={onOpenQuiz}
+                className="flex-1 text-[10px] font-medium py-1.5 px-2 rounded-md transition-colors"
+                style={{
+                  background: "#7c6bff18",
+                  border: "1px solid #7c6bff33",
+                  color: "var(--accent)",
+                }}
+              >
+                Find my stack →
+              </button>
+              <Link
+                href="/stacks"
+                className="flex-1 text-[10px] font-medium py-1.5 px-2 rounded-md text-center transition-colors"
+                style={{
+                  background: "var(--btn)",
+                  border: "1px solid var(--btn-border)",
+                  color: "var(--text-secondary)",
+                }}
+              >
+                Browse stacks →
+              </Link>
+            </div>
+          </div>
+        )}
+
         {selectedCount > 0 && (
           <div
             className="text-[10px] px-2 py-1 rounded-md"

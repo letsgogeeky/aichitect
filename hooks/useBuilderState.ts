@@ -112,6 +112,12 @@ export function useBuilderState(slots: Slot[], allTools: Tool[]) {
     setCompareB(null);
   }
 
+  function setStack(ids: string[]) {
+    const param = ids.filter(Boolean).join(",");
+    setToolIds(ids.filter(Boolean));
+    syncUrl(param);
+  }
+
   return {
     urlToolIds: toolIds,
     selected,
@@ -131,6 +137,7 @@ export function useBuilderState(slots: Slot[], allTools: Tool[]) {
     setMobileSlotPickerOpen,
     pickTool,
     removeTool,
+    setStack,
     handleCompareClick,
     toggleSlot,
     clearCompare,
