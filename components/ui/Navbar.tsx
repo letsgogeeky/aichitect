@@ -294,7 +294,7 @@ export default function Navbar({ counts }: { counts?: Counts }) {
               }}
             >
               <IconGitHub size={14} />
-              Sign in
+              Track my stack
             </button>
           )}
           {!userLoading && user && username && (
@@ -440,7 +440,7 @@ export default function Navbar({ counts }: { counts?: Counts }) {
               }}
             >
               <IconGitHub size={14} />
-              Sign in with GitHub
+              Track your AI stack
             </button>
           )}
           {!userLoading && user && username && (
