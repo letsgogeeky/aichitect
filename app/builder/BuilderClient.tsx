@@ -22,6 +22,7 @@ import ComparisonPanel from "@/components/panels/ComparisonPanel";
 import { BuilderSlotList } from "./components/BuilderSlotList";
 import { MobileSlotPicker } from "./components/MobileSlotPicker";
 import GetStartedModal from "@/components/ui/GetStartedModal";
+import { StackQuizModal } from "@/components/ui/StackQuizModal";
 import { ProductionUsageSection } from "@/components/ui/ProductionUsageSection";
 import { IconShare } from "@/components/icons";
 import Link from "next/link";
@@ -146,6 +147,7 @@ function BuilderPageContent({
   const [copied, setCopied] = useState(false);
   const [copiedBadge, setCopiedBadge] = useState(false);
   const [getStartedOpen, setGetStartedOpen] = useState(false);
+  const [quizOpen, setQuizOpen] = useState(false);
 
   function copyStack() {
     navigator.clipboard
@@ -175,6 +177,7 @@ function BuilderPageContent({
     setMobileSlotPickerOpen,
     pickTool,
     removeTool,
+    setStack,
     handleCompareClick,
     toggleSlot,
     clearCompare,
@@ -206,6 +209,7 @@ function BuilderPageContent({
         onToggleSlot={toggleSlot}
         onCompareClick={handleCompareClick}
         onClearCompare={clearCompare}
+        onOpenQuiz={() => setQuizOpen(true)}
       />
 
       {/* Builder graph */}
@@ -384,12 +388,26 @@ function BuilderPageContent({
         archetype={archetype}
         onPickTool={pickTool}
         onClose={() => setMobileSlotPickerOpen(false)}
+        onOpenQuiz={() => {
+          setMobileSlotPickerOpen(false);
+          setQuizOpen(true);
+        }}
       />
 
       {getStartedOpen && (
         <GetStartedModal
           toolIds={stackParam.split(",").filter(Boolean)}
           onClose={() => setGetStartedOpen(false)}
+        />
+      )}
+
+      {quizOpen && (
+        <StackQuizModal
+          onClose={() => setQuizOpen(false)}
+          onApply={(toolIds) => {
+            setStack(toolIds);
+            setQuizOpen(false);
+          }}
         />
       )}
     </div>

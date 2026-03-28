@@ -1,6 +1,7 @@
 "use client";
 
 import BottomSheet from "@/components/mobile/BottomSheet";
+import Link from "next/link";
 import { Slot, Tool, StackArchetype, getCategoryColor } from "@/lib/types";
 
 export function MobileSlotPicker({
@@ -12,6 +13,7 @@ export function MobileSlotPicker({
   archetype,
   onPickTool,
   onClose,
+  onOpenQuiz,
 }: {
   open: boolean;
   slots: Slot[];
@@ -21,6 +23,7 @@ export function MobileSlotPicker({
   archetype: StackArchetype;
   onPickTool: (slotId: string, toolId: string) => void;
   onClose: () => void;
+  onOpenQuiz: () => void;
 }) {
   const applicableSlots = slots.filter((s) => s.priority[archetype] !== "not-applicable");
 
@@ -32,6 +35,43 @@ export function MobileSlotPicker({
       snapPoints={[75, 92]}
     >
       <div className="p-3 space-y-3">
+        {selectedCount === 0 && (
+          <div
+            className="rounded-lg px-3 py-2.5 space-y-2"
+            style={{ background: "var(--surface-2)", border: "1px solid var(--border)" }}
+          >
+            <p className="text-xs text-[var(--text-muted)]">Not sure where to start?</p>
+            <div className="flex gap-2">
+              <button
+                onClick={() => {
+                  onClose();
+                  onOpenQuiz();
+                }}
+                className="flex-1 text-xs font-medium py-2 px-3 rounded-md"
+                style={{
+                  background: "#7c6bff18",
+                  border: "1px solid #7c6bff33",
+                  color: "var(--accent)",
+                }}
+              >
+                Find my stack →
+              </button>
+              <Link
+                href="/stacks"
+                onClick={onClose}
+                className="flex-1 text-xs font-medium py-2 px-3 rounded-md text-center"
+                style={{
+                  background: "var(--btn)",
+                  border: "1px solid var(--btn-border)",
+                  color: "var(--text-secondary)",
+                }}
+              >
+                Browse stacks →
+              </Link>
+            </div>
+          </div>
+        )}
+
         {applicableSlots.map((slot) => {
           const selectedId = selected[slot.id];
           const slotTools = slot.tools
