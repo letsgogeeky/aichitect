@@ -46,6 +46,25 @@ export interface ToolHealthDetails {
   lastCommitAt: string | null;
 }
 
+export interface ToolTrajectoryPoint {
+  recorded_at: string;
+  health_score: number;
+}
+
+export async function getToolTrajectory(toolId: string, limit = 6): Promise<ToolTrajectoryPoint[]> {
+  if (!supabase) return [];
+  const { data, error } = await supabase
+    .from("tool_snapshots")
+    .select("recorded_at, health_score")
+    .eq("tool_id", toolId)
+    .not("health_score", "is", null)
+    .order("recorded_at", { ascending: false })
+    .limit(limit);
+  if (error || !data) return [];
+  // Return in chronological order (oldest first) for sparkline rendering
+  return (data as ToolTrajectoryPoint[]).reverse();
+}
+
 export async function getToolHealthDetails(
   toolId: string,
   currentStars: number | null

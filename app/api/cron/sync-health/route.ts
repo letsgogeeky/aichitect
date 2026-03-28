@@ -198,7 +198,12 @@ export async function GET(request: Request) {
 
     const { error: updateError } = await db
       .from("tools")
-      .update({ health_score: healthScore, last_synced_at: now, is_stale: isStale })
+      .update({
+        health_score: healthScore,
+        last_synced_at: now,
+        is_stale: isStale,
+        stars_delta: starsDelta,
+      })
       .eq("id", tool.id);
 
     if (updateError) {

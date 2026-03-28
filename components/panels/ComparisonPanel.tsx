@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Tool, Relationship, getCategoryColor, CATEGORIES } from "@/lib/types";
 import relationshipsData from "@/data/relationships.json";
 import toolsData from "@/data/tools.json";
@@ -20,9 +20,30 @@ import {
   ToolPill,
 } from "@/components/comparison";
 import { formatRelativeTime } from "@/lib/format";
+import { getToolTrajectory, type ToolTrajectoryPoint } from "@/lib/data/tools";
 
 const relationships = relationshipsData as Relationship[];
 const allTools = toolsData as Tool[];
+
+function Sparkline({ points, color }: { points: ToolTrajectoryPoint[]; color: string }) {
+  const W = 80;
+  const H = 28;
+  const scores = points.map((p) => p.health_score);
+  const xStep = W / Math.max(scores.length - 1, 1);
+  const polyPoints = scores.map((s, i) => `${i * xStep},${H - (s / 100) * H}`).join(" ");
+  return (
+    <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} style={{ overflow: "visible" }}>
+      <polyline
+        points={polyPoints}
+        fill="none"
+        stroke={color}
+        strokeWidth={1.5}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
 
 interface ComparisonPanelProps {
   toolA: Tool;
@@ -33,6 +54,21 @@ interface ComparisonPanelProps {
 
 export default function ComparisonPanel({ toolA, toolB, onClose, onSwap }: ComparisonPanelProps) {
   const [copied, setCopied] = useState(false);
+  const [trajectoryA, setTrajectoryA] = useState<ToolTrajectoryPoint[]>([]);
+  const [trajectoryB, setTrajectoryB] = useState<ToolTrajectoryPoint[]>([]);
+
+  useEffect(() => {
+    let cancelled = false;
+    Promise.all([getToolTrajectory(toolA.id), getToolTrajectory(toolB.id)]).then(([a, b]) => {
+      if (!cancelled) {
+        setTrajectoryA(a);
+        setTrajectoryB(b);
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [toolA.id, toolB.id]);
 
   function handleShare() {
     const url = `${window.location.origin}/explore?compare=${toolA.id},${toolB.id}`;
@@ -224,6 +260,50 @@ export default function ComparisonPanel({ toolA, toolB, onClose, onSwap }: Compa
               </span>
             ) : (
               <span className="text-xs text-[var(--text-muted)]">—</span>
+            )}
+          </Row>
+
+          {/* Trajectory */}
+          <Row label="Trajectory" align="top">
+            {trajectoryA.length >= 2 ? (
+              <div className="flex flex-col gap-1">
+                <Sparkline points={trajectoryA} color={colorA} />
+                {(() => {
+                  const delta =
+                    trajectoryA[trajectoryA.length - 1].health_score - trajectoryA[0].health_score;
+                  return (
+                    <span
+                      className="text-[10px] font-medium"
+                      style={{ color: delta > 5 ? "#26de81" : delta < -5 ? "#ff6b6b" : "#8888aa" }}
+                    >
+                      {delta > 0 ? "+" : ""}
+                      {delta} pts
+                    </span>
+                  );
+                })()}
+              </div>
+            ) : (
+              <span className="text-xs text-[var(--text-muted)]">— not enough data</span>
+            )}
+            {trajectoryB.length >= 2 ? (
+              <div className="flex flex-col gap-1">
+                <Sparkline points={trajectoryB} color={colorB} />
+                {(() => {
+                  const delta =
+                    trajectoryB[trajectoryB.length - 1].health_score - trajectoryB[0].health_score;
+                  return (
+                    <span
+                      className="text-[10px] font-medium"
+                      style={{ color: delta > 5 ? "#26de81" : delta < -5 ? "#ff6b6b" : "#8888aa" }}
+                    >
+                      {delta > 0 ? "+" : ""}
+                      {delta} pts
+                    </span>
+                  );
+                })()}
+              </div>
+            ) : (
+              <span className="text-xs text-[var(--text-muted)]">— not enough data</span>
             )}
           </Row>
 
