@@ -70,7 +70,7 @@ export async function GET(request: Request) {
 
   const { data: tools, error: toolsError } = await db
     .from("tools")
-    .select("id, name, github_url")
+    .select("id, name, github_url, health_score, is_stale")
     .not("github_url", "is", null)
     .or(`last_synced_at.is.null,last_synced_at.lt.${oneHourAgo}`);
 
@@ -83,6 +83,7 @@ export async function GET(request: Request) {
   let processed = 0;
   let skipped = 0;
   let errors = 0;
+  let eventsWritten = 0;
 
   for (const tool of tools) {
     if (!tool.github_url) {
@@ -97,11 +98,11 @@ export async function GET(request: Request) {
       continue;
     }
 
-    // Find snapshot closest to 30 days ago for stars momentum
+    // Find snapshot closest to 30 days ago for stars momentum + archived baseline
     const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
     const { data: prevSnapshot } = await db
       .from("tool_snapshots")
-      .select("stars")
+      .select("stars, archived")
       .eq("tool_id", tool.id)
       .lte("recorded_at", thirtyDaysAgo)
       .order("recorded_at", { ascending: false })
@@ -109,12 +110,72 @@ export async function GET(request: Request) {
       .single();
 
     const prevStars = prevSnapshot?.stars ?? null;
+    const starsDelta = prevStars !== null ? ghData.stars - prevStars : null;
     const healthScore = computeHealthScore(ghData, prevStars);
 
     const daysSinceCommit =
       (Date.now() - new Date(ghData.last_commit_at).getTime()) / (1000 * 60 * 60 * 24);
     const isStale = ghData.archived || daysSinceCommit > 90;
     const now = new Date().toISOString();
+
+    // ── Transition events ──────────────────────────────────────────────────
+
+    // Health score change (≥10 point swing)
+    const oldScore = tool.health_score ?? null;
+    if (oldScore !== null && Math.abs(healthScore - oldScore) >= 10) {
+      const { error: eventError } = await db.from("tool_events").insert({
+        tool_id: tool.id,
+        type: "health_score_change",
+        metadata: { old_score: oldScore, new_score: healthScore, delta: healthScore - oldScore },
+      });
+      if (eventError) {
+        console.error(
+          `[sync-health] ✗ ${tool.name} — health_score_change event failed: ${eventError.message}`
+        );
+      } else {
+        eventsWritten++;
+      }
+    }
+
+    // Stale transition (false → true)
+    if (!tool.is_stale && isStale) {
+      const { error: eventError } = await db.from("tool_events").insert({
+        tool_id: tool.id,
+        type: "stale_transition",
+        metadata: {
+          archived: ghData.archived,
+          days_since_commit: Math.floor(daysSinceCommit),
+        },
+      });
+      if (eventError) {
+        console.error(
+          `[sync-health] ✗ ${tool.name} — stale_transition event failed: ${eventError.message}`
+        );
+      } else {
+        eventsWritten++;
+        console.log(`[sync-health] ⚠ ${tool.name} — stale transition detected`);
+      }
+    }
+
+    // Archived transition (previously not archived → now archived)
+    const wasArchived = prevSnapshot?.archived ?? false;
+    if (!wasArchived && ghData.archived) {
+      const { error: eventError } = await db.from("tool_events").insert({
+        tool_id: tool.id,
+        type: "archived_detected",
+        metadata: {},
+      });
+      if (eventError) {
+        console.error(
+          `[sync-health] ✗ ${tool.name} — archived_detected event failed: ${eventError.message}`
+        );
+      } else {
+        eventsWritten++;
+        console.log(`[sync-health] 🗄 ${tool.name} — archived on GitHub`);
+      }
+    }
+
+    // ── Snapshot insert ────────────────────────────────────────────────────
 
     const { error: snapshotError } = await db.from("tool_snapshots").insert({
       tool_id: tool.id,
@@ -123,6 +184,8 @@ export async function GET(request: Request) {
       open_issues: ghData.open_issues,
       forks: ghData.forks,
       archived: ghData.archived,
+      health_score: healthScore,
+      stars_delta: starsDelta,
     });
 
     if (snapshotError) {
@@ -146,17 +209,17 @@ export async function GET(request: Request) {
 
     const starsDisplay =
       ghData.stars >= 1000 ? `${(ghData.stars / 1000).toFixed(0)}k` : String(ghData.stars);
+    const deltaDisplay =
+      starsDelta !== null ? ` (${starsDelta >= 0 ? "+" : ""}${starsDelta} vs 30d)` : "";
     const dayLabel =
       Math.floor(daysSinceCommit) === 1 ? "1d ago" : `${Math.floor(daysSinceCommit)}d ago`;
     console.log(
-      `[sync-health] ✓ ${tool.name} (score: ${healthScore}, stars: ${starsDisplay}, last_commit: ${dayLabel})`
+      `[sync-health] ✓ ${tool.name} (score: ${healthScore}, stars: ${starsDisplay}${deltaDisplay}, last_commit: ${dayLabel})`
     );
     processed++;
   }
 
   // ── Pricing change detection ──────────────────────────────────────────────
-  // Fetches ALL tools, hashes their pricing JSON, and records a tool_event
-  // when the hash differs from what's stored. First run sets the baseline.
 
   const { data: allTools, error: allToolsError } = await db
     .from("tools")
@@ -194,6 +257,7 @@ export async function GET(request: Request) {
           await db.from("tools").update({ pricing_hash: newHash }).eq("id", tool.id);
           console.log(`[sync-health] pricing change detected: ${tool.name}`);
           pricingChanged++;
+          eventsWritten++;
         }
       }
 
@@ -204,13 +268,14 @@ export async function GET(request: Request) {
 
   const duration_ms = Date.now() - startTime;
   console.log(
-    `[sync-health] Done — processed: ${processed}, skipped: ${skipped}, errors: ${errors}, duration: ${duration_ms}ms`
+    `[sync-health] Done — processed: ${processed}, skipped: ${skipped}, errors: ${errors}, events: ${eventsWritten}, duration: ${duration_ms}ms`
   );
 
   return Response.json({
     processed,
     skipped,
     errors,
+    events_written: eventsWritten,
     pricing_checked: pricingChecked,
     pricing_changed: pricingChanged,
     duration_ms,
