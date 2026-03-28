@@ -18,6 +18,13 @@ function formatStars(n: number): string {
   return String(n);
 }
 
+function formatDelta(delta: number): { text: string; color: string } {
+  const abs = Math.abs(delta);
+  const formatted = abs >= 1000 ? `${(abs / 1000).toFixed(1)}k` : String(abs);
+  if (delta > 0) return { text: `↑${formatted}`, color: "#26de81" };
+  return { text: `↓${formatted}`, color: "#ff6b6b" };
+}
+
 function isNewTool(added_at: string | null | undefined): boolean {
   if (!added_at) return false;
   const ms = Date.now() - new Date(added_at).getTime();
@@ -131,7 +138,7 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
       />
 
       <div className="px-3 pt-2 pb-2.5">
-        {/* Top row: category label + stars */}
+        {/* Top row: category label + stars + momentum */}
         <div className="flex items-center justify-between mb-1.5">
           <div className="flex items-center gap-1.5 min-w-0">
             <ColorDot color={color} />
@@ -142,11 +149,22 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
               {data.category.replace(/-/g, " ")}
             </span>
           </div>
-          {data.github_stars ? (
-            <span className="text-[10px] text-[var(--text-muted)] flex-shrink-0 ml-1">
-              ⭐ {formatStars(data.github_stars)}
-            </span>
-          ) : null}
+          <div className="flex items-center gap-1 flex-shrink-0 ml-1">
+            {data.github_stars ? (
+              <span className="text-[10px] text-[var(--text-muted)]">
+                ⭐ {formatStars(data.github_stars)}
+              </span>
+            ) : null}
+            {data.stars_delta != null && Math.abs(data.stars_delta) >= 50 ? (
+              <span
+                className="text-[10px] font-semibold"
+                style={{ color: formatDelta(data.stars_delta).color }}
+                title={`${data.stars_delta > 0 ? "+" : ""}${data.stars_delta} stars over 30d`}
+              >
+                {formatDelta(data.stars_delta).text}
+              </span>
+            ) : null}
+          </div>
         </div>
 
         {/* Name */}
