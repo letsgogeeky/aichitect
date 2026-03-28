@@ -7,6 +7,7 @@ import { Tool, getCategoryColor, CATEGORIES } from "@/lib/types";
 import { TOOL_COUNT, RELATIONSHIP_COUNT } from "@/lib/constants";
 import { pageMeta } from "@/lib/metadata";
 import { relLabel } from "@/lib/health";
+import { ToolUsageButton } from "@/components/ui/ToolUsageButton";
 
 interface Props {
   params: Promise<{ toolA: string; toolB: string }>;
@@ -304,16 +305,18 @@ export default async function ComparePage({ params }: Props) {
           >
             <div className="px-4 py-3 text-[var(--text-muted)]">Field</div>
             <div
-              className="px-4 py-3 border-l"
+              className="px-4 py-3 border-l flex items-center gap-2"
               style={{ borderColor: "var(--border)", color: colorA }}
             >
               {a.name}
+              <ToolUsageButton toolId={a.id} color={colorA} compact label="I use this" />
             </div>
             <div
-              className="px-4 py-3 border-l"
+              className="px-4 py-3 border-l flex items-center gap-2"
               style={{ borderColor: "var(--border)", color: colorB }}
             >
               {b.name}
+              <ToolUsageButton toolId={b.id} color={colorB} compact label="I use this" />
             </div>
           </div>
 

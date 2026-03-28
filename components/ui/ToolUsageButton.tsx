@@ -8,9 +8,10 @@ interface Props {
   toolId: string;
   color: string;
   compact?: boolean;
+  label?: string;
 }
 
-export function ToolUsageButton({ toolId, color, compact = false }: Props) {
+export function ToolUsageButton({ toolId, color, compact = false, label }: Props) {
   const { user, signIn } = useUser();
   const [count, setCount] = useState(0);
   const [used, setUsed] = useState(false);
@@ -98,7 +99,7 @@ export function ToolUsageButton({ toolId, color, compact = false }: Props) {
             flexShrink: 0,
           }}
         >
-          {used ? "✓" : "use"}
+          {used ? "✓" : (label ?? "use")}
           {count > 0 && <span style={{ fontSize: 8, opacity: 0.7 }}>{count}</span>}
         </button>
 
