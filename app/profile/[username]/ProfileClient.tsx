@@ -1,8 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { createSupabaseBrowserClient } from "@/lib/db";
+import { useUser } from "@/hooks/useUser";
 import toolsData from "@/data/tools.json";
 import { Tool, getCategoryColor } from "@/lib/types";
 import { SITE_URL } from "@/lib/constants";
@@ -25,6 +27,12 @@ export default function ProfileClient({ username }: Props) {
   const [copiedAll, setCopiedAll] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [failedBadges, setFailedBadges] = useState<Set<string>>(new Set());
+  const [deleteConfirm, setDeleteConfirm] = useState("");
+  const [deleteLoading, setDeleteLoading] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
+  const { user, signOut } = useUser();
+  const router = useRouter();
+  const isOwner = !!user && (user.user_metadata?.user_name as string) === username;
 
   useEffect(() => {
     const supabase = createSupabaseBrowserClient();
@@ -70,6 +78,23 @@ export default function ProfileClient({ username }: Props) {
       setCopiedAll(true);
       setTimeout(() => setCopiedAll(false), 2000);
     });
+  }
+
+  async function deleteAccount() {
+    setDeleteLoading(true);
+    setDeleteError(null);
+    try {
+      const res = await fetch("/api/account", { method: "DELETE" });
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body.error ?? "Deletion failed");
+      }
+      await signOut();
+      router.push("/");
+    } catch (e) {
+      setDeleteError(e instanceof Error ? e.message : "Something went wrong");
+      setDeleteLoading(false);
+    }
   }
 
   return (
@@ -230,6 +255,50 @@ export default function ProfileClient({ username }: Props) {
             </button>
           </div>
         </>
+      )}
+      {isOwner && (
+        <div className="mt-16 pt-8" style={{ borderTop: "1px solid var(--border)" }}>
+          <p className="text-xs font-semibold mb-1" style={{ color: "var(--danger, #ff6b6b)" }}>
+            Delete account
+          </p>
+          <p className="text-xs mb-4" style={{ color: "var(--text-muted)" }}>
+            Permanently deletes your account and all associated data. This cannot be undone.
+          </p>
+          <div className="space-y-2 max-w-sm">
+            <input
+              type="text"
+              value={deleteConfirm}
+              onChange={(e) => setDeleteConfirm(e.target.value)}
+              placeholder={`Type "${username}" to confirm`}
+              className="w-full px-3 py-2 rounded-lg text-xs"
+              style={{
+                background: "var(--surface-2)",
+                border: "1px solid var(--border)",
+                color: "var(--text-primary)",
+                outline: "none",
+              }}
+            />
+            {deleteError && (
+              <p className="text-xs" style={{ color: "var(--danger, #ff6b6b)" }}>
+                {deleteError}
+              </p>
+            )}
+            <button
+              onClick={deleteAccount}
+              disabled={deleteConfirm !== username || deleteLoading}
+              className="w-full py-2 rounded-lg text-xs font-semibold transition-all"
+              style={{
+                background: deleteConfirm === username ? "#ff6b6b22" : "var(--surface-2)",
+                border: `1px solid ${deleteConfirm === username ? "#ff6b6b44" : "var(--border)"}`,
+                color: deleteConfirm === username ? "#ff6b6b" : "var(--text-muted)",
+                cursor: deleteConfirm === username && !deleteLoading ? "pointer" : "default",
+                opacity: deleteLoading ? 0.6 : 1,
+              }}
+            >
+              {deleteLoading ? "Deleting…" : "Delete my account"}
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );

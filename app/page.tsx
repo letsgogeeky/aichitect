@@ -1592,6 +1592,7 @@ export default async function LandingPage() {
             { label: "Builder", href: "/builder" },
             { label: "Compare", href: "/compare" },
             { label: "Genome", href: "/genome" },
+            { label: "Privacy", href: "/privacy" },
             { label: "GitHub", href: GITHUB_URL, external: true },
           ].map(({ label, href, external }) =>
             external ? (
