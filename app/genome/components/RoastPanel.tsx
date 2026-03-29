@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { GenomeReport } from "@/lib/genomeAnalysis";
-import type { RoastRequest, RoastResponse } from "@/app/api/roast/route";
+import type { RoastInput, RoastOutput } from "@/lib/ai/roast";
 import { SITE_URL } from "@/lib/constants";
 
 interface RoastPanelProps {
@@ -35,7 +35,7 @@ export function RoastPanel({ report, allIds }: RoastPanelProps) {
   async function requestRoast() {
     setState("loading");
 
-    const payload: RoastRequest = {
+    const payload: RoastInput = {
       tools: report.detectedTools.map((t) => t.name),
       tier: report.tier,
       fitnessScore: report.fitnessScore,
@@ -61,7 +61,7 @@ export function RoastPanel({ report, allIds }: RoastPanelProps) {
       }
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-      const data: RoastResponse = await res.json();
+      const data: RoastOutput = await res.json();
       setLines(data.lines);
       setState("done");
     } catch {

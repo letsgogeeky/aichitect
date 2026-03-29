@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { GenomeReport } from "@/lib/genomeAnalysis";
-import type { ChallengeItem, ChallengeRequest, ChallengeResponse } from "@/app/api/challenge/route";
+import type { ChallengeItem, ChallengeInput, ChallengeOutput } from "@/lib/ai/challenge";
 import { SITE_URL } from "@/lib/constants";
 
 interface ChallengePanelProps {
@@ -22,7 +22,7 @@ export function ChallengePanel({ report, allIds }: ChallengePanelProps) {
   async function requestChallenge() {
     setState("loading");
 
-    const payload: ChallengeRequest = {
+    const payload: ChallengeInput = {
       filledSlots: report.filledSlots.map((s) => ({
         slotName: s.slotName,
         toolName: s.tool.name,
@@ -48,7 +48,7 @@ export function ChallengePanel({ report, allIds }: ChallengePanelProps) {
       }
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-      const data: ChallengeResponse = await res.json();
+      const data: ChallengeOutput = await res.json();
       setChallenges(data.challenges);
       setState("done");
     } catch {

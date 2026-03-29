@@ -17,6 +17,8 @@
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.0",
+    "@modelcontextprotocol/sdk": "^1.10.0",
+    "zod": "^3.24.0",
     "@supabase/supabase-js": "^2",
     "@supabase/ssr": "^0.5",
     "@dagrejs/dagre": "^3.0.0",

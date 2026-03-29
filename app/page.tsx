@@ -709,6 +709,13 @@ export default async function LandingPage() {
             >
               explore the full graph
             </Link>
+            {" · "}
+            <Link
+              href="/mcp"
+              style={{ color: "#7c6bff99", textDecoration: "underline", textUnderlineOffset: 3 }}
+            >
+              use inside Claude Code
+            </Link>
           </p>
         </div>
 
@@ -736,6 +743,134 @@ export default async function LandingPage() {
               <div style={{ fontSize: 12, color: "#555577", marginTop: 2 }}>{label}</div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* ── MCP callout ── */}
+      <section
+        style={{
+          maxWidth: 780,
+          margin: "0 auto 80px",
+          padding: "0 24px",
+        }}
+      >
+        <div
+          style={{
+            borderRadius: 16,
+            background: "#0d0d16",
+            border: "1px solid #7c6bff33",
+            padding: "40px",
+            display: "flex",
+            flexDirection: "column",
+            gap: 24,
+            position: "relative",
+            overflow: "hidden",
+          }}
+        >
+          {/* glow */}
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              backgroundImage:
+                "radial-gradient(ellipse 500px 200px at 60% 50%, #7c6bff0a 0%, transparent 70%)",
+              pointerEvents: "none",
+            }}
+          />
+
+          <div style={{ display: "flex", flexDirection: "column", gap: 12, position: "relative" }}>
+            <p
+              style={{
+                fontSize: 11,
+                fontWeight: 700,
+                color: "var(--accent, #7c6bff)",
+                textTransform: "uppercase",
+                letterSpacing: "0.1em",
+                margin: 0,
+              }}
+            >
+              MCP Server
+            </p>
+            <h2
+              style={{
+                fontSize: "clamp(20px, 3vw, 26px)",
+                fontWeight: 800,
+                letterSpacing: -0.5,
+                color: "#f0f0f8",
+                margin: 0,
+                lineHeight: 1.2,
+              }}
+            >
+              Stop asking Claude to research your stack.
+            </h2>
+            <p
+              style={{ fontSize: 14, color: "#6666aa", margin: 0, lineHeight: 1.7, maxWidth: 520 }}
+            >
+              AIchitect already scored {toolCount} tools, ranked {stackCount} curated stacks, and
+              tracks live health signals. Add it as a remote MCP server and get structured
+              recommendations in one call — no token-burning ecosystem research needed.
+            </p>
+          </div>
+
+          {/* pill row */}
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8, position: "relative" }}>
+            {[
+              { label: "get_stack_questions", color: "#a29bfe" },
+              { label: "recommend_stack", color: "#7c6bff" },
+              { label: "roast_stack", color: "#ff6b6b" },
+              { label: "challenge_stack", color: "#fdcb6e" },
+            ].map(({ label, color }) => (
+              <span
+                key={label}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 6,
+                  padding: "4px 12px",
+                  borderRadius: 6,
+                  background: `${color}12`,
+                  border: `1px solid ${color}33`,
+                  fontFamily: "monospace",
+                  fontSize: 12,
+                  color,
+                }}
+              >
+                {label}
+              </span>
+            ))}
+          </div>
+
+          {/* CTA row */}
+          <div style={{ display: "flex", alignItems: "center", gap: 16, position: "relative" }}>
+            <Link
+              href="/mcp"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                padding: "0 20px",
+                height: 38,
+                borderRadius: 8,
+                background: "#7c6bff",
+                color: "#fff",
+                fontSize: 13,
+                fontWeight: 600,
+                textDecoration: "none",
+              }}
+            >
+              View setup guide
+              <IconArrowRight />
+            </Link>
+            <code
+              style={{
+                fontFamily: "monospace",
+                fontSize: 12,
+                color: "#555577",
+              }}
+            >
+              aichitect.dev/api/mcp
+            </code>
+          </div>
         </div>
       </section>
 
@@ -1591,6 +1726,7 @@ export default async function LandingPage() {
             { label: "Builder", href: "/builder" },
             { label: "Compare", href: "/compare" },
             { label: "Genome", href: "/genome" },
+            { label: "MCP", href: "/mcp" },
             { label: "Privacy", href: "/privacy" },
             { label: "GitHub", href: GITHUB_URL, external: true },
           ].map(({ label, href, external }) =>
