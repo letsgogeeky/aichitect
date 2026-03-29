@@ -4,6 +4,7 @@ import { QUESTIONS } from "@/lib/quizContent";
 import { scoreStacks, type QuizAnswers } from "@/lib/quizScoring";
 import { loadGenomeData } from "@/lib/data-loaders";
 import { analyzeGenome, detectArchetype } from "@/lib/genomeAnalysis";
+import { logMcpEvent } from "@/lib/mcp/logger";
 
 export function registerGetStackQuestions(server: McpServer) {
   server.tool(
@@ -11,6 +12,7 @@ export function registerGetStackQuestions(server: McpServer) {
     "Returns the AIchitect questionnaire. Present each question to the user in order and collect their answer before calling recommend_stack.",
     {},
     async () => {
+      const t0 = Date.now();
       const questions = QUESTIONS.map((q) => ({
         id: q.id,
         text: q.question,
@@ -21,6 +23,8 @@ export function registerGetStackQuestions(server: McpServer) {
           description: o.sub,
         })),
       }));
+
+      logMcpEvent({ tool: "get_stack_questions", duration_ms: Date.now() - t0, success: true });
 
       return {
         content: [{ type: "text" as const, text: JSON.stringify({ questions }) }],
@@ -44,6 +48,7 @@ export function registerRecommendStack(server: McpServer) {
         .min(1),
     },
     async ({ answers }) => {
+      const t0 = Date.now();
       const { tools, slots, stacks } = await loadGenomeData();
 
       // Map answers array → QuizAnswers shape, falling back to empty string for missing questions
@@ -101,6 +106,13 @@ export function registerRecommendStack(server: McpServer) {
         tier: report.tier,
         archetype,
       };
+
+      logMcpEvent({
+        tool: "recommend_stack",
+        duration_ms: Date.now() - t0,
+        success: true,
+        tool_count: answers.length,
+      });
 
       return {
         content: [{ type: "text" as const, text: JSON.stringify(output) }],

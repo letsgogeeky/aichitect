@@ -5,6 +5,7 @@ import { resolveTools } from "@/lib/ai/resolveTools";
 import { getTools } from "@/lib/data/tools";
 import { getSlots } from "@/lib/data/slots";
 import { analyzeGenome, detectArchetype } from "@/lib/genomeAnalysis";
+import { logMcpEvent } from "@/lib/mcp/logger";
 
 export function registerChallengeStack(server: McpServer) {
   server.tool(
@@ -17,10 +18,18 @@ export function registerChallengeStack(server: McpServer) {
         .describe("Tool names as you know them, e.g. ['Cursor', 'LangGraph', 'Supabase']"),
     },
     async ({ tools }) => {
+      const t0 = Date.now();
       const [allTools, allSlots] = await Promise.all([getTools(), getSlots()]);
       const { resolved, skipped } = resolveTools(tools, allTools);
 
       if (resolved.length === 0) {
+        logMcpEvent({
+          tool: "challenge_stack",
+          duration_ms: Date.now() - t0,
+          success: false,
+          tool_count: 0,
+          skipped_count: skipped.length,
+        });
         return {
           content: [
             {
@@ -52,6 +61,14 @@ export function registerChallengeStack(server: McpServer) {
         tier: report.tier,
         fitnessScore: report.fitnessScore,
         archetype,
+      });
+
+      logMcpEvent({
+        tool: "challenge_stack",
+        duration_ms: Date.now() - t0,
+        success: true,
+        tool_count: resolved.length,
+        skipped_count: skipped.length,
       });
 
       return {
