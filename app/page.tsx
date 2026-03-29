@@ -642,7 +642,7 @@ export default async function LandingPage() {
             position: "relative",
           }}
         >
-          AI tools are all over the place.
+          You don&apos;t need another AI tool.
           <br />
           <span
             style={{
@@ -651,7 +651,7 @@ export default async function LandingPage() {
               WebkitTextFillColor: "transparent",
             }}
           >
-            Picking the right stack shouldn&apos;t be.
+            You need the right five.
           </span>
         </h1>
 
@@ -666,8 +666,7 @@ export default async function LandingPage() {
             position: "relative",
           }}
         >
-          Not just a map — an opinion. {toolCount} tools across {categoryCount} categories, with the
-          reasoning behind every recommendation: what to pick, what to reject, and when to move on.
+          Map the ecosystem, score your stack, compare head-to-head. Built for engineers who ship.
         </p>
 
         {/* CTAs */}
