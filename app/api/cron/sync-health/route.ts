@@ -157,9 +157,16 @@ export async function GET(request: Request) {
       }
     }
 
-    // Archived transition (previously not archived → now archived)
+    // Archived transition — only fire once, even if prevSnapshot is absent
     const wasArchived = prevSnapshot?.archived ?? false;
-    if (!wasArchived && ghData.archived) {
+    const { count: existingArchiveCount } = ghData.archived
+      ? await db
+          .from("tool_events")
+          .select("id", { count: "exact", head: true })
+          .eq("tool_id", tool.id)
+          .eq("type", "archived_detected")
+      : { count: 0 };
+    if (!wasArchived && ghData.archived && !existingArchiveCount) {
       const { error: eventError } = await db.from("tool_events").insert({
         tool_id: tool.id,
         type: "archived_detected",
