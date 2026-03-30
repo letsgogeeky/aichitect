@@ -57,7 +57,7 @@ export default function DetailPanel({ tool, onClose }: Props) {
   function copyBadge() {
     if (!tool) return;
     const badgeUrl = `${SITE_URL}/badge/tool/${tool.id}`;
-    const markdown = `[![${tool.name}](${badgeUrl})](${SITE_URL}/explore)`;
+    const markdown = `[![${tool.name}](${badgeUrl})](${SITE_URL}/tool/${tool.id})`;
     navigator.clipboard.writeText(markdown).then(() => {
       setCopiedBadge(true);
       setTimeout(() => setCopiedBadge(false), 2000);
@@ -180,7 +180,22 @@ export default function DetailPanel({ tool, onClose }: Props) {
               </div>
             )}
           </div>
-          <CloseButton onClick={onClose} className="ml-2 mt-0.5 flex-shrink-0" />
+          <div className="flex items-center gap-1 ml-2 flex-shrink-0">
+            <Link
+              href={`/tool/${tool.id}`}
+              className="type-tag px-2 py-1 rounded-md transition-colors"
+              style={{
+                background: "var(--surface-2)",
+                border: "1px solid var(--border)",
+                color: "var(--text-muted)",
+                whiteSpace: "nowrap",
+              }}
+              title={`Full page for ${tool.name}`}
+            >
+              Full page ↗
+            </Link>
+            <CloseButton onClick={onClose} className="mt-0.5" />
+          </div>
         </div>
 
         {/* Description */}

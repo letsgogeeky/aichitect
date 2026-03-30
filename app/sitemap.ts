@@ -27,5 +27,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: now,
     }));
 
-  return [...core, ...comparisonPages];
+  // Per-tool pages — one per tool ID
+  const toolPages: MetadataRoute.Sitemap = tools.map((t) => ({
+    url: `${BASE}/tool/${t.id}`,
+    priority: t.prominent ? 0.9 : 0.7,
+    changeFrequency: "weekly" as const,
+    lastModified: now,
+  }));
+
+  return [...core, ...toolPages, ...comparisonPages];
 }
