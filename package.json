@@ -20,7 +20,7 @@
     "@modelcontextprotocol/sdk": "^1.10.0",
     "zod": "^3.24.0",
     "@supabase/supabase-js": "^2",
-    "@supabase/ssr": "^0.5",
+    "@supabase/ssr": "^0.9",
     "@dagrejs/dagre": "^3.0.0",
     "@vercel/analytics": "^2",
     "@vercel/speed-insights": "^2.0.0",
