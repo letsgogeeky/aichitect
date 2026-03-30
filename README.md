@@ -84,6 +84,35 @@ Paste your dependency files (`package.json`, `requirements.txt`, `.env`, etc.) a
 - **Swap recommendations** — suggests replacements for stale or low-health tools in the same slot
 - **Roast mode** — opinionated, personality-driven feedback on your choices
 
+## MCP Server
+
+### Stack intelligence in your AI editor
+
+AIchitect is available as a remote MCP server. Add it once and use it from Claude Code, Cursor, Windsurf, or any MCP-compatible client.
+
+**URL:** `https://aichitect.dev/api/mcp`
+
+**Claude Code** — add to `~/.claude/settings.json`:
+
+```json
+{
+  "mcpServers": {
+    "aichitect": {
+      "type": "http",
+      "url": "https://aichitect.dev/api/mcp"
+    }
+  }
+}
+```
+
+**Available tools:**
+
+- `roast_stack` — roast an AI stack by tool name
+- `challenge_stack` — adversarial critique of your tool choices
+- `get_stack_questions` + `recommend_stack` — questionnaire-driven stack recommendation
+
+[Full setup guide →](https://aichitect.dev/mcp)
+
 ## Tech Stack
 
 | Layer     | Technology                         |
