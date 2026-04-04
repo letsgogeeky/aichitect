@@ -380,6 +380,7 @@ export default function ExploreGraph({
   const [viewMode, setViewMode] = useState<"grid" | "layers" | "3d">("3d");
   const [onlyMyTools, setOnlyMyTools] = useState(false);
   const [myToolIds, setMyToolIds] = useState<Set<string>>(new Set());
+  const [hideStale, setHideStale] = useState(false);
   const { user } = useUser();
 
   useEffect(() => {
@@ -450,8 +451,9 @@ export default function ExploreGraph({
     let result = tools;
     if (stackFilteredToolIds) result = result.filter((t) => stackFilteredToolIds.has(t.id));
     if (onlyMyTools && myToolIds.size > 0) result = result.filter((t) => myToolIds.has(t.id));
+    if (hideStale) result = result.filter((t) => !t.is_stale);
     return result;
-  }, [tools, stackFilteredToolIds, onlyMyTools, myToolIds]);
+  }, [tools, stackFilteredToolIds, onlyMyTools, myToolIds, hideStale]);
 
   const mergedHighlightedIds = useMemo(() => {
     if (initialStackIds.size > 0) return new Set([...highlightedIds, ...initialStackIds]);
@@ -503,6 +505,8 @@ export default function ExploreGraph({
             onlyMyTools={onlyMyTools}
             onToggleMyTools={() => setOnlyMyTools((v) => !v)}
             isAuthenticated={!!user}
+            hideStale={hideStale}
+            onToggleHideStale={() => setHideStale((v) => !v)}
           />
         </div>
 
@@ -751,6 +755,8 @@ export default function ExploreGraph({
           onlyMyTools={onlyMyTools}
           onToggleMyTools={() => setOnlyMyTools((v) => !v)}
           isAuthenticated={!!user}
+          hideStale={hideStale}
+          onToggleHideStale={() => setHideStale((v) => !v)}
         />
         <div className="px-4 pb-4 pt-2">
           <button

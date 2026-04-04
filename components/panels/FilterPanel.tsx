@@ -66,6 +66,8 @@ interface Props {
   onlyMyTools: boolean;
   onToggleMyTools: () => void;
   isAuthenticated: boolean;
+  hideStale: boolean;
+  onToggleHideStale: () => void;
 }
 
 const REL_TYPES: { id: RelationshipType; label: string; style: string }[] = [
@@ -111,6 +113,8 @@ export default function FilterPanel({
   onlyMyTools,
   onToggleMyTools,
   isAuthenticated,
+  hideStale,
+  onToggleHideStale,
 }: Props) {
   const { openSuggest } = useSuggestTool();
   const allOn = activeCategories.size === CATEGORIES.length;
@@ -213,6 +217,28 @@ export default function FilterPanel({
             Only show tools I use
           </button>
         )}
+
+        {/* Health filter */}
+        <button
+          onClick={onToggleHideStale}
+          className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md text-xs transition-colors text-left"
+          style={
+            hideStale
+              ? {
+                  background: "#f39c1218",
+                  border: "1px solid #f39c1244",
+                  color: "#f39c12",
+                }
+              : {
+                  background: "var(--surface-2)",
+                  border: "1px solid var(--border)",
+                  color: "var(--text-muted)",
+                }
+          }
+        >
+          <span style={{ fontSize: 10 }}>{hideStale ? "●" : "○"}</span>
+          Hide stale tools
+        </button>
 
         {/* Stack Filter */}
         <div>
