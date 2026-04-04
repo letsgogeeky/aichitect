@@ -8,6 +8,7 @@ import { SLOT_AUTONOMY } from "@/lib/stackStory";
 import StackHealthPanel from "@/components/panels/StackHealthPanel";
 import Link from "next/link";
 import { ToolUsageButton } from "@/components/ui/ToolUsageButton";
+import { useUser } from "@/hooks/useUser";
 
 export function BuilderSlotList({
   slots,
@@ -41,6 +42,33 @@ export function BuilderSlotList({
   onOpenQuiz: () => void;
 }) {
   const [showNotApplicable, setShowNotApplicable] = useState(false);
+  const [saveState, setSaveState] = useState<"idle" | "saving" | "saved" | "error">("idle");
+  const [saveName, setSaveName] = useState("");
+  const [showSaveForm, setShowSaveForm] = useState(false);
+  const { user, refreshSavedStacks } = useUser();
+
+  async function saveStack() {
+    if (!saveName.trim()) return;
+    setSaveState("saving");
+    const toolIds = Object.values(selected).filter(Boolean);
+    try {
+      const res = await fetch("/api/stacks", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: saveName.trim(), tool_ids: toolIds }),
+      });
+      if (!res.ok) throw new Error();
+      setSaveState("saved");
+      refreshSavedStacks();
+      setTimeout(() => {
+        setShowSaveForm(false);
+        setSaveName("");
+        setSaveState("idle");
+      }, 1500);
+    } catch {
+      setSaveState("error");
+    }
+  }
 
   const applicableSlots = slots.filter((s) => s.priority[archetype] !== "not-applicable");
 
@@ -137,6 +165,91 @@ export function BuilderSlotList({
             onAddTool={onPickTool}
           />
         </div>
+
+        {selectedCount > 0 && user && (
+          <div>
+            {!showSaveForm ? (
+              <button
+                onClick={() => setShowSaveForm(true)}
+                className="flex items-center justify-center gap-1.5 w-full py-1.5 rounded-lg text-[10px] font-medium transition-colors"
+                style={{
+                  background: "#7c6bff18",
+                  border: "1px solid #7c6bff33",
+                  color: "var(--accent)",
+                }}
+              >
+                <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
+                  <path
+                    d="M2 1h6.5L10 2.5V10a1 1 0 01-1 1H3a1 1 0 01-1-1V2a1 1 0 011-1z"
+                    stroke="currentColor"
+                    strokeWidth="1.2"
+                  />
+                  <path d="M4 1v3.5h4V1" stroke="currentColor" strokeWidth="1.2" />
+                </svg>
+                Save stack
+              </button>
+            ) : (
+              <div className="space-y-1.5">
+                <input
+                  type="text"
+                  value={saveName}
+                  onChange={(e) => setSaveName(e.target.value)}
+                  placeholder="Stack name…"
+                  autoFocus
+                  className="w-full px-2.5 py-1.5 rounded-lg text-[10px]"
+                  style={{
+                    background: "var(--surface-2)",
+                    border: "1px solid var(--border)",
+                    color: "var(--text-primary)",
+                    outline: "none",
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") saveStack();
+                    if (e.key === "Escape") {
+                      setShowSaveForm(false);
+                      setSaveName("");
+                    }
+                  }}
+                />
+                <div className="flex gap-1.5">
+                  <button
+                    onClick={saveStack}
+                    disabled={!saveName.trim() || saveState === "saving"}
+                    className="flex-1 py-1.5 rounded-lg text-[10px] font-medium transition-all"
+                    style={{
+                      background: saveState === "saved" ? "#26de8122" : "#7c6bff18",
+                      border: `1px solid ${saveState === "saved" ? "#26de8144" : "#7c6bff33"}`,
+                      color: saveState === "saved" ? "var(--success)" : "var(--accent)",
+                      opacity: !saveName.trim() || saveState === "saving" ? 0.5 : 1,
+                    }}
+                  >
+                    {saveState === "saving" ? "Saving…" : saveState === "saved" ? "Saved!" : "Save"}
+                  </button>
+                  <button
+                    onClick={() => {
+                      setShowSaveForm(false);
+                      setSaveName("");
+                      setSaveState("idle");
+                    }}
+                    className="px-2 py-1.5 rounded-lg text-[10px] transition-colors"
+                    style={{
+                      background: "var(--surface-2)",
+                      border: "1px solid var(--border)",
+                      color: "var(--text-muted)",
+                    }}
+                  >
+                    Cancel
+                  </button>
+                </div>
+                {saveState === "error" && (
+                  <p className="text-[10px]" style={{ color: "var(--danger, #ff6b6b)" }}>
+                    Failed to save. Try again.
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
+        )}
 
         {applicableSlots.map((slot) => {
           const selectedId = selected[slot.id];

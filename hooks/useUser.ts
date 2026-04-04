@@ -3,10 +3,14 @@
 import { useState, useEffect, useMemo } from "react";
 import type { User, Session, AuthChangeEvent } from "@supabase/supabase-js";
 import { createSupabaseBrowserClient } from "@/lib/db";
+import type { SavedStack } from "@/lib/types";
 
 export interface UseUserResult {
   user: User | null;
   loading: boolean;
+  savedStacks: SavedStack[];
+  savedStacksLoading: boolean;
+  refreshSavedStacks: () => void;
   signIn: () => Promise<void>;
   signOut: () => Promise<void>;
 }
@@ -18,6 +22,11 @@ export function useUser(): UseUserResult {
   const [user, setUser] = useState<User | null>(null);
   // If no supabase client (env vars absent at build time), skip loading state entirely
   const [loading, setLoading] = useState(supabase !== null);
+  const [savedStacks, setSavedStacks] = useState<SavedStack[]>([]);
+  const [savedStacksLoading, setSavedStacksLoading] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
+  // Derived — cleared whenever user is null so no setState in effect body needed
+  const resolvedStacks = user ? savedStacks : [];
 
   useEffect(() => {
     if (!supabase) return;
@@ -37,6 +46,30 @@ export function useUser(): UseUserResult {
     return () => subscription.unsubscribe();
   }, [supabase]);
 
+  useEffect(() => {
+    if (!user) return;
+    let cancelled = false;
+    void (async () => {
+      setSavedStacksLoading(true);
+      try {
+        const r = await fetch("/api/stacks");
+        const data: SavedStack[] = r.ok ? await r.json() : [];
+        if (!cancelled) setSavedStacks(data ?? []);
+      } catch {
+        // leave stacks as-is on error
+      } finally {
+        if (!cancelled) setSavedStacksLoading(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [user, refreshKey]);
+
+  function refreshSavedStacks() {
+    setRefreshKey((k) => k + 1);
+  }
+
   async function signIn() {
     if (!supabase) return;
     const next = window.location.pathname + window.location.search;
@@ -53,5 +86,13 @@ export function useUser(): UseUserResult {
     await supabase.auth.signOut();
   }
 
-  return { user, loading, signIn, signOut };
+  return {
+    user,
+    loading,
+    savedStacks: resolvedStacks,
+    savedStacksLoading,
+    refreshSavedStacks,
+    signIn,
+    signOut,
+  };
 }

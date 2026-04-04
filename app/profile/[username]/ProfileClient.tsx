@@ -30,7 +30,7 @@ export default function ProfileClient({ username }: Props) {
   const [deleteConfirm, setDeleteConfirm] = useState("");
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [deleteError, setDeleteError] = useState<string | null>(null);
-  const { user, signOut } = useUser();
+  const { user, signOut, savedStacks, savedStacksLoading, refreshSavedStacks } = useUser();
   const router = useRouter();
   const isOwner = !!user && (user.user_metadata?.user_name as string) === username;
 
@@ -78,6 +78,11 @@ export default function ProfileClient({ username }: Props) {
       setCopiedAll(true);
       setTimeout(() => setCopiedAll(false), 2000);
     });
+  }
+
+  async function deleteStack(id: string) {
+    await fetch(`/api/stacks/${id}`, { method: "DELETE" });
+    refreshSavedStacks();
   }
 
   async function deleteAccount() {
@@ -257,7 +262,78 @@ export default function ProfileClient({ username }: Props) {
         </>
       )}
       {isOwner && (
-        <div className="mt-16 pt-8" style={{ borderTop: "1px solid var(--border)" }}>
+        <div className="mt-10 pt-8" style={{ borderTop: "1px solid var(--border)" }}>
+          <p className="text-xs font-semibold mb-3" style={{ color: "var(--text-primary)" }}>
+            Saved stacks
+          </p>
+          {savedStacksLoading && (
+            <p className="text-xs" style={{ color: "var(--text-muted)" }}>
+              Loading…
+            </p>
+          )}
+          {!savedStacksLoading && savedStacks.length === 0 && (
+            <p className="text-xs" style={{ color: "var(--text-muted)" }}>
+              No saved stacks yet.{" "}
+              <Link href="/builder" className="underline" style={{ color: "var(--accent)" }}>
+                Build one →
+              </Link>
+            </p>
+          )}
+          {!savedStacksLoading && savedStacks.length > 0 && (
+            <div className="space-y-2">
+              {savedStacks.map((stack) => (
+                <div
+                  key={stack.id}
+                  className="flex items-center gap-3 rounded-lg px-3 py-2.5"
+                  style={{ background: "var(--surface)", border: "1px solid var(--border)" }}
+                >
+                  <div className="flex-1 min-w-0">
+                    <p
+                      className="text-xs font-medium truncate"
+                      style={{ color: "var(--text-primary)" }}
+                    >
+                      {stack.name}
+                    </p>
+                    <p className="text-[10px] mt-0.5" style={{ color: "var(--text-muted)" }}>
+                      {stack.tool_ids.length} tool{stack.tool_ids.length !== 1 ? "s" : ""}
+                    </p>
+                  </div>
+                  <Link
+                    href={`/builder?s=${stack.tool_ids.join(",")}`}
+                    className="text-[10px] font-medium px-2 py-1 rounded-md flex-shrink-0 transition-colors"
+                    style={{
+                      background: "#7c6bff18",
+                      color: "var(--accent)",
+                      border: "1px solid #7c6bff33",
+                    }}
+                  >
+                    Open →
+                  </Link>
+                  <button
+                    onClick={() => deleteStack(stack.id)}
+                    title="Delete stack"
+                    className="flex-shrink-0 w-6 h-6 flex items-center justify-center rounded transition-colors"
+                    style={{ color: "var(--text-muted)" }}
+                  >
+                    <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                      <path
+                        d="M2 3h8M5 3V2h2v1M4.5 3v6.5h3V3"
+                        stroke="currentColor"
+                        strokeWidth="1.2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {isOwner && (
+        <div className="mt-10 pt-8" style={{ borderTop: "1px solid var(--border)" }}>
           <p className="text-xs font-semibold mb-1" style={{ color: "var(--danger, #ff6b6b)" }}>
             Delete account
           </p>

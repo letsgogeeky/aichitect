@@ -6,6 +6,15 @@ export interface Profile {
   created_at: string;
 }
 
+export interface SavedStack {
+  id: string;
+  user_id: string;
+  name: string;
+  tool_ids: string[];
+  created_at: string;
+  updated_at: string;
+}
+
 export type ToolType = "oss" | "commercial";
 
 export type UseContext = "dev-productivity" | "app-infrastructure" | "both";
