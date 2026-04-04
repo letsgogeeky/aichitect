@@ -109,6 +109,15 @@ export async function GET(request: Request) {
       .limit(1)
       .single();
 
+    // Most recent snapshot (any age) — used for star milestone crossing detection
+    const { data: latestSnapshot } = await db
+      .from("tool_snapshots")
+      .select("stars")
+      .eq("tool_id", tool.id)
+      .order("recorded_at", { ascending: false })
+      .limit(1)
+      .single();
+
     const prevStars = prevSnapshot?.stars ?? null;
     const starsDelta = prevStars !== null ? ghData.stars - prevStars : null;
     const healthScore = computeHealthScore(ghData, prevStars);
@@ -179,6 +188,29 @@ export async function GET(request: Request) {
       } else {
         eventsWritten++;
         console.log(`[sync-health] 🗄 ${tool.name} — archived on GitHub`);
+      }
+    }
+
+    // Star milestone crossings — fire once per milestone, using most recent snapshot as baseline
+    const STAR_MILESTONES = [1000, 5000, 10000, 25000, 50000, 100000];
+    const prevLatestStars = latestSnapshot?.stars ?? 0;
+    for (const milestone of STAR_MILESTONES) {
+      if (prevLatestStars < milestone && ghData.stars >= milestone) {
+        const { error: eventError } = await db.from("tool_events").insert({
+          tool_id: tool.id,
+          type: "star_milestone",
+          metadata: { milestone, stars: ghData.stars },
+        });
+        if (eventError) {
+          console.error(
+            `[sync-health] ✗ ${tool.name} — star_milestone event failed: ${eventError.message}`
+          );
+        } else {
+          eventsWritten++;
+          console.log(
+            `[sync-health] ⭐ ${tool.name} — crossed ${milestone.toLocaleString()} stars`
+          );
+        }
       }
     }
 
@@ -254,11 +286,24 @@ export async function GET(request: Request) {
       }
 
       if (tool.pricing_hash !== newHash) {
+        // Fetch previous pricing_change event's new_pricing as the "old" baseline
+        const { data: prevPricingEvent } = await db
+          .from("tool_events")
+          .select("metadata")
+          .eq("tool_id", tool.id)
+          .eq("type", "pricing_change")
+          .order("detected_at", { ascending: false })
+          .limit(1)
+          .single();
+
+        const oldPricing = prevPricingEvent?.metadata?.new_pricing ?? null;
+
         const { error: eventError } = await db.from("tool_events").insert({
           tool_id: tool.id,
           type: "pricing_change",
           old_hash: tool.pricing_hash,
           new_hash: newHash,
+          metadata: { old_pricing: oldPricing, new_pricing: tool.pricing },
         });
 
         if (eventError) {

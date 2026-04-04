@@ -15,6 +15,30 @@ export interface SavedStack {
   updated_at: string;
 }
 
+export type ToolEventType =
+  | "health_score_change"
+  | "stale_transition"
+  | "archived_detected"
+  | "pricing_change"
+  | "star_milestone";
+
+export type ToolEventMetadata =
+  | { old_score: number; new_score: number; delta: number }
+  | { archived: boolean; days_since_commit: number }
+  | Record<string, never>
+  | { old_pricing: Pricing | null; new_pricing: Pricing }
+  | { milestone: number; stars: number };
+
+export interface ToolEvent {
+  id: string;
+  tool_id: string;
+  type: ToolEventType;
+  detected_at: string;
+  old_hash: string | null;
+  new_hash: string | null;
+  metadata: ToolEventMetadata;
+}
+
 export type ToolType = "oss" | "commercial";
 
 export type UseContext = "dev-productivity" | "app-infrastructure" | "both";
