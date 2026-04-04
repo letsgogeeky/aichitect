@@ -155,15 +155,27 @@ export default function ToolDetailSheet({ tool, open, onClose }: Props) {
                 </div>
               )}
               {tool.health_score != null && (
-                <div className="flex items-center gap-1.5 mt-0.5">
-                  <span className="text-xs" style={{ color: "var(--text-muted)" }}>
-                    Health:
-                  </span>
+                <div className="flex flex-col gap-0.5 mt-0.5">
+                  <div className="flex items-center gap-1.5">
+                    <span
+                      className="text-xs"
+                      style={{ color: "var(--text-muted)", cursor: "help" }}
+                      title="Scored nightly from GitHub: commit recency (40 pts), 30-day star momentum (30 pts), open-issue ratio (20 pts), fork count (10 pts). Archived repos score 0."
+                    >
+                      Health:
+                    </span>
+                    <span
+                      className="text-xs font-semibold"
+                      style={{ color: healthColor(tool.health_score) }}
+                    >
+                      {tool.health_score}/100 — {healthLabel(tool.health_score)}
+                    </span>
+                  </div>
                   <span
-                    className="text-xs font-semibold"
-                    style={{ color: healthColor(tool.health_score) }}
+                    className="text-[10px]"
+                    style={{ color: "var(--text-muted)", opacity: 0.7 }}
                   >
-                    {tool.health_score} — {healthLabel(tool.health_score)}
+                    commit recency · star momentum · issue ratio · forks
                   </span>
                 </div>
               )}

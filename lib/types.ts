@@ -20,6 +20,21 @@ export interface ToolUsageSummary {
   avatars: { github_username: string; avatar_url: string | null }[];
 }
 
+export interface FeedEvent {
+  id: string;
+  tool_id: string;
+  tool_name: string;
+  tool_category: CategoryId;
+  type: ToolEventType;
+  metadata: ToolEventMetadata;
+  detected_at: string;
+}
+
+export interface FeedResponse {
+  events: FeedEvent[];
+  next_cursor: string | null;
+}
+
 export type ToolEventType =
   | "health_score_change"
   | "stale_transition"

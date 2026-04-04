@@ -33,14 +33,23 @@ async function fetchWithRetry(url: string, options: RequestInit, retries = 1): P
   return res;
 }
 
+export type GitHubFetchError = "not_found" | "rate_limited" | "network" | "unknown";
+
+export interface GitHubFetchResult {
+  data: GitHubToolData | null;
+  /** Populated when data is null — describes why the fetch failed. */
+  error?: GitHubFetchError;
+  /** Remaining API calls in the current window, from X-RateLimit-Remaining header. */
+  rateLimitRemaining?: number;
+}
+
 /**
  * Fetches live health metadata for a tool from the GitHub REST API v3.
- * Returns null on 404 (not found), 403 (private/forbidden), 429 (rate limited),
- * or any network/parse error. Never throws.
+ * Never throws. Returns { data: null, error } on failure with a typed reason.
  */
-export async function fetchToolGitHubData(githubUrl: string): Promise<GitHubToolData | null> {
+export async function fetchToolGitHubData(githubUrl: string): Promise<GitHubFetchResult> {
   const parsed = parseGitHubOwnerRepo(githubUrl);
-  if (!parsed) return null;
+  if (!parsed) return { data: null, error: "not_found" };
 
   const { owner, repo } = parsed;
   const apiUrl = `https://api.github.com/repos/${owner}/${repo}`;
@@ -54,27 +63,36 @@ export async function fetchToolGitHubData(githubUrl: string): Promise<GitHubTool
 
   try {
     const res = await fetchWithRetry(apiUrl, { headers });
+    const remaining = res.headers.get("X-RateLimit-Remaining");
+    const rateLimitRemaining = remaining !== null ? parseInt(remaining, 10) : undefined;
 
-    if (res.status === 429) {
+    if (res.status === 429 || (res.status === 403 && rateLimitRemaining === 0)) {
       const reset = res.headers.get("X-RateLimit-Reset");
-      const resetTime = reset ? new Date(parseInt(reset) * 1000).toISOString() : "unknown";
-      console.warn(`[github] Rate limited fetching ${owner}/${repo}. Resets at ${resetTime}`);
-      return null;
+      const resetTime = reset ? new Date(parseInt(reset, 10) * 1000).toISOString() : "unknown";
+      console.warn(`[github] Rate limited — ${owner}/${repo}. Resets at ${resetTime}`);
+      return { data: null, error: "rate_limited", rateLimitRemaining: 0 };
     }
 
-    if (res.status === 404 || res.status === 403) return null;
-    if (!res.ok) return null;
+    if (res.status === 404 || res.status === 403) {
+      return { data: null, error: "not_found", rateLimitRemaining };
+    }
+    if (!res.ok) {
+      return { data: null, error: "unknown", rateLimitRemaining };
+    }
 
-    const data = await res.json();
+    const json = await res.json();
     return {
-      stars: data.stargazers_count ?? 0,
-      last_commit_at: data.pushed_at ?? new Date().toISOString(),
-      open_issues: data.open_issues_count ?? 0,
-      forks: data.forks_count ?? 0,
-      archived: data.archived ?? false,
-      license: data.license?.spdx_id ?? null,
+      data: {
+        stars: json.stargazers_count ?? 0,
+        last_commit_at: json.pushed_at ?? new Date().toISOString(),
+        open_issues: json.open_issues_count ?? 0,
+        forks: json.forks_count ?? 0,
+        archived: json.archived ?? false,
+        license: json.license?.spdx_id ?? null,
+      },
+      rateLimitRemaining,
     };
   } catch {
-    return null;
+    return { data: null, error: "network" };
   }
 }

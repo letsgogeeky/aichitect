@@ -177,12 +177,22 @@ export default function DetailPanel({ tool, onClose }: Props) {
             )}
             {tool.health_score != null && (
               <div className="flex items-center gap-1.5 mt-0.5">
-                <span className="type-caption text-[var(--text-muted)]">Health:</span>
+                <span
+                  className="type-caption text-[var(--text-muted)]"
+                  title="Scored nightly from GitHub: commit recency (40 pts), 30-day star momentum (30 pts), open-issue ratio (20 pts), fork count (10 pts). Archived repos score 0."
+                  style={{
+                    cursor: "help",
+                    textDecoration: "underline dotted",
+                    textUnderlineOffset: 2,
+                  }}
+                >
+                  Health:
+                </span>
                 <span
                   className="type-caption font-semibold"
                   style={{ color: healthColor(tool.health_score) }}
                 >
-                  {tool.health_score} — {healthLabel(tool.health_score)}
+                  {tool.health_score}/100 — {healthLabel(tool.health_score)}
                 </span>
               </div>
             )}

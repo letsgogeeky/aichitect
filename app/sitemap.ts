@@ -14,6 +14,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/explore`, priority: 0.9, changeFrequency: "weekly", lastModified: now },
     { url: `${BASE}/stacks`, priority: 0.8, changeFrequency: "monthly", lastModified: now },
     { url: `${BASE}/builder`, priority: 0.8, changeFrequency: "monthly", lastModified: now },
+    { url: `${BASE}/feed`, priority: 0.7, changeFrequency: "daily", lastModified: now },
   ];
 
   // Comparison pages — prominent tool pairs with direct relationships

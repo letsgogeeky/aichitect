@@ -65,6 +65,12 @@ export async function GET(request: Request) {
     return Response.json({ error: "Supabase not configured" }, { status: 500 });
   }
 
+  if (!process.env.GITHUB_TOKEN) {
+    console.warn(
+      "[sync-health] ⚠ GITHUB_TOKEN not set — running unauthenticated (60 req/hr limit). Only ~60 tools will sync per run."
+    );
+  }
+
   const startTime = Date.now();
   const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString();
 
@@ -91,9 +97,23 @@ export async function GET(request: Request) {
       continue;
     }
 
-    const ghData = await fetchToolGitHubData(tool.github_url);
+    const {
+      data: ghData,
+      error: fetchError,
+      rateLimitRemaining,
+    } = await fetchToolGitHubData(tool.github_url);
+
+    if (fetchError === "rate_limited") {
+      console.error(
+        `[sync-health] ✗ Rate limit exhausted after ${processed} tools — aborting run. Set GITHUB_TOKEN for 5,000 req/hr.`
+      );
+      break;
+    }
+
     if (!ghData) {
-      console.log(`[sync-health] ✗ ${tool.name} — GitHub returned null, skipping`);
+      console.log(
+        `[sync-health] ✗ ${tool.name} — skipped (${fetchError ?? "unknown"}${rateLimitRemaining !== undefined ? `, remaining: ${rateLimitRemaining}` : ""})`
+      );
       skipped++;
       continue;
     }
@@ -102,7 +122,7 @@ export async function GET(request: Request) {
     const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
     const { data: prevSnapshot } = await db
       .from("tool_snapshots")
-      .select("stars, archived")
+      .select("stars")
       .eq("tool_id", tool.id)
       .lte("recorded_at", thirtyDaysAgo)
       .order("recorded_at", { ascending: false })
@@ -166,16 +186,17 @@ export async function GET(request: Request) {
       }
     }
 
-    // Archived transition — only fire once, even if prevSnapshot is absent
-    const wasArchived = prevSnapshot?.archived ?? false;
-    const { count: existingArchiveCount } = ghData.archived
+    // Archived transition — only fire once ever; use maybeSingle to reliably detect prior event
+    const { data: existingArchiveEvent } = ghData.archived
       ? await db
           .from("tool_events")
-          .select("id", { count: "exact", head: true })
+          .select("id")
           .eq("tool_id", tool.id)
           .eq("type", "archived_detected")
-      : { count: 0 };
-    if (!wasArchived && ghData.archived && !existingArchiveCount) {
+          .limit(1)
+          .maybeSingle()
+      : { data: null };
+    if (ghData.archived && !existingArchiveEvent) {
       const { error: eventError } = await db.from("tool_events").insert({
         tool_id: tool.id,
         type: "archived_detected",

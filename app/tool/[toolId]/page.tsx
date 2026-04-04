@@ -247,9 +247,19 @@ export default async function ToolPage({ params }: Props) {
               </span>
             )}
             {tool.health_score != null && (
-              <span className="font-medium" style={{ color: healthColor(tool.health_score) }}>
-                ● Health {tool.health_score} — {healthLabel(tool.health_score)}
-              </span>
+              <>
+                <span className="font-medium" style={{ color: healthColor(tool.health_score) }}>
+                  ● Health {tool.health_score}/100 — {healthLabel(tool.health_score)}
+                </span>
+                <span
+                  className="text-xs"
+                  style={{ color: "var(--text-muted)" }}
+                  title="Scored nightly from GitHub signals"
+                >
+                  · commit recency (40 pts) · star momentum (30 pts) · issue ratio (20 pts) · forks
+                  (10 pts)
+                </span>
+              </>
             )}
             {tool.provider && (
               <span style={{ color: "var(--text-muted)" }}>by {tool.provider}</span>

@@ -15,6 +15,7 @@ import {
   IconSettings2,
   IconCompare,
   IconGenome,
+  IconActivity,
   IconShare,
   IconTour,
   IconGitHub,
@@ -28,6 +29,7 @@ const VIEWS = [
   { href: "/builder", label: "Builder", Icon: IconSettings2 },
   { href: "/compare", label: "Compare", Icon: IconCompare },
   { href: "/genome", label: "Genome", Icon: IconGenome },
+  { href: "/feed", label: "Activity", Icon: IconActivity },
 ];
 
 function NavViewLinks() {
