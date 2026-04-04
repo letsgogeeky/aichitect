@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { Tool, getCategoryColor, CATEGORIES } from "@/lib/types";
+import { Tool, getCategoryColor, CATEGORIES, ToolUsageSummary } from "@/lib/types";
 import relationshipsData from "@/data/relationships.json";
 import toolsData from "@/data/tools.json";
 import stacksData from "@/data/stacks.json";
@@ -31,6 +31,7 @@ export default function DetailPanel({ tool, onClose }: Props) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [healthDetails, setHealthDetails] = useState<ToolHealthDetails | null>(null);
+  const [usage, setUsage] = useState<ToolUsageSummary | null>(null);
   const [copiedBadge, setCopiedBadge] = useState(false);
 
   useEffect(() => {
@@ -39,6 +40,12 @@ export default function DetailPanel({ tool, onClose }: Props) {
     getToolHealthDetails(tool.id, tool.github_stars ?? null).then((details) => {
       if (!cancelled) setHealthDetails(details);
     });
+    fetch(`/api/tools/${tool.id}/usage`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data: ToolUsageSummary | null) => {
+        if (!cancelled) setUsage(data);
+      })
+      .catch(() => {});
     return () => {
       cancelled = true;
     };
@@ -200,6 +207,43 @@ export default function DetailPanel({ tool, onClose }: Props) {
 
         {/* Description */}
         <p className="type-body text-[var(--text-secondary)]">{tool.description}</p>
+
+        {/* Community usage */}
+        {usage && usage.count > 0 && (
+          <div>
+            <h3 className="type-overline text-[var(--text-muted)] mb-2">Community</h3>
+            <div className="flex items-center gap-2">
+              {usage.avatars.length > 0 && (
+                <div className="flex -space-x-1.5">
+                  {usage.avatars.slice(0, 8).map((a) =>
+                    a.avatar_url ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        key={a.github_username}
+                        src={a.avatar_url}
+                        alt={a.github_username}
+                        title={`@${a.github_username}`}
+                        className="w-5 h-5 rounded-full ring-1 ring-[var(--surface)]"
+                      />
+                    ) : (
+                      <div
+                        key={a.github_username}
+                        title={`@${a.github_username}`}
+                        className="w-5 h-5 rounded-full ring-1 ring-[var(--surface)] flex items-center justify-center text-[8px] font-bold"
+                        style={{ background: "#7c6bff33", color: "var(--accent)" }}
+                      >
+                        {a.github_username[0]?.toUpperCase()}
+                      </div>
+                    )
+                  )}
+                </div>
+              )}
+              <span className="type-caption text-[var(--text-muted)]">
+                {usage.count} engineer{usage.count !== 1 ? "s" : ""} use this
+              </span>
+            </div>
+          </div>
+        )}
 
         {/* Pricing */}
         <div>

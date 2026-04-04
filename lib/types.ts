@@ -15,6 +15,11 @@ export interface SavedStack {
   updated_at: string;
 }
 
+export interface ToolUsageSummary {
+  count: number;
+  avatars: { github_username: string; avatar_url: string | null }[];
+}
+
 export type ToolEventType =
   | "health_score_change"
   | "stale_transition"

@@ -63,6 +63,9 @@ interface Props {
   stackFilters: StackFilters;
   setStackFilters: (v: StackFilters) => void;
   matchingStackCount: number;
+  onlyMyTools: boolean;
+  onToggleMyTools: () => void;
+  isAuthenticated: boolean;
 }
 
 const REL_TYPES: { id: RelationshipType; label: string; style: string }[] = [
@@ -105,6 +108,9 @@ export default function FilterPanel({
   stackFilters,
   setStackFilters,
   matchingStackCount,
+  onlyMyTools,
+  onToggleMyTools,
+  isAuthenticated,
 }: Props) {
   const { openSuggest } = useSuggestTool();
   const allOn = activeCategories.size === CATEGORIES.length;
@@ -183,6 +189,30 @@ export default function FilterPanel({
             color: "var(--text-primary)",
           }}
         />
+
+        {/* My tools filter — authenticated users only */}
+        {isAuthenticated && (
+          <button
+            onClick={onToggleMyTools}
+            className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md text-xs transition-colors text-left"
+            style={
+              onlyMyTools
+                ? {
+                    background: "#7c6bff22",
+                    border: "1px solid #7c6bff44",
+                    color: "var(--accent)",
+                  }
+                : {
+                    background: "var(--surface-2)",
+                    border: "1px solid var(--border)",
+                    color: "var(--text-muted)",
+                  }
+            }
+          >
+            <span style={{ fontSize: 10 }}>{onlyMyTools ? "●" : "○"}</span>
+            Only show tools I use
+          </button>
+        )}
 
         {/* Stack Filter */}
         <div>

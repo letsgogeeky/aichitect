@@ -1,8 +1,8 @@
 "use client";
 
-import { memo } from "react";
+import { memo, useState, useEffect } from "react";
 import { Handle, Position, NodeProps } from "reactflow";
-import { Tool, getCategoryColor } from "@/lib/types";
+import { Tool, getCategoryColor, ToolUsageSummary } from "@/lib/types";
 import { ColorDot } from "@/components/ui/ColorDot";
 
 export interface ToolNodeData extends Tool {
@@ -45,6 +45,21 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
   // Expansion is explicit only — driven by data.expanded, never by ReactFlow's selected state.
   // This keeps Explore cards fixed-size while Builder/Stacks can still expand nodes.
   const isExpanded = !!data.expanded;
+  const [usage, setUsage] = useState<ToolUsageSummary | null>(null);
+
+  useEffect(() => {
+    if (!isExpanded) return;
+    let cancelled = false;
+    fetch(`/api/tools/${data.id}/usage`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d: ToolUsageSummary | null) => {
+        if (!cancelled) setUsage(d);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [isExpanded, data.id]);
   const isSelected = data.highlighted || selected;
   const isProminent = data.prominent;
   const nodeWidth = isExpanded ? 280 : isProminent ? 220 : 190;
@@ -273,6 +288,36 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
           >
             {data.description}
           </p>
+        )}
+
+        {/* Usage count — only when expanded and count > 0 */}
+        {isExpanded && usage && usage.count > 0 && (
+          <div className="flex items-center gap-1.5 mb-1.5">
+            <div className="flex -space-x-1">
+              {usage.avatars.slice(0, 5).map((a) =>
+                a.avatar_url ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    key={a.github_username}
+                    src={a.avatar_url}
+                    alt={a.github_username}
+                    title={`@${a.github_username}`}
+                    className="w-4 h-4 rounded-full ring-1 ring-[var(--surface)]"
+                  />
+                ) : (
+                  <div
+                    key={a.github_username}
+                    title={`@${a.github_username}`}
+                    className="w-4 h-4 rounded-full ring-1 ring-[var(--surface)] flex items-center justify-center text-[7px] font-bold"
+                    style={{ background: "#7c6bff33", color: "var(--accent)" }}
+                  >
+                    {a.github_username[0]?.toUpperCase()}
+                  </div>
+                )
+              )}
+            </div>
+            <span className="text-[10px] text-[var(--text-muted)]">{usage.count} using this</span>
+          </div>
         )}
 
         {/* Sync timestamp — only when expanded and data is present */}

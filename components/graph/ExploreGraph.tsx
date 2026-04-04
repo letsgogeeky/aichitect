@@ -1,9 +1,11 @@
 "use client";
 
-import { useCallback, useMemo, useState, Component, ReactNode } from "react";
+import { useCallback, useMemo, useState, useEffect, Component, ReactNode } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { useComparisonMode } from "@/hooks/useComparisonMode";
+import { useUser } from "@/hooks/useUser";
+import { createSupabaseBrowserClient } from "@/lib/db";
 import dynamic from "next/dynamic";
 import ReactFlow, {
   Background,
@@ -376,6 +378,25 @@ export default function ExploreGraph({
   const [searchQuery, setSearchQuery] = useState("");
   const [bannerDismissed, setBannerDismissed] = useState(false);
   const [viewMode, setViewMode] = useState<"grid" | "layers" | "3d">("3d");
+  const [onlyMyTools, setOnlyMyTools] = useState(false);
+  const [myToolIds, setMyToolIds] = useState<Set<string>>(new Set());
+  const { user } = useUser();
+
+  useEffect(() => {
+    if (!user) {
+      setMyToolIds(new Set());
+      return;
+    }
+    const db = createSupabaseBrowserClient();
+    if (!db) return;
+    void db
+      .from("tool_usage")
+      .select("tool_id")
+      .eq("user_id", user.id)
+      .then(({ data }) => {
+        if (data) setMyToolIds(new Set(data.map((row: { tool_id: string }) => row.tool_id)));
+      });
+  }, [user]);
 
   // Stack filters — read initial values from URL
   const [stackFilters, setStackFiltersState] = useState<StackFilters>({
@@ -426,9 +447,11 @@ export default function ExploreGraph({
   // This works for all view modes (grid, layers, 3D) because both inner components
   // accept a tools prop and apply their own category filter on top.
   const displayTools = useMemo(() => {
-    if (!stackFilteredToolIds) return tools;
-    return tools.filter((t) => stackFilteredToolIds.has(t.id));
-  }, [tools, stackFilteredToolIds]);
+    let result = tools;
+    if (stackFilteredToolIds) result = result.filter((t) => stackFilteredToolIds.has(t.id));
+    if (onlyMyTools && myToolIds.size > 0) result = result.filter((t) => myToolIds.has(t.id));
+    return result;
+  }, [tools, stackFilteredToolIds, onlyMyTools, myToolIds]);
 
   const mergedHighlightedIds = useMemo(() => {
     if (initialStackIds.size > 0) return new Set([...highlightedIds, ...initialStackIds]);
@@ -477,6 +500,9 @@ export default function ExploreGraph({
             stackFilters={stackFilters}
             setStackFilters={setStackFilters}
             matchingStackCount={matchingStacks?.length ?? 0}
+            onlyMyTools={onlyMyTools}
+            onToggleMyTools={() => setOnlyMyTools((v) => !v)}
+            isAuthenticated={!!user}
           />
         </div>
 
@@ -722,6 +748,9 @@ export default function ExploreGraph({
           stackFilters={stackFilters}
           setStackFilters={setStackFilters}
           matchingStackCount={matchingStacks?.length ?? 0}
+          onlyMyTools={onlyMyTools}
+          onToggleMyTools={() => setOnlyMyTools((v) => !v)}
+          isAuthenticated={!!user}
         />
         <div className="px-4 pb-4 pt-2">
           <button
