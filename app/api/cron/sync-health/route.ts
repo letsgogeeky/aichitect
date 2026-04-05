@@ -288,7 +288,7 @@ export async function GET(request: Request) {
 
   const { data: allTools, error: allToolsError } = await db
     .from("tools")
-    .select("id, name, pricing, pricing_hash");
+    .select("id, name, pricing, cost_model, pricing_hash");
 
   let pricingChecked = 0;
   let pricingChanged = 0;
@@ -297,7 +297,10 @@ export async function GET(request: Request) {
     console.error(`[sync-health] pricing check — failed to fetch tools: ${allToolsError?.message}`);
   } else {
     for (const tool of allTools) {
-      const newHash = createHash("sha256").update(JSON.stringify(tool.pricing)).digest("hex");
+      // Hash covers both fields — any change to pricing tiers or cost model triggers an event
+      const newHash = createHash("sha256")
+        .update(JSON.stringify({ pricing: tool.pricing, cost_model: tool.cost_model ?? null }))
+        .digest("hex");
 
       if (tool.pricing_hash === null) {
         // First run — set baseline hash, no event written
@@ -318,13 +321,19 @@ export async function GET(request: Request) {
           .single();
 
         const oldPricing = prevPricingEvent?.metadata?.new_pricing ?? null;
+        const oldCostModel = prevPricingEvent?.metadata?.new_cost_model ?? null;
 
         const { error: eventError } = await db.from("tool_events").insert({
           tool_id: tool.id,
           type: "pricing_change",
           old_hash: tool.pricing_hash,
           new_hash: newHash,
-          metadata: { old_pricing: oldPricing, new_pricing: tool.pricing },
+          metadata: {
+            old_pricing: oldPricing,
+            new_pricing: tool.pricing,
+            old_cost_model: oldCostModel,
+            new_cost_model: tool.cost_model ?? null,
+          },
         });
 
         if (eventError) {

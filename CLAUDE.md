@@ -210,6 +210,25 @@ All TypeScript types and interfaces live in `lib/types.ts`. It is the single sou
 - `type` — must be `"oss"` or `"commercial"` (never `null`)
 - `github_stars` — `null` for commercial tools with no public repo; a number otherwise
 - `health_score`, `last_synced_at`, `is_stale` — leave as `null` until the health pipeline populates them
+- `cost_model` — optional; see coverage rules below. Kept separate from `pricing` by design: `pricing` is a display/marketing model (tier names, price strings for UI); `cost_model` is a computation model (numeric rates the simulator uses to project cost at scale)
+
+### cost_model coverage (AIC-124)
+
+128 of 207 tools have `cost_model` populated. The remaining 79 are excluded for one of two reasons:
+
+**1. OSS / self-hosted free (~55 tools)** — `aider`, `pydantic-ai`, `mermaid`, `mlflow`, `browser-use`, etc.
+These are `type: "oss"` with `pricing.free_tier: true`. The simulator infers `type: "free"` for these at runtime; no `cost_model` entry is needed.
+
+**2. Opaque / enterprise-only pricing (~24 tools)** — `aha-ai`, `manus-ai`, `codegen`, `factory-ai`, etc.
+Pricing is "contact sales", per-org negotiation, or invite-only. There is no public per-unit formula to model. Leave `cost_model` absent; the simulator will mark them as "pricing unavailable."
+
+**When adding a new tool:**
+
+- OSS/self-hosted → omit `cost_model`
+- Commercial with published per-unit pricing → add `cost_model` (see `CostModel` in `lib/types.ts`)
+- Commercial enterprise-only → omit `cost_model`
+
+**When pricing changes:** update `pricing` and/or `cost_model` in `tools.json` + reseed. The nightly cron hashes both fields together, so any change to either automatically fires a `pricing_change` event on the next run.
 
 ### relationships.json constraints
 

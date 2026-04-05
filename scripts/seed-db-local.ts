@@ -23,15 +23,15 @@ async function main(): Promise<void> {
     for (const t of tools) {
       await client.query(
         `INSERT INTO tools
-           (id, name, category, tagline, description, type, pricing,
+           (id, name, category, tagline, description, type, pricing, cost_model,
             github_stars, slot, prominent, provider, choose_if, aliases,
             website_url, github_url, use_context)
-         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16)
+         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17)
          ON CONFLICT (id) DO UPDATE SET
            name=$2, category=$3, tagline=$4, description=$5, type=$6,
-           pricing=$7, github_stars=$8, slot=$9, prominent=$10, provider=$11,
-           choose_if=$12, aliases=$13, website_url=$14, github_url=$15,
-           use_context=$16`,
+           pricing=$7, cost_model=$8, github_stars=$9, slot=$10, prominent=$11,
+           provider=$12, choose_if=$13, aliases=$14, website_url=$15,
+           github_url=$16, use_context=$17`,
         [
           t.id,
           t.name,
@@ -40,6 +40,7 @@ async function main(): Promise<void> {
           t.description,
           t.type,
           JSON.stringify(t.pricing),
+          t.cost_model ? JSON.stringify(t.cost_model) : null,
           t.github_stars,
           t.slot,
           t.prominent,

@@ -19,6 +19,7 @@ export interface DbTool {
   description: string;
   type: "oss" | "commercial";
   pricing: Tool["pricing"];
+  cost_model: Tool["cost_model"] | null;
   github_stars: number | null;
   slot: string;
   prominent: boolean;
@@ -78,6 +79,7 @@ export const tools: DbTool[] = (toolsData as Tool[]).map((t) => ({
   description: t.description,
   type: t.type,
   pricing: t.pricing,
+  cost_model: t.cost_model ?? null,
   github_stars: t.github_stars ?? null,
   slot: t.slot,
   prominent: t.prominent ?? false,

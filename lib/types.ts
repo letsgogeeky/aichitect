@@ -46,7 +46,12 @@ export type ToolEventMetadata =
   | { old_score: number; new_score: number; delta: number }
   | { archived: boolean; days_since_commit: number }
   | Record<string, never>
-  | { old_pricing: Pricing | null; new_pricing: Pricing }
+  | {
+      old_pricing: Pricing | null;
+      new_pricing: Pricing;
+      old_cost_model: CostModel | null;
+      new_cost_model: CostModel | null;
+    }
   | { milestone: number; stars: number };
 
 export interface ToolEvent {
@@ -95,6 +100,33 @@ export interface Pricing {
   plans: PricingPlan[];
 }
 
+export type CostModelType = "per_token" | "per_seat" | "per_call" | "flat" | "usage_based" | "free";
+
+/**
+ * Structured cost formula for the AI Stack Simulator (AIC-124).
+ * Separate from `Pricing` by design — `Pricing` is a display/marketing model
+ * (tier names, price strings for UI); `CostModel` is a computation model
+ * (numeric rates the simulator uses to project cost at scale).
+ * Populated for ~128 tools. OSS/self-hosted tools and those with opaque
+ * enterprise pricing omit it — see CLAUDE.md for coverage rules.
+ */
+export interface CostModel {
+  /** Required — tells the simulator how to compute cost */
+  type: CostModelType;
+  /** USD per 1k input tokens — LLM providers only */
+  input_cost_per_1k_tokens?: number;
+  /** USD per 1k output tokens — LLM providers only */
+  output_cost_per_1k_tokens?: number;
+  /** USD flat monthly base */
+  cost_per_month_base?: number;
+  /** USD per seat/month */
+  cost_per_seat?: number;
+  /** Human-readable free tier limit, e.g. "10k vectors", "1M tokens/mo" */
+  free_tier_limit?: string;
+  /** Canonical pricing page URL */
+  pricing_url?: string;
+}
+
 /**
  * Multi-strategy detection signals for the Stack Genome parser.
  * Each array contains strings matched against a specific input source.
@@ -132,6 +164,8 @@ export interface Tool {
   stars_delta?: number | null; // 30d star velocity; null until a 30d-prior snapshot exists (AIC-97)
   /** ISO date when this tool was first added to the directory — drives "New" badge */
   added_at?: string | null;
+  /** Simulator cost model — see CostModel. Absent for OSS/self-hosted and opaque-enterprise tools. */
+  cost_model?: CostModel;
 }
 
 export interface Relationship {
