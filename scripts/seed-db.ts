@@ -50,7 +50,30 @@ async function main(): Promise<void> {
   }
 
   // Order matters: tools must exist before relationships/stacks reference them.
-  await upsert<DbTool>("tools", tools);
+  // latency_p50_ms is excluded from the upsert payload — the cron job owns it
+  // for AA-synced tools and we never want a seed run to overwrite those values.
+  // A separate "fill nulls" pass below sets it only where the DB has no value yet.
+  await upsert<Omit<DbTool, "latency_p50_ms">>(
+    "tools",
+    tools.map(({ latency_p50_ms: _, ...rest }) => rest)
+  );
+
+  // Fill latency_p50_ms only where it's currently null (static benchmark values).
+  // This preserves any value written by the sync-benchmarks cron.
+  const toolsWithLatency = tools.filter((t) => t.latency_p50_ms !== null);
+  for (const t of toolsWithLatency) {
+    const { error } = await supabase
+      .from("tools")
+      .update({ latency_p50_ms: t.latency_p50_ms })
+      .eq("id", t.id)
+      .is("latency_p50_ms", null);
+    if (error) {
+      console.error(`✗ tools.latency_p50_ms (${t.id}): ${error.message}`);
+      process.exit(1);
+    }
+  }
+  if (toolsWithLatency.length > 0)
+    console.log(`✓ tools.latency_p50_ms: ${toolsWithLatency.length} rows backfilled (nulls only)`);
 
   // Stacks has a self-referential FK (graduates_to). Two-pass to avoid FK violations:
   // pass 1 — insert all rows with graduates_to nulled out

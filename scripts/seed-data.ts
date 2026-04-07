@@ -29,6 +29,7 @@ export interface DbTool {
   website_url: string | null;
   github_url: string | null;
   use_context: Tool["use_context"];
+  latency_p50_ms: number | null;
 }
 
 export interface DbStack {
@@ -89,6 +90,7 @@ export const tools: DbTool[] = (toolsData as Tool[]).map((t) => ({
   website_url: t.website_url ?? null,
   github_url: t.github_url ?? null,
   use_context: t.use_context ?? "both",
+  latency_p50_ms: t.latency_p50_ms ?? null,
 }));
 
 export const stacks: DbStack[] = (stacksData as Stack[]).map((s) => ({

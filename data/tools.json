@@ -690,7 +690,8 @@
       "free_tier_limit": "unlimited (self-hosted OSS)",
       "pricing_url": "https://www.crewai.com/pricing",
       "type": "free"
-    }
+    },
+    "latency_p50_ms": 200
   },
   {
     "id": "autogen",
@@ -723,7 +724,8 @@
     "cost_model": {
       "free_tier_limit": "unlimited (OSS library)",
       "type": "free"
-    }
+    },
+    "latency_p50_ms": 180
   },
   {
     "id": "langgraph",
@@ -760,7 +762,8 @@
       "free_tier_limit": "LangGraph Studio free for OSS",
       "pricing_url": "https://www.langchain.com/pricing-langgraph-platform",
       "type": "flat"
-    }
+    },
+    "latency_p50_ms": 150
   },
   {
     "id": "metagpt",
@@ -816,7 +819,8 @@
     },
     "website_url": "https://learn.microsoft.com/en-us/semantic-kernel",
     "github_url": "https://github.com/microsoft/semantic-kernel",
-    "use_context": "app-infrastructure"
+    "use_context": "app-infrastructure",
+    "latency_p50_ms": 100
   },
   {
     "id": "lovable",
@@ -1350,7 +1354,8 @@
     "cost_model": {
       "free_tier_limit": "unlimited (OSS library)",
       "type": "free"
-    }
+    },
+    "latency_p50_ms": 100
   },
   {
     "id": "llamaindex",
@@ -1383,7 +1388,8 @@
     "cost_model": {
       "free_tier_limit": "unlimited (OSS library)",
       "type": "free"
-    }
+    },
+    "latency_p50_ms": 80
   },
   {
     "id": "dspy",
@@ -1415,7 +1421,8 @@
     "cost_model": {
       "free_tier_limit": "unlimited (OSS library)",
       "type": "free"
-    }
+    },
+    "latency_p50_ms": 100
   },
   {
     "id": "flowise",
@@ -1457,7 +1464,8 @@
       "free_tier_limit": "unlimited (self-hosted)",
       "pricing_url": "https://flowiseai.com/pricing",
       "type": "flat"
-    }
+    },
+    "latency_p50_ms": 120
   },
   {
     "id": "dify",
@@ -1497,7 +1505,8 @@
       "free_tier_limit": "5 AI apps (self-hosted free)",
       "pricing_url": "https://dify.ai/pricing",
       "type": "flat"
-    }
+    },
+    "latency_p50_ms": 100
   },
   {
     "id": "n8n",
@@ -1537,7 +1546,8 @@
       "free_tier_limit": "unlimited (self-hosted)",
       "pricing_url": "https://n8n.io/pricing/",
       "type": "flat"
-    }
+    },
+    "latency_p50_ms": 120
   },
   {
     "id": "haystack",
@@ -1631,7 +1641,8 @@
     },
     "website_url": "https://mastra.ai",
     "github_url": "https://github.com/mastra-ai/mastra",
-    "use_context": "app-infrastructure"
+    "use_context": "app-infrastructure",
+    "latency_p50_ms": 80
   },
   {
     "id": "pydantic-ai",
@@ -1659,7 +1670,8 @@
     },
     "website_url": "https://ai.pydantic.dev",
     "github_url": "https://github.com/pydantic/pydantic-ai",
-    "use_context": "app-infrastructure"
+    "use_context": "app-infrastructure",
+    "latency_p50_ms": 60
   },
   {
     "id": "smolagents",
@@ -1687,7 +1699,8 @@
     },
     "website_url": "https://huggingface.co/docs/smolagents",
     "github_url": "https://github.com/huggingface/smolagents",
-    "use_context": "app-infrastructure"
+    "use_context": "app-infrastructure",
+    "latency_p50_ms": 150
   },
   {
     "id": "agno",
@@ -1715,7 +1728,8 @@
     },
     "website_url": "https://agno.com",
     "github_url": "https://github.com/agno-agi/agno",
-    "use_context": "app-infrastructure"
+    "use_context": "app-infrastructure",
+    "latency_p50_ms": 80
   },
   {
     "id": "sweep-ai",
@@ -2703,7 +2717,8 @@
     "cost_model": {
       "free_tier_limit": "unlimited (local)",
       "type": "free"
-    }
+    },
+    "latency_p50_ms": 600
   },
   {
     "id": "vllm",
@@ -2735,7 +2750,8 @@
     "cost_model": {
       "free_tier_limit": "unlimited (self-hosted)",
       "type": "free"
-    }
+    },
+    "latency_p50_ms": 400
   },
   {
     "id": "groq",
@@ -2775,7 +2791,8 @@
       "free_tier_limit": "14,400 requests/day on free tier",
       "pricing_url": "https://groq.com/pricing",
       "type": "per_token"
-    }
+    },
+    "latency_p50_ms": 100
   },
   {
     "id": "together-ai",
@@ -2815,7 +2832,8 @@
       "free_tier_limit": "$1 credit on signup",
       "pricing_url": "https://www.together.ai/pricing",
       "type": "per_token"
-    }
+    },
+    "latency_p50_ms": 250
   },
   {
     "id": "fireworks-ai",
@@ -2855,7 +2873,8 @@
       "free_tier_limit": "$1 credit on signup",
       "pricing_url": "https://fireworks.ai/pricing",
       "type": "per_token"
-    }
+    },
+    "latency_p50_ms": 200
   },
   {
     "id": "llama-cpp",
@@ -2884,7 +2903,8 @@
     },
     "website_url": "https://github.com/ggerganov/llama.cpp",
     "github_url": "https://github.com/ggerganov/llama.cpp",
-    "use_context": "both"
+    "use_context": "both",
+    "latency_p50_ms": 800
   },
   {
     "id": "modal",
@@ -2960,7 +2980,8 @@
       "free_tier_limit": "1GB free on Qdrant Cloud",
       "pricing_url": "https://qdrant.tech/pricing/",
       "type": "free"
-    }
+    },
+    "latency_p50_ms": 50
   },
   {
     "id": "chroma",
@@ -2993,7 +3014,8 @@
       "free_tier_limit": "unlimited (self-hosted)",
       "pricing_url": "https://trychroma.com/pricing",
       "type": "free"
-    }
+    },
+    "latency_p50_ms": 20
   },
   {
     "id": "pgvector",
@@ -3025,7 +3047,8 @@
     "cost_model": {
       "free_tier_limit": "unlimited (self-hosted Postgres extension)",
       "type": "free"
-    }
+    },
+    "latency_p50_ms": 30
   },
   {
     "id": "pinecone",
@@ -3065,7 +3088,8 @@
       "free_tier_limit": "2M vectors serverless",
       "pricing_url": "https://www.pinecone.io/pricing/",
       "type": "usage_based"
-    }
+    },
+    "latency_p50_ms": 100
   },
   {
     "id": "weaviate",
@@ -3103,7 +3127,8 @@
       "free_tier_limit": "1M vectors on Weaviate Cloud",
       "pricing_url": "https://weaviate.io/pricing",
       "type": "usage_based"
-    }
+    },
+    "latency_p50_ms": 80
   },
   {
     "id": "milvus",
@@ -3141,7 +3166,8 @@
       "free_tier_limit": "unlimited (self-hosted)",
       "pricing_url": "https://zilliz.com/pricing",
       "type": "free"
-    }
+    },
+    "latency_p50_ms": 20
   },
   {
     "id": "anthropic-api",
@@ -3342,7 +3368,8 @@
       "free_tier_limit": "$0.01 free credit",
       "pricing_url": "https://replicate.com/pricing",
       "type": "usage_based"
-    }
+    },
+    "latency_p50_ms": 1200
   },
   {
     "id": "huggingface",
@@ -4646,7 +4673,8 @@
     },
     "website_url": "https://www.griptape.ai",
     "github_url": "https://github.com/griptape-ai/griptape",
-    "use_context": "app-infrastructure"
+    "use_context": "app-infrastructure",
+    "latency_p50_ms": 120
   },
   {
     "id": "rivet",
@@ -4886,7 +4914,8 @@
       "free_tier_limit": "8k tokens/min free tier",
       "pricing_url": "https://cerebras.ai/pricing",
       "type": "per_token"
-    }
+    },
+    "latency_p50_ms": 50
   },
   {
     "id": "deepinfra",
@@ -4931,7 +4960,8 @@
       "free_tier_limit": "$1 credit on signup",
       "pricing_url": "https://deepinfra.com/pricing",
       "type": "per_token"
-    }
+    },
+    "latency_p50_ms": 350
   },
   {
     "id": "baseten",
@@ -5055,7 +5085,8 @@
       "output_cost_per_1k_tokens": 0.001,
       "pricing_url": "https://www.perplexity.ai/settings/api",
       "type": "per_token"
-    }
+    },
+    "latency_p50_ms": 500
   },
   {
     "id": "redis-vector",
@@ -5098,7 +5129,8 @@
       "free_tier_limit": "30MB on Redis Cloud free tier",
       "pricing_url": "https://redis.io/pricing/",
       "type": "usage_based"
-    }
+    },
+    "latency_p50_ms": 5
   },
   {
     "id": "turbopuffer",
@@ -5140,7 +5172,8 @@
     "cost_model": {
       "pricing_url": "https://turbopuffer.com/pricing",
       "type": "usage_based"
-    }
+    },
+    "latency_p50_ms": 30
   },
   {
     "id": "lancedb",
@@ -5182,7 +5215,8 @@
     "cost_model": {
       "free_tier_limit": "unlimited (self-hosted)",
       "type": "free"
-    }
+    },
+    "latency_p50_ms": 15
   },
   {
     "id": "opik",

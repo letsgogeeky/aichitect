@@ -3,5 +3,8 @@
   "buildCommand": "next build",
   "installCommand": "npm ci",
   "ignoreCommand": "bash scripts/should-deploy.sh",
-  "crons": [{ "path": "/api/cron/sync-health", "schedule": "0 2 * * *" }]
+  "crons": [
+    { "path": "/api/cron/sync-health", "schedule": "0 2 * * *" },
+    { "path": "/api/cron/sync-benchmarks", "schedule": "0 3 * * 1" }
+  ]
 }
