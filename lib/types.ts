@@ -166,6 +166,15 @@ export interface Tool {
   added_at?: string | null;
   /** Simulator cost model — see CostModel. Absent for OSS/self-hosted and opaque-enterprise tools. */
   cost_model?: CostModel;
+  /**
+   * p50 end-to-end latency in ms for the simulator (AIC-126).
+   * LLM providers: TTFT + generation time for a typical request.
+   * Vector DBs: query latency.
+   * Frameworks: orchestration overhead added on top of the LLM call.
+   * Sourced from Artificial Analysis benchmarks and provider documentation.
+   * Absent for tools not involved in the request path (DevOps, docs, etc.).
+   */
+  latency_p50_ms?: number | null;
 }
 
 export interface Relationship {
