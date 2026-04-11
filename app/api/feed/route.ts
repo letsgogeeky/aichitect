@@ -60,22 +60,23 @@ export async function GET(req: NextRequest) {
   let savedToolIds: string[] | null = null;
   if (savedOnly) {
     const authClient = await getAuthClient();
-    if (authClient) {
-      const {
-        data: { user },
-      } = await authClient.auth.getUser();
-      if (user) {
-        const { data: stacks } = await authClient
-          .from("saved_stacks")
-          .select("tool_ids")
-          .eq("user_id", user.id);
-        if (stacks && stacks.length > 0) {
-          savedToolIds = [...new Set(stacks.flatMap((s: { tool_ids: string[] }) => s.tool_ids))];
-        } else {
-          return NextResponse.json({ events: [], next_cursor: null } satisfies FeedResponse);
-        }
-      }
-    }
+    if (!authClient)
+      return NextResponse.json({ events: [], next_cursor: null } satisfies FeedResponse);
+
+    const {
+      data: { user },
+    } = await authClient.auth.getUser();
+    if (!user) return NextResponse.json({ events: [], next_cursor: null } satisfies FeedResponse);
+
+    const { data: stacks } = await authClient
+      .from("saved_stacks")
+      .select("tool_ids")
+      .eq("user_id", user.id);
+
+    if (!stacks || stacks.length === 0)
+      return NextResponse.json({ events: [], next_cursor: null } satisfies FeedResponse);
+
+    savedToolIds = [...new Set(stacks.flatMap((s: { tool_ids: string[] }) => s.tool_ids))];
   }
 
   let query = db
