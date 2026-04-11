@@ -1,9 +1,33 @@
 import { NextResponse } from "next/server";
+import { createServerClient } from "@supabase/ssr";
+import { cookies } from "next/headers";
 import { generateRoast, type RoastInput } from "@/lib/ai/roast";
 
 export const dynamic = "force-dynamic";
 
+const MAX_TOOLS = 20;
+
+async function getUser() {
+  const url = process.env.NEXT_PUBLIC_POSTGRES_SUPABASE_URL;
+  const anon = process.env.NEXT_PUBLIC_POSTGRES_SUPABASE_ANON_KEY;
+  if (!url || !anon) return null;
+  const cookieStore = await cookies();
+  const supabase = createServerClient(url, anon, {
+    cookies: {
+      getAll: () => cookieStore.getAll(),
+      setAll: () => {},
+    },
+  });
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  return user;
+}
+
 export async function POST(request: Request) {
+  const user = await getUser();
+  if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
   let body: RoastInput;
   try {
     body = await request.json();
@@ -13,6 +37,9 @@ export async function POST(request: Request) {
 
   if (!body.tools || body.tools.length === 0) {
     return NextResponse.json({ error: "No tools provided" }, { status: 400 });
+  }
+  if (body.tools.length > MAX_TOOLS) {
+    return NextResponse.json({ error: `Too many tools — max ${MAX_TOOLS}` }, { status: 400 });
   }
 
   try {
