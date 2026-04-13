@@ -25,13 +25,14 @@ async function main(): Promise<void> {
         `INSERT INTO tools
            (id, name, category, tagline, description, type, pricing, cost_model,
             github_stars, slot, prominent, provider, choose_if, aliases,
-            website_url, github_url, use_context)
-         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17)
+            website_url, github_url, use_context, latency_p50_ms)
+         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18)
          ON CONFLICT (id) DO UPDATE SET
            name=$2, category=$3, tagline=$4, description=$5, type=$6,
            pricing=$7, cost_model=$8, github_stars=$9, slot=$10, prominent=$11,
            provider=$12, choose_if=$13, aliases=$14, website_url=$15,
-           github_url=$16, use_context=$17`,
+           github_url=$16, use_context=$17,
+           latency_p50_ms = COALESCE(tools.latency_p50_ms, EXCLUDED.latency_p50_ms)`,
         [
           t.id,
           t.name,
@@ -50,6 +51,7 @@ async function main(): Promise<void> {
           t.website_url,
           t.github_url,
           t.use_context ?? "both",
+          t.latency_p50_ms ?? null,
         ]
       );
     }
