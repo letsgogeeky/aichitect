@@ -4,7 +4,10 @@ import Logo from "@/components/ui/Logo";
 import { GITHUB_URL } from "@/lib/constants";
 import { FindMyStackButton } from "@/components/ui/StackQuizModal";
 import { getCounts } from "@/lib/data/counts";
-import { LlmPromptSection } from "@/components/ui/LlmPromptSection";
+import { supabase } from "@/lib/db";
+import { formatRelativeTime } from "@/lib/format";
+import type { ToolEventType, CategoryId } from "@/lib/types";
+import { getCategoryColor } from "@/lib/types";
 import {
   IconNetwork,
   IconLayers,
@@ -489,9 +492,80 @@ function GenomePreview() {
   );
 }
 
+const EVENT_COLOR: Record<ToolEventType, string> = {
+  health_score_change: "#26de81",
+  star_milestone: "#fdcb6e",
+  stale_transition: "#f39c12",
+  archived_detected: "#ff6b6b",
+  pricing_change: "#74b9ff",
+};
+
+const EVENT_LABEL: Record<ToolEventType, string> = {
+  health_score_change: "Health",
+  star_milestone: "Stars",
+  stale_transition: "Stale",
+  archived_detected: "Archived",
+  pricing_change: "Pricing",
+};
+
+function landingEventSummary(type: ToolEventType, metadata: Record<string, unknown>): string {
+  switch (type) {
+    case "health_score_change": {
+      const delta = Number(metadata.delta ?? 0);
+      return `Score ${delta > 0 ? "↑" : "↓"} ${metadata.old_score} → ${metadata.new_score}`;
+    }
+    case "star_milestone":
+      return `Crossed ${Number(metadata.milestone).toLocaleString()} stars ⭐`;
+    case "stale_transition":
+      return `No commits in ${metadata.days_since_commit} days`;
+    case "archived_detected":
+      return "Repository archived";
+    case "pricing_change":
+      return "Pricing updated";
+    default:
+      return String(type);
+  }
+}
+
 export default async function LandingPage() {
   const counts = await getCounts();
   const { toolCount, categoryCount, stackCount } = counts;
+
+  // Fetch one recent event per category (up to 5) for the "What changed" section
+  type RawEvent = {
+    id: string;
+    tool_id: string;
+    type: ToolEventType;
+    detected_at: string;
+    metadata: Record<string, unknown>;
+    tools: { name: string; category: string } | { name: string; category: string }[];
+  };
+  const allEventTypes: ToolEventType[] = [
+    "health_score_change",
+    "star_milestone",
+    "stale_transition",
+    "archived_detected",
+    "pricing_change",
+  ];
+  const recentFeedEvents: RawEvent[] = [];
+  if (supabase) {
+    const { data } = await supabase
+      .from("tool_events")
+      .select("id, tool_id, type, detected_at, metadata, tools!inner(name, category)")
+      .order("detected_at", { ascending: false })
+      .limit(50);
+    if (data) {
+      // Pick the most recent event of each type
+      const seen = new Set<ToolEventType>();
+      for (const row of data as RawEvent[]) {
+        if (!seen.has(row.type) && allEventTypes.includes(row.type)) {
+          seen.add(row.type);
+          recentFeedEvents.push(row);
+          if (seen.size === allEventTypes.length) break;
+        }
+      }
+    }
+  }
 
   const VIEWS = [
     {
@@ -746,7 +820,168 @@ export default async function LandingPage() {
         </div>
       </section>
 
-      <LlmPromptSection />
+      {/* ── What changed in the ecosystem ── */}
+      {recentFeedEvents.length > 0 && (
+        <section style={{ maxWidth: 1100, margin: "0 auto", padding: "0 24px 72px" }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginBottom: 20,
+              flexWrap: "wrap",
+              gap: 8,
+            }}
+          >
+            <div>
+              <p
+                style={{
+                  fontSize: 12,
+                  fontWeight: 600,
+                  color: "#555577",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.1em",
+                  marginBottom: 4,
+                }}
+              >
+                Live signals
+              </p>
+              <h2
+                style={{
+                  fontSize: "clamp(18px, 2.5vw, 24px)",
+                  fontWeight: 700,
+                  letterSpacing: -0.5,
+                  color: "#f0f0f8",
+                  margin: 0,
+                }}
+              >
+                What changed in the ecosystem
+              </h2>
+            </div>
+            <Link
+              href="/feed"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                fontSize: 12,
+                fontWeight: 500,
+                color: "#555577",
+                textDecoration: "none",
+              }}
+            >
+              View all activity
+              <IconArrowRight />
+            </Link>
+          </div>
+
+          <div
+            style={{
+              background: "#111118",
+              border: "1px solid #1e1e2e",
+              borderRadius: 14,
+              overflow: "hidden",
+            }}
+          >
+            {recentFeedEvents.map((ev, i) => {
+              const tool = Array.isArray(ev.tools) ? ev.tools[0] : ev.tools;
+              const color = EVENT_COLOR[ev.type];
+              const catColor = getCategoryColor(tool.category as CategoryId);
+              return (
+                <Link
+                  key={ev.id}
+                  href={`/feed/event/${ev.id}`}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 14,
+                    padding: "14px 20px",
+                    borderBottom: i < recentFeedEvents.length - 1 ? "1px solid #1a1a28" : "none",
+                    textDecoration: "none",
+                    transition: "background 150ms",
+                  }}
+                >
+                  {/* Color bar */}
+                  <div
+                    style={{
+                      width: 3,
+                      height: 36,
+                      borderRadius: 2,
+                      background: color,
+                      flexShrink: 0,
+                      opacity: 0.8,
+                    }}
+                  />
+                  {/* Type badge */}
+                  <span
+                    style={{
+                      fontSize: 10,
+                      fontWeight: 600,
+                      color,
+                      background: `${color}14`,
+                      border: `1px solid ${color}30`,
+                      borderRadius: 6,
+                      padding: "2px 7px",
+                      flexShrink: 0,
+                      minWidth: 58,
+                      textAlign: "center",
+                    }}
+                  >
+                    {EVENT_LABEL[ev.type]}
+                  </span>
+                  {/* Tool name + category */}
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                      <span
+                        style={{
+                          fontSize: 13,
+                          fontWeight: 600,
+                          color: "#d0d0e8",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap",
+                        }}
+                      >
+                        {tool.name}
+                      </span>
+                      <span
+                        style={{
+                          width: 6,
+                          height: 6,
+                          borderRadius: "50%",
+                          background: catColor,
+                          flexShrink: 0,
+                          opacity: 0.7,
+                        }}
+                      />
+                    </div>
+                    <p
+                      style={{
+                        margin: 0,
+                        fontSize: 12,
+                        color: "#555577",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {landingEventSummary(ev.type, ev.metadata)}
+                    </p>
+                  </div>
+                  {/* Relative time */}
+                  <span
+                    style={{ fontSize: 11, color: "#444466", flexShrink: 0, whiteSpace: "nowrap" }}
+                  >
+                    {formatRelativeTime(ev.detected_at)}
+                  </span>
+                  {/* Arrow */}
+                  <span style={{ fontSize: 12, color: "#333355", flexShrink: 0 }}>↗</span>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+      )}
 
       {/* ── Decision framework callouts ── */}
       <section

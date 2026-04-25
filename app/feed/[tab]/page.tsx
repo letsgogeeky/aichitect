@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { FILTER_TABS } from "../tabs";
 import FeedClient from "../FeedClient";
 import { SITE_URL } from "@/lib/constants";
@@ -20,5 +21,9 @@ export default async function Page({ params }: Props) {
   const { tab } = await params;
   const valid = FILTER_TABS.some((t) => t.id === tab && t.id !== "all");
   if (!valid) notFound();
-  return <FeedClient />;
+  return (
+    <Suspense>
+      <FeedClient />
+    </Suspense>
+  );
 }

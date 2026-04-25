@@ -52,6 +52,8 @@ export async function GET(req: NextRequest) {
   const savedOnly = searchParams.get("saved_only") === "true";
 
   const typeFilter = typesParam ? (typesParam.split(",").filter(Boolean) as ToolEventType[]) : null;
+  const toolsParam = searchParams.get("tools");
+  const toolFilter = toolsParam ? toolsParam.split(",").filter(Boolean) : null;
 
   const db = getAnonClient();
   if (!db) return NextResponse.json({ events: [], next_cursor: null } satisfies FeedResponse);
@@ -89,7 +91,9 @@ export async function GET(req: NextRequest) {
 
   if (cursor) query = query.lt("detected_at", cursor);
   if (typeFilter && typeFilter.length > 0) query = query.in("type", typeFilter);
-  if (savedToolIds) query = query.in("tool_id", savedToolIds);
+  // toolFilter takes precedence over savedToolIds when both are present
+  if (toolFilter && toolFilter.length > 0) query = query.in("tool_id", toolFilter);
+  else if (savedToolIds) query = query.in("tool_id", savedToolIds);
 
   const { data, error } = await query;
   if (error || !data)

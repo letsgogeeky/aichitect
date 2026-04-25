@@ -155,7 +155,15 @@ export async function GET(request: Request) {
       const { error: eventError } = await db.from("tool_events").insert({
         tool_id: tool.id,
         type: "health_score_change",
-        metadata: { old_score: oldScore, new_score: healthScore, delta: healthScore - oldScore },
+        metadata: {
+          old_score: oldScore,
+          new_score: healthScore,
+          delta: healthScore - oldScore,
+          stars_delta: starsDelta,
+          days_since_commit: Math.floor(daysSinceCommit),
+          was_stale: tool.is_stale ?? false,
+          is_stale: isStale,
+        },
       });
       if (eventError) {
         console.error(

@@ -5,11 +5,13 @@ import relationshipsData from "@/data/relationships.json";
 import stacksData from "@/data/stacks.json";
 import slotsData from "@/data/slots.json";
 import type { Tool, Relationship, Stack, Slot } from "@/lib/types";
-import { getCategoryColor, CATEGORIES } from "@/lib/types";
+import { getCategoryColor, CATEGORIES, type ToolEventType } from "@/lib/types";
 import { getToolById } from "@/lib/data/tools";
 import { pageMeta } from "@/lib/metadata";
 import { healthColor, healthLabel } from "@/lib/health";
+import { formatRelativeTime } from "@/lib/format";
 import { SITE_URL } from "@/lib/constants";
+import { supabase } from "@/lib/db";
 
 const allTools = toolsData as Tool[];
 const allRelationships = relationshipsData as Relationship[];
@@ -83,6 +85,41 @@ function hasAliases(tool: Tool): boolean {
   );
 }
 
+// ─── Activity helpers ──────────────────────────────────────────────────────────
+
+function eventMeta(
+  type: ToolEventType,
+  metadata: Record<string, unknown>
+): { label: string; color: string } {
+  switch (type) {
+    case "health_score_change": {
+      const { old_score, new_score, delta } = metadata as {
+        old_score: number;
+        new_score: number;
+        delta: number;
+      };
+      return {
+        label: `Health ${delta > 0 ? "↑" : "↓"} ${old_score} → ${new_score}`,
+        color: delta > 0 ? "#26de81" : "#ff6b6b",
+      };
+    }
+    case "star_milestone": {
+      const { milestone } = metadata as { milestone: number };
+      return { label: `Crossed ${milestone.toLocaleString()} stars ⭐`, color: "#fdcb6e" };
+    }
+    case "stale_transition": {
+      const { days_since_commit } = metadata as { days_since_commit: number };
+      return { label: `Went stale — ${days_since_commit}d without a commit`, color: "#f39c12" };
+    }
+    case "archived_detected":
+      return { label: "Repository archived on GitHub", color: "#ff6b6b" };
+    case "pricing_change":
+      return { label: "Pricing updated", color: "#74b9ff" };
+    default:
+      return { label: type, color: "var(--text-muted)" };
+  }
+}
+
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default async function ToolPage({ params }: Props) {
@@ -124,6 +161,23 @@ export default async function ToolPage({ params }: Props) {
   const integrates = rels.filter((r) => r.type === "integrates-with");
   const paired = rels.filter((r) => r.type === "commonly-paired-with");
   const competes = rels.filter((r) => r.type === "competes-with");
+
+  // ── Recent activity ────────────────────────────────────────────────────────
+  const { data: rawEvents } = supabase
+    ? await supabase
+        .from("tool_events")
+        .select("id, type, detected_at, metadata")
+        .eq("tool_id", toolId)
+        .order("detected_at", { ascending: false })
+        .limit(5)
+    : { data: null };
+
+  const recentEvents = (rawEvents ?? []) as {
+    id: string;
+    type: ToolEventType;
+    detected_at: string;
+    metadata: Record<string, unknown>;
+  }[];
 
   // ── Stacks ────────────────────────────────────────────────────────────────
   const featuredIn = allStacks.filter((s) => s.tools.includes(tool.id));
@@ -757,6 +811,63 @@ export default async function ToolPage({ params }: Props) {
                 )}
               </div>
             </section>
+
+            {/* Recent activity */}
+            {recentEvents.length > 0 && (
+              <section
+                className="rounded-xl p-5"
+                style={{ background: "var(--surface)", border: "1px solid var(--border)" }}
+              >
+                <h2
+                  className="text-xs font-semibold uppercase tracking-widest mb-3"
+                  style={{ color: "var(--text-muted)" }}
+                >
+                  Recent Activity
+                </h2>
+                <div className="space-y-0">
+                  {recentEvents.map((ev) => {
+                    const { label, color: evColor } = eventMeta(ev.type, ev.metadata);
+                    return (
+                      <Link
+                        key={ev.id}
+                        href={`/feed/event/${ev.id}`}
+                        className="flex items-start gap-2.5 py-2.5 group"
+                        style={{ borderBottom: "1px solid var(--border)" }}
+                      >
+                        <div
+                          className="w-0.5 self-stretch rounded-full flex-shrink-0 mt-0.5"
+                          style={{ background: evColor, minHeight: 14 }}
+                        />
+                        <div className="flex-1 min-w-0">
+                          <p
+                            className="text-xs font-medium leading-snug group-hover:underline"
+                            style={{ color: evColor }}
+                          >
+                            {label}
+                          </p>
+                          <p className="text-[10px] mt-0.5" style={{ color: "var(--text-muted)" }}>
+                            {formatRelativeTime(ev.detected_at)}
+                          </p>
+                        </div>
+                        <span
+                          className="text-[10px] flex-shrink-0 mt-0.5 opacity-0 group-hover:opacity-100 transition-opacity"
+                          style={{ color: "var(--text-muted)" }}
+                        >
+                          ↗
+                        </span>
+                      </Link>
+                    );
+                  })}
+                </div>
+                <Link
+                  href={`/feed?tool=${toolId}`}
+                  className="block text-[11px] mt-2.5 hover:underline"
+                  style={{ color: "var(--text-muted)" }}
+                >
+                  View all activity for this tool →
+                </Link>
+              </section>
+            )}
 
             {/* Featured in stacks */}
             {featuredIn.length > 0 && (

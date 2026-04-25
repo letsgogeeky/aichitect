@@ -43,7 +43,16 @@ export type ToolEventType =
   | "star_milestone";
 
 export type ToolEventMetadata =
-  | { old_score: number; new_score: number; delta: number }
+  | {
+      old_score: number;
+      new_score: number;
+      delta: number;
+      /** Populated on events written after AIC-146. Absent on older events. */
+      stars_delta?: number | null;
+      days_since_commit?: number | null;
+      was_stale?: boolean;
+      is_stale?: boolean;
+    }
   | { archived: boolean; days_since_commit: number }
   | Record<string, never>
   | {

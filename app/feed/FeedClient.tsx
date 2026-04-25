@@ -1,114 +1,123 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { useRouter, usePathname } from "next/navigation";
-import {
-  getCategoryColor,
-  CATEGORIES,
-  type FeedEvent,
-  type FeedResponse,
-  type ToolEventType,
-} from "@/lib/types";
-import { formatRelativeTime } from "@/lib/format";
+import type { FeedEvent, FeedResponse, ToolEventType } from "@/lib/types";
+import { getCategoryColor } from "@/lib/types";
 import { useUser } from "@/hooks/useUser";
 import { FILTER_TABS } from "./tabs";
+import { FeedCard } from "./components/FeedCard";
+import toolsData from "@/data/tools.json";
 
-// ── Event description helpers ──────────────────────────────────────────────
+type ToolEntry = { id: string; name: string; category: string };
+const allTools = toolsData as ToolEntry[];
+const toolIndex = new Map(allTools.map((t) => [t.id, t.name]));
 
-type EventMeta = Record<string, unknown>;
+// ── Tool picker ────────────────────────────────────────────────────────────
 
-function eventDescription(
-  type: ToolEventType,
-  metadata: EventMeta
-): { text: string; color: string } {
-  switch (type) {
-    case "health_score_change": {
-      const { old_score, new_score, delta } = metadata as {
-        old_score: number;
-        new_score: number;
-        delta: number;
-      };
-      const up = (delta ?? 0) > 0;
-      return {
-        text: `Health ${up ? "↑" : "↓"} ${old_score} → ${new_score}`,
-        color: up ? "#26de81" : "#ff6b6b",
-      };
+function ToolPicker({
+  activeIds,
+  onToggle,
+  onClose,
+}: {
+  activeIds: string[];
+  onToggle: (id: string) => void;
+  onClose: () => void;
+}) {
+  const [query, setQuery] = useState("");
+  const containerRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
+  // Close on outside click
+  useEffect(() => {
+    function handleMouseDown(e: MouseEvent) {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        onClose();
+      }
     }
-    case "stale_transition": {
-      const { days_since_commit } = metadata as { days_since_commit: number };
-      return {
-        text: `Went stale — no commits in ${days_since_commit}d`,
-        color: "#f39c12",
-      };
-    }
-    case "archived_detected":
-      return { text: "Repository archived on GitHub", color: "#ff6b6b" };
-    case "pricing_change":
-      return { text: "Pricing updated", color: "#74b9ff" };
-    case "star_milestone": {
-      const { milestone, stars } = metadata as { milestone: number; stars: number };
-      return {
-        text: `Crossed ${milestone.toLocaleString()} stars ⭐ (now ${stars.toLocaleString()})`,
-        color: "#fdcb6e",
-      };
-    }
-    default:
-      return { text: type, color: "var(--text-muted)" };
-  }
-}
+    document.addEventListener("mousedown", handleMouseDown);
+    return () => document.removeEventListener("mousedown", handleMouseDown);
+  }, [onClose]);
 
-// ── Feed card ──────────────────────────────────────────────────────────────
-
-function FeedCard({ event }: { event: FeedEvent }) {
-  const color = getCategoryColor(event.tool_category);
-  const catLabel =
-    CATEGORIES.find((c) => c.id === event.tool_category)?.label ?? event.tool_category;
-  const { text, color: eventColor } = eventDescription(event.type, event.metadata as EventMeta);
+  const results = query.trim()
+    ? allTools.filter((t) => t.name.toLowerCase().includes(query.toLowerCase())).slice(0, 12)
+    : allTools
+        .filter((t) => activeIds.includes(t.id))
+        .concat(allTools.filter((t) => !activeIds.includes(t.id)).slice(0, 12 - activeIds.length));
 
   return (
-    <div
-      className="rounded-xl px-4 py-3.5 flex items-start gap-3"
-      style={{ background: "var(--surface)", border: "1px solid var(--border)" }}
-    >
-      {/* Left accent */}
-      <div
-        className="w-0.5 self-stretch rounded-full flex-shrink-0 mt-0.5"
-        style={{ background: eventColor, minHeight: 16 }}
+    <div ref={containerRef} style={{ position: "relative" }}>
+      {/* Trigger / input */}
+      <input
+        ref={inputRef}
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        onKeyDown={(e) => e.key === "Escape" && onClose()}
+        placeholder="Search tools…"
+        className="text-xs px-3 py-1.5 rounded-full outline-none"
+        style={{
+          background: "var(--surface-2)",
+          border: "1px solid var(--accent)",
+          color: "var(--text-primary)",
+          width: 160,
+        }}
       />
 
-      <div className="flex-1 min-w-0">
-        {/* Tool + category */}
-        <div className="flex items-center gap-2 mb-1 flex-wrap">
-          <Link
-            href={`/tool/${event.tool_id}`}
-            className="text-sm font-semibold hover:underline"
-            style={{ color: "var(--text-primary)" }}
-          >
-            {event.tool_name}
-          </Link>
-          <span
-            className="text-[10px] font-medium px-1.5 py-0.5 rounded-full"
-            style={{ background: color + "18", color, border: `1px solid ${color}33` }}
-          >
-            {catLabel}
-          </span>
-        </div>
-
-        {/* Event description */}
-        <p className="text-xs font-medium" style={{ color: eventColor }}>
-          {text}
-        </p>
-      </div>
-
-      {/* Timestamp */}
-      <span
-        className="text-[10px] flex-shrink-0 mt-0.5"
-        style={{ color: "var(--text-muted)" }}
-        title={event.detected_at}
+      {/* Dropdown */}
+      <div
+        className="absolute left-0 top-full mt-1.5 rounded-xl overflow-hidden z-50"
+        style={{
+          background: "var(--surface)",
+          border: "1px solid var(--border)",
+          width: 240,
+          maxHeight: 280,
+          overflowY: "auto",
+          boxShadow: "0 8px 24px rgba(0,0,0,0.4)",
+        }}
       >
-        {formatRelativeTime(event.detected_at)}
-      </span>
+        {results.length === 0 ? (
+          <p className="text-xs px-3 py-3" style={{ color: "var(--text-muted)" }}>
+            No tools found.
+          </p>
+        ) : (
+          results.map((t) => {
+            const active = activeIds.includes(t.id);
+            const color = getCategoryColor(t.category as Parameters<typeof getCategoryColor>[0]);
+            return (
+              <button
+                key={t.id}
+                onClick={() => onToggle(t.id)}
+                className="w-full flex items-center gap-2.5 px-3 py-2 text-left transition-colors"
+                style={{
+                  background: active ? "#7c6bff10" : "transparent",
+                  borderBottom: "1px solid var(--border)",
+                }}
+              >
+                <span
+                  className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                  style={{ background: color }}
+                />
+                <span
+                  className="flex-1 text-xs truncate"
+                  style={{ color: active ? "var(--accent)" : "var(--text-secondary)" }}
+                >
+                  {t.name}
+                </span>
+                {active && (
+                  <span className="text-[10px]" style={{ color: "var(--accent)" }}>
+                    ✓
+                  </span>
+                )}
+              </button>
+            );
+          })
+        )}
+      </div>
     </div>
   );
 }
@@ -118,12 +127,16 @@ function FeedCard({ event }: { event: FeedEvent }) {
 export default function FeedClient() {
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-  // Derive active tab from the URL path segment
   const segment = pathname.split("/").pop() ?? "all";
   const activeTab = FILTER_TABS.some((t) => t.id === segment) ? segment : "all";
 
+  const toolParam = searchParams.get("tool") ?? "";
+  const activeToolIds = toolParam ? toolParam.split(",").filter(Boolean) : [];
+
   const [savedOnly, setSavedOnly] = useState(false);
+  const [pickerOpen, setPickerOpen] = useState(false);
   const [events, setEvents] = useState<FeedEvent[]>([]);
   const [nextCursor, setNextCursor] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -138,8 +151,9 @@ export default function FeedClient() {
       const tab = FILTER_TABS.find((t) => t.id === activeTab);
       const params = new URLSearchParams();
       if (cursor) params.set("cursor", cursor);
-      if (tab?.types) params.set("types", tab.types.join(","));
-      if (savedOnly) params.set("saved_only", "true");
+      if (tab?.types) params.set("types", (tab.types as ToolEventType[]).join(","));
+      if (toolParam) params.set("tools", toolParam);
+      if (savedOnly && !toolParam) params.set("saved_only", "true");
 
       try {
         const res = await fetch(`/api/feed?${params}`);
@@ -152,16 +166,45 @@ export default function FeedClient() {
         setLoadingMore(false);
       }
     },
-    [activeTab, savedOnly]
+    [activeTab, savedOnly, toolParam]
   );
 
   useEffect(() => {
     fetchFeed(null, true);
   }, [fetchFeed]);
 
-  function handleTabClick(tabId: string) {
-    router.push(tabId === "all" ? "/feed" : `/feed/${tabId}`);
+  function feedUrl(tabId: string, tools: string[]) {
+    const base = tabId === "all" ? "/feed" : `/feed/${tabId}`;
+    const q = tools.length > 0 ? `?tool=${tools.join(",")}` : "";
+    return `${base}${q}`;
   }
+
+  function handleTabClick(tabId: string) {
+    router.push(feedUrl(tabId, activeToolIds));
+  }
+
+  function toggleTool(toolId: string) {
+    const next = activeToolIds.includes(toolId)
+      ? activeToolIds.filter((id) => id !== toolId)
+      : [...activeToolIds, toolId];
+    router.push(feedUrl(activeTab, next));
+  }
+
+  function removeTool(toolId: string) {
+    router.push(
+      feedUrl(
+        activeTab,
+        activeToolIds.filter((id) => id !== toolId)
+      )
+    );
+  }
+
+  function clearTools() {
+    router.push(feedUrl(activeTab, []));
+    setPickerOpen(false);
+  }
+
+  const hasToolFilter = activeToolIds.length > 0;
 
   return (
     <div className="max-w-2xl mx-auto px-6 py-10">
@@ -175,8 +218,8 @@ export default function FeedClient() {
         </p>
       </div>
 
-      {/* Filter tabs */}
-      <div className="flex items-center gap-1.5 mb-4 flex-wrap">
+      {/* Event type tabs */}
+      <div className="flex items-center gap-1.5 mb-3 flex-wrap">
         {FILTER_TABS.map((tab) => (
           <button
             key={tab.id}
@@ -196,8 +239,7 @@ export default function FeedClient() {
           </button>
         ))}
 
-        {/* My stack filter — authenticated users only */}
-        {user && (
+        {user && !hasToolFilter && (
           <button
             onClick={() => setSavedOnly((v) => !v)}
             className="text-xs px-3 py-1.5 rounded-full transition-colors ml-auto"
@@ -220,6 +262,68 @@ export default function FeedClient() {
         )}
       </div>
 
+      {/* Tool filter row */}
+      <div className="flex items-center gap-1.5 mb-4 flex-wrap">
+        {activeToolIds.map((toolId) => (
+          <span
+            key={toolId}
+            className="flex items-center gap-1.5 text-[11px] font-medium px-2 py-1 rounded-full"
+            style={{
+              background: "#7c6bff18",
+              color: "var(--accent)",
+              border: "1px solid #7c6bff33",
+            }}
+          >
+            <Link
+              href={`/tool/${toolId}`}
+              className="hover:underline"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {toolIndex.get(toolId) ?? toolId}
+            </Link>
+            <button
+              onClick={() => removeTool(toolId)}
+              className="leading-none opacity-60 hover:opacity-100 transition-opacity"
+              aria-label={`Remove ${toolIndex.get(toolId) ?? toolId} filter`}
+            >
+              ×
+            </button>
+          </span>
+        ))}
+
+        {/* Clear all */}
+        {activeToolIds.length > 1 && (
+          <button
+            onClick={clearTools}
+            className="text-[11px] px-2 py-1 rounded-full transition-colors"
+            style={{ color: "var(--text-muted)", border: "1px solid var(--border)" }}
+          >
+            Clear all
+          </button>
+        )}
+
+        {/* Picker toggle / input */}
+        {pickerOpen ? (
+          <ToolPicker
+            activeIds={activeToolIds}
+            onToggle={toggleTool}
+            onClose={() => setPickerOpen(false)}
+          />
+        ) : (
+          <button
+            onClick={() => setPickerOpen(true)}
+            className="text-[11px] px-2.5 py-1 rounded-full transition-colors"
+            style={{
+              background: hasToolFilter ? "transparent" : "var(--surface-2)",
+              color: "var(--text-muted)",
+              border: "1px solid var(--border)",
+            }}
+          >
+            {hasToolFilter ? "+ Add tool" : "+ Filter by tool"}
+          </button>
+        )}
+      </div>
+
       {/* Feed */}
       {loading ? (
         <div className="space-y-2">
@@ -237,15 +341,25 @@ export default function FeedClient() {
           style={{ background: "var(--surface)", border: "1px solid var(--border)" }}
         >
           <p className="text-sm" style={{ color: "var(--text-muted)" }}>
-            No activity yet — check back after the first nightly sync.
+            {hasToolFilter
+              ? "No activity yet for this selection — check back after the next nightly sync."
+              : "No activity yet — check back after the first nightly sync."}
           </p>
+          {hasToolFilter && (
+            <button
+              onClick={clearTools}
+              className="mt-3 text-xs hover:underline"
+              style={{ color: "var(--accent)" }}
+            >
+              Clear filter and view all activity →
+            </button>
+          )}
         </div>
       ) : (
         <div className="space-y-2">
           {events.map((event) => (
             <FeedCard key={event.id} event={event} />
           ))}
-
           {nextCursor && (
             <button
               onClick={() => fetchFeed(nextCursor, false)}
