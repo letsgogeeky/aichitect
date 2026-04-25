@@ -72,10 +72,18 @@ function StackGraph({ stack, allTools }: { stack: Stack; allTools: Tool[] }) {
   );
 }
 
-function StacksContent({ stacks, allTools }: { stacks: Stack[]; allTools: Tool[] }) {
+function StacksContent({
+  stacks,
+  allTools,
+  initialStackId,
+}: {
+  stacks: Stack[];
+  allTools: Tool[];
+  initialStackId?: string;
+}) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const stackId = searchParams.get("stack");
+  const stackId = searchParams.get("stack") ?? initialStackId ?? null;
   const clusterParam = (searchParams.get("cluster") as StackCluster) ?? "build";
 
   // Find by stack ID first — cluster is derivable from the stack itself
@@ -90,19 +98,13 @@ function StacksContent({ stacks, allTools }: { stacks: Stack[]; allTools: Tool[]
   const isMobile = useIsMobile();
 
   function selectCluster(cluster: StackCluster) {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("cluster", cluster);
-    params.delete("stack");
-    router.push(`?${params.toString()}`, { scroll: false });
+    router.push(`/stacks?cluster=${cluster}`, { scroll: false });
     setCompareA(null);
     setCompareB(null);
   }
 
   function selectStack(s: Stack) {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("stack", s.id);
-    params.delete("cluster"); // cluster is derived from the stack
-    router.push(`?${params.toString()}`, { scroll: false });
+    router.push(`/stacks/${s.id}`, { scroll: false });
     setCompareA(null);
     setCompareB(null);
   }
@@ -348,10 +350,18 @@ function StacksContent({ stacks, allTools }: { stacks: Stack[]; allTools: Tool[]
   );
 }
 
-export default function StacksClient({ stacks, tools }: { stacks: Stack[]; tools: Tool[] }) {
+export default function StacksClient({
+  stacks,
+  tools,
+  initialStackId,
+}: {
+  stacks: Stack[];
+  tools: Tool[];
+  initialStackId?: string;
+}) {
   return (
     <Suspense>
-      <StacksContent stacks={stacks} allTools={tools} />
+      <StacksContent stacks={stacks} allTools={tools} initialStackId={initialStackId} />
     </Suspense>
   );
 }
