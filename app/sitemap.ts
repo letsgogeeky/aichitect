@@ -3,6 +3,7 @@ import { getTools } from "@/lib/data/tools";
 import { getRelationships } from "@/lib/data/relationships";
 import { getStacks } from "@/lib/data/stacks";
 import { getComparePairs } from "@/lib/data/comparePairs";
+import { CATEGORIES } from "@/lib/types";
 
 const BASE = "https://aichitect.dev";
 
@@ -49,5 +50,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: now,
   }));
 
-  return [...core, ...toolPages, ...stackPages, ...comparisonPages];
+  // Category landing pages — one per category
+  const categoryPages: MetadataRoute.Sitemap = CATEGORIES.map((c) => ({
+    url: `${BASE}/category/${c.id}`,
+    priority: 0.7,
+    changeFrequency: "weekly" as const,
+    lastModified: now,
+  }));
+
+  return [...core, ...toolPages, ...stackPages, ...categoryPages, ...comparisonPages];
 }
