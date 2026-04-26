@@ -245,12 +245,13 @@ export default async function ToolPage({ params }: Props) {
         {/* Hero */}
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-3 flex-wrap">
-            <span
-              className="text-xs font-semibold px-2.5 py-1 rounded-full"
+            <Link
+              href={`/category/${tool.category}`}
+              className="text-xs font-semibold px-2.5 py-1 rounded-full transition-colors"
               style={{ background: color + "22", color, border: `1px solid ${color}44` }}
             >
               {catLabel}
-            </span>
+            </Link>
             <span
               className="text-xs font-semibold px-2 py-0.5 rounded uppercase"
               style={

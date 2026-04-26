@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import {
   CATEGORIES,
   STACK_LAYERS,
@@ -509,6 +510,18 @@ export default function FilterPanel({
             })}
           </div>
         </div>
+
+        <Link
+          href="/category"
+          className="block text-[10px] text-center py-1 rounded-md transition-colors"
+          style={{
+            background: "var(--surface-2)",
+            border: "1px solid var(--border)",
+            color: "var(--text-muted)",
+          }}
+        >
+          Browse all categories →
+        </Link>
 
         {/* Relationship types — collapsible */}
         <div>
