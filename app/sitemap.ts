@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { getTools } from "@/lib/data/tools";
 import { getRelationships } from "@/lib/data/relationships";
 import { getStacks } from "@/lib/data/stacks";
+import { getComparePairs } from "@/lib/data/comparePairs";
 
 const BASE = "https://aichitect.dev";
 
@@ -22,16 +23,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/feed`, priority: 0.7, changeFrequency: "daily", lastModified: now },
   ];
 
-  // Comparison pages — prominent tool pairs with direct relationships
-  const prominentIds = new Set(tools.filter((t) => t.prominent).map((t) => t.id));
-  const comparisonPages: MetadataRoute.Sitemap = relationships
-    .filter((r) => prominentIds.has(r.source) && prominentIds.has(r.target))
-    .map((r) => ({
-      url: `${BASE}/compare/${r.source}/${r.target}`,
+  // Comparison pages — prominent same-category pairs, edge pairs first
+  const comparisonPages: MetadataRoute.Sitemap = getComparePairs(tools, relationships).map(
+    ({ toolA, toolB }) => ({
+      url: `${BASE}/compare/${toolA}/${toolB}`,
       priority: 0.7,
       changeFrequency: "monthly" as const,
       lastModified: now,
-    }));
+    })
+  );
 
   // Per-tool pages — one per tool ID
   const toolPages: MetadataRoute.Sitemap = tools.map((t) => ({

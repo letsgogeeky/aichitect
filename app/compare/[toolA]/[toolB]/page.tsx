@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { getTools } from "@/lib/data/tools";
 import { loadGraphData } from "@/lib/data-loaders";
+import { getComparePairs } from "@/lib/data/comparePairs";
 import { Tool, getCategoryColor, CATEGORIES } from "@/lib/types";
 import { TOOL_COUNT, RELATIONSHIP_COUNT } from "@/lib/constants";
 import { pageMeta } from "@/lib/metadata";
@@ -30,18 +31,11 @@ export async function generateMetadata({ params }: Props) {
   });
 }
 
-// ─── Static params (prominent tool pairs with direct relationships) ──────────
+// ─── Static params (prominent same-category pairs, edge pairs first) ─────────
 
 export async function generateStaticParams() {
   const { tools, relationships } = await loadGraphData();
-  const prominentIds = new Set(tools.filter((t) => t.prominent).map((t) => t.id));
-  const pairs: { toolA: string; toolB: string }[] = [];
-  for (const r of relationships) {
-    if (prominentIds.has(r.source) && prominentIds.has(r.target)) {
-      pairs.push({ toolA: r.source, toolB: r.target });
-    }
-  }
-  return pairs;
+  return getComparePairs(tools, relationships);
 }
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
