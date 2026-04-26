@@ -218,6 +218,13 @@ export default function ToolDetailSheet({ tool, open, onClose }: Props) {
 
           {/* Links */}
           <div className="flex gap-2">
+            <Link
+              href={`/tool/${tool.id}`}
+              className="flex-1 text-center text-xs py-2 px-3 rounded-md font-medium"
+              style={{ background: color, color: "#fff" }}
+            >
+              View full page →
+            </Link>
             {tool.website_url && (
               <a
                 href={tool.website_url}

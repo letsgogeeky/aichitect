@@ -1,6 +1,7 @@
 "use client";
 
 import { memo, useState, useEffect } from "react";
+import Link from "next/link";
 import { Handle, Position, NodeProps } from "reactflow";
 import { Tool, getCategoryColor, ToolUsageSummary } from "@/lib/types";
 import { ColorDot } from "@/components/ui/ColorDot";
@@ -337,21 +338,37 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
               {data.pricing.plans[0].price}
             </span>
           )}
-          {isExpanded && data.website_url && (
-            <a
-              href={data.website_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className="ml-auto text-[10px] px-2 py-0.5 rounded-full font-medium"
-              style={{
-                background: color + "22",
-                color,
-                border: `1px solid ${color}44`,
-              }}
-            >
-              Visit ↗
-            </a>
+          {isExpanded && (
+            <div className="ml-auto flex items-center gap-1">
+              {data.website_url && (
+                <a
+                  href={data.website_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="text-[10px] px-2 py-0.5 rounded-full font-medium"
+                  style={{
+                    background: color + "22",
+                    color,
+                    border: `1px solid ${color}44`,
+                  }}
+                >
+                  Visit ↗
+                </a>
+              )}
+              <Link
+                href={`/tool/${data.id}`}
+                onClick={(e) => e.stopPropagation()}
+                className="text-[10px] px-2 py-0.5 rounded-full font-medium"
+                style={{
+                  background: "var(--surface-2)",
+                  color: "var(--text-muted)",
+                  border: "1px solid var(--border)",
+                }}
+              >
+                Page →
+              </Link>
+            </div>
           )}
         </div>
       </div>
