@@ -97,7 +97,8 @@ export type CategoryId =
   | "fine-tuning"
   | "voice-ai"
   | "multimodal"
-  | "browser-automation";
+  | "browser-automation"
+  | "observability";
 
 export interface PricingPlan {
   name: string;
@@ -323,6 +324,7 @@ export const STACK_LAYERS: StackLayer[] = [
     categories: [
       "devops",
       "prompt-eval",
+      "observability",
       "mcp",
       "design",
       "docs",
@@ -349,6 +351,7 @@ export const CATEGORIES: CategoryMeta[] = [
   { id: "voice-ai", label: "Voice AI", color: "#00b894" },
   { id: "multimodal", label: "Multimodal", color: "#6c5ce7" },
   { id: "browser-automation", label: "Browser Automation", color: "#f0932b" },
+  { id: "observability", label: "Observability", color: "#45aaf2" },
 ];
 
 export function getCategoryColor(id: CategoryId): string {
