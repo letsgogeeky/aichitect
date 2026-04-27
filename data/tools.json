@@ -2020,7 +2020,7 @@
   {
     "id": "codegen",
     "name": "Codegen",
-    "category": "devops",
+    "category": "autonomous-agents",
     "tagline": "AI-powered automated code migrations",
     "description": "AI agent that performs large-scale automated code migrations across codebases. Handles framework upgrades, API changes, and refactors with review workflows.",
     "type": "commercial",
@@ -2034,7 +2034,7 @@
       ]
     },
     "github_stars": null,
-    "slot": "devops-automation",
+    "slot": "swe-agent",
     "choose_if": [
       "You want AI to do large autonomous code changes",
       "You're modernizing a legacy codebase at scale",
@@ -7649,5 +7649,805 @@
       "pricing_url": "https://www.firecrawl.dev/pricing",
       "type": "flat"
     }
+  },
+  {
+    "id": "gemini-code-assist",
+    "name": "Gemini Code Assist",
+    "category": "coding-assistants",
+    "tagline": "Google's AI coding assistant with 1M token context",
+    "description": "Google's AI coding assistant built on Gemini 2.5 Pro. Offers 180,000 code completions/month on the free tier, a 1M token context window for whole-codebase awareness, and Agent Mode for autonomous coding tasks. Available in VS Code and JetBrains.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Individual",
+          "price": "Free"
+        },
+        {
+          "name": "Enterprise",
+          "price": "$19/user/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "code-editor",
+    "provider": "google",
+    "prominent": true,
+    "choose_if": [
+      "You want the most generous free tier for AI code completions",
+      "You need a 1M token context window for whole-codebase awareness",
+      "You're deep in Google Cloud and want native AI integration"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": [],
+      "env_vars": [],
+      "config_files": []
+    },
+    "website_url": "https://codeassist.google",
+    "github_url": null,
+    "use_context": "dev-productivity",
+    "added_at": "2026-04-26",
+    "health_score": null,
+    "last_synced_at": null,
+    "is_stale": null
+  },
+  {
+    "id": "amazon-q-developer",
+    "name": "Amazon Q Developer",
+    "category": "coding-assistants",
+    "tagline": "AWS's AI coding assistant with Claude-powered agent mode",
+    "description": "AWS's AI coding assistant and CodeWhisperer successor. The free tier covers code completions and chat; Pro adds Agent Mode for multi-file feature development, automated PR creation, and Java upgrade automation. Deep integration across the AWS toolchain.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Free",
+          "price": "Free"
+        },
+        {
+          "name": "Pro",
+          "price": "$19/user/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "code-editor",
+    "provider": "aws",
+    "prominent": false,
+    "choose_if": [
+      "You're building on AWS and want native IDE AI integration",
+      "You need automated Java or legacy code upgrade assistance",
+      "You want a free AI coding assistant with AWS toolchain depth"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": [],
+      "env_vars": ["AWS_ACCESS_KEY_ID"],
+      "config_files": []
+    },
+    "website_url": "https://aws.amazon.com/q/developer/",
+    "github_url": null,
+    "use_context": "dev-productivity",
+    "added_at": "2026-04-26",
+    "health_score": null,
+    "last_synced_at": null,
+    "is_stale": null
+  },
+  {
+    "id": "augment-code",
+    "name": "Augment Code",
+    "category": "coding-assistants",
+    "tagline": "Enterprise AI coding assistant with deep codebase context",
+    "description": "Enterprise-focused AI coding assistant with a proprietary Context Engine that indexes 400K+ file codebases. Claims 70.6% on SWE-bench Verified and significantly fewer hallucinations than Copilot. Designed for large engineering teams with complex, multi-repo codebases.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Team",
+          "price": "$30/user/mo"
+        },
+        {
+          "name": "Enterprise",
+          "price": "Custom"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "code-editor",
+    "prominent": false,
+    "choose_if": [
+      "You're on a large team with a complex, multi-repo codebase",
+      "You need AI that actually understands your full codebase context",
+      "You want fewer hallucinations and higher accuracy than Copilot"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": [],
+      "env_vars": [],
+      "config_files": []
+    },
+    "website_url": "https://www.augmentcode.com",
+    "github_url": null,
+    "use_context": "dev-productivity",
+    "added_at": "2026-04-26",
+    "health_score": null,
+    "last_synced_at": null,
+    "is_stale": null
+  },
+  {
+    "id": "gemini-cli",
+    "name": "Gemini CLI",
+    "category": "coding-assistants",
+    "tagline": "Google's open-source terminal AI agent",
+    "description": "Google's open-source terminal coding agent powered by Gemini 2.5 Pro. Features a 1M token context window, native MCP server support, and is free to use within Gemini API limits. A direct Claude Code and Aider competitor from Google.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Free",
+          "price": "Free (Gemini API limits)"
+        }
+      ]
+    },
+    "github_stars": 50000,
+    "slot": "cli-agent",
+    "provider": "google",
+    "prominent": false,
+    "choose_if": [
+      "You want a free terminal AI agent with a 1M token context window",
+      "You're already using Gemini and want CLI-level access",
+      "You want an OSS Claude Code alternative backed by Google"
+    ],
+    "aliases": {
+      "npm": ["@google/gemini-cli"],
+      "pip": [],
+      "env_vars": ["GEMINI_API_KEY"],
+      "config_files": ["GEMINI.md", ".gemini/settings.json"]
+    },
+    "website_url": "https://github.com/google-gemini/gemini-cli",
+    "github_url": "https://github.com/google-gemini/gemini-cli",
+    "use_context": "dev-productivity",
+    "added_at": "2026-04-26",
+    "health_score": null,
+    "last_synced_at": null,
+    "is_stale": null
+  },
+  {
+    "id": "jules",
+    "name": "Jules",
+    "category": "autonomous-agents",
+    "tagline": "Google's async coding agent that works inside your GitHub repos",
+    "description": "Google's async autonomous coding agent powered by Gemini 2.5 Pro. Integrates with GitHub — assign it a task, it runs in a sandboxed VM, and returns a diff or PR. GA since August 2025. Competes directly with Devin and GitHub Copilot Workspace.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Free",
+          "price": "5 tasks/month"
+        },
+        {
+          "name": "Pro",
+          "price": "$19/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "swe-agent",
+    "provider": "google",
+    "prominent": false,
+    "choose_if": [
+      "You want an async coding agent that works directly in your GitHub repos",
+      "You want a free alternative to Devin for simple task automation",
+      "You're already on Google Workspace and want AI development integration"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": [],
+      "env_vars": [],
+      "config_files": []
+    },
+    "website_url": "https://jules.google",
+    "github_url": null,
+    "use_context": "dev-productivity",
+    "added_at": "2026-04-26",
+    "health_score": null,
+    "last_synced_at": null,
+    "is_stale": null
+  },
+  {
+    "id": "strands-agents",
+    "name": "Strands Agents",
+    "category": "agent-frameworks",
+    "tagline": "AWS's open-source agent SDK with built-in persistent memory",
+    "description": "AWS's open-source Python SDK for building production AI agents. Uses a model-driven approach where tools are described and the model reasons about their use. Native Mem0 integration for persistent memory, MCP support, and multi-agent coordination out of the box.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 3000,
+    "slot": "agent-framework",
+    "prominent": false,
+    "choose_if": [
+      "You're building agents on AWS infrastructure",
+      "You want built-in persistent memory via Mem0 without extra setup",
+      "You prefer a minimal model-driven SDK over LangGraph's explicit state machines"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["strands-agents"],
+      "env_vars": [],
+      "config_files": []
+    },
+    "website_url": "https://strandsagents.com",
+    "github_url": "https://github.com/strands-agents/sdk-python",
+    "use_context": "app-infrastructure",
+    "added_at": "2026-04-26",
+    "health_score": null,
+    "last_synced_at": null,
+    "is_stale": null
+  },
+  {
+    "id": "ragflow",
+    "name": "RAGFlow",
+    "category": "pipelines-rag",
+    "tagline": "Deep-document-understanding RAG engine with visual pipeline editor",
+    "description": "Open-source RAG engine built on deep document understanding — handles tables, figures, and complex layouts in PDFs that chunk-based RAG misses. Includes a visual DAG pipeline editor for building extraction and retrieval workflows. One of the fastest-growing RAG projects of 2025 with 40K+ GitHub stars.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Cloud",
+          "price": "$0.01/page"
+        }
+      ]
+    },
+    "github_stars": 40000,
+    "slot": "orchestration",
+    "prominent": true,
+    "choose_if": [
+      "Your RAG pipeline ingests complex PDFs with tables and figures",
+      "You want a visual no-code pipeline editor for RAG workflows",
+      "You need document understanding beyond simple text chunking"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["ragflow-sdk"],
+      "env_vars": [],
+      "config_files": []
+    },
+    "website_url": "https://ragflow.io",
+    "github_url": "https://github.com/infiniflow/ragflow",
+    "use_context": "app-infrastructure",
+    "added_at": "2026-04-26",
+    "health_score": null,
+    "last_synced_at": null,
+    "is_stale": null
+  },
+  {
+    "id": "lightrag",
+    "name": "LightRAG",
+    "category": "pipelines-rag",
+    "tagline": "Graph-based RAG with dual-level knowledge retrieval",
+    "description": "RAG framework that builds a knowledge graph from documents, enabling retrieval at both local (specific facts) and global (thematic) levels. Outperforms naive RAG on complex questions requiring reasoning across multiple document sections. EMNLP 2025.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 15000,
+    "slot": "orchestration",
+    "prominent": false,
+    "choose_if": [
+      "Your queries require reasoning across multiple documents or topics",
+      "You want graph-based retrieval instead of flat vector search",
+      "You need both fact-level and concept-level retrieval in one system"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["lightrag-hku"],
+      "env_vars": [],
+      "config_files": []
+    },
+    "website_url": "https://lightrag.github.io",
+    "github_url": "https://github.com/HKUDS/LightRAG",
+    "use_context": "app-infrastructure",
+    "added_at": "2026-04-26",
+    "health_score": null,
+    "last_synced_at": null,
+    "is_stale": null
+  },
+  {
+    "id": "sambanova-cloud",
+    "name": "SambaNova Cloud",
+    "category": "llm-infra",
+    "tagline": "Fastest LLM inference API — 200+ tokens/sec on Llama 405B",
+    "description": "Cloud inference API built on SambaNova's custom RDU chips. Consistently benchmarked as the fastest LLM inference provider — 200+ tokens/sec on Llama 3.1 405B versus ~20 tokens/sec on typical GPU clouds. OpenAI-compatible API with a generous free tier and HuggingFace integration.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Pay-as-you-go",
+          "price": "$0.40/M tokens"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "inference",
+    "prominent": false,
+    "choose_if": [
+      "You need the fastest possible LLM inference speeds",
+      "You're running large open-weight models like Llama 405B in production",
+      "You want a Groq alternative with broader model support"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": [],
+      "env_vars": ["SAMBANOVA_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://cloud.sambanova.ai",
+    "github_url": null,
+    "use_context": "app-infrastructure",
+    "added_at": "2026-04-26",
+    "health_score": null,
+    "last_synced_at": null,
+    "is_stale": null
+  },
+  {
+    "id": "cloudflare-ai-gateway",
+    "name": "Cloudflare AI Gateway",
+    "category": "llm-infra",
+    "tagline": "LLM gateway with caching, analytics, and rate limiting",
+    "description": "LLM gateway from Cloudflare that sits in front of any AI provider and adds request caching, cost analytics, rate limiting, and fallback routing. Zero-config for teams already on Cloudflare Workers. Free tier available on all Cloudflare plans.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Free",
+          "price": "Free"
+        },
+        {
+          "name": "Pro",
+          "price": "$5/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "model-router",
+    "prominent": false,
+    "choose_if": [
+      "You're already deploying on Cloudflare Workers or Pages",
+      "You want LLM caching and cost analytics with zero infrastructure overhead",
+      "You need a lightweight gateway without running LiteLLM yourself"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": [],
+      "env_vars": ["CLOUDFLARE_API_TOKEN"],
+      "config_files": []
+    },
+    "website_url": "https://developers.cloudflare.com/ai-gateway/",
+    "github_url": null,
+    "use_context": "app-infrastructure",
+    "added_at": "2026-04-26",
+    "health_score": null,
+    "last_synced_at": null,
+    "is_stale": null
+  },
+  {
+    "id": "trl",
+    "name": "TRL",
+    "category": "fine-tuning",
+    "tagline": "Hugging Face's library for RLHF, DPO, and GRPO fine-tuning",
+    "description": "Hugging Face's Transformer Reinforcement Learning library — the standard toolkit for RLHF, DPO, GRPO, and reward modeling. DeepSeek's GRPO technique that sparked the reasoning model wave was popularized through TRL. Integrates seamlessly with the full Hugging Face ecosystem.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 12000,
+    "slot": "fine-tuning",
+    "prominent": false,
+    "choose_if": [
+      "You're training with RLHF, DPO, or GRPO preference-based techniques",
+      "You want the standard library for reward modeling and alignment fine-tuning",
+      "You need tight integration with the Hugging Face ecosystem"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["trl"],
+      "env_vars": [],
+      "config_files": []
+    },
+    "website_url": "https://huggingface.co/docs/trl",
+    "github_url": "https://github.com/huggingface/trl",
+    "use_context": "app-infrastructure",
+    "added_at": "2026-04-26",
+    "health_score": null,
+    "last_synced_at": null,
+    "is_stale": null
+  },
+  {
+    "id": "pipecat",
+    "name": "Pipecat",
+    "category": "voice-ai",
+    "tagline": "Open-source framework for real-time voice and multimodal AI agents",
+    "description": "Python framework for building real-time voice and multimodal conversational agents. Handles the full low-latency pipeline — STT → LLM → TTS — with 40+ provider integrations. The most developer-friendly OSS option for building production voice agents where you need code-level control.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 5000,
+    "slot": "voice-ai",
+    "prominent": false,
+    "choose_if": [
+      "You want code-level control over your full voice agent pipeline",
+      "You're building real-time multimodal agents that handle voice and vision together",
+      "You need to mix and match STT, LLM, and TTS providers freely"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["pipecat-ai"],
+      "env_vars": [],
+      "config_files": []
+    },
+    "website_url": "https://pipecat.ai",
+    "github_url": "https://github.com/pipecat-ai/pipecat",
+    "use_context": "app-infrastructure",
+    "added_at": "2026-04-26",
+    "health_score": null,
+    "last_synced_at": null,
+    "is_stale": null
+  },
+  {
+    "id": "livekit-agents",
+    "name": "LiveKit Agents",
+    "category": "voice-ai",
+    "tagline": "WebRTC-first framework for real-time voice AI agents",
+    "description": "Real-time voice agent framework built on LiveKit's WebRTC infrastructure. Handles low-latency audio streaming, voice activity detection, and multi-participant sessions. Strong for production deployments where latency and scalability are critical. 9K+ GitHub stars.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Cloud",
+          "price": "Usage-based"
+        }
+      ]
+    },
+    "github_stars": 9000,
+    "slot": "voice-ai",
+    "prominent": false,
+    "choose_if": [
+      "You need production-grade WebRTC infrastructure for voice AI",
+      "You're building multi-participant or real-time voice agent sessions",
+      "You want the lowest latency possible for interactive voice applications"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["livekit-agents"],
+      "env_vars": ["LIVEKIT_URL", "LIVEKIT_API_KEY", "LIVEKIT_API_SECRET"],
+      "config_files": []
+    },
+    "website_url": "https://livekit.io/agents",
+    "github_url": "https://github.com/livekit/agents",
+    "use_context": "app-infrastructure",
+    "added_at": "2026-04-26",
+    "health_score": null,
+    "last_synced_at": null,
+    "is_stale": null
+  },
+  {
+    "id": "browserbase",
+    "name": "Browserbase",
+    "category": "browser-automation",
+    "tagline": "Managed cloud browser infrastructure for AI agents",
+    "description": "Serverless cloud browser infrastructure designed for AI agents. Provides Playwright/CDP-compatible headless browsers in the cloud with 94% success rate against bot-protected sites, session persistence, and visual debugging. Stagehand (in this catalog) is built on Browserbase.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Starter",
+          "price": "$50/mo"
+        },
+        {
+          "name": "Scale",
+          "price": "Usage-based"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "browser-automation",
+    "prominent": false,
+    "choose_if": [
+      "You need reliable cloud browsers for AI agents at scale",
+      "Bot detection is blocking your local browser automation",
+      "You want managed browser infrastructure without running Playwright clusters yourself"
+    ],
+    "aliases": {
+      "npm": ["@browserbasehq/sdk"],
+      "pip": ["browserbase"],
+      "env_vars": ["BROWSERBASE_API_KEY", "BROWSERBASE_PROJECT_ID"],
+      "config_files": []
+    },
+    "website_url": "https://www.browserbase.com",
+    "github_url": null,
+    "use_context": "app-infrastructure",
+    "added_at": "2026-04-26",
+    "health_score": null,
+    "last_synced_at": null,
+    "is_stale": null
+  },
+  {
+    "id": "figma-ai",
+    "name": "Figma AI",
+    "category": "design",
+    "tagline": "AI-native design and UI generation inside Figma",
+    "description": "Figma's suite of AI capabilities including Figma Make (generate UI screens from prompts), design autocomplete, auto-rename layers, and prototype generation. Baked into Figma's existing workflow — no context-switching to an external tool. Competes directly with v0 and Builder.io.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Starter",
+          "price": "Free"
+        },
+        {
+          "name": "Pro",
+          "price": "$15/user/mo"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "design-to-code",
+    "prominent": false,
+    "choose_if": [
+      "You already live in Figma and want AI without switching tools",
+      "You want AI that understands your existing design system and components",
+      "You're a designer building UI prototypes, not a developer"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": [],
+      "env_vars": [],
+      "config_files": []
+    },
+    "website_url": "https://www.figma.com/ai",
+    "github_url": null,
+    "use_context": "dev-productivity",
+    "added_at": "2026-04-26",
+    "health_score": null,
+    "last_synced_at": null,
+    "is_stale": null
+  },
+  {
+    "id": "langwatch",
+    "name": "LangWatch",
+    "category": "observability",
+    "tagline": "LLM observability and evaluation with OpenTelemetry support",
+    "description": "Open-source LLM observability and evaluation platform with OpenTelemetry-native tracing. Provides trace visualization, automated LLM-as-judge evaluations, dataset management, and prompt versioning. Self-hostable with a managed cloud option.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Cloud",
+          "price": "$99/mo"
+        }
+      ]
+    },
+    "github_stars": 2000,
+    "slot": "observability",
+    "prominent": false,
+    "choose_if": [
+      "You want OpenTelemetry-native LLM tracing without vendor lock-in",
+      "You need combined tracing and automated evaluation in one platform",
+      "You prefer self-hosting your observability stack"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["langwatch"],
+      "env_vars": ["LANGWATCH_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://langwatch.ai",
+    "github_url": "https://github.com/langwatch/langwatch",
+    "use_context": "app-infrastructure",
+    "added_at": "2026-04-26",
+    "health_score": null,
+    "last_synced_at": null,
+    "is_stale": null
+  },
+  {
+    "id": "browserbase-mcp",
+    "name": "Browserbase MCP",
+    "category": "mcp",
+    "tagline": "MCP server for cloud browser sessions via Browserbase",
+    "description": "MCP server that gives AI agents access to Stagehand-powered cloud browser sessions via Browserbase. Lets Claude and other MCP-compatible agents navigate, interact with, and extract data from websites using managed cloud browsers — no local browser required.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 1000,
+    "slot": "mcp-infra",
+    "prominent": false,
+    "choose_if": [
+      "You want Claude or other MCP agents to browse the web reliably",
+      "You need cloud browser access without managing Playwright infrastructure",
+      "You're building agents that require web interaction via MCP"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": [],
+      "env_vars": ["BROWSERBASE_API_KEY", "BROWSERBASE_PROJECT_ID"],
+      "config_files": []
+    },
+    "website_url": "https://github.com/browserbase/mcp-server-browserbase",
+    "github_url": "https://github.com/browserbase/mcp-server-browserbase",
+    "use_context": "app-infrastructure",
+    "added_at": "2026-04-26",
+    "health_score": null,
+    "last_synced_at": null,
+    "is_stale": null
+  },
+  {
+    "id": "mem0",
+    "name": "Mem0",
+    "category": "memory",
+    "tagline": "Universal persistent memory layer for AI agents",
+    "description": "Open-source persistent memory layer that gives AI agents the ability to remember users, preferences, and context across sessions. Supports vector, graph, and key-value storage backends. AWS partner for Strands Agents. YC W23, $24M raised, 30K+ GitHub stars.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Pro",
+          "price": "$49/mo"
+        }
+      ]
+    },
+    "github_stars": 30000,
+    "slot": "memory",
+    "prominent": true,
+    "choose_if": [
+      "You want your AI agent to remember users and preferences across sessions",
+      "You need a universal memory layer that works with any LLM or framework",
+      "You're building personalized AI assistants with long-term context"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["mem0ai"],
+      "env_vars": ["MEM0_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://mem0.ai",
+    "github_url": "https://github.com/mem0ai/mem0",
+    "use_context": "app-infrastructure",
+    "added_at": "2026-04-26",
+    "health_score": null,
+    "last_synced_at": null,
+    "is_stale": null
+  },
+  {
+    "id": "zep",
+    "name": "Zep",
+    "category": "memory",
+    "tagline": "Long-term memory and session management for AI assistants",
+    "description": "Memory and session management platform for AI assistants. Automatically extracts facts, preferences, and entities from conversations and surfaces them as structured memory. Supports temporal reasoning — knowing what was discussed last week versus now.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Cloud",
+          "price": "$99/mo"
+        }
+      ]
+    },
+    "github_stars": 4000,
+    "slot": "memory",
+    "prominent": false,
+    "choose_if": [
+      "You're building a conversational AI assistant that needs session continuity",
+      "You need structured fact and entity extraction from conversation history",
+      "You want temporal memory — your AI knowing when it learned something"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["zep-python"],
+      "env_vars": ["ZEP_API_URL", "ZEP_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://getzep.com",
+    "github_url": "https://github.com/getzep/zep",
+    "use_context": "app-infrastructure",
+    "added_at": "2026-04-26",
+    "health_score": null,
+    "last_synced_at": null,
+    "is_stale": null
+  },
+  {
+    "id": "nemo-guardrails",
+    "name": "NeMo Guardrails",
+    "category": "guardrails",
+    "tagline": "NVIDIA's programmable safety and control rails for LLM applications",
+    "description": "NVIDIA's open-source toolkit for adding programmable safety, topic, and dialog rails to LLM applications. Define rules in Colang DSL to prevent off-topic responses, enforce output formats, and guard against prompt injection. Standard in enterprise LLM deployments.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": 4000,
+    "slot": "guardrails",
+    "prominent": false,
+    "choose_if": [
+      "You need enterprise-grade programmable safety controls on LLM outputs",
+      "You're deploying an LLM in a regulated or customer-facing context",
+      "You want topic and behavior constraints that go beyond simple prompt engineering"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["nemoguardrails"],
+      "env_vars": [],
+      "config_files": []
+    },
+    "website_url": "https://developer.nvidia.com/nemo-guardrails",
+    "github_url": "https://github.com/NVIDIA/NeMo-Guardrails",
+    "use_context": "app-infrastructure",
+    "added_at": "2026-04-26",
+    "health_score": null,
+    "last_synced_at": null,
+    "is_stale": null
+  },
+  {
+    "id": "guardrails-ai",
+    "name": "Guardrails AI",
+    "category": "guardrails",
+    "tagline": "Output validation and structured generation for LLMs",
+    "description": "Open-source framework for adding input/output validation to LLM applications. Define validators (Pydantic-style) for LLM responses to catch hallucinations, PII leaks, bias, and schema violations. Supports automatic retry and reask on validation failure, with any LLM provider.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Hub",
+          "price": "Usage-based"
+        }
+      ]
+    },
+    "github_stars": 4500,
+    "slot": "guardrails",
+    "prominent": false,
+    "choose_if": [
+      "You need LLM outputs to conform to a specific schema or policy",
+      "You want automatic PII detection and redaction in LLM responses",
+      "You're building production AI that requires structured, validated output"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["guardrails-ai"],
+      "env_vars": ["GUARDRAILS_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://guardrailsai.com",
+    "github_url": "https://github.com/guardrails-ai/guardrails",
+    "use_context": "app-infrastructure",
+    "added_at": "2026-04-26",
+    "health_score": null,
+    "last_synced_at": null,
+    "is_stale": null
   }
 ]

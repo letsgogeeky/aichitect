@@ -2,7 +2,7 @@
   {
     "id": "code-editor",
     "name": "Where do you write code?",
-    "description": "Your primary coding environment \u2014 the IDE where you spend most of your time",
+    "description": "Your primary coding environment — the IDE where you spend most of your time",
     "tools": [
       "cursor",
       "windsurf",
@@ -13,7 +13,10 @@
       "supermaven",
       "aide",
       "replit-ghostwriter",
-      "jetbrains-ai"
+      "jetbrains-ai",
+      "gemini-code-assist",
+      "amazon-q-developer",
+      "augment-code"
     ],
     "priority": {
       "dev-productivity": "required",
@@ -21,13 +24,23 @@
       "hybrid": "optional"
     },
     "suggest": "cursor",
-    "suggest_reason": "The default AI-first editor \u2014 AI pair programming built in from day one"
+    "suggest_reason": "The default AI-first editor — AI pair programming built in from day one"
   },
   {
     "id": "cli-agent",
     "name": "Who runs your terminal tasks?",
     "description": "A CLI agent you direct to handle multi-step coding tasks autonomously",
-    "tools": ["claude-code", "aider", "plandex", "goose", "cline", "amp", "codex-cli", "kodu-ai"],
+    "tools": [
+      "claude-code",
+      "aider",
+      "plandex",
+      "goose",
+      "cline",
+      "amp",
+      "codex-cli",
+      "kodu-ai",
+      "gemini-cli"
+    ],
     "priority": {
       "dev-productivity": "recommended",
       "app-infrastructure": "not-applicable",
@@ -39,7 +52,7 @@
   {
     "id": "swe-agent",
     "name": "Who builds autonomously for you?",
-    "description": "A fully autonomous agent you assign tasks to \u2014 it handles entire features or PRs",
+    "description": "A fully autonomous agent you assign tasks to — it handles entire features or PRs",
     "tools": [
       "devin",
       "openhands",
@@ -49,7 +62,9 @@
       "gpt-pilot",
       "factory-ai",
       "github-copilot-workspace",
-      "replit-agent"
+      "replit-agent",
+      "jules",
+      "codegen"
     ],
     "priority": {
       "dev-productivity": "optional",
@@ -77,7 +92,8 @@
       "julep",
       "letta",
       "bee-agent",
-      "controlflow"
+      "controlflow",
+      "strands-agents"
     ],
     "priority": {
       "dev-productivity": "not-applicable",
@@ -85,7 +101,7 @@
       "hybrid": "recommended"
     },
     "suggest": "langgraph",
-    "suggest_reason": "Production-grade state machine \u2014 the right foundation for complex agents"
+    "suggest_reason": "Production-grade state machine — the right foundation for complex agents"
   },
   {
     "id": "orchestration",
@@ -103,7 +119,9 @@
       "vercel-ai-sdk",
       "griptape",
       "rivet",
-      "taskweaver"
+      "taskweaver",
+      "ragflow",
+      "lightrag"
     ],
     "priority": {
       "dev-productivity": "not-applicable",
@@ -111,25 +129,33 @@
       "hybrid": "optional"
     },
     "suggest": "vercel-ai-sdk",
-    "suggest_reason": "Lightweight and easy to start \u2014 integrates with any model provider"
+    "suggest_reason": "Lightweight and easy to start — integrates with any model provider"
   },
   {
     "id": "model-router",
     "name": "Which models does your stack route through?",
-    "description": "A gateway that normalizes calls across providers \u2014 one API for all models, with fallbacks",
-    "tools": ["litellm", "openrouter", "portkey", "unify-ai", "martian", "not-diamond"],
+    "description": "A gateway that normalizes calls across providers — one API for all models, with fallbacks",
+    "tools": [
+      "litellm",
+      "openrouter",
+      "portkey",
+      "unify-ai",
+      "martian",
+      "not-diamond",
+      "cloudflare-ai-gateway"
+    ],
     "priority": {
       "dev-productivity": "not-applicable",
       "app-infrastructure": "optional",
       "hybrid": "optional"
     },
     "suggest": "litellm",
-    "suggest_reason": "One interface for 100+ models \u2014 swap providers without rewriting your code"
+    "suggest_reason": "One interface for 100+ models — swap providers without rewriting your code"
   },
   {
     "id": "inference",
     "name": "Where do your models actually run?",
-    "description": "LLM providers and inference servers \u2014 where the actual model computation happens",
+    "description": "LLM providers and inference servers — where the actual model computation happens",
     "tools": [
       "ollama",
       "vllm",
@@ -152,7 +178,8 @@
       "amazon-bedrock",
       "azure-openai",
       "xai-grok",
-      "deepseek-api"
+      "deepseek-api",
+      "sambanova-cloud"
     ],
     "priority": {
       "dev-productivity": "not-applicable",
@@ -160,12 +187,12 @@
       "hybrid": "required"
     },
     "suggest": "anthropic-api",
-    "suggest_reason": "Claude powers most serious AI stacks \u2014 state of the art reasoning and coding"
+    "suggest_reason": "Claude powers most serious AI stacks — state of the art reasoning and coding"
   },
   {
     "id": "vector-db",
     "name": "What knowledge does your AI have?",
-    "description": "The memory layer \u2014 stores and retrieves vector embeddings for RAG and semantic search",
+    "description": "The memory layer — stores and retrieves vector embeddings for RAG and semantic search",
     "tools": [
       "qdrant",
       "chroma",
@@ -183,7 +210,7 @@
       "hybrid": "optional"
     },
     "suggest": "chroma",
-    "suggest_reason": "Easiest vector DB to get started \u2014 runs locally with no infrastructure"
+    "suggest_reason": "Easiest vector DB to get started — runs locally with no infrastructure"
   },
   {
     "id": "observability",
@@ -200,7 +227,10 @@
       "logfire",
       "opik",
       "agentops",
-      "mlflow"
+      "mlflow",
+      "galileo-eval",
+      "maxim-ai",
+      "langwatch"
     ],
     "priority": {
       "dev-productivity": "not-applicable",
@@ -208,7 +238,7 @@
       "hybrid": "recommended"
     },
     "suggest": "langfuse",
-    "suggest_reason": "OSS, one line to add \u2014 you can't improve what you can't see"
+    "suggest_reason": "OSS, one line to add — you can't improve what you can't see"
   },
   {
     "id": "design-to-code",
@@ -225,7 +255,8 @@
       "framer-ai",
       "uizard",
       "relume",
-      "google-stitch"
+      "google-stitch",
+      "figma-ai"
     ],
     "priority": {
       "dev-productivity": "optional",
@@ -233,7 +264,7 @@
       "hybrid": "optional"
     },
     "suggest": "v0",
-    "suggest_reason": "Prompt \u2192 production React/Tailwind in seconds \u2014 the fastest UI starting point"
+    "suggest_reason": "Prompt → production React/Tailwind in seconds — the fastest UI starting point"
   },
   {
     "id": "devops-automation",
@@ -245,7 +276,6 @@
       "qodo",
       "graphite",
       "trunk",
-      "codegen",
       "sourcery",
       "grit-io",
       "pixee",
@@ -259,7 +289,7 @@
       "hybrid": "optional"
     },
     "suggest": "coderabbit",
-    "suggest_reason": "AI code review on every PR \u2014 catches bugs and style issues before they merge"
+    "suggest_reason": "AI code review on every PR — catches bugs and style issues before they merge"
   },
   {
     "id": "mcp-infra",
@@ -277,7 +307,8 @@
       "desktop-commander",
       "brave-search-mcp",
       "sequential-thinking-mcp",
-      "sentry-mcp"
+      "sentry-mcp",
+      "browserbase-mcp"
     ],
     "priority": {
       "dev-productivity": "optional",
@@ -285,7 +316,7 @@
       "hybrid": "optional"
     },
     "suggest": "fastmcp",
-    "suggest_reason": "Build an MCP server in minutes \u2014 the fastest way to give your agent new capabilities"
+    "suggest_reason": "Build an MCP server in minutes — the fastest way to give your agent new capabilities"
   },
   {
     "id": "prompt-eval",
@@ -308,7 +339,7 @@
       "hybrid": "optional"
     },
     "suggest": "promptfoo",
-    "suggest_reason": "Catch output regressions before users do \u2014 CI-friendly and OSS"
+    "suggest_reason": "Catch output regressions before users do — CI-friendly and OSS"
   },
   {
     "id": "docs",
@@ -357,7 +388,7 @@
   {
     "id": "specifications",
     "name": "How do you define what you're building?",
-    "description": "Spec writing, API design, architecture diagrams, and contract-first tooling \u2014 the upstream layer before code is written",
+    "description": "Spec writing, API design, architecture diagrams, and contract-first tooling — the upstream layer before code is written",
     "tools": [
       "spec-kit",
       "mermaid",
@@ -384,20 +415,30 @@
     "id": "fine-tuning",
     "name": "How do you adapt models to your domain?",
     "description": "Fine-tuning frameworks and platforms for training custom model adaptations with LoRA, QLoRA, or full fine-tuning",
-    "tools": ["axolotl", "unsloth", "llama-factory", "torchtune", "predibase"],
+    "tools": ["axolotl", "unsloth", "llama-factory", "torchtune", "predibase", "trl"],
     "priority": {
       "dev-productivity": "not-applicable",
       "app-infrastructure": "optional",
       "hybrid": "optional"
     },
     "suggest": "unsloth",
-    "suggest_reason": "2\u00d7 faster LoRA fine-tuning with minimal memory \u2014 the most efficient OSS option"
+    "suggest_reason": "2× faster LoRA fine-tuning with minimal memory — the most efficient OSS option"
   },
   {
     "id": "voice-ai",
     "name": "How does your AI speak and listen?",
-    "description": "Speech synthesis and recognition APIs \u2014 text-to-speech, speech-to-text, and real-time audio intelligence",
-    "tools": ["vapi", "retell-ai", "elevenlabs", "deepgram", "assemblyai", "cartesia", "playht"],
+    "description": "Speech synthesis and recognition APIs — text-to-speech, speech-to-text, and real-time audio intelligence",
+    "tools": [
+      "vapi",
+      "retell-ai",
+      "elevenlabs",
+      "deepgram",
+      "assemblyai",
+      "cartesia",
+      "playht",
+      "pipecat",
+      "livekit-agents"
+    ],
     "priority": {
       "dev-productivity": "not-applicable",
       "app-infrastructure": "optional",
@@ -417,19 +458,45 @@
       "hybrid": "optional"
     },
     "suggest": "moondream",
-    "suggest_reason": "Smallest OSS vision model \u2014 runs on a single GPU with surprisingly good results"
+    "suggest_reason": "Smallest OSS vision model — runs on a single GPU with surprisingly good results"
   },
   {
     "id": "browser-automation",
     "name": "How does your AI navigate the web?",
     "description": "AI-powered browser control for agents that need to navigate, extract, fill forms, and interact with any website",
-    "tools": ["browser-use", "stagehand", "skyvern", "firecrawl"],
+    "tools": ["browser-use", "stagehand", "skyvern", "firecrawl", "browserbase"],
     "priority": {
       "dev-productivity": "optional",
       "app-infrastructure": "optional",
       "hybrid": "optional"
     },
     "suggest": "browser-use",
-    "suggest_reason": "50K GitHub stars \u2014 most-adopted OSS AI browser agent, ~$0.07/task on WebVoyager"
+    "suggest_reason": "50K GitHub stars — most-adopted OSS AI browser agent, ~$0.07/task on WebVoyager"
+  },
+  {
+    "id": "memory",
+    "name": "How does your AI remember?",
+    "description": "Persistent memory layers that give AI agents long-term recall of users, sessions, and context across conversations",
+    "tools": ["mem0", "zep"],
+    "priority": {
+      "dev-productivity": "not-applicable",
+      "app-infrastructure": "optional",
+      "hybrid": "optional"
+    },
+    "suggest": "mem0",
+    "suggest_reason": "30K stars, AWS-partnered — the most-adopted memory layer for production AI agents"
+  },
+  {
+    "id": "guardrails",
+    "name": "How do you keep your AI safe?",
+    "description": "Input/output validation, topic controls, and safety rails that ensure LLM responses stay within defined policies",
+    "tools": ["nemo-guardrails", "guardrails-ai"],
+    "priority": {
+      "dev-productivity": "not-applicable",
+      "app-infrastructure": "optional",
+      "hybrid": "optional"
+    },
+    "suggest": "guardrails-ai",
+    "suggest_reason": "Pydantic-style validators for LLM outputs — catches hallucinations, PII leaks, and schema violations"
   }
 ]

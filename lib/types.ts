@@ -98,7 +98,9 @@ export type CategoryId =
   | "voice-ai"
   | "multimodal"
   | "browser-automation"
-  | "observability";
+  | "observability"
+  | "memory"
+  | "guardrails";
 
 export interface PricingPlan {
   name: string;
@@ -325,6 +327,8 @@ export const STACK_LAYERS: StackLayer[] = [
       "devops",
       "prompt-eval",
       "observability",
+      "memory",
+      "guardrails",
       "mcp",
       "design",
       "docs",
@@ -352,6 +356,8 @@ export const CATEGORIES: CategoryMeta[] = [
   { id: "multimodal", label: "Multimodal", color: "#6c5ce7" },
   { id: "browser-automation", label: "Browser Automation", color: "#f0932b" },
   { id: "observability", label: "Observability", color: "#45aaf2" },
+  { id: "memory", label: "Memory & Persistence", color: "#e056fd" },
+  { id: "guardrails", label: "AI Guardrails", color: "#22a6b3" },
 ];
 
 export function getCategoryColor(id: CategoryId): string {
