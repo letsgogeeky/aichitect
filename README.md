@@ -183,7 +183,7 @@ components/
 data/
   tools.json            # 228 tools, 16 categories
   relationships.json    # ~452 edges (integrates-with / commonly-paired-with / competes-with)
-  stacks.json           # 25 curated stacks across 5 clusters
+  stacks.json           # 31 curated stacks across 5 clusters
   slots.json            # 15 builder slot types
 lib/
   types.ts              # TypeScript interfaces + getCategoryColor() + STACK_CLUSTERS

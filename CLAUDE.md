@@ -160,7 +160,7 @@ components/
 data/
   tools.json            → 228 tools, 19 categories
   relationships.json    → ~452 edges (integrates-with / commonly-paired-with / competes-with)
-  stacks.json           → 25 curated stacks with flow edges
+  stacks.json           → 31 curated stacks with flow edges
   slots.json            → 20 slot types for the Builder
 lib/
   types.ts              → all TS interfaces + getCategoryColor() + STACK_LAYERS + CATEGORIES
