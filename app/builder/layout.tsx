@@ -1,11 +1,6 @@
-import Navbar from "@/components/ui/Navbar";
-import { getCounts } from "@/lib/data/counts";
-
-export default async function BuilderLayout({ children }: { children: React.ReactNode }) {
-  const counts = await getCounts();
+export default function BuilderLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex flex-col h-screen overflow-hidden">
-      <Navbar counts={counts} />
+    <div className="flex flex-col h-[calc(100vh-56px)] overflow-hidden">
       <main className="flex-1 overflow-hidden">{children}</main>
     </div>
   );

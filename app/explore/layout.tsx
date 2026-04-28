@@ -1,8 +1,6 @@
 import { Suspense } from "react";
-import Navbar from "@/components/ui/Navbar";
 import MyStackTray from "@/components/ui/MyStackTray";
 import { pageMeta } from "@/lib/metadata";
-import { getCounts } from "@/lib/data/counts";
 
 export const metadata = pageMeta({
   title: "Explore",
@@ -12,11 +10,9 @@ export const metadata = pageMeta({
   ogImageAlt: "AIchitect — AI Tool Landscape Map",
 });
 
-export default async function ExploreLayout({ children }: { children: React.ReactNode }) {
-  const counts = await getCounts();
+export default function ExploreLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex flex-col h-screen overflow-hidden">
-      <Navbar counts={counts} />
+    <div className="flex flex-col h-[calc(100vh-56px)] overflow-hidden">
       <main className="flex-1 overflow-hidden">{children}</main>
       <Suspense fallback={null}>
         <MyStackTray />

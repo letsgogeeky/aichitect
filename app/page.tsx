@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Navbar from "@/components/ui/Navbar";
 import Logo from "@/components/ui/Logo";
 import { GITHUB_URL } from "@/lib/constants";
 import { FindMyStackButton } from "@/components/ui/StackQuizModal";
@@ -629,8 +628,6 @@ export default async function LandingPage() {
         overflowX: "hidden",
       }}
     >
-      <Navbar counts={counts} />
-
       {/* ── Hero ── */}
       <section
         style={{

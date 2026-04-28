@@ -1,6 +1,4 @@
-import Navbar from "@/components/ui/Navbar";
 import { pageMeta } from "@/lib/metadata";
-import { getCounts } from "@/lib/data/counts";
 
 export const metadata = pageMeta({
   title: "Stack Genome",
@@ -10,11 +8,9 @@ export const metadata = pageMeta({
   ogImageAlt: "AIchitect Genome — Score Your AI Stack",
 });
 
-export default async function GenomeLayout({ children }: { children: React.ReactNode }) {
-  const counts = await getCounts();
+export default function GenomeLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex flex-col h-screen overflow-hidden">
-      <Navbar counts={counts} />
+    <div className="flex flex-col h-[calc(100vh-56px)] overflow-hidden">
       <main className="flex-1 overflow-hidden">{children}</main>
     </div>
   );

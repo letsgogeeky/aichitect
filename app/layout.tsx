@@ -8,6 +8,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SuggestToolProvider } from "@/components/ui/SuggestToolContext";
 import { WalkthroughProvider } from "@/components/ui/WalkthroughContext";
 import { PostHogProvider } from "@/components/PostHogProvider";
+import Navbar from "@/components/ui/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -88,7 +89,8 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const { toolCount, stackCount } = await getCounts();
+  const counts = await getCounts();
+  const { toolCount, stackCount } = counts;
   return (
     <html lang="en">
       <head>
@@ -122,6 +124,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <PostHogProvider>
           <WalkthroughProvider>
             <SuggestToolProvider>
+              <Navbar counts={counts} />
               {children}
               <Analytics />
               <SpeedInsights />
