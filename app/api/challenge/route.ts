@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
-import { generateChallenge, type ChallengeInput } from "@/lib/ai/challenge";
+import { generateChallenge, type ChallengeInput, type ChallengeOutput } from "@/lib/ai/challenge";
+import { buildAICacheKey, getAICachedResponse, setAICachedResponse } from "@/lib/ai/cache";
 
 export const dynamic = "force-dynamic";
 
@@ -42,8 +43,22 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: `Too many tools — max ${MAX_SLOTS}` }, { status: 400 });
   }
 
+  const cacheKey = buildAICacheKey([
+    "challenge",
+    [...body.filledSlots]
+      .map((s) => s.toolName)
+      .sort()
+      .join(","),
+    body.archetype,
+    body.tier,
+  ]);
+
+  const cached = await getAICachedResponse<ChallengeOutput>(cacheKey);
+  if (cached) return NextResponse.json(cached);
+
   try {
     const result = await generateChallenge(body);
+    void setAICachedResponse(cacheKey, result);
     return NextResponse.json(result);
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);

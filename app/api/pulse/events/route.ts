@@ -1,5 +1,6 @@
 export const dynamic = "force-dynamic";
 
+import { unstable_cache } from "next/cache";
 import { createClient } from "@supabase/supabase-js";
 import { NextRequest, NextResponse } from "next/server";
 import type { ToolEventType, ToolEventMetadata } from "@/lib/types";
@@ -48,6 +49,84 @@ function getAnonClient() {
   return createClient(url, anon);
 }
 
+const fetchSignals = unstable_cache(
+  async (sortedIds: string[]): Promise<ToolRiskSignal[]> => {
+    const db = getAnonClient();
+    if (!db)
+      return sortedIds.map((id) => ({
+        tool_id: id,
+        signal: null,
+        event_type: null,
+        detected_at: null,
+        metadata: null,
+      }));
+
+    const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+
+    const { data: events, error } = await db
+      .from("tool_events")
+      .select("tool_id, type, detected_at, metadata")
+      .in("tool_id", sortedIds)
+      .gte("detected_at", thirtyDaysAgo)
+      .order("detected_at", { ascending: false });
+
+    if (error)
+      return sortedIds.map((id) => ({
+        tool_id: id,
+        signal: null,
+        event_type: null,
+        detected_at: null,
+        metadata: null,
+      }));
+
+    const signalMap = new Map<string, ToolRiskSignal>();
+
+    for (const ev of events ?? []) {
+      const signal = classifyEvent(
+        ev.type as ToolEventType,
+        (ev.metadata ?? {}) as ToolEventMetadata
+      );
+      if (!signal) continue;
+
+      const existing = signalMap.get(ev.tool_id);
+      if (!existing) {
+        signalMap.set(ev.tool_id, {
+          tool_id: ev.tool_id as string,
+          signal,
+          event_type: ev.type as ToolEventType,
+          detected_at: ev.detected_at as string,
+          metadata: (ev.metadata ?? {}) as ToolEventMetadata,
+        });
+      } else {
+        const existingPriority = SIGNAL_PRIORITY.indexOf(existing.signal!);
+        const newPriority = SIGNAL_PRIORITY.indexOf(signal);
+        if (newPriority < existingPriority) {
+          signalMap.set(ev.tool_id, {
+            tool_id: ev.tool_id as string,
+            signal,
+            event_type: ev.type as ToolEventType,
+            detected_at: ev.detected_at as string,
+            metadata: (ev.metadata ?? {}) as ToolEventMetadata,
+          });
+        }
+      }
+    }
+
+    return sortedIds.map(
+      (id) =>
+        signalMap.get(id) ?? {
+          tool_id: id,
+          signal: null,
+          event_type: null,
+          detected_at: null,
+          metadata: null,
+        }
+    );
+  },
+  ["pulse-signals"],
+  { revalidate: 300 }
+);
+
 export async function POST(req: NextRequest) {
   let body: unknown;
   try {
@@ -64,75 +143,13 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const db = getAnonClient();
-  if (!db) {
-    const signals: ToolRiskSignal[] = tool_ids.map((id) => ({
-      tool_id: id as string,
-      signal: null,
-      event_type: null,
-      detected_at: null,
-      metadata: null,
-    }));
-    return NextResponse.json({ signals } satisfies EventsResponse);
-  }
+  const sortedIds = [...tool_ids].sort() as string[];
+  const signals = await fetchSignals(sortedIds);
 
-  const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
-
-  const { data: events, error } = await db
-    .from("tool_events")
-    .select("tool_id, type, detected_at, metadata")
-    .in("tool_id", tool_ids)
-    .gte("detected_at", thirtyDaysAgo)
-    .order("detected_at", { ascending: false });
-
-  if (error) {
-    const signals: ToolRiskSignal[] = tool_ids.map((id) => ({
-      tool_id: id as string,
-      signal: null,
-      event_type: null,
-      detected_at: null,
-      metadata: null,
-    }));
-    return NextResponse.json({ signals } satisfies EventsResponse);
-  }
-
-  // Build signal map: for each tool, keep the highest-priority signal
-  const signalMap = new Map<string, ToolRiskSignal>();
-
-  for (const ev of events ?? []) {
-    const signal = classifyEvent(
-      ev.type as ToolEventType,
-      (ev.metadata ?? {}) as ToolEventMetadata
-    );
-    if (!signal) continue;
-
-    const existing = signalMap.get(ev.tool_id);
-    if (!existing) {
-      signalMap.set(ev.tool_id, {
-        tool_id: ev.tool_id as string,
-        signal,
-        event_type: ev.type as ToolEventType,
-        detected_at: ev.detected_at as string,
-        metadata: (ev.metadata ?? {}) as ToolEventMetadata,
-      });
-    } else {
-      // Replace only if the new signal has higher priority
-      const existingPriority = SIGNAL_PRIORITY.indexOf(existing.signal!);
-      const newPriority = SIGNAL_PRIORITY.indexOf(signal);
-      if (newPriority < existingPriority) {
-        signalMap.set(ev.tool_id, {
-          tool_id: ev.tool_id as string,
-          signal,
-          event_type: ev.type as ToolEventType,
-          detected_at: ev.detected_at as string,
-          metadata: (ev.metadata ?? {}) as ToolEventMetadata,
-        });
-      }
-    }
-  }
-
-  const signals: ToolRiskSignal[] = tool_ids.map((id) => {
-    return (
+  // Re-order signals to match the original request order
+  const signalMap = new Map(signals.map((s) => [s.tool_id, s]));
+  const ordered: ToolRiskSignal[] = tool_ids.map(
+    (id) =>
       signalMap.get(id as string) ?? {
         tool_id: id as string,
         signal: null,
@@ -140,8 +157,7 @@ export async function POST(req: NextRequest) {
         detected_at: null,
         metadata: null,
       }
-    );
-  });
+  );
 
-  return NextResponse.json({ signals } satisfies EventsResponse);
+  return NextResponse.json({ signals: ordered } satisfies EventsResponse);
 }

@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
-import { generateRoast, type RoastInput } from "@/lib/ai/roast";
+import { generateRoast, type RoastInput, type RoastOutput } from "@/lib/ai/roast";
+import { buildAICacheKey, getAICachedResponse, setAICachedResponse } from "@/lib/ai/cache";
 
 export const dynamic = "force-dynamic";
 
@@ -42,8 +43,19 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: `Too many tools — max ${MAX_TOOLS}` }, { status: 400 });
   }
 
+  const cacheKey = buildAICacheKey([
+    "roast",
+    [...body.tools].sort().join(","),
+    body.tier,
+    String(body.roastnessLevel ?? 3),
+  ]);
+
+  const cached = await getAICachedResponse<RoastOutput>(cacheKey);
+  if (cached) return NextResponse.json(cached);
+
   try {
     const result = await generateRoast(body);
+    void setAICachedResponse(cacheKey, result);
     return NextResponse.json(result);
   } catch (err) {
     const msg = err instanceof Error ? err.message : String(err);

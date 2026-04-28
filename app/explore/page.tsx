@@ -1,3 +1,5 @@
+export const revalidate = 86400;
+
 import { Suspense } from "react";
 import { Metadata } from "next";
 import ExploreGraph from "@/components/graph/ExploreGraph";

@@ -121,5 +121,9 @@ export async function GET(req: NextRequest) {
 
   const next_cursor = hasMore ? (items[items.length - 1].detected_at as string) : null;
 
-  return NextResponse.json({ events, next_cursor } satisfies FeedResponse);
+  const headers = savedOnly
+    ? undefined
+    : { "Cache-Control": "public, s-maxage=60, stale-while-revalidate=300" };
+
+  return NextResponse.json({ events, next_cursor } satisfies FeedResponse, { headers });
 }

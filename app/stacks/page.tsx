@@ -1,3 +1,5 @@
+export const revalidate = 86400;
+
 import { redirect } from "next/navigation";
 import { loadStacksData } from "@/lib/data-loaders";
 import StacksClient from "./StacksClient";

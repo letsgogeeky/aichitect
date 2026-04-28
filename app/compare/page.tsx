@@ -1,3 +1,5 @@
+export const revalidate = 3600;
+
 import { getTools } from "@/lib/data/tools";
 import { getRelationships } from "@/lib/data/relationships";
 import CompareClient from "./CompareClient";

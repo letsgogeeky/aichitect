@@ -1,14 +1,23 @@
+import { unstable_cache } from "next/cache";
 import { supabase } from "@/lib/db";
 import type { Tool } from "@/lib/types";
 import toolsJson from "@/data/tools.json";
 
 const fallback = toolsJson as Tool[];
 
+const _getTools = unstable_cache(
+  async (): Promise<Tool[]> => {
+    if (!supabase) return fallback;
+    const { data, error } = await supabase.from("tools").select("*").order("name");
+    if (error || !data?.length) return fallback;
+    return data as unknown as Tool[];
+  },
+  ["tools-all"],
+  { revalidate: 3600, tags: ["tools"] }
+);
+
 export async function getTools(): Promise<Tool[]> {
-  if (!supabase) return fallback;
-  const { data, error } = await supabase.from("tools").select("*").order("name");
-  if (error || !data?.length) return fallback;
-  return data as unknown as Tool[];
+  return _getTools();
 }
 
 export async function getToolById(id: string): Promise<Tool | null> {
