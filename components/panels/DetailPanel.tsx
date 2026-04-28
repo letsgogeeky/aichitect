@@ -16,6 +16,7 @@ import { CloseButton } from "@/components/ui/CloseButton";
 import { ColorDot } from "@/components/ui/ColorDot";
 import { ToolUsageButton } from "@/components/ui/ToolUsageButton";
 import { SITE_URL } from "@/lib/constants";
+import { TrajectorySparkline } from "@/components/panels/TrajectorySparkline";
 
 const relationships = relationshipsData as Relationship[];
 const allTools = toolsData as Tool[];
@@ -217,6 +218,16 @@ export default function DetailPanel({ tool, onClose }: Props) {
 
         {/* Description */}
         <p className="type-body text-[var(--text-secondary)]">{tool.description}</p>
+
+        {/* Trajectory sparkline */}
+        {tool.github_url && (
+          <div>
+            <h3 className="type-overline text-[var(--text-muted)] mb-2">
+              90-day trajectory · health score + stars
+            </h3>
+            <TrajectorySparkline toolId={tool.id} categoryColor={color} />
+          </div>
+        )}
 
         {/* Community usage */}
         {usage && usage.count > 0 && (

@@ -183,6 +183,32 @@ function BuilderPageContent({
     clearCompare,
   } = useBuilderState(slots, allTools);
 
+  function handleSeeAlternatives(slotId: string, selectedToolId: string) {
+    const slot = slots.find((s) => s.id === slotId);
+    if (!slot) return;
+
+    const slotTools = slot.tools
+      .map((id) => allTools.find((t) => t.id === id))
+      .filter((t): t is Tool => t != null);
+
+    const alternatives = slotTools
+      .filter((t) => t.id !== selectedToolId)
+      .sort((a, b) => {
+        if (a.health_score == null && b.health_score == null)
+          return (b.github_stars ?? 0) - (a.github_stars ?? 0);
+        if (a.health_score == null) return 1;
+        if (b.health_score == null) return -1;
+        return b.health_score - a.health_score;
+      });
+
+    const currentTool = allTools.find((t) => t.id === selectedToolId);
+    const topAlternative = alternatives[0];
+    if (currentTool && topAlternative) {
+      setCompareA(currentTool);
+      setCompareB(topAlternative);
+    }
+  }
+
   const badgeUrl = `${SITE_URL}/badge?s=${stackParam}`;
   const badgeMarkdown = `[![AI Stack](${badgeUrl})](${SITE_URL}/builder?s=${stackParam})`;
 
@@ -210,6 +236,7 @@ function BuilderPageContent({
         onCompareClick={handleCompareClick}
         onClearCompare={clearCompare}
         onOpenQuiz={() => setQuizOpen(true)}
+        onSeeAlternatives={handleSeeAlternatives}
       />
 
       {/* Builder graph */}

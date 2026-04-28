@@ -26,7 +26,7 @@ rebuild: ## Full rebuild: install packages, build image, wipe volumes, start fre
 	$(COMPOSE) build
 	$(COMPOSE) down -v
 	$(COMPOSE) up -d
-	@echo "→ http://localhost:3000"
+	@echo "→ http://localhost:3002"
 
 logs: ## Tail container logs
 	$(COMPOSE) logs -f

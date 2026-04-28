@@ -13,6 +13,7 @@ import BottomSheet from "./BottomSheet";
 import { getToolHealthDetails, ToolHealthDetails } from "@/lib/data/tools";
 import { formatRelativeTime, formatStarDelta } from "@/lib/format";
 import { healthColor, healthLabel } from "@/lib/health";
+import { TrajectorySparkline } from "@/components/panels/TrajectorySparkline";
 
 const relationships = relationshipsData as Relationship[];
 const allTools = toolsData as Tool[];
@@ -186,6 +187,19 @@ export default function ToolDetailSheet({ tool, open, onClose }: Props) {
           <p className="text-xs leading-relaxed" style={{ color: "var(--text-secondary)" }}>
             {tool.description}
           </p>
+
+          {/* Trajectory sparkline */}
+          {tool.github_url && (
+            <div>
+              <h3
+                className="text-[10px] font-semibold uppercase tracking-widest mb-2"
+                style={{ color: "var(--text-muted)" }}
+              >
+                90-day trajectory · health + stars
+              </h3>
+              <TrajectorySparkline toolId={tool.id} categoryColor={color} />
+            </div>
+          )}
 
           {/* Pricing */}
           <div>

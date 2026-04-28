@@ -1,11 +1,13 @@
 "use client";
 
 import type { MouseEvent } from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Slot, Tool, StackArchetype, getCategoryColor } from "@/lib/types";
 import { CloseButton } from "@/components/ui/CloseButton";
 import { SLOT_AUTONOMY } from "@/lib/stackStory";
 import StackHealthPanel from "@/components/panels/StackHealthPanel";
+import { SlotRiskBadge } from "@/components/panels/SlotRiskBadge";
+import type { ToolRiskSignal } from "@/app/api/pulse/events/route";
 import Link from "next/link";
 import { ToolUsageButton } from "@/components/ui/ToolUsageButton";
 import { useUser } from "@/hooks/useUser";
@@ -25,6 +27,7 @@ export function BuilderSlotList({
   onCompareClick,
   onClearCompare,
   onOpenQuiz,
+  onSeeAlternatives,
 }: {
   slots: Slot[];
   allTools: Tool[];
@@ -40,12 +43,40 @@ export function BuilderSlotList({
   onCompareClick: (tool: Tool, e: MouseEvent) => void;
   onClearCompare: () => void;
   onOpenQuiz: () => void;
+  onSeeAlternatives?: (slotId: string, selectedToolId: string) => void;
 }) {
   const [showNotApplicable, setShowNotApplicable] = useState(false);
   const [saveState, setSaveState] = useState<"idle" | "saving" | "saved" | "error">("idle");
   const [saveName, setSaveName] = useState("");
   const [showSaveForm, setShowSaveForm] = useState(false);
+  const [signals, setSignals] = useState<Record<string, ToolRiskSignal>>({});
   const { user, refreshSavedStacks } = useUser();
+
+  useEffect(() => {
+    const toolIds = Object.values(selected).filter(Boolean);
+    if (toolIds.length === 0) {
+      setSignals({});
+      return;
+    }
+    const timer = setTimeout(() => {
+      fetch("/api/pulse/events", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tool_ids: toolIds }),
+      })
+        .then((r) => (r.ok ? r.json() : null))
+        .then((data) => {
+          if (!data?.signals) return;
+          const map: Record<string, ToolRiskSignal> = {};
+          for (const sig of data.signals as ToolRiskSignal[]) {
+            if (sig.signal) map[sig.tool_id] = sig;
+          }
+          setSignals(map);
+        })
+        .catch(() => {});
+    }, 400);
+    return () => clearTimeout(timer);
+  }, [selected]);
 
   async function saveStack() {
     if (!saveName.trim()) return;
@@ -258,6 +289,7 @@ export function BuilderSlotList({
             .filter(Boolean) as Tool[];
           const isOpen = !collapsedSlots[slot.id];
           const selectedTool = slotTools.find((t) => t.id === selectedId);
+          const selectedSignal = selectedTool ? signals[selectedTool.id] : undefined;
 
           return (
             <div key={slot.id}>
@@ -310,6 +342,20 @@ export function BuilderSlotList({
                 </div>
               </button>
 
+              {/* Risk badge — collapsed state, outside toggle button to avoid propagation */}
+              {!isOpen && selectedTool && selectedSignal?.signal && (
+                <div className="pl-4 mb-1">
+                  <SlotRiskBadge
+                    signal={selectedSignal}
+                    onSeeAlternatives={
+                      onSeeAlternatives
+                        ? () => onSeeAlternatives(slot.id, selectedTool.id)
+                        : undefined
+                    }
+                  />
+                </div>
+              )}
+
               {isOpen && (
                 <>
                   <p className="text-xs text-[var(--text-muted)] mb-1.5 pl-4 leading-relaxed">
@@ -322,72 +368,90 @@ export function BuilderSlotList({
                       const isCompareA = compareA?.id === t.id;
                       const isCompareB = compareB?.id === t.id;
                       const isCompared = isCompareA || isCompareB;
+                      const toolSignal = active ? signals[t.id] : undefined;
                       return (
-                        <div key={t.id} className="flex items-center gap-1 group/tool">
-                          <button
-                            onClick={() => onPickTool(slot.id, t.id)}
-                            className="flex-1 flex items-center gap-2 px-2.5 py-2 rounded-lg text-left transition-all"
-                            style={{
-                              background: active ? color + "22" : "var(--surface-2)",
-                              border: active ? `1px solid ${color}66` : "1px solid var(--border)",
-                            }}
-                          >
-                            <div
-                              className="w-1.5 h-1.5 rounded-full flex-shrink-0"
-                              style={{ background: color }}
-                            />
-                            <span
-                              className="text-xs font-medium"
-                              style={{ color: active ? color : "var(--text-primary)" }}
+                        <div key={t.id}>
+                          <div className="flex items-center gap-1 group/tool">
+                            <button
+                              onClick={() => onPickTool(slot.id, t.id)}
+                              className="flex-1 flex items-center gap-2 px-2.5 py-2 rounded-lg text-left transition-all"
+                              style={{
+                                background: active ? color + "22" : "var(--surface-2)",
+                                border: active ? `1px solid ${color}66` : "1px solid var(--border)",
+                              }}
                             >
-                              {t.name}
-                            </span>
-                            {t.type === "oss" && (
-                              <span className="ml-auto text-[10px] text-[var(--success)]">OSS</span>
-                            )}
-                          </button>
-                          {active && <ToolUsageButton toolId={t.id} color={color} compact />}
-                          <button
-                            onClick={(e) => onCompareClick(t, e)}
-                            title={isCompareA ? "Staged for comparison" : `Compare ${t.name}`}
-                            className="flex-shrink-0 w-6 h-6 flex items-center justify-center rounded transition-all"
-                            style={{
-                              opacity: isCompared ? 1 : undefined,
-                              background: isCompared ? "#7c6bff22" : "transparent",
-                              color: isCompared ? "var(--accent)" : "var(--text-muted)",
-                            }}
-                          >
-                            <svg
-                              width="11"
-                              height="11"
-                              viewBox="0 0 12 12"
-                              fill="none"
-                              className={
-                                isCompared
-                                  ? ""
-                                  : "opacity-0 group-hover/tool:opacity-100 transition-opacity"
-                              }
+                              <div
+                                className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                                style={{ background: color }}
+                              />
+                              <span
+                                className="text-xs font-medium"
+                                style={{ color: active ? color : "var(--text-primary)" }}
+                              >
+                                {t.name}
+                              </span>
+                              {t.type === "oss" && (
+                                <span className="ml-auto text-[10px] text-[var(--success)]">
+                                  OSS
+                                </span>
+                              )}
+                            </button>
+                            {active && <ToolUsageButton toolId={t.id} color={color} compact />}
+                            <button
+                              onClick={(e) => onCompareClick(t, e)}
+                              title={isCompareA ? "Staged for comparison" : `Compare ${t.name}`}
+                              className="flex-shrink-0 w-6 h-6 flex items-center justify-center rounded transition-all"
+                              style={{
+                                opacity: isCompared ? 1 : undefined,
+                                background: isCompared ? "#7c6bff22" : "transparent",
+                                color: isCompared ? "var(--accent)" : "var(--text-muted)",
+                              }}
                             >
-                              <rect
-                                x="0.5"
-                                y="0.5"
-                                width="4"
+                              <svg
+                                width="11"
                                 height="11"
-                                rx="1"
-                                stroke="currentColor"
-                                strokeWidth="1.2"
+                                viewBox="0 0 12 12"
+                                fill="none"
+                                className={
+                                  isCompared
+                                    ? ""
+                                    : "opacity-0 group-hover/tool:opacity-100 transition-opacity"
+                                }
+                              >
+                                <rect
+                                  x="0.5"
+                                  y="0.5"
+                                  width="4"
+                                  height="11"
+                                  rx="1"
+                                  stroke="currentColor"
+                                  strokeWidth="1.2"
+                                />
+                                <rect
+                                  x="7.5"
+                                  y="0.5"
+                                  width="4"
+                                  height="11"
+                                  rx="1"
+                                  stroke="currentColor"
+                                  strokeWidth="1.2"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                          {/* Risk badge — open state, shown below the active tool row */}
+                          {toolSignal?.signal && (
+                            <div className="pl-2 mt-0.5 mb-0.5">
+                              <SlotRiskBadge
+                                signal={toolSignal}
+                                onSeeAlternatives={
+                                  onSeeAlternatives
+                                    ? () => onSeeAlternatives(slot.id, t.id)
+                                    : undefined
+                                }
                               />
-                              <rect
-                                x="7.5"
-                                y="0.5"
-                                width="4"
-                                height="11"
-                                rx="1"
-                                stroke="currentColor"
-                                strokeWidth="1.2"
-                              />
-                            </svg>
-                          </button>
+                            </div>
+                          )}
                         </div>
                       );
                     })}

@@ -30,6 +30,7 @@ const VIEWS = [
   { href: "/compare", label: "Compare", Icon: IconCompare },
   { href: "/genome", label: "Genome", Icon: IconGenome },
   { href: "/feed", label: "Activity", Icon: IconActivity },
+  { href: "/pulse", label: "Pulse", Icon: IconActivity },
 ];
 
 function NavViewLinks() {
