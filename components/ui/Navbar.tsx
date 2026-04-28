@@ -22,6 +22,7 @@ import {
 } from "@/components/icons";
 import { useUser } from "@/hooks/useUser";
 import { createSupabaseBrowserClient } from "@/lib/db";
+import { usePostHog } from "posthog-js/react";
 
 const VIEWS = [
   { href: "/stacks", label: "Stacks", Icon: IconLayers },
@@ -84,8 +85,22 @@ export default function Navbar({ counts }: { counts?: Counts }) {
   const { openSuggest } = useSuggestTool();
   const { openWalkthrough } = useWalkthrough();
   const { user, loading: userLoading, signIn, signOut } = useUser();
+  const ph = usePostHog();
 
   const username = user?.user_metadata?.user_name as string | undefined;
+
+  useEffect(() => {
+    if (!ph) return;
+    if (user) {
+      ph.identify(user.id, {
+        github_username: user.user_metadata?.user_name as string | undefined,
+        avatar_url: user.user_metadata?.avatar_url as string | undefined,
+        email: user.email,
+      });
+    } else {
+      ph.reset();
+    }
+  }, [user, ph]);
 
   useEffect(() => {
     if (!user?.id) return;

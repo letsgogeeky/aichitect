@@ -7,6 +7,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SuggestToolProvider } from "@/components/ui/SuggestToolContext";
 import { WalkthroughProvider } from "@/components/ui/WalkthroughContext";
+import { PostHogProvider } from "@/components/PostHogProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -118,13 +119,15 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         />
       </head>
       <body className={inter.className}>
-        <WalkthroughProvider>
-          <SuggestToolProvider>
-            {children}
-            <Analytics />
-            <SpeedInsights />
-          </SuggestToolProvider>
-        </WalkthroughProvider>
+        <PostHogProvider>
+          <WalkthroughProvider>
+            <SuggestToolProvider>
+              {children}
+              <Analytics />
+              <SpeedInsights />
+            </SuggestToolProvider>
+          </WalkthroughProvider>
+        </PostHogProvider>
       </body>
     </html>
   );
