@@ -95,7 +95,25 @@ function StacksContent({
   const [compareA, setCompareA] = useState<Tool | null>(null);
   const [compareB, setCompareB] = useState<Tool | null>(null);
   const [mobileDetailOpen, setMobileDetailOpen] = useState(false);
+  const [mobileWatchState, setMobileWatchState] = useState<"idle" | "saving" | "error">("idle");
   const isMobile = useIsMobile();
+
+  async function saveAndWatchMobile() {
+    setMobileWatchState("saving");
+    try {
+      const res = await fetch("/api/stacks", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: selected.name, tool_ids: selected.tools }),
+      });
+      if (!res.ok) throw new Error();
+      const saved = await res.json();
+      router.push(`/watch/${saved.id}`);
+    } catch {
+      setMobileWatchState("error");
+      setTimeout(() => setMobileWatchState("idle"), 2000);
+    }
+  }
 
   function selectCluster(cluster: StackCluster) {
     router.push(`/stacks?cluster=${cluster}`, { scroll: false });
@@ -332,18 +350,37 @@ function StacksContent({
               </p>
             </div>
           )}
-          <Link
-            href={builderUrl}
-            className="flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-semibold"
-            style={{
-              background: accentColor + "20",
-              border: `1px solid ${accentColor}44`,
-              color: accentColor,
-              textDecoration: "none",
-            }}
-          >
-            Try in Builder →
-          </Link>
+          <div className="flex gap-2">
+            <button
+              onClick={saveAndWatchMobile}
+              disabled={mobileWatchState === "saving"}
+              className="flex-1 flex items-center justify-center py-2.5 rounded-lg text-sm font-semibold transition-all"
+              style={{
+                background: mobileWatchState === "error" ? "#ff6b6b18" : "#7c6bff18",
+                border: `1px solid ${mobileWatchState === "error" ? "#ff6b6b44" : "#7c6bff44"}`,
+                color: mobileWatchState === "error" ? "#ff6b6b" : "var(--accent)",
+                opacity: mobileWatchState === "saving" ? 0.6 : 1,
+              }}
+            >
+              {mobileWatchState === "saving"
+                ? "Saving…"
+                : mobileWatchState === "error"
+                  ? "Failed"
+                  : "Watch →"}
+            </button>
+            <Link
+              href={builderUrl}
+              className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-semibold"
+              style={{
+                background: accentColor + "20",
+                border: `1px solid ${accentColor}44`,
+                color: accentColor,
+                textDecoration: "none",
+              }}
+            >
+              Try in Builder →
+            </Link>
+          </div>
         </div>
       </BottomSheet>
     </div>

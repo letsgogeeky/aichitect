@@ -2,12 +2,14 @@
 
 import { useState, Suspense } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import DetailPanel from "@/components/panels/DetailPanel";
 import { useGenomeData } from "../GenomeContext";
 import { GenomeReport, GenomeTier, TIER_COLORS } from "@/lib/genomeAnalysis";
 import { getCategoryColor, Tool, StackArchetype } from "@/lib/types";
 import { SITE_URL } from "@/lib/constants";
 import { detectGraduation } from "@/lib/graduationDetection";
+import { useUser } from "@/hooks/useUser";
 import { FitnessGauge } from "./FitnessGauge";
 import { Stat } from "./Stat";
 import { SlotGrid } from "./SlotGrid";
@@ -96,8 +98,11 @@ export function ResultsView({
   onReset: () => void;
 }) {
   const { allSlots, allStacks } = useGenomeData();
+  const { user } = useUser();
+  const router = useRouter();
   const [copied, setCopied] = useState(false);
   const [detailTool, setDetailTool] = useState<Tool | null>(null);
+  const [saveState, setSaveState] = useState<"idle" | "saving" | "error">("idle");
 
   const graduation = detectGraduation(allIds, allStacks);
   const genomeUrl = `${SITE_URL}/genome?deps=${allIds.join(",")}`;
@@ -119,6 +124,28 @@ export function ResultsView({
       "_blank",
       "noopener,noreferrer"
     );
+  }
+
+  async function saveAndWatch() {
+    if (!user) {
+      router.push("/");
+      return;
+    }
+    setSaveState("saving");
+    const date = new Date().toLocaleDateString("en-US", { month: "short", day: "numeric" });
+    try {
+      const res = await fetch("/api/stacks", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: `My stack — ${date}`, tool_ids: allIds }),
+      });
+      if (!res.ok) throw new Error();
+      const saved = await res.json();
+      router.push(`/watch/${saved.id}`);
+    } catch {
+      setSaveState("error");
+      setTimeout(() => setSaveState("idle"), 2000);
+    }
   }
 
   return (
@@ -224,6 +251,33 @@ export function ResultsView({
             }}
           >
             {copied ? "Copied!" : "Copy link"}
+          </button>
+          <button
+            onClick={saveAndWatch}
+            disabled={saveState === "saving"}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              padding: "0 12px",
+              height: 32,
+              borderRadius: 8,
+              fontSize: 12,
+              fontWeight: 500,
+              background: saveState === "error" ? "#ff6b6b18" : "#7c6bff18",
+              border: `1px solid ${saveState === "error" ? "#ff6b6b44" : "#7c6bff44"}`,
+              color: saveState === "error" ? "#ff6b6b" : "var(--accent)",
+              cursor: saveState === "saving" ? "default" : "pointer",
+              opacity: saveState === "saving" ? 0.6 : 1,
+              whiteSpace: "nowrap",
+            }}
+          >
+            {saveState === "saving"
+              ? "Saving…"
+              : saveState === "error"
+                ? "Failed — retry"
+                : user
+                  ? "Save & Watch →"
+                  : "Sign in to watch →"}
           </button>
           <Link
             href={`/builder?s=${allIds.join(",")}`}

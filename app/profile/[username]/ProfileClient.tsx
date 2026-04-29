@@ -299,7 +299,7 @@ export default function ProfileClient({ username }: Props) {
                     </p>
                   </div>
                   <Link
-                    href={`/builder?s=${stack.tool_ids.join(",")}`}
+                    href={`/watch/${stack.id}`}
                     className="text-[10px] font-medium px-2 py-1 rounded-md flex-shrink-0 transition-colors"
                     style={{
                       background: "#7c6bff18",
@@ -307,7 +307,18 @@ export default function ProfileClient({ username }: Props) {
                       border: "1px solid #7c6bff33",
                     }}
                   >
-                    Open →
+                    Watch →
+                  </Link>
+                  <Link
+                    href={`/builder?s=${stack.tool_ids.join(",")}`}
+                    className="text-[10px] font-medium px-2 py-1 rounded-md flex-shrink-0 transition-colors"
+                    style={{
+                      background: "var(--surface-2)",
+                      color: "var(--text-muted)",
+                      border: "1px solid var(--border)",
+                    }}
+                  >
+                    Edit
                   </Link>
                   <button
                     onClick={() => deleteStack(stack.id)}

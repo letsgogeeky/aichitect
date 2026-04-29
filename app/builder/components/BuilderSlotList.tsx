@@ -49,6 +49,7 @@ export function BuilderSlotList({
   const [saveState, setSaveState] = useState<"idle" | "saving" | "saved" | "error">("idle");
   const [saveName, setSaveName] = useState("");
   const [showSaveForm, setShowSaveForm] = useState(false);
+  const [savedStackId, setSavedStackId] = useState<string | null>(null);
   const [signals, setSignals] = useState<Record<string, ToolRiskSignal>>({});
   const { user, refreshSavedStacks } = useUser();
 
@@ -89,6 +90,8 @@ export function BuilderSlotList({
         body: JSON.stringify({ name: saveName.trim(), tool_ids: toolIds }),
       });
       if (!res.ok) throw new Error();
+      const saved = await res.json();
+      setSavedStackId(saved.id as string);
       setSaveState("saved");
       refreshSavedStacks();
       setTimeout(() => {
@@ -276,6 +279,19 @@ export function BuilderSlotList({
                   <p className="text-[10px]" style={{ color: "var(--danger, #ff6b6b)" }}>
                     Failed to save. Try again.
                   </p>
+                )}
+                {saveState === "saved" && savedStackId && (
+                  <Link
+                    href={`/watch/${savedStackId}`}
+                    className="flex items-center justify-center gap-1 w-full py-1.5 rounded-lg text-[10px] font-medium"
+                    style={{
+                      background: "#7c6bff18",
+                      border: "1px solid #7c6bff33",
+                      color: "var(--accent)",
+                    }}
+                  >
+                    Watch this stack →
+                  </Link>
                 )}
               </div>
             )}

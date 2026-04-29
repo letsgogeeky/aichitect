@@ -2,10 +2,12 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Stack, Tool, StackCluster, getCategoryColor } from "@/lib/types";
 import { COMPLEXITY_META } from "../stacksConstants";
 import { CloseButton } from "@/components/ui/CloseButton";
 import { ProductionUsageSection } from "@/components/ui/ProductionUsageSection";
+import { useUser } from "@/hooks/useUser";
 
 export function StackDetailHeader({
   selected,
@@ -35,6 +37,30 @@ export function StackDetailHeader({
   onClearCompare: () => void;
 }) {
   const [killOpen, setKillOpen] = useState(false);
+  const [watchState, setWatchState] = useState<"idle" | "saving" | "error">("idle");
+  const { user } = useUser();
+  const router = useRouter();
+
+  async function saveAndWatch() {
+    if (!user) {
+      router.push("/");
+      return;
+    }
+    setWatchState("saving");
+    try {
+      const res = await fetch("/api/stacks", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: selected.name, tool_ids: selected.tools }),
+      });
+      if (!res.ok) throw new Error();
+      const saved = await res.json();
+      router.push(`/watch/${saved.id}`);
+    } catch {
+      setWatchState("error");
+      setTimeout(() => setWatchState("idle"), 2000);
+    }
+  }
 
   const selectedTools = selected.tools
     .map((id) => allTools.find((t) => t.id === id))
@@ -88,6 +114,23 @@ export function StackDetailHeader({
         </div>
         <div className="flex items-center gap-2 flex-shrink-0">
           <ProductionUsageSection stackId={selected.id} />
+          <button
+            onClick={saveAndWatch}
+            disabled={watchState === "saving"}
+            className="flex items-center gap-1.5 flex-shrink-0 type-label transition-all"
+            style={{
+              padding: "0 14px",
+              height: 32,
+              borderRadius: 7,
+              background: watchState === "error" ? "#ff6b6b18" : "#7c6bff18",
+              border: `1px solid ${watchState === "error" ? "#ff6b6b44" : "#7c6bff44"}`,
+              color: watchState === "error" ? "#ff6b6b" : "var(--accent)",
+              opacity: watchState === "saving" ? 0.6 : 1,
+              cursor: watchState === "saving" ? "default" : "pointer",
+            }}
+          >
+            {watchState === "saving" ? "Saving…" : watchState === "error" ? "Failed" : "Watch →"}
+          </button>
           <Link
             data-tour="stacks-builder-cta"
             href={builderUrl}
