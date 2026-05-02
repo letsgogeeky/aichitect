@@ -3,6 +3,15 @@ import toolsData from "@/data/tools.json";
 import type { Tool } from "@/lib/types";
 import { getCategoryColor } from "@/lib/types";
 
+function escapeXml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+}
+
 export const runtime = "edge";
 
 export async function GET(_req: NextRequest, { params }: { params: Promise<{ toolId: string }> }) {
@@ -19,7 +28,7 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ too
   }
 
   const color = getCategoryColor(tool.category);
-  const label = tool.name;
+  const label = escapeXml(tool.name);
   const value = "on AIchitect";
 
   // Approximate text widths (6.5px per char at 11px font)

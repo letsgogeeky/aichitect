@@ -65,7 +65,7 @@ export default function DetailPanel({ tool, onClose }: Props) {
   function copyBadge() {
     if (!tool) return;
     const badgeUrl = `${SITE_URL}/badge/tool/${tool.id}`;
-    const markdown = `[![${tool.name}](${badgeUrl})](${SITE_URL}/tool/${tool.id})`;
+    const markdown = `[![${tool.name}](${badgeUrl})](${SITE_URL}/explore?s=${tool.id})`;
     navigator.clipboard.writeText(markdown).then(() => {
       setCopiedBadge(true);
       setTimeout(() => setCopiedBadge(false), 2000);

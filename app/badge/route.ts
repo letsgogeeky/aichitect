@@ -2,6 +2,15 @@ import { NextRequest, NextResponse } from "next/server";
 import toolsData from "@/data/tools.json";
 import type { Tool } from "@/lib/types";
 
+function escapeXml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+}
+
 export const runtime = "edge";
 
 export function GET(req: NextRequest) {
@@ -14,12 +23,13 @@ export function GET(req: NextRequest) {
   const label = "AI Stack";
   const MAX_SHOWN = 5;
   const toolNames = tools.map((t) => t.name);
-  const names =
+  const rawNames =
     toolNames.length === 0
       ? "aichitect.dev"
       : toolNames.length > MAX_SHOWN
         ? toolNames.slice(0, MAX_SHOWN).join(" · ") + ` +${toolNames.length - MAX_SHOWN} more`
         : toolNames.join(" · ");
+  const names = escapeXml(rawNames);
 
   // Approximate text widths (7px per char at 11px font)
   const labelW = label.length * 6.5 + 16;
