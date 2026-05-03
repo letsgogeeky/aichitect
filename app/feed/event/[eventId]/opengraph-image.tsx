@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
 import { supabase } from "@/lib/db";
 import { getCategoryColor, CATEGORIES, type CategoryId, type ToolEventType } from "@/lib/types";
+import { SITE_HOST } from "@/lib/constants";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
@@ -246,7 +247,7 @@ export default async function Image({ params }: Props) {
         {/* Bottom */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <span style={{ fontSize: 14, color: "#2a2a44" }}>
-            Detected {detectedDate} · aichitect.dev
+            Detected {detectedDate} · {SITE_HOST}
           </span>
           <span style={{ fontSize: 14, color: "#2a2a44" }}>cut the noise. pick your AI stack.</span>
         </div>

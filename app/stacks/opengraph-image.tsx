@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { SITE_HOST } from "@/lib/constants";
 
 export const runtime = "edge";
 export const size = { width: 1200, height: 630 };
@@ -139,7 +140,7 @@ export default function Image() {
           display: "flex",
         }}
       >
-        aichitect.dev · cut the noise, pick your stack
+        {SITE_HOST} · cut the noise, pick your stack
       </div>
     </div>,
     { ...size }

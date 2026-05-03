@@ -2,7 +2,8 @@ import tools from "@/data/tools.json";
 import stacks from "@/data/stacks.json";
 import relationships from "@/data/relationships.json";
 
-export const SITE_URL = "https://aichitect.dev";
+export const SITE_HOST = "www.aichitect.dev";
+export const SITE_URL = `https://${SITE_HOST}`;
 export const GITHUB_URL = "https://github.com/letsgogeeky/aichitect";
 export const GITHUB_SUGGEST_URL = `${GITHUB_URL}/issues/new?labels=suggested-tool`;
 

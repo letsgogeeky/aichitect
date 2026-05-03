@@ -4,8 +4,7 @@ import { getRelationships } from "@/lib/data/relationships";
 import { getStacks } from "@/lib/data/stacks";
 import { getComparePairs } from "@/lib/data/comparePairs";
 import { CATEGORIES } from "@/lib/types";
-
-const BASE = "https://aichitect.dev";
+import { SITE_URL as BASE } from "@/lib/constants";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();

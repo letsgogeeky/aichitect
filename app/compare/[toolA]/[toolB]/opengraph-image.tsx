@@ -2,6 +2,7 @@ import { ImageResponse } from "next/og";
 import toolsData from "@/data/tools.json";
 import { getCategoryColor } from "@/lib/types";
 import type { Tool } from "@/lib/types";
+import { SITE_HOST } from "@/lib/constants";
 
 export const runtime = "edge";
 export const size = { width: 1200, height: 630 };
@@ -158,12 +159,12 @@ export default async function Image({
           </div>
 
           <div style={{ marginTop: 40, fontSize: 13, color: "#333355", letterSpacing: 0.3 }}>
-            aichitect.dev · compare AI tools side by side
+            {SITE_HOST} · compare AI tools side by side
           </div>
         </>
       ) : (
         <div style={{ fontSize: 22, color: "#8888aa", textAlign: "center" }}>
-          AI Tool Comparison — aichitect.dev
+          AI Tool Comparison — {SITE_HOST}
         </div>
       )}
     </div>,

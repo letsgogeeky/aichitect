@@ -2,6 +2,7 @@ import { ImageResponse } from "next/og";
 import toolsData from "@/data/tools.json";
 import { getCategoryColor } from "@/lib/types";
 import type { Tool } from "@/lib/types";
+import { SITE_HOST } from "@/lib/constants";
 
 export const runtime = "edge";
 export const size = { width: 1200, height: 630 };
@@ -201,7 +202,7 @@ export default async function Image({ searchParams }: { searchParams: Promise<{ 
               letterSpacing: 0.2,
             }}
           >
-            {hasTools ? "Built with AIchitect · aichitect.dev" : "Build yours at aichitect.dev"}
+            {hasTools ? `Built with AIchitect · ${SITE_HOST}` : `Build yours at ${SITE_HOST}`}
           </div>
         </div>
 
@@ -295,7 +296,7 @@ export default async function Image({ searchParams }: { searchParams: Promise<{ 
             justifyContent: "space-between",
           }}
         >
-          <span style={{ fontSize: 14, color: "#2a2a44" }}>aichitect.dev</span>
+          <span style={{ fontSize: 14, color: "#2a2a44" }}>{SITE_HOST}</span>
           <span style={{ fontSize: 14, color: "#2a2a44" }}>cut the noise. pick your AI stack.</span>
         </div>
       </div>

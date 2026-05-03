@@ -4,6 +4,7 @@ import toolsData from "@/data/tools.json";
 import stacksData from "@/data/stacks.json";
 import { getCategoryColor } from "@/lib/types";
 import type { Tool, Stack } from "@/lib/types";
+import { SITE_HOST } from "@/lib/constants";
 
 export const runtime = "edge";
 
@@ -235,7 +236,7 @@ export async function GET(request: NextRequest) {
         {/* ── FOOTER ── */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
-            <span style={{ fontSize: 14, color: "#2a2a44" }}>aichitect.dev</span>
+            <span style={{ fontSize: 14, color: "#2a2a44" }}>{SITE_HOST}</span>
             {rejectedCount > 0 && (
               <span style={{ fontSize: 13, color: "#3a3a55" }}>
                 {rejectedCount} tool{rejectedCount !== 1 ? "s" : ""} rejected

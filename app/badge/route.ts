@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import toolsData from "@/data/tools.json";
 import type { Tool } from "@/lib/types";
+import { SITE_HOST } from "@/lib/constants";
 
 function escapeXml(str: string): string {
   return str
@@ -25,7 +26,7 @@ export function GET(req: NextRequest) {
   const toolNames = tools.map((t) => t.name);
   const rawNames =
     toolNames.length === 0
-      ? "aichitect.dev"
+      ? SITE_HOST
       : toolNames.length > MAX_SHOWN
         ? toolNames.slice(0, MAX_SHOWN).join(" · ") + ` +${toolNames.length - MAX_SHOWN} more`
         : toolNames.join(" · ");

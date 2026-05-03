@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { CATEGORIES, CategoryId } from "@/lib/types";
 import toolsData from "@/data/tools.json";
 import { Tool } from "@/lib/types";
-import { GITHUB_URL, GITHUB_SUGGEST_URL, SITE_URL } from "@/lib/constants";
+import { GITHUB_URL, GITHUB_SUGGEST_URL, SITE_URL, SITE_HOST } from "@/lib/constants";
 
 const allTools = toolsData as Tool[];
 
@@ -687,7 +687,7 @@ export default function SuggestToolModal({ onClose, prefillName = "" }: Props) {
       jsonBlock,
       "```",
       "",
-      `*Submitted via [aichitect.dev](${SITE_URL})*`,
+      `*Submitted via [${SITE_HOST}](${SITE_URL})*`,
     ].join("\n");
 
     return `${GITHUB_URL}/issues/new?title=${encodeURIComponent(title)}&body=${encodeURIComponent(body)}&labels=suggested-tool`;

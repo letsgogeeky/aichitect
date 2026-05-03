@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { TOOL_COUNT, CATEGORY_COUNT } from "@/lib/constants";
+import { TOOL_COUNT, CATEGORY_COUNT, SITE_HOST } from "@/lib/constants";
 
 export const runtime = "edge";
 export const size = { width: 1200, height: 630 };
@@ -157,7 +157,7 @@ export default function Image() {
           display: "flex",
         }}
       >
-        aichitect.dev
+        {SITE_HOST}
       </div>
     </div>,
     { ...size }

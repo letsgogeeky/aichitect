@@ -4,6 +4,7 @@ import toolsData from "@/data/tools.json";
 import relationshipsData from "@/data/relationships.json";
 import { getCategoryColor } from "@/lib/types";
 import type { Tool, Relationship } from "@/lib/types";
+import { SITE_HOST } from "@/lib/constants";
 
 export const runtime = "edge";
 
@@ -247,7 +248,7 @@ export async function GET(request: NextRequest) {
           )}
 
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            <span style={{ fontSize: 14, color: "#2a2a44" }}>aichitect.dev/explore</span>
+            <span style={{ fontSize: 14, color: "#2a2a44" }}>{SITE_HOST}/explore</span>
             <span style={{ fontSize: 14, color: "#2a2a44" }}>
               cut the noise. pick your AI stack.
             </span>

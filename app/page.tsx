@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Logo from "@/components/ui/Logo";
-import { GITHUB_URL } from "@/lib/constants";
+import { GITHUB_URL, SITE_HOST } from "@/lib/constants";
 import { FindMyStackButton } from "@/components/ui/StackQuizModal";
 import { getCounts } from "@/lib/data/counts";
 import { supabase } from "@/lib/db";
@@ -1848,7 +1848,7 @@ export default async function LandingPage() {
                 color: "#555577",
               }}
             >
-              aichitect.dev/api/mcp
+              {SITE_HOST}/api/mcp
             </code>
           </div>
         </div>
@@ -1983,7 +1983,7 @@ export default async function LandingPage() {
             )
           )}
         </div>
-        <span style={{ fontSize: 12, color: "#333355" }}>aichitect.dev</span>
+        <span style={{ fontSize: 12, color: "#333355" }}>{SITE_HOST}</span>
       </footer>
     </div>
   );

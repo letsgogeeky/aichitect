@@ -2,6 +2,7 @@ import { ImageResponse } from "next/og";
 import toolsData from "@/data/tools.json";
 import { getCategoryColor } from "@/lib/types";
 import type { Tool } from "@/lib/types";
+import { SITE_HOST } from "@/lib/constants";
 
 export const runtime = "edge";
 export const size = { width: 1200, height: 630 };
@@ -175,7 +176,7 @@ export default async function Image({
       )}
 
       <div style={{ fontSize: 15, color: "#333355", letterSpacing: 0.3 }}>
-        aichitect.dev · cut the noise. pick your AI stack.
+        {SITE_HOST} · cut the noise. pick your AI stack.
       </div>
     </div>,
     { ...size }

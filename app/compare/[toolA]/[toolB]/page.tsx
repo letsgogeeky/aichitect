@@ -5,7 +5,7 @@ import { getTools } from "@/lib/data/tools";
 import { loadGraphData } from "@/lib/data-loaders";
 import { getComparePairs } from "@/lib/data/comparePairs";
 import { Tool, getCategoryColor, CATEGORIES } from "@/lib/types";
-import { TOOL_COUNT, RELATIONSHIP_COUNT } from "@/lib/constants";
+import { TOOL_COUNT, RELATIONSHIP_COUNT, SITE_URL } from "@/lib/constants";
 import { pageMeta } from "@/lib/metadata";
 import { relLabel } from "@/lib/health";
 
@@ -97,7 +97,7 @@ export default async function ComparePage({ params }: Props) {
     "@type": "WebPage",
     name: `${a.name} vs ${b.name}`,
     description,
-    url: `https://aichitect.dev/compare/${aId}/${bId}`,
+    url: `${SITE_URL}/compare/${aId}/${bId}`,
     mainEntity: {
       "@type": "ItemList",
       itemListElement: [

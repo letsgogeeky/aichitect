@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { pageMeta } from "@/lib/metadata";
+import { SITE_HOST } from "@/lib/constants";
 
 export const metadata = pageMeta({
   title: "Privacy Policy",
@@ -34,10 +35,10 @@ export default function PrivacyPage() {
             1. Who we are
           </h2>
           <p>
-            AIchitect (<strong>aichitect.dev</strong>) is a tool discovery and stack-building
-            platform for AI developers. This policy explains what personal data we collect, why we
-            collect it, and your rights under applicable data protection law including the EU
-            General Data Protection Regulation (GDPR).
+            AIchitect (<strong>{SITE_HOST}</strong>) is a tool discovery and stack-building platform
+            for AI developers. This policy explains what personal data we collect, why we collect
+            it, and your rights under applicable data protection law including the EU General Data
+            Protection Regulation (GDPR).
           </p>
           <p className="mt-2">
             For data-related requests, contact us at:{" "}

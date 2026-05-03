@@ -6,6 +6,7 @@ import ExploreGraph from "@/components/graph/ExploreGraph";
 import { loadGraphData } from "@/lib/data-loaders";
 import { getTools } from "@/lib/data/tools";
 import { pageMeta } from "@/lib/metadata";
+import { SITE_URL } from "@/lib/constants";
 
 export async function generateMetadata({
   searchParams,
@@ -30,7 +31,7 @@ export async function generateMetadata({
       description,
       openGraph: { title, description },
       twitter: { card: "summary_large_image", title, description },
-      alternates: { canonical: `https://aichitect.dev/compare/${aId}/${bId}` },
+      alternates: { canonical: `${SITE_URL}/compare/${aId}/${bId}` },
     };
   }
 

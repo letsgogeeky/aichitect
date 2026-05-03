@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import type { Tool, Stack, Relationship, Slot } from "@/lib/types";
 import { getCategoryColor } from "@/lib/types";
+import { SITE_URL } from "@/lib/constants";
 import { IconCopy, IconArrowRight, IconShare } from "@/components/icons";
 
 const PRINT_STYLES = `
@@ -206,9 +207,7 @@ export function CaseClient({
       lines.push("", "---", "");
     }
 
-    lines.push(
-      "*Built with [AIchitect](https://aichitect.dev) — cut the noise, pick your AI stack.*"
-    );
+    lines.push(`*Built with [AIchitect](${SITE_URL}) — cut the noise, pick your AI stack.*`);
 
     return lines.join("\n");
   }
