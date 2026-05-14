@@ -237,3 +237,21 @@ export function IconExternalLink({ size = 16 }: { size?: number }) {
     </svg>
   );
 }
+
+export function IconSimulator({ size = 16 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M3 3v18h18" />
+      <path d="M7 14l4-4 4 3 5-6" />
+    </svg>
+  );
+}
