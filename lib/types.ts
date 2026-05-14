@@ -60,6 +60,8 @@ export type ToolEventMetadata =
       new_pricing: Pricing;
       old_cost_model: CostModel | null;
       new_cost_model: CostModel | null;
+      /** Field-level diff with per-field delta_pct for numeric changes. Added with history tables. */
+      diff?: Record<string, { old: unknown; new: unknown; delta_pct?: number }>;
     }
   | { milestone: number; stars: number };
 

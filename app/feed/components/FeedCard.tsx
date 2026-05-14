@@ -198,7 +198,53 @@ function ExpandedDetail({ type, metadata }: { type: ToolEventType; metadata: Eve
       const m = metadata as {
         old_pricing: { free_tier: boolean; plans: { name: string; price: string }[] } | null;
         new_pricing: { free_tier: boolean; plans: { name: string; price: string }[] } | null;
+        diff?: Record<string, { old: unknown; new: unknown; delta_pct?: number }>;
       };
+
+      // Prefer the structured diff (banked alongside tool_pricing_history) — it
+      // gives us per-field deltas with delta_pct for free. Falls back to the
+      // plan-list comparison for events written before that field existed.
+      if (m.diff && Object.keys(m.diff).length > 0) {
+        const entries = Object.entries(m.diff);
+        return (
+          <div className="space-y-1.5">
+            {entries.map(([field, change]) => {
+              const cleanField = field.replace(/^cost_model\./, "").replace(/^pricing\./, "");
+              const isNumericDrop = typeof change.delta_pct === "number" && change.delta_pct < 0;
+              const isNumericRise = typeof change.delta_pct === "number" && change.delta_pct > 0;
+              return (
+                <div key={field} className="flex items-baseline gap-2 text-xs">
+                  <span
+                    className="font-mono"
+                    style={{ color: "var(--text-muted)", minWidth: 0, flexShrink: 0 }}
+                  >
+                    {cleanField}
+                  </span>
+                  <span style={{ color: "var(--text-secondary)" }}>
+                    {formatDiffValue(change.old)} → {formatDiffValue(change.new)}
+                  </span>
+                  {typeof change.delta_pct === "number" && (
+                    <span
+                      style={{
+                        color: isNumericDrop
+                          ? "var(--success)"
+                          : isNumericRise
+                            ? "var(--danger)"
+                            : "var(--text-muted)",
+                        fontWeight: 500,
+                      }}
+                    >
+                      {change.delta_pct > 0 ? "+" : ""}
+                      {change.delta_pct.toFixed(1)}%
+                    </span>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        );
+      }
+
       if (!m.old_pricing || !m.new_pricing) {
         return (
           <p className="text-xs" style={{ color: "var(--text-muted)" }}>
@@ -257,6 +303,17 @@ function ExpandedDetail({ type, metadata }: { type: ToolEventType; metadata: Eve
     default:
       return null;
   }
+}
+
+function formatDiffValue(v: unknown): string {
+  if (v === null || v === undefined) return "—";
+  if (typeof v === "boolean") return v ? "yes" : "no";
+  if (typeof v === "number") {
+    if (v >= 1) return v.toLocaleString("en-US", { maximumFractionDigits: 2 });
+    return v.toFixed(Math.min(6, Math.max(2, -Math.floor(Math.log10(Math.abs(v))) + 2)));
+  }
+  if (typeof v === "string") return v;
+  return JSON.stringify(v);
 }
 
 // ── FeedCard ───────────────────────────────────────────────────────────────
