@@ -11,6 +11,7 @@
     <a href="https://aichitect.dev/builder">Builder</a> ·
     <a href="https://aichitect.dev/compare">Compare</a> ·
     <a href="https://aichitect.dev/genome">Genome</a>
+    <a href="https://aichitect.dev/pulse">Pulse</a>
   </p>
 
   <img src="https://img.shields.io/badge/tools-228-7c6bff?style=flat-square" alt="228 tools" />
