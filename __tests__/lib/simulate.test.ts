@@ -339,18 +339,49 @@ describe("simulate — breaking points", () => {
     expect(m!.users).toBe(5_000);
   });
 
-  it("fires latency breaking point when output tokens push past 2s", () => {
-    // openai: 500 ttft + 600/85*1000 ≈ 7558ms — already over 2s.
-    const result = simulate(baseInput(), fixtureTools);
-    const breach = result.breakingPoints.find((b) => b.type === "latency");
+  it("fires latency breaking point when total exceeds the chatbot ceiling (8s)", () => {
+    // anthropic: 700 ttft + 600/46*1000 ≈ 13740ms — past 8s chatbot ceiling.
+    const result = simulate(baseInput({ stack: { llm: "anthropic-api" } }), fixtureTools);
+    const breach = result.breakingPoints.find(
+      (b) => b.type === "latency" && b.message.includes("Total response")
+    );
     expect(breach).toBeDefined();
   });
 
-  it("does not fire latency breach for Groq (fast)", () => {
+  it("does not fire total-latency breach for OpenAI on chatbot (≤8s)", () => {
+    // openai: 500 + 600/85*1000 ≈ 7558ms — under the 8s chatbot ceiling.
+    const result = simulate(baseInput({ stack: { llm: "openai-api" } }), fixtureTools);
+    const breach = result.breakingPoints.find(
+      (b) => b.type === "latency" && b.message.includes("Total response")
+    );
+    expect(breach).toBeUndefined();
+  });
+
+  it("does not fire latency breach for Groq (fast everywhere)", () => {
     const result = simulate(baseInput({ stack: { llm: "groq" } }), fixtureTools);
-    // groq: 100 + 600/500*1000 = 1300ms — under 2s.
+    // groq: 100 + 600/500*1000 = 1300ms — under any ceiling, and TTFT well under 1.5s.
     const breach = result.breakingPoints.find((b) => b.type === "latency");
     expect(breach).toBeUndefined();
+  });
+
+  it("fires TTFT-slow breaking point when ttft exceeds 1.5s", () => {
+    const tools2: Tool[] = [
+      ...fixtureTools,
+      makeTool("slow-start", {
+        cost_model: {
+          type: "per_token",
+          input_cost_per_1k_tokens: 0.001,
+          output_cost_per_1k_tokens: 0.001,
+        },
+        ttft_p50_ms: 2_000, // beyond TTFT_SLOW_MS
+        output_tokens_per_second: 200,
+      }),
+    ];
+    const result = simulate(baseInput({ stack: { llm: "slow-start" } }), tools2);
+    const breach = result.breakingPoints.find(
+      (b) => b.type === "latency" && b.message.includes("Time-to-first-token")
+    );
+    expect(breach).toBeDefined();
   });
 
   it("rate_limit breaking point fires when peak > max_tpm", () => {

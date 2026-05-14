@@ -22,7 +22,12 @@ function triggerForBreakingPoint(bp: BreakingPoint): string {
 }
 
 export default function KillConditionsPanel({ killConditions, breakingPoints }: Props) {
-  const switchTriggers = breakingPoints.map(triggerForBreakingPoint);
+  // Only true "switch away from this stack" signals — latency past the comfort ceiling
+  // and rate-limit ceilings. Cost milestones and architecture issues are tuning signals
+  // within the same stack (caching, routing, batch) and live in the Breaking points panel.
+  const switchTriggers = breakingPoints
+    .filter((bp) => bp.type === "latency" || bp.type === "rate_limit")
+    .map(triggerForBreakingPoint);
   const structuralRisks = killConditions;
 
   return (

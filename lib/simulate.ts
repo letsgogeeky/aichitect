@@ -132,6 +132,23 @@ export const TOKEN_DEFAULTS: Record<
   custom: { inputTokens: 1_000, outputTokens: 500 },
 };
 
+// ── Latency ceilings — when do we flag "this stack is too slow" ──────────────
+//
+// 2s is unrealistic in 2026: a typical Sonnet-class model at 50 tok/s producing
+// 600 output tokens is already at 12s. Use-case-aware ceilings reflect what
+// users actually tolerate: chatbots need to feel snappy, RAG users accept a
+// retrieval pause, agent loops are knowingly slow.
+
+const LATENCY_CEILING_MS: Record<SimulationUseCase, number> = {
+  chatbot: 8_000,
+  rag: 12_000,
+  agent: 25_000,
+  custom: 10_000,
+};
+
+/** Time-to-first-token "feels slow" threshold — independent of total length. */
+const TTFT_SLOW_MS = 1_500;
+
 // ── Layer defaults (when a tool has no published value) ───────────────────────
 
 const DEFAULTS = {
@@ -513,16 +530,28 @@ export function simulate(input: SimulationInput, tools: Tool[]): SimulationResul
   let rateLimitFired = false;
   let rateLimitAtUsers: number | null = null;
 
+  const latencyCeiling = LATENCY_CEILING_MS[useCase];
+  let ttftBreachFired = false;
   for (const snap of snapshots) {
-    if (!latencyBreachFired && snap.avgLatencyMs > 2_000) {
+    if (!latencyBreachFired && snap.avgLatencyMs > latencyCeiling) {
       breakingPoints.push({
         users: snap.users,
         type: "latency",
-        message: `Latency exceeds 2s at ${formatUsers(snap.users)} (${formatMs(snap.avgLatencyMs)})`,
+        message: `Total response exceeds ${formatMs(latencyCeiling)} (${formatMs(snap.avgLatencyMs)}) — past what ${useCase} users tolerate`,
         recommendation:
-          "Drop output tokens, switch to a faster model (Cerebras, Groq, Gemini Flash), or move retrieval to a self-hosted vector store.",
+          "Drop output tokens, switch to a higher-throughput model (Cerebras ~800 tok/s, Groq ~500 tok/s, Gemini Flash ~120 tok/s), or stream the response so users see progress.",
       });
       latencyBreachFired = true;
+    }
+    if (!ttftBreachFired && snap.latencyByStage.ttft > TTFT_SLOW_MS) {
+      breakingPoints.push({
+        users: snap.users,
+        type: "latency",
+        message: `Time-to-first-token is ${formatMs(snap.latencyByStage.ttft)} — feels unresponsive even with streaming`,
+        recommendation:
+          "Switch to a provider with lower TTFT (OpenAI, Groq, Gemini), reduce prompt size, or enable prompt caching to skip context processing.",
+      });
+      ttftBreachFired = true;
     }
 
     for (const milestone of [1_000, 5_000, 20_000, 100_000]) {
@@ -617,6 +646,7 @@ export function simulate(input: SimulationInput, tools: Tool[]): SimulationResul
 
   const lastSnap = snapshots[snapshots.length - 1];
   const { bottleneck, bottleneckMessage } = diagnoseBottleneck(
+    useCase,
     snapshots,
     lastSnap,
     latencyBreachFired,
@@ -642,6 +672,7 @@ function llmCost(snapshots: SimulationSnapshot[]): number {
 }
 
 function diagnoseBottleneck(
+  useCase: SimulationUseCase,
   snapshots: SimulationSnapshot[],
   lastSnap: SimulationSnapshot | undefined,
   latencyBreached: boolean,
@@ -673,7 +704,7 @@ function diagnoseBottleneck(
   if (latencyBreached) {
     return {
       bottleneck: "latency",
-      bottleneckMessage: `Latency-bound — p50 crosses 2s within the projected range. Output tokens drive most of the wait; throughput matters more than TTFT.`,
+      bottleneckMessage: `Latency-bound — p50 response crosses the ${useCase} comfort ceiling. Output tokens dominate, so throughput matters more than TTFT.`,
     };
   }
   if (costHigh) {
