@@ -33,49 +33,29 @@ export default function StackStep({ tools, llm, vectorDb, framework, onChange }:
   );
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-      <h2 style={{ fontSize: 18, fontWeight: 600, color: "var(--text-primary)", margin: 0 }}>
-        Which stack are you running?
-      </h2>
-      <p style={{ fontSize: 13, color: "var(--text-secondary)", margin: 0 }}>
-        Pick the model — vector store and orchestration are optional.
-      </p>
-
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: 16,
-          marginTop: 8,
-          padding: 16,
-          background: "var(--surface-2)",
-          border: "1px solid var(--border)",
-          borderRadius: 8,
-        }}
-      >
-        <ToolPicker
-          label="LLM provider"
-          tools={llmTools}
-          value={llm}
-          onChange={(v) => onChange({ llm: v })}
-          required
-          hintFor={priceHint}
-        />
-        <ToolPicker
-          label="Vector DB"
-          tools={vectorTools}
-          value={vectorDb}
-          onChange={(v) => onChange({ vectorDb: v })}
-          optional
-        />
-        <ToolPicker
-          label="Orchestration framework"
-          tools={frameworkTools}
-          value={framework}
-          onChange={(v) => onChange({ framework: v })}
-          optional
-        />
-      </div>
+    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+      <ToolPicker
+        label="LLM provider"
+        tools={llmTools}
+        value={llm}
+        onChange={(v) => onChange({ llm: v })}
+        required
+        hintFor={priceHint}
+      />
+      <ToolPicker
+        label="Vector DB"
+        tools={vectorTools}
+        value={vectorDb}
+        onChange={(v) => onChange({ vectorDb: v })}
+        optional
+      />
+      <ToolPicker
+        label="Framework"
+        tools={frameworkTools}
+        value={framework}
+        onChange={(v) => onChange({ framework: v })}
+        optional
+      />
     </div>
   );
 }

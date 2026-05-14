@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import type { DeltaSnapshot } from "@/lib/simulateDelta";
 import { SCALE_STEPS } from "@/lib/simulate";
 
@@ -40,6 +41,9 @@ function formatCost(n: number): string {
 }
 
 export default function CostDeltaChart({ snapshots, crossoverUsers }: Props) {
+  const [hoverIdx, setHoverIdx] = useState<number | null>(null);
+  const hoverSnap = hoverIdx !== null ? snapshots[hoverIdx] : null;
+
   const maxCost = Math.max(1, ...snapshots.map((s) => Math.max(s.currentCost, s.shadowCost)));
   const yMax = maxCost * 1.1;
 
@@ -213,6 +217,134 @@ export default function CostDeltaChart({ snapshots, crossoverUsers }: Props) {
           </text>
         </g>
       </g>
+
+      {/* Hover guide line */}
+      {hoverSnap && (
+        <line
+          x1={xFor(hoverSnap.users)}
+          x2={xFor(hoverSnap.users)}
+          y1={PADDING.top}
+          y2={PADDING.top + PLOT_H}
+          stroke="var(--text-muted)"
+          strokeWidth={1}
+          strokeDasharray="2,2"
+          pointerEvents="none"
+        />
+      )}
+
+      {/* Hit bands for hover */}
+      {SCALE_STEPS.map((users, i) => {
+        const xc = xFor(users);
+        const left = i === 0 ? PADDING.left : (xFor(SCALE_STEPS[i - 1]) + xc) / 2;
+        const right =
+          i === SCALE_STEPS.length - 1
+            ? PADDING.left + PLOT_W
+            : (xc + xFor(SCALE_STEPS[i + 1])) / 2;
+        return (
+          <rect
+            key={`hit-${users}`}
+            x={left}
+            y={PADDING.top}
+            width={right - left}
+            height={PLOT_H}
+            fill="transparent"
+            style={{ cursor: "crosshair" }}
+            onMouseEnter={() => setHoverIdx(i)}
+            onMouseLeave={() => setHoverIdx(null)}
+          />
+        );
+      })}
+
+      {/* Tooltip */}
+      {hoverSnap && (
+        <DeltaTooltip snap={hoverSnap} x={xFor(hoverSnap.users)} maxX={PADDING.left + PLOT_W} />
+      )}
     </svg>
+  );
+}
+
+function DeltaTooltip({ snap, x, maxX }: { snap: DeltaSnapshot; x: number; maxX: number }) {
+  const boxW = 200;
+  const boxH = 92;
+  const flip = x + boxW + 12 > maxX;
+  const boxX = flip ? x - boxW - 10 : x + 10;
+  const boxY = PADDING.top + 10;
+  const deltaColor =
+    snap.costDelta < 0
+      ? "var(--success)"
+      : snap.costDelta > 0
+        ? "var(--danger)"
+        : "var(--text-muted)";
+  return (
+    <g pointerEvents="none">
+      <rect
+        x={boxX}
+        y={boxY}
+        width={boxW}
+        height={boxH}
+        rx={6}
+        fill="var(--surface-2)"
+        stroke="var(--border)"
+        strokeWidth={1}
+      />
+      <text
+        x={boxX + 10}
+        y={boxY + 18}
+        fontSize={11}
+        fill="var(--text-muted)"
+        fontWeight={600}
+        style={{ textTransform: "uppercase", letterSpacing: 0.6 }}
+      >
+        {formatUsers(snap.users)} users
+      </text>
+      <text x={boxX + 10} y={boxY + 38} fontSize={11} fill="var(--text-secondary)">
+        Current
+      </text>
+      <text
+        x={boxX + boxW - 10}
+        y={boxY + 38}
+        textAnchor="end"
+        fontSize={11}
+        fill="var(--text-primary)"
+        style={{ fontVariantNumeric: "tabular-nums" }}
+      >
+        {formatCost(snap.currentCost)}
+      </text>
+      <text x={boxX + 10} y={boxY + 54} fontSize={11} fill="var(--text-secondary)">
+        Shadow
+      </text>
+      <text
+        x={boxX + boxW - 10}
+        y={boxY + 54}
+        textAnchor="end"
+        fontSize={11}
+        fill="var(--text-primary)"
+        style={{ fontVariantNumeric: "tabular-nums" }}
+      >
+        {formatCost(snap.shadowCost)}
+      </text>
+      <line
+        x1={boxX + 10}
+        x2={boxX + boxW - 10}
+        y1={boxY + 64}
+        y2={boxY + 64}
+        stroke="var(--border)"
+      />
+      <text x={boxX + 10} y={boxY + 80} fontSize={11} fill="var(--text-secondary)" fontWeight={500}>
+        Delta
+      </text>
+      <text
+        x={boxX + boxW - 10}
+        y={boxY + 80}
+        textAnchor="end"
+        fontSize={11}
+        fill={deltaColor}
+        fontWeight={600}
+        style={{ fontVariantNumeric: "tabular-nums" }}
+      >
+        {snap.costDelta < 0 ? "−" : snap.costDelta > 0 ? "+" : ""}
+        {formatCost(Math.abs(snap.costDelta))}
+      </text>
+    </g>
   );
 }

@@ -1,26 +1,22 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import type { Tool } from "@/lib/types";
 import type { SimulationInput } from "@/lib/simulate";
-import { encodeSimulationInput, appendShadowStack, dropShadowStack } from "@/lib/simulateUrl";
-import ToolPicker from "../../components/ToolPicker";
+import ToolPicker from "./ToolPicker";
 
 interface Props {
-  /** The primary SimulationInput — needed to re-emit the full URL. */
-  baseInput: SimulationInput;
   tools: Tool[];
-  /** Currently-applied shadow stack (if any). */
-  currentShadow: SimulationInput["stack"] | null;
+  /** Currently-applied shadow stack (if any). Source-of-truth lives in the parent. */
+  shadow: SimulationInput["stack"] | null;
+  onChange: (shadow: SimulationInput["stack"] | null) => void;
 }
 
-export default function ShadowStackForm({ baseInput, tools, currentShadow }: Props) {
-  const router = useRouter();
-  const [open, setOpen] = useState(currentShadow !== null);
-  const [llm, setLlm] = useState(currentShadow?.llm);
-  const [vectorDb, setVectorDb] = useState(currentShadow?.vectorDb);
-  const [framework, setFramework] = useState(currentShadow?.framework);
+export default function ShadowStackForm({ tools, shadow, onChange }: Props) {
+  const [open, setOpen] = useState(shadow !== null);
+  const [llm, setLlm] = useState(shadow?.llm);
+  const [vectorDb, setVectorDb] = useState(shadow?.vectorDb);
+  const [framework, setFramework] = useState(shadow?.framework);
 
   const llmTools = tools
     .filter((t) => t.slot === "inference" && t.cost_model?.type === "per_token")
@@ -34,15 +30,12 @@ export default function ShadowStackForm({ baseInput, tools, currentShadow }: Pro
 
   function applyShadow() {
     if (!llm) return;
-    const params = encodeSimulationInput(baseInput);
-    appendShadowStack(params, { llm, vectorDb, framework });
-    router.push(`/simulate/results?${params.toString()}`);
+    onChange({ llm, vectorDb, framework });
   }
 
-  function removeShadow() {
-    const params = encodeSimulationInput(baseInput);
-    dropShadowStack(params);
-    router.push(`/simulate/results?${params.toString()}`);
+  function cancel() {
+    setOpen(false);
+    if (shadow) onChange(null);
   }
 
   if (!open) {
@@ -71,33 +64,9 @@ export default function ShadowStackForm({ baseInput, tools, currentShadow }: Pro
       }}
     >
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
-        <h3
-          style={{
-            fontSize: 11,
-            textTransform: "uppercase",
-            letterSpacing: 0.6,
-            color: "var(--text-muted)",
-            fontWeight: 600,
-            margin: 0,
-          }}
-        >
-          Shadow stack — alternative to compare against
-        </h3>
-        <button
-          type="button"
-          onClick={() => {
-            setOpen(false);
-            if (currentShadow) removeShadow();
-          }}
-          style={{
-            background: "transparent",
-            border: "none",
-            color: "var(--text-muted)",
-            fontSize: 12,
-            cursor: "pointer",
-          }}
-        >
-          {currentShadow ? "Remove" : "Cancel"}
+        <h3 style={headerStyle}>Shadow stack — alternative to compare against</h3>
+        <button type="button" onClick={cancel} style={subtleButtonStyle}>
+          {shadow ? "Remove" : "Cancel"}
         </button>
       </div>
 
@@ -138,7 +107,7 @@ export default function ShadowStackForm({ baseInput, tools, currentShadow }: Pro
           disabled={!llm}
           style={primaryButtonStyle(!!llm)}
         >
-          {currentShadow ? "Update comparison →" : "Run comparison →"}
+          {shadow ? "Update comparison" : "Run comparison"}
         </button>
       </div>
     </div>
@@ -155,6 +124,23 @@ const ctaStyle: React.CSSProperties = {
   fontWeight: 500,
   cursor: "pointer",
   alignSelf: "flex-start",
+};
+
+const headerStyle: React.CSSProperties = {
+  fontSize: 11,
+  textTransform: "uppercase",
+  letterSpacing: 0.6,
+  color: "var(--text-muted)",
+  fontWeight: 600,
+  margin: 0,
+};
+
+const subtleButtonStyle: React.CSSProperties = {
+  background: "transparent",
+  border: "none",
+  color: "var(--text-muted)",
+  fontSize: 12,
+  cursor: "pointer",
 };
 
 function primaryButtonStyle(enabled: boolean): React.CSSProperties {

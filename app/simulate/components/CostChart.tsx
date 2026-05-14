@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import type { SimulationSnapshot, BreakingPoint } from "@/lib/simulate";
 import { SCALE_STEPS } from "@/lib/simulate";
 
@@ -48,6 +49,8 @@ function formatCost(n: number): string {
 }
 
 export default function CostChart({ snapshots, series, firstBreakingPoint }: Props) {
+  const [hoverIdx, setHoverIdx] = useState<number | null>(null);
+
   // y-axis max: highest cost line, then add 10% headroom
   const maxCost = Math.max(
     1,
@@ -56,8 +59,9 @@ export default function CostChart({ snapshots, series, firstBreakingPoint }: Pro
     )
   );
   const yMax = maxCost * 1.1;
-
   const yTicks = [0, 0.25, 0.5, 0.75, 1].map((f) => f * yMax);
+
+  const hoverSnap = hoverIdx !== null ? snapshots[hoverIdx] : null;
 
   return (
     <svg
@@ -132,7 +136,7 @@ export default function CostChart({ snapshots, series, firstBreakingPoint }: Pro
                 key={snap.users}
                 cx={xFor(snap.users)}
                 cy={yFor(snap.costBreakdown[s.id] ?? 0, yMax)}
-                r={2.5}
+                r={hoverSnap?.users === snap.users ? 4 : 2.5}
                 fill={s.color}
               />
             ))}
@@ -164,6 +168,20 @@ export default function CostChart({ snapshots, series, firstBreakingPoint }: Pro
         </g>
       )}
 
+      {/* Hover guide line */}
+      {hoverSnap && (
+        <line
+          x1={xFor(hoverSnap.users)}
+          x2={xFor(hoverSnap.users)}
+          y1={PADDING.top}
+          y2={PADDING.top + PLOT_H}
+          stroke="var(--text-muted)"
+          strokeWidth={1}
+          strokeDasharray="2,2"
+          pointerEvents="none"
+        />
+      )}
+
       {/* Axis title */}
       <text
         x={PADDING.left + PLOT_W / 2}
@@ -186,6 +204,155 @@ export default function CostChart({ snapshots, series, firstBreakingPoint }: Pro
           </g>
         ))}
       </g>
+
+      {/* Hit bands for hover — invisible, one per scale step */}
+      {SCALE_STEPS.map((users, i) => {
+        const xc = xFor(users);
+        const left = i === 0 ? PADDING.left : (xFor(SCALE_STEPS[i - 1]) + xc) / 2;
+        const right =
+          i === SCALE_STEPS.length - 1
+            ? PADDING.left + PLOT_W
+            : (xc + xFor(SCALE_STEPS[i + 1])) / 2;
+        return (
+          <rect
+            key={`hit-${users}`}
+            x={left}
+            y={PADDING.top}
+            width={right - left}
+            height={PLOT_H}
+            fill="transparent"
+            style={{ cursor: "crosshair" }}
+            onMouseEnter={() => setHoverIdx(i)}
+            onMouseLeave={() => setHoverIdx(null)}
+          />
+        );
+      })}
+
+      {/* Tooltip — rendered last so it sits on top of everything */}
+      {hoverSnap && (
+        <Tooltip
+          snap={hoverSnap}
+          series={series}
+          x={xFor(hoverSnap.users)}
+          maxX={PADDING.left + PLOT_W}
+        />
+      )}
     </svg>
   );
+}
+
+function Tooltip({
+  snap,
+  series,
+  x,
+  maxX,
+}: {
+  snap: SimulationSnapshot;
+  series: ToolSeries[];
+  x: number;
+  maxX: number;
+}) {
+  const lineHeight = 14;
+  const headerH = 28;
+  const visibleSeries = series.filter((s) => (snap.costBreakdown[s.id] ?? 0) > 0);
+  const rows = visibleSeries.length + 1; // +1 for total row
+  const boxW = 180;
+  const boxH = headerH + rows * lineHeight + 12;
+  // Flip to the left when too close to the right edge
+  const flip = x + boxW + 12 > maxX;
+  const boxX = flip ? x - boxW - 10 : x + 10;
+  const boxY = PADDING.top + 10;
+
+  return (
+    <g pointerEvents="none">
+      <rect
+        x={boxX}
+        y={boxY}
+        width={boxW}
+        height={boxH}
+        rx={6}
+        fill="var(--surface-2)"
+        stroke="var(--border)"
+        strokeWidth={1}
+      />
+      <text
+        x={boxX + 10}
+        y={boxY + 18}
+        fontSize={11}
+        fill="var(--text-muted)"
+        fontWeight={600}
+        style={{ textTransform: "uppercase", letterSpacing: 0.6 }}
+      >
+        {formatUsers(snap.users)} users
+      </text>
+      <text
+        x={boxX + boxW - 10}
+        y={boxY + 18}
+        textAnchor="end"
+        fontSize={13}
+        fill="var(--text-primary)"
+        fontWeight={600}
+      >
+        {formatCost(snap.monthlyCostUSD)}/mo
+      </text>
+
+      {/* Per-tool rows */}
+      {visibleSeries.map((s, i) => {
+        const yRow = boxY + headerH + (i + 1) * lineHeight - 2;
+        const cost = snap.costBreakdown[s.id] ?? 0;
+        return (
+          <g key={s.id}>
+            <circle cx={boxX + 14} cy={yRow - 4} r={3} fill={s.color} />
+            <text x={boxX + 24} y={yRow} fontSize={11} fill="var(--text-secondary)">
+              {s.name}
+            </text>
+            <text
+              x={boxX + boxW - 10}
+              y={yRow}
+              textAnchor="end"
+              fontSize={11}
+              fill="var(--text-primary)"
+              style={{ fontVariantNumeric: "tabular-nums" }}
+            >
+              {formatCost(cost)}
+            </text>
+          </g>
+        );
+      })}
+
+      {/* Total row separator */}
+      <line
+        x1={boxX + 10}
+        x2={boxX + boxW - 10}
+        y1={boxY + headerH + (visibleSeries.length + 1) * lineHeight - 12}
+        y2={boxY + headerH + (visibleSeries.length + 1) * lineHeight - 12}
+        stroke="var(--border)"
+        strokeWidth={1}
+      />
+      <text
+        x={boxX + 14}
+        y={boxY + headerH + (visibleSeries.length + 1) * lineHeight + 2}
+        fontSize={11}
+        fill="var(--text-secondary)"
+        fontWeight={500}
+      >
+        Latency
+      </text>
+      <text
+        x={boxX + boxW - 10}
+        y={boxY + headerH + (visibleSeries.length + 1) * lineHeight + 2}
+        textAnchor="end"
+        fontSize={11}
+        fill="var(--text-primary)"
+        style={{ fontVariantNumeric: "tabular-nums" }}
+      >
+        {formatMs(snap.avgLatencyMs)}
+      </text>
+    </g>
+  );
+}
+
+function formatMs(ms: number): string {
+  if (ms >= 1000) return `${(ms / 1000).toFixed(2)}s`;
+  return `${Math.round(ms)}ms`;
 }
