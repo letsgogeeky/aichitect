@@ -17,6 +17,8 @@ const EVENT_TYPE_LABEL: Record<ToolEventType, string> = {
   archived_detected: "Archived",
   pricing_change: "Pricing Change",
   benchmark_drift: "Benchmark Drift",
+  incident_started: "Incident Started",
+  incident_resolved: "Incident Resolved",
 };
 
 const EVENT_TYPE_COLOR: Record<ToolEventType, string> = {
@@ -26,6 +28,8 @@ const EVENT_TYPE_COLOR: Record<ToolEventType, string> = {
   archived_detected: "#ff6b6b",
   pricing_change: "#74b9ff",
   benchmark_drift: "#a29bfe",
+  incident_started: "#ff6b6b",
+  incident_resolved: "#26de81",
 };
 
 type Meta = Record<string, unknown>;

@@ -67,6 +67,22 @@ export function eventDescription(
         color: "#fdcb6e",
       };
     }
+    case "incident_started": {
+      const m = metadata as { severity: string; title: string };
+      return {
+        text: `${m.severity === "critical" ? "Critical" : "Major"} incident: ${m.title}`,
+        color: m.severity === "critical" ? "#ff4757" : "#ff6b6b",
+      };
+    }
+    case "incident_resolved": {
+      const m = metadata as { duration_minutes?: number; title: string };
+      const dur = m.duration_minutes;
+      const durStr = dur == null ? "" : dur < 60 ? `${dur}min` : `${(dur / 60).toFixed(1)}h`;
+      return {
+        text: `Resolved: ${m.title}${durStr ? ` (${durStr})` : ""}`,
+        color: "#26de81",
+      };
+    }
     default:
       return { text: type, color: "var(--text-muted)" };
   }
@@ -319,6 +335,76 @@ function ExpandedDetail({ type, metadata }: { type: ToolEventType; metadata: Eve
               )}
             </div>
           </div>
+        </div>
+      );
+    }
+
+    case "incident_started":
+    case "incident_resolved": {
+      const m = metadata as {
+        severity: string;
+        title: string;
+        scope: string[];
+        url: string;
+        started_at: string;
+        ended_at?: string;
+        duration_minutes?: number;
+      };
+      const isResolved = type === "incident_resolved";
+      return (
+        <div className="space-y-1.5">
+          <div className="flex items-center gap-2">
+            <span style={{ color: "var(--text-muted)", fontSize: 12, minWidth: 100 }}>
+              Severity
+            </span>
+            <span
+              style={{
+                fontSize: 11,
+                fontWeight: 600,
+                textTransform: "uppercase",
+                letterSpacing: 0.4,
+                color:
+                  m.severity === "critical"
+                    ? "#ff4757"
+                    : m.severity === "major"
+                      ? "#ff6b6b"
+                      : "var(--text-secondary)",
+              }}
+            >
+              {m.severity}
+            </span>
+          </div>
+          {m.scope.length > 0 && (
+            <div className="flex items-baseline gap-2">
+              <span style={{ color: "var(--text-muted)", fontSize: 12, minWidth: 100 }}>Scope</span>
+              <span style={{ color: "var(--text-secondary)", fontSize: 12 }}>
+                {m.scope.join(", ")}
+              </span>
+            </div>
+          )}
+          {isResolved && m.duration_minutes != null && (
+            <div className="flex items-center gap-2">
+              <span style={{ color: "var(--text-muted)", fontSize: 12, minWidth: 100 }}>
+                Duration
+              </span>
+              <span style={{ color: "var(--text-primary)", fontSize: 12, fontWeight: 500 }}>
+                {m.duration_minutes < 60
+                  ? `${m.duration_minutes} min`
+                  : `${(m.duration_minutes / 60).toFixed(1)} h`}
+              </span>
+            </div>
+          )}
+          {m.url && (
+            <a
+              href={m.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs underline"
+              style={{ color: "var(--accent-2)" }}
+            >
+              View status page →
+            </a>
+          )}
         </div>
       );
     }

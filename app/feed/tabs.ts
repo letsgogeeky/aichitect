@@ -8,4 +8,9 @@ export const FILTER_TABS: { id: string; label: string; types: ToolEventType[] | 
   { id: "archived", label: "Archived", types: ["archived_detected"] },
   { id: "pricing", label: "Pricing", types: ["pricing_change"] },
   { id: "benchmark", label: "Benchmark", types: ["benchmark_drift"] },
+  {
+    id: "incidents",
+    label: "Incidents",
+    types: ["incident_started", "incident_resolved"],
+  },
 ];

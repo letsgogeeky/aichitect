@@ -41,7 +41,9 @@ export type ToolEventType =
   | "archived_detected"
   | "pricing_change"
   | "star_milestone"
-  | "benchmark_drift";
+  | "benchmark_drift"
+  | "incident_started"
+  | "incident_resolved";
 
 export type ToolEventMetadata =
   | {
@@ -75,6 +77,17 @@ export type ToolEventMetadata =
       new_throughput: number | null;
       /** AA model slug at time of measurement — flips when the upstream model rolls over. */
       model_slug?: string | null;
+    }
+  | {
+      /** Vendor's severity at incident start. 'major' | 'critical' for our threshold. */
+      severity: "minor" | "major" | "critical";
+      title: string;
+      scope: string[];
+      url: string;
+      started_at: string;
+      /** Present on incident_resolved only. */
+      ended_at?: string;
+      duration_minutes?: number;
     };
 
 export interface ToolEvent {
