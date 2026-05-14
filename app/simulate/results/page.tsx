@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { supabase } from "@/lib/db";
 import { simulate } from "@/lib/simulate";
-import { parseSimulationInput } from "@/lib/simulateUrl";
+import { parseSimulationInput, parseShadowStack } from "@/lib/simulateUrl";
+import { computeDelta } from "@/lib/simulateDelta";
 import { pageMeta } from "@/lib/metadata";
 import type { Tool } from "@/lib/types";
 import SimulateResultsClient from "./SimulateResultsClient";
@@ -55,7 +56,23 @@ export default async function SimulateResultsPage({
   const tools = data as unknown as Tool[];
   const result = simulate(parsed.input, tools);
 
-  return <SimulateResultsClient input={parsed.input} result={result} tools={tools} />;
+  // Shadow Stack (AIC-131): run a second simulation with an alternative stack
+  // and compute the delta. Same scale/use-case/tokens — only the stack differs.
+  const shadowStack = parseShadowStack(params);
+  const shadowResult = shadowStack
+    ? simulate({ ...parsed.input, stack: shadowStack }, tools)
+    : null;
+  const delta = shadowResult ? computeDelta(result, shadowResult) : null;
+
+  return (
+    <SimulateResultsClient
+      input={parsed.input}
+      result={result}
+      tools={tools}
+      shadowStack={shadowStack}
+      delta={delta}
+    />
+  );
 }
 
 function ErrorView({ title, message }: { title: string; message: string }) {

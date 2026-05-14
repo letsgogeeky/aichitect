@@ -1,9 +1,12 @@
 /**
- * URL encoding for the simulator (AIC-127).
+ * URL encoding for the simulator (AIC-127, AIC-131).
  *
  * The results page reads its inputs from query params so any simulation can be
  * shared by URL. Param names are compact so the URL stays manageable:
  *   ?uc=chatbot&u=10000&r=2&in=400&out=600&llm=openai-api&vec=qdrant&fw=langgraph
+ *
+ * Shadow Stack (AIC-131) reuses the scale + use case from the primary input
+ * and adds only `llm2`, `vec2`, `fw2` for the alternative stack.
  */
 
 import type { SimulationInput, SimulationUseCase } from "@/lib/simulate";
@@ -74,5 +77,39 @@ export function parseSimulationInput(params: ParamMap): ParsedSimulationInput {
         framework: getParam(params, "fw") || undefined,
       },
     },
+  };
+}
+
+// ── Shadow Stack (AIC-131) ────────────────────────────────────────────────────
+
+/** Append a shadow stack to an existing primary params object. Mutates and returns. */
+export function appendShadowStack(
+  params: URLSearchParams,
+  shadow: SimulationInput["stack"]
+): URLSearchParams {
+  params.set("llm2", shadow.llm);
+  if (shadow.vectorDb) params.set("vec2", shadow.vectorDb);
+  else params.delete("vec2");
+  if (shadow.framework) params.set("fw2", shadow.framework);
+  else params.delete("fw2");
+  return params;
+}
+
+/** Remove shadow-stack params from an existing URLSearchParams. */
+export function dropShadowStack(params: URLSearchParams): URLSearchParams {
+  params.delete("llm2");
+  params.delete("vec2");
+  params.delete("fw2");
+  return params;
+}
+
+/** Parse a shadow stack from URL params. Returns null when `llm2` is absent. */
+export function parseShadowStack(params: ParamMap): SimulationInput["stack"] | null {
+  const llm = getParam(params, "llm2");
+  if (!llm) return null;
+  return {
+    llm,
+    vectorDb: getParam(params, "vec2") || undefined,
+    framework: getParam(params, "fw2") || undefined,
   };
 }

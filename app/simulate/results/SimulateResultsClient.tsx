@@ -2,6 +2,7 @@
 
 import { useMemo } from "react";
 import type { SimulationInput, SimulationResult } from "@/lib/simulate";
+import type { SimulationDelta } from "@/lib/simulateDelta";
 import type { Tool } from "@/lib/types";
 import { getCategoryColor } from "@/lib/types";
 import CostChart from "./components/CostChart";
@@ -9,11 +10,18 @@ import LatencyBreakdown from "./components/LatencyBreakdown";
 import BreakingPointsList from "./components/BreakingPointsList";
 import KillConditionsPanel from "./components/KillConditionsPanel";
 import ShareButton from "./components/ShareButton";
+import ShadowStackForm from "./components/ShadowStackForm";
+import CostDeltaChart from "./components/CostDeltaChart";
+import LatencyDeltaTable from "./components/LatencyDeltaTable";
+import BreakingPointDelta from "./components/BreakingPointDelta";
+import SwitchVerdict from "./components/SwitchVerdict";
 
 interface Props {
   input: SimulationInput;
   result: SimulationResult;
   tools: Tool[];
+  shadowStack: SimulationInput["stack"] | null;
+  delta: SimulationDelta | null;
 }
 
 const USE_CASE_LABEL: Record<SimulationInput["useCase"], string> = {
@@ -23,13 +31,21 @@ const USE_CASE_LABEL: Record<SimulationInput["useCase"], string> = {
   custom: "Custom workload",
 };
 
-export default function SimulateResultsClient({ input, result, tools }: Props) {
+export default function SimulateResultsClient({ input, result, tools, shadowStack, delta }: Props) {
   const stackTools = useMemo(() => {
     const ids = [input.stack.llm, input.stack.vectorDb, input.stack.framework].filter(
       (v): v is string => !!v
     );
     return ids.map((id) => tools.find((t) => t.id === id)).filter((t): t is Tool => !!t);
   }, [input.stack, tools]);
+
+  const shadowTools = useMemo(() => {
+    if (!shadowStack) return [];
+    const ids = [shadowStack.llm, shadowStack.vectorDb, shadowStack.framework].filter(
+      (v): v is string => !!v
+    );
+    return ids.map((id) => tools.find((t) => t.id === id)).filter((t): t is Tool => !!t);
+  }, [shadowStack, tools]);
 
   // Series for the cost chart: include only tools with non-zero projected cost so the legend
   // doesn't show flat-zero lines for OSS tools.
@@ -121,6 +137,39 @@ export default function SimulateResultsClient({ input, result, tools }: Props) {
         </div>
         <ShareButton />
       </header>
+
+      {/* Shadow Stack — A/B comparison (AIC-131) */}
+      <ShadowStackForm baseInput={input} tools={tools} currentShadow={shadowStack} />
+
+      {delta && shadowStack && (
+        <>
+          <Panel title="Switch verdict">
+            <SwitchVerdict verdict={delta.verdict} verdictMessage={delta.verdictMessage} />
+          </Panel>
+
+          <Panel
+            title={
+              shadowTools.length > 0
+                ? `Cost — current vs ${shadowTools.map((t) => t.name).join(" + ")}`
+                : "Cost — current vs shadow"
+            }
+          >
+            <CostDeltaChart snapshots={delta.snapshots} crossoverUsers={delta.crossoverUsers} />
+          </Panel>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Panel title="Latency delta">
+              <LatencyDeltaTable rows={delta.latencyByLayer} total={delta.totalLatency} />
+            </Panel>
+            <Panel title="Breaking point delta">
+              <BreakingPointDelta
+                currentFirstBreak={delta.currentFirstBreak}
+                shadowFirstBreak={delta.shadowFirstBreak}
+              />
+            </Panel>
+          </div>
+        </>
+      )}
 
       {/* Panel 1 — Cost over time */}
       <Panel title="Cost over time">
