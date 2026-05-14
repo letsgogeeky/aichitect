@@ -45,6 +45,8 @@ export interface BreakingPoint {
   users: number;
   type: "latency" | "cost" | "architecture";
   message: string;
+  /** Concrete next-step suggestion shown alongside the breaking point. */
+  recommendation?: string;
 }
 
 export interface KillCondition {
@@ -234,6 +236,8 @@ export function simulate(input: SimulationInput, tools: Tool[]): SimulationResul
         users: snap.users,
         type: "latency",
         message: `Latency risk at ${formatUsers(snap.users)} — avg response exceeds 2s`,
+        recommendation:
+          "Switch to a faster LLM (Cerebras, Groq) or drop vector retrieval latency with a self-hosted store (Qdrant, pgvector).",
       });
       latencyBreachFired = true;
     }
@@ -244,6 +248,8 @@ export function simulate(input: SimulationInput, tools: Tool[]): SimulationResul
           users: snap.users,
           type: "cost",
           message: `Cost crosses $${milestone.toLocaleString()}/mo at ${formatUsers(snap.users)}`,
+          recommendation:
+            "Move to a cheaper model (DeepSeek, Gemini Flash) or enable prompt caching to dedupe repeated context.",
         });
         firedCostMilestones.add(milestone);
       }
@@ -261,6 +267,8 @@ export function simulate(input: SimulationInput, tools: Tool[]): SimulationResul
         users: snap.users,
         type: "architecture",
         message: `LLM cost dominates (${Math.round((llmCost / snap.monthlyCostUSD) * 100)}% of total) at ${formatUsers(snap.users)} — consider adding a caching layer`,
+        recommendation:
+          "Add prompt caching (Anthropic/OpenAI built-in cache, or Redis with content-hash keys) to amortise repeated context.",
       });
       llmDominanceFired = true;
     }
