@@ -3,6 +3,59 @@ export const dynamic = "force-dynamic";
 import { createHash } from "node:crypto";
 import { createClient } from "@supabase/supabase-js";
 import { fetchToolGitHubData, type GitHubToolData } from "@/lib/github";
+import type { CostModel, Pricing } from "@/lib/types";
+
+/**
+ * Compute a field-level diff between two pricing/cost_model snapshots.
+ * Numeric cost_model fields also get a delta_pct for sparkline rendering.
+ */
+function computePricingDiff(
+  oldP: Pricing | null,
+  newP: Pricing,
+  oldCM: CostModel | null,
+  newCM: CostModel | null
+): Record<string, { old: unknown; new: unknown; delta_pct?: number }> {
+  const diff: Record<string, { old: unknown; new: unknown; delta_pct?: number }> = {};
+
+  if ((oldP?.free_tier ?? null) !== newP.free_tier) {
+    diff["pricing.free_tier"] = { old: oldP?.free_tier ?? null, new: newP.free_tier };
+  }
+
+  const numericKeys: (keyof CostModel)[] = [
+    "input_cost_per_1k_tokens",
+    "output_cost_per_1k_tokens",
+    "cached_input_cost_per_1k_tokens",
+    "cache_write_cost_per_1k_tokens",
+    "batch_input_cost_per_1k_tokens",
+    "batch_output_cost_per_1k_tokens",
+    "cost_per_month_base",
+    "cost_per_seat",
+    "cost_per_call",
+    "cost_per_event",
+    "storage_cost_per_gb_month",
+    "query_cost_per_million",
+    "write_cost_per_million",
+    "min_monthly_cost",
+  ];
+
+  for (const k of numericKeys) {
+    const oldV = oldCM?.[k] ?? null;
+    const newV = newCM?.[k] ?? null;
+    if (oldV !== newV) {
+      const entry: { old: unknown; new: unknown; delta_pct?: number } = { old: oldV, new: newV };
+      if (typeof oldV === "number" && typeof newV === "number" && oldV !== 0) {
+        entry.delta_pct = ((newV - oldV) / oldV) * 100;
+      }
+      diff[`cost_model.${k}`] = entry;
+    }
+  }
+
+  if ((oldCM?.type ?? null) !== (newCM?.type ?? null)) {
+    diff["cost_model.type"] = { old: oldCM?.type ?? null, new: newCM?.type ?? null };
+  }
+
+  return diff;
+}
 
 function getServiceClient() {
   const url = process.env.NEXT_PUBLIC_POSTGRES_SUPABASE_URL;
@@ -311,25 +364,53 @@ export async function GET(request: Request) {
         .digest("hex");
 
       if (tool.pricing_hash === null) {
-        // First run — set baseline hash, no event written
+        // First sight — bank the baseline snapshot in history (no diff, no event)
+        // so trend queries always have a t=0 point.
+        await db.from("tool_pricing_history").insert({
+          tool_id: tool.id,
+          pricing: tool.pricing,
+          cost_model: tool.cost_model ?? null,
+          pricing_hash: newHash,
+          diff: null,
+        });
         await db.from("tools").update({ pricing_hash: newHash }).eq("id", tool.id);
         pricingChecked++;
         continue;
       }
 
       if (tool.pricing_hash !== newHash) {
-        // Fetch previous pricing_change event's new_pricing as the "old" baseline
-        const { data: prevPricingEvent } = await db
-          .from("tool_events")
-          .select("metadata")
+        // Fetch the last history row to use as the "old" baseline for the diff.
+        // Falls back to the previous pricing_change event for tools that pre-date
+        // tool_pricing_history (one-time legacy path).
+        const { data: prevHistory } = await db
+          .from("tool_pricing_history")
+          .select("pricing, cost_model")
           .eq("tool_id", tool.id)
-          .eq("type", "pricing_change")
-          .order("detected_at", { ascending: false })
+          .order("recorded_at", { ascending: false })
           .limit(1)
           .single();
 
-        const oldPricing = prevPricingEvent?.metadata?.new_pricing ?? null;
-        const oldCostModel = prevPricingEvent?.metadata?.new_cost_model ?? null;
+        let oldPricing: Pricing | null = prevHistory?.pricing ?? null;
+        let oldCostModel: CostModel | null = prevHistory?.cost_model ?? null;
+        if (oldPricing === null) {
+          const { data: prevPricingEvent } = await db
+            .from("tool_events")
+            .select("metadata")
+            .eq("tool_id", tool.id)
+            .eq("type", "pricing_change")
+            .order("detected_at", { ascending: false })
+            .limit(1)
+            .single();
+          oldPricing = prevPricingEvent?.metadata?.new_pricing ?? null;
+          oldCostModel = prevPricingEvent?.metadata?.new_cost_model ?? null;
+        }
+
+        const diff = computePricingDiff(
+          oldPricing,
+          tool.pricing,
+          oldCostModel,
+          tool.cost_model ?? null
+        );
 
         const { error: eventError } = await db.from("tool_events").insert({
           tool_id: tool.id,
@@ -341,6 +422,7 @@ export async function GET(request: Request) {
             new_pricing: tool.pricing,
             old_cost_model: oldCostModel,
             new_cost_model: tool.cost_model ?? null,
+            diff,
           },
         });
 
@@ -349,8 +431,19 @@ export async function GET(request: Request) {
             `[sync-health] pricing ✗ ${tool.name} — event insert failed: ${eventError.message}`
           );
         } else {
+          // Bank the new snapshot in history alongside the event.
+          await db.from("tool_pricing_history").insert({
+            tool_id: tool.id,
+            pricing: tool.pricing,
+            cost_model: tool.cost_model ?? null,
+            pricing_hash: newHash,
+            diff,
+          });
           await db.from("tools").update({ pricing_hash: newHash }).eq("id", tool.id);
-          console.log(`[sync-health] pricing change detected: ${tool.name}`);
+          const changedFieldCount = Object.keys(diff).length;
+          console.log(
+            `[sync-health] pricing change detected: ${tool.name} (${changedFieldCount} field${changedFieldCount === 1 ? "" : "s"})`
+          );
           pricingChanged++;
           eventsWritten++;
         }

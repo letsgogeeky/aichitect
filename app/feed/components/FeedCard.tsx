@@ -37,11 +37,50 @@ export function eventDescription(
       return { text: "Repository archived on GitHub", color: "#ff6b6b" };
     case "pricing_change":
       return { text: "Pricing updated", color: "#74b9ff" };
+    case "benchmark_drift": {
+      const m = metadata as {
+        ttft_delta_pct: number | null;
+        throughput_delta_pct: number | null;
+      };
+      const thr = m.throughput_delta_pct;
+      const ttft = m.ttft_delta_pct;
+      if (thr != null && Math.abs(thr) >= Math.abs(ttft ?? 0)) {
+        const better = thr > 0; // higher throughput = faster
+        return {
+          text: `Throughput ${better ? "↑" : "↓"} ${thr > 0 ? "+" : ""}${thr.toFixed(0)}% WoW`,
+          color: better ? "#26de81" : "#ff6b6b",
+        };
+      }
+      if (ttft != null) {
+        const better = ttft < 0; // lower TTFT = faster
+        return {
+          text: `TTFT ${better ? "↓" : "↑"} ${ttft > 0 ? "+" : ""}${ttft.toFixed(0)}% WoW`,
+          color: better ? "#26de81" : "#ff6b6b",
+        };
+      }
+      return { text: "Benchmark drift", color: "var(--text-muted)" };
+    }
     case "star_milestone": {
       const { milestone, stars } = metadata as { milestone: number; stars: number };
       return {
         text: `Crossed ${milestone.toLocaleString()} stars ⭐ (now ${stars.toLocaleString()})`,
         color: "#fdcb6e",
+      };
+    }
+    case "incident_started": {
+      const m = metadata as { severity: string; title: string };
+      return {
+        text: `${m.severity === "critical" ? "Critical" : "Major"} incident: ${m.title}`,
+        color: m.severity === "critical" ? "#ff4757" : "#ff6b6b",
+      };
+    }
+    case "incident_resolved": {
+      const m = metadata as { duration_minutes?: number; title: string };
+      const dur = m.duration_minutes;
+      const durStr = dur == null ? "" : dur < 60 ? `${dur}min` : `${(dur / 60).toFixed(1)}h`;
+      return {
+        text: `Resolved: ${m.title}${durStr ? ` (${durStr})` : ""}`,
+        color: "#26de81",
       };
     }
     default:
@@ -198,7 +237,53 @@ function ExpandedDetail({ type, metadata }: { type: ToolEventType; metadata: Eve
       const m = metadata as {
         old_pricing: { free_tier: boolean; plans: { name: string; price: string }[] } | null;
         new_pricing: { free_tier: boolean; plans: { name: string; price: string }[] } | null;
+        diff?: Record<string, { old: unknown; new: unknown; delta_pct?: number }>;
       };
+
+      // Prefer the structured diff (banked alongside tool_pricing_history) — it
+      // gives us per-field deltas with delta_pct for free. Falls back to the
+      // plan-list comparison for events written before that field existed.
+      if (m.diff && Object.keys(m.diff).length > 0) {
+        const entries = Object.entries(m.diff);
+        return (
+          <div className="space-y-1.5">
+            {entries.map(([field, change]) => {
+              const cleanField = field.replace(/^cost_model\./, "").replace(/^pricing\./, "");
+              const isNumericDrop = typeof change.delta_pct === "number" && change.delta_pct < 0;
+              const isNumericRise = typeof change.delta_pct === "number" && change.delta_pct > 0;
+              return (
+                <div key={field} className="flex items-baseline gap-2 text-xs">
+                  <span
+                    className="font-mono"
+                    style={{ color: "var(--text-muted)", minWidth: 0, flexShrink: 0 }}
+                  >
+                    {cleanField}
+                  </span>
+                  <span style={{ color: "var(--text-secondary)" }}>
+                    {formatDiffValue(change.old)} → {formatDiffValue(change.new)}
+                  </span>
+                  {typeof change.delta_pct === "number" && (
+                    <span
+                      style={{
+                        color: isNumericDrop
+                          ? "var(--success)"
+                          : isNumericRise
+                            ? "var(--danger)"
+                            : "var(--text-muted)",
+                        fontWeight: 500,
+                      }}
+                    >
+                      {change.delta_pct > 0 ? "+" : ""}
+                      {change.delta_pct.toFixed(1)}%
+                    </span>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        );
+      }
+
       if (!m.old_pricing || !m.new_pricing) {
         return (
           <p className="text-xs" style={{ color: "var(--text-muted)" }}>
@@ -254,9 +339,153 @@ function ExpandedDetail({ type, metadata }: { type: ToolEventType; metadata: Eve
       );
     }
 
+    case "incident_started":
+    case "incident_resolved": {
+      const m = metadata as {
+        severity: string;
+        title: string;
+        scope: string[];
+        url: string;
+        started_at: string;
+        ended_at?: string;
+        duration_minutes?: number;
+      };
+      const isResolved = type === "incident_resolved";
+      return (
+        <div className="space-y-1.5">
+          <div className="flex items-center gap-2">
+            <span style={{ color: "var(--text-muted)", fontSize: 12, minWidth: 100 }}>
+              Severity
+            </span>
+            <span
+              style={{
+                fontSize: 11,
+                fontWeight: 600,
+                textTransform: "uppercase",
+                letterSpacing: 0.4,
+                color:
+                  m.severity === "critical"
+                    ? "#ff4757"
+                    : m.severity === "major"
+                      ? "#ff6b6b"
+                      : "var(--text-secondary)",
+              }}
+            >
+              {m.severity}
+            </span>
+          </div>
+          {m.scope.length > 0 && (
+            <div className="flex items-baseline gap-2">
+              <span style={{ color: "var(--text-muted)", fontSize: 12, minWidth: 100 }}>Scope</span>
+              <span style={{ color: "var(--text-secondary)", fontSize: 12 }}>
+                {m.scope.join(", ")}
+              </span>
+            </div>
+          )}
+          {isResolved && m.duration_minutes != null && (
+            <div className="flex items-center gap-2">
+              <span style={{ color: "var(--text-muted)", fontSize: 12, minWidth: 100 }}>
+                Duration
+              </span>
+              <span style={{ color: "var(--text-primary)", fontSize: 12, fontWeight: 500 }}>
+                {m.duration_minutes < 60
+                  ? `${m.duration_minutes} min`
+                  : `${(m.duration_minutes / 60).toFixed(1)} h`}
+              </span>
+            </div>
+          )}
+          {m.url && (
+            <a
+              href={m.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs underline"
+              style={{ color: "var(--accent-2)" }}
+            >
+              View status page →
+            </a>
+          )}
+        </div>
+      );
+    }
+
+    case "benchmark_drift": {
+      const m = metadata as {
+        ttft_delta_pct: number | null;
+        throughput_delta_pct: number | null;
+        old_ttft_ms: number | null;
+        new_ttft_ms: number | null;
+        old_throughput: number | null;
+        new_throughput: number | null;
+        model_slug?: string | null;
+      };
+      const rows = [
+        {
+          label: "Throughput",
+          old: m.old_throughput,
+          new: m.new_throughput,
+          delta: m.throughput_delta_pct,
+          unit: " tok/s",
+          improved: (d: number) => d > 0,
+        },
+        {
+          label: "TTFT",
+          old: m.old_ttft_ms,
+          new: m.new_ttft_ms,
+          delta: m.ttft_delta_pct,
+          unit: " ms",
+          improved: (d: number) => d < 0,
+        },
+      ].filter((r) => r.delta != null);
+
+      return (
+        <div className="space-y-1.5">
+          {rows.map((r) => {
+            const better = r.delta != null && r.improved(r.delta);
+            return (
+              <div key={r.label} className="flex items-center gap-3 text-xs">
+                <span style={{ color: "var(--text-muted)", minWidth: 100 }}>{r.label}</span>
+                <span style={{ color: "var(--text-secondary)" }}>
+                  {r.old ?? "—"}
+                  {r.unit} → {r.new ?? "—"}
+                  {r.unit}
+                </span>
+                <span
+                  style={{
+                    color: better ? "var(--success)" : "var(--danger)",
+                    fontWeight: 500,
+                  }}
+                >
+                  {r.delta != null && r.delta > 0 ? "+" : ""}
+                  {r.delta?.toFixed(1)}%
+                </span>
+              </div>
+            );
+          })}
+          {m.model_slug && (
+            <p className="text-[10px] pt-1" style={{ color: "var(--text-muted)" }}>
+              Sourced from Artificial Analysis · model slug{" "}
+              <span className="font-mono">{m.model_slug}</span>
+            </p>
+          )}
+        </div>
+      );
+    }
+
     default:
       return null;
   }
+}
+
+function formatDiffValue(v: unknown): string {
+  if (v === null || v === undefined) return "—";
+  if (typeof v === "boolean") return v ? "yes" : "no";
+  if (typeof v === "number") {
+    if (v >= 1) return v.toLocaleString("en-US", { maximumFractionDigits: 2 });
+    return v.toFixed(Math.min(6, Math.max(2, -Math.floor(Math.log10(Math.abs(v))) + 2)));
+  }
+  if (typeof v === "string") return v;
+  return JSON.stringify(v);
 }
 
 // ── FeedCard ───────────────────────────────────────────────────────────────

@@ -132,12 +132,79 @@ export async function GET(request: Request) {
 
     if (updateError) {
       console.error(`[sync-benchmarks] Failed to update ${toolId}: ${updateError.message}`);
-    } else {
-      results.push({ toolId, modelSlug, status: "updated", latencyMs: ttftMs, inputCostPer1k });
-      console.log(
-        `[sync-benchmarks] ${toolId} (${modelSlug}): ttft=${ttftMs}ms, throughput=${throughput}tok/s, input=$${inputCostPer1k}/1k`
-      );
+      continue;
     }
+
+    // ── Bank a benchmark_history row + detect WoW drift ──────────────────────
+
+    const ttfaMs = aaToLatencyMs(model.median_time_to_first_answer_token);
+    const { data: prevBenchmark } = await db
+      .from("tool_benchmark_history")
+      .select("ttft_p50_ms, output_tokens_per_second")
+      .eq("tool_id", toolId)
+      .order("recorded_at", { ascending: false })
+      .limit(1)
+      .single();
+
+    const oldTtft: number | null = prevBenchmark?.ttft_p50_ms ?? null;
+    const oldThroughput: number | null = prevBenchmark?.output_tokens_per_second ?? null;
+
+    const { error: historyError } = await db.from("tool_benchmark_history").insert({
+      tool_id: toolId,
+      ttft_p50_ms: ttftMs,
+      output_tokens_per_second: throughput,
+      ttfa_p50_ms: ttfaMs,
+      input_cost_per_1k: inputCostPer1k,
+      output_cost_per_1k: outputCostPer1k,
+      model_slug: modelSlug,
+    });
+    if (historyError) {
+      console.error(`[sync-benchmarks] history insert ✗ ${toolId}: ${historyError.message}`);
+    }
+
+    // Fire benchmark_drift event when WoW change is significant. TTFT is
+    // noisier than throughput, so use a higher threshold there.
+    const ttftDeltaPct =
+      oldTtft != null && ttftMs != null && oldTtft > 0
+        ? ((ttftMs - oldTtft) / oldTtft) * 100
+        : null;
+    const throughputDeltaPct =
+      oldThroughput != null && throughput != null && oldThroughput > 0
+        ? ((throughput - oldThroughput) / oldThroughput) * 100
+        : null;
+
+    const ttftDrifted = ttftDeltaPct != null && Math.abs(ttftDeltaPct) >= 15;
+    const throughputDrifted = throughputDeltaPct != null && Math.abs(throughputDeltaPct) >= 10;
+
+    if (ttftDrifted || throughputDrifted) {
+      const { error: eventError } = await db.from("tool_events").insert({
+        tool_id: toolId,
+        type: "benchmark_drift",
+        old_hash: null,
+        new_hash: null,
+        metadata: {
+          ttft_delta_pct: ttftDeltaPct,
+          throughput_delta_pct: throughputDeltaPct,
+          old_ttft_ms: oldTtft,
+          new_ttft_ms: ttftMs,
+          old_throughput: oldThroughput,
+          new_throughput: throughput,
+          model_slug: modelSlug,
+        },
+      });
+      if (eventError) {
+        console.error(`[sync-benchmarks] drift event ✗ ${toolId}: ${eventError.message}`);
+      } else {
+        console.log(
+          `[sync-benchmarks] drift: ${toolId} ttft ${ttftDeltaPct?.toFixed(1) ?? "—"}% / throughput ${throughputDeltaPct?.toFixed(1) ?? "—"}%`
+        );
+      }
+    }
+
+    results.push({ toolId, modelSlug, status: "updated", latencyMs: ttftMs, inputCostPer1k });
+    console.log(
+      `[sync-benchmarks] ${toolId} (${modelSlug}): ttft=${ttftMs}ms, throughput=${throughput}tok/s, input=$${inputCostPer1k}/1k`
+    );
   }
 
   const updated = results.filter((r) => r.status === "updated").length;

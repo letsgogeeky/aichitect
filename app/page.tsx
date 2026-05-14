@@ -622,6 +622,9 @@ const EVENT_COLOR: Record<ToolEventType, string> = {
   stale_transition: "#f39c12",
   archived_detected: "#ff6b6b",
   pricing_change: "#74b9ff",
+  benchmark_drift: "#a29bfe",
+  incident_started: "#ff6b6b",
+  incident_resolved: "#26de81",
 };
 
 const EVENT_LABEL: Record<ToolEventType, string> = {
@@ -630,6 +633,9 @@ const EVENT_LABEL: Record<ToolEventType, string> = {
   stale_transition: "Stale",
   archived_detected: "Archived",
   pricing_change: "Pricing",
+  benchmark_drift: "Benchmark",
+  incident_started: "Incident",
+  incident_resolved: "Resolved",
 };
 
 function landingEventSummary(type: ToolEventType, metadata: Record<string, unknown>): string {

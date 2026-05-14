@@ -40,7 +40,10 @@ export type ToolEventType =
   | "stale_transition"
   | "archived_detected"
   | "pricing_change"
-  | "star_milestone";
+  | "star_milestone"
+  | "benchmark_drift"
+  | "incident_started"
+  | "incident_resolved";
 
 export type ToolEventMetadata =
   | {
@@ -60,8 +63,32 @@ export type ToolEventMetadata =
       new_pricing: Pricing;
       old_cost_model: CostModel | null;
       new_cost_model: CostModel | null;
+      /** Field-level diff with per-field delta_pct for numeric changes. Added with history tables. */
+      diff?: Record<string, { old: unknown; new: unknown; delta_pct?: number }>;
     }
-  | { milestone: number; stars: number };
+  | { milestone: number; stars: number }
+  | {
+      /** Both deltas are old → new percentage changes; negatives mean "got slower". */
+      ttft_delta_pct: number | null;
+      throughput_delta_pct: number | null;
+      old_ttft_ms: number | null;
+      new_ttft_ms: number | null;
+      old_throughput: number | null;
+      new_throughput: number | null;
+      /** AA model slug at time of measurement — flips when the upstream model rolls over. */
+      model_slug?: string | null;
+    }
+  | {
+      /** Vendor's severity at incident start. 'major' | 'critical' for our threshold. */
+      severity: "minor" | "major" | "critical";
+      title: string;
+      scope: string[];
+      url: string;
+      started_at: string;
+      /** Present on incident_resolved only. */
+      ended_at?: string;
+      duration_minutes?: number;
+    };
 
 export interface ToolEvent {
   id: string;
