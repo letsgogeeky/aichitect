@@ -388,6 +388,7 @@ export default async function EventPage({ params }: Props) {
     stale_transition: "Stale Transition",
     archived_detected: "Archived",
     pricing_change: "Pricing Change",
+    benchmark_drift: "Benchmark Drift",
   };
 
   const EVENT_TYPE_COLOR: Record<ToolEventType, string> = {
@@ -396,6 +397,7 @@ export default async function EventPage({ params }: Props) {
     stale_transition: "#f39c12",
     archived_detected: "#ff6b6b",
     pricing_change: "#74b9ff",
+    benchmark_drift: "#a29bfe",
   };
 
   const eventColor = EVENT_TYPE_COLOR[event.type] ?? "var(--text-muted)";

@@ -40,7 +40,8 @@ export type ToolEventType =
   | "stale_transition"
   | "archived_detected"
   | "pricing_change"
-  | "star_milestone";
+  | "star_milestone"
+  | "benchmark_drift";
 
 export type ToolEventMetadata =
   | {
@@ -63,7 +64,18 @@ export type ToolEventMetadata =
       /** Field-level diff with per-field delta_pct for numeric changes. Added with history tables. */
       diff?: Record<string, { old: unknown; new: unknown; delta_pct?: number }>;
     }
-  | { milestone: number; stars: number };
+  | { milestone: number; stars: number }
+  | {
+      /** Both deltas are old → new percentage changes; negatives mean "got slower". */
+      ttft_delta_pct: number | null;
+      throughput_delta_pct: number | null;
+      old_ttft_ms: number | null;
+      new_ttft_ms: number | null;
+      old_throughput: number | null;
+      new_throughput: number | null;
+      /** AA model slug at time of measurement — flips when the upstream model rolls over. */
+      model_slug?: string | null;
+    };
 
 export interface ToolEvent {
   id: string;

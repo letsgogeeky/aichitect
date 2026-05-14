@@ -37,6 +37,29 @@ export function eventDescription(
       return { text: "Repository archived on GitHub", color: "#ff6b6b" };
     case "pricing_change":
       return { text: "Pricing updated", color: "#74b9ff" };
+    case "benchmark_drift": {
+      const m = metadata as {
+        ttft_delta_pct: number | null;
+        throughput_delta_pct: number | null;
+      };
+      const thr = m.throughput_delta_pct;
+      const ttft = m.ttft_delta_pct;
+      if (thr != null && Math.abs(thr) >= Math.abs(ttft ?? 0)) {
+        const better = thr > 0; // higher throughput = faster
+        return {
+          text: `Throughput ${better ? "↑" : "↓"} ${thr > 0 ? "+" : ""}${thr.toFixed(0)}% WoW`,
+          color: better ? "#26de81" : "#ff6b6b",
+        };
+      }
+      if (ttft != null) {
+        const better = ttft < 0; // lower TTFT = faster
+        return {
+          text: `TTFT ${better ? "↓" : "↑"} ${ttft > 0 ? "+" : ""}${ttft.toFixed(0)}% WoW`,
+          color: better ? "#26de81" : "#ff6b6b",
+        };
+      }
+      return { text: "Benchmark drift", color: "var(--text-muted)" };
+    }
     case "star_milestone": {
       const { milestone, stars } = metadata as { milestone: number; stars: number };
       return {
@@ -296,6 +319,69 @@ function ExpandedDetail({ type, metadata }: { type: ToolEventType; metadata: Eve
               )}
             </div>
           </div>
+        </div>
+      );
+    }
+
+    case "benchmark_drift": {
+      const m = metadata as {
+        ttft_delta_pct: number | null;
+        throughput_delta_pct: number | null;
+        old_ttft_ms: number | null;
+        new_ttft_ms: number | null;
+        old_throughput: number | null;
+        new_throughput: number | null;
+        model_slug?: string | null;
+      };
+      const rows = [
+        {
+          label: "Throughput",
+          old: m.old_throughput,
+          new: m.new_throughput,
+          delta: m.throughput_delta_pct,
+          unit: " tok/s",
+          improved: (d: number) => d > 0,
+        },
+        {
+          label: "TTFT",
+          old: m.old_ttft_ms,
+          new: m.new_ttft_ms,
+          delta: m.ttft_delta_pct,
+          unit: " ms",
+          improved: (d: number) => d < 0,
+        },
+      ].filter((r) => r.delta != null);
+
+      return (
+        <div className="space-y-1.5">
+          {rows.map((r) => {
+            const better = r.delta != null && r.improved(r.delta);
+            return (
+              <div key={r.label} className="flex items-center gap-3 text-xs">
+                <span style={{ color: "var(--text-muted)", minWidth: 100 }}>{r.label}</span>
+                <span style={{ color: "var(--text-secondary)" }}>
+                  {r.old ?? "—"}
+                  {r.unit} → {r.new ?? "—"}
+                  {r.unit}
+                </span>
+                <span
+                  style={{
+                    color: better ? "var(--success)" : "var(--danger)",
+                    fontWeight: 500,
+                  }}
+                >
+                  {r.delta != null && r.delta > 0 ? "+" : ""}
+                  {r.delta?.toFixed(1)}%
+                </span>
+              </div>
+            );
+          })}
+          {m.model_slug && (
+            <p className="text-[10px] pt-1" style={{ color: "var(--text-muted)" }}>
+              Sourced from Artificial Analysis · model slug{" "}
+              <span className="font-mono">{m.model_slug}</span>
+            </p>
+          )}
         </div>
       );
     }

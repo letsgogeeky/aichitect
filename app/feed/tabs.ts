@@ -7,4 +7,5 @@ export const FILTER_TABS: { id: string; label: string; types: ToolEventType[] | 
   { id: "stale", label: "Stale", types: ["stale_transition"] },
   { id: "archived", label: "Archived", types: ["archived_detected"] },
   { id: "pricing", label: "Pricing", types: ["pricing_change"] },
+  { id: "benchmark", label: "Benchmark", types: ["benchmark_drift"] },
 ];

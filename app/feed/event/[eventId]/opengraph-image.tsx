@@ -16,6 +16,7 @@ const EVENT_TYPE_LABEL: Record<ToolEventType, string> = {
   stale_transition: "Stale Transition",
   archived_detected: "Archived",
   pricing_change: "Pricing Change",
+  benchmark_drift: "Benchmark Drift",
 };
 
 const EVENT_TYPE_COLOR: Record<ToolEventType, string> = {
@@ -24,6 +25,7 @@ const EVENT_TYPE_COLOR: Record<ToolEventType, string> = {
   stale_transition: "#f39c12",
   archived_detected: "#ff6b6b",
   pricing_change: "#74b9ff",
+  benchmark_drift: "#a29bfe",
 };
 
 type Meta = Record<string, unknown>;
