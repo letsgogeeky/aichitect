@@ -133,6 +133,8 @@ export interface CostModel {
   cost_per_month_base?: number;
   /** USD per seat/month */
   cost_per_seat?: number;
+  /** USD per call/request — used when type is per_call and a published rate exists. */
+  cost_per_call?: number;
   /** Human-readable free tier limit, e.g. "10k vectors", "1M tokens/mo" */
   free_tier_limit?: string;
   /** Canonical pricing page URL */
