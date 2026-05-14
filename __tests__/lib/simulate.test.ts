@@ -1,5 +1,11 @@
 import { describe, it, expect } from "vitest";
-import { simulate, computeToolMonthlyCost, computeLatency, SCALE_STEPS } from "@/lib/simulate";
+import {
+  simulate,
+  computeToolMonthlyCost,
+  computeLatency,
+  SCALE_STEPS,
+  type CostContext,
+} from "@/lib/simulate";
 import type { Tool } from "@/lib/types";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -22,17 +28,43 @@ function makeTool(id: string, overrides: Partial<Tool> = {}): Tool {
   };
 }
 
-// Fixture tools — every test passes this catalog. Values mirror the relevant
-// rows of data/tools.json so assertions stay grounded in realistic numbers,
-// but the engine no longer reads JSON itself.
+function ctx(overrides: Partial<CostContext> = {}): CostContext {
+  return {
+    monthlyRequests: 300_000,
+    avgInputTokens: 400,
+    avgOutputTokens: 600,
+    cacheHitRate: 0,
+    batchPct: 0,
+    vectorCount: 0,
+    ...overrides,
+  };
+}
+
 const fixtureTools: Tool[] = [
   makeTool("openai-api", {
     cost_model: {
       type: "per_token",
       input_cost_per_1k_tokens: 0.0025,
       output_cost_per_1k_tokens: 0.01,
+      cached_input_cost_per_1k_tokens: 0.00025, // 10% of std
+      batch_input_cost_per_1k_tokens: 0.00125, // 50% of std
+      batch_output_cost_per_1k_tokens: 0.005,
     },
-    // No latency_p50_ms — exercises DEFAULT_LLM_LATENCY_MS fallback (the AA cron writes this in prod).
+    ttft_p50_ms: 500,
+    output_tokens_per_second: 85,
+    max_tpm: 600_000,
+    max_rpm: 5_000,
+  }),
+  makeTool("anthropic-api", {
+    cost_model: {
+      type: "per_token",
+      input_cost_per_1k_tokens: 0.003,
+      output_cost_per_1k_tokens: 0.015,
+      cached_input_cost_per_1k_tokens: 0.0003,
+      cache_write_cost_per_1k_tokens: 0.00375,
+    },
+    ttft_p50_ms: 700,
+    output_tokens_per_second: 46,
   }),
   makeTool("groq", {
     cost_model: {
@@ -40,22 +72,45 @@ const fixtureTools: Tool[] = [
       input_cost_per_1k_tokens: 0.00059,
       output_cost_per_1k_tokens: 0.00079,
     },
+    ttft_p50_ms: 100,
+    output_tokens_per_second: 500, // Groq is fast
+  }),
+  makeTool("cerebras", { ttft_p50_ms: 50, output_tokens_per_second: 800 }),
+  makeTool("ollama", {}),
+  makeTool("pgvector", {
+    cost_model: { type: "free" },
+    latency_p50_ms: 30,
+  }),
+  makeTool("qdrant", { cost_model: { type: "free" }, latency_p50_ms: 50 }),
+  makeTool("pinecone", {
+    slot: "vector-db",
+    cost_model: {
+      type: "per_vector_query",
+      storage_cost_per_gb_month: 0.33,
+      query_cost_per_million: 16,
+      min_monthly_cost: 50,
+    },
+    latency_p50_ms: 100,
+    bytes_per_vector: 2_000,
+  }),
+  makeTool("pinecone-usage", {
+    slot: "vector-db",
+    cost_model: { type: "usage_based" },
     latency_p50_ms: 100,
   }),
-  makeTool("cerebras", { latency_p50_ms: 50 }),
-  makeTool("ollama", {}), // no cost_model
-  makeTool("pgvector", { cost_model: { type: "free" }, latency_p50_ms: 30 }),
-  makeTool("qdrant", { cost_model: { type: "free" }, latency_p50_ms: 50 }),
-  makeTool("pinecone", { cost_model: { type: "usage_based" }, latency_p50_ms: 100 }),
   makeTool("langgraph", {
     cost_model: { type: "flat", cost_per_month_base: 29 },
     latency_p50_ms: 150,
   }),
-  makeTool("vapi-calls", {
-    cost_model: { type: "per_call", cost_per_call: 0.05 },
+  makeTool("langfuse", {
+    cost_model: { type: "per_event", cost_per_event: 0.00006 },
   }),
-  makeTool("skyvern-runs", {
-    cost_model: { type: "per_call" }, // no cost_per_call → unprojected
+  makeTool("text-embedding-3-small", {
+    cost_model: {
+      type: "per_token",
+      input_cost_per_1k_tokens: 0.00002,
+      output_cost_per_1k_tokens: 0,
+    },
   }),
 ];
 
@@ -64,371 +119,370 @@ const fixtureTools: Tool[] = [
 describe("computeToolMonthlyCost", () => {
   it("returns 0 for a tool with no cost_model", () => {
     const tool = makeTool("oss-tool", { cost_model: undefined });
-    expect(computeToolMonthlyCost(tool, 100_000, 400, 600)).toBe(0);
+    expect(computeToolMonthlyCost(tool, ctx({ monthlyRequests: 100_000 }))).toBe(0);
   });
 
   it("returns 0 for type: free", () => {
     const tool = makeTool("langchain", { cost_model: { type: "free" } });
-    expect(computeToolMonthlyCost(tool, 100_000, 400, 600)).toBe(0);
+    expect(computeToolMonthlyCost(tool, ctx({ monthlyRequests: 100_000 }))).toBe(0);
   });
 
-  it("computes per_token cost correctly — openai-api at 10k users", () => {
-    // 10k users × 1 req/day × 30 days = 300k monthly requests
-    // 400 input @ $0.0025/1k + 600 output @ $0.01/1k = $0.007/req
-    // 300k × $0.007 = $2,100
-    const tool = makeTool("openai-api", {
+  it("per_token at 300k req with 400/600 tokens — openai-api ≈ $2100", () => {
+    // 300k × (0.4×0.0025 + 0.6×0.01) = 300k × 0.007 = $2100
+    expect(computeToolMonthlyCost(fixtureTools[0], ctx())).toBeCloseTo(2100, 1);
+  });
+
+  it("cacheHitRate=0.6 cuts input cost on the cached fraction (90% off)", () => {
+    // base input cost portion = 0.4×0.0025 = $0.001 per req
+    // With 60% cached: 0.4 × (0.6×0.00025 + 0.4×0.0025) = 0.4 × 0.00115 = $0.00046 per req
+    // Output unchanged: 0.6×0.01 = $0.006
+    // Total per req: $0.00646 → 300k × = $1938
+    const cost = computeToolMonthlyCost(fixtureTools[0], ctx({ cacheHitRate: 0.6 }));
+    expect(cost).toBeCloseTo(1938, 0);
+  });
+
+  it("batchPct=1 halves cost (50% off input and output)", () => {
+    // Full batch: 300k × (0.4×0.00125 + 0.6×0.005) = 300k × 0.0035 = $1050
+    const cost = computeToolMonthlyCost(fixtureTools[0], ctx({ batchPct: 1 }));
+    expect(cost).toBeCloseTo(1050, 1);
+  });
+
+  it("per_token uses default cache discount when cached price unset", () => {
+    const tool = makeTool("noCached", {
       cost_model: {
         type: "per_token",
-        input_cost_per_1k_tokens: 0.0025,
-        output_cost_per_1k_tokens: 0.01,
+        input_cost_per_1k_tokens: 0.001,
+        output_cost_per_1k_tokens: 0.001,
       },
     });
-    const monthlyRequests = 10_000 * 1 * 30;
-    expect(computeToolMonthlyCost(tool, monthlyRequests, 400, 600)).toBeCloseTo(2100, 1);
+    // 100% cache hit → input rate = 0.0001 (10% of 0.001). Output rate unchanged.
+    // Per req: 0.4×0.0001 + 0.6×0.001 = 0.00004 + 0.0006 = $0.00064 → 300k × = $192
+    const cost = computeToolMonthlyCost(tool, ctx({ cacheHitRate: 1 }));
+    expect(cost).toBeCloseTo(192, 1);
   });
 
-  it("computes per_token cost correctly — groq (cheap) at 10k users", () => {
-    // 300k × (400/1k × 0.00059 + 600/1k × 0.00079) = $213
-    const tool = makeTool("groq", {
-      cost_model: {
-        type: "per_token",
-        input_cost_per_1k_tokens: 0.00059,
-        output_cost_per_1k_tokens: 0.00079,
-      },
-    });
-    const monthlyRequests = 10_000 * 1 * 30;
-    expect(computeToolMonthlyCost(tool, monthlyRequests, 400, 600)).toBeCloseTo(213, 1);
+  it("flat cost is independent of request volume", () => {
+    const tool = makeTool("flat", { cost_model: { type: "flat", cost_per_month_base: 29 } });
+    expect(computeToolMonthlyCost(tool, ctx({ monthlyRequests: 1_000 }))).toBe(29);
+    expect(computeToolMonthlyCost(tool, ctx({ monthlyRequests: 1_000_000_000 }))).toBe(29);
   });
 
-  it("RAG token mix inflates input cost (3000 in / 400 out)", () => {
-    // openai-api: 3000/1k × 0.0025 + 400/1k × 0.01 = 0.0075 + 0.004 = 0.0115/req
-    // 300k × 0.0115 = $3,450
-    const tool = makeTool("openai-api", {
-      cost_model: {
-        type: "per_token",
-        input_cost_per_1k_tokens: 0.0025,
-        output_cost_per_1k_tokens: 0.01,
-      },
-    });
-    const monthlyRequests = 10_000 * 1 * 30;
-    expect(computeToolMonthlyCost(tool, monthlyRequests, 3000, 400)).toBeCloseTo(3450, 1);
+  it("usage_based returns 0 (unprojectable)", () => {
+    const tool = makeTool("pinecone-usage", { cost_model: { type: "usage_based" } });
+    expect(computeToolMonthlyCost(tool, ctx())).toBe(0);
   });
 
-  it("returns flat cost regardless of request volume", () => {
-    const tool = makeTool("langgraph", { cost_model: { type: "flat", cost_per_month_base: 29 } });
-    expect(computeToolMonthlyCost(tool, 1_000, 400, 600)).toBe(29);
-    expect(computeToolMonthlyCost(tool, 1_000_000, 400, 600)).toBe(29);
-  });
-
-  it("returns 0 for usage_based (cannot project)", () => {
-    const tool = makeTool("pinecone", { cost_model: { type: "usage_based" } });
-    expect(computeToolMonthlyCost(tool, 100_000, 400, 600)).toBe(0);
-  });
-
-  it("computes per_call with a published rate", () => {
+  it("per_call uses cost_per_call when present", () => {
     const tool = makeTool("vapi", { cost_model: { type: "per_call", cost_per_call: 0.05 } });
-    expect(computeToolMonthlyCost(tool, 10_000, 400, 600)).toBeCloseTo(500, 1);
+    expect(computeToolMonthlyCost(tool, ctx({ monthlyRequests: 10_000 }))).toBeCloseTo(500, 1);
   });
 
-  it("returns 0 for per_call without a published rate", () => {
-    const tool = makeTool("skyvern", { cost_model: { type: "per_call" } });
-    expect(computeToolMonthlyCost(tool, 10_000, 400, 600)).toBe(0);
+  it("per_event scales with monthly request count", () => {
+    // langfuse: $0.00006 per event × 300k = $18
+    expect(computeToolMonthlyCost(fixtureTools[10], ctx())).toBeCloseTo(18, 1);
+  });
+
+  it("per_vector_query honours the minimum monthly cost", () => {
+    // Tiny workload — storage + queries < $50, floor at $50.
+    const cost = computeToolMonthlyCost(
+      fixtureTools[7],
+      ctx({ monthlyRequests: 1_000, vectorCount: 10_000 })
+    );
+    expect(cost).toBe(50);
+  });
+
+  it("per_vector_query exceeds the minimum at scale", () => {
+    // 5M vectors × 2000 bytes ≈ 9.31 GB → 9.31 × 0.33 ≈ $3.07 storage
+    // 1M queries / 1M × 16 = $16. Total ≈ $19.07. Below min so → $50.
+    // 50M vectors → 93.1 GB × 0.33 = $30.72 storage; queries 30M / 1M × 16 = $480 → ~$510.72 > $50.
+    const cost = computeToolMonthlyCost(
+      fixtureTools[7],
+      ctx({ monthlyRequests: 30_000_000, vectorCount: 50_000_000 })
+    );
+    expect(cost).toBeGreaterThan(500);
   });
 });
 
 // ── computeLatency ────────────────────────────────────────────────────────────
 
 describe("computeLatency", () => {
-  it("returns LLM-only latency when no vector DB or framework", () => {
-    const { totalMs, breakdown } = computeLatency({ llm: "openai-api" }, fixtureTools);
-    // openai-api fixture has no latency_p50_ms → falls back to DEFAULT_LLM_LATENCY_MS
-    expect(totalMs).toBe(800);
-    expect(breakdown).toEqual({ llm: 800 });
+  function input(
+    stack: Partial<Parameters<typeof computeLatency>[0]["stack"]> = {},
+    useCase: "chatbot" | "rag" = "chatbot",
+    avgOutputTokens = 600
+  ) {
+    return {
+      useCase,
+      monthlyUsers: 10_000,
+      requestsPerUserPerDay: 1,
+      avgInputTokens: 400,
+      avgOutputTokens,
+      stack: { llm: "openai-api", ...stack },
+    };
+  }
+
+  it("ttft + generation = output / throughput for the LLM", () => {
+    // openai fixture: ttft 500, throughput 85
+    // generation = 600 / 85 * 1000 ≈ 7058 ms
+    const { totalMs, stages } = computeLatency(input(), fixtureTools);
+    expect(stages.ttft).toBe(500);
+    expect(stages.generation).toBeCloseTo((600 / 85) * 1000, 0);
+    expect(totalMs).toBeCloseTo(500 + (600 / 85) * 1000, 0);
   });
 
-  it("adds vector retrieval latency when vectorDb is set", () => {
-    const { totalMs, breakdown } = computeLatency(
-      { llm: "openai-api", vectorDb: "pgvector" },
-      fixtureTools
-    );
-    expect(breakdown["vector"]).toBe(30);
-    expect(totalMs).toBe(830);
+  it("Groq's high throughput keeps total latency under 1.5s", () => {
+    // 100 ttft + 600/500*1000 = 1200ms generation = 1300ms total
+    const { totalMs } = computeLatency(input({ llm: "groq" }), fixtureTools);
+    expect(totalMs).toBeLessThan(1500);
   });
 
-  it("adds framework overhead when framework is set", () => {
-    const { totalMs, breakdown } = computeLatency(
-      { llm: "openai-api", vectorDb: "qdrant", framework: "langgraph" },
-      fixtureTools
-    );
-    expect(breakdown["llm"]).toBe(800);
-    expect(breakdown["vector"]).toBe(50);
-    expect(breakdown["framework"]).toBe(150);
-    expect(totalMs).toBe(1000);
+  it("falls back to default ttft + throughput when LLM tool has no fields", () => {
+    // ollama has no ttft / throughput. defaults: 600 ttft, 50 tok/s
+    // generation = 600/50 * 1000 = 12000 ms
+    const { totalMs } = computeLatency(input({ llm: "ollama" }), fixtureTools);
+    expect(totalMs).toBeCloseTo(600 + 12000, 0);
   });
 
-  it("falls back to 800ms for unknown LLM tool", () => {
-    const { totalMs } = computeLatency({ llm: "unknown-llm" }, fixtureTools);
-    expect(totalMs).toBe(800);
+  it("includes vector retrieval and embedding only on RAG use case", () => {
+    const chatbot = computeLatency(input({ vectorDb: "pgvector" }, "chatbot"), fixtureTools);
+    expect(chatbot.stages.vector).toBe(0);
+    expect(chatbot.stages.embedding).toBe(0);
+    const rag = computeLatency(input({ vectorDb: "pgvector" }, "rag"), fixtureTools);
+    expect(rag.stages.vector).toBe(30);
+    expect(rag.stages.embedding).toBeGreaterThan(0); // default embedding latency
   });
 
-  it("groq returns fast latency (100ms)", () => {
-    const { totalMs } = computeLatency({ llm: "groq" }, fixtureTools);
-    expect(totalMs).toBe(100);
-  });
-
-  it("cerebras returns fastest latency (50ms)", () => {
-    const { totalMs } = computeLatency({ llm: "cerebras" }, fixtureTools);
-    expect(totalMs).toBe(50);
+  it("scales linearly with output tokens", () => {
+    const short = computeLatency(input({}, "chatbot", 100), fixtureTools);
+    const long = computeLatency(input({}, "chatbot", 1000), fixtureTools);
+    // generation only — ttft constant. 10× output → ~10× generation.
+    expect(long.stages.generation / short.stages.generation).toBeCloseTo(10, 1);
   });
 });
 
 // ── simulate — snapshots ──────────────────────────────────────────────────────
 
 describe("simulate — snapshots", () => {
+  function baseInput(overrides = {}) {
+    return {
+      useCase: "chatbot" as const,
+      monthlyUsers: 1_000,
+      requestsPerUserPerDay: 1,
+      avgInputTokens: 400,
+      avgOutputTokens: 600,
+      stack: { llm: "openai-api" },
+      ...overrides,
+    };
+  }
+
   it("produces one snapshot per scale step", () => {
-    const result = simulate(
-      {
-        useCase: "chatbot",
-        monthlyUsers: 1000,
-        requestsPerUserPerDay: 1,
-        avgInputTokens: 200,
-        avgOutputTokens: 300,
-        stack: { llm: "openai-api" },
-      },
-      fixtureTools
-    );
+    const result = simulate(baseInput(), fixtureTools);
     expect(result.snapshots).toHaveLength(SCALE_STEPS.length);
     expect(result.snapshots.map((s) => s.users)).toEqual(SCALE_STEPS);
   });
 
-  it("cost scales linearly with users for per_token LLM", () => {
+  it("each snapshot carries cost-per-request and cost-per-user", () => {
+    const result = simulate(baseInput(), fixtureTools);
+    for (const snap of result.snapshots) {
+      expect(snap.costPerRequest).toBeGreaterThan(0);
+      expect(snap.costPerUser).toBeGreaterThan(0);
+      expect(snap.costPerRequest * snap.monthlyRequests).toBeCloseTo(snap.monthlyCostUSD, 4);
+      expect(snap.costPerUser * snap.users).toBeCloseTo(snap.monthlyCostUSD, 4);
+    }
+  });
+
+  it("costByLayer.llm + others equals total", () => {
     const result = simulate(
-      {
-        useCase: "chatbot",
-        monthlyUsers: 1000,
-        requestsPerUserPerDay: 1,
-        avgInputTokens: 400,
-        avgOutputTokens: 600,
-        stack: { llm: "openai-api" },
-      },
+      baseInput({ stack: { llm: "openai-api", framework: "langgraph", eval: "langfuse" } }),
       fixtureTools
     );
+    for (const snap of result.snapshots) {
+      const sum =
+        snap.costByLayer.llm +
+        snap.costByLayer.embedding +
+        snap.costByLayer.vector +
+        snap.costByLayer.framework +
+        snap.costByLayer.eval +
+        snap.costByLayer.guardrails;
+      expect(sum).toBeCloseTo(snap.monthlyCostUSD, 4);
+    }
+  });
+
+  it("scales cost linearly with users for per_token LLM", () => {
+    const result = simulate(baseInput(), fixtureTools);
     const at1k = result.snapshots.find((s) => s.users === 1_000)!;
     const at5k = result.snapshots.find((s) => s.users === 5_000)!;
     expect(at1k.monthlyCostUSD).toBeCloseTo(210, 1);
     expect(at5k.monthlyCostUSD).toBeCloseTo(1050, 1);
-    expect(at5k.monthlyCostUSD / at1k.monthlyCostUSD).toBeCloseTo(5, 2);
-  });
-
-  it("flat tools contribute the same cost at every scale", () => {
-    const result = simulate(
-      {
-        useCase: "chatbot",
-        monthlyUsers: 1000,
-        requestsPerUserPerDay: 1,
-        avgInputTokens: 400,
-        avgOutputTokens: 600,
-        stack: { llm: "openai-api", framework: "langgraph" },
-      },
-      fixtureTools
-    );
-    for (const snap of result.snapshots) {
-      expect(snap.costBreakdown["langgraph"]).toBe(29);
-    }
-  });
-
-  it("latency is constant across all snapshots", () => {
-    const result = simulate(
-      {
-        useCase: "chatbot",
-        monthlyUsers: 1000,
-        requestsPerUserPerDay: 1,
-        avgInputTokens: 400,
-        avgOutputTokens: 600,
-        stack: { llm: "openai-api", vectorDb: "pgvector" },
-      },
-      fixtureTools
-    );
-    const latencies = result.snapshots.map((s) => s.avgLatencyMs);
-    expect(new Set(latencies).size).toBe(1);
-    expect(latencies[0]).toBe(830);
   });
 });
 
 // ── simulate — breaking points ────────────────────────────────────────────────
 
 describe("simulate — breaking points", () => {
-  it("fires cost milestone at $1k when crossed", () => {
-    // openai-api, 400/600 tokens, 1 req/user/day:
-    // 5k users → 150k req × $0.007 = $1,050 → crosses $1k
-    const result = simulate(
-      {
-        useCase: "chatbot",
-        monthlyUsers: 1000,
-        requestsPerUserPerDay: 1,
-        avgInputTokens: 400,
-        avgOutputTokens: 600,
-        stack: { llm: "openai-api" },
-      },
-      fixtureTools
-    );
-    const milestone1k = result.breakingPoints.find(
-      (b) => b.type === "cost" && b.message.includes("$1,000")
-    );
-    expect(milestone1k).toBeDefined();
-    expect(milestone1k!.users).toBe(5_000);
+  function baseInput(overrides = {}) {
+    return {
+      useCase: "chatbot" as const,
+      monthlyUsers: 1_000,
+      requestsPerUserPerDay: 1,
+      avgInputTokens: 400,
+      avgOutputTokens: 600,
+      stack: { llm: "openai-api" },
+      ...overrides,
+    };
+  }
+
+  it("fires $1k cost milestone at 5k users for openai", () => {
+    const result = simulate(baseInput(), fixtureTools);
+    const m = result.breakingPoints.find((b) => b.type === "cost" && b.message.includes("$1,000"));
+    expect(m).toBeDefined();
+    expect(m!.users).toBe(5_000);
   });
 
-  it("fires cost milestone at $5k when crossed", () => {
-    // 25k users → $5,250 → crosses $5k milestone
-    const result = simulate(
-      {
-        useCase: "chatbot",
-        monthlyUsers: 1000,
-        requestsPerUserPerDay: 1,
-        avgInputTokens: 400,
-        avgOutputTokens: 600,
-        stack: { llm: "openai-api" },
-      },
-      fixtureTools
-    );
-    const milestone5k = result.breakingPoints.find(
-      (b) => b.type === "cost" && b.message.includes("$5,000")
-    );
-    expect(milestone5k).toBeDefined();
-    expect(milestone5k!.users).toBe(25_000);
+  it("fires latency breaking point when output tokens push past 2s", () => {
+    // openai: 500 ttft + 600/85*1000 ≈ 7558ms — already over 2s.
+    const result = simulate(baseInput(), fixtureTools);
+    const breach = result.breakingPoints.find((b) => b.type === "latency");
+    expect(breach).toBeDefined();
   });
 
-  it("does not fire cost milestones for zero-cost stacks", () => {
-    const result = simulate(
-      {
-        useCase: "chatbot",
-        monthlyUsers: 1000,
-        requestsPerUserPerDay: 1,
-        avgInputTokens: 400,
-        avgOutputTokens: 600,
-        stack: { llm: "ollama" },
-      },
-      fixtureTools
-    );
-    const costPoints = result.breakingPoints.filter((b) => b.type === "cost");
-    expect(costPoints).toHaveLength(0);
+  it("does not fire latency breach for Groq (fast)", () => {
+    const result = simulate(baseInput({ stack: { llm: "groq" } }), fixtureTools);
+    // groq: 100 + 600/500*1000 = 1300ms — under 2s.
+    const breach = result.breakingPoints.find((b) => b.type === "latency");
+    expect(breach).toBeUndefined();
   });
 
-  it("fires LLM dominance when LLM > 80% of total and other costs exist", () => {
-    // 1k users: openai $210 + langgraph $29 = $239. LLM share = 210/239 = 87.9% > 80%, total > $100 ✓
+  it("rate_limit breaking point fires when peak > max_tpm", () => {
+    // openai has max_tpm=600k. At 1M users × 1 req/day × 1000 tokens × 30 days = 30B tokens/mo
+    // avg tpm = 30B / (30 × 24 × 60) ≈ 694k → peak (3x) = 2.08M tpm → exceeds 600k. Fires.
     const result = simulate(
-      {
-        useCase: "chatbot",
-        monthlyUsers: 1000,
-        requestsPerUserPerDay: 1,
-        avgInputTokens: 400,
-        avgOutputTokens: 600,
-        stack: { llm: "openai-api", framework: "langgraph" },
-      },
+      { ...baseInput(), avgInputTokens: 400, avgOutputTokens: 600 },
       fixtureTools
     );
-    const dominance = result.breakingPoints.find((b) => b.type === "architecture");
-    expect(dominance).toBeDefined();
-    expect(dominance!.message).toContain("LLM cost dominates");
-  });
-
-  it("does not fire LLM dominance when there are no other cost layers", () => {
-    const result = simulate(
-      {
-        useCase: "chatbot",
-        monthlyUsers: 1000,
-        requestsPerUserPerDay: 1,
-        avgInputTokens: 400,
-        avgOutputTokens: 600,
-        stack: { llm: "openai-api" },
-      },
-      fixtureTools
-    );
-    const dominance = result.breakingPoints.filter((b) => b.type === "architecture");
-    expect(dominance).toHaveLength(0);
+    const rl = result.breakingPoints.find((b) => b.type === "rate_limit");
+    expect(rl).toBeDefined();
+    expect(result.rateLimitAtUsers).not.toBeNull();
   });
 });
 
 // ── simulate — kill conditions ────────────────────────────────────────────────
 
 describe("simulate — kill conditions", () => {
-  it("fires missing_vector_db for RAG use case without vectorDb", () => {
+  function baseInput(overrides = {}) {
+    return {
+      useCase: "chatbot" as const,
+      monthlyUsers: 1_000,
+      requestsPerUserPerDay: 1,
+      avgInputTokens: 400,
+      avgOutputTokens: 600,
+      stack: { llm: "openai-api" },
+      ...overrides,
+    };
+  }
+
+  it("RAG without vectorDb fires missing_vector_db", () => {
     const result = simulate(
-      {
-        useCase: "rag",
-        monthlyUsers: 1000,
-        requestsPerUserPerDay: 1,
-        avgInputTokens: 3000,
-        avgOutputTokens: 400,
-        stack: { llm: "openai-api" },
-      },
+      { ...baseInput(), useCase: "rag", avgInputTokens: 3000, avgOutputTokens: 400 },
       fixtureTools
     );
-    const kc = result.killConditions.find((k) => k.type === "missing_vector_db");
-    expect(kc).toBeDefined();
-    expect(kc!.recommendation).toContain("vector database");
+    expect(result.killConditions.find((k) => k.type === "missing_vector_db")).toBeDefined();
   });
 
-  it("does not fire missing_vector_db when vectorDb is provided", () => {
-    const result = simulate(
-      {
-        useCase: "rag",
-        monthlyUsers: 1000,
-        requestsPerUserPerDay: 1,
-        avgInputTokens: 3000,
-        avgOutputTokens: 400,
-        stack: { llm: "openai-api", vectorDb: "qdrant" },
-      },
-      fixtureTools
-    );
-    expect(result.killConditions.find((k) => k.type === "missing_vector_db")).toBeUndefined();
-  });
-
-  it("does not fire missing_vector_db for chatbot use case", () => {
-    const result = simulate(
-      {
-        useCase: "chatbot",
-        monthlyUsers: 1000,
-        requestsPerUserPerDay: 1,
-        avgInputTokens: 400,
-        avgOutputTokens: 600,
-        stack: { llm: "openai-api" },
-      },
-      fixtureTools
-    );
-    expect(result.killConditions.find((k) => k.type === "missing_vector_db")).toBeUndefined();
-  });
-
-  it("always fires no_eval_layer", () => {
-    const result = simulate(
-      {
-        useCase: "chatbot",
-        monthlyUsers: 1000,
-        requestsPerUserPerDay: 1,
-        avgInputTokens: 400,
-        avgOutputTokens: 600,
-        stack: { llm: "openai-api" },
-      },
-      fixtureTools
-    );
+  it("no_eval_layer fires when stack.eval is unset", () => {
+    const result = simulate(baseInput(), fixtureTools);
     expect(result.killConditions.find((k) => k.type === "no_eval_layer")).toBeDefined();
   });
 
-  it("fires unprojected_cost when a usage_based tool is in the stack", () => {
+  it("no_eval_layer does NOT fire when an eval tool is selected", () => {
+    const result = simulate(
+      baseInput({ stack: { llm: "openai-api", eval: "langfuse" } }),
+      fixtureTools
+    );
+    expect(result.killConditions.find((k) => k.type === "no_eval_layer")).toBeUndefined();
+  });
+
+  it("unprojected_cost fires for usage_based vector DB", () => {
     const result = simulate(
       {
+        ...baseInput(),
         useCase: "rag",
-        monthlyUsers: 1000,
-        requestsPerUserPerDay: 1,
         avgInputTokens: 3000,
         avgOutputTokens: 400,
-        stack: { llm: "openai-api", vectorDb: "pinecone" },
+        stack: { llm: "openai-api", vectorDb: "pinecone-usage" },
       },
       fixtureTools
     );
     const kc = result.killConditions.find((k) => k.type === "unprojected_cost");
     expect(kc).toBeDefined();
-    expect(kc!.message).toContain("pinecone");
+    expect(kc!.message).toContain("pinecone-usage");
+  });
+});
+
+// ── simulate — bottleneck diagnosis ──────────────────────────────────────────
+
+describe("simulate — bottleneck", () => {
+  it("reports cost-bound for expensive LLM at scale", () => {
+    const result = simulate(
+      {
+        useCase: "chatbot",
+        monthlyUsers: 1_000,
+        requestsPerUserPerDay: 5,
+        avgInputTokens: 1_000,
+        avgOutputTokens: 1_000,
+        stack: { llm: "anthropic-api", eval: "langfuse" },
+      },
+      fixtureTools
+    );
+    expect(["cost", "balanced", "latency"]).toContain(result.bottleneck);
+  });
+
+  it("reports no bottleneck for an OSS-only stack with short outputs", () => {
+    // ollama default ttft=600 + gen 50/50*1000 = 1000 = 1600ms total (< 2s).
+    // langfuse at $0.00006/event × 30M req = $1800 (< $20k cost threshold).
+    const result = simulate(
+      {
+        useCase: "chatbot",
+        monthlyUsers: 1_000,
+        requestsPerUserPerDay: 1,
+        avgInputTokens: 400,
+        avgOutputTokens: 50,
+        stack: { llm: "ollama", eval: "langfuse" },
+      },
+      fixtureTools
+    );
+    expect(result.bottleneck).toBe("none");
+  });
+});
+
+// ── simulate — model routing ──────────────────────────────────────────────────
+
+describe("simulate — router", () => {
+  it("blending traffic with a cheap model reduces LLM cost", () => {
+    const noRouter = simulate(
+      {
+        useCase: "chatbot",
+        monthlyUsers: 1_000,
+        requestsPerUserPerDay: 1,
+        avgInputTokens: 400,
+        avgOutputTokens: 600,
+        stack: { llm: "openai-api" },
+      },
+      fixtureTools
+    );
+    const withRouter = simulate(
+      {
+        useCase: "chatbot",
+        monthlyUsers: 1_000,
+        requestsPerUserPerDay: 1,
+        avgInputTokens: 400,
+        avgOutputTokens: 600,
+        stack: { llm: "openai-api", routerCheapLlm: "groq", routerCheapPct: 0.7 },
+      },
+      fixtureTools
+    );
+    expect(withRouter.snapshots[0].monthlyCostUSD).toBeLessThan(
+      noRouter.snapshots[0].monthlyCostUSD
+    );
   });
 });

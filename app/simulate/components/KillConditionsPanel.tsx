@@ -16,6 +16,8 @@ function triggerForBreakingPoint(bp: BreakingPoint): string {
       return bp.message.replace(/at .+$/, "").trim() + ".";
     case "architecture":
       return `LLM cost takes more than 80% of the bill (around ${scale}).`;
+    case "rate_limit":
+      return `Peak load exceeds the LLM provider's standard tier (around ${scale}).`;
   }
 }
 

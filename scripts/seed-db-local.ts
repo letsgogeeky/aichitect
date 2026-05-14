@@ -25,14 +25,20 @@ async function main(): Promise<void> {
         `INSERT INTO tools
            (id, name, category, tagline, description, type, pricing, cost_model,
             github_stars, slot, prominent, provider, choose_if, aliases,
-            website_url, github_url, use_context, latency_p50_ms)
-         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18)
+            website_url, github_url, use_context, latency_p50_ms,
+            ttft_p50_ms, output_tokens_per_second, max_tpm, max_rpm, bytes_per_vector)
+         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23)
          ON CONFLICT (id) DO UPDATE SET
            name=$2, category=$3, tagline=$4, description=$5, type=$6,
            pricing=$7, cost_model=$8, github_stars=$9, slot=$10, prominent=$11,
            provider=$12, choose_if=$13, aliases=$14, website_url=$15,
            github_url=$16, use_context=$17,
-           latency_p50_ms = COALESCE(tools.latency_p50_ms, EXCLUDED.latency_p50_ms)`,
+           latency_p50_ms = COALESCE(tools.latency_p50_ms, EXCLUDED.latency_p50_ms),
+           ttft_p50_ms = COALESCE(tools.ttft_p50_ms, EXCLUDED.ttft_p50_ms),
+           output_tokens_per_second = COALESCE(tools.output_tokens_per_second, EXCLUDED.output_tokens_per_second),
+           max_tpm = EXCLUDED.max_tpm,
+           max_rpm = EXCLUDED.max_rpm,
+           bytes_per_vector = EXCLUDED.bytes_per_vector`,
         [
           t.id,
           t.name,
@@ -52,6 +58,11 @@ async function main(): Promise<void> {
           t.github_url,
           t.use_context ?? "both",
           t.latency_p50_ms ?? null,
+          t.ttft_p50_ms ?? null,
+          t.output_tokens_per_second ?? null,
+          t.max_tpm ?? null,
+          t.max_rpm ?? null,
+          t.bytes_per_vector ?? null,
         ]
       );
     }

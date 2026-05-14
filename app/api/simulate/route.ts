@@ -10,6 +10,11 @@ interface SimulationRequestBody {
   requestsPerUserPerDay?: number;
   avgInputTokens?: number;
   avgOutputTokens?: number;
+  cacheHitRate?: number;
+  batchPct?: number;
+  vectorCount?: number;
+  embeddingTokensPerQuery?: number;
+  peakToAverageRatio?: number;
   stack?: Partial<SimulationInput["stack"]>;
 }
 
@@ -71,10 +76,20 @@ export async function POST(request: Request) {
     requestsPerUserPerDay: body.requestsPerUserPerDay,
     avgInputTokens,
     avgOutputTokens,
+    cacheHitRate: body.cacheHitRate,
+    batchPct: body.batchPct,
+    vectorCount: body.vectorCount,
+    embeddingTokensPerQuery: body.embeddingTokensPerQuery,
+    peakToAverageRatio: body.peakToAverageRatio,
     stack: {
       llm: body.stack.llm,
       vectorDb: body.stack.vectorDb,
       framework: body.stack.framework,
+      embedding: body.stack.embedding,
+      eval: body.stack.eval,
+      guardrails: body.stack.guardrails,
+      routerCheapLlm: body.stack.routerCheapLlm,
+      routerCheapPct: body.stack.routerCheapPct,
     },
   };
 

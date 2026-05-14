@@ -1,28 +1,37 @@
 "use client";
 
-const LAYER_LABEL: Record<string, string> = {
-  llm: "LLM call",
+const STAGE_LABEL: Record<string, string> = {
+  guardrails: "Guardrails check",
+  embedding: "Query embedding",
   vector: "Vector retrieval",
-  framework: "Framework",
+  ttft: "LLM time-to-first-token",
+  generation: "LLM generation",
+  framework: "Framework overhead",
+  llm: "LLM call", // legacy alias
 };
 
-const LAYER_COLOR: Record<string, string> = {
-  llm: "var(--accent)",
+const STAGE_COLOR: Record<string, string> = {
+  guardrails: "var(--danger)",
+  embedding: "var(--accent-2)",
   vector: "var(--accent-2)",
+  ttft: "var(--accent)",
+  generation: "var(--accent)",
   framework: "var(--warning)",
+  llm: "var(--accent)",
 };
 
 interface Props {
   totalMs: number;
-  breakdown: Record<string, number>;
+  /** Stage-keyed millisecond breakdown — typically result.snapshots[0].latencyByStage. */
+  stages: Record<string, number>;
 }
 
-export default function LatencyBreakdown({ totalMs, breakdown }: Props) {
-  const entries = Object.entries(breakdown);
+export default function LatencyBreakdown({ totalMs, stages }: Props) {
+  const entries = Object.entries(stages).filter(([, ms]) => ms > 0);
   const max = Math.max(1, ...entries.map(([, ms]) => ms));
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
       <div
         style={{
           display: "flex",
@@ -44,19 +53,20 @@ export default function LatencyBreakdown({ totalMs, breakdown }: Props) {
         </span>
       </div>
 
-      {entries.map(([layer, ms]) => {
+      {entries.map(([stage, ms]) => {
         const widthPct = (ms / max) * 100;
+        const sharePct = Math.round((ms / totalMs) * 100);
         return (
-          <div key={layer} style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+          <div key={stage} style={{ display: "flex", flexDirection: "column", gap: 4 }}>
             <div style={{ display: "flex", justifyContent: "space-between", fontSize: 12 }}>
-              <span style={{ color: "var(--text-secondary)" }}>{LAYER_LABEL[layer] ?? layer}</span>
+              <span style={{ color: "var(--text-secondary)" }}>{STAGE_LABEL[stage] ?? stage}</span>
               <span style={{ color: "var(--text-primary)", fontVariantNumeric: "tabular-nums" }}>
-                {formatMs(ms)}
+                {formatMs(ms)} <span style={{ color: "var(--text-muted)" }}>· {sharePct}%</span>
               </span>
             </div>
             <div
               style={{
-                height: 10,
+                height: 8,
                 background: "var(--border)",
                 borderRadius: 4,
                 overflow: "hidden",
@@ -66,7 +76,7 @@ export default function LatencyBreakdown({ totalMs, breakdown }: Props) {
                 style={{
                   width: `${widthPct}%`,
                   height: "100%",
-                  background: LAYER_COLOR[layer] ?? "var(--accent)",
+                  background: STAGE_COLOR[stage] ?? "var(--accent)",
                   transition: "width 0.3s ease",
                 }}
               />
@@ -74,6 +84,11 @@ export default function LatencyBreakdown({ totalMs, breakdown }: Props) {
           </div>
         );
       })}
+
+      <p style={{ fontSize: 11, color: "var(--text-muted)", margin: "4px 0 0" }}>
+        Generation scales linearly with output tokens — shrink the response or pick a
+        higher-throughput model to bring this down.
+      </p>
     </div>
   );
 }

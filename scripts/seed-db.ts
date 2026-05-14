@@ -50,30 +50,40 @@ async function main(): Promise<void> {
   }
 
   // Order matters: tools must exist before relationships/stacks reference them.
-  // latency_p50_ms is excluded from the upsert payload — the cron job owns it
-  // for AA-synced tools and we never want a seed run to overwrite those values.
-  // A separate "fill nulls" pass below sets it only where the DB has no value yet.
-  await upsert<Omit<DbTool, "latency_p50_ms">>(
+  // latency_p50_ms / ttft_p50_ms / output_tokens_per_second are excluded from the
+  // primary upsert — the AA cron job owns them for synced tools. A "fill nulls"
+  // pass below sets them only where the DB has no value yet.
+  type CronOwnedField = "latency_p50_ms" | "ttft_p50_ms" | "output_tokens_per_second";
+  const CRON_FIELDS: CronOwnedField[] = [
+    "latency_p50_ms",
+    "ttft_p50_ms",
+    "output_tokens_per_second",
+  ];
+  await upsert<Omit<DbTool, CronOwnedField>>(
     "tools",
-    tools.map(({ latency_p50_ms: _, ...rest }) => rest)
+    tools.map(
+      ({ latency_p50_ms: _l, ttft_p50_ms: _t, output_tokens_per_second: _o, ...rest }) => rest
+    )
   );
 
-  // Fill latency_p50_ms only where it's currently null (static benchmark values).
-  // This preserves any value written by the sync-benchmarks cron.
-  const toolsWithLatency = tools.filter((t) => t.latency_p50_ms !== null);
-  for (const t of toolsWithLatency) {
-    const { error } = await supabase
-      .from("tools")
-      .update({ latency_p50_ms: t.latency_p50_ms })
-      .eq("id", t.id)
-      .is("latency_p50_ms", null);
-    if (error) {
-      console.error(`✗ tools.latency_p50_ms (${t.id}): ${error.message}`);
-      process.exit(1);
+  // Fill cron-owned fields only where they're currently null (static benchmark values).
+  for (const field of CRON_FIELDS) {
+    const toolsWithField = tools.filter((t) => t[field] !== null);
+    let backfilled = 0;
+    for (const t of toolsWithField) {
+      const { error } = await supabase
+        .from("tools")
+        .update({ [field]: t[field] })
+        .eq("id", t.id)
+        .is(field, null);
+      if (error) {
+        console.error(`✗ tools.${field} (${t.id}): ${error.message}`);
+        process.exit(1);
+      }
+      backfilled += 1;
     }
+    if (backfilled > 0) console.log(`✓ tools.${field}: ${backfilled} rows backfilled (nulls only)`);
   }
-  if (toolsWithLatency.length > 0)
-    console.log(`✓ tools.latency_p50_ms: ${toolsWithLatency.length} rows backfilled (nulls only)`);
 
   // Stacks has a self-referential FK (graduates_to). Two-pass to avoid FK violations:
   // pass 1 — insert all rows with graduates_to nulled out

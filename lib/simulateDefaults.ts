@@ -46,4 +46,5 @@ export const SCALE_BOUNDS = {
   requestsPerUserPerDay: { min: 1, max: 100, logScale: false },
   inputTokens: { min: 50, max: 50_000, logScale: true },
   outputTokens: { min: 50, max: 10_000, logScale: true },
+  vectorCount: { min: 1_000, max: 100_000_000, logScale: true },
 } as const;

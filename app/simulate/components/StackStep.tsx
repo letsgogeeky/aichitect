@@ -9,10 +9,28 @@ interface Props {
   llm: string | undefined;
   vectorDb: string | undefined;
   framework: string | undefined;
-  onChange: (patch: { llm?: string; vectorDb?: string; framework?: string }) => void;
+  evalTool: string | undefined;
+  guardrails: string | undefined;
+  showVectorDb: boolean;
+  onChange: (patch: {
+    llm?: string;
+    vectorDb?: string;
+    framework?: string;
+    eval?: string;
+    guardrails?: string;
+  }) => void;
 }
 
-export default function StackStep({ tools, llm, vectorDb, framework, onChange }: Props) {
+export default function StackStep({
+  tools,
+  llm,
+  vectorDb,
+  framework,
+  evalTool,
+  guardrails,
+  showVectorDb,
+  onChange,
+}: Props) {
   const llmTools = useMemo(
     () =>
       tools
@@ -31,6 +49,17 @@ export default function StackStep({ tools, llm, vectorDb, framework, onChange }:
         .sort((a, b) => a.name.localeCompare(b.name)),
     [tools]
   );
+  const evalTools = useMemo(
+    () =>
+      tools
+        .filter((t) => t.slot === "observability" || t.slot === "prompt-eval")
+        .sort((a, b) => a.name.localeCompare(b.name)),
+    [tools]
+  );
+  const guardrailsTools = useMemo(
+    () => tools.filter((t) => t.slot === "guardrails").sort((a, b) => a.name.localeCompare(b.name)),
+    [tools]
+  );
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
@@ -42,18 +71,36 @@ export default function StackStep({ tools, llm, vectorDb, framework, onChange }:
         required
         hintFor={priceHint}
       />
-      <ToolPicker
-        label="Vector DB"
-        tools={vectorTools}
-        value={vectorDb}
-        onChange={(v) => onChange({ vectorDb: v })}
-        optional
-      />
+      {showVectorDb && (
+        <ToolPicker
+          label="Vector DB"
+          tools={vectorTools}
+          value={vectorDb}
+          onChange={(v) => onChange({ vectorDb: v })}
+          optional
+          hintFor={vectorHint}
+        />
+      )}
       <ToolPicker
         label="Framework"
         tools={frameworkTools}
         value={framework}
         onChange={(v) => onChange({ framework: v })}
+        optional
+      />
+      <ToolPicker
+        label="Eval / observability"
+        tools={evalTools}
+        value={evalTool}
+        onChange={(v) => onChange({ eval: v })}
+        optional
+        hintFor={evalHint}
+      />
+      <ToolPicker
+        label="Guardrails"
+        tools={guardrailsTools}
+        value={guardrails}
+        onChange={(v) => onChange({ guardrails: v })}
         optional
       />
     </div>
@@ -66,4 +113,23 @@ function priceHint(tool: Tool): string | undefined {
   const i = cm.input_cost_per_1k_tokens;
   if (i == null) return undefined;
   return `$${i.toFixed(4)} / 1k in`;
+}
+
+function vectorHint(tool: Tool): string | undefined {
+  const cm = tool.cost_model;
+  if (cm?.type === "free") return "OSS / self-hosted";
+  if (cm?.type === "per_vector_query") {
+    const min = cm.min_monthly_cost ?? 0;
+    return min > 0 ? `min $${min}/mo` : "pay per use";
+  }
+  return undefined;
+}
+
+function evalHint(tool: Tool): string | undefined {
+  const cm = tool.cost_model;
+  if (cm?.type === "per_event" && cm.cost_per_event != null) {
+    return `$${(cm.cost_per_event * 1000).toFixed(3)} / 1k events`;
+  }
+  if (cm?.type === "free") return "OSS / self-hosted";
+  return undefined;
 }

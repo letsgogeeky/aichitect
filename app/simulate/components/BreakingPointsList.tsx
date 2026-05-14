@@ -6,12 +6,14 @@ const ICON: Record<BreakingPoint["type"], string> = {
   latency: "❌",
   cost: "⚠️",
   architecture: "🏗",
+  rate_limit: "🚦",
 };
 
 const ACCENT: Record<BreakingPoint["type"], string> = {
   latency: "var(--danger)",
   cost: "var(--warning)",
   architecture: "var(--accent)",
+  rate_limit: "var(--accent-2)",
 };
 
 export default function BreakingPointsList({ points }: { points: BreakingPoint[] }) {

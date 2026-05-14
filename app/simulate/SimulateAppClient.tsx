@@ -8,11 +8,12 @@ import type { SimulationInput, SimulationUseCase } from "@/lib/simulate";
 import { simulate } from "@/lib/simulate";
 import { encodeSimulationInput, appendShadowStack } from "@/lib/simulateUrl";
 import { computeDelta } from "@/lib/simulateDelta";
-import { SCALE_DEFAULTS, STACK_DEFAULTS } from "@/lib/simulateDefaults";
+import { SCALE_DEFAULTS, STACK_DEFAULTS, SCALE_BOUNDS } from "@/lib/simulateDefaults";
 
 import UseCaseStep from "./components/UseCaseStep";
 import ScaleStep from "./components/ScaleStep";
 import StackStep from "./components/StackStep";
+import LogSlider from "./components/LogSlider";
 import ShareButton from "./components/ShareButton";
 
 import CostChart from "./components/CostChart";
@@ -24,6 +25,10 @@ import CostDeltaChart from "./components/CostDeltaChart";
 import LatencyDeltaTable from "./components/LatencyDeltaTable";
 import BreakingPointDelta from "./components/BreakingPointDelta";
 import SwitchVerdict from "./components/SwitchVerdict";
+import UnitEconomics from "./components/UnitEconomics";
+import BottleneckDiagnosis from "./components/BottleneckDiagnosis";
+import CostComposition from "./components/CostComposition";
+import ProviderCompare from "./components/ProviderCompare";
 
 interface Props {
   tools: Tool[];
@@ -47,10 +52,16 @@ export default function SimulateAppClient({ tools, initialInput, initialShadow }
   const [requestsPerUserPerDay, setRPD] = useState(initialInput.requestsPerUserPerDay);
   const [avgInputTokens, setInputTokens] = useState(initialInput.avgInputTokens);
   const [avgOutputTokens, setOutputTokens] = useState(initialInput.avgOutputTokens);
+  const [cacheHitRate, setCacheHitRate] = useState(initialInput.cacheHitRate ?? 0);
+  const [batchPct, setBatchPct] = useState(initialInput.batchPct ?? 0);
+  const [vectorCount, setVectorCount] = useState(initialInput.vectorCount ?? 100_000);
   const [llm, setLlm] = useState<string | undefined>(initialInput.stack.llm);
   const [vectorDb, setVectorDb] = useState<string | undefined>(initialInput.stack.vectorDb);
   const [framework, setFramework] = useState<string | undefined>(initialInput.stack.framework);
+  const [evalTool, setEvalTool] = useState<string | undefined>(initialInput.stack.eval);
+  const [guardrails, setGuardrails] = useState<string | undefined>(initialInput.stack.guardrails);
   const [shadow, setShadow] = useState<SimulationInput["stack"] | null>(initialShadow);
+  const [advancedOpen, setAdvancedOpen] = useState(false);
 
   function selectUseCase(uc: SimulationUseCase) {
     setUseCase(uc);
@@ -72,7 +83,16 @@ export default function SimulateAppClient({ tools, initialInput, initialShadow }
       requestsPerUserPerDay,
       avgInputTokens,
       avgOutputTokens,
-      stack: { llm, vectorDb, framework },
+      cacheHitRate,
+      batchPct,
+      vectorCount: useCase === "rag" ? vectorCount : undefined,
+      stack: {
+        llm,
+        vectorDb,
+        framework,
+        eval: evalTool,
+        guardrails,
+      },
     };
   }, [
     useCase,
@@ -80,9 +100,14 @@ export default function SimulateAppClient({ tools, initialInput, initialShadow }
     requestsPerUserPerDay,
     avgInputTokens,
     avgOutputTokens,
+    cacheHitRate,
+    batchPct,
+    vectorCount,
     llm,
     vectorDb,
     framework,
+    evalTool,
+    guardrails,
   ]);
 
   const result = useMemo(() => (input ? simulate(input, tools) : null), [input, tools]);
@@ -95,6 +120,14 @@ export default function SimulateAppClient({ tools, initialInput, initialShadow }
     [result, shadowResult]
   );
 
+  // The snapshot closest to the user-picked `monthlyUsers` — what UnitEconomics shows.
+  const focusSnapshot = useMemo(() => {
+    if (!result) return null;
+    return result.snapshots.reduce((best, s) =>
+      Math.abs(s.users - monthlyUsers) < Math.abs(best.users - monthlyUsers) ? s : best
+    );
+  }, [result, monthlyUsers]);
+
   // ── URL sync (debounced 300ms) ────────────────────────────────────────────
   useEffect(() => {
     if (!input) return;
@@ -106,7 +139,7 @@ export default function SimulateAppClient({ tools, initialInput, initialShadow }
     return () => clearTimeout(handle);
   }, [input, shadow, router]);
 
-  // ── Derived display state ─────────────────────────────────────────────────
+  // ── Display helpers ─────────────────────────────────────────────────────
   const stackTools = useMemo(() => {
     if (!input) return [];
     const ids = [input.stack.llm, input.stack.vectorDb, input.stack.framework].filter(
@@ -117,18 +150,27 @@ export default function SimulateAppClient({ tools, initialInput, initialShadow }
 
   const series = useMemo(() => {
     if (!result) return [];
-    return stackTools
-      .filter((t) => result.snapshots.some((snap) => (snap.costBreakdown[t.id] ?? 0) > 0))
+    // Aggregate per-tool cost across snapshots (most contribute >0 to at least one snapshot).
+    const ids = new Set<string>();
+    for (const snap of result.snapshots) {
+      for (const id of Object.keys(snap.costBreakdown)) {
+        if ((snap.costBreakdown[id] ?? 0) > 0) ids.add(id);
+      }
+    }
+    return Array.from(ids)
+      .map((id) => tools.find((t) => t.id === id))
+      .filter((t): t is Tool => !!t)
       .map((t) => ({ id: t.id, name: t.name, color: getCategoryColor(t.category) }));
-  }, [stackTools, result]);
+  }, [result, tools]);
 
   const firstBreakingPoint = useMemo(() => {
     if (!result || result.breakingPoints.length === 0) return undefined;
     return [...result.breakingPoints].sort((a, b) => a.users - b.users)[0];
   }, [result]);
 
-  const latencyBreakdown = result?.snapshots[0]?.latencyBreakdown ?? {};
-  const totalLatency = Object.values(latencyBreakdown).reduce((s, v) => s + v, 0);
+  const latencyStages: Record<string, number> = (result?.snapshots[0]?.latencyByStage ??
+    {}) as unknown as Record<string, number>;
+  const totalLatency = Object.values(latencyStages).reduce<number>((s, v) => s + v, 0);
 
   return (
     <div
@@ -144,16 +186,12 @@ export default function SimulateAppClient({ tools, initialInput, initialShadow }
     >
       <style>{`
         @media (max-width: 880px) {
-          .simulate-grid {
-            grid-template-columns: 1fr !important;
-          }
-          .simulate-aside {
-            position: static !important;
-          }
+          .simulate-grid { grid-template-columns: 1fr !important; }
+          .simulate-aside { position: static !important; }
         }
       `}</style>
 
-      {/* ── Inputs (sticky aside) ───────────────────────────────────────────── */}
+      {/* ── Inputs sidebar ───────────────────────────────────────────────── */}
       <aside
         className="simulate-aside"
         style={{
@@ -191,7 +229,7 @@ export default function SimulateAppClient({ tools, initialInput, initialShadow }
               margin: "4px 0 0",
             }}
           >
-            Tweak and watch the numbers move
+            Tweak inputs · watch results live
           </h1>
         </div>
 
@@ -214,26 +252,86 @@ export default function SimulateAppClient({ tools, initialInput, initialShadow }
           />
         </Section>
 
+        <Section title="Optimization">
+          <PercentSlider
+            label="Prompt-cache hit rate"
+            value={cacheHitRate}
+            onChange={setCacheHitRate}
+            hint="Cached input tokens are ~90% cheaper. Stable system prompts → high hit rate."
+          />
+          <PercentSlider
+            label="Batch API traffic"
+            value={batchPct}
+            onChange={setBatchPct}
+            hint="Non-real-time work via batch endpoints is 50% off (both input and output)."
+          />
+        </Section>
+
+        {useCase === "rag" && (
+          <Section title="RAG sizing">
+            <LogSlider
+              label="Stored vectors"
+              min={SCALE_BOUNDS.vectorCount.min}
+              max={SCALE_BOUNDS.vectorCount.max}
+              value={vectorCount}
+              logScale={SCALE_BOUNDS.vectorCount.logScale}
+              formatValue={formatNumber}
+              onChange={setVectorCount}
+              hint="Index size — drives vector-DB storage cost."
+            />
+          </Section>
+        )}
+
         <Section title="Stack">
           <StackStep
             tools={tools}
             llm={llm}
             vectorDb={vectorDb}
             framework={framework}
+            evalTool={evalTool}
+            guardrails={guardrails}
+            showVectorDb={useCase === "rag"}
             onChange={(patch) => {
               if (patch.llm !== undefined) setLlm(patch.llm);
               if (patch.vectorDb !== undefined) setVectorDb(patch.vectorDb || undefined);
               if (patch.framework !== undefined) setFramework(patch.framework || undefined);
+              if (patch.eval !== undefined) setEvalTool(patch.eval || undefined);
+              if (patch.guardrails !== undefined) setGuardrails(patch.guardrails || undefined);
             }}
           />
         </Section>
 
-        <ShareButton />
+        <details
+          open={advancedOpen}
+          onToggle={(e) => setAdvancedOpen((e.target as HTMLDetailsElement).open)}
+          style={{
+            padding: "10px 12px",
+            background: "var(--surface-2)",
+            border: "1px solid var(--border)",
+            borderRadius: 6,
+          }}
+        >
+          <summary
+            style={{
+              fontSize: 11,
+              textTransform: "uppercase",
+              letterSpacing: 0.6,
+              color: "var(--text-muted)",
+              fontWeight: 600,
+              cursor: "pointer",
+            }}
+          >
+            Share & export
+          </summary>
+          <div style={{ marginTop: 10 }}>
+            <ShareButton />
+          </div>
+        </details>
       </aside>
 
       {/* ── Results ────────────────────────────────────────────────────────── */}
       <main style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-        {!result || !input ? (
+        {!result || !input || !focusSnapshot ? (
           <EmptyState />
         ) : (
           <>
@@ -292,10 +390,19 @@ export default function SimulateAppClient({ tools, initialInput, initialShadow }
               </div>
             </header>
 
+            {/* Bottleneck verdict */}
+            <BottleneckDiagnosis
+              bottleneck={result.bottleneck}
+              message={result.bottleneckMessage}
+            />
+
+            {/* Unit economics */}
+            <UnitEconomics snapshot={focusSnapshot} />
+
             {/* Shadow Stack form — always visible */}
             <ShadowStackForm tools={tools} shadow={shadow} onChange={setShadow} />
 
-            {/* Delta panels (when shadow set) */}
+            {/* Delta panels when shadow set */}
             {delta && shadow && (
               <>
                 <Panel title="Switch verdict">
@@ -321,7 +428,6 @@ export default function SimulateAppClient({ tools, initialInput, initialShadow }
               </>
             )}
 
-            {/* Standard panels */}
             <Panel title="Cost over time">
               {series.length > 0 ? (
                 <CostChart
@@ -336,10 +442,17 @@ export default function SimulateAppClient({ tools, initialInput, initialShadow }
               )}
             </Panel>
 
+            <Panel title={`Cost composition at ${formatUsers(focusSnapshot.users)} users`}>
+              <CostComposition
+                byLayer={focusSnapshot.costByLayer}
+                totalMonthlyCost={focusSnapshot.monthlyCostUSD}
+              />
+            </Panel>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Panel title="Latency breakdown">
                 {totalLatency > 0 ? (
-                  <LatencyBreakdown totalMs={totalLatency} breakdown={latencyBreakdown} />
+                  <LatencyBreakdown totalMs={totalLatency} stages={latencyStages} />
                 ) : (
                   <p style={{ fontSize: 13, color: "var(--text-secondary)" }}>
                     No latency data for the selected stack.
@@ -351,7 +464,16 @@ export default function SimulateAppClient({ tools, initialInput, initialShadow }
               </Panel>
             </div>
 
-            <Panel title="When to switch stacks">
+            <Panel title="Provider comparison">
+              <ProviderCompare
+                input={input}
+                tools={tools}
+                comparisonUsers={focusSnapshot.users}
+                onPickLlm={setLlm}
+              />
+            </Panel>
+
+            <Panel title="Structural risks">
               <KillConditionsPanel
                 killConditions={result.killConditions}
                 breakingPoints={result.breakingPoints}
@@ -422,6 +544,50 @@ function Panel({ title, children }: { title: string; children: React.ReactNode }
   );
 }
 
+function PercentSlider({
+  label,
+  value,
+  onChange,
+  hint,
+}: {
+  label: string;
+  value: number;
+  onChange: (v: number) => void;
+  hint?: string;
+}) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+        <label style={{ fontSize: 13, color: "var(--text-secondary)" }}>{label}</label>
+        <span
+          style={{
+            fontSize: 14,
+            fontWeight: 600,
+            color: "var(--text-primary)",
+            fontVariantNumeric: "tabular-nums",
+          }}
+        >
+          {Math.round(value * 100)}%
+        </span>
+      </div>
+      <input
+        type="range"
+        min={0}
+        max={100}
+        step={5}
+        value={Math.round(value * 100)}
+        onChange={(e) => onChange(Number(e.target.value) / 100)}
+        style={{
+          width: "100%",
+          accentColor: "var(--accent)",
+        }}
+        aria-label={label}
+      />
+      {hint && <span style={{ fontSize: 11, color: "var(--text-muted)" }}>{hint}</span>}
+    </div>
+  );
+}
+
 function EmptyState() {
   return (
     <div
@@ -443,5 +609,12 @@ function EmptyState() {
 function formatUsers(n: number): string {
   if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(n >= 10_000_000 ? 0 : 1)}M`;
   if (n >= 1_000) return `${(n / 1_000).toFixed(n >= 10_000 ? 0 : 1)}k`;
+  return String(n);
+}
+
+function formatNumber(n: number): string {
+  if (n >= 1_000_000_000) return `${(n / 1_000_000_000).toFixed(1)}B`;
+  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)}M`;
+  if (n >= 1_000) return `${(n / 1_000).toFixed(0)}k`;
   return String(n);
 }

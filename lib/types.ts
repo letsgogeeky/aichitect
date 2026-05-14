@@ -112,7 +112,15 @@ export interface Pricing {
   plans: PricingPlan[];
 }
 
-export type CostModelType = "per_token" | "per_seat" | "per_call" | "flat" | "usage_based" | "free";
+export type CostModelType =
+  | "per_token"
+  | "per_seat"
+  | "per_call"
+  | "flat"
+  | "usage_based"
+  | "free"
+  | "per_event"
+  | "per_vector_query";
 
 /**
  * Structured cost formula for the AI Stack Simulator (AIC-124).
@@ -129,12 +137,30 @@ export interface CostModel {
   input_cost_per_1k_tokens?: number;
   /** USD per 1k output tokens — LLM providers only */
   output_cost_per_1k_tokens?: number;
+  /** USD per 1k tokens for prompt-cache reads (typically ~10% of standard input). */
+  cached_input_cost_per_1k_tokens?: number;
+  /** USD per 1k tokens for prompt-cache writes (Anthropic charges ~125% of standard input). */
+  cache_write_cost_per_1k_tokens?: number;
+  /** USD per 1k input tokens via batch API (typically 50% of standard). */
+  batch_input_cost_per_1k_tokens?: number;
+  /** USD per 1k output tokens via batch API (typically 50% of standard). */
+  batch_output_cost_per_1k_tokens?: number;
   /** USD flat monthly base */
   cost_per_month_base?: number;
   /** USD per seat/month */
   cost_per_seat?: number;
   /** USD per call/request — used when type is per_call and a published rate exists. */
   cost_per_call?: number;
+  /** USD per logged event — eval/observability tools (Langfuse, Braintrust). */
+  cost_per_event?: number;
+  /** USD per GB-month of vector storage — vector DB pricing model. */
+  storage_cost_per_gb_month?: number;
+  /** USD per million read units / queries — vector DB pricing model. */
+  query_cost_per_million?: number;
+  /** USD per million write units — vector DB pricing model. */
+  write_cost_per_million?: number;
+  /** Minimum monthly spend regardless of usage (e.g. Pinecone Standard $50). */
+  min_monthly_cost?: number;
   /** Human-readable free tier limit, e.g. "10k vectors", "1M tokens/mo" */
   free_tier_limit?: string;
   /** Canonical pricing page URL */
@@ -181,14 +207,21 @@ export interface Tool {
   /** Simulator cost model — see CostModel. Absent for OSS/self-hosted and opaque-enterprise tools. */
   cost_model?: CostModel;
   /**
-   * p50 end-to-end latency in ms for the simulator (AIC-126).
-   * LLM providers: TTFT + generation time for a typical request.
-   * Vector DBs: query latency.
-   * Frameworks: orchestration overhead added on top of the LLM call.
-   * Sourced from Artificial Analysis benchmarks and provider documentation.
-   * Absent for tools not involved in the request path (DevOps, docs, etc.).
+   * p50 end-to-end latency in ms for non-LLM tools (vector DBs, frameworks,
+   * eval, guardrails). For LLM providers, use `ttft_p50_ms` + `output_tokens_per_second`
+   * to compute token-aware latency.
    */
   latency_p50_ms?: number | null;
+  /** p50 time-to-first-token in ms — LLM providers only. Synced from Artificial Analysis. */
+  ttft_p50_ms?: number | null;
+  /** p50 generation throughput in output tokens/sec — LLM providers only. Synced from AA. */
+  output_tokens_per_second?: number | null;
+  /** Provider rate limit at standard tier — tokens per minute. */
+  max_tpm?: number | null;
+  /** Provider rate limit at standard tier — requests per minute. */
+  max_rpm?: number | null;
+  /** For vector DBs: typical bytes per stored vector (used to project storage cost from vector count). */
+  bytes_per_vector?: number | null;
 }
 
 export interface Relationship {

@@ -30,6 +30,11 @@ export interface DbTool {
   github_url: string | null;
   use_context: Tool["use_context"];
   latency_p50_ms: number | null;
+  ttft_p50_ms: number | null;
+  output_tokens_per_second: number | null;
+  max_tpm: number | null;
+  max_rpm: number | null;
+  bytes_per_vector: number | null;
 }
 
 export interface DbStack {
@@ -91,6 +96,11 @@ export const tools: DbTool[] = (toolsData as Tool[]).map((t) => ({
   github_url: t.github_url ?? null,
   use_context: t.use_context ?? "both",
   latency_p50_ms: t.latency_p50_ms ?? null,
+  ttft_p50_ms: t.ttft_p50_ms ?? null,
+  output_tokens_per_second: t.output_tokens_per_second ?? null,
+  max_tpm: t.max_tpm ?? null,
+  max_rpm: t.max_rpm ?? null,
+  bytes_per_vector: t.bytes_per_vector ?? null,
 }));
 
 export const stacks: DbStack[] = (stacksData as Stack[]).map((s) => ({

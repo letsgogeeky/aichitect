@@ -27,6 +27,21 @@ export function encodeSimulationInput(input: SimulationInput): URLSearchParams {
   params.set("llm", input.stack.llm);
   if (input.stack.vectorDb) params.set("vec", input.stack.vectorDb);
   if (input.stack.framework) params.set("fw", input.stack.framework);
+  if (input.stack.embedding) params.set("em", input.stack.embedding);
+  if (input.stack.eval) params.set("ev", input.stack.eval);
+  if (input.stack.guardrails) params.set("gd", input.stack.guardrails);
+  if (input.stack.routerCheapLlm) params.set("llmC", input.stack.routerCheapLlm);
+  if (input.stack.routerCheapPct != null && input.stack.routerCheapPct > 0)
+    params.set("rcp", String(input.stack.routerCheapPct));
+  if (input.cacheHitRate != null && input.cacheHitRate > 0)
+    params.set("cr", String(input.cacheHitRate));
+  if (input.batchPct != null && input.batchPct > 0) params.set("bp", String(input.batchPct));
+  if (input.vectorCount != null && input.vectorCount > 0)
+    params.set("vc", String(input.vectorCount));
+  if (input.embeddingTokensPerQuery != null)
+    params.set("et", String(input.embeddingTokensPerQuery));
+  if (input.peakToAverageRatio != null && input.peakToAverageRatio !== 3)
+    params.set("pk", String(input.peakToAverageRatio));
   return params;
 }
 
@@ -63,6 +78,13 @@ export function parseSimulationInput(params: ParamMap): ParsedSimulationInput {
   const llm = getParam(params, "llm");
   if (!llm) return { ok: false, error: "Missing stack.llm" };
 
+  const cr = numberInRange(getParam(params, "cr"), 0, 1);
+  const bp = numberInRange(getParam(params, "bp"), 0, 1);
+  const vc = nonNegativeNumber(getParam(params, "vc"));
+  const et = positiveNumber(getParam(params, "et"));
+  const pk = numberInRange(getParam(params, "pk"), 1, 50);
+  const rcp = numberInRange(getParam(params, "rcp"), 0, 1);
+
   return {
     ok: true,
     input: {
@@ -71,13 +93,38 @@ export function parseSimulationInput(params: ParamMap): ParsedSimulationInput {
       requestsPerUserPerDay: r,
       avgInputTokens: inputTokens,
       avgOutputTokens: outputTokens,
+      cacheHitRate: cr ?? undefined,
+      batchPct: bp ?? undefined,
+      vectorCount: vc ?? undefined,
+      embeddingTokensPerQuery: et ?? undefined,
+      peakToAverageRatio: pk ?? undefined,
       stack: {
         llm,
         vectorDb: getParam(params, "vec") || undefined,
         framework: getParam(params, "fw") || undefined,
+        embedding: getParam(params, "em") || undefined,
+        eval: getParam(params, "ev") || undefined,
+        guardrails: getParam(params, "gd") || undefined,
+        routerCheapLlm: getParam(params, "llmC") || undefined,
+        routerCheapPct: rcp ?? undefined,
       },
     },
   };
+}
+
+function numberInRange(raw: string | undefined, min: number, max: number): number | null {
+  if (raw === undefined) return null;
+  const n = Number(raw);
+  if (!Number.isFinite(n)) return null;
+  if (n < min || n > max) return null;
+  return n;
+}
+
+function nonNegativeNumber(raw: string | undefined): number | null {
+  if (raw === undefined) return null;
+  const n = Number(raw);
+  if (!Number.isFinite(n) || n < 0) return null;
+  return n;
 }
 
 // ── Shadow Stack (AIC-131) ────────────────────────────────────────────────────

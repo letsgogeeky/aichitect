@@ -88,7 +88,11 @@ export async function GET(request: Request) {
       continue;
     }
 
-    const latencyMs = aaToLatencyMs(model.median_time_to_first_token_seconds);
+    const ttftMs = aaToLatencyMs(model.median_time_to_first_token_seconds);
+    const throughput =
+      model.median_output_tokens_per_second != null
+        ? Math.round(model.median_output_tokens_per_second)
+        : null;
     const inputCostPer1k = aaToInputCostPer1k(model.pricing.price_1m_input_tokens);
     const outputCostPer1k = aaToInputCostPer1k(model.pricing.price_1m_output_tokens);
 
@@ -102,7 +106,8 @@ export async function GET(request: Request) {
           }
         : null;
 
-    // Fetch current cost_model to merge with (preserve pricing_url, free_tier_limit, etc.)
+    // Fetch current cost_model to merge with (preserve pricing_url, free_tier_limit,
+    // cached/batch prices, etc. — those aren't in the AA feed yet)
     const { data: existing } = await db
       .from("tools")
       .select("cost_model")
@@ -119,7 +124,8 @@ export async function GET(request: Request) {
     const updatePayload: Record<string, unknown> = {
       benchmark_synced_at: now,
     };
-    if (latencyMs !== null) updatePayload.latency_p50_ms = latencyMs;
+    if (ttftMs !== null) updatePayload.ttft_p50_ms = ttftMs;
+    if (throughput !== null) updatePayload.output_tokens_per_second = throughput;
     if (mergedCostModel) updatePayload.cost_model = mergedCostModel;
 
     const { error: updateError } = await db.from("tools").update(updatePayload).eq("id", toolId);
@@ -127,9 +133,9 @@ export async function GET(request: Request) {
     if (updateError) {
       console.error(`[sync-benchmarks] Failed to update ${toolId}: ${updateError.message}`);
     } else {
-      results.push({ toolId, modelSlug, status: "updated", latencyMs, inputCostPer1k });
+      results.push({ toolId, modelSlug, status: "updated", latencyMs: ttftMs, inputCostPer1k });
       console.log(
-        `[sync-benchmarks] ${toolId} (${modelSlug}): latency=${latencyMs}ms, input=$${inputCostPer1k}/1k`
+        `[sync-benchmarks] ${toolId} (${modelSlug}): ttft=${ttftMs}ms, throughput=${throughput}tok/s, input=$${inputCostPer1k}/1k`
       );
     }
   }
