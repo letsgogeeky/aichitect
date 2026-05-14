@@ -15,6 +15,7 @@ import {
   IconCompare,
   IconGenome,
   IconArrowRight,
+  IconSimulator,
 } from "@/components/icons";
 
 /* ── Decorative SVG previews for each view card ── */
@@ -491,6 +492,130 @@ function GenomePreview() {
   );
 }
 
+function SimulatePreview() {
+  return (
+    <svg
+      width="100%"
+      height="100%"
+      viewBox="0 0 280 160"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {/* Plot frame */}
+      <line x1="40" y1="20" x2="40" y2="130" stroke="#1e1e2e" strokeWidth="1" />
+      <line x1="40" y1="130" x2="260" y2="130" stroke="#1e1e2e" strokeWidth="1" />
+
+      {/* Y gridlines */}
+      <line
+        x1="40"
+        y1="50"
+        x2="260"
+        y2="50"
+        stroke="#1e1e2e"
+        strokeWidth="1"
+        strokeDasharray="2,3"
+      />
+      <line
+        x1="40"
+        y1="80"
+        x2="260"
+        y2="80"
+        stroke="#1e1e2e"
+        strokeWidth="1"
+        strokeDasharray="2,3"
+      />
+      <line
+        x1="40"
+        y1="110"
+        x2="260"
+        y2="110"
+        stroke="#1e1e2e"
+        strokeWidth="1"
+        strokeDasharray="2,3"
+      />
+
+      {/* Y labels */}
+      <text x="35" y="54" textAnchor="end" fill="#555577" fontSize="7" fontFamily="monospace">
+        $20k
+      </text>
+      <text x="35" y="84" textAnchor="end" fill="#555577" fontSize="7" fontFamily="monospace">
+        $5k
+      </text>
+      <text x="35" y="114" textAnchor="end" fill="#555577" fontSize="7" fontFamily="monospace">
+        $1k
+      </text>
+
+      {/* X labels */}
+      <text x="55" y="143" textAnchor="middle" fill="#555577" fontSize="7" fontFamily="monospace">
+        1k
+      </text>
+      <text x="120" y="143" textAnchor="middle" fill="#555577" fontSize="7" fontFamily="monospace">
+        10k
+      </text>
+      <text x="185" y="143" textAnchor="middle" fill="#555577" fontSize="7" fontFamily="monospace">
+        100k
+      </text>
+      <text x="250" y="143" textAnchor="middle" fill="#555577" fontSize="7" fontFamily="monospace">
+        1M
+      </text>
+
+      {/* Current stack cost line (steep — expensive scaling) */}
+      <polyline
+        points="55,125 90,120 120,110 150,93 185,70 220,45 250,28"
+        fill="none"
+        stroke="#7c6bff"
+        strokeWidth="2"
+      />
+      {[
+        [55, 125],
+        [90, 120],
+        [120, 110],
+        [150, 93],
+        [185, 70],
+        [220, 45],
+        [250, 28],
+      ].map(([cx, cy], i) => (
+        <circle key={`a-${i}`} cx={cx} cy={cy} r="2" fill="#7c6bff" />
+      ))}
+
+      {/* Shadow stack cost line (cheaper at scale, dashed) */}
+      <polyline
+        points="55,128 90,124 120,118 150,108 185,95 220,82 250,68"
+        fill="none"
+        stroke="#00d4aa"
+        strokeWidth="2"
+        strokeDasharray="5,3"
+      />
+      {[
+        [55, 128],
+        [90, 124],
+        [120, 118],
+        [150, 108],
+        [185, 95],
+        [220, 82],
+        [250, 68],
+      ].map(([cx, cy], i) => (
+        <circle key={`b-${i}`} cx={cx} cy={cy} r="2" fill="#00d4aa" />
+      ))}
+
+      {/* Breaking point marker */}
+      <line
+        x1="185"
+        y1="20"
+        x2="185"
+        y2="130"
+        stroke="#ff6b6b"
+        strokeWidth="1"
+        strokeDasharray="3,2"
+        opacity="0.7"
+      />
+      <text x="185" y="16" textAnchor="middle" fill="#ff6b6b" fontSize="7" fontFamily="monospace">
+        ⚠ 100k
+      </text>
+    </svg>
+  );
+}
+
 const EVENT_COLOR: Record<ToolEventType, string> = {
   health_score_change: "#26de81",
   star_milestone: "#fdcb6e",
@@ -595,6 +720,16 @@ export default async function LandingPage() {
       Icon: IconSettings2,
       accent: "#ff6b6b",
       Preview: BuilderPreview,
+    },
+    {
+      href: "/simulate",
+      label: "Simulate",
+      tagline: "Project cost, latency, and breaking points",
+      description:
+        "Drag sliders and watch live: per-token cost with prompt caching + batch discounts, token-aware latency, a shadow-stack A/B, and a provider comparison ranked at your workload.",
+      Icon: IconSimulator,
+      accent: "#a29bfe",
+      Preview: SimulatePreview,
     },
     {
       href: "/compare",
@@ -1956,6 +2091,7 @@ export default async function LandingPage() {
             { label: "Graph", href: "/explore" },
             { label: "Stacks", href: "/stacks" },
             { label: "Builder", href: "/builder" },
+            { label: "Simulate", href: "/simulate" },
             { label: "Compare", href: "/compare" },
             { label: "Genome", href: "/genome" },
             { label: "MCP", href: "/mcp" },

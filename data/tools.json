@@ -159,7 +159,7 @@
     "id": "continue",
     "name": "Continue",
     "category": "coding-assistants",
-    "tagline": "OSS VS Code plugin — bring your own LLM",
+    "tagline": "OSS VS Code plugin \u2014 bring your own LLM",
     "description": "Open-source VS Code and JetBrains extension. Connect any LLM via ollama, LiteLLM, or cloud APIs. Fully customizable.",
     "type": "oss",
     "pricing": {
@@ -500,7 +500,7 @@
     "name": "Cline",
     "category": "coding-assistants",
     "tagline": "Autonomous AI coding agent in VS Code",
-    "description": "VS Code extension that gives Claude and other LLMs full agentic control — file edits, terminal commands, browser automation, and MCP tool use.",
+    "description": "VS Code extension that gives Claude and other LLMs full agentic control \u2014 file edits, terminal commands, browser automation, and MCP tool use.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -543,7 +543,7 @@
     "slot": "code-editor",
     "choose_if": [
       "You want to go from prompt to full-stack app instantly",
-      "You need no local setup — browser-only",
+      "You need no local setup \u2014 browser-only",
       "You're prototyping or demoing a product fast"
     ],
     "aliases": {
@@ -690,7 +690,8 @@
       "free_tier_limit": "unlimited (self-hosted OSS)",
       "pricing_url": "https://www.crewai.com/pricing",
       "type": "free"
-    }
+    },
+    "latency_p50_ms": 200
   },
   {
     "id": "autogen",
@@ -723,7 +724,8 @@
     "cost_model": {
       "free_tier_limit": "unlimited (OSS library)",
       "type": "free"
-    }
+    },
+    "latency_p50_ms": 180
   },
   {
     "id": "langgraph",
@@ -760,7 +762,8 @@
       "free_tier_limit": "LangGraph Studio free for OSS",
       "pricing_url": "https://www.langchain.com/pricing-langgraph-platform",
       "type": "flat"
-    }
+    },
+    "latency_p50_ms": 150
   },
   {
     "id": "metagpt",
@@ -816,14 +819,15 @@
     },
     "website_url": "https://learn.microsoft.com/en-us/semantic-kernel",
     "github_url": "https://github.com/microsoft/semantic-kernel",
-    "use_context": "app-infrastructure"
+    "use_context": "app-infrastructure",
+    "latency_p50_ms": 100
   },
   {
     "id": "lovable",
     "name": "Lovable",
     "category": "autonomous-agents",
     "tagline": "AI that builds full-stack web apps from prompts",
-    "description": "Lovable generates complete full-stack web applications from natural language. It handles frontend, backend, auth, and database — editable in real time.",
+    "description": "Lovable generates complete full-stack web applications from natural language. It handles frontend, backend, auth, and database \u2014 editable in real time.",
     "type": "commercial",
     "pricing": {
       "free_tier": true,
@@ -889,7 +893,7 @@
     "id": "v0",
     "name": "v0",
     "category": "design",
-    "tagline": "Prompt → production React/Tailwind components",
+    "tagline": "Prompt \u2192 production React/Tailwind components",
     "description": "Vercel's AI that generates production-ready React and Tailwind UI from prompts. Exports directly to code. Legitimized AI design-to-code.",
     "type": "commercial",
     "pricing": {
@@ -929,7 +933,7 @@
     "id": "galileo",
     "name": "Galileo AI",
     "category": "design",
-    "tagline": "Text → Figma-ready UI generation",
+    "tagline": "Text \u2192 Figma-ready UI generation",
     "description": "Generates complete Figma-ready UI designs from text prompts. Targets design teams looking to accelerate early-stage UI generation.",
     "type": "commercial",
     "pricing": {
@@ -962,7 +966,7 @@
     "id": "locofy",
     "name": "Locofy.ai",
     "category": "design",
-    "tagline": "Figma/XD → production React/Next.js code",
+    "tagline": "Figma/XD \u2192 production React/Next.js code",
     "description": "Converts Figma and Adobe XD designs into production-ready React, Next.js, and React Native code with accurate styling.",
     "type": "commercial",
     "pricing": {
@@ -1198,7 +1202,7 @@
     "id": "anima",
     "name": "Anima",
     "category": "design",
-    "tagline": "Figma → React/Vue/HTML code generation",
+    "tagline": "Figma \u2192 React/Vue/HTML code generation",
     "description": "Converts Figma designs to production-ready React, Vue, and HTML code. Supports design tokens, responsive layouts, and interactive components.",
     "type": "commercial",
     "pricing": {
@@ -1275,7 +1279,7 @@
     "id": "google-stitch",
     "name": "Google Stitch",
     "category": "design",
-    "tagline": "Gemini-powered screenshot or prompt → production web code",
+    "tagline": "Gemini-powered screenshot or prompt \u2192 production web code",
     "description": "Google's design-to-code tool powered by Gemini. Converts screenshots, mockups, or text prompts into production-ready HTML, CSS, and JavaScript. Integrated with Google AI Studio and targets rapid UI prototyping directly from visual references.",
     "type": "commercial",
     "pricing": {
@@ -1350,7 +1354,8 @@
     "cost_model": {
       "free_tier_limit": "unlimited (OSS library)",
       "type": "free"
-    }
+    },
+    "latency_p50_ms": 100
   },
   {
     "id": "llamaindex",
@@ -1383,7 +1388,8 @@
     "cost_model": {
       "free_tier_limit": "unlimited (OSS library)",
       "type": "free"
-    }
+    },
+    "latency_p50_ms": 80
   },
   {
     "id": "dspy",
@@ -1415,7 +1421,8 @@
     "cost_model": {
       "free_tier_limit": "unlimited (OSS library)",
       "type": "free"
-    }
+    },
+    "latency_p50_ms": 100
   },
   {
     "id": "flowise",
@@ -1457,7 +1464,8 @@
       "free_tier_limit": "unlimited (self-hosted)",
       "pricing_url": "https://flowiseai.com/pricing",
       "type": "flat"
-    }
+    },
+    "latency_p50_ms": 120
   },
   {
     "id": "dify",
@@ -1497,7 +1505,8 @@
       "free_tier_limit": "5 AI apps (self-hosted free)",
       "pricing_url": "https://dify.ai/pricing",
       "type": "flat"
-    }
+    },
+    "latency_p50_ms": 100
   },
   {
     "id": "n8n",
@@ -1537,7 +1546,8 @@
       "free_tier_limit": "unlimited (self-hosted)",
       "pricing_url": "https://n8n.io/pricing/",
       "type": "flat"
-    }
+    },
+    "latency_p50_ms": 120
   },
   {
     "id": "haystack",
@@ -1631,7 +1641,8 @@
     },
     "website_url": "https://mastra.ai",
     "github_url": "https://github.com/mastra-ai/mastra",
-    "use_context": "app-infrastructure"
+    "use_context": "app-infrastructure",
+    "latency_p50_ms": 80
   },
   {
     "id": "pydantic-ai",
@@ -1659,7 +1670,8 @@
     },
     "website_url": "https://ai.pydantic.dev",
     "github_url": "https://github.com/pydantic/pydantic-ai",
-    "use_context": "app-infrastructure"
+    "use_context": "app-infrastructure",
+    "latency_p50_ms": 60
   },
   {
     "id": "smolagents",
@@ -1687,7 +1699,8 @@
     },
     "website_url": "https://huggingface.co/docs/smolagents",
     "github_url": "https://github.com/huggingface/smolagents",
-    "use_context": "app-infrastructure"
+    "use_context": "app-infrastructure",
+    "latency_p50_ms": 150
   },
   {
     "id": "agno",
@@ -1715,13 +1728,14 @@
     },
     "website_url": "https://agno.com",
     "github_url": "https://github.com/agno-agi/agno",
-    "use_context": "app-infrastructure"
+    "use_context": "app-infrastructure",
+    "latency_p50_ms": 80
   },
   {
     "id": "sweep-ai",
     "name": "Sweep AI",
     "category": "devops",
-    "tagline": "GitHub bot: issues → PRs automatically",
+    "tagline": "GitHub bot: issues \u2192 PRs automatically",
     "description": "GitHub bot that converts issues and bug reports into working pull requests. Handles simple to medium complexity tasks autonomously.",
     "type": "oss",
     "pricing": {
@@ -1911,7 +1925,7 @@
     "name": "Grit.io",
     "category": "devops",
     "tagline": "AI-powered code migrations and upgrades at scale",
-    "description": "Automates large-scale code migrations — upgrading frameworks, removing deprecated APIs, and enforcing patterns across entire codebases.",
+    "description": "Automates large-scale code migrations \u2014 upgrading frameworks, removing deprecated APIs, and enforcing patterns across entire codebases.",
     "type": "commercial",
     "pricing": {
       "free_tier": true,
@@ -2251,7 +2265,7 @@
     "name": "Height AI",
     "category": "product-mgmt",
     "tagline": "AI task management with autonomous project ops",
-    "description": "Project management tool with an AI agent that can autonomously triage tasks, draft specs, and manage backlog — without being explicitly asked.",
+    "description": "Project management tool with an AI agent that can autonomously triage tasks, draft specs, and manage backlog \u2014 without being explicitly asked.",
     "type": "commercial",
     "pricing": {
       "free_tier": true,
@@ -2365,7 +2379,7 @@
     "id": "litellm",
     "name": "LiteLLM",
     "category": "llm-infra",
-    "tagline": "Universal LLM proxy — 100+ models, one API",
+    "tagline": "Universal LLM proxy \u2014 100+ models, one API",
     "description": "OSS proxy that normalizes 100+ LLMs to the OpenAI format. Add routing, fallbacks, caching, and cost tracking in one layer.",
     "type": "oss",
     "pricing": {
@@ -2551,10 +2565,10 @@
     "github_url": "https://github.com/langfuse/langfuse",
     "use_context": "app-infrastructure",
     "cost_model": {
-      "cost_per_month_base": 59,
-      "free_tier_limit": "50k observations/mo",
-      "pricing_url": "https://langfuse.com/pricing",
-      "type": "flat"
+      "type": "per_event",
+      "cost_per_event": 6e-5,
+      "free_tier_limit": "50k observations/mo free",
+      "pricing_url": "https://langfuse.com/pricing"
     }
   },
   {
@@ -2590,9 +2604,10 @@
     "github_url": "https://github.com/Helicone/helicone",
     "use_context": "app-infrastructure",
     "cost_model": {
-      "free_tier_limit": "100k events/mo",
-      "pricing_url": "https://www.helicone.ai/pricing",
-      "type": "usage_based"
+      "type": "per_event",
+      "cost_per_event": 5e-5,
+      "free_tier_limit": "10k requests/mo free",
+      "pricing_url": "https://www.helicone.ai/pricing"
     }
   },
   {
@@ -2666,10 +2681,9 @@
     "github_url": null,
     "use_context": "app-infrastructure",
     "cost_model": {
-      "cost_per_month_base": 200,
-      "free_tier_limit": "limited runs",
-      "pricing_url": "https://www.braintrust.dev/pricing",
-      "type": "flat"
+      "type": "per_event",
+      "cost_per_event": 8e-5,
+      "pricing_url": "https://www.braintrust.dev/pricing"
     }
   },
   {
@@ -2703,7 +2717,8 @@
     "cost_model": {
       "free_tier_limit": "unlimited (local)",
       "type": "free"
-    }
+    },
+    "latency_p50_ms": 600
   },
   {
     "id": "vllm",
@@ -2735,7 +2750,8 @@
     "cost_model": {
       "free_tier_limit": "unlimited (self-hosted)",
       "type": "free"
-    }
+    },
+    "latency_p50_ms": 400
   },
   {
     "id": "groq",
@@ -2775,7 +2791,8 @@
       "free_tier_limit": "14,400 requests/day on free tier",
       "pricing_url": "https://groq.com/pricing",
       "type": "per_token"
-    }
+    },
+    "latency_p50_ms": 100
   },
   {
     "id": "together-ai",
@@ -2815,7 +2832,8 @@
       "free_tier_limit": "$1 credit on signup",
       "pricing_url": "https://www.together.ai/pricing",
       "type": "per_token"
-    }
+    },
+    "latency_p50_ms": 250
   },
   {
     "id": "fireworks-ai",
@@ -2855,7 +2873,8 @@
       "free_tier_limit": "$1 credit on signup",
       "pricing_url": "https://fireworks.ai/pricing",
       "type": "per_token"
-    }
+    },
+    "latency_p50_ms": 200
   },
   {
     "id": "llama-cpp",
@@ -2884,7 +2903,8 @@
     },
     "website_url": "https://github.com/ggerganov/llama.cpp",
     "github_url": "https://github.com/ggerganov/llama.cpp",
-    "use_context": "both"
+    "use_context": "both",
+    "latency_p50_ms": 800
   },
   {
     "id": "modal",
@@ -2960,7 +2980,8 @@
       "free_tier_limit": "1GB free on Qdrant Cloud",
       "pricing_url": "https://qdrant.tech/pricing/",
       "type": "free"
-    }
+    },
+    "latency_p50_ms": 50
   },
   {
     "id": "chroma",
@@ -2993,7 +3014,8 @@
       "free_tier_limit": "unlimited (self-hosted)",
       "pricing_url": "https://trychroma.com/pricing",
       "type": "free"
-    }
+    },
+    "latency_p50_ms": 20
   },
   {
     "id": "pgvector",
@@ -3025,7 +3047,8 @@
     "cost_model": {
       "free_tier_limit": "unlimited (self-hosted Postgres extension)",
       "type": "free"
-    }
+    },
+    "latency_p50_ms": 30
   },
   {
     "id": "pinecone",
@@ -3061,11 +3084,15 @@
     "github_url": null,
     "use_context": "app-infrastructure",
     "cost_model": {
-      "cost_per_month_base": 0,
-      "free_tier_limit": "2M vectors serverless",
-      "pricing_url": "https://www.pinecone.io/pricing/",
-      "type": "usage_based"
-    }
+      "type": "per_vector_query",
+      "storage_cost_per_gb_month": 0.33,
+      "query_cost_per_million": 16,
+      "min_monthly_cost": 50,
+      "free_tier_limit": "Builder $20/mo flat for 2M vectors",
+      "pricing_url": "https://www.pinecone.io/pricing/"
+    },
+    "latency_p50_ms": 100,
+    "bytes_per_vector": 2000
   },
   {
     "id": "weaviate",
@@ -3100,10 +3127,15 @@
     "github_url": "https://github.com/weaviate/weaviate",
     "use_context": "app-infrastructure",
     "cost_model": {
+      "type": "per_vector_query",
+      "storage_cost_per_gb_month": 0.4,
+      "query_cost_per_million": 18,
+      "min_monthly_cost": 25,
       "free_tier_limit": "1M vectors on Weaviate Cloud",
-      "pricing_url": "https://weaviate.io/pricing",
-      "type": "usage_based"
-    }
+      "pricing_url": "https://weaviate.io/pricing"
+    },
+    "latency_p50_ms": 80,
+    "bytes_per_vector": 2000
   },
   {
     "id": "milvus",
@@ -3141,7 +3173,8 @@
       "free_tier_limit": "unlimited (self-hosted)",
       "pricing_url": "https://zilliz.com/pricing",
       "type": "free"
-    }
+    },
+    "latency_p50_ms": 20
   },
   {
     "id": "anthropic-api",
@@ -3181,8 +3214,16 @@
       "input_cost_per_1k_tokens": 0.003,
       "output_cost_per_1k_tokens": 0.015,
       "pricing_url": "https://www.anthropic.com/pricing",
-      "type": "per_token"
-    }
+      "type": "per_token",
+      "cached_input_cost_per_1k_tokens": 0.0003,
+      "cache_write_cost_per_1k_tokens": 0.00375,
+      "batch_input_cost_per_1k_tokens": 0.0015,
+      "batch_output_cost_per_1k_tokens": 0.0075
+    },
+    "ttft_p50_ms": 700,
+    "output_tokens_per_second": 46,
+    "max_tpm": 400000,
+    "max_rpm": 4000
   },
   {
     "id": "openai-api",
@@ -3222,8 +3263,15 @@
       "input_cost_per_1k_tokens": 0.0025,
       "output_cost_per_1k_tokens": 0.01,
       "pricing_url": "https://openai.com/pricing",
-      "type": "per_token"
-    }
+      "type": "per_token",
+      "cached_input_cost_per_1k_tokens": 0.00025,
+      "batch_input_cost_per_1k_tokens": 0.00125,
+      "batch_output_cost_per_1k_tokens": 0.005
+    },
+    "ttft_p50_ms": 500,
+    "output_tokens_per_second": 85,
+    "max_tpm": 600000,
+    "max_rpm": 5000
   },
   {
     "id": "mistral-api",
@@ -3262,8 +3310,15 @@
       "input_cost_per_1k_tokens": 0.002,
       "output_cost_per_1k_tokens": 0.006,
       "pricing_url": "https://mistral.ai/technology/#pricing",
-      "type": "per_token"
-    }
+      "type": "per_token",
+      "cached_input_cost_per_1k_tokens": 0.0002,
+      "batch_input_cost_per_1k_tokens": 0.001,
+      "batch_output_cost_per_1k_tokens": 0.003
+    },
+    "ttft_p50_ms": 500,
+    "output_tokens_per_second": 80,
+    "max_tpm": 500000,
+    "max_rpm": 5000
   },
   {
     "id": "cohere-api",
@@ -3303,8 +3358,15 @@
       "output_cost_per_1k_tokens": 0.01,
       "free_tier_limit": "1k calls/mo trial",
       "pricing_url": "https://cohere.com/pricing",
-      "type": "per_token"
-    }
+      "type": "per_token",
+      "cached_input_cost_per_1k_tokens": 0.00025,
+      "batch_input_cost_per_1k_tokens": 0.00125,
+      "batch_output_cost_per_1k_tokens": 0.005
+    },
+    "ttft_p50_ms": 500,
+    "output_tokens_per_second": 80,
+    "max_tpm": 500000,
+    "max_rpm": 5000
   },
   {
     "id": "replicate",
@@ -3342,7 +3404,8 @@
       "free_tier_limit": "$0.01 free credit",
       "pricing_url": "https://replicate.com/pricing",
       "type": "usage_based"
-    }
+    },
+    "latency_p50_ms": 1200
   },
   {
     "id": "huggingface",
@@ -3763,7 +3826,7 @@
     "id": "deepeval",
     "name": "DeepEval",
     "category": "prompt-eval",
-    "tagline": "LLM evaluation framework — 14+ metrics",
+    "tagline": "LLM evaluation framework \u2014 14+ metrics",
     "description": "Open-source evaluation framework with 14+ metrics including faithfulness, relevancy, and hallucination detection. Integrates with CI/CD.",
     "type": "oss",
     "pricing": {
@@ -4020,7 +4083,7 @@
     "name": "Spec Kit",
     "category": "specifications",
     "tagline": "GitHub's OSS toolkit for spec-driven AI coding workflows",
-    "description": "Open-source scaffold from GitHub that operationalizes spec-driven development with AI coding agents. Creates structured .specify/ folders that serve as the source of truth for Claude Code, GitHub Copilot, and Gemini CLI — steering AI generation from upfront specs rather than improvised prompts.",
+    "description": "Open-source scaffold from GitHub that operationalizes spec-driven development with AI coding agents. Creates structured .specify/ folders that serve as the source of truth for Claude Code, GitHub Copilot, and Gemini CLI \u2014 steering AI generation from upfront specs rather than improvised prompts.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -4121,7 +4184,7 @@
     "name": "Structurizr",
     "category": "specifications",
     "tagline": "Code-first C4 model architecture diagrams as structured text",
-    "description": "Implements the C4 model as a diagrams-as-code DSL — write Structurizr DSL and render multiple architecture views (Context, Container, Component, Code) from a single model. Version-controlled alongside code with full ADR integration. Free OSS CLI plus paid cloud workspace for team collaboration.",
+    "description": "Implements the C4 model as a diagrams-as-code DSL \u2014 write Structurizr DSL and render multiple architecture views (Context, Container, Component, Code) from a single model. Version-controlled alongside code with full ADR integration. Free OSS CLI plus paid cloud workspace for team collaboration.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -4226,7 +4289,7 @@
     "name": "AsyncAPI",
     "category": "specifications",
     "tagline": "Open standard for defining event-driven async APIs",
-    "description": "The specification standard for async, event-driven APIs over Kafka, MQTT, WebSockets, and more — the async equivalent of OpenAPI. The ecosystem includes CLI, parser, code generators, and server stub templates. Widely adopted in microservices and streaming architectures.",
+    "description": "The specification standard for async, event-driven APIs over Kafka, MQTT, WebSockets, and more \u2014 the async equivalent of OpenAPI. The ecosystem includes CLI, parser, code generators, and server stub templates. Widely adopted in microservices and streaming architectures.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -4296,7 +4359,7 @@
     "id": "speakeasy",
     "name": "Speakeasy",
     "category": "specifications",
-    "tagline": "OpenAPI → idiomatic SDKs, MCP servers, and contract tests",
+    "tagline": "OpenAPI \u2192 idiomatic SDKs, MCP servers, and contract tests",
     "description": "Takes an OpenAPI spec and generates polished, type-safe client SDKs across multiple languages, Terraform providers, and MCP servers for AI agent integration. Handles pagination, retries, webhooks, and streaming out of the box. Increasingly positioning itself as the API platform for the agent era.",
     "type": "commercial",
     "pricing": {
@@ -4508,8 +4571,8 @@
     "id": "letta",
     "name": "Letta",
     "category": "agent-frameworks",
-    "tagline": "Stateful agents with long-term memory — formerly MemGPT",
-    "description": "Letta (formerly MemGPT) is an open-source framework for building stateful AI agents with persistent, editable memory. Agents remember conversations across sessions, search their own memory, and update their knowledge over time — solving context window limitations.",
+    "tagline": "Stateful agents with long-term memory \u2014 formerly MemGPT",
+    "description": "Letta (formerly MemGPT) is an open-source framework for building stateful AI agents with persistent, editable memory. Agents remember conversations across sessions, search their own memory, and update their knowledge over time \u2014 solving context window limitations.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -4646,14 +4709,15 @@
     },
     "website_url": "https://www.griptape.ai",
     "github_url": "https://github.com/griptape-ai/griptape",
-    "use_context": "app-infrastructure"
+    "use_context": "app-infrastructure",
+    "latency_p50_ms": 120
   },
   {
     "id": "rivet",
     "name": "Rivet",
     "category": "pipelines-rag",
     "tagline": "Visual node-based IDE for building and debugging AI agent pipelines",
-    "description": "Rivet is an open-source visual programming environment for building complex AI agent workflows. Drag-and-drop nodes represent LLM calls, conditionals, loops, and tool uses — making it easy to prototype, debug, and understand AI pipeline behavior without writing code.",
+    "description": "Rivet is an open-source visual programming environment for building complex AI agent workflows. Drag-and-drop nodes represent LLM calls, conditionals, loops, and tool uses \u2014 making it easy to prototype, debug, and understand AI pipeline behavior without writing code.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -4847,8 +4911,8 @@
     "id": "cerebras",
     "name": "Cerebras",
     "category": "llm-infra",
-    "tagline": "Wafer-scale chip inference — the fastest LLM API available",
-    "description": "Cerebras offers ultra-fast LLM inference powered by its wafer-scale AI chips, delivering 2,000+ tokens/second — far exceeding GPU-based providers. It hosts Llama, Mistral, and other open models, making it ideal for latency-sensitive applications.",
+    "tagline": "Wafer-scale chip inference \u2014 the fastest LLM API available",
+    "description": "Cerebras offers ultra-fast LLM inference powered by its wafer-scale AI chips, delivering 2,000+ tokens/second \u2014 far exceeding GPU-based providers. It hosts Llama, Mistral, and other open models, making it ideal for latency-sensitive applications.",
     "type": "commercial",
     "pricing": {
       "free_tier": true,
@@ -4886,14 +4950,15 @@
       "free_tier_limit": "8k tokens/min free tier",
       "pricing_url": "https://cerebras.ai/pricing",
       "type": "per_token"
-    }
+    },
+    "latency_p50_ms": 50
   },
   {
     "id": "deepinfra",
     "name": "DeepInfra",
     "category": "llm-infra",
     "tagline": "Serverless GPU inference for open-source LLMs at low cost",
-    "description": "DeepInfra provides serverless inference for hundreds of open-source models including Llama, Mistral, and Falcon, with pay-per-token pricing and an OpenAI-compatible API. No infrastructure management — just call the API and scale automatically.",
+    "description": "DeepInfra provides serverless inference for hundreds of open-source models including Llama, Mistral, and Falcon, with pay-per-token pricing and an OpenAI-compatible API. No infrastructure management \u2014 just call the API and scale automatically.",
     "type": "commercial",
     "pricing": {
       "free_tier": true,
@@ -4931,7 +4996,8 @@
       "free_tier_limit": "$1 credit on signup",
       "pricing_url": "https://deepinfra.com/pricing",
       "type": "per_token"
-    }
+    },
+    "latency_p50_ms": 350
   },
   {
     "id": "baseten",
@@ -5055,13 +5121,14 @@
       "output_cost_per_1k_tokens": 0.001,
       "pricing_url": "https://www.perplexity.ai/settings/api",
       "type": "per_token"
-    }
+    },
+    "latency_p50_ms": 500
   },
   {
     "id": "redis-vector",
     "name": "Redis Vector",
     "category": "llm-infra",
-    "tagline": "In-memory vector search built into Redis — no separate DB needed",
+    "tagline": "In-memory vector search built into Redis \u2014 no separate DB needed",
     "description": "Redis Vector Search adds native vector similarity search to Redis, enabling low-latency semantic search on data already in Redis. With Redis Stack, you get vector indexing, hybrid search, and filtering alongside your existing caching and pub/sub workloads.",
     "type": "oss",
     "pricing": {
@@ -5098,13 +5165,14 @@
       "free_tier_limit": "30MB on Redis Cloud free tier",
       "pricing_url": "https://redis.io/pricing/",
       "type": "usage_based"
-    }
+    },
+    "latency_p50_ms": 5
   },
   {
     "id": "turbopuffer",
     "name": "turbopuffer",
     "category": "llm-infra",
-    "tagline": "Serverless vector database built for scale — no infrastructure to manage",
+    "tagline": "Serverless vector database built for scale \u2014 no infrastructure to manage",
     "description": "turbopuffer is a serverless vector database designed for high-scale production workloads, offering fast nearest-neighbor search with automatic scaling and a simple HTTP API. It handles billions of vectors without capacity planning, charging only for storage and queries.",
     "type": "commercial",
     "pricing": {
@@ -5138,15 +5206,20 @@
     "github_url": null,
     "use_context": "app-infrastructure",
     "cost_model": {
-      "pricing_url": "https://turbopuffer.com/pricing",
-      "type": "usage_based"
-    }
+      "type": "per_vector_query",
+      "storage_cost_per_gb_month": 0.2,
+      "query_cost_per_million": 4,
+      "min_monthly_cost": 0,
+      "pricing_url": "https://turbopuffer.com/pricing"
+    },
+    "latency_p50_ms": 30,
+    "bytes_per_vector": 2000
   },
   {
     "id": "lancedb",
     "name": "LanceDB",
     "category": "llm-infra",
-    "tagline": "Serverless vector DB built on Apache Arrow — embedded or cloud",
+    "tagline": "Serverless vector DB built on Apache Arrow \u2014 embedded or cloud",
     "description": "LanceDB is an open-source vector database built on the Lance columnar format, offering embedded usage (no server) and a serverless cloud option. It supports multimodal data, blazing-fast queries on large datasets, and seamless interop with pandas, PyArrow, and LangChain.",
     "type": "oss",
     "pricing": {
@@ -5182,7 +5255,8 @@
     "cost_model": {
       "free_tier_limit": "unlimited (self-hosted)",
       "type": "free"
-    }
+    },
+    "latency_p50_ms": 15
   },
   {
     "id": "opik",
@@ -5227,7 +5301,7 @@
     "name": "AgentOps",
     "category": "observability",
     "tagline": "Observability and replay platform built specifically for AI agents",
-    "description": "AgentOps provides session replay, cost tracking, and error monitoring designed for AI agents — not just LLM calls. It captures the full agent execution tree including tool calls, decisions, and multi-agent interactions, with a visual session replay for debugging.",
+    "description": "AgentOps provides session replay, cost tracking, and error monitoring designed for AI agents \u2014 not just LLM calls. It captures the full agent execution tree including tool calls, decisions, and multi-agent interactions, with a visual session replay for debugging.",
     "type": "commercial",
     "pricing": {
       "free_tier": true,
@@ -5324,7 +5398,7 @@
     "slot": "prompt-eval",
     "prominent": false,
     "choose_if": [
-      "evaluating RAG pipeline quality — groundedness and relevance",
+      "evaluating RAG pipeline quality \u2014 groundedness and relevance",
       "want open-source evals with a visual results dashboard",
       "building with LangChain or LlamaIndex and need eval integration"
     ],
@@ -5343,7 +5417,7 @@
     "name": "Humanloop",
     "category": "prompt-eval",
     "tagline": "Prompt management, A/B testing, and evals for production LLM apps",
-    "description": "Humanloop is a platform for managing prompts, running experiments, and evaluating LLM outputs in production. It provides a prompt editor, version history, A/B testing across models, and human plus automated eval workflows — keeping your prompts in sync with your code.",
+    "description": "Humanloop is a platform for managing prompts, running experiments, and evaluating LLM outputs in production. It provides a prompt editor, version history, A/B testing across models, and human plus automated eval workflows \u2014 keeping your prompts in sync with your code.",
     "type": "commercial",
     "pricing": {
       "free_tier": true,
@@ -5459,7 +5533,7 @@
     "name": "OpenAI Codex CLI",
     "category": "coding-assistants",
     "tagline": "OpenAI's open-source terminal agent for autonomous coding tasks",
-    "description": "OpenAI Codex CLI is an open-source terminal agent that applies natural language instructions to your local codebase. Running in your terminal, it reads files, writes code, runs tests, and iterates until the task is complete — powered by OpenAI's o4-mini model.",
+    "description": "OpenAI Codex CLI is an open-source terminal agent that applies natural language instructions to your local codebase. Running in your terminal, it reads files, writes code, runs tests, and iterates until the task is complete \u2014 powered by OpenAI's o4-mini model.",
     "type": "oss",
     "pricing": {
       "free_tier": false,
@@ -5531,7 +5605,7 @@
     "name": "Factory",
     "category": "autonomous-agents",
     "tagline": "AI software engineers that autonomously build features and fix bugs",
-    "description": "Factory provides Droids — AI software engineers that autonomously handle development tasks including coding, testing, debugging, and PR creation. They integrate with GitHub and Jira, accept natural language task descriptions, and operate continuously without human intervention.",
+    "description": "Factory provides Droids \u2014 AI software engineers that autonomously handle development tasks including coding, testing, debugging, and PR creation. They integrate with GitHub and Jira, accept natural language task descriptions, and operate continuously without human intervention.",
     "type": "commercial",
     "pricing": {
       "free_tier": false,
@@ -5608,7 +5682,7 @@
     "id": "replit-agent",
     "name": "Replit Agent",
     "category": "autonomous-agents",
-    "tagline": "Build full apps from a prompt — Replit's autonomous AI developer",
+    "tagline": "Build full apps from a prompt \u2014 Replit's autonomous AI developer",
     "description": "Replit Agent is an AI that builds complete web apps from a natural language description, handling frontend, backend, and deployment automatically inside Replit's cloud IDE. It creates, iterates, and deploys apps end-to-end, making it ideal for rapid prototyping.",
     "type": "commercial",
     "pricing": {
@@ -5653,7 +5727,7 @@
     "name": "Desktop Commander",
     "category": "mcp",
     "tagline": "MCP server giving AI agents terminal access and file system control",
-    "description": "Desktop Commander is an MCP server that provides AI agents with terminal execution, file system operations, process management, and text editor access. It enables agents to run shell commands, manage files, and control desktop applications — all through the MCP protocol.",
+    "description": "Desktop Commander is an MCP server that provides AI agents with terminal execution, file system operations, process management, and text editor access. It enables agents to run shell commands, manage files, and control desktop applications \u2014 all through the MCP protocol.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -5687,7 +5761,7 @@
     "name": "Brave Search MCP",
     "category": "mcp",
     "tagline": "MCP server for web and local search via Brave Search API",
-    "description": "Brave Search MCP provides AI agents with web search and local search capabilities through Brave's privacy-respecting search API. It supports general web queries, news search, image search, and local business lookups — giving agents real-time information access.",
+    "description": "Brave Search MCP provides AI agents with web search and local search capabilities through Brave's privacy-respecting search API. It supports general web queries, news search, image search, and local business lookups \u2014 giving agents real-time information access.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -5725,7 +5799,7 @@
     "name": "Sequential Thinking MCP",
     "category": "mcp",
     "tagline": "MCP server that enables structured step-by-step reasoning for agents",
-    "description": "Sequential Thinking MCP is a Model Context Protocol server that provides a tool for dynamic, reflective problem-solving. It enables AI agents to break complex problems into sequential steps, revise earlier thinking, and branch into alternative approaches — improving reasoning quality.",
+    "description": "Sequential Thinking MCP is a Model Context Protocol server that provides a tool for dynamic, reflective problem-solving. It enables AI agents to break complex problems into sequential steps, revise earlier thinking, and branch into alternative approaches \u2014 improving reasoning quality.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -6001,7 +6075,7 @@
     "name": "Coda AI",
     "category": "docs",
     "tagline": "Doc-meets-spreadsheet platform with AI built directly into every page",
-    "description": "Coda AI integrates AI writing, summarization, and data manipulation directly into Coda's doc-spreadsheet hybrid. Teams use it to draft PRDs, summarize meeting notes, generate tables from data, and automate repetitive documentation tasks — all within a collaborative workspace.",
+    "description": "Coda AI integrates AI writing, summarization, and data manipulation directly into Coda's doc-spreadsheet hybrid. Teams use it to draft PRDs, summarize meeting notes, generate tables from data, and automate repetitive documentation tasks \u2014 all within a collaborative workspace.",
     "type": "commercial",
     "pricing": {
       "free_tier": true,
@@ -6131,7 +6205,7 @@
     "id": "jira-ai",
     "name": "Jira AI",
     "category": "product-mgmt",
-    "tagline": "Atlassian Intelligence in Jira — AI backlog management and sprint planning",
+    "tagline": "Atlassian Intelligence in Jira \u2014 AI backlog management and sprint planning",
     "description": "Jira AI brings Atlassian Intelligence to issue tracking, enabling AI-generated ticket summaries, automatic subtask creation, sprint retrospective insights, and work-breakdown suggestions. It connects with Confluence AI for end-to-end project documentation and planning.",
     "type": "commercial",
     "pricing": {
@@ -6257,8 +6331,8 @@
     "id": "google-gemini-api",
     "name": "Google Gemini API",
     "category": "llm-infra",
-    "tagline": "Google's frontier multimodal model API — Gemini Pro and Flash",
-    "description": "Google's Gemini API provides access to Gemini Pro, Flash, and Ultra — Google's state-of-the-art multimodal models with native image, audio, and video understanding. With a 1M+ token context window and competitive pricing, it's a strong alternative to GPT-4 for production workloads.",
+    "tagline": "Google's frontier multimodal model API \u2014 Gemini Pro and Flash",
+    "description": "Google's Gemini API provides access to Gemini Pro, Flash, and Ultra \u2014 Google's state-of-the-art multimodal models with native image, audio, and video understanding. With a 1M+ token context window and competitive pricing, it's a strong alternative to GPT-4 for production workloads.",
     "type": "commercial",
     "pricing": {
       "free_tier": true,
@@ -6296,15 +6370,22 @@
       "output_cost_per_1k_tokens": 0.005,
       "free_tier_limit": "15 RPM on Gemini 1.5 Flash",
       "pricing_url": "https://ai.google.dev/pricing",
-      "type": "per_token"
-    }
+      "type": "per_token",
+      "cached_input_cost_per_1k_tokens": 0.000125,
+      "batch_input_cost_per_1k_tokens": 0.000625,
+      "batch_output_cost_per_1k_tokens": 0.0025
+    },
+    "ttft_p50_ms": 600,
+    "output_tokens_per_second": 120,
+    "max_tpm": 1000000,
+    "max_rpm": 10000
   },
   {
     "id": "amazon-bedrock",
     "name": "Amazon Bedrock",
     "category": "llm-infra",
     "tagline": "AWS managed AI service with access to frontier models from every provider",
-    "description": "Amazon Bedrock provides API access to foundation models from Anthropic, Meta, Mistral, Cohere, and Amazon's own Titan models — all through a single AWS API. It handles compliance, security, and private deployment within your AWS account for enterprise-grade AI applications.",
+    "description": "Amazon Bedrock provides API access to foundation models from Anthropic, Meta, Mistral, Cohere, and Amazon's own Titan models \u2014 all through a single AWS API. It handles compliance, security, and private deployment within your AWS account for enterprise-grade AI applications.",
     "type": "commercial",
     "pricing": {
       "free_tier": true,
@@ -6431,15 +6512,22 @@
       "input_cost_per_1k_tokens": 0.002,
       "output_cost_per_1k_tokens": 0.01,
       "pricing_url": "https://x.ai/api",
-      "type": "per_token"
-    }
+      "type": "per_token",
+      "cached_input_cost_per_1k_tokens": 0.0002,
+      "batch_input_cost_per_1k_tokens": 0.001,
+      "batch_output_cost_per_1k_tokens": 0.005
+    },
+    "ttft_p50_ms": 600,
+    "output_tokens_per_second": 60,
+    "max_tpm": 300000,
+    "max_rpm": 2000
   },
   {
     "id": "deepseek-api",
     "name": "DeepSeek API",
     "category": "llm-infra",
     "tagline": "High-performance frontier model API at a fraction of the cost",
-    "description": "DeepSeek's API provides access to DeepSeek-R1 and DeepSeek-V3 — frontier models matching GPT-4 performance on benchmarks at dramatically lower per-token costs. Its reasoning model (R1) supports extended chain-of-thought for complex coding and math tasks.",
+    "description": "DeepSeek's API provides access to DeepSeek-R1 and DeepSeek-V3 \u2014 frontier models matching GPT-4 performance on benchmarks at dramatically lower per-token costs. Its reasoning model (R1) supports extended chain-of-thought for complex coding and math tasks.",
     "type": "commercial",
     "pricing": {
       "free_tier": true,
@@ -6476,8 +6564,15 @@
       "input_cost_per_1k_tokens": 0.00027,
       "output_cost_per_1k_tokens": 0.0011,
       "pricing_url": "https://platform.deepseek.com/usage",
-      "type": "per_token"
-    }
+      "type": "per_token",
+      "cached_input_cost_per_1k_tokens": 2.7e-5,
+      "batch_input_cost_per_1k_tokens": 0.000135,
+      "batch_output_cost_per_1k_tokens": 0.00055
+    },
+    "ttft_p50_ms": 800,
+    "output_tokens_per_second": 30,
+    "max_tpm": 200000,
+    "max_rpm": 2000
   },
   {
     "id": "kilo-code",
@@ -6542,7 +6637,7 @@
     "name": "Warp",
     "category": "coding-assistants",
     "tagline": "GPU-accelerated terminal with built-in AI agent capabilities",
-    "description": "Rust-built terminal replacement with native AI agent capabilities. Runs Claude Code, OpenAI Codex CLI, and Gemini CLI simultaneously in one interface. Pioneering the 'agentic terminal' category — distinct from editor-based AI assistants.",
+    "description": "Rust-built terminal replacement with native AI agent capabilities. Runs Claude Code, OpenAI Codex CLI, and Gemini CLI simultaneously in one interface. Pioneering the 'agentic terminal' category \u2014 distinct from editor-based AI assistants.",
     "type": "commercial",
     "pricing": {
       "free_tier": true,
@@ -6807,7 +6902,7 @@
     "name": "Galileo",
     "category": "observability",
     "tagline": "Real-time LLM evaluation with sub-200ms guardrail models",
-    "description": "LLM evaluation platform with evaluation models that run in under 200ms — fast enough to use as production guardrails, not just offline eval. Covers hallucination detection, RAG quality, and safety scoring. Distinct from Galileo AI (the UI design tool).",
+    "description": "LLM evaluation platform with evaluation models that run in under 200ms \u2014 fast enough to use as production guardrails, not just offline eval. Covers hallucination detection, RAG quality, and safety scoring. Distinct from Galileo AI (the UI design tool).",
     "type": "commercial",
     "pricing": {
       "free_tier": true,
@@ -6845,7 +6940,7 @@
     "name": "Axolotl",
     "category": "fine-tuning",
     "tagline": "Streamlined LoRA & QLoRA fine-tuning",
-    "description": "OSS fine-tuning framework built on HuggingFace Transformers. Supports LoRA, QLoRA, full fine-tuning, and FSDP. Config-driven — define your training run in a YAML file.",
+    "description": "OSS fine-tuning framework built on HuggingFace Transformers. Supports LoRA, QLoRA, full fine-tuning, and FSDP. Config-driven \u2014 define your training run in a YAML file.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -6874,7 +6969,7 @@
     "id": "unsloth",
     "name": "Unsloth",
     "category": "fine-tuning",
-    "tagline": "2× faster, 70% less memory LoRA fine-tuning",
+    "tagline": "2\u00d7 faster, 70% less memory LoRA fine-tuning",
     "description": "Dramatically speeds up LoRA and QLoRA fine-tuning by rewriting GPU kernels. Compatible with HuggingFace and works with Llama, Mistral, Gemma, and more. No accuracy loss.",
     "type": "oss",
     "pricing": {
@@ -6938,7 +7033,7 @@
     "name": "Torchtune",
     "category": "fine-tuning",
     "tagline": "PyTorch-native LLM fine-tuning from Meta",
-    "description": "Meta's official fine-tuning library. Pure PyTorch — no abstraction layers. Supports LoRA, QLoRA, and full fine-tuning for Llama models. Designed for reproducibility and research.",
+    "description": "Meta's official fine-tuning library. Pure PyTorch \u2014 no abstraction layers. Supports LoRA, QLoRA, and full fine-tuning for Llama models. Designed for reproducibility and research.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -7101,7 +7196,7 @@
     "id": "assemblyai",
     "name": "AssemblyAI",
     "category": "voice-ai",
-    "tagline": "Audio intelligence API — transcription + LLM understanding",
+    "tagline": "Audio intelligence API \u2014 transcription + LLM understanding",
     "description": "Transcription API with built-in AI features: speaker labels, sentiment analysis, topic detection, PII redaction, and LeMUR (LLM over audio). Best for extracting structured insight from audio.",
     "type": "commercial",
     "pricing": {
@@ -7260,7 +7355,7 @@
     "name": "LLaVA",
     "category": "multimodal",
     "tagline": "Open-source multimodal LLM assistant",
-    "description": "Large Language and Vision Assistant — connects a vision encoder to an LLM for instruction-following with images. OSS research model widely used as a multimodal base. Runs via Ollama.",
+    "description": "Large Language and Vision Assistant \u2014 connects a vision encoder to an LLM for instruction-following with images. OSS research model widely used as a multimodal base. Runs via Ollama.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -7391,7 +7486,7 @@
     "name": "InternVL2",
     "category": "multimodal",
     "tagline": "Top OSS multimodal model from OpenGVLab",
-    "description": "InternVL2 series from Shanghai AI Lab — consistently top-ranked on open-source multimodal benchmarks. Strong at document understanding, chart analysis, and multi-image reasoning.",
+    "description": "InternVL2 series from Shanghai AI Lab \u2014 consistently top-ranked on open-source multimodal benchmarks. Strong at document understanding, chart analysis, and multi-image reasoning.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -7483,7 +7578,7 @@
     "slot": "voice-ai",
     "prominent": false,
     "choose_if": [
-      "Latency is critical — sub-800ms end-to-end response is required",
+      "Latency is critical \u2014 sub-800ms end-to-end response is required",
       "You're building healthcare or compliance-sensitive voice agents (HIPAA)",
       "You want native backchannels and human-like turn-taking out of the box"
     ],
@@ -7507,7 +7602,7 @@
     "name": "Browser Use",
     "category": "browser-automation",
     "tagline": "OSS AI agent library for browser control",
-    "description": "Python library that gives AI agents full browser control — navigate, click, fill forms, extract data. Built on Playwright. Reached 50K GitHub stars faster than most AI infra projects. Works with any LLM.",
+    "description": "Python library that gives AI agents full browser control \u2014 navigate, click, fill forms, extract data. Built on Playwright. Reached 50K GitHub stars faster than most AI infra projects. Works with any LLM.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -7611,7 +7706,7 @@
     "name": "Firecrawl",
     "category": "browser-automation",
     "tagline": "Turn any website into clean data for AI",
-    "description": "Crawl and scrape websites into clean markdown or structured JSON — handles JavaScript rendering, PDFs, and dynamic content. LLM-ready output. Used as the data-ingestion layer for RAG pipelines and AI research agents.",
+    "description": "Crawl and scrape websites into clean markdown or structured JSON \u2014 handles JavaScript rendering, PDFs, and dynamic content. LLM-ready output. Used as the data-ingestion layer for RAG pipelines and AI research agents.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -7822,7 +7917,7 @@
     "name": "Jules",
     "category": "autonomous-agents",
     "tagline": "Google's async coding agent that works inside your GitHub repos",
-    "description": "Google's async autonomous coding agent powered by Gemini 2.5 Pro. Integrates with GitHub — assign it a task, it runs in a sandboxed VM, and returns a diff or PR. GA since August 2025. Competes directly with Devin and GitHub Copilot Workspace.",
+    "description": "Google's async autonomous coding agent powered by Gemini 2.5 Pro. Integrates with GitHub \u2014 assign it a task, it runs in a sandboxed VM, and returns a diff or PR. GA since August 2025. Competes directly with Devin and GitHub Copilot Workspace.",
     "type": "commercial",
     "pricing": {
       "free_tier": true,
@@ -7898,7 +7993,7 @@
     "name": "RAGFlow",
     "category": "pipelines-rag",
     "tagline": "Deep-document-understanding RAG engine with visual pipeline editor",
-    "description": "Open-source RAG engine built on deep document understanding — handles tables, figures, and complex layouts in PDFs that chunk-based RAG misses. Includes a visual DAG pipeline editor for building extraction and retrieval workflows. One of the fastest-growing RAG projects of 2025 with 40K+ GitHub stars.",
+    "description": "Open-source RAG engine built on deep document understanding \u2014 handles tables, figures, and complex layouts in PDFs that chunk-based RAG misses. Includes a visual DAG pipeline editor for building extraction and retrieval workflows. One of the fastest-growing RAG projects of 2025 with 40K+ GitHub stars.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -7968,8 +8063,8 @@
     "id": "sambanova-cloud",
     "name": "SambaNova Cloud",
     "category": "llm-infra",
-    "tagline": "Fastest LLM inference API — 200+ tokens/sec on Llama 405B",
-    "description": "Cloud inference API built on SambaNova's custom RDU chips. Consistently benchmarked as the fastest LLM inference provider — 200+ tokens/sec on Llama 3.1 405B versus ~20 tokens/sec on typical GPU clouds. OpenAI-compatible API with a generous free tier and HuggingFace integration.",
+    "tagline": "Fastest LLM inference API \u2014 200+ tokens/sec on Llama 405B",
+    "description": "Cloud inference API built on SambaNova's custom RDU chips. Consistently benchmarked as the fastest LLM inference provider \u2014 200+ tokens/sec on Llama 3.1 405B versus ~20 tokens/sec on typical GPU clouds. OpenAI-compatible API with a generous free tier and HuggingFace integration.",
     "type": "commercial",
     "pricing": {
       "free_tier": true,
@@ -8049,7 +8144,7 @@
     "name": "TRL",
     "category": "fine-tuning",
     "tagline": "Hugging Face's library for RLHF, DPO, and GRPO fine-tuning",
-    "description": "Hugging Face's Transformer Reinforcement Learning library — the standard toolkit for RLHF, DPO, GRPO, and reward modeling. DeepSeek's GRPO technique that sparked the reasoning model wave was popularized through TRL. Integrates seamlessly with the full Hugging Face ecosystem.",
+    "description": "Hugging Face's Transformer Reinforcement Learning library \u2014 the standard toolkit for RLHF, DPO, GRPO, and reward modeling. DeepSeek's GRPO technique that sparked the reasoning model wave was popularized through TRL. Integrates seamlessly with the full Hugging Face ecosystem.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -8082,7 +8177,7 @@
     "name": "Pipecat",
     "category": "voice-ai",
     "tagline": "Open-source framework for real-time voice and multimodal AI agents",
-    "description": "Python framework for building real-time voice and multimodal conversational agents. Handles the full low-latency pipeline — STT → LLM → TTS — with 40+ provider integrations. The most developer-friendly OSS option for building production voice agents where you need code-level control.",
+    "description": "Python framework for building real-time voice and multimodal conversational agents. Handles the full low-latency pipeline \u2014 STT \u2192 LLM \u2192 TTS \u2014 with 40+ provider integrations. The most developer-friendly OSS option for building production voice agents where you need code-level control.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -8195,7 +8290,7 @@
     "name": "Figma AI",
     "category": "design",
     "tagline": "AI-native design and UI generation inside Figma",
-    "description": "Figma's suite of AI capabilities including Figma Make (generate UI screens from prompts), design autocomplete, auto-rename layers, and prototype generation. Baked into Figma's existing workflow — no context-switching to an external tool. Competes directly with v0 and Builder.io.",
+    "description": "Figma's suite of AI capabilities including Figma Make (generate UI screens from prompts), design autocomplete, auto-rename layers, and prototype generation. Baked into Figma's existing workflow \u2014 no context-switching to an external tool. Competes directly with v0 and Builder.io.",
     "type": "commercial",
     "pricing": {
       "free_tier": true,
@@ -8275,7 +8370,7 @@
     "name": "Browserbase MCP",
     "category": "mcp",
     "tagline": "MCP server for cloud browser sessions via Browserbase",
-    "description": "MCP server that gives AI agents access to Stagehand-powered cloud browser sessions via Browserbase. Lets Claude and other MCP-compatible agents navigate, interact with, and extract data from websites using managed cloud browsers — no local browser required.",
+    "description": "MCP server that gives AI agents access to Stagehand-powered cloud browser sessions via Browserbase. Lets Claude and other MCP-compatible agents navigate, interact with, and extract data from websites using managed cloud browsers \u2014 no local browser required.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -8346,7 +8441,7 @@
     "name": "Zep",
     "category": "memory",
     "tagline": "Long-term memory and session management for AI assistants",
-    "description": "Memory and session management platform for AI assistants. Automatically extracts facts, preferences, and entities from conversations and surfaces them as structured memory. Supports temporal reasoning — knowing what was discussed last week versus now.",
+    "description": "Memory and session management platform for AI assistants. Automatically extracts facts, preferences, and entities from conversations and surfaces them as structured memory. Supports temporal reasoning \u2014 knowing what was discussed last week versus now.",
     "type": "oss",
     "pricing": {
       "free_tier": true,
@@ -8363,7 +8458,7 @@
     "choose_if": [
       "You're building a conversational AI assistant that needs session continuity",
       "You need structured fact and entity extraction from conversation history",
-      "You want temporal memory — your AI knowing when it learned something"
+      "You want temporal memory \u2014 your AI knowing when it learned something"
     ],
     "aliases": {
       "npm": [],

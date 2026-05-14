@@ -19,6 +19,7 @@ import {
   IconShare,
   IconTour,
   IconGitHub,
+  IconSimulator,
 } from "@/components/icons";
 import { useUser } from "@/hooks/useUser";
 import { createSupabaseBrowserClient } from "@/lib/db";
@@ -28,6 +29,7 @@ const VIEWS = [
   { href: "/stacks", label: "Stacks", Icon: IconLayers },
   { href: "/explore", label: "Graph", Icon: IconNetwork },
   { href: "/builder", label: "Builder", Icon: IconSettings2 },
+  { href: "/simulate", label: "Simulate", Icon: IconSimulator },
   { href: "/compare", label: "Compare", Icon: IconCompare },
   { href: "/genome", label: "Genome", Icon: IconGenome },
   { href: "/feed", label: "Activity", Icon: IconActivity },
