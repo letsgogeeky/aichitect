@@ -11,12 +11,12 @@
       "github-copilot",
       "tabnine",
       "supermaven",
-      "aide",
-      "replit-ghostwriter",
       "jetbrains-ai",
       "gemini-code-assist",
       "amazon-q-developer",
-      "augment-code"
+      "augment-code",
+      "kiro",
+      "google-antigravity"
     ],
     "priority": {
       "dev-productivity": "required",
@@ -61,10 +61,9 @@
       "lovable",
       "gpt-pilot",
       "factory-ai",
-      "github-copilot-workspace",
       "replit-agent",
       "jules",
-      "codegen"
+      "github-copilot-coding-agent"
     ],
     "priority": {
       "dev-productivity": "optional",
@@ -92,8 +91,9 @@
       "julep",
       "letta",
       "bee-agent",
-      "controlflow",
-      "strands-agents"
+      "strands-agents",
+      "microsoft-agent-framework",
+      "claude-agent-sdk"
     ],
     "priority": {
       "dev-productivity": "not-applicable",
@@ -119,7 +119,6 @@
       "vercel-ai-sdk",
       "griptape",
       "rivet",
-      "taskweaver",
       "ragflow",
       "lightrag"
     ],
@@ -246,7 +245,6 @@
     "description": "Converts designs, prompts, or Figma files into production-ready UI components",
     "tools": [
       "v0",
-      "galileo",
       "locofy",
       "builder-io",
       "webflow-ai",
@@ -272,12 +270,10 @@
     "description": "Automates code review, PR triage, test generation, and security scanning",
     "tools": [
       "coderabbit",
-      "sweep-ai",
       "qodo",
       "graphite",
       "trunk",
       "sourcery",
-      "grit-io",
       "pixee",
       "snyk",
       "sonarqube",
@@ -308,7 +304,8 @@
       "brave-search-mcp",
       "sequential-thinking-mcp",
       "sentry-mcp",
-      "browserbase-mcp"
+      "browserbase-mcp",
+      "composio"
     ],
     "priority": {
       "dev-productivity": "optional",
@@ -353,7 +350,8 @@
       "archbee",
       "tettra",
       "coda-ai",
-      "confluence-ai"
+      "confluence-ai",
+      "kapa-ai"
     ],
     "priority": {
       "dev-productivity": "optional",
@@ -367,16 +365,7 @@
     "id": "product-mgmt",
     "name": "How do you manage what gets built?",
     "description": "AI tools for prioritization, roadmapping, and turning user feedback into decisions",
-    "tools": [
-      "linear-ai",
-      "cycle",
-      "height-ai",
-      "kraftful",
-      "productboard-ai",
-      "jira-ai",
-      "aha-ai",
-      "grain"
-    ],
+    "tools": ["linear-ai", "kraftful", "productboard-ai", "jira-ai", "aha-ai", "grain"],
     "priority": {
       "dev-productivity": "optional",
       "app-infrastructure": "optional",
@@ -393,7 +382,6 @@
       "spec-kit",
       "mermaid",
       "eraser",
-      "structurizr",
       "swagger",
       "redocly",
       "asyncapi",
@@ -401,7 +389,8 @@
       "speakeasy",
       "fern",
       "stainless",
-      "openapi-generator"
+      "openapi-generator",
+      "bmad-method"
     ],
     "priority": {
       "dev-productivity": "optional",
@@ -437,7 +426,8 @@
       "cartesia",
       "playht",
       "pipecat",
-      "livekit-agents"
+      "livekit-agents",
+      "hume-evi"
     ],
     "priority": {
       "dev-productivity": "not-applicable",
@@ -451,7 +441,18 @@
     "id": "multimodal",
     "name": "How does your AI see and understand images?",
     "description": "Vision-language models for image understanding, captioning, visual QA, and document parsing",
-    "tools": ["fal-ai", "moondream", "llava", "paligemma", "pixtral", "qwen-vl", "internvl2"],
+    "tools": [
+      "fal-ai",
+      "moondream",
+      "llava",
+      "paligemma",
+      "pixtral",
+      "qwen-vl",
+      "internvl2",
+      "runway-gen-4",
+      "google-veo",
+      "kling"
+    ],
     "priority": {
       "dev-productivity": "not-applicable",
       "app-infrastructure": "optional",
@@ -464,7 +465,15 @@
     "id": "browser-automation",
     "name": "How does your AI navigate the web?",
     "description": "AI-powered browser control for agents that need to navigate, extract, fill forms, and interact with any website",
-    "tools": ["browser-use", "stagehand", "skyvern", "firecrawl", "browserbase"],
+    "tools": [
+      "browser-use",
+      "stagehand",
+      "skyvern",
+      "firecrawl",
+      "browserbase",
+      "anthropic-computer-use",
+      "openai-operator"
+    ],
     "priority": {
       "dev-productivity": "optional",
       "app-infrastructure": "optional",
@@ -477,7 +486,7 @@
     "id": "memory",
     "name": "How does your AI remember?",
     "description": "Persistent memory layers that give AI agents long-term recall of users, sessions, and context across conversations",
-    "tools": ["mem0", "zep"],
+    "tools": ["mem0", "zep", "cognee", "graphiti"],
     "priority": {
       "dev-productivity": "not-applicable",
       "app-infrastructure": "optional",
@@ -490,7 +499,7 @@
     "id": "guardrails",
     "name": "How do you keep your AI safe?",
     "description": "Input/output validation, topic controls, and safety rails that ensure LLM responses stay within defined policies",
-    "tools": ["nemo-guardrails", "guardrails-ai"],
+    "tools": ["nemo-guardrails", "guardrails-ai", "lakera-guard", "llm-guard", "openai-guardrails"],
     "priority": {
       "dev-productivity": "not-applicable",
       "app-infrastructure": "optional",

@@ -3,36 +3,29 @@
     "source": "cursor",
     "target": "windsurf",
     "type": "competes-with",
-    "how": "Both Cursor and Windsurf compete as AI-native code editors, differing in their specific approach to AI integration and a",
-    "achieves": "Choose Cursor for a holistic AI-powered editor experience, or Windsurf for its agentic AI features and Codeium ecosystem"
+    "how": "Both compete as AI-native VS Code forks. Cursor remains independent and ships chat/agent depth-first; Windsurf is now part of Cognition (acquired July 2025) and pairs an editor surface with the Devin background-agent platform.",
+    "achieves": "Choose Cursor for the most-iterated single-editor experience; Windsurf when you want a Cognition-stack IDE that can hand work off to Devin."
   },
   {
     "source": "cursor",
     "target": "github-copilot",
     "type": "competes-with",
-    "how": "Cursor is an AI-native editor with integrated AI features, while GitHub Copilot is an AI code completion plugin for exis",
-    "achieves": "Choose Cursor for a deeply integrated AI coding experience, or Copilot for AI assistance within your preferred editor."
+    "how": "Cursor replaces VS Code with a built-from-scratch AI-native editor; GitHub Copilot layers AI into existing editors (VS Code, JetBrains, Neovim, Xcode). Copilot expanded to a coding agent and chat by 2025 but stays in-editor; Cursor's wedge is the AI-first surface itself.",
+    "achieves": "Choose Cursor when you want an editor designed around AI; Copilot when you need AI assistance without leaving your existing JetBrains/VS Code workflow."
   },
   {
     "source": "cursor",
     "target": "zed",
     "type": "competes-with",
-    "how": "Cursor and Zed both provide AI-native code editing experiences, competing on AI feature depth, performance, and user int",
-    "achieves": "Choose Cursor for deeper AI integration and Zed for raw performance and a highly optimized native editor experience."
-  },
-  {
-    "source": "cursor",
-    "target": "aide",
-    "type": "competes-with",
-    "how": "Cursor and Aide both provide AI-native code editing experiences, integrating advanced AI for code generation, refactorin",
-    "achieves": "Choose Cursor for a ground-up AI editor, or Aide for a VS Code fork with deeply agentic, proactive coding features."
+    "how": "Both ship AI-native editors. Cursor optimises for AI feature depth (agent mode, multi-file context, MCP). Zed optimises for raw GPU-accelerated performance and collaborative editing in a Rust-native core.",
+    "achieves": "Choose Cursor for the deepest AI integration; Zed for low-latency performance and a native, collaboration-first editing experience."
   },
   {
     "source": "cursor",
     "target": "jetbrains-ai",
     "type": "competes-with",
-    "how": "Cursor offers an AI-native editor experience, while JetBrains AI Assistant integrates AI features directly into JetBrain",
-    "achieves": "Pick Cursor for a dedicated AI-first coding environment, or JetBrains AI Assistant to augment your existing JetBrains wo"
+    "how": "Cursor is a standalone AI-native editor (a VS Code fork). JetBrains AI Assistant layers AI features into IntelliJ, PyCharm, WebStorm and the full JetBrains IDE family without replacing them.",
+    "achieves": "Pick Cursor when you want AI front-and-center in a new editor; JetBrains AI Assistant when you do not want to leave the JetBrains workflow."
   },
   {
     "source": "cursor",
@@ -126,8 +119,8 @@
     "source": "windsurf",
     "target": "github-copilot",
     "type": "competes-with",
-    "how": "Windsurf offers agentic AI capabilities for autonomous code generation, while GitHub Copilot provides real-time, context",
-    "achieves": "Choose Windsurf for agentic, multi-step problem-solving, or GitHub Copilot for continuous, inline code completion and su"
+    "how": "Both target the in-editor AI surface. Windsurf (now Cognition-owned) emphasises agentic Cascade flows that span multiple files and integrate with the Devin background-agent platform; GitHub Copilot focuses on real-time, context-aware completions and a chat interface across editors.",
+    "achieves": "Choose Windsurf for autonomous Cascade-style multi-step refactors with a path to Devin handoff; Copilot for fast, predictable inline completion across many editors."
   },
   {
     "source": "windsurf",
@@ -168,8 +161,8 @@
     "source": "aider",
     "target": "claude-code",
     "type": "competes-with",
-    "how": "Both Aider and Claude Code provide CLI-based AI coding assistance, differing in their integration with developer workflo",
-    "achieves": "Choose Aider for deep git integration and local file editing, or Claude Code for direct access to Anthropic's latest mod"
+    "how": "Both are CLI-first AI coding agents. Aider is OSS, git-aware, and model-agnostic via LiteLLM. Claude Code is Anthropic's official CLI, tightly bound to Claude Sonnet/Opus and shipping native MCP, sub-agents, hooks and skills.",
+    "achieves": "Choose Aider for OSS, multi-model freedom and tight git integration; Claude Code for Anthropic-first agentic terminal work with first-party MCP support."
   },
   {
     "source": "claude-code",
@@ -210,8 +203,8 @@
     "source": "cline",
     "target": "cursor",
     "type": "competes-with",
-    "how": "Cline competes with Cursor as an AI-powered coding environment, with Cline as a VS Code extension and Cursor as a standa",
-    "achieves": "Choose Cline for AI assistance within your existing VS Code setup; pick Cursor for a fully integrated AI-native editing "
+    "how": "Cline is a free, OSS VS Code extension that drops an autonomous coding agent into the existing editor. Cursor is a standalone AI-native editor fork of VS Code with chat, agent mode, and commercial pricing.",
+    "achieves": "Choose Cline to add an autonomous agent to your VS Code setup without switching editors; pick Cursor for an editor redesigned around AI from the ground up."
   },
   {
     "source": "cline",
@@ -231,50 +224,36 @@
     "source": "bolt-new",
     "target": "v0",
     "type": "competes-with",
-    "how": "Bolt.new generates full-stack web applications from prompts, while v0 focuses on creating individual React/Tailwind comp",
-    "achieves": "Choose Bolt.new for complete application scaffolding, or v0 for specific UI component generation and integration into ex"
-  },
-  {
-    "source": "replit-ghostwriter",
-    "target": "github-copilot",
-    "type": "competes-with",
-    "how": "Both provide AI code generation and completion, competing on integration depth within their respective IDE ecosystems an",
-    "achieves": "Users decide based on their primary development environment (Replit vs. other IDEs) and preferred AI assistant features."
-  },
-  {
-    "source": "replit-ghostwriter",
-    "target": "bolt-new",
-    "type": "competes-with",
-    "how": "Both offer AI-powered code generation and assistance, with Ghostwriter integrated into Replit's IDE and Bolt.new special",
-    "achieves": "Choose Replit Ghostwriter for in-IDE assistance; opt for Bolt.new for AI-driven full-stack web application generation."
+    "how": "Bolt.new generates full-stack web applications end-to-end from a prompt (Vite, Astro, Next.js, Remix), running in WebContainers. v0 generates individual React/Tailwind UI components for embedding into existing codebases.",
+    "achieves": "Choose Bolt.new for end-to-end app scaffolding from a prompt; v0 when you need polished components to drop into an existing codebase."
   },
   {
     "source": "jetbrains-ai",
     "target": "github-copilot",
     "type": "competes-with",
-    "how": "Both provide AI code generation and assistance, competing on native IDE integration versus broader cross-IDE compatibili",
-    "achieves": "Choose JetBrains AI Assistant for deep integration within JetBrains IDEs; opt for Copilot for broader IDE support."
+    "how": "Both provide AI code generation and chat. JetBrains AI Assistant is first-party to the JetBrains IDE family with deep refactor and inspection integration; Copilot is cross-IDE (VS Code, JetBrains, Neovim, Xcode) and tied to GitHub's broader Copilot ecosystem.",
+    "achieves": "Choose JetBrains AI Assistant for deep integration within JetBrains IDEs; Copilot for broader IDE support and GitHub-native workflows."
   },
   {
     "source": "jetbrains-ai",
     "target": "tabnine",
     "type": "competes-with",
-    "how": "Both provide AI code completion and generation, competing on IDE integration depth and private codebase training capabil",
-    "achieves": "Pick JetBrains AI Assistant for native IDE experience, or Tabnine for broader IDE support and custom private code models"
+    "how": "Both provide AI code completion. JetBrains AI Assistant is native to JetBrains IDEs and tightly coupled to JetBrains' refactor and inspection toolchain; Tabnine emphasises broad IDE support, on-prem deployment, and private code-trained models.",
+    "achieves": "Pick JetBrains AI Assistant for the native JetBrains experience; Tabnine when you need broad IDE support, air-gapped deployment, or private codebase-trained models."
   },
   {
     "source": "devin",
     "target": "cursor",
     "type": "competes-with",
-    "how": "Devin aims for full task automation and autonomous code generation, while Cursor enhances human coding with AI assistanc",
-    "achieves": "Choose Devin for end-to-end task execution; opt for Cursor to augment human coding within an editor."
+    "how": "Devin is a fully autonomous SWE agent (Cognition); after Cognition's July 2025 acquisition of Windsurf, the Cognition stack pairs Devin (async) with Windsurf (in-editor). Cursor stays in-editor, augmenting human coding with chat, agent mode, and MCP rather than running tasks unattended.",
+    "achieves": "Choose Devin for end-to-end async task execution under Cognition's stack; Cursor when you want AI inside the editor with a human in the loop."
   },
   {
     "source": "devin",
     "target": "openhands",
     "type": "competes-with",
-    "how": "Devin is a proprietary, pre-built autonomous agent, while OpenHands is an open-source platform for developing and deploy",
-    "achieves": "Choose Devin for an out-of-the-box solution, or OpenHands for customization, transparency, and community-driven developm"
+    "how": "Devin is a proprietary, pre-built autonomous SWE agent (Cognition). OpenHands is an open-source platform for building and deploying customisable software engineering agents, with active community development and self-hosting options.",
+    "achieves": "Choose Devin for an out-of-the-box managed agent inside Cognition's stack; OpenHands for self-hosting, customisation, and community-driven development."
   },
   {
     "source": "devin",
@@ -323,8 +302,8 @@
     "source": "openhands",
     "target": "devin",
     "type": "competes-with",
-    "how": "OpenHands is an open-source platform for building AI agents, while Devin is a proprietary, pre-built autonomous AI engin",
-    "achieves": "Choose OpenHands for customization and community control; opt for Devin for an immediate, fully managed autonomous solut"
+    "how": "OpenHands is an open-source platform for building and self-hosting autonomous AI engineering agents; Devin is Cognition's proprietary, fully managed autonomous SWE agent.",
+    "achieves": "Choose OpenHands for customisation, self-hosting, and community control; Devin for an immediate, fully managed autonomous engineer."
   },
   {
     "source": "lovable",
@@ -337,22 +316,22 @@
     "source": "lovable",
     "target": "v0",
     "type": "competes-with",
-    "how": "Lovable competes with v0 on the scope of AI-driven code generation, with Lovable targeting full applications and v0 focu",
-    "achieves": "Choose Lovable for complete web app generation from a single prompt, or v0 for specific, production-ready UI components."
+    "how": "Lovable generates entire web applications (frontend + backend + deploy) from a prompt and is the current leader of the app-builder triumvirate with Bolt.new and v0. v0 focuses on individual React/Tailwind components for embedding into existing codebases.",
+    "achieves": "Choose Lovable for full web app generation from a single prompt; v0 for production-ready UI components inside an existing codebase."
   },
   {
     "source": "lovable",
     "target": "devin",
     "type": "competes-with",
-    "how": "Lovable specializes in full-stack web app generation, while Devin offers a broader autonomous AI software engineering ca",
-    "achieves": "Choose Lovable for dedicated web application development, or Devin for general-purpose AI assistance across diverse codi"
+    "how": "Lovable specialises in full-stack web app generation from prompts (sharp wedge: take a non-engineer from idea to deployed app). Devin (Cognition) is a general-purpose autonomous SWE agent that targets diverse engineering work across existing codebases.",
+    "achieves": "Choose Lovable for dedicated prompt-to-web-app generation; Devin for general-purpose autonomous engineering across a real codebase."
   },
   {
     "source": "gpt-pilot",
     "target": "openhands",
     "type": "competes-with",
-    "how": "GPT Pilot offers a complete, ready-to-use AI agent for app development, while OpenHands provides an open platform for bu",
-    "achieves": "Choose GPT Pilot for an out-of-the-box AI dev solution; opt for OpenHands to build or customize your own agent."
+    "how": "GPT Pilot ships a complete, opinionated AI agent that builds full apps from a single prompt with human approval gates. OpenHands provides a more modular open platform for building and customising your own software engineering agents.",
+    "achieves": "Choose GPT Pilot for an out-of-the-box prompt-to-app workflow; OpenHands when you want to build or customise your own agent."
   },
   {
     "source": "gpt-pilot",
@@ -535,14 +514,6 @@
     "type": "commonly-paired-with",
     "how": "LangGraph orchestrates task assignment — it sends implementation tasks to Claude Code as an agent node that executes in the terminal.",
     "achieves": "Multi-agent DevOps automation: LangGraph coordinates the workflow, Claude Code executes the actual code changes.",
-    "context": "hybrid"
-  },
-  {
-    "source": "langgraph",
-    "target": "sweep-ai",
-    "type": "commonly-paired-with",
-    "how": "LangGraph triggers Sweep AI for automated fix tasks via its GitHub integration — Sweep handles small, well-scoped code changes as a graph node.",
-    "achieves": "Automated issue-to-PR pipeline: LangGraph triages and routes, Sweep generates the fix, the graph waits for review.",
     "context": "hybrid"
   },
   {
@@ -1053,8 +1024,8 @@
     "source": "portkey",
     "target": "litellm",
     "type": "competes-with",
-    "how": "PortKey and LiteLLM both serve as an abstraction layer for LLM APIs, competing on features like routing, caching, and mo",
-    "achieves": "Choose PortKey for advanced gateway features like caching and fallbacks; opt for LiteLLM when broad model compatibility "
+    "how": "Both serve as an abstraction layer over multiple LLM APIs. Portkey emphasises gateway features (semantic caching, fallbacks, guardrails, observability) and ships a managed control plane. LiteLLM is OSS, Python-first, and the de-facto router for breadth of model and provider support.",
+    "achieves": "Choose Portkey for advanced gateway features (caching, fallbacks, observability) with a managed surface; LiteLLM when you want the broadest OSS model coverage and a Python SDK."
   },
   {
     "source": "portkey",
@@ -1067,8 +1038,8 @@
     "source": "langfuse",
     "target": "langsmith",
     "type": "competes-with",
-    "how": "Langfuse and LangSmith both provide LLM observability, tracing, and evaluation for debugging and improving LLM applicati",
-    "achieves": "Choose Langfuse for an open-source, self-hostable solution, or LangSmith for a managed service with deep LangChain integ"
+    "how": "Both provide LLM tracing, observability, and evaluation. Langfuse is OSS and self-hostable (acquired by ClickHouse in January 2026) with broad framework support. LangSmith is LangChain's managed observability product, optimised for teams already running LangChain or LangGraph in production.",
+    "achieves": "Choose Langfuse for an OSS, self-hostable platform with framework-agnostic coverage; LangSmith for a managed service tightly integrated with the LangChain ecosystem."
   },
   {
     "source": "langfuse",
@@ -1457,13 +1428,6 @@
   },
   {
     "source": "v0",
-    "target": "galileo",
-    "type": "competes-with",
-    "how": "Both generate UI from prompts; Galileo outputs editable Figma designs, v0 outputs production React/Tailwind.",
-    "achieves": "Choose v0 for code-ready React components; Galileo when you need editable Figma designs from prompts."
-  },
-  {
-    "source": "v0",
     "target": "framer-ai",
     "type": "competes-with",
     "how": "v0 generates copyable React code; Framer AI produces deployed no-code Framer sites from prompts.",
@@ -1534,10 +1498,10 @@
   },
   {
     "source": "uizard",
-    "target": "galileo",
+    "target": "google-stitch",
     "type": "competes-with",
-    "how": "Both create UI from prompts; Uizard is sketch-to-wireframe focused, Galileo generates high-fidelity designs.",
-    "achieves": "Choose Uizard for quick wireframing and low-fi mockups; Galileo for high-fidelity prompt-to-design output."
+    "how": "Both generate UI from prompts; Uizard is sketch-to-wireframe focused, Stitch (which absorbed Galileo AI after Google's May 2025 acquisition) produces high-fidelity Gemini-generated designs.",
+    "achieves": "Choose Uizard for quick wireframing and low-fi mockups; Stitch for high-fidelity prompt-to-design tied to Google's AI stack."
   },
   {
     "source": "google-stitch",
@@ -1569,24 +1533,10 @@
   },
   {
     "source": "google-stitch",
-    "target": "galileo",
-    "type": "competes-with",
-    "how": "Both generate UI designs from text prompts; differ on Google ecosystem integration vs Galileo Figma output.",
-    "achieves": "Choose Google Stitch in the Google ecosystem; Galileo for Figma-native designers needing AI layouts."
-  },
-  {
-    "source": "google-stitch",
     "target": "cursor",
     "type": "commonly-paired-with",
     "how": "Google Stitch converts a screenshot or mockup into HTML/CSS/JS, which is then imported into Cursor to refine, componentize, and wire into the full application.",
     "achieves": "Visual-to-production in one flow: Stitch handles the translation from design reference, Cursor handles the engineering — no manual pixel-matching."
-  },
-  {
-    "source": "sweep-ai",
-    "target": "coderabbit",
-    "type": "commonly-paired-with",
-    "how": "Sweep creates automated fix PRs for GitHub issues; CodeRabbit reviews those PRs immediately after they're opened.",
-    "achieves": "Fully automated issue-to-reviewed-PR pipeline — Sweep writes the fix, CodeRabbit reviews it, humans only approve."
   },
   {
     "source": "coderabbit",
@@ -1608,27 +1558,6 @@
     "type": "competes-with",
     "how": "Sourcery focuses on code quality refactors; CodeRabbit provides full PR summarization and review.",
     "achieves": "Choose Sourcery for opinionated code quality fixes; CodeRabbit for broader PR context and review coverage."
-  },
-  {
-    "source": "grit-io",
-    "target": "sourcery",
-    "type": "commonly-paired-with",
-    "how": "Grit.io handles automated large-scale codebase migrations and refactors; Sourcery reviews the resulting code for quality.",
-    "achieves": "Automated refactoring at scale with quality review — Grit makes the structural changes, Sourcery checks the output."
-  },
-  {
-    "source": "grit-io",
-    "target": "codegen",
-    "type": "competes-with",
-    "how": "Both automate code migrations; Grit uses pattern-based transforms, Codegen uses AI for complex codebase changes.",
-    "achieves": "Choose Grit.io for deterministic rule-based migrations; Codegen for AI-driven large-scale refactors."
-  },
-  {
-    "source": "codegen",
-    "target": "grit-io",
-    "type": "competes-with",
-    "how": "Both handle large-scale code changes; Grit is pattern-based and repeatable, Codegen is AI-driven for complex intent.",
-    "achieves": "Choose Codegen for ambiguous complex refactors; Grit.io for well-defined repeatable transformation patterns."
   },
   {
     "source": "trunk",
@@ -1827,20 +1756,6 @@
     "achieves": "Structured project management in Linear backed by richer, AI-searchable documentation and context in Notion."
   },
   {
-    "source": "height-ai",
-    "target": "linear-ai",
-    "type": "competes-with",
-    "how": "Both AI-powered project management tools; differ on depth of AI automation and issue workflow intelligence.",
-    "achieves": "Choose Linear AI for engineering-first speed and workflows; Height for more flexible AI task automation."
-  },
-  {
-    "source": "cycle",
-    "target": "kraftful",
-    "type": "competes-with",
-    "how": "Both use AI to process user feedback; Cycle organizes research, Kraftful surfaces product insights from reviews.",
-    "achieves": "Choose Cycle for feedback-to-roadmap workflows; Kraftful for AI-synthesized insights from user reviews."
-  },
-  {
     "source": "mintlify",
     "target": "swimm",
     "type": "competes-with",
@@ -1912,13 +1827,6 @@
   },
   {
     "source": "mermaid",
-    "target": "structurizr",
-    "type": "competes-with",
-    "how": "Mermaid renders general diagrams from text; Structurizr is C4-model-specific for architecture documentation.",
-    "achieves": "Choose Mermaid for flowcharts and sequence diagrams; Structurizr for formal C4 architecture documentation."
-  },
-  {
-    "source": "mermaid",
     "target": "eraser",
     "type": "competes-with",
     "how": "Both create diagrams from text; Eraser adds AI generation and collaborative editing on top of diagram syntax.",
@@ -1940,13 +1848,6 @@
   },
   {
     "source": "eraser",
-    "target": "structurizr",
-    "type": "competes-with",
-    "how": "Eraser is AI-powered general diagramming; Structurizr enforces C4 model for architecture documentation.",
-    "achieves": "Choose Eraser for flexible AI-generated diagrams; Structurizr for formal standards-compliant C4 docs."
-  },
-  {
-    "source": "eraser",
     "target": "cursor",
     "type": "commonly-paired-with",
     "how": "Eraser diagrams and design docs are referenced in Cursor as architecture context, guiding AI completions toward the intended design.",
@@ -1958,20 +1859,6 @@
     "type": "integrates-with",
     "how": "Eraser connects to GitHub via its integration to pull in repo structure and code for diagram generation.",
     "achieves": "Architecture diagrams generated from live repo state — Eraser reads the actual code, not a stale copy."
-  },
-  {
-    "source": "structurizr",
-    "target": "swimm",
-    "type": "commonly-paired-with",
-    "how": "Structurizr generates C4 architecture models that Swimm embeds in its code-coupled documentation.",
-    "achieves": "Deep architectural context in code docs — Structurizr provides the model, Swimm keeps it linked to the actual code."
-  },
-  {
-    "source": "structurizr",
-    "target": "mintlify",
-    "type": "commonly-paired-with",
-    "how": "Structurizr's architecture diagrams are embedded in Mintlify docs pages as reference material for API and system documentation.",
-    "achieves": "API docs enriched with architecture context — Mintlify handles the public-facing docs, Structurizr provides the system diagrams."
   },
   {
     "source": "swagger",
@@ -2193,13 +2080,6 @@
     "achieves": "Long-running stateful agents that remember context across sessions without context window limits."
   },
   {
-    "source": "controlflow",
-    "target": "langgraph",
-    "type": "competes-with",
-    "how": "ControlFlow wraps LangGraph with a Pythonic task-based interface on top of graph primitives.",
-    "achieves": "Choose ControlFlow for a higher-level Pythonic API over LangGraph; LangGraph for direct graph control."
-  },
-  {
     "source": "bee-agent",
     "target": "langchain",
     "type": "commonly-paired-with",
@@ -2226,13 +2106,6 @@
     "type": "competes-with",
     "how": "Both are visual AI pipeline editors; Rivet is a local desktop app, Langflow is web-hosted by DataStax.",
     "achieves": "Choose Rivet for offline local visual debugging; Langflow for a collaborative web-hosted pipeline builder."
-  },
-  {
-    "source": "taskweaver",
-    "target": "langgraph",
-    "type": "competes-with",
-    "how": "Both orchestrate multi-step AI tasks; TaskWeaver uses Python code plugins, LangGraph uses graph state machines.",
-    "achieves": "Choose TaskWeaver for code-centric data analysis agents; LangGraph for general workflow state control."
   },
   {
     "source": "not-diamond",
@@ -2457,13 +2330,6 @@
     "type": "competes-with",
     "how": "Both autonomously handle engineering tasks; Factory targets PR workflows, Devin full software development.",
     "achieves": "Choose Factory for automated PR triage and code review; Devin for end-to-end autonomous coding."
-  },
-  {
-    "source": "github-copilot-workspace",
-    "target": "devin",
-    "type": "competes-with",
-    "how": "Both plan and execute multi-step coding tasks; Copilot Workspace is GitHub-native, Devin is standalone.",
-    "achieves": "Choose Copilot Workspace for GitHub-integrated task planning; Devin for more autonomous engineering."
   },
   {
     "source": "replit-agent",
@@ -3171,5 +3037,775 @@
     "type": "commonly-paired-with",
     "how": "Firecrawl handles batch static scraping; Browser Use handles dynamic JS-heavy or login-gated pages.",
     "achieves": "Cover all web access patterns: batch crawling with Firecrawl, interactive tasks with Browser Use."
+  },
+  {
+    "source": "mem0",
+    "target": "zep",
+    "type": "competes-with",
+    "how": "Both occupy the agent-memory slot. Mem0 emphasises fast key-value-style fact storage and broad framework support (LangGraph, CrewAI, AutoGen). Zep emphasises temporal knowledge graphs and higher accuracy on long-horizon, time-aware recall (Graphiti under the hood).",
+    "achieves": "Choose Mem0 for plug-and-play memory across many frameworks; Zep when temporal accuracy and graph reasoning over conversation history matter."
+  },
+  {
+    "source": "mem0",
+    "target": "openai-api",
+    "type": "integrates-with",
+    "how": "Mem0 ships first-class OpenAI support — embeddings for retrieval and chat models for fact extraction and summarisation, configured via a single config block.",
+    "achieves": "Add long-term memory to OpenAI-based agents without writing custom storage or retrieval logic."
+  },
+  {
+    "source": "mem0",
+    "target": "qdrant",
+    "type": "integrates-with",
+    "how": "Mem0 supports Qdrant as a vector store backend for memory embeddings, alongside Chroma, Pinecone, pgvector, and others.",
+    "achieves": "Run Mem0 on Qdrant when you want a managed or self-hosted vector backend with metadata filtering."
+  },
+  {
+    "source": "mem0",
+    "target": "langgraph",
+    "type": "commonly-paired-with",
+    "how": "Mem0 is the canonical memory layer attached to LangGraph agents — stacks.json's memory-agents pattern wires LangGraph orchestration to Mem0 retrieval before each step.",
+    "achieves": "Give LangGraph agents persistent cross-session memory without building a custom store."
+  },
+  {
+    "source": "zep",
+    "target": "langgraph",
+    "type": "integrates-with",
+    "how": "Zep ships a first-party LangGraph integration that loads temporal-graph memory into each node's state and writes new facts back.",
+    "achieves": "Add temporal, graph-structured memory to LangGraph agents with a few lines of config."
+  },
+  {
+    "source": "zep",
+    "target": "langchain",
+    "type": "integrates-with",
+    "how": "Zep provides a LangChain memory class so chat chains and agents read and write through Zep's temporal knowledge graph instead of a flat buffer.",
+    "achieves": "Replace LangChain's default conversation memory with Zep when temporal accuracy and graph reasoning matter."
+  },
+  {
+    "source": "zep",
+    "target": "openai-api",
+    "type": "integrates-with",
+    "how": "Zep uses OpenAI embeddings and chat completions to extract facts, summarise sessions, and build its temporal knowledge graph.",
+    "achieves": "Power Zep memory with OpenAI models without changing your application's existing OpenAI client setup."
+  },
+  {
+    "source": "nemo-guardrails",
+    "target": "guardrails-ai",
+    "type": "competes-with",
+    "how": "Both sit between the application and the LLM to enforce safety policies. NeMo Guardrails (NVIDIA) uses Colang programs to define conversational flows and topic guards. Guardrails AI uses Python-based validator chains and a marketplace of off-the-shelf validators.",
+    "achieves": "Choose NeMo Guardrails when you want flow-based, conversational guardrails; Guardrails AI when you want pluggable validators and structured-output enforcement."
+  },
+  {
+    "source": "nemo-guardrails",
+    "target": "litellm",
+    "type": "integrates-with",
+    "how": "NeMo Guardrails routes underlying LLM calls through LiteLLM, picking up any model LiteLLM supports as the policy-enforced backbone.",
+    "achieves": "Enforce NeMo Colang policies on top of any of LiteLLM's 100+ providers without changing call sites."
+  },
+  {
+    "source": "nemo-guardrails",
+    "target": "langchain",
+    "type": "integrates-with",
+    "how": "NeMo Guardrails wraps LangChain chains and agents, intercepting prompts and responses to apply Colang flows without rewriting the chain.",
+    "achieves": "Drop Colang policy enforcement onto an existing LangChain application with a wrapper rather than a rewrite."
+  },
+  {
+    "source": "guardrails-ai",
+    "target": "litellm",
+    "type": "integrates-with",
+    "how": "Guardrails AI plugs into LiteLLM-routed calls as a validation step, applying structured-output and policy validators across any model LiteLLM supports.",
+    "achieves": "Add validator-driven guardrails to any LiteLLM-backed application without changing the model provider."
+  },
+  {
+    "source": "guardrails-ai",
+    "target": "openai-api",
+    "type": "integrates-with",
+    "how": "Guardrails AI ships a drop-in wrapper around the OpenAI client that runs validators against structured outputs and re-prompts on validation failure.",
+    "achieves": "Get validated, schema-conformant outputs from OpenAI without writing retry logic by hand."
+  },
+  {
+    "source": "ragflow",
+    "target": "langchain",
+    "type": "competes-with",
+    "how": "Both are end-to-end RAG frameworks. RAGFlow is an opinionated, deeply-engineered document-parsing + retrieval platform with a UI and visual workflow editor. LangChain is a programmatic toolkit for assembling RAG (and broader LLM) applications in code.",
+    "achieves": "Choose RAGFlow when you want a near-product RAG platform with strong ingestion out of the box; LangChain when you want code-first assembly across the broader LLM ecosystem."
+  },
+  {
+    "source": "ragflow",
+    "target": "llamaindex",
+    "type": "competes-with",
+    "how": "Both target RAG specifically. RAGFlow ships an end-to-end product with deep document parsing and a workflow UI. LlamaIndex is a code-first framework focused on indexing, retrieval, and agentic RAG primitives.",
+    "achieves": "Choose RAGFlow for a product-grade UI-driven RAG platform; LlamaIndex when you want a programmable RAG framework you compose in Python or TypeScript."
+  },
+  {
+    "source": "ragflow",
+    "target": "haystack",
+    "type": "competes-with",
+    "how": "Both are full RAG frameworks with strong ingestion and pipeline abstractions. RAGFlow leans into a visual workflow editor and managed-style UX; Haystack is code-first with a long history in production search/RAG.",
+    "achieves": "Choose RAGFlow for a UI-and-workflow-first experience; Haystack for a mature, code-first pipeline framework with deep search primitives."
+  },
+  {
+    "source": "ragflow",
+    "target": "openai-api",
+    "type": "integrates-with",
+    "how": "RAGFlow uses OpenAI models out of the box for embeddings, parsing, and generation, configurable from the workflow editor.",
+    "achieves": "Stand up an end-to-end RAG pipeline on RAGFlow with OpenAI models in minutes."
+  },
+  {
+    "source": "lightrag",
+    "target": "llamaindex",
+    "type": "competes-with",
+    "how": "Both build retrieval indexes over corpora. LightRAG is graph-RAG-first — it constructs a knowledge graph alongside vectors for multi-hop reasoning. LlamaIndex is broader, supporting vector, hierarchical, and graph indexes as composable primitives.",
+    "achieves": "Choose LightRAG for graph-RAG out of the box on a tight footprint; LlamaIndex when you want a broader index toolbox to compose."
+  },
+  {
+    "source": "lightrag",
+    "target": "qdrant",
+    "type": "integrates-with",
+    "how": "LightRAG supports Qdrant as a vector backend for the embedding side of its hybrid graph-plus-vector index.",
+    "achieves": "Run LightRAG's graph-RAG pipeline on Qdrant for the vector layer."
+  },
+  {
+    "source": "lightrag",
+    "target": "openai-api",
+    "type": "integrates-with",
+    "how": "LightRAG uses OpenAI models (embeddings and chat) to build the knowledge graph and to answer queries on top of it.",
+    "achieves": "Run graph-RAG with OpenAI as the model backbone without writing custom extraction code."
+  },
+  {
+    "source": "pipecat",
+    "target": "livekit-agents",
+    "type": "competes-with",
+    "how": "Both are real-time voice-agent frameworks. Pipecat (Daily) is Python-first, transport-agnostic, and emphasises composable pipeline primitives. LiveKit Agents is tightly integrated with LiveKit's WebRTC infrastructure and its real-time room model.",
+    "achieves": "Choose Pipecat for pipeline flexibility and transport choice; LiveKit Agents when you are already on LiveKit's real-time infrastructure."
+  },
+  {
+    "source": "pipecat",
+    "target": "vapi",
+    "type": "competes-with",
+    "how": "Both deliver voice agents but at different layers. Pipecat is an OSS framework you assemble. Vapi is a managed platform with hosted telephony, STT/TTS routing, and analytics built in.",
+    "achieves": "Choose Pipecat for code-first OSS control; Vapi for a fully managed voice-agent stack with telephony out of the box."
+  },
+  {
+    "source": "pipecat",
+    "target": "deepgram",
+    "type": "integrates-with",
+    "how": "Pipecat ships a Deepgram STT service that streams audio frames in and transcribed text out as a pipeline node.",
+    "achieves": "Drop Deepgram STT into a Pipecat voice agent pipeline with a single service binding."
+  },
+  {
+    "source": "pipecat",
+    "target": "elevenlabs",
+    "type": "integrates-with",
+    "how": "Pipecat ships an ElevenLabs TTS service that turns the model's text output into streaming audio frames for the user.",
+    "achieves": "Drop ElevenLabs TTS into a Pipecat voice agent pipeline with a single service binding."
+  },
+  {
+    "source": "livekit-agents",
+    "target": "vapi",
+    "type": "competes-with",
+    "how": "Both target voice agents end-to-end. LiveKit Agents is OSS and built around LiveKit's WebRTC + room model. Vapi is a managed platform with hosted telephony and a no-config developer experience.",
+    "achieves": "Choose LiveKit Agents for self-hosted WebRTC-native control; Vapi for a fully managed turnkey voice-agent platform."
+  },
+  {
+    "source": "livekit-agents",
+    "target": "deepgram",
+    "type": "integrates-with",
+    "how": "LiveKit Agents ships a first-party Deepgram STT plugin that streams room audio in and transcribed text out.",
+    "achieves": "Wire Deepgram STT into a LiveKit voice agent with a single plugin import."
+  },
+  {
+    "source": "livekit-agents",
+    "target": "elevenlabs",
+    "type": "integrates-with",
+    "how": "LiveKit Agents ships a first-party ElevenLabs TTS plugin that streams synthesised audio back into the LiveKit room.",
+    "achieves": "Wire ElevenLabs TTS into a LiveKit voice agent with a single plugin import."
+  },
+  {
+    "source": "browserbase",
+    "target": "stagehand",
+    "type": "integrates-with",
+    "how": "Stagehand is built on Browserbase — Browserbase is the managed headless-browser runtime and Stagehand is the high-level AI-native scripting layer that runs on top of it.",
+    "achieves": "Run Stagehand scripts at scale on Browserbase's managed browser fleet without operating Chromium yourself."
+  },
+  {
+    "source": "browserbase",
+    "target": "playwright-mcp",
+    "type": "integrates-with",
+    "how": "Browserbase exposes a Playwright/CDP-compatible endpoint, so any Playwright-MCP-driven workflow can target a Browserbase instance instead of a local Chromium.",
+    "achieves": "Use Playwright MCP against Browserbase's managed browser fleet for parallelism, stealth, and observability."
+  },
+  {
+    "source": "browserbase",
+    "target": "e2b",
+    "type": "competes-with",
+    "how": "Both provide remote managed runtimes for agents — but at different layers. E2B sells code-execution sandboxes. Browserbase sells managed browser sessions optimised for stealth, scale, and recording.",
+    "achieves": "Choose E2B for arbitrary code execution; Browserbase when the work is specifically browser-driven."
+  },
+  {
+    "source": "browserbase-mcp",
+    "target": "browserbase",
+    "type": "integrates-with",
+    "how": "Browserbase MCP is the MCP server that exposes Browserbase sessions to MCP clients (Claude Code, Cursor, Cline) — it is built on Browserbase itself.",
+    "achieves": "Drive Browserbase sessions from any MCP-aware client (Claude Code, Cursor, Cline) without writing custom API code."
+  },
+  {
+    "source": "browserbase-mcp",
+    "target": "playwright-mcp",
+    "type": "competes-with",
+    "how": "Both are MCP servers that expose browser control to MCP clients. Playwright MCP runs against a local Playwright runtime. Browserbase MCP runs against Browserbase's managed cloud browser fleet with stealth, recording, and parallelism out of the box.",
+    "achieves": "Choose Playwright MCP for local control without cloud cost; Browserbase MCP when you need managed scale, stealth, or session recording."
+  },
+  {
+    "source": "langwatch",
+    "target": "langfuse",
+    "type": "competes-with",
+    "how": "Both are LLM observability platforms with OSS cores. LangWatch leans OpenTelemetry-native and emphasises evaluation pipelines. Langfuse (acquired by ClickHouse, January 2026) emphasises broad framework coverage and a deep prompt-experiment toolkit.",
+    "achieves": "Choose LangWatch when you want OpenTelemetry-first observability with built-in evaluation; Langfuse when you want broad framework coverage and a mature prompt-management surface."
+  },
+  {
+    "source": "langwatch",
+    "target": "arize-phoenix",
+    "type": "competes-with",
+    "how": "Both target LLM and agent observability with OpenTelemetry support. Phoenix (Arize) is the OSS arm of a larger ML observability platform with a strong evals UI. LangWatch is a focused OSS LLM observability product with managed and self-hosted modes.",
+    "achieves": "Choose Phoenix when you want to share infra with broader ML observability; LangWatch for a focused, LLM-first observability product."
+  },
+  {
+    "source": "langwatch",
+    "target": "langchain",
+    "type": "integrates-with",
+    "how": "LangWatch instruments LangChain via OpenTelemetry exporters so chain runs, agent steps, and tool calls appear automatically in LangWatch traces.",
+    "achieves": "Get end-to-end visibility into LangChain runs in LangWatch without writing custom span code."
+  },
+  {
+    "source": "figma-ai",
+    "target": "v0",
+    "type": "competes-with",
+    "how": "Both bridge design and production code. Figma's first-party AI generates components from prompts inside Figma itself. v0 (Vercel) generates production React/Tailwind components from prompts and exports directly to Next.js codebases.",
+    "achieves": "Choose Figma AI when the source of truth is design; v0 when the source of truth is code and you ship to Next.js."
+  },
+  {
+    "source": "figma-ai",
+    "target": "builder-io",
+    "type": "competes-with",
+    "how": "Both convert design into production code. Figma AI generates components inside Figma and exports. Builder.io's Visual Copilot ingests Figma designs (or its own visual editor) and emits production framework code with deeper customisation hooks.",
+    "achieves": "Choose Figma AI to stay inside Figma; Builder.io when you want a separate visual-to-code pipeline with strong framework targeting."
+  },
+  {
+    "source": "trl",
+    "target": "axolotl",
+    "type": "competes-with",
+    "how": "Both are widely used post-training libraries. TRL (HuggingFace) is the canonical preference-tuning, RLHF, and DPO library. Axolotl is a recipe-broad fine-tuning toolkit emphasising YAML-driven configuration over many open models.",
+    "achieves": "Choose TRL for first-party HuggingFace preference-tuning workflows; Axolotl for recipe-driven, multi-model fine-tuning with strong defaults."
+  },
+  {
+    "source": "trl",
+    "target": "huggingface",
+    "type": "integrates-with",
+    "how": "TRL is published by HuggingFace and is the canonical post-training library on top of the Transformers stack — it consumes HF models, datasets, and accelerate seamlessly.",
+    "achieves": "Run RLHF, DPO, and reward-model training natively on top of the HuggingFace Transformers ecosystem."
+  },
+  {
+    "source": "gemini-code-assist",
+    "target": "github-copilot",
+    "type": "competes-with",
+    "how": "Both are in-editor AI assistants. Gemini Code Assist is Google's offering tied to Gemini and Google Cloud accounts. GitHub Copilot is GitHub's, tied to GitHub accounts and the GitHub Models / Copilot Coding Agent ecosystem.",
+    "achieves": "Choose Gemini Code Assist when your team lives in Google Cloud; Copilot when your team lives on GitHub."
+  },
+  {
+    "source": "gemini-code-assist",
+    "target": "cursor",
+    "type": "competes-with",
+    "how": "Both deliver in-editor AI. Gemini Code Assist is an extension layered onto VS Code and JetBrains, tied to Gemini and Google Cloud. Cursor is a standalone AI-native editor.",
+    "achieves": "Choose Gemini Code Assist when you want AI in your existing editor and you are aligned to Google Cloud; Cursor when you want an editor designed around AI."
+  },
+  {
+    "source": "gemini-code-assist",
+    "target": "google-gemini-api",
+    "type": "integrates-with",
+    "how": "Gemini Code Assist is the in-editor surface for the Gemini API — completions, chat, and agent flows all run on Gemini under the hood.",
+    "achieves": "Use Gemini in the editor without writing your own Gemini API client."
+  },
+  {
+    "source": "amazon-q-developer",
+    "target": "github-copilot",
+    "type": "competes-with",
+    "how": "Both are in-editor AI assistants. Amazon Q Developer is AWS's offering, integrated with AWS services and the AWS console. Copilot is GitHub's, integrated with GitHub workflows and GitHub Models.",
+    "achieves": "Choose Amazon Q Developer when your team is AWS-heavy and wants AWS-aware completions; Copilot when your team lives on GitHub."
+  },
+  {
+    "source": "amazon-q-developer",
+    "target": "gemini-code-assist",
+    "type": "competes-with",
+    "how": "Both are big-cloud in-editor AI assistants. Q Developer is AWS-aligned; Gemini Code Assist is Google-Cloud-aligned. The choice is usually downstream of which cloud the team already runs on.",
+    "achieves": "Pick the assistant that matches your cloud — Q Developer for AWS, Gemini Code Assist for Google Cloud."
+  },
+  {
+    "source": "amazon-q-developer",
+    "target": "anthropic-api",
+    "type": "integrates-with",
+    "how": "Amazon Q Developer's agent mode is powered by Claude under the hood via Amazon Bedrock — Claude is the model that drives the multi-step coding loop.",
+    "achieves": "Get Claude-powered agent coding inside an AWS-native developer experience without managing API keys yourself."
+  },
+  {
+    "source": "augment-code",
+    "target": "github-copilot",
+    "type": "competes-with",
+    "how": "Both deliver in-editor AI completions and chat. Augment Code claims best-in-class SWE-bench numbers and emphasises whole-repo context and reduced hallucinations on large codebases. Copilot emphasises breadth of editor support and the broader GitHub Copilot ecosystem.",
+    "achieves": "Choose Augment Code when whole-repo accuracy on large codebases matters most; Copilot for broad editor support and GitHub-native workflows."
+  },
+  {
+    "source": "augment-code",
+    "target": "cursor",
+    "type": "competes-with",
+    "how": "Both target the AI-coding-in-editor niche. Augment Code emphasises deep codebase awareness and SWE-bench performance. Cursor is an AI-native editor optimised for AI feature depth (agent mode, MCP, multi-file context).",
+    "achieves": "Choose Augment Code when codebase-scale accuracy is the priority; Cursor when you want a full AI-native editor experience."
+  },
+  {
+    "source": "gemini-cli",
+    "target": "claude-code",
+    "type": "competes-with",
+    "how": "Both are first-party CLI coding agents from frontier labs. Gemini CLI is Google's CLI for Gemini, with built-in MCP support and broad tool-calling. Claude Code is Anthropic's, with deep MCP, sub-agents, hooks, and skills.",
+    "achieves": "Choose Gemini CLI when you want a Google-native terminal agent; Claude Code when you want an Anthropic-native terminal agent with the deepest MCP integration."
+  },
+  {
+    "source": "gemini-cli",
+    "target": "aider",
+    "type": "competes-with",
+    "how": "Both are CLI coding agents. Gemini CLI is Google's first-party tool tied to Gemini. Aider is OSS, model-agnostic via LiteLLM, and git-aware by design.",
+    "achieves": "Choose Gemini CLI for a Google-native terminal agent; Aider for OSS, multi-model freedom and tight git integration."
+  },
+  {
+    "source": "gemini-cli",
+    "target": "codex-cli",
+    "type": "competes-with",
+    "how": "Both are CLI agents from frontier labs. Gemini CLI is Google's, tied to Gemini. Codex CLI is OpenAI's, tied to GPT and the broader Codex stack (CLI, IDE extension, web app, Codex Cloud).",
+    "achieves": "Choose Gemini CLI to align with Google's stack; Codex CLI to align with OpenAI's broader Codex surface."
+  },
+  {
+    "source": "gemini-cli",
+    "target": "google-gemini-api",
+    "type": "integrates-with",
+    "how": "Gemini CLI is a direct Gemini API client — completions, tool calls, and multimodal inputs all flow through Google's Gemini endpoint.",
+    "achieves": "Use Gemini from the terminal without writing API client code."
+  },
+  {
+    "source": "jules",
+    "target": "devin",
+    "type": "competes-with",
+    "how": "Both are managed async SWE agents that run unattended on tickets and open PRs. Jules is Google's, tied to Gemini and to GitHub workflows. Devin is Cognition's flagship, paired with Windsurf and Cognition's broader stack.",
+    "achieves": "Choose Jules for a Google-Gemini-aligned async coding agent inside GitHub workflows; Devin for Cognition's stack with editor handoff."
+  },
+  {
+    "source": "jules",
+    "target": "claude-code",
+    "type": "competes-with",
+    "how": "Both run coding work but on different cadences. Jules is async — it queues work and returns PRs. Claude Code is synchronous — it runs interactively in your terminal. They are increasingly used together rather than instead.",
+    "achieves": "Choose Jules for overnight queueable work; Claude Code for live, interactive terminal work."
+  },
+  {
+    "source": "jules",
+    "target": "coderabbit",
+    "type": "commonly-paired-with",
+    "how": "Async SWE agents like Jules open PRs that need review at high volume; CodeRabbit auto-reviews them. The pairing is canonical for the 2026 async coding pattern.",
+    "achieves": "Close the loop on async agent-generated PRs with automated review before a human looks at them."
+  },
+  {
+    "source": "jules",
+    "target": "google-gemini-api",
+    "type": "integrates-with",
+    "how": "Jules is powered by Gemini under the hood — the underlying model that plans and executes the async coding tasks.",
+    "achieves": "Get a Gemini-powered async coding agent without wiring your own model client."
+  },
+  {
+    "source": "strands-agents",
+    "target": "langgraph",
+    "type": "competes-with",
+    "how": "Both are agent frameworks for production. Strands Agents is AWS's open-source SDK, tightly integrated with Bedrock. LangGraph is LangChain's stateful agent framework, model-agnostic and TS- and Python-first.",
+    "achieves": "Choose Strands Agents for AWS-native production agents; LangGraph for model-agnostic stateful agents portable across providers."
+  },
+  {
+    "source": "strands-agents",
+    "target": "openai-agents-sdk",
+    "type": "competes-with",
+    "how": "Both are lab-shipped agent SDKs. Strands Agents (AWS) targets Bedrock-first production. OpenAI Agents SDK targets OpenAI-first production with native Responses API integration.",
+    "achieves": "Choose Strands Agents when you are aligned to Bedrock and AWS; OpenAI Agents SDK when you are aligned to OpenAI and the Responses API."
+  },
+  {
+    "source": "strands-agents",
+    "target": "amazon-bedrock",
+    "type": "integrates-with",
+    "how": "Strands Agents is AWS's official agent SDK — Bedrock is the default model provider and the SDK exposes Bedrock features (provisioned throughput, guardrails, observability) natively.",
+    "achieves": "Build Bedrock-native agents without writing the model-call and tool-routing plumbing by hand."
+  },
+  {
+    "source": "sambanova-cloud",
+    "target": "groq",
+    "type": "competes-with",
+    "how": "Both deliver fast inference for open models via custom silicon. SambaNova runs on its own RDU architecture and emphasises high throughput on large open models. Groq runs on its LPU architecture and emphasises ultra-low latency on a curated model set.",
+    "achieves": "Choose SambaNova for high throughput on larger open models; Groq for ultra-low-latency inference on the supported model set."
+  },
+  {
+    "source": "sambanova-cloud",
+    "target": "cerebras",
+    "type": "competes-with",
+    "how": "Both offer fast inference on custom silicon for open models. SambaNova uses its RDU architecture; Cerebras uses its wafer-scale CS-3 chips. Both target throughput leadership on the open-model frontier.",
+    "achieves": "Pick SambaNova or Cerebras based on benchmarked latency and throughput for the specific open models you serve."
+  },
+  {
+    "source": "sambanova-cloud",
+    "target": "litellm",
+    "type": "integrates-with",
+    "how": "SambaNova Cloud exposes an OpenAI-compatible API, so it works as a LiteLLM provider with no custom adapter required.",
+    "achieves": "Route to SambaNova-hosted open models from any LiteLLM-backed application without provider-specific code."
+  },
+  {
+    "source": "cloudflare-ai-gateway",
+    "target": "portkey",
+    "type": "competes-with",
+    "how": "Both are LLM gateways with caching, fallbacks, and observability. Cloudflare AI Gateway runs on Cloudflare's edge and is free for projects already on Cloudflare. Portkey is a focused gateway product with deeper feature breadth and managed control plane.",
+    "achieves": "Choose Cloudflare AI Gateway when you are already on Cloudflare and want an edge gateway; Portkey for deeper feature breadth and a managed control plane."
+  },
+  {
+    "source": "cloudflare-ai-gateway",
+    "target": "litellm",
+    "type": "competes-with",
+    "how": "Both abstract LLM providers. LiteLLM is a code-level OSS router. Cloudflare AI Gateway is an HTTP gateway on Cloudflare's edge with caching, rate limits, and analytics out of the box. Teams sometimes use both — LiteLLM in code, Cloudflare AI Gateway as the egress point.",
+    "achieves": "Choose Cloudflare AI Gateway for HTTP-level gateway features at the edge; LiteLLM for code-level provider routing."
+  },
+  {
+    "source": "cloudflare-ai-gateway",
+    "target": "openai-api",
+    "type": "integrates-with",
+    "how": "Cloudflare AI Gateway proxies OpenAI traffic, adding caching, rate limits, fallbacks, and analytics without code changes — clients keep using the OpenAI SDK, just pointed at the gateway URL.",
+    "achieves": "Add caching, fallbacks, and rate limits in front of OpenAI without touching application code."
+  },
+  {
+    "source": "kiro",
+    "target": "cursor",
+    "type": "competes-with",
+    "how": "Both are AI-native VS Code forks. Kiro is AWS's spec-driven IDE — plan-then-execute is the default workflow. Cursor is independent and ships agent mode and chat as the default surface, with spec-driven flows possible but not enforced.",
+    "achieves": "Choose Kiro when you want a spec-first workflow inside the IDE and are aligned to AWS; Cursor when you want maximum AI-feature depth in a vendor-neutral editor."
+  },
+  {
+    "source": "kiro",
+    "target": "google-antigravity",
+    "type": "competes-with",
+    "how": "Both are agentic IDEs from frontier cloud vendors. Kiro is AWS-aligned and spec-driven. Antigravity is Google-aligned, Gemini 3-powered, and emphasises parallel-agent execution.",
+    "achieves": "Pick the IDE that matches your cloud — Kiro for AWS-aligned teams, Antigravity for Google-Cloud-aligned teams."
+  },
+  {
+    "source": "kiro",
+    "target": "claude-code",
+    "type": "competes-with",
+    "how": "Both are Claude-powered, but at different surfaces. Kiro is an IDE optimised for spec-driven flows. Claude Code is a CLI optimised for terminal-native agent work with deep MCP integration.",
+    "achieves": "Choose Kiro for an IDE experience around spec-driven coding; Claude Code for a terminal-first agent with the deepest MCP integration."
+  },
+  {
+    "source": "kiro",
+    "target": "spec-kit",
+    "type": "commonly-paired-with",
+    "how": "Kiro's spec-driven IDE workflow pairs naturally with GitHub Spec Kit as the underlying spec authoring toolkit. The combination is becoming the canonical SDD stack in 2026.",
+    "achieves": "Author specs in Spec Kit, then execute them in Kiro with confidence the agent stays on-spec."
+  },
+  {
+    "source": "google-antigravity",
+    "target": "cursor",
+    "type": "competes-with",
+    "how": "Both are AI-native editors. Antigravity is Google's first-party, Gemini-3-powered, with native parallel-agent execution. Cursor is independent and remains the most-iterated single-editor AI experience.",
+    "achieves": "Choose Antigravity when you are aligned to Google Cloud and want Gemini-native parallel agents; Cursor for vendor-neutral AI editor depth."
+  },
+  {
+    "source": "google-antigravity",
+    "target": "google-gemini-api",
+    "type": "integrates-with",
+    "how": "Antigravity is the official Gemini-3-powered IDE — Gemini drives the in-editor completions, chat, and agent flows.",
+    "achieves": "Get Gemini 3 deeply embedded in your editor without writing API client code."
+  },
+  {
+    "source": "microsoft-agent-framework",
+    "target": "langgraph",
+    "type": "competes-with",
+    "how": "Both are production agent frameworks. Microsoft Agent Framework is the official Microsoft path (.NET + Python), the merger of AutoGen and Semantic Kernel. LangGraph is LangChain's stateful agent framework, model- and cloud-agnostic.",
+    "achieves": "Choose Microsoft Agent Framework when you are Microsoft-native (.NET, Azure, Foundry); LangGraph when you want model- and cloud-agnostic stateful agents."
+  },
+  {
+    "source": "microsoft-agent-framework",
+    "target": "openai-agents-sdk",
+    "type": "competes-with",
+    "how": "Both are official agent SDKs from frontier vendors. Microsoft Agent Framework is Microsoft-first with .NET and Python parity. OpenAI Agents SDK is OpenAI-first with native Responses API integration.",
+    "achieves": "Choose Microsoft Agent Framework for Microsoft-native production agents; OpenAI Agents SDK for OpenAI-native agents on the Responses API."
+  },
+  {
+    "source": "microsoft-agent-framework",
+    "target": "azure-openai",
+    "type": "integrates-with",
+    "how": "Microsoft Agent Framework treats Azure OpenAI as the first-class model provider, with native support for Azure auth, content filters, and observability.",
+    "achieves": "Run production agents on Azure OpenAI with first-party SDK support and Microsoft's enterprise tooling."
+  },
+  {
+    "source": "microsoft-agent-framework",
+    "target": "autogen",
+    "type": "integrates-with",
+    "how": "Microsoft Agent Framework is the official successor to AutoGen — Microsoft publishes a migration path so existing AutoGen agents can move to Agent Framework with bounded changes.",
+    "achieves": "Migrate from AutoGen to Microsoft's supported production agent framework with a defined upgrade path."
+  },
+  {
+    "source": "microsoft-agent-framework",
+    "target": "semantic-kernel",
+    "type": "integrates-with",
+    "how": "Microsoft Agent Framework merges Semantic Kernel and AutoGen into a single supported product. Existing Semantic Kernel applications have a documented migration path to Agent Framework.",
+    "achieves": "Migrate from Semantic Kernel to Microsoft's supported production agent framework with a defined upgrade path."
+  },
+  {
+    "source": "claude-agent-sdk",
+    "target": "openai-agents-sdk",
+    "type": "competes-with",
+    "how": "Both are first-party agent SDKs from frontier labs. Claude Agent SDK is Anthropic's, with native MCP, sub-agents, and prompt caching. OpenAI Agents SDK is OpenAI's, with native Responses API integration.",
+    "achieves": "Choose Claude Agent SDK for Anthropic-native agents with deep MCP integration; OpenAI Agents SDK for OpenAI-native agents on the Responses API."
+  },
+  {
+    "source": "claude-agent-sdk",
+    "target": "langgraph",
+    "type": "competes-with",
+    "how": "Both target production agents. Claude Agent SDK is Anthropic-first with native MCP and sub-agents. LangGraph is model-agnostic with a richer state-machine graph abstraction.",
+    "achieves": "Choose Claude Agent SDK when you are Claude-first and want MCP and sub-agents out of the box; LangGraph for model-agnostic stateful workflows."
+  },
+  {
+    "source": "claude-agent-sdk",
+    "target": "microsoft-agent-framework",
+    "type": "competes-with",
+    "how": "Both are official SDKs from frontier vendors. Claude Agent SDK is Anthropic-first; Microsoft Agent Framework is Microsoft-first (Azure-OpenAI-aligned). Choice is downstream of which model vendor and cloud you are aligned to.",
+    "achieves": "Pick the SDK that matches your model and cloud — Claude Agent SDK for Anthropic, Microsoft Agent Framework for Microsoft Azure."
+  },
+  {
+    "source": "claude-agent-sdk",
+    "target": "anthropic-api",
+    "type": "integrates-with",
+    "how": "Claude Agent SDK is the official Anthropic SDK for agent workflows — it consumes the Anthropic API with native prompt caching, MCP, and tool use.",
+    "achieves": "Build production Claude agents without re-implementing prompt caching, MCP, or sub-agent orchestration."
+  },
+  {
+    "source": "claude-agent-sdk",
+    "target": "mcp-sdk-python",
+    "type": "integrates-with",
+    "how": "Claude Agent SDK ships native MCP support — agents can call any MCP server out of the box via the standard MCP Python SDK.",
+    "achieves": "Drive any MCP server from a Claude agent without writing protocol code by hand."
+  },
+  {
+    "source": "kapa-ai",
+    "target": "mintlify",
+    "type": "competes-with",
+    "how": "Both serve developer docs. Mintlify is the docs-platform layer (write, host, render). Kapa.ai is the RAG-over-docs layer (chat, ask-anything widget). Many teams run them together — Mintlify for the site, Kapa for the chat — so the competition is partial.",
+    "achieves": "Choose Mintlify when you need a modern docs platform; Kapa.ai when you need production-grade RAG chat on top of docs you already host."
+  },
+  {
+    "source": "kapa-ai",
+    "target": "openai-api",
+    "type": "integrates-with",
+    "how": "Kapa.ai uses OpenAI models (embeddings and chat) under the hood by default, with configurable per-customer model routing.",
+    "achieves": "Run production docs RAG on OpenAI without managing embeddings or retrieval yourself."
+  },
+  {
+    "source": "lakera-guard",
+    "target": "nemo-guardrails",
+    "type": "competes-with",
+    "how": "Both target LLM guardrails but at different layers. Lakera Guard (Cisco) is a managed real-time inference-side filter focused on prompt-injection and data-leak defense. NeMo Guardrails (NVIDIA) is a Colang-based framework for flow-level conversational guardrails.",
+    "achieves": "Choose Lakera Guard for managed real-time security filtering; NeMo Guardrails when you want Colang flow-level policy authoring."
+  },
+  {
+    "source": "lakera-guard",
+    "target": "guardrails-ai",
+    "type": "competes-with",
+    "how": "Both are guardrails layers. Lakera Guard is managed, real-time, and security-focused (prompt injection, data leaks). Guardrails AI is OSS, validator-chain-based, and focused on structured-output and policy validation.",
+    "achieves": "Choose Lakera Guard for managed real-time security defense; Guardrails AI for self-hosted validator-chain policy enforcement."
+  },
+  {
+    "source": "lakera-guard",
+    "target": "llm-guard",
+    "type": "competes-with",
+    "how": "Both are LLM guardrails layers. Lakera Guard is the managed, commercial product (Cisco-owned). LLM Guard is the OSS, self-hosted alternative from Protect AI.",
+    "achieves": "Choose Lakera Guard when you want managed real-time security; LLM Guard when you need OSS self-hosting you can audit."
+  },
+  {
+    "source": "llm-guard",
+    "target": "guardrails-ai",
+    "type": "competes-with",
+    "how": "Both are OSS validator-chain guardrails libraries. LLM Guard (Protect AI) ships a broad set of pre-built scanners (PII, prompt injection, toxicity, bias). Guardrails AI emphasises structured-output validation and a marketplace of community validators.",
+    "achieves": "Choose LLM Guard for security-focused pre-built scanners; Guardrails AI for structured-output validation and community validator marketplace."
+  },
+  {
+    "source": "llm-guard",
+    "target": "litellm",
+    "type": "integrates-with",
+    "how": "LLM Guard plugs into LiteLLM-routed calls as a scanner step, applying input/output validation across any model LiteLLM supports.",
+    "achieves": "Add OSS guardrails to any LiteLLM-backed application without changing the model provider."
+  },
+  {
+    "source": "openai-guardrails",
+    "target": "guardrails-ai",
+    "type": "competes-with",
+    "how": "Both are validator-chain libraries for guardrails. OpenAI Guardrails is OpenAI's first-party library tied to the Responses and Assistants APIs. Guardrails AI is OSS, provider-agnostic, and ships a broader community validator marketplace.",
+    "achieves": "Choose OpenAI Guardrails when you are on the OpenAI Responses or Assistants API; Guardrails AI when you want provider-agnostic OSS validators."
+  },
+  {
+    "source": "openai-guardrails",
+    "target": "lakera-guard",
+    "type": "competes-with",
+    "how": "Both target the production guardrails slot. OpenAI Guardrails is a code-level first-party library tied to OpenAI's APIs. Lakera Guard is a managed, vendor-neutral real-time security platform.",
+    "achieves": "Choose OpenAI Guardrails for first-party OpenAI-native policies; Lakera Guard for vendor-neutral managed real-time security."
+  },
+  {
+    "source": "openai-guardrails",
+    "target": "openai-api",
+    "type": "integrates-with",
+    "how": "OpenAI Guardrails is OpenAI's first-party library — it wraps Responses and Assistants API calls with composable guardrails (moderation, jailbreak detection, PII filters).",
+    "achieves": "Add validated, policy-checked outputs to OpenAI applications without writing retry and validation logic."
+  },
+  {
+    "source": "composio",
+    "target": "smithery",
+    "type": "competes-with",
+    "how": "Both are managed MCP infrastructure. Composio emphasises 500+ pre-built SaaS integrations with managed auth. Smithery emphasises a curated registry of MCP servers with one-click install.",
+    "achieves": "Choose Composio for the broadest set of pre-built SaaS integrations with managed OAuth; Smithery when you want a curated registry and one-click installs."
+  },
+  {
+    "source": "composio",
+    "target": "mcp-sdk-ts",
+    "type": "integrates-with",
+    "how": "Composio's hosted integrations are MCP-compatible — they appear to any MCP-aware client (Claude Code, Cursor, Cline) as standard MCP servers.",
+    "achieves": "Get 500+ pre-built SaaS integrations as MCP servers without writing protocol code yourself."
+  },
+  {
+    "source": "composio",
+    "target": "claude-code",
+    "type": "commonly-paired-with",
+    "how": "Claude Code is MCP-native; Composio exposes 500+ SaaS integrations as MCP servers. The combination gives a Claude Code agent immediate authenticated access to Slack, Notion, Linear, Stripe, GitHub, etc.",
+    "achieves": "Give a Claude Code agent access to your real SaaS stack without writing or operating your own MCP servers."
+  },
+  {
+    "source": "anthropic-computer-use",
+    "target": "openai-operator",
+    "type": "competes-with",
+    "how": "Both are vision-based browsing and desktop-control agents from frontier labs. Anthropic Computer Use is Claude-powered with strong OSWorld benchmark numbers. OpenAI Operator (CUA) is OpenAI's, integrated into ChatGPT and exposed via API.",
+    "achieves": "Choose Anthropic Computer Use for Claude-native vision agents; OpenAI Operator for OpenAI-native vision agents inside the ChatGPT ecosystem."
+  },
+  {
+    "source": "anthropic-computer-use",
+    "target": "browser-use",
+    "type": "competes-with",
+    "how": "Both control browsers but at different layers. Anthropic Computer Use is a vision-based universal GUI controller. Browser Use is OSS, DOM-driven, and Python-first — more reliable on standard web tasks but limited to browser DOMs.",
+    "achieves": "Choose Anthropic Computer Use for any GUI (vision); Browser Use for DOM-driven web automation with higher reliability on standard sites."
+  },
+  {
+    "source": "anthropic-computer-use",
+    "target": "stagehand",
+    "type": "competes-with",
+    "how": "Both drive browsers under AI. Anthropic Computer Use is vision-based and works on any GUI. Stagehand is OSS, DOM-and-AI-native, built on Browserbase for managed scale and stealth.",
+    "achieves": "Choose Anthropic Computer Use for general GUI control; Stagehand for managed, DOM-driven browser agents with higher reliability."
+  },
+  {
+    "source": "anthropic-computer-use",
+    "target": "anthropic-api",
+    "type": "integrates-with",
+    "how": "Anthropic Computer Use is a capability of the Claude API — vision-based mouse and keyboard control is exposed as tools on the standard Claude API.",
+    "achieves": "Build vision-controlled agents directly from the Anthropic API without a separate runtime."
+  },
+  {
+    "source": "openai-operator",
+    "target": "openai-api",
+    "type": "integrates-with",
+    "how": "OpenAI Operator (CUA) is exposed via the OpenAI Responses API — clients drive it the same way they drive other OpenAI capabilities.",
+    "achieves": "Build vision-controlled OpenAI agents directly from the Responses API without a separate runtime."
+  },
+  {
+    "source": "hume-evi",
+    "target": "elevenlabs",
+    "type": "competes-with",
+    "how": "Both are TTS platforms. Hume EVI emphasises empathic, emotion-aware speech with sub-150ms TTFA. ElevenLabs emphasises voice cloning, broad language coverage, and the most-deployed managed TTS API.",
+    "achieves": "Choose Hume EVI for emotion-aware character or wellness products; ElevenLabs for broad voice cloning and the deepest production deployment."
+  },
+  {
+    "source": "hume-evi",
+    "target": "cartesia",
+    "type": "competes-with",
+    "how": "Both target low-latency TTS for real-time voice agents. Hume EVI emphasises empathic, emotion-aware synthesis. Cartesia emphasises ultra-low latency with its Sonic state-space architecture.",
+    "achieves": "Choose Hume EVI for emotion-aware speech; Cartesia for the absolute lowest-latency real-time TTS."
+  },
+  {
+    "source": "github-copilot-coding-agent",
+    "target": "devin",
+    "type": "competes-with",
+    "how": "Both are async SWE agents that pick up issues and open PRs. GitHub Copilot Coding Agent is first-party to GitHub and lives entirely inside GitHub Issues and PRs. Devin (Cognition) is a vendor-neutral managed platform with its own surface.",
+    "achieves": "Choose GitHub Copilot Coding Agent when you live entirely in GitHub workflows; Devin for a vendor-neutral managed platform across providers."
+  },
+  {
+    "source": "github-copilot-coding-agent",
+    "target": "jules",
+    "type": "competes-with",
+    "how": "Both are async SWE agents tied to GitHub. Copilot Coding Agent is GitHub's first-party; Jules is Google's, Gemini-powered, also operating in the GitHub workflow.",
+    "achieves": "Pick the agent that matches your model alignment — Copilot Coding Agent for GitHub-native, Jules for Gemini-native async coding."
+  },
+  {
+    "source": "github-copilot-coding-agent",
+    "target": "factory-ai",
+    "type": "competes-with",
+    "how": "Both target async coding for enterprises. Copilot Coding Agent is GitHub's first-party offering inside the standard Copilot subscription. Factory AI is a vendor-neutral enterprise platform with named customers (Morgan Stanley, EY, NVIDIA, Adobe).",
+    "achieves": "Choose Copilot Coding Agent when you already pay for Copilot; Factory AI for a vendor-neutral enterprise async-coding platform."
+  },
+  {
+    "source": "bmad-method",
+    "target": "spec-kit",
+    "type": "competes-with",
+    "how": "Both are spec-driven development toolkits. BMAD-METHOD is an OSS methodology with templates that AI agents can follow deterministically. Spec Kit is GitHub's official SDD toolkit with deep Copilot integration.",
+    "achieves": "Choose BMAD-METHOD for an opinionated OSS methodology; Spec Kit for GitHub-native SDD with first-party Copilot integration."
+  },
+  {
+    "source": "cognee",
+    "target": "mem0",
+    "type": "competes-with",
+    "how": "Both are agent-memory layers. Cognee emphasises typed knowledge graphs and graph-traversal retrieval. Mem0 emphasises plug-and-play fact storage and broad framework support.",
+    "achieves": "Choose Cognee when graph-shaped memory and typed entities matter; Mem0 for plug-and-play multi-framework memory."
+  },
+  {
+    "source": "cognee",
+    "target": "zep",
+    "type": "competes-with",
+    "how": "Both are graph-based memory products. Cognee is OSS-first with typed knowledge graph extraction. Zep is a commercial platform built on Graphiti with a focus on temporal accuracy.",
+    "achieves": "Choose Cognee for OSS-first typed graph memory; Zep for a managed temporal-graph platform."
+  },
+  {
+    "source": "graphiti",
+    "target": "zep",
+    "type": "integrates-with",
+    "how": "Graphiti is the temporal knowledge graph engine that powers Zep — Zep is the productised platform built on top of Graphiti.",
+    "achieves": "Use Graphiti directly when you want the engine without Zep's product surface; use Zep when you want the managed platform built on it."
+  },
+  {
+    "source": "graphiti",
+    "target": "mem0",
+    "type": "competes-with",
+    "how": "Both are memory engines for agents. Graphiti is temporal-graph-first (the engine underneath Zep), built for facts that change over time. Mem0 is broader-framework-first with simpler key-value-style memory.",
+    "achieves": "Choose Graphiti for temporal-graph reasoning; Mem0 for plug-and-play multi-framework memory with the simpler model."
+  },
+  {
+    "source": "runway-gen-4",
+    "target": "google-veo",
+    "type": "competes-with",
+    "how": "Both are frontier video generation models. Runway Gen-4.5 is creator-grade with strong character/scene consistency. Google Veo 3.1 is Gemini-native, with native synchronized audio and Vertex AI integration.",
+    "achieves": "Choose Runway for creator-grade pipelines with the strongest character consistency; Veo for Google-Cloud-aligned production with native audio."
+  },
+  {
+    "source": "runway-gen-4",
+    "target": "kling",
+    "type": "competes-with",
+    "how": "Both are frontier text-to-video models. Runway Gen-4.5 is the US-aligned creator-grade leader. Kling 3.0 (Kuaishou) is the leading non-Western frontier model with competitive quality.",
+    "achieves": "Choose Runway for the US creator-grade pipeline; Kling when you want a third option with competitive quality outside the US providers."
+  },
+  {
+    "source": "google-veo",
+    "target": "kling",
+    "type": "competes-with",
+    "how": "Both are frontier text-to-video models. Veo is Google's, Vertex-AI-integrated, with native audio. Kling is Kuaishou's, with strong image-to-video for character continuity.",
+    "achieves": "Choose Veo for Google Cloud alignment and native audio; Kling for strong image-to-video and a non-Western frontier option."
   }
 ]

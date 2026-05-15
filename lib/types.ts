@@ -121,6 +121,8 @@ export type CategoryId =
   | "mcp"
   | "prompt-eval"
   | "specifications"
+  | "spec-driven-dev"
+  | "code-review-ai"
   | "fine-tuning"
   | "voice-ai"
   | "multimodal"
@@ -422,6 +424,8 @@ export const CATEGORIES: CategoryMeta[] = [
   { id: "mcp", label: "MCP Servers", color: "#a29bfe" },
   { id: "prompt-eval", label: "Prompt & Eval", color: "#55efc4" },
   { id: "specifications", label: "Specifications", color: "#e17055" },
+  { id: "spec-driven-dev", label: "Spec-Driven Dev", color: "#d63031" },
+  { id: "code-review-ai", label: "AI Code Review", color: "#0984e3" },
   { id: "fine-tuning", label: "Fine-tuning", color: "#e84393" },
   { id: "voice-ai", label: "Voice AI", color: "#00b894" },
   { id: "multimodal", label: "Multimodal", color: "#6c5ce7" },

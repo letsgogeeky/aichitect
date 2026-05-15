@@ -153,7 +153,7 @@
     ],
     "graduates_to": "agentic-coding",
     "tags": ["MCP", "automation", "power user"],
-    "why": "MCP eliminates the need for separate AI integrations per tool. Cursor and Claude Code connect directly to MCP servers — GitHub MCP for live repo access, Playwright MCP for browser automation, E2B for safe code execution. Smithery is your registry for discovering pre-built community servers. The MCP TypeScript SDK is what you reach for when you need to build a custom server that none of those cover.",
+    "why": "MCP eliminates the need for separate AI integrations per tool. Cursor and Claude Code connect directly to MCP servers — GitHub MCP for live repo access, Playwright MCP for browser automation, E2B for safe code execution. Smithery is your registry for discovering pre-built community servers. The MCP TypeScript SDK is what you reach for when you need to build a custom server that none of those cover. Composio adds 500+ pre-built SaaS integrations with managed OAuth, which becomes useful once the personal MCP set graduates into a team or org context where authentication and governance matter.",
     "tradeoffs": "The MCP ecosystem is still maturing — some servers are experimental and break. The security model requires careful server vetting; each server gets broad access by design. Not suitable for sensitive environments without strict server auditing.",
     "complexity": "intermediate",
     "monthly_cost": "$20–100",
@@ -164,7 +164,8 @@
       "smithery",
       "playwright-mcp",
       "github-mcp",
-      "e2b"
+      "e2b",
+      "composio"
     ],
     "flow": [
       {
@@ -434,11 +435,21 @@
     ],
     "graduates_to": "multi-agent-devops",
     "tags": ["autonomous", "coding", "agents"],
-    "why": "Close the loop between AI writing code and it being reviewed, tested, and merged. Claude Code reads the repo via GitHub MCP, executes safely in E2B sandboxes, and gets reviewed by CodeRabbit before any human sees the PR. OpenHands handles longer autonomous runs — it also executes in E2B and submits PRs that go through the same review gate.",
-    "tradeoffs": "Autonomous agents diverge without clear task specs and tight scope. Requires disciplined prompt engineering and explicit task boundaries. Debugging agent failures mid-run is non-trivial.",
+    "why": "The Feb 2026 parallel-agent wave made multi-agent coding the default for serious teams. Claude Code drives in-terminal work; Codex CLI parallels it from the OpenAI side; Devin and Factory AI run unattended on full tickets in the background. OpenHands stays in the stack as the OSS/self-host option. CodeRabbit reviews PRs from any agent before a human sees them; LangSmith traces every agent step so cost and failure modes are visible.",
+    "tradeoffs": "Token cost scales near-linearly with parallelism — teams routinely report $500–2,000/dev/month in 2026. Architectural drift across N-parallel branches becomes its own management discipline; merge-conflict triage is heavier than with a single agent. Without strong spec discipline you get N-parallel garbage. Vendor lock-in across multiple agent platforms is more painful than with a single editor.",
     "complexity": "intermediate",
-    "monthly_cost": "$100–400",
-    "tools": ["claude-code", "openhands", "github-mcp", "e2b", "coderabbit", "langfuse"],
+    "monthly_cost": "$300–1,500/dev/mo",
+    "tools": [
+      "claude-code",
+      "codex-cli",
+      "devin",
+      "factory-ai",
+      "openhands",
+      "github-mcp",
+      "e2b",
+      "coderabbit",
+      "langsmith"
+    ],
     "flow": [
       {
         "from": "claude-code",
@@ -451,28 +462,48 @@
         "label": "executes in"
       },
       {
-        "from": "claude-code",
-        "to": "coderabbit",
-        "label": "PRs reviewed by"
-      },
-      {
-        "from": "openhands",
+        "from": "codex-cli",
         "to": "github-mcp",
         "label": "reads repo via"
       },
       {
-        "from": "openhands",
-        "to": "e2b",
-        "label": "executes in"
+        "from": "devin",
+        "to": "github-mcp",
+        "label": "runs unattended against"
+      },
+      {
+        "from": "factory-ai",
+        "to": "github-mcp",
+        "label": "runs unattended against"
       },
       {
         "from": "openhands",
+        "to": "e2b",
+        "label": "executes in (OSS option)"
+      },
+      {
+        "from": "claude-code",
+        "to": "coderabbit",
+        "label": "PRs reviewed by"
+      },
+      {
+        "from": "devin",
+        "to": "coderabbit",
+        "label": "PRs reviewed by"
+      },
+      {
+        "from": "factory-ai",
         "to": "coderabbit",
         "label": "PRs reviewed by"
       },
       {
         "from": "claude-code",
-        "to": "langfuse",
+        "to": "langsmith",
+        "label": "traced by"
+      },
+      {
+        "from": "devin",
+        "to": "langsmith",
         "label": "traced by"
       }
     ],
@@ -513,18 +544,37 @@
     "why": "Specialised agents working in parallel reduce cycle time dramatically. LangGraph coordinates the handoffs — it assigns tasks to Claude Code for implementation and Jules for async VM-based execution, keeps agents wired to the live repo state via GitHub MCP, and routes all PRs to CodeRabbit for review before any human sees them. Jules runs tasks in isolated VMs overnight and returns PRs; Claude Code handles interactive or complex tasks that need reasoning mid-run. LangSmith traces the full multi-agent execution graph so you can diagnose exactly where a failure occurred.",
     "tradeoffs": "Multi-agent coordination adds latency and token cost. Clear agent boundaries are required to prevent conflicts. Debugging inter-agent failures mid-run is non-trivial and requires good tracing from day one.",
     "complexity": "advanced",
-    "monthly_cost": "$200–600",
-    "tools": ["langgraph", "claude-code", "github-mcp", "jules", "coderabbit", "langsmith"],
+    "monthly_cost": "$200–2,000/mo",
+    "tools": [
+      "langgraph",
+      "openai-agents-sdk",
+      "claude-code",
+      "devin",
+      "github-mcp",
+      "jules",
+      "coderabbit",
+      "langsmith"
+    ],
     "flow": [
       {
         "from": "langgraph",
-        "to": "claude-code",
-        "label": "assigns tasks to"
+        "to": "github-mcp",
+        "label": "reads repo via"
       },
       {
         "from": "langgraph",
         "to": "jules",
-        "label": "dispatches tasks to"
+        "label": "queues async work to"
+      },
+      {
+        "from": "langgraph",
+        "to": "devin",
+        "label": "hands off unattended tasks to"
+      },
+      {
+        "from": "openai-agents-sdk",
+        "to": "github-mcp",
+        "label": "reads repo via"
       },
       {
         "from": "claude-code",
@@ -532,12 +582,12 @@
         "label": "reads repo via"
       },
       {
-        "from": "claude-code",
+        "from": "jules",
         "to": "coderabbit",
         "label": "PRs reviewed by"
       },
       {
-        "from": "jules",
+        "from": "devin",
         "to": "coderabbit",
         "label": "PRs reviewed by"
       },
@@ -572,6 +622,10 @@
       {
         "tool": "flowise",
         "reason": "Visual builder doesn't expose the low-level browser control this stack requires"
+      },
+      {
+        "tool": "browser-use",
+        "reason": "OSS option but DOM-driven stacks (Stagehand) are 12-17pp more reliable per 2026 benchmarks"
       }
     ],
     "kill_conditions": [
@@ -584,27 +638,46 @@
     "why": "Playwright MCP gives Claude Code and Cursor direct browser control — navigation, clicks, form fills, screenshots, and DOM inspection. E2B provides a sandboxed environment so browser sessions run safely without touching your local machine. LangGraph orchestrates multi-step web tasks with state and retry logic. Langfuse traces every action so you can debug when an agent gets stuck on an unexpected page state.",
     "tradeoffs": "Browser agents are brittle against UI changes — a redesigned login page breaks the flow. Anti-bot measures on major platforms can block Playwright-based automation. Real-time web state makes deterministic testing hard.",
     "complexity": "intermediate",
-    "monthly_cost": "$50–200",
-    "tools": ["playwright-mcp", "claude-code", "langgraph", "e2b", "langfuse"],
+    "monthly_cost": "$150–800/mo",
+    "tools": [
+      "stagehand",
+      "browserbase",
+      "playwright-mcp",
+      "claude-code",
+      "anthropic-computer-use",
+      "langgraph",
+      "e2b",
+      "langsmith"
+    ],
     "flow": [
       {
         "from": "langgraph",
-        "to": "claude-code",
-        "label": "orchestrates agent"
+        "to": "stagehand",
+        "label": "DOM-driven control via"
+      },
+      {
+        "from": "stagehand",
+        "to": "browserbase",
+        "label": "runs on managed browser via"
+      },
+      {
+        "from": "langgraph",
+        "to": "anthropic-computer-use",
+        "label": "vision-driven fallback via"
       },
       {
         "from": "claude-code",
         "to": "playwright-mcp",
-        "label": "controls browser via"
-      },
-      {
-        "from": "claude-code",
-        "to": "e2b",
-        "label": "executes safely in"
+        "label": "drives browser via MCP"
       },
       {
         "from": "langgraph",
-        "to": "langfuse",
+        "to": "e2b",
+        "label": "executes code in"
+      },
+      {
+        "from": "langgraph",
+        "to": "langsmith",
         "label": "traced by"
       }
     ],
@@ -709,7 +782,7 @@
     "graduates_to": "enterprise-rag",
     "tags": ["data", "analytics", "pipeline", "warehouse"],
     "why": "n8n bridges the warehouse and the AI layer — it schedules syncs, handles authentication to source systems, and passes raw records downstream without custom ETL scripts. LlamaIndex takes those records and makes them retrieval-ready: chunking, embedding, and indexing them so queries can find relevant context by meaning rather than SQL. pgvector stores the embeddings inside the same Postgres instance your application already queries — no separate vector infrastructure to operate or keep synchronized. OpenAI API handles both embedding the incoming query and generating the response from retrieved context. Langfuse traces every retrieval event: which documents were fetched, what the model received, and where the answer drifted from ground truth. The leverage: your warehouse data becomes semantically queryable without leaving your existing infrastructure.",
-    "tradeoffs": "Text-to-SQL is still unreliable for complex multi-join queries. LLMs hallucinate column names and table relationships without careful schema injection. This stack works best on well-documented schemas; poorly named tables produce poor answers.",
+    "tradeoffs": "Text-to-SQL is still unreliable for complex multi-join queries. LLMs hallucinate column names and table relationships without careful schema injection. This stack works best on well-documented schemas; poorly named tables produce poor answers. 2026 enterprise data and AI is moving warehouse-native: Snowflake Cortex Agents and Databricks Genie / Agent Bricks ship text-to-SQL agents native to the warehouse. This stack stays right for SMB data pipelines; for enterprise warehouses consider a warehouse-native alternative (not yet in the directory).",
     "complexity": "intermediate",
     "monthly_cost": "$150–600",
     "tools": ["n8n", "llamaindex", "pgvector", "openai-api", "langfuse"],
@@ -843,7 +916,7 @@
     "tradeoffs": "Evals require upfront investment in dataset curation and metric definition that most teams underestimate. Bad evals are worse than no evals — they give false confidence. Eval datasets go stale as the product evolves and need active maintenance.",
     "complexity": "intermediate",
     "monthly_cost": "$50–300",
-    "tools": ["promptfoo", "langfuse", "braintrust", "openai-api"],
+    "tools": ["promptfoo", "inspect-ai", "langfuse", "braintrust", "openai-api"],
     "flow": [
       {
         "from": "promptfoo",
@@ -859,6 +932,11 @@
         "from": "langfuse",
         "to": "promptfoo",
         "label": "curates datasets for"
+      },
+      {
+        "from": "promptfoo",
+        "to": "inspect-ai",
+        "label": "adversarial evals via"
       }
     ],
     "archetype": "app-infrastructure",
@@ -877,19 +955,19 @@
     "not_in_stack": [
       {
         "tool": "v0",
-        "reason": "UI generation tool — irrelevant when the product is an API, not a frontend"
+        "reason": "Spec-driven flows assume code-first specs, not design-first prompts"
       },
       {
         "tool": "flowise",
-        "reason": "Visual workflow builder; spec-driven work requires code-level precision and version control"
+        "reason": "Visual workflow tools fight the spec-as-source-of-truth discipline"
       },
       {
         "tool": "langfuse",
-        "reason": "Observability layer — this stack focuses on the development and generation phase, not runtime"
+        "reason": "Useful but optional at the start of a spec-driven team"
       },
       {
-        "tool": "spec-kit",
-        "reason": "Claude Code already handles spec-guided coding when grounded in your OpenAPI file — adding a separate AI spec-writing tool duplicates effort at the authoring layer."
+        "tool": "swagger-only",
+        "reason": "Swagger is the API-contract layer, not the SDD anchor — Spec Kit owns the methodology"
       }
     ],
     "kill_conditions": [
@@ -899,21 +977,31 @@
     ],
     "graduates_to": "multi-agent-devops",
     "tags": ["spec-driven", "API", "backend", "engineering process"],
-    "why": "Spec Kit creates structured context that steers Claude Code and Cursor toward well-defined outcomes instead of improvised prompts. Swagger defines the API contract and feeds its context directly into Cursor; Speakeasy auto-generates SDKs when the spec changes; Langfuse keeps AI calls observable throughout. Everything downstream of the spec stays in sync.",
+    "why": "GitHub Spec Kit (90k+ stars by 2026) is the canonical spec-driven development toolkit and the anchor of this stack. Cursor and Claude Code execute against specs that Spec Kit authors. Swagger remains the API-contract layer. Mermaid carries diagram-as-spec. The discipline: write the spec first, run agents against it, and never let the spec drift from the code.",
     "tradeoffs": "Upfront spec investment slows initial velocity — not worth it for throwaway prototypes or highly exploratory projects. The discipline to keep specs current requires team buy-in; a stale spec is worse than no spec.",
     "complexity": "intermediate",
     "monthly_cost": "$50–200",
-    "tools": ["swagger", "speakeasy", "cursor", "claude-code", "langfuse"],
+    "tools": ["spec-kit", "cursor", "claude-code", "swagger", "mermaid", "langfuse"],
     "flow": [
       {
-        "from": "swagger",
-        "to": "speakeasy",
-        "label": "generates SDKs via"
+        "from": "spec-kit",
+        "to": "cursor",
+        "label": "specs imported into"
       },
       {
-        "from": "swagger",
-        "to": "cursor",
-        "label": "API spec imported into"
+        "from": "spec-kit",
+        "to": "claude-code",
+        "label": "specs executed by"
+      },
+      {
+        "from": "spec-kit",
+        "to": "mermaid",
+        "label": "renders diagrams via"
+      },
+      {
+        "from": "spec-kit",
+        "to": "swagger",
+        "label": "API surface published as"
       },
       {
         "from": "claude-code",
@@ -1136,22 +1224,42 @@
       }
     ],
     "kill_conditions": [
-      "Document corpus grows to billions of vectors requiring a managed cloud vector service",
-      "Retrieval quality ceiling is traced to the base model and fine-tuning becomes the lever",
-      "Compliance team requires data access audit logs that require a different observability stack"
+      "Document corpus grows beyond what hybrid retrieval can serve at p95 latency — move to specialised retrieval infrastructure",
+      "Retrieval quality ceiling is traced to ranking or query rewriting, not the base model — fine-tune the retriever or the reranker, not the LLM",
+      "Compliance team requires data residency or per-tenant isolation that the current vector store cannot enforce",
+      "Long-context capacity (Gemini 2.5 Pro / Claude 4.6+ at 1M tokens) makes retrieval unnecessary for moderate corpora — collapse to whole-corpus context for those tenants"
     ],
-    "graduates_to": "fine-tuning",
+    "graduates_to": "multimodal-rag",
     "tags": ["RAG", "enterprise", "knowledge base"],
-    "why": "Enterprise RAG needs more than a simple chain — it needs routing, branching retrieval logic, and evaluation you can run in CI. LangGraph handles complex multi-step retrieval; pgvector keeps sensitive data in your existing Postgres; LiteLLM gives you model flexibility without lock-in, routing to both OpenAI and Anthropic; LangSmith traces every step so you can debug retrieval quality and catch regressions.",
+    "why": "2026 enterprise RAG is agentic RAG over a semantic layer, with long-context as a complement rather than a replacement. LangGraph orchestrates retrieval-decision flows; Turbopuffer carries the heavy index at enterprise scale while pgvector handles smaller, per-tenant indexes. Mem0 carries cross-session memory — now a standard part of enterprise deployments. LiteLLM routes between OpenAI for tools and Anthropic for reasoning; LangSmith traces every retrieval decision.",
     "tradeoffs": "High complexity and ops overhead. Overkill for simple Q&A or small-scale use. Requires a team with LLM engineering experience to instrument evals properly and maintain retrieval quality as data grows.",
     "complexity": "advanced",
-    "monthly_cost": "$500–2000",
-    "tools": ["langgraph", "pgvector", "litellm", "langsmith", "openai-api", "anthropic-api"],
+    "monthly_cost": "$2,000–10,000/mo",
+    "tools": [
+      "langgraph",
+      "turbopuffer",
+      "pgvector",
+      "mem0",
+      "litellm",
+      "langsmith",
+      "openai-api",
+      "anthropic-api"
+    ],
     "flow": [
       {
         "from": "langgraph",
+        "to": "turbopuffer",
+        "label": "retrieves at scale from"
+      },
+      {
+        "from": "langgraph",
         "to": "pgvector",
-        "label": "retrieves from"
+        "label": "retrieves per-tenant from"
+      },
+      {
+        "from": "langgraph",
+        "to": "mem0",
+        "label": "reads/writes cross-session memory via"
       },
       {
         "from": "langgraph",
@@ -1265,12 +1373,14 @@
     "kill_conditions": [
       "Compliance requirements become strict enough to require full on-premises processing",
       "EU AI Act obligations demand model cards and transparency documentation the provider can't supply",
-      "Required capabilities don't exist in EU-resident providers"
+      "Required capabilities don't exist in EU-resident providers",
+      "EU AI Act Annex III classification puts the system in the high-risk bucket, triggering third-party conformity assessment and EU SEND submission obligations (GPAI provisions in force August 2026)",
+      "Compliance team requires audit-grade documentation (model cards, training-content summaries) that the current stack cannot produce"
     ],
     "graduates_to": "oss-self-hosted",
     "tags": ["GDPR", "EU", "compliance", "data residency"],
     "why": "The stack is built around one hard constraint: no data crosses jurisdictional boundaries. Mistral AI processes in France under EU law — the LLM call is the only place content leaves your environment, and it stays in-region. Qdrant self-hosted in an EU data center means retrieval over sensitive documents never touches a US cloud region. Langfuse self-hosted keeps trace data on the same network as your application. LiteLLM acts as a routing layer that can hard-block non-EU provider endpoints — compliance is enforced at the infrastructure level, not by developer discipline. Logfire provides Python-native observability without routing telemetry to US-based SaaS. The architecture is less about any individual tool and more about enforcing a data boundary that holds under audit.",
-    "tradeoffs": "EU-resident AI providers have smaller model selection and lower benchmark scores than US frontier models. Self-hosting components in EU infrastructure means you inherit the ops burden. The approved provider list changes as regulations and provider offerings evolve.",
+    "tradeoffs": "EU-resident AI providers have smaller model selection and lower benchmark scores than US frontier models. Self-hosting components in EU infrastructure means you inherit the ops burden. The approved provider list changes as regulations and provider offerings evolve. EU AI Act transparency rules go into force August 2026. Annex III high-risk classification requires a third-party conformity assessment that this stack does not currently produce evidence for. Plan for documentation overhead even on the GPAI baseline (model cards, training-content summaries, EU SEND submissions).",
     "complexity": "advanced",
     "monthly_cost": "$300–1500",
     "tools": ["mistral-api", "litellm", "qdrant", "langfuse", "logfire"],
@@ -1333,21 +1443,44 @@
       "Regulatory requirements mandate auditability that client-side inference can't satisfy"
     ],
     "tags": ["edge", "on-device", "offline", "privacy"],
-    "why": "llama.cpp is the portability layer — it runs 4-bit quantized models on CPU with no GPU required, which means the same binary works on a MacBook, a Raspberry Pi, or an embedded Linux device. Ollama wraps llama.cpp with a local REST API so application code makes the same HTTP call it would make to OpenAI — the deployment target is invisible to the app layer. LlamaIndex builds a retrieval pipeline on top of the local model, enabling document Q&A without any external requests. The architectural consequence: take this stack offline completely. No API keys, no network round-trip, no data leaving the device. The performance constraint is quantization — you trade some model quality for the ability to run anywhere.",
+    "why": "2026 crossed a real on-device capability threshold (Apple Intelligence, Gemma 4 on iPhone via MLX, Phi-4 at 8GB RAM). The 2026 edge story is on-device plus MCP: a small local model paired with local MCP servers so the agent can use tools without a network call. LlamaIndex carries the lightweight RAG layer; Chroma or LanceDB carries the local vector index.",
     "tradeoffs": "Model size is severely constrained by device memory — you're working with 3B–13B parameter models, not 70B+. Output quality is noticeably lower for complex reasoning. Battery and thermal impact on mobile devices is significant. Models need to be bundled with or downloaded to the device.",
     "complexity": "advanced",
     "monthly_cost": "$0",
-    "tools": ["ollama", "llamaindex", "chroma"],
+    "tools": [
+      "ollama",
+      "llama-cpp",
+      "mcp-sdk-python",
+      "mcp-sdk-ts",
+      "llamaindex",
+      "chroma",
+      "lancedb"
+    ],
     "flow": [
       {
         "from": "ollama",
+        "to": "mcp-sdk-python",
+        "label": "calls local tools via"
+      },
+      {
+        "from": "llama-cpp",
+        "to": "mcp-sdk-ts",
+        "label": "calls local tools via"
+      },
+      {
+        "from": "ollama",
         "to": "llamaindex",
-        "label": "serves model to"
+        "label": "reads RAG context from"
       },
       {
         "from": "llamaindex",
         "to": "chroma",
-        "label": "stores embeddings in"
+        "label": "retrieves from"
+      },
+      {
+        "from": "llamaindex",
+        "to": "lancedb",
+        "label": "alternative retrieval from"
       }
     ],
     "archetype": "app-infrastructure",
@@ -1388,7 +1521,7 @@
     ],
     "tags": ["security", "red-teaming", "adversarial", "hardening"],
     "why": "Promptfoo's red-team mode runs adversarial prompt suites — injection attempts, jailbreak sequences, PII extraction attempts — against your system and reports pass/fail with evidence. DeepEval adds structured safety metrics: toxicity scores, bias detection, and hallucination rates across test datasets. RAGAS provides RAG-specific security evals — testing whether retrieval can be manipulated to surface unauthorized documents. OpenAI API acts as both the target system and the judge model for automated scoring.",
-    "tradeoffs": "Automated red-teaming catches known attack patterns but not novel adversarial techniques. False negatives are more dangerous than false positives here — a passing test suite is not a security guarantee. Human red-teamers with domain expertise remain essential alongside automated tooling.",
+    "tradeoffs": "Automated red-teaming catches known attack patterns but not novel adversarial techniques. False negatives are more dangerous than false positives here — a passing test suite is not a security guarantee. Human red-teamers with domain expertise remain essential alongside automated tooling. This stack covers prompt-level red-teaming (Promptfoo, DeepEval) well but only ~40% of the 2026 surface. Agent-level red-teaming (CSA Agentic AI Red Teaming Guide: permission escalation, hallucination cascades, orchestration flaws, memory manipulation, supply chain) needs tools we do not yet carry (PyRIT, Giskard). Treat this stack as the floor, not the ceiling, for serious agent security work.",
     "complexity": "advanced",
     "monthly_cost": "$100–400",
     "tools": ["promptfoo", "deepeval", "openai-api", "langfuse"],
@@ -1447,11 +1580,20 @@
       "Regulatory environment restricts training on customer data"
     ],
     "tags": ["fine-tuning", "training", "custom model", "ML"],
-    "why": "HuggingFace connects the model zoo to your training loop — you pull a base model and TRL executes the fine-tuning run. TRL is the actual training engine: it implements SFT, DPO, GRPO, and RLHF trainers with native Weights & Biases integration so every run streams metrics and sample outputs automatically. W&B lets you compare runs and spot overfitting before you waste compute. DeepEval evaluates the fine-tuned checkpoint against the base model on structured quality benchmarks before it's promoted — the eval gate is what separates a fine-tune from a regression. vLLM serves the promoted checkpoint with optimized batching; Replicate handles deployment when you don't control GPU infrastructure. The flow is linear and gated: no checkpoint advances without passing DeepEval, and W&B gives you the data to explain why.",
-    "tradeoffs": "Fine-tuning requires high-quality labeled data — typically 1k–100k examples depending on task complexity. Training costs scale with model size and dataset volume. Fine-tuned models can catastrophically forget general capabilities while gaining domain-specific ones. Maintaining fine-tuned models through base model updates requires ongoing retraining.",
+    "why": "2026 fine-tuning has shifted from a prompting-hit-a-ceiling story to a distillation story: train a small student model on a frontier teacher for cost. Unsloth (~2x faster LoRA) and Axolotl (recipe-broad YAML configuration) are the day-to-day workhorses. Predibase is the managed path with synthetic data generation and reinforcement fine-tuning built in. HuggingFace + TRL is the from-scratch alternative for teams who want full control. Weights and Biases tracks runs; vLLM serves the result; Replicate hosts it.",
+    "tradeoffs": "Fine-tuning is no longer the default upgrade path; distillation is. Most teams should evaluate prompting and RAG first before fine-tuning. Synthetic data is now table stakes for any fine-tune; quality of the teacher model drives quality of the student. RFT (reinforcement fine-tuning) adds another lever but with significant additional ops complexity.",
     "complexity": "advanced",
     "monthly_cost": "$500–5000",
-    "tools": ["huggingface", "trl", "weights-biases", "deepeval", "vllm", "replicate"],
+    "tools": [
+      "unsloth",
+      "axolotl",
+      "predibase",
+      "huggingface",
+      "trl",
+      "weights-biases",
+      "vllm",
+      "replicate"
+    ],
     "flow": [
       {
         "from": "huggingface",
@@ -1631,6 +1773,18 @@
       {
         "tool": "llamaindex",
         "reason": "RAG over documents; Mem0 handles episodic memory — what users said and decided, not what documents contain"
+      },
+      {
+        "tool": "zep",
+        "reason": "Strong alternative when temporal accuracy and graph reasoning dominate (LongMemEval favours Zep over Mem0)"
+      },
+      {
+        "tool": "letta",
+        "reason": "Pick instead of Mem0 when the agent must reason about its own memory as state, not just retrieve facts"
+      },
+      {
+        "tool": "graphiti",
+        "reason": "The engine underneath Zep — use directly when you want the temporal graph without the platform"
       }
     ],
     "kill_conditions": [
@@ -1817,17 +1971,18 @@
       }
     ],
     "kill_conditions": [
-      "Generated code accumulates enough technical debt that a ground-up rebuild is faster than iterating on AI-generated output",
-      "Product requires complex backend logic that generation tools can't reliably produce",
-      "Team grows to include engineers who need proper engineering standards and codebase ownership"
+      "Security scan finds vulnerabilities in AI-generated code that the non-engineer cannot remediate (Veracode 2026: 45% of AI-generated code ships with security flaws; Stanford: 80%)",
+      "Generated code accumulates enough technical debt that a ground-up rebuild is faster than iterating",
+      "Product requires complex backend logic that generation tools cannot reliably produce",
+      "Team grows to include engineers who need engineering standards and codebase ownership"
     ],
     "graduates_to": "indie-hacker",
     "tags": ["vibe coding", "no-code", "prototype", "founders", "rapid"],
-    "why": "Lovable generates production-grade React/TypeScript full-stack applications from natural-language prompts — not wireframes, not mockups, but running apps with auth, database connections, and API integrations. The starting point is already deployable, which is the critical difference from tools like v0. Cursor takes ownership when you need changes that require code reasoning — editing generated logic, debugging API integrations, adding custom business rules. Claude Code handles cross-file ripple effects: when you change a data model, it updates every component, route, and test that references it. The Vercel AI SDK connects the app to any LLM capability you want to add. Langfuse keeps the AI calls observable so you can see costs and failures before they surprise you. The stack is deliberately beginner-friendly: at every step, the AI output is already a working artefact that can be deployed and tested.",
-    "tradeoffs": "Lovable-generated code is production-grade in structure but not in engineering discipline — it lacks tests, has inconsistent error handling, and accrues technical debt quickly without active maintenance. Complex or domain-specific business logic often requires manual correction. Debugging AI-generated code you didn't write yourself has a steep learning curve for non-engineers. The stack is optimized for speed-to-deployed-demo, not maintainability.",
+    "why": "Lovable generates production-grade React/TypeScript full-stack applications from prompts — apps with auth, DB connections, API integrations. Cursor takes ownership when changes require code reasoning. Claude Code handles cross-file ripple effects. The Vercel AI SDK connects the app to any LLM capability. Semgrep is the 2026 non-negotiable: AI-generated code ships with security flaws at high rates, so a scanner runs before any deploy. Langfuse keeps AI calls observable so cost and failure modes are visible.",
+    "tradeoffs": "Lovable-generated code is production-grade in structure but not in engineering discipline — it lacks tests, has inconsistent error handling, and accrues technical debt quickly. Complex business logic often requires manual correction. AI-generated code ships with security vulnerabilities at high rates (Veracode 2026: 45%; Stanford: 80%) — security scanning is non-negotiable, not optional. Debugging AI code you did not write has a steep learning curve for non-engineers.",
     "complexity": "beginner",
     "monthly_cost": "$30–100",
-    "tools": ["lovable", "cursor", "claude-code", "vercel-ai-sdk", "langfuse"],
+    "tools": ["lovable", "cursor", "claude-code", "vercel-ai-sdk", "semgrep", "langfuse"],
     "flow": [
       {
         "from": "lovable",
@@ -1843,6 +1998,11 @@
         "from": "cursor",
         "to": "vercel-ai-sdk",
         "label": "integrates AI calls via"
+      },
+      {
+        "from": "cursor",
+        "to": "semgrep",
+        "label": "runs security scan via"
       },
       {
         "from": "vercel-ai-sdk",
@@ -1865,16 +2025,16 @@
     "mission": "You have 4 engineers and 80 backlog tickets. Half are well-specified and repetitive. You want AI completing those overnight so engineers wake up to closed tickets, not a blank editor and a full queue.",
     "not_in_stack": [
       {
-        "tool": "cursor",
-        "reason": "Windsurf replaces Cursor here as the team's primary editor — use one AI editor consistently, not two simultaneously"
+        "tool": "windsurf",
+        "reason": "Windsurf is the in-editor surface of Cognition's stack — useful but assumed bundled with Devin; this stack picks Cursor + Devin instead for vendor diversity."
       },
       {
         "tool": "openhands",
-        "reason": "Overlaps with Jules for the async execution role — Jules integrates more natively with GitHub's async PR workflow and runs in isolated VMs"
+        "reason": "OSS self-host is great but the async-team pattern leans on managed platforms (Devin, Factory, Jules) for backlog throughput."
       },
       {
         "tool": "langgraph",
-        "reason": "Explicit state machine orchestration adds complexity — Jules and Claude Code manage their own execution state natively without a coordinator"
+        "reason": "Coding agents from frontier labs ship their own orchestration; LangGraph adds a layer the team does not need at this scale."
       }
     ],
     "kill_conditions": [
@@ -1884,12 +2044,42 @@
     ],
     "graduates_to": "multi-agent-devops",
     "tags": ["async", "coding agents", "team workflow", "autonomous"],
-    "why": "The stack creates two parallel execution modes that complement each other. Jules handles the async queue: assign it well-specified tickets at end of day, it runs in isolated VMs, and PRs appear in GitHub by morning — no human keyboard input required. Claude Code handles interactive mode: complex tasks that need reasoning mid-run, architectural decisions, and anything Jules gets stuck on. Windsurf keeps every engineer in flow state with IDE-level completions that have full codebase context. GitHub MCP connects both agents to live repo state. CodeRabbit reviews every PR — from Jules or Claude Code — before a human sees it. LangSmith traces every agent run so debugging failures is straightforward. The leverage: engineers spend their time on the hard 50% of tickets, not the repetitive 50%.",
+    "why": "The 2026 async coding team runs a fleet of background agents (Devin, Factory, Jules) against a deep ticket backlog while Cursor + Claude Code + Codex CLI handle the human-in-the-loop work during the day. CodeRabbit reviews every PR before a human sees it; LangSmith traces the entire fleet so cost and failure modes stay visible. The model assumes high-quality specs upstream — without them, parallel agents amplify ambiguity.",
     "tradeoffs": "Jules requires well-specified tickets to succeed — vague acceptance criteria produce vague PRs that need significant rework. CodeRabbit review creates a bottleneck at high PR volume if humans don't stay current on the queue. Running Jules + Claude Code + Windsurf simultaneously on a large repo creates significant monthly token costs that scale with team size. Agent failures mid-run need human intervention and can block async queue throughput.",
     "complexity": "intermediate",
-    "monthly_cost": "$150–500",
-    "tools": ["windsurf", "claude-code", "jules", "github-mcp", "coderabbit", "langsmith"],
+    "monthly_cost": "$500–2,000/dev/mo",
+    "tools": [
+      "cursor",
+      "claude-code",
+      "codex-cli",
+      "devin",
+      "factory-ai",
+      "jules",
+      "github-mcp",
+      "coderabbit",
+      "langsmith"
+    ],
     "flow": [
+      {
+        "from": "cursor",
+        "to": "claude-code",
+        "label": "hands tasks off to"
+      },
+      {
+        "from": "cursor",
+        "to": "codex-cli",
+        "label": "hands tasks off to"
+      },
+      {
+        "from": "devin",
+        "to": "github-mcp",
+        "label": "runs unattended against"
+      },
+      {
+        "from": "factory-ai",
+        "to": "github-mcp",
+        "label": "runs unattended against"
+      },
       {
         "from": "jules",
         "to": "github-mcp",
@@ -1901,12 +2091,17 @@
         "label": "reads repo via"
       },
       {
-        "from": "windsurf",
-        "to": "claude-code",
-        "label": "delegates complex tasks to"
+        "from": "jules",
+        "to": "coderabbit",
+        "label": "PRs reviewed by"
       },
       {
-        "from": "jules",
+        "from": "devin",
+        "to": "coderabbit",
+        "label": "PRs reviewed by"
+      },
+      {
+        "from": "factory-ai",
         "to": "coderabbit",
         "label": "PRs reviewed by"
       },
@@ -1918,12 +2113,17 @@
       {
         "from": "jules",
         "to": "langsmith",
-        "label": "run traced by"
+        "label": "traced by"
       },
       {
-        "from": "claude-code",
+        "from": "devin",
         "to": "langsmith",
-        "label": "run traced by"
+        "label": "traced by"
+      },
+      {
+        "from": "factory-ai",
+        "to": "langsmith",
+        "label": "traced by"
       }
     ],
     "archetype": "dev-productivity",
@@ -1996,5 +2196,167 @@
     "budget_tier": "mid",
     "use_cases": ["chatbot", "automation"],
     "stage": ["production", "scale"]
+  },
+  {
+    "id": "solo-pm-product",
+    "name": "Solo PM Product Stack",
+    "description": "A PM ships a production product end-to-end with no engineers — spec, design, code, deploy, observability.",
+    "target": "Solo product builders and 'PM-who-builds' in 2026 parlance",
+    "cluster": "build",
+    "mission": "You are the PM. There are no engineers. There is no designer. You have a Lovable account, a Spec Kit setup, a Linear board, and a 6-week deadline.",
+    "tools": [
+      "lovable",
+      "spec-kit",
+      "cursor",
+      "claude-code",
+      "linear-ai",
+      "mintlify",
+      "semgrep",
+      "langfuse"
+    ],
+    "flow": [
+      {
+        "from": "spec-kit",
+        "to": "lovable",
+        "label": "spec drives generation in"
+      },
+      {
+        "from": "lovable",
+        "to": "cursor",
+        "label": "exports full-stack code to"
+      },
+      {
+        "from": "cursor",
+        "to": "claude-code",
+        "label": "delegates multi-file changes to"
+      },
+      {
+        "from": "cursor",
+        "to": "semgrep",
+        "label": "security scan before deploy via"
+      },
+      {
+        "from": "linear-ai",
+        "to": "spec-kit",
+        "label": "tickets translated into specs via"
+      },
+      {
+        "from": "cursor",
+        "to": "mintlify",
+        "label": "docs authored alongside via"
+      },
+      {
+        "from": "claude-code",
+        "to": "langfuse",
+        "label": "AI calls traced by"
+      }
+    ],
+    "not_in_stack": [
+      {
+        "tool": "langgraph",
+        "reason": "Solo PM does not need agent orchestration overhead"
+      },
+      {
+        "tool": "vllm",
+        "reason": "GPU ops are a full-time job a solo PM does not have"
+      },
+      {
+        "tool": "factory-ai",
+        "reason": "Async coding agent overkill for solo PM; Cursor + Claude Code is enough"
+      }
+    ],
+    "kill_conditions": [
+      "First piece of complex backend logic (payment edge cases, auth flows) needs an engineer the PM cannot hire in time",
+      "Security scan finds vulnerabilities the PM cannot remediate alone",
+      "Product hits the ~70% ceiling: the remaining 30% (edge cases, auth, payments, regulated data) requires engineering judgment",
+      "Team grows beyond solo and proper engineering standards reassert themselves"
+    ],
+    "graduates_to": "indie-hacker",
+    "tags": ["solo PM", "no-engineer", "spec-driven", "vibe-coding+discipline"],
+    "why": "2026 industry consensus: the PM who gets hired is the one who builds. Spec Kit + Lovable + Claude Code closed the loop for non-engineers in a way that did not exist 12 months ago. Linear AI translates tickets into specs Spec Kit can author against. Lovable produces a working app from those specs. Cursor and Claude Code refine the generated code. Semgrep is the non-negotiable security gate before any deploy — AI-generated code ships with vulnerabilities at high rates. Mintlify carries docs as a first-class artefact, not an afterthought.",
+    "tradeoffs": "Capped at the ~70% ceiling — the remaining 30% (auth, payments, edge cases, regulated data) still needs engineering judgment. Risk of shipping vulnerable code without realising it; Semgrep helps but is not a substitute for a security engineer on regulated work. Lovable lock-in is real: porting off mid-build is expensive. Best for solo PMs validating ideas, not for products that need to scale past low six-figure MAU.",
+    "complexity": "beginner",
+    "monthly_cost": "$80–250",
+    "archetype": "dev-productivity",
+    "target_team_size": ["solo"],
+    "budget_tier": "low",
+    "use_cases": ["mvp", "internal-tools", "validation-prototype"],
+    "stage": ["prototype", "mvp"]
+  },
+  {
+    "id": "multimodal-creator",
+    "name": "Multimodal Creator Stack",
+    "description": "Creator-facing (not engineer-facing) stack for AI video, image, and audio production at scale.",
+    "target": "Solo creators, small studios, and marketing teams shipping high-volume short-form content",
+    "cluster": "build",
+    "mission": "You need to produce 50 short-form videos per week with consistent character, brand, and voice. You are not an engineer and do not want to be.",
+    "tools": [
+      "runway-gen-4",
+      "google-veo",
+      "kling",
+      "fal-ai",
+      "replicate",
+      "elevenlabs",
+      "cartesia",
+      "huggingface"
+    ],
+    "flow": [
+      {
+        "from": "runway-gen-4",
+        "to": "elevenlabs",
+        "label": "video paired with voice from"
+      },
+      {
+        "from": "google-veo",
+        "to": "elevenlabs",
+        "label": "alternative video with voice from"
+      },
+      {
+        "from": "kling",
+        "to": "cartesia",
+        "label": "low-latency voice pairing via"
+      },
+      {
+        "from": "fal-ai",
+        "to": "replicate",
+        "label": "additional hosted model surface via"
+      },
+      {
+        "from": "huggingface",
+        "to": "fal-ai",
+        "label": "model weights deployed onto"
+      }
+    ],
+    "not_in_stack": [
+      {
+        "tool": "langgraph",
+        "reason": "Orchestration overhead a creator does not need"
+      },
+      {
+        "tool": "qdrant",
+        "reason": "Vector retrieval is not the creator workflow"
+      },
+      {
+        "tool": "claude-code",
+        "reason": "Coding tools are not the creator workflow"
+      }
+    ],
+    "kill_conditions": [
+      "Brand or character consistency across many clips requires deeper than per-model controls; need a dedicated production pipeline (e.g. Topaz Video AI, custom LoRA per character)",
+      "Render cost spikes per render exceed the value of the content (common at 4K + audio at scale)",
+      "Compliance (music licensing, deepfake disclosure) becomes a full-time concern",
+      "Creator's volume justifies a full studio with dedicated tools — graduates out of this stack into custom pipelines"
+    ],
+    "graduates_to": null,
+    "tags": ["video", "image", "audio", "creator", "non-engineer"],
+    "why": "As of Feb 2026, 4 of 6 major video models generate synchronized audio natively. Runway Gen-4.5 dominates US creator workflows with strong character consistency; Veo 3.1 leads Google-cloud-aligned production; Kling is the leading non-Western frontier model. Model-by-scene switching is the norm — no single model wins on every clip. ElevenLabs and Cartesia carry voice (ElevenLabs for cloning and breadth, Cartesia for absolute lowest latency). Fal.ai and Replicate carry the hosted-model surface for image and specialty workloads.",
+    "tradeoffs": "Model-by-scene switching is the norm; no single model wins everything. Cost can spike unpredictably per render — a single high-quality 4K + audio clip can run dollars, not cents. Brand/character consistency across clips is the hardest problem and not fully solved by any single tool in 2026. Heavy reliance on hosted models means vendor pricing changes hit margins directly.",
+    "complexity": "beginner",
+    "monthly_cost": "$200–2,000",
+    "archetype": "hybrid",
+    "target_team_size": ["solo", "small"],
+    "budget_tier": "mid",
+    "use_cases": ["video-generation", "image-generation", "voice-generation", "content-at-scale"],
+    "stage": ["mvp", "production"]
   }
 ]
