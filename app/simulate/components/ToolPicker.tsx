@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import type { Tool } from "@/lib/types";
 import { getCategoryColor } from "@/lib/types";
 
@@ -9,25 +9,24 @@ interface Props {
   tools: Tool[];
   value: string | undefined;
   onChange: (toolId: string | undefined) => void;
-  /** When true, show a "None" option that clears the selection. */
-  optional?: boolean;
-  /** Optional secondary text per option (e.g., "$0.0025 / 1k input"). */
+  /** Optional secondary text per option (e.g., "$0.0025 / 1k input"). Also shown on the collapsed button. */
   hintFor?: (tool: Tool) => string | undefined;
-  required?: boolean;
 }
 
-export default function ToolPicker({
-  label,
-  tools,
-  value,
-  onChange,
-  optional,
-  hintFor,
-  required,
-}: Props) {
+const SEARCH_THRESHOLD = 8;
+
+export default function ToolPicker({ label, tools, value, onChange, hintFor }: Props) {
   const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState("");
   const rootRef = useRef<HTMLDivElement>(null);
   const selected = tools.find((t) => t.id === value);
+  const showSearch = tools.length >= SEARCH_THRESHOLD;
+
+  const filtered = useMemo(() => {
+    if (!query) return tools;
+    const q = query.toLowerCase();
+    return tools.filter((t) => t.name.toLowerCase().includes(q) || t.id.includes(q));
+  }, [tools, query]);
 
   useEffect(() => {
     if (!open) return;
@@ -45,18 +44,14 @@ export default function ToolPicker({
     };
   }, [open]);
 
+  const selectedHint = selected ? hintFor?.(selected) : undefined;
+
   return (
     <div
       ref={rootRef}
       style={{ position: "relative", display: "flex", flexDirection: "column", gap: 6 }}
     >
-      <label style={{ fontSize: 13, color: "var(--text-secondary)" }}>
-        {label}
-        {required && <span style={{ color: "var(--danger)", marginLeft: 4 }}>*</span>}
-        {optional && (
-          <span style={{ color: "var(--text-muted)", fontSize: 11, marginLeft: 6 }}>optional</span>
-        )}
-      </label>
+      <label style={{ fontSize: 13, color: "var(--text-secondary)" }}>{label}</label>
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
@@ -70,18 +65,34 @@ export default function ToolPicker({
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
+          gap: 8,
           fontSize: 14,
         }}
         aria-haspopup="listbox"
         aria-expanded={open}
       >
-        <span>{selected ? selected.name : `Choose ${label.toLowerCase()}…`}</span>
-        <span style={{ color: "var(--text-muted)", fontSize: 12 }}>{open ? "▴" : "▾"}</span>
+        <span style={{ flex: 1, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis" }}>
+          {selected ? selected.name : "Pick one"}
+        </span>
+        {selectedHint && (
+          <span
+            style={{
+              fontSize: 11,
+              color: "var(--text-muted)",
+              fontVariantNumeric: "tabular-nums",
+              flexShrink: 0,
+            }}
+          >
+            {selectedHint}
+          </span>
+        )}
+        <span style={{ color: "var(--text-muted)", fontSize: 12, flexShrink: 0 }}>
+          {open ? "▴" : "▾"}
+        </span>
       </button>
 
       {open && (
-        <ul
-          role="listbox"
+        <div
           style={{
             position: "absolute",
             top: "100%",
@@ -92,66 +103,100 @@ export default function ToolPicker({
             background: "var(--surface-2)",
             border: "1px solid var(--border)",
             borderRadius: 6,
-            padding: 4,
-            listStyle: "none",
-            maxHeight: 260,
-            overflowY: "auto",
+            padding: 6,
             boxShadow: "0 8px 24px rgba(0,0,0,0.4)",
+            display: "flex",
+            flexDirection: "column",
+            gap: 4,
           }}
         >
-          {optional && (
+          {showSearch && (
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder={`Search ${label.toLowerCase()}…`}
+              autoFocus
+              style={{
+                background: "var(--surface)",
+                border: "1px solid var(--border)",
+                borderRadius: 4,
+                padding: "6px 8px",
+                fontSize: 13,
+                color: "var(--text-primary)",
+                outline: "none",
+              }}
+            />
+          )}
+          <ul
+            role="listbox"
+            style={{
+              listStyle: "none",
+              margin: 0,
+              padding: 0,
+              maxHeight: 240,
+              overflowY: "auto",
+            }}
+          >
             <li>
               <button
                 type="button"
                 onClick={() => {
                   onChange(undefined);
                   setOpen(false);
+                  setQuery("");
                 }}
                 style={optionStyle(value === undefined)}
               >
-                <span style={{ color: "var(--text-muted)" }}>None</span>
+                <span style={{ color: "var(--text-muted)", fontSize: 13 }}>None</span>
               </button>
             </li>
-          )}
-          {tools.map((t) => {
-            const hint = hintFor?.(t);
-            const active = value === t.id;
-            return (
-              <li key={t.id}>
-                <button
-                  type="button"
-                  onClick={() => {
-                    onChange(t.id);
-                    setOpen(false);
-                  }}
-                  style={optionStyle(active)}
-                >
-                  <span
-                    style={{
-                      width: 6,
-                      height: 6,
-                      borderRadius: 999,
-                      background: getCategoryColor(t.category),
-                      flexShrink: 0,
+            {filtered.length === 0 && (
+              <li style={{ padding: "8px 10px", fontSize: 12, color: "var(--text-muted)" }}>
+                No matches.
+              </li>
+            )}
+            {filtered.map((t) => {
+              const hint = hintFor?.(t);
+              const active = value === t.id;
+              return (
+                <li key={t.id}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onChange(t.id);
+                      setOpen(false);
+                      setQuery("");
                     }}
-                  />
-                  <span style={{ flex: 1, fontSize: 13 }}>{t.name}</span>
-                  {hint && (
+                    style={optionStyle(active)}
+                  >
                     <span
                       style={{
-                        fontSize: 11,
-                        color: "var(--text-muted)",
-                        fontVariantNumeric: "tabular-nums",
+                        width: 6,
+                        height: 6,
+                        borderRadius: 999,
+                        background: getCategoryColor(t.category),
+                        flexShrink: 0,
                       }}
-                    >
-                      {hint}
-                    </span>
-                  )}
-                </button>
-              </li>
-            );
-          })}
-        </ul>
+                    />
+                    <span style={{ flex: 1, fontSize: 13 }}>{t.name}</span>
+                    {hint && (
+                      <span
+                        style={{
+                          fontSize: 11,
+                          color: "var(--text-muted)",
+                          fontVariantNumeric: "tabular-nums",
+                        }}
+                      >
+                        {hint}
+                      </span>
+                    )}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       )}
     </div>
   );

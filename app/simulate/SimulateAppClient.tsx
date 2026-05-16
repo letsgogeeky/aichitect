@@ -13,6 +13,7 @@ import { SCALE_DEFAULTS, STACK_DEFAULTS, SCALE_BOUNDS } from "@/lib/simulateDefa
 import UseCaseStep from "./components/UseCaseStep";
 import ScaleStep from "./components/ScaleStep";
 import StackStep from "./components/StackStep";
+import LlmChipPicker from "./components/LlmChipPicker";
 import LogSlider from "./components/LogSlider";
 import ShareButton from "./components/ShareButton";
 
@@ -61,7 +62,18 @@ export default function SimulateAppClient({ tools, initialInput, initialShadow }
   const [evalTool, setEvalTool] = useState<string | undefined>(initialInput.stack.eval);
   const [guardrails, setGuardrails] = useState<string | undefined>(initialInput.stack.guardrails);
   const [shadow, setShadow] = useState<SimulationInput["stack"] | null>(initialShadow);
-  const [advancedOpen, setAdvancedOpen] = useState(false);
+  const [advancedStackOpen, setAdvancedStackOpen] = useState(
+    Boolean(framework || evalTool || guardrails)
+  );
+  const [shareOpen, setShareOpen] = useState(false);
+
+  const llmTools = useMemo(
+    () =>
+      tools
+        .filter((t) => t.slot === "inference" && t.cost_model?.type === "per_token")
+        .sort((a, b) => a.name.localeCompare(b.name)),
+    [tools]
+  );
 
   function selectUseCase(uc: SimulationUseCase) {
     setUseCase(uc);
@@ -237,6 +249,10 @@ export default function SimulateAppClient({ tools, initialInput, initialShadow }
           <UseCaseStep value={useCase} onChange={selectUseCase} />
         </Section>
 
+        <Section title="LLM provider">
+          <LlmChipPicker tools={llmTools} value={llm} onChange={setLlm} />
+        </Section>
+
         <Section title="Workload">
           <ScaleStep
             monthlyUsers={monthlyUsers}
@@ -282,51 +298,30 @@ export default function SimulateAppClient({ tools, initialInput, initialShadow }
           </Section>
         )}
 
-        <Section title="Stack">
+        <CollapsibleSection
+          title="Advanced stack"
+          open={advancedStackOpen}
+          onToggle={setAdvancedStackOpen}
+        >
           <StackStep
             tools={tools}
-            llm={llm}
             vectorDb={vectorDb}
             framework={framework}
             evalTool={evalTool}
             guardrails={guardrails}
             showVectorDb={useCase === "rag"}
             onChange={(patch) => {
-              if (patch.llm !== undefined) setLlm(patch.llm);
               if (patch.vectorDb !== undefined) setVectorDb(patch.vectorDb || undefined);
               if (patch.framework !== undefined) setFramework(patch.framework || undefined);
               if (patch.eval !== undefined) setEvalTool(patch.eval || undefined);
               if (patch.guardrails !== undefined) setGuardrails(patch.guardrails || undefined);
             }}
           />
-        </Section>
+        </CollapsibleSection>
 
-        <details
-          open={advancedOpen}
-          onToggle={(e) => setAdvancedOpen((e.target as HTMLDetailsElement).open)}
-          style={{
-            padding: "10px 12px",
-            background: "var(--surface-2)",
-            border: "1px solid var(--border)",
-            borderRadius: 6,
-          }}
-        >
-          <summary
-            style={{
-              fontSize: 11,
-              textTransform: "uppercase",
-              letterSpacing: 0.6,
-              color: "var(--text-muted)",
-              fontWeight: 600,
-              cursor: "pointer",
-            }}
-          >
-            Share & export
-          </summary>
-          <div style={{ marginTop: 10 }}>
-            <ShareButton />
-          </div>
-        </details>
+        <CollapsibleSection title="Share & export" open={shareOpen} onToggle={setShareOpen}>
+          <ShareButton />
+        </CollapsibleSection>
       </aside>
 
       {/* ── Results ────────────────────────────────────────────────────────── */}
@@ -514,6 +509,45 @@ function Section({ title, children }: { title: string; children: React.ReactNode
       </h2>
       {children}
     </section>
+  );
+}
+
+function CollapsibleSection({
+  title,
+  open,
+  onToggle,
+  children,
+}: {
+  title: string;
+  open: boolean;
+  onToggle: (next: boolean) => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <details
+      open={open}
+      onToggle={(e) => onToggle((e.target as HTMLDetailsElement).open)}
+      style={{
+        padding: "10px 12px",
+        background: "var(--surface-2)",
+        border: "1px solid var(--border)",
+        borderRadius: 6,
+      }}
+    >
+      <summary
+        style={{
+          fontSize: 11,
+          textTransform: "uppercase",
+          letterSpacing: 0.6,
+          color: "var(--text-muted)",
+          fontWeight: 600,
+          cursor: "pointer",
+        }}
+      >
+        {title}
+      </summary>
+      <div style={{ marginTop: 10 }}>{children}</div>
+    </details>
   );
 }
 

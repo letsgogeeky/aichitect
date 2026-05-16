@@ -175,7 +175,7 @@ export default async function Image({
         </div>
       )}
 
-      <div style={{ fontSize: 15, color: "#333355", letterSpacing: 0.3 }}>
+      <div style={{ display: "flex", fontSize: 15, color: "#333355", letterSpacing: 0.3 }}>
         {SITE_HOST} · cut the noise. pick your AI stack.
       </div>
     </div>,

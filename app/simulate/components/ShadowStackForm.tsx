@@ -77,26 +77,18 @@ export default function ShadowStackForm({ tools, shadow, onChange }: Props) {
           gap: 12,
         }}
       >
-        <ToolPicker
-          label="LLM provider"
-          tools={llmTools}
-          value={llm}
-          onChange={(v) => setLlm(v)}
-          required
-        />
+        <ToolPicker label="LLM provider" tools={llmTools} value={llm} onChange={(v) => setLlm(v)} />
         <ToolPicker
           label="Vector DB"
           tools={vectorTools}
           value={vectorDb}
           onChange={(v) => setVectorDb(v)}
-          optional
         />
         <ToolPicker
           label="Framework"
           tools={frameworkTools}
           value={framework}
           onChange={(v) => setFramework(v)}
-          optional
         />
       </div>
 

@@ -6,14 +6,12 @@ import ToolPicker from "./ToolPicker";
 
 interface Props {
   tools: Tool[];
-  llm: string | undefined;
   vectorDb: string | undefined;
   framework: string | undefined;
   evalTool: string | undefined;
   guardrails: string | undefined;
   showVectorDb: boolean;
   onChange: (patch: {
-    llm?: string;
     vectorDb?: string;
     framework?: string;
     eval?: string;
@@ -23,7 +21,6 @@ interface Props {
 
 export default function StackStep({
   tools,
-  llm,
   vectorDb,
   framework,
   evalTool,
@@ -31,13 +28,6 @@ export default function StackStep({
   showVectorDb,
   onChange,
 }: Props) {
-  const llmTools = useMemo(
-    () =>
-      tools
-        .filter((t) => t.slot === "inference" && t.cost_model?.type === "per_token")
-        .sort((a, b) => a.name.localeCompare(b.name)),
-    [tools]
-  );
   const vectorTools = useMemo(
     () => tools.filter((t) => t.slot === "vector-db").sort((a, b) => a.name.localeCompare(b.name)),
     [tools]
@@ -63,21 +53,12 @@ export default function StackStep({
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-      <ToolPicker
-        label="LLM provider"
-        tools={llmTools}
-        value={llm}
-        onChange={(v) => onChange({ llm: v })}
-        required
-        hintFor={priceHint}
-      />
       {showVectorDb && (
         <ToolPicker
           label="Vector DB"
           tools={vectorTools}
           value={vectorDb}
           onChange={(v) => onChange({ vectorDb: v })}
-          optional
           hintFor={vectorHint}
         />
       )}
@@ -86,14 +67,12 @@ export default function StackStep({
         tools={frameworkTools}
         value={framework}
         onChange={(v) => onChange({ framework: v })}
-        optional
       />
       <ToolPicker
         label="Eval / observability"
         tools={evalTools}
         value={evalTool}
         onChange={(v) => onChange({ eval: v })}
-        optional
         hintFor={evalHint}
       />
       <ToolPicker
@@ -101,18 +80,9 @@ export default function StackStep({
         tools={guardrailsTools}
         value={guardrails}
         onChange={(v) => onChange({ guardrails: v })}
-        optional
       />
     </div>
   );
-}
-
-function priceHint(tool: Tool): string | undefined {
-  const cm = tool.cost_model;
-  if (!cm || cm.type !== "per_token") return undefined;
-  const i = cm.input_cost_per_1k_tokens;
-  if (i == null) return undefined;
-  return `$${i.toFixed(4)} / 1k in`;
 }
 
 function vectorHint(tool: Tool): string | undefined {

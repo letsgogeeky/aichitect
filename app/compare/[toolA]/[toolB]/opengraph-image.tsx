@@ -158,12 +158,20 @@ export default async function Image({
             </div>
           </div>
 
-          <div style={{ marginTop: 40, fontSize: 13, color: "#333355", letterSpacing: 0.3 }}>
+          <div
+            style={{
+              display: "flex",
+              marginTop: 40,
+              fontSize: 13,
+              color: "#333355",
+              letterSpacing: 0.3,
+            }}
+          >
             {SITE_HOST} · compare AI tools side by side
           </div>
         </>
       ) : (
-        <div style={{ fontSize: 22, color: "#8888aa", textAlign: "center" }}>
+        <div style={{ display: "flex", fontSize: 22, color: "#8888aa", textAlign: "center" }}>
           AI Tool Comparison — {SITE_HOST}
         </div>
       )}
