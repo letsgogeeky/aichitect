@@ -41,18 +41,30 @@ function patch(filePath, replacements) {
 }
 
 // ── README.md ────────────────────────────────────────────────────────────────
+// Badge regexes are colour-agnostic so the script keeps working if we re-skin.
 patch(join(root, "README.md"), [
   // Shield badges
-  [/tools-\d+-7c6bff/g, `tools-${T}-7c6bff`],
+  [/tools-\d+-[0-9a-f]{6}/gi, `tools-${T}-7c6bff`],
   [/alt="\d+ tools"/g, `alt="${T} tools"`],
-  [/categories-\d+-00d4aa/g, `categories-${C}-00d4aa`],
+  [/stacks-\d+-[0-9a-f]{6}/gi, `stacks-${S}-26de81`],
+  [/alt="\d+ stacks"/g, `alt="${S} stacks"`],
+  [/categories-\d+-[0-9a-f]{6}/gi, `categories-${C}-00d4aa`],
   [/alt="\d+ categories"/g, `alt="${C} categories"`],
-  // Prose — bold counts
+  // Hero / prose — bold counts
   [/\*\*\d+ tools\*\* across \*\*\d+ categories\*\*/g, `**${T} tools** across **${C} categories**`],
+  [/\*\*\d+ curated stacks\*\*/g, `**${S} curated stacks**`],
   [/Browse all \d+ tools/g, `Browse all ${T} tools`],
-  // Section heading
+  // Section heading (legacy + current wording)
   [/### Stacks — \d+ curated starting points/g, `### Stacks — ${S} curated starting points`],
-  // Project structure comments
+  [
+    /### Stacks — \d+ mission-driven starting points/g,
+    `### Stacks — ${S} mission-driven starting points`,
+  ],
+  // Aligned project-structure tree (description after column gap)
+  [/(tools\.json\s+)\d+ tools/g, `$1${T} tools`],
+  [/(relationships\.json\s+)\d+ edges/g, `$1${R} edges`],
+  [/(stacks\.json\s+)\d+ curated stacks/g, `$1${S} curated stacks`],
+  // Legacy commented project-structure tree
   [/(tools\.json\s+#\s+)\d+ tools/g, `$1${T} tools`],
   [/(relationships\.json\s+#\s+~?)\d+ edges/g, `$1${R} edges`],
   [/(stacks\.json\s+#\s+)\d+ curated stacks/g, `$1${S} curated stacks`],

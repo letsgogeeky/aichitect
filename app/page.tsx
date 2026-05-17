@@ -845,7 +845,7 @@ export default async function LandingPage() {
         {/* Headline */}
         <h1
           style={{
-            fontSize: "clamp(36px, 6vw, 72px)",
+            fontSize: "clamp(28px, 6vw, 72px)",
             fontWeight: 800,
             letterSpacing: -2,
             lineHeight: 1.08,
@@ -872,13 +872,14 @@ export default async function LandingPage() {
           style={{
             fontSize: "clamp(15px, 2vw, 19px)",
             color: "#8888aa",
-            maxWidth: 560,
+            maxWidth: 580,
             lineHeight: 1.65,
             marginBottom: 44,
             position: "relative",
           }}
         >
-          Map the ecosystem, score your stack, compare head-to-head. Built for engineers who ship.
+          {stackCount} curated stacks, {toolCount} tools, one opinionated map — so you can stop
+          reading vendor pages and start shipping.
         </p>
 
         {/* CTAs */}
@@ -921,13 +922,6 @@ export default async function LandingPage() {
             >
               explore the full graph
             </Link>
-            {" · "}
-            <Link
-              href="/mcp"
-              style={{ color: "#7c6bff99", textDecoration: "underline", textUnderlineOffset: 3 }}
-            >
-              use inside Claude Code
-            </Link>
           </p>
         </div>
 
@@ -935,7 +929,7 @@ export default async function LandingPage() {
         <div
           style={{
             display: "flex",
-            gap: 32,
+            gap: "clamp(20px, 4vw, 32px)",
             marginTop: 60,
             position: "relative",
             flexWrap: "wrap",
@@ -949,7 +943,14 @@ export default async function LandingPage() {
             { value: "100%", label: "open source", color: "#ff6b6b" },
           ].map(({ value, label, color }) => (
             <div key={label} style={{ textAlign: "center" }}>
-              <div style={{ fontSize: 28, fontWeight: 700, color, letterSpacing: -0.5 }}>
+              <div
+                style={{
+                  fontSize: "clamp(22px, 3vw, 28px)",
+                  fontWeight: 700,
+                  color,
+                  letterSpacing: -0.5,
+                }}
+              >
                 {value}
               </div>
               <div style={{ fontSize: 12, color: "#555577", marginTop: 2 }}>{label}</div>
@@ -1121,249 +1122,441 @@ export default async function LandingPage() {
         </section>
       )}
 
-      {/* ── Decision framework callouts ── */}
+      {/* ── Path hint ── */}
+      <div
+        style={{
+          maxWidth: 1100,
+          margin: "0 auto",
+          padding: "0 24px 40px",
+          display: "flex",
+          alignItems: "center",
+          gap: 12,
+          flexWrap: "wrap",
+        }}
+      >
+        <span style={{ fontSize: 12, color: "#444466", flexShrink: 0 }}>
+          Not sure where to start?
+        </span>
+        <Link
+          href="/stacks"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 6,
+            padding: "5px 14px",
+            borderRadius: 8,
+            background: "#00d4aa12",
+            border: "1px solid #00d4aa33",
+            color: "#00d4aa",
+            fontSize: 12,
+            fontWeight: 500,
+            textDecoration: "none",
+          }}
+        >
+          <IconLayers />
+          I&apos;m new — show me curated stacks
+        </Link>
+        <Link
+          href="/builder"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 6,
+            padding: "5px 14px",
+            borderRadius: 8,
+            background: "#ff6b6b12",
+            border: "1px solid #ff6b6b33",
+            color: "#ff6b6b",
+            fontSize: 12,
+            fontWeight: 500,
+            textDecoration: "none",
+          }}
+        >
+          <IconSettings2 />I know what I need — let me build
+        </Link>
+      </div>
+
+      {/* ── View cards ── */}
       <section
         style={{
           maxWidth: 1100,
           margin: "0 auto",
-          padding: "0 24px 60px",
+          padding: "0 24px 120px",
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+          gap: 20,
         }}
       >
-        {/* Section header */}
-        <div style={{ textAlign: "center", marginBottom: 48 }}>
-          <p
-            style={{
-              fontSize: 12,
-              fontWeight: 600,
-              color: "#555577",
-              textTransform: "uppercase",
-              letterSpacing: "0.1em",
-              marginBottom: 12,
-            }}
-          >
-            Not a directory. A decision tool.
-          </p>
-          <h2
-            style={{
-              fontSize: "clamp(22px, 3.5vw, 32px)",
-              fontWeight: 700,
-              letterSpacing: -0.5,
-              color: "#f0f0f8",
-              margin: 0,
-            }}
-          >
-            Every stack has opinions baked in
-          </h2>
-        </div>
-
-        {/* 3-column callouts */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-            gap: 16,
-            marginBottom: 56,
-          }}
-        >
-          {/* Rejection reasoning */}
-          <div
-            style={{
-              background: "#111118",
-              border: "1px solid #1e1e2e",
-              borderRadius: 12,
-              padding: "24px",
-            }}
-          >
-            <div
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 6,
-                padding: "4px 10px",
-                borderRadius: 6,
-                background: "#ff6b6b15",
-                border: "1px solid #ff6b6b33",
-                color: "#ff6b6b",
-                fontSize: 12,
-                fontWeight: 600,
-                marginBottom: 16,
-              }}
-            >
-              ✕ Not in this stack
-            </div>
-            <h3
-              style={{
-                fontSize: 16,
-                fontWeight: 600,
-                color: "#f0f0f8",
-                marginBottom: 8,
-              }}
-            >
-              Rejection reasoning
-            </h3>
-            <p style={{ fontSize: 13, color: "#6666aa", lineHeight: 1.65, marginBottom: 20 }}>
-              Every stack tells you what was considered and explicitly ruled out — and why. No other
-              tool in this space does this.
-            </p>
-            <div
-              style={{
-                background: "#0e0e18",
-                border: "1px solid #1e1e2e",
-                borderRadius: 8,
-                padding: "12px 14px",
-                fontSize: 12,
-                lineHeight: 1.6,
-              }}
-            >
-              <span style={{ color: "#ff6b6b", fontWeight: 500 }}>LangGraph</span>
-              <span style={{ color: "#444466" }}> — not in </span>
-              <span style={{ color: "#8888aa" }}>Indie Hacker</span>
-              <br />
-              <span style={{ color: "#555577", fontStyle: "italic" }}>
-                &ldquo;Orchestration overhead kills solo velocity at this stage&rdquo;
-              </span>
-            </div>
-          </div>
-
-          {/* Kill conditions */}
-          <div
-            style={{
-              background: "#111118",
-              border: "1px solid #1e1e2e",
-              borderRadius: 12,
-              padding: "24px",
-            }}
-          >
-            <div
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 6,
-                padding: "4px 10px",
-                borderRadius: 6,
-                background: "#fd964415",
-                border: "1px solid #fd964433",
-                color: "#fd9644",
-                fontSize: 12,
-                fontWeight: 600,
-                marginBottom: 16,
-              }}
-            >
-              ⚡ When to move on
-            </div>
-            <h3
-              style={{
-                fontSize: 16,
-                fontWeight: 600,
-                color: "#f0f0f8",
-                marginBottom: 8,
-              }}
-            >
-              Kill conditions
-            </h3>
-            <p style={{ fontSize: 13, color: "#6666aa", lineHeight: 1.65, marginBottom: 20 }}>
-              Each stack defines exactly when it stops being the right choice. Know your exit before
-              you&apos;re stuck.
-            </p>
-            <div
-              style={{
-                background: "#0e0e18",
-                border: "1px solid #1e1e2e",
-                borderRadius: 8,
-                padding: "12px 14px",
-                fontSize: 12,
-                lineHeight: 1.6,
-              }}
-            >
-              <span style={{ color: "#fd9644", fontWeight: 500 }}>Indie Hacker stack</span>
-              <br />
-              <span style={{ color: "#555577", fontStyle: "italic" }}>
-                &ldquo;Team grows beyond 3 engineers&rdquo;
-              </span>
-            </div>
-          </div>
-
-          {/* Graduation paths */}
-          <div
-            style={{
-              background: "#111118",
-              border: "1px solid #1e1e2e",
-              borderRadius: 12,
-              padding: "24px",
-            }}
-          >
-            <div
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 6,
-                padding: "4px 10px",
-                borderRadius: 6,
-                background: "#26de8115",
-                border: "1px solid #26de8133",
-                color: "#26de81",
-                fontSize: 12,
-                fontWeight: 600,
-                marginBottom: 16,
-              }}
-            >
-              → Graduation path
-            </div>
-            <h3
-              style={{
-                fontSize: 16,
-                fontWeight: 600,
-                color: "#f0f0f8",
-                marginBottom: 8,
-              }}
-            >
-              Scale-aware progression
-            </h3>
-            <p style={{ fontSize: 13, color: "#6666aa", lineHeight: 1.65, marginBottom: 20 }}>
-              When you hit a kill condition, the next stack is already mapped. Your progression arc
-              is visible from the start.
-            </p>
-            <div
-              style={{
-                background: "#0e0e18",
-                border: "1px solid #1e1e2e",
-                borderRadius: 8,
-                padding: "12px 14px",
-                fontSize: 12,
-                lineHeight: 1.6,
-                display: "flex",
-                alignItems: "center",
-                gap: 6,
-              }}
-            >
-              <span style={{ color: "#8888aa" }}>Indie Hacker</span>
-              <span style={{ color: "#26de81" }}>→</span>
-              <span style={{ color: "#8888aa" }}>LLM Startup</span>
-              <span style={{ color: "#26de81" }}>→</span>
-              <span style={{ color: "#8888aa" }}>Production RAG</span>
-            </div>
-          </div>
-        </div>
-
-        {/* 5 decision clusters */}
-        <div style={{ textAlign: "center" }}>
-          <p style={{ fontSize: 12, color: "#444466", marginBottom: 16 }}>
-            25 stacks organized across 5 decision clusters
-          </p>
-          <div
+        {VIEWS.map(({ href, label, tagline, description, Icon, accent, Preview }) => (
+          <Link
+            key={href}
+            href={href}
             style={{
               display: "flex",
-              gap: 8,
-              justifyContent: "center",
-              flexWrap: "wrap",
+              flexDirection: "column",
+              borderRadius: 14,
+              background: "#111118",
+              border: `1px solid #1e1e2e`,
+              overflow: "hidden",
+              textDecoration: "none",
+              transition: "border-color 200ms",
             }}
           >
+            {/* Preview pane */}
+            <div
+              style={{
+                height: 180,
+                background: "#0d0d16",
+                borderBottom: `1px solid #1e1e2e`,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                overflow: "hidden",
+                position: "relative",
+              }}
+            >
+              {/* Subtle glow behind preview */}
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  backgroundImage: `radial-gradient(ellipse 300px 200px at 50% 50%, ${accent}0a 0%, transparent 70%)`,
+                  pointerEvents: "none",
+                }}
+              />
+              <div style={{ width: "80%", height: "80%", position: "relative" }}>
+                <Preview />
+              </div>
+            </div>
+
+            {/* Card body */}
+            <div style={{ padding: "20px 24px 24px" }}>
+              <div
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 7,
+                  padding: "4px 10px",
+                  borderRadius: 6,
+                  background: `${accent}18`,
+                  border: `1px solid ${accent}33`,
+                  color: accent,
+                  fontSize: 12,
+                  fontWeight: 600,
+                  marginBottom: 12,
+                }}
+              >
+                <Icon />
+                {label}
+              </div>
+              <p
+                style={{
+                  fontSize: 17,
+                  fontWeight: 600,
+                  color: "#f0f0f8",
+                  marginBottom: 8,
+                  lineHeight: 1.3,
+                }}
+              >
+                {tagline}
+              </p>
+              <p style={{ fontSize: 13, color: "#6666aa", lineHeight: 1.6, margin: 0 }}>
+                {description}
+              </p>
+              <div
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 6,
+                  marginTop: 16,
+                  fontSize: 12,
+                  fontWeight: 500,
+                  color: accent,
+                }}
+              >
+                Open {label}
+                <IconArrowRight />
+              </div>
+            </div>
+          </Link>
+        ))}
+      </section>
+
+      {/* ── Stacks spotlight ── */}
+      <section
+        style={{
+          borderTop: "1px solid #00d4aa18",
+          borderBottom: "1px solid #00d4aa18",
+          background: "linear-gradient(180deg, #0a1010 0%, #0a0a0f 100%)",
+          padding: "72px 24px",
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            backgroundImage:
+              "radial-gradient(ellipse 800px 400px at 80% 50%, #00d4aa09 0%, transparent 70%)",
+            pointerEvents: "none",
+          }}
+        />
+
+        <div
+          style={{
+            maxWidth: 1100,
+            margin: "0 auto",
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: 64,
+            alignItems: "center",
+            position: "relative",
+          }}
+          className="stacks-spotlight-grid"
+        >
+          <style>{`
+            @media (max-width: 880px) {
+              .stacks-spotlight-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+            }
+          `}</style>
+
+          {/* Left — copy + features */}
+          <div>
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 7,
+                padding: "4px 12px",
+                borderRadius: 20,
+                background: "#00d4aa12",
+                border: "1px solid #00d4aa33",
+                color: "#00d4aa",
+                fontSize: 12,
+                fontWeight: 600,
+                letterSpacing: "0.04em",
+                marginBottom: 24,
+              }}
+            >
+              <IconLayers />
+              Stacks
+            </div>
+
+            <h2
+              style={{
+                fontSize: "clamp(26px, 3.5vw, 42px)",
+                fontWeight: 800,
+                letterSpacing: -1,
+                lineHeight: 1.1,
+                color: "#f0f0f8",
+                marginBottom: 16,
+              }}
+            >
+              {stackCount} stacks.
+              <br />
+              <span style={{ color: "#00d4aa" }}>Each one tells you what to skip.</span>
+            </h2>
+
+            <p
+              style={{
+                fontSize: 15,
+                color: "#6666aa",
+                lineHeight: 1.7,
+                marginBottom: 28,
+                maxWidth: 440,
+              }}
+            >
+              Every stack leads with the situation it solves, lists what was considered and
+              explicitly rejected, sets the kill condition that signals it&apos;s time to move on,
+              and points to the next stack you graduate to. Opinions baked in — no generic
+              catalogues.
+            </p>
+
+            <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 32 }}>
+              {[
+                { label: "Rejection reasoning", desc: "What was cut, and why", color: "#ff6b6b" },
+                { label: "Kill conditions", desc: "When to move on", color: "#fd9644" },
+                { label: "Graduation paths", desc: "Where to go next", color: "#26de81" },
+              ].map(({ label, desc, color }) => (
+                <div
+                  key={label}
+                  style={{ display: "flex", alignItems: "baseline", gap: 10, fontSize: 13 }}
+                >
+                  <span
+                    style={{
+                      display: "inline-block",
+                      width: 6,
+                      height: 6,
+                      borderRadius: 999,
+                      background: color,
+                      flexShrink: 0,
+                      transform: "translateY(-1px)",
+                    }}
+                  />
+                  <span style={{ color: "#d0d0e8", fontWeight: 500 }}>{label}</span>
+                  <span style={{ color: "#555577" }}>· {desc}</span>
+                </div>
+              ))}
+            </div>
+
+            <Link
+              href="/stacks"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "0 28px",
+                height: 50,
+                borderRadius: 12,
+                background: "#00d4aa",
+                color: "#0a0a0f",
+                fontSize: 15,
+                fontWeight: 700,
+                textDecoration: "none",
+                letterSpacing: -0.2,
+              }}
+            >
+              Browse stacks
+              <IconArrowRight />
+            </Link>
+          </div>
+
+          {/* Right — stack card mockup */}
+          <div
+            style={{
+              background: "#0e0e18",
+              border: "1px solid #00d4aa22",
+              borderRadius: 16,
+              overflow: "hidden",
+              boxShadow: "0 0 60px #00d4aa09",
+            }}
+          >
+            <div
+              style={{
+                padding: "14px 18px",
+                borderBottom: "1px solid #1e1e2e",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <span style={{ fontSize: 13, fontWeight: 600, color: "#f0f0f8" }}>
+                Indie Hacker Stack
+              </span>
+              <span
+                style={{
+                  fontSize: 10,
+                  fontWeight: 600,
+                  color: "#7c6bff",
+                  background: "#7c6bff15",
+                  border: "1px solid #7c6bff33",
+                  borderRadius: 10,
+                  padding: "2px 8px",
+                }}
+              >
+                Build
+              </span>
+            </div>
+
+            <div
+              style={{
+                padding: "18px 18px 20px",
+                display: "flex",
+                flexDirection: "column",
+                gap: 14,
+              }}
+            >
+              <div>
+                <p
+                  style={{
+                    fontSize: 10,
+                    fontWeight: 600,
+                    color: "#444466",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.08em",
+                    margin: "0 0 6px",
+                  }}
+                >
+                  Mission
+                </p>
+                <p style={{ fontSize: 12, color: "#8888aa", margin: 0, lineHeight: 1.5 }}>
+                  Solo founder shipping a SaaS MVP this month. Velocity over architecture.
+                </p>
+              </div>
+
+              <div
+                style={{
+                  background: "#1a0d10",
+                  border: "1px solid #ff6b6b22",
+                  borderRadius: 8,
+                  padding: "10px 12px",
+                }}
+              >
+                <p style={{ fontSize: 10, fontWeight: 600, color: "#ff6b6b", margin: "0 0 4px" }}>
+                  ✕ Not in this stack
+                </p>
+                <p style={{ fontSize: 11, color: "#8888aa", margin: 0 }}>
+                  <span style={{ color: "#d0d0e8", fontWeight: 500 }}>LangGraph</span>
+                  <span style={{ color: "#555577", fontStyle: "italic" }}>
+                    {" — "}orchestration overhead kills solo velocity at this stage
+                  </span>
+                </p>
+              </div>
+
+              <div
+                style={{
+                  background: "#1a1208",
+                  border: "1px solid #fd964422",
+                  borderRadius: 8,
+                  padding: "10px 12px",
+                }}
+              >
+                <p style={{ fontSize: 10, fontWeight: 600, color: "#fd9644", margin: "0 0 4px" }}>
+                  ⚡ Kill condition
+                </p>
+                <p style={{ fontSize: 11, color: "#8888aa", margin: 0, fontStyle: "italic" }}>
+                  Team grows beyond 3 engineers
+                </p>
+              </div>
+
+              <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: 11 }}>
+                <span style={{ color: "#26de81", fontWeight: 600 }}>→ Graduates to</span>
+                <span style={{ color: "#d0d0e8", fontWeight: 500 }}>LLM Startup</span>
+                <span style={{ color: "#26de81" }}>→</span>
+                <span style={{ color: "#d0d0e8", fontWeight: 500 }}>Production RAG</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* 5 decision clusters strip */}
+        <div
+          style={{
+            maxWidth: 1100,
+            margin: "48px auto 0",
+            textAlign: "center",
+            position: "relative",
+          }}
+        >
+          <p
+            style={{
+              fontSize: 11,
+              color: "#444466",
+              marginBottom: 14,
+              textTransform: "uppercase",
+              letterSpacing: "0.08em",
+            }}
+          >
+            {stackCount} stacks across 5 decision clusters
+          </p>
+          <div style={{ display: "flex", gap: 8, justifyContent: "center", flexWrap: "wrap" }}>
             {[
-              { label: "Build", count: 6, color: "#7c6bff" },
-              { label: "Automate", count: 5, color: "#ff6b6b" },
+              { label: "Build", count: 9, color: "#7c6bff" },
+              { label: "Automate", count: 8, color: "#ff6b6b" },
               { label: "Ship & Harden", count: 6, color: "#fd9644" },
-              { label: "Understand", count: 4, color: "#00d4aa" },
-              { label: "Comply & Restrict", count: 4, color: "#26de81" },
+              { label: "Understand", count: 5, color: "#00d4aa" },
+              { label: "Comply & Restrict", count: 5, color: "#26de81" },
             ].map(({ label, count, color }) => (
               <div
                 key={label}
@@ -1707,294 +1900,6 @@ export default async function LandingPage() {
         </div>
       </section>
 
-      {/* ── Path hint ── */}
-      <div
-        style={{
-          maxWidth: 1100,
-          margin: "0 auto",
-          padding: "0 24px 40px",
-          display: "flex",
-          alignItems: "center",
-          gap: 12,
-          flexWrap: "wrap",
-        }}
-      >
-        <span style={{ fontSize: 12, color: "#444466", flexShrink: 0 }}>
-          Not sure where to start?
-        </span>
-        <Link
-          href="/stacks"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 6,
-            padding: "5px 14px",
-            borderRadius: 8,
-            background: "#00d4aa12",
-            border: "1px solid #00d4aa33",
-            color: "#00d4aa",
-            fontSize: 12,
-            fontWeight: 500,
-            textDecoration: "none",
-          }}
-        >
-          <IconLayers />
-          I&apos;m new — show me curated stacks
-        </Link>
-        <Link
-          href="/builder"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 6,
-            padding: "5px 14px",
-            borderRadius: 8,
-            background: "#ff6b6b12",
-            border: "1px solid #ff6b6b33",
-            color: "#ff6b6b",
-            fontSize: 12,
-            fontWeight: 500,
-            textDecoration: "none",
-          }}
-        >
-          <IconSettings2 />I know what I need — let me build
-        </Link>
-      </div>
-
-      {/* ── View cards ── */}
-      <section
-        style={{
-          maxWidth: 1100,
-          margin: "0 auto",
-          padding: "0 24px 120px",
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-          gap: 20,
-        }}
-      >
-        {VIEWS.map(({ href, label, tagline, description, Icon, accent, Preview }) => (
-          <Link
-            key={href}
-            href={href}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              borderRadius: 14,
-              background: "#111118",
-              border: `1px solid #1e1e2e`,
-              overflow: "hidden",
-              textDecoration: "none",
-              transition: "border-color 200ms",
-            }}
-          >
-            {/* Preview pane */}
-            <div
-              style={{
-                height: 180,
-                background: "#0d0d16",
-                borderBottom: `1px solid #1e1e2e`,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                overflow: "hidden",
-                position: "relative",
-              }}
-            >
-              {/* Subtle glow behind preview */}
-              <div
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  backgroundImage: `radial-gradient(ellipse 300px 200px at 50% 50%, ${accent}0a 0%, transparent 70%)`,
-                  pointerEvents: "none",
-                }}
-              />
-              <div style={{ width: "80%", height: "80%", position: "relative" }}>
-                <Preview />
-              </div>
-            </div>
-
-            {/* Card body */}
-            <div style={{ padding: "20px 24px 24px" }}>
-              <div
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 7,
-                  padding: "4px 10px",
-                  borderRadius: 6,
-                  background: `${accent}18`,
-                  border: `1px solid ${accent}33`,
-                  color: accent,
-                  fontSize: 12,
-                  fontWeight: 600,
-                  marginBottom: 12,
-                }}
-              >
-                <Icon />
-                {label}
-              </div>
-              <p
-                style={{
-                  fontSize: 17,
-                  fontWeight: 600,
-                  color: "#f0f0f8",
-                  marginBottom: 8,
-                  lineHeight: 1.3,
-                }}
-              >
-                {tagline}
-              </p>
-              <p style={{ fontSize: 13, color: "#6666aa", lineHeight: 1.6, margin: 0 }}>
-                {description}
-              </p>
-              <div
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 6,
-                  marginTop: 16,
-                  fontSize: 12,
-                  fontWeight: 500,
-                  color: accent,
-                }}
-              >
-                Open {label}
-                <IconArrowRight />
-              </div>
-            </div>
-          </Link>
-        ))}
-      </section>
-
-      {/* ── MCP callout ── */}
-      <section
-        style={{
-          maxWidth: 780,
-          margin: "0 auto 60px",
-          padding: "0 24px",
-        }}
-      >
-        <div
-          style={{
-            borderRadius: 16,
-            background: "#0d0d16",
-            border: "1px solid #7c6bff33",
-            padding: "32px 40px",
-            display: "flex",
-            flexDirection: "column",
-            gap: 20,
-            position: "relative",
-            overflow: "hidden",
-          }}
-        >
-          {/* glow */}
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              backgroundImage:
-                "radial-gradient(ellipse 500px 200px at 60% 50%, #7c6bff0a 0%, transparent 70%)",
-              pointerEvents: "none",
-            }}
-          />
-
-          <div style={{ display: "flex", flexDirection: "column", gap: 10, position: "relative" }}>
-            <p
-              style={{
-                fontSize: 11,
-                fontWeight: 700,
-                color: "var(--accent, #7c6bff)",
-                textTransform: "uppercase",
-                letterSpacing: "0.1em",
-                margin: 0,
-              }}
-            >
-              MCP Server
-            </p>
-            <h2
-              style={{
-                fontSize: "clamp(18px, 3vw, 22px)",
-                fontWeight: 800,
-                letterSpacing: -0.5,
-                color: "#f0f0f8",
-                margin: 0,
-                lineHeight: 1.2,
-              }}
-            >
-              Stop asking Claude to research your stack.
-            </h2>
-            <p
-              style={{ fontSize: 13, color: "#6666aa", margin: 0, lineHeight: 1.7, maxWidth: 520 }}
-            >
-              AIchitect already scored {toolCount} tools, ranked {stackCount} curated stacks, and
-              tracks live health signals. Add it as a remote MCP server and get structured
-              recommendations in one call — no token-burning ecosystem research needed.
-            </p>
-          </div>
-
-          {/* pill row */}
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 8, position: "relative" }}>
-            {[
-              { label: "get_stack_questions", color: "#a29bfe" },
-              { label: "recommend_stack", color: "#7c6bff" },
-              { label: "roast_stack", color: "#ff6b6b" },
-              { label: "challenge_stack", color: "#fdcb6e" },
-            ].map(({ label, color }) => (
-              <span
-                key={label}
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 6,
-                  padding: "4px 12px",
-                  borderRadius: 6,
-                  background: `${color}12`,
-                  border: `1px solid ${color}33`,
-                  fontFamily: "monospace",
-                  fontSize: 12,
-                  color,
-                }}
-              >
-                {label}
-              </span>
-            ))}
-          </div>
-
-          {/* CTA row */}
-          <div style={{ display: "flex", alignItems: "center", gap: 16, position: "relative" }}>
-            <Link
-              href="/mcp"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 6,
-                padding: "0 20px",
-                height: 38,
-                borderRadius: 8,
-                background: "#7c6bff",
-                color: "#fff",
-                fontSize: 13,
-                fontWeight: 600,
-                textDecoration: "none",
-              }}
-            >
-              View setup guide
-              <IconArrowRight />
-            </Link>
-            <code
-              style={{
-                fontFamily: "monospace",
-                fontSize: 12,
-                color: "#555577",
-              }}
-            >
-              {SITE_HOST}/api/mcp
-            </code>
-          </div>
-        </div>
-      </section>
-
       {/* ── OSS / CTA banner ── */}
       <section
         style={{
@@ -2100,8 +2005,10 @@ export default async function LandingPage() {
             { label: "Simulate", href: "/simulate" },
             { label: "Compare", href: "/compare" },
             { label: "Genome", href: "/genome" },
-            { label: "MCP", href: "/mcp" },
+            { label: "Pulse", href: "/pulse" },
+            { label: "Activity", href: "/feed" },
             { label: "Privacy", href: "/privacy" },
+            { label: "MCP", href: "/mcp" },
             { label: "GitHub", href: GITHUB_URL, external: true },
           ].map(({ label, href, external }) =>
             external ? (
