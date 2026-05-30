@@ -43,7 +43,7 @@
       "type": "per_seat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "github-copilot",
@@ -90,7 +90,7 @@
       "type": "per_seat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "windsurf",
@@ -132,7 +132,7 @@
     },
     "provider": "cognition",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "zed",
@@ -162,7 +162,7 @@
     "github_url": "https://github.com/zed-industries/zed",
     "use_context": "dev-productivity",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "continue",
@@ -192,7 +192,7 @@
     "github_url": "https://github.com/continuedev/continue",
     "use_context": "dev-productivity",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "aider",
@@ -222,7 +222,7 @@
     "github_url": "https://github.com/paul-gauthier/aider",
     "use_context": "dev-productivity",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "claude-code",
@@ -263,7 +263,7 @@
       "type": "per_seat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "tabnine",
@@ -304,7 +304,7 @@
       "type": "per_seat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "supermaven",
@@ -345,7 +345,7 @@
       "type": "per_seat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "plandex",
@@ -380,7 +380,7 @@
     "github_url": "https://github.com/plandex-ai/plandex",
     "use_context": "dev-productivity",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "goose",
@@ -410,7 +410,7 @@
     "github_url": "https://github.com/block/goose",
     "use_context": "dev-productivity",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "jetbrains-ai",
@@ -451,7 +451,7 @@
       "type": "per_seat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "cline",
@@ -481,7 +481,7 @@
     "github_url": "https://github.com/cline/cline",
     "use_context": "dev-productivity",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "bolt-new",
@@ -522,7 +522,7 @@
       "type": "per_seat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "devin",
@@ -564,7 +564,7 @@
     },
     "provider": "cognition",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "openhands",
@@ -595,7 +595,7 @@
     "github_url": "https://github.com/All-Hands-AI/OpenHands",
     "use_context": "dev-productivity",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "swe-agent",
@@ -625,7 +625,7 @@
     "github_url": "https://github.com/princeton-nlp/SWE-agent",
     "use_context": "dev-productivity",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "crewai",
@@ -662,7 +662,7 @@
     },
     "latency_p50_ms": 200,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["orchestration"]
   },
   {
     "id": "autogen",
@@ -698,7 +698,7 @@
     },
     "latency_p50_ms": 180,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["orchestration"]
   },
   {
     "id": "langgraph",
@@ -738,7 +738,7 @@
     },
     "latency_p50_ms": 150,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["orchestration"]
   },
   {
     "id": "metagpt",
@@ -768,7 +768,7 @@
     "github_url": "https://github.com/geekan/MetaGPT",
     "use_context": "app-infrastructure",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["orchestration"]
   },
   {
     "id": "semantic-kernel",
@@ -799,7 +799,7 @@
     "use_context": "app-infrastructure",
     "latency_p50_ms": 100,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["orchestration"]
   },
   {
     "id": "lovable",
@@ -840,7 +840,7 @@
       "type": "per_seat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "gpt-pilot",
@@ -870,7 +870,7 @@
     "github_url": "https://github.com/Pythagora-io/gpt-pilot",
     "use_context": "dev-productivity",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "v0",
@@ -912,7 +912,7 @@
       "type": "per_seat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["design"]
   },
   {
     "id": "locofy",
@@ -956,7 +956,7 @@
       "type": "flat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["design"]
   },
   {
     "id": "builder-io",
@@ -997,7 +997,7 @@
       "type": "flat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["design"]
   },
   {
     "id": "framer-ai",
@@ -1038,7 +1038,7 @@
       "type": "flat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["design"]
   },
   {
     "id": "uizard",
@@ -1079,7 +1079,7 @@
       "type": "flat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["design"]
   },
   {
     "id": "relume",
@@ -1119,7 +1119,7 @@
       "type": "flat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["design"]
   },
   {
     "id": "webflow-ai",
@@ -1160,7 +1160,7 @@
       "type": "flat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["design"]
   },
   {
     "id": "anima",
@@ -1201,7 +1201,7 @@
       "type": "flat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["design"]
   },
   {
     "id": "kombai",
@@ -1241,7 +1241,7 @@
       "type": "flat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["design"]
   },
   {
     "id": "google-stitch",
@@ -1282,7 +1282,7 @@
       "type": "free"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["design"]
   },
   {
     "id": "langchain",
@@ -1327,7 +1327,7 @@
     },
     "latency_p50_ms": 100,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["orchestration"]
   },
   {
     "id": "llamaindex",
@@ -1363,7 +1363,7 @@
     },
     "latency_p50_ms": 80,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["orchestration"]
   },
   {
     "id": "dspy",
@@ -1398,7 +1398,7 @@
     },
     "latency_p50_ms": 100,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["orchestration"]
   },
   {
     "id": "flowise",
@@ -1443,7 +1443,7 @@
     },
     "latency_p50_ms": 120,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["orchestration"]
   },
   {
     "id": "dify",
@@ -1486,7 +1486,7 @@
     },
     "latency_p50_ms": 100,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["orchestration"]
   },
   {
     "id": "n8n",
@@ -1529,7 +1529,7 @@
     },
     "latency_p50_ms": 120,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["orchestration"]
   },
   {
     "id": "haystack",
@@ -1564,7 +1564,7 @@
     "github_url": "https://github.com/deepset-ai/haystack",
     "use_context": "app-infrastructure",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["orchestration"]
   },
   {
     "id": "langflow",
@@ -1599,7 +1599,7 @@
     "github_url": "https://github.com/langflow-ai/langflow",
     "use_context": "app-infrastructure",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["orchestration"]
   },
   {
     "id": "mastra",
@@ -1630,7 +1630,7 @@
     "use_context": "app-infrastructure",
     "latency_p50_ms": 80,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["orchestration"]
   },
   {
     "id": "pydantic-ai",
@@ -1661,7 +1661,7 @@
     "use_context": "app-infrastructure",
     "latency_p50_ms": 60,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["orchestration"]
   },
   {
     "id": "smolagents",
@@ -1692,7 +1692,7 @@
     "use_context": "app-infrastructure",
     "latency_p50_ms": 150,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["orchestration"]
   },
   {
     "id": "agno",
@@ -1723,7 +1723,7 @@
     "use_context": "app-infrastructure",
     "latency_p50_ms": 80,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["orchestration"]
   },
   {
     "id": "coderabbit",
@@ -1764,7 +1764,7 @@
       "type": "per_seat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["code-review"]
   },
   {
     "id": "qodo",
@@ -1805,7 +1805,7 @@
       "type": "per_seat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["code-review"]
   },
   {
     "id": "graphite",
@@ -1846,7 +1846,7 @@
       "type": "per_seat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["code-review"]
   },
   {
     "id": "sourcery",
@@ -1887,7 +1887,7 @@
       "type": "per_seat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["code-review"]
   },
   {
     "id": "pixee",
@@ -1922,7 +1922,7 @@
     "github_url": null,
     "use_context": "dev-productivity",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["code-review"]
   },
   {
     "id": "trunk",
@@ -1963,7 +1963,7 @@
       "type": "per_seat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["code-review"]
   },
   {
     "id": "mintlify",
@@ -2005,7 +2005,7 @@
       "type": "flat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["specs"]
   },
   {
     "id": "swimm",
@@ -2046,7 +2046,7 @@
       "type": "per_seat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["specs"]
   },
   {
     "id": "notion-ai",
@@ -2087,7 +2087,7 @@
       "type": "per_seat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["specs"]
   },
   {
     "id": "gitbook-ai",
@@ -2128,7 +2128,7 @@
       "type": "per_seat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["specs"]
   },
   {
     "id": "linear-ai",
@@ -2169,7 +2169,7 @@
       "type": "per_seat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["requirements"]
   },
   {
     "id": "kraftful",
@@ -2209,7 +2209,7 @@
       "type": "flat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["requirements"]
   },
   {
     "id": "litellm",
@@ -2250,7 +2250,7 @@
       "type": "free"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["orchestration"]
   },
   {
     "id": "openrouter",
@@ -2291,7 +2291,7 @@
       "type": "usage_based"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["orchestration"]
   },
   {
     "id": "portkey",
@@ -2332,7 +2332,7 @@
       "type": "flat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["orchestration"]
   },
   {
     "id": "langsmith",
@@ -2373,7 +2373,7 @@
       "type": "per_seat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["observability", "eval"]
   },
   {
     "id": "langfuse",
@@ -2416,7 +2416,7 @@
     },
     "provider": "clickhouse",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["observability", "eval"]
   },
   {
     "id": "helicone",
@@ -2457,7 +2457,7 @@
       "pricing_url": "https://www.helicone.ai/pricing"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["observability", "eval"]
   },
   {
     "id": "arize-phoenix",
@@ -2497,7 +2497,7 @@
       "type": "free"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["observability", "eval"]
   },
   {
     "id": "braintrust",
@@ -2537,7 +2537,7 @@
       "pricing_url": "https://www.braintrust.dev/pricing"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["observability", "eval"]
   },
   {
     "id": "ollama",
@@ -2573,7 +2573,7 @@
     },
     "latency_p50_ms": 600,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "vllm",
@@ -2608,7 +2608,7 @@
     },
     "latency_p50_ms": 400,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "groq",
@@ -2651,7 +2651,7 @@
     },
     "latency_p50_ms": 100,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "together-ai",
@@ -2694,7 +2694,7 @@
     },
     "latency_p50_ms": 250,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "fireworks-ai",
@@ -2737,7 +2737,7 @@
     },
     "latency_p50_ms": 200,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "llama-cpp",
@@ -2769,7 +2769,7 @@
     "use_context": "both",
     "latency_p50_ms": 800,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "modal",
@@ -2809,7 +2809,7 @@
       "type": "usage_based"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "qdrant",
@@ -2850,7 +2850,7 @@
     },
     "latency_p50_ms": 50,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["retrieval-memory"]
   },
   {
     "id": "chroma",
@@ -2886,7 +2886,7 @@
     },
     "latency_p50_ms": 20,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["retrieval-memory"]
   },
   {
     "id": "pgvector",
@@ -2921,7 +2921,7 @@
     },
     "latency_p50_ms": 30,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["retrieval-memory"]
   },
   {
     "id": "pinecone",
@@ -2967,7 +2967,7 @@
     "latency_p50_ms": 100,
     "bytes_per_vector": 2000,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["retrieval-memory"]
   },
   {
     "id": "weaviate",
@@ -3012,7 +3012,7 @@
     "latency_p50_ms": 80,
     "bytes_per_vector": 2000,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["retrieval-memory"]
   },
   {
     "id": "milvus",
@@ -3053,7 +3053,7 @@
     },
     "latency_p50_ms": 20,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["retrieval-memory"]
   },
   {
     "id": "anthropic-api",
@@ -3104,7 +3104,7 @@
     "max_tpm": 400000,
     "max_rpm": 4000,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "openai-api",
@@ -3154,7 +3154,7 @@
     "max_tpm": 600000,
     "max_rpm": 5000,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "mistral-api",
@@ -3203,7 +3203,7 @@
     "max_tpm": 500000,
     "max_rpm": 5000,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "cohere-api",
@@ -3253,7 +3253,7 @@
     "max_tpm": 500000,
     "max_rpm": 5000,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "replicate",
@@ -3294,7 +3294,7 @@
     },
     "latency_p50_ms": 1200,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "huggingface",
@@ -3335,7 +3335,7 @@
       "type": "usage_based"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "vercel-ai-sdk",
@@ -3365,7 +3365,7 @@
     "github_url": "https://github.com/vercel/ai",
     "use_context": "both",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["orchestration"]
   },
   {
     "id": "ray",
@@ -3404,7 +3404,7 @@
       "type": "free"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "logfire",
@@ -3444,7 +3444,7 @@
       "type": "usage_based"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["observability", "eval"]
   },
   {
     "id": "mcp-sdk-ts",
@@ -3475,7 +3475,7 @@
     "github_url": "https://github.com/modelcontextprotocol/typescript-sdk",
     "use_context": "both",
     "scope": "substrate",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["tools-mcp"]
   },
   {
     "id": "mcp-sdk-python",
@@ -3505,7 +3505,7 @@
     "github_url": "https://github.com/modelcontextprotocol/python-sdk",
     "use_context": "both",
     "scope": "substrate",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["tools-mcp"]
   },
   {
     "id": "fastmcp",
@@ -3535,7 +3535,7 @@
     "github_url": "https://github.com/jlowin/fastmcp",
     "use_context": "both",
     "scope": "substrate",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["tools-mcp"]
   },
   {
     "id": "smithery",
@@ -3570,7 +3570,7 @@
       "type": "free"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["tools-mcp"]
   },
   {
     "id": "e2b",
@@ -3610,7 +3610,7 @@
       "type": "per_call"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["tools-mcp"]
   },
   {
     "id": "context7",
@@ -3640,7 +3640,7 @@
     "github_url": "https://github.com/upstash/context7",
     "use_context": "both",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["tools-mcp"]
   },
   {
     "id": "playwright-mcp",
@@ -3670,7 +3670,7 @@
     "github_url": "https://github.com/microsoft/playwright-mcp",
     "use_context": "both",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["tools-mcp"]
   },
   {
     "id": "github-mcp",
@@ -3700,7 +3700,7 @@
     "github_url": "https://github.com/github/github-mcp-server",
     "use_context": "both",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["tools-mcp"]
   },
   {
     "id": "promptfoo",
@@ -3735,7 +3735,7 @@
       "type": "free"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["eval"]
   },
   {
     "id": "deepeval",
@@ -3770,7 +3770,7 @@
       "type": "free"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["eval"]
   },
   {
     "id": "ragas",
@@ -3801,7 +3801,7 @@
     "github_url": "https://github.com/explodinggradients/ragas",
     "use_context": "app-infrastructure",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["eval"]
   },
   {
     "id": "vellum",
@@ -3842,7 +3842,7 @@
       "type": "per_seat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["eval"]
   },
   {
     "id": "promptlayer",
@@ -3883,7 +3883,7 @@
       "type": "flat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["eval"]
   },
   {
     "id": "agenta",
@@ -3924,7 +3924,7 @@
       "type": "flat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["eval"]
   },
   {
     "id": "weights-biases",
@@ -3965,7 +3965,7 @@
       "type": "per_seat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["eval", "observability"]
   },
   {
     "id": "traceloop",
@@ -4005,7 +4005,7 @@
       "type": "usage_based"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["eval", "observability"]
   },
   {
     "id": "spec-kit",
@@ -4036,7 +4036,7 @@
     "github_url": "https://github.com/github/spec-kit",
     "use_context": "dev-productivity",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["specs"]
   },
   {
     "id": "mermaid",
@@ -4067,7 +4067,7 @@
     "github_url": "https://github.com/mermaid-js/mermaid",
     "use_context": "dev-productivity",
     "scope": "substrate",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["specs"]
   },
   {
     "id": "eraser",
@@ -4112,7 +4112,7 @@
       "type": "per_seat"
     },
     "scope": "substrate",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["specs"]
   },
   {
     "id": "swagger",
@@ -4153,7 +4153,7 @@
     "github_url": "https://github.com/swagger-api/swagger-ui",
     "use_context": "dev-productivity",
     "scope": "substrate",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["specs"]
   },
   {
     "id": "redocly",
@@ -4188,7 +4188,7 @@
     "github_url": "https://github.com/Redocly/redoc",
     "use_context": "dev-productivity",
     "scope": "substrate",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["specs"]
   },
   {
     "id": "asyncapi",
@@ -4218,7 +4218,7 @@
     "github_url": "https://github.com/asyncapi/spec",
     "use_context": "dev-productivity",
     "scope": "substrate",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["specs"]
   },
   {
     "id": "stoplight",
@@ -4263,7 +4263,7 @@
       "type": "flat"
     },
     "scope": "substrate",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["specs"]
   },
   {
     "id": "speakeasy",
@@ -4305,7 +4305,7 @@
       "type": "flat"
     },
     "scope": "substrate",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["specs"]
   },
   {
     "id": "fern",
@@ -4340,7 +4340,7 @@
     "github_url": "https://github.com/fern-api/fern",
     "use_context": "dev-productivity",
     "scope": "substrate",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["specs"]
   },
   {
     "id": "stainless",
@@ -4376,7 +4376,7 @@
     "github_url": null,
     "use_context": "dev-productivity",
     "scope": "substrate",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["specs"]
   },
   {
     "id": "openapi-generator",
@@ -4406,7 +4406,7 @@
     "github_url": "https://github.com/OpenAPITools/openapi-generator",
     "use_context": "dev-productivity",
     "scope": "substrate",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["specs"]
   },
   {
     "id": "google-adk",
@@ -4442,7 +4442,7 @@
     "github_url": "https://github.com/google/adk-python",
     "use_context": "app-infrastructure",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["orchestration"]
   },
   {
     "id": "julep",
@@ -4487,12 +4487,12 @@
       "type": "usage_based"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["orchestration"]
   },
   {
     "id": "letta",
     "name": "Letta",
-    "category": "agent-frameworks",
+    "category": "memory",
     "tagline": "Stateful agents with long-term memory — formerly MemGPT",
     "description": "Letta (formerly MemGPT) is an open-source framework for building stateful AI agents with persistent, editable memory. Agents remember conversations across sessions, search their own memory, and update their knowledge over time — solving context window limitations.",
     "type": "oss",
@@ -4510,7 +4510,7 @@
       ]
     },
     "github_stars": 13200,
-    "slot": "agent-framework",
+    "slot": "memory",
     "prominent": false,
     "choose_if": [
       "need agents with persistent cross-session memory",
@@ -4527,7 +4527,7 @@
     "github_url": "https://github.com/letta-ai/letta",
     "use_context": "app-infrastructure",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["retrieval-memory"]
   },
   {
     "id": "bee-agent",
@@ -4563,7 +4563,7 @@
     "github_url": "https://github.com/i-am-bee/bee-agent-framework",
     "use_context": "app-infrastructure",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["orchestration"]
   },
   {
     "id": "griptape",
@@ -4604,7 +4604,7 @@
     "use_context": "app-infrastructure",
     "latency_p50_ms": 120,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["orchestration"]
   },
   {
     "id": "rivet",
@@ -4640,7 +4640,7 @@
     "github_url": "https://github.com/Ironclad/rivet",
     "use_context": "app-infrastructure",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["orchestration"]
   },
   {
     "id": "unify-ai",
@@ -4684,7 +4684,7 @@
       "type": "usage_based"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["orchestration"]
   },
   {
     "id": "martian",
@@ -4728,7 +4728,7 @@
       "type": "usage_based"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["orchestration"]
   },
   {
     "id": "not-diamond",
@@ -4773,7 +4773,7 @@
       "type": "usage_based"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["orchestration"]
   },
   {
     "id": "cerebras",
@@ -4821,7 +4821,7 @@
     },
     "latency_p50_ms": 50,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "deepinfra",
@@ -4869,7 +4869,7 @@
     },
     "latency_p50_ms": 350,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "baseten",
@@ -4913,7 +4913,7 @@
       "type": "usage_based"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "lambda-labs",
@@ -4957,7 +4957,7 @@
       "type": "usage_based"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "perplexity-api",
@@ -5000,7 +5000,7 @@
     },
     "latency_p50_ms": 500,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "redis-vector",
@@ -5046,7 +5046,7 @@
     },
     "latency_p50_ms": 5,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["retrieval-memory"]
   },
   {
     "id": "turbopuffer",
@@ -5095,7 +5095,7 @@
     "latency_p50_ms": 30,
     "bytes_per_vector": 2000,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["retrieval-memory"]
   },
   {
     "id": "lancedb",
@@ -5140,7 +5140,7 @@
     },
     "latency_p50_ms": 15,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["retrieval-memory"]
   },
   {
     "id": "opik",
@@ -5180,7 +5180,7 @@
     "github_url": "https://github.com/comet-ml/opik",
     "use_context": "app-infrastructure",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["observability", "eval"]
   },
   {
     "id": "agentops",
@@ -5226,7 +5226,7 @@
       "type": "flat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["observability", "eval"]
   },
   {
     "id": "mlflow",
@@ -5266,7 +5266,7 @@
     "github_url": "https://github.com/mlflow/mlflow",
     "use_context": "both",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["observability", "eval"]
   },
   {
     "id": "trulens",
@@ -5302,7 +5302,7 @@
     "github_url": "https://github.com/truera/trulens",
     "use_context": "app-infrastructure",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["eval"]
   },
   {
     "id": "humanloop",
@@ -5348,7 +5348,7 @@
       "type": "flat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["eval"]
   },
   {
     "id": "inspect-ai",
@@ -5384,7 +5384,7 @@
     "github_url": "https://github.com/UKGovernmentBEIS/inspect_ai",
     "use_context": "app-infrastructure",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["eval"]
   },
   {
     "id": "amp",
@@ -5424,7 +5424,7 @@
     "github_url": null,
     "use_context": "dev-productivity",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "codex-cli",
@@ -5460,7 +5460,7 @@
     "github_url": "https://github.com/openai/codex",
     "use_context": "dev-productivity",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "kodu-ai",
@@ -5500,7 +5500,7 @@
     "github_url": "https://github.com/kodu-ai/claude-coder",
     "use_context": "dev-productivity",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "factory-ai",
@@ -5540,7 +5540,7 @@
     "github_url": null,
     "use_context": "dev-productivity",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "replit-agent",
@@ -5586,7 +5586,7 @@
       "type": "per_seat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "desktop-commander",
@@ -5622,7 +5622,7 @@
     "github_url": "https://github.com/wonderwhy-er/DesktopCommanderMCP",
     "use_context": "both",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["tools-mcp"]
   },
   {
     "id": "brave-search-mcp",
@@ -5662,7 +5662,7 @@
     "github_url": "https://github.com/modelcontextprotocol/servers",
     "use_context": "both",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["tools-mcp"]
   },
   {
     "id": "sequential-thinking-mcp",
@@ -5698,7 +5698,7 @@
     "github_url": "https://github.com/modelcontextprotocol/servers",
     "use_context": "both",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["tools-mcp"]
   },
   {
     "id": "sentry-mcp",
@@ -5734,7 +5734,7 @@
     "github_url": "https://github.com/getsentry/sentry-mcp",
     "use_context": "both",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["tools-mcp"]
   },
   {
     "id": "snyk",
@@ -5780,7 +5780,7 @@
       "type": "per_seat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["code-review"]
   },
   {
     "id": "sonarqube",
@@ -5820,7 +5820,7 @@
     "github_url": "https://github.com/SonarSource/sonarqube",
     "use_context": "dev-productivity",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["code-review"]
   },
   {
     "id": "semgrep",
@@ -5866,7 +5866,7 @@
       "type": "per_seat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["code-review"]
   },
   {
     "id": "archbee",
@@ -5912,7 +5912,7 @@
       "type": "flat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["specs"]
   },
   {
     "id": "tettra",
@@ -5952,7 +5952,7 @@
     "github_url": null,
     "use_context": "dev-productivity",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["specs"]
   },
   {
     "id": "coda-ai",
@@ -5998,7 +5998,7 @@
       "type": "per_seat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["specs"]
   },
   {
     "id": "confluence-ai",
@@ -6044,7 +6044,7 @@
       "type": "per_seat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["specs"]
   },
   {
     "id": "productboard-ai",
@@ -6089,7 +6089,7 @@
       "type": "per_seat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["requirements"]
   },
   {
     "id": "jira-ai",
@@ -6135,7 +6135,7 @@
       "type": "per_seat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["requirements"]
   },
   {
     "id": "aha-ai",
@@ -6175,7 +6175,7 @@
     "github_url": null,
     "use_context": "dev-productivity",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["requirements"]
   },
   {
     "id": "grain",
@@ -6221,7 +6221,7 @@
       "type": "per_seat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["requirements"]
   },
   {
     "id": "google-gemini-api",
@@ -6276,7 +6276,7 @@
     "max_tpm": 1000000,
     "max_rpm": 10000,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "amazon-bedrock",
@@ -6323,7 +6323,7 @@
       "type": "per_token"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "azure-openai",
@@ -6370,7 +6370,7 @@
       "type": "per_token"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "xai-grok",
@@ -6424,7 +6424,7 @@
     "max_tpm": 300000,
     "max_rpm": 2000,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "deepseek-api",
@@ -6478,7 +6478,7 @@
     "max_tpm": 200000,
     "max_rpm": 2000,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "kilo-code",
@@ -6509,7 +6509,7 @@
     "github_url": "https://github.com/Kilo-Org/kilocode",
     "use_context": "dev-productivity",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "roocode",
@@ -6540,7 +6540,7 @@
     "github_url": "https://github.com/RooVetGit/Roo-Code",
     "use_context": "dev-productivity",
     "scope": "ai-native",
-    "lifecycle_phases": [],
+    "lifecycle_phases": ["coding"],
     "archived": true
   },
   {
@@ -6587,7 +6587,7 @@
       "type": "per_seat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "openai-agents-sdk",
@@ -6618,7 +6618,7 @@
     "github_url": "https://github.com/openai/openai-agents-python",
     "use_context": "app-infrastructure",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["orchestration"]
   },
   {
     "id": "manus-ai",
@@ -6658,7 +6658,7 @@
     "github_url": null,
     "use_context": "dev-productivity",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "mcp-so",
@@ -6689,7 +6689,7 @@
     "github_url": null,
     "use_context": "both",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["tools-mcp"]
   },
   {
     "id": "runpod",
@@ -6734,7 +6734,7 @@
       "type": "usage_based"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "fal-ai",
@@ -6776,7 +6776,7 @@
       "type": "per_call"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "maxim-ai",
@@ -6820,7 +6820,7 @@
       "type": "usage_based"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["observability", "eval"]
   },
   {
     "id": "galileo-eval",
@@ -6860,7 +6860,7 @@
     "github_url": null,
     "use_context": "app-infrastructure",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["eval", "observability"]
   },
   {
     "id": "axolotl",
@@ -6892,7 +6892,7 @@
     "use_context": "app-infrastructure",
     "added_at": "2026-03-12",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "unsloth",
@@ -6928,7 +6928,7 @@
     "github_url": "https://github.com/unslothai/unsloth",
     "use_context": "app-infrastructure",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "llama-factory",
@@ -6959,7 +6959,7 @@
     "github_url": "https://github.com/hiyouga/LLaMA-Factory",
     "use_context": "app-infrastructure",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "torchtune",
@@ -6990,7 +6990,7 @@
     "github_url": "https://github.com/pytorch/torchtune",
     "use_context": "app-infrastructure",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "predibase",
@@ -7035,7 +7035,7 @@
       "type": "usage_based"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "elevenlabs",
@@ -7086,7 +7086,7 @@
       "type": "flat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "deepgram",
@@ -7131,7 +7131,7 @@
       "type": "per_call"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "assemblyai",
@@ -7176,7 +7176,7 @@
       "type": "per_call"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "cartesia",
@@ -7221,7 +7221,7 @@
       "type": "per_call"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "playht",
@@ -7266,7 +7266,7 @@
       "type": "per_call"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "moondream",
@@ -7297,7 +7297,7 @@
     "github_url": "https://github.com/vikhyat/moondream",
     "use_context": "app-infrastructure",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "llava",
@@ -7328,7 +7328,7 @@
     "github_url": "https://github.com/haotian-liu/LLaVA",
     "use_context": "app-infrastructure",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "paligemma",
@@ -7359,7 +7359,7 @@
     "github_url": "https://github.com/google-research/big_vision",
     "use_context": "app-infrastructure",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "pixtral",
@@ -7405,7 +7405,7 @@
       "type": "per_token"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "qwen-vl",
@@ -7436,7 +7436,7 @@
     "github_url": "https://github.com/QwenLM/Qwen-VL",
     "use_context": "app-infrastructure",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "internvl2",
@@ -7467,7 +7467,7 @@
     "github_url": "https://github.com/OpenGVLab/InternVL",
     "use_context": "app-infrastructure",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "vapi",
@@ -7513,7 +7513,7 @@
       "type": "per_call"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "retell-ai",
@@ -7558,7 +7558,7 @@
       "type": "per_call"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "browser-use",
@@ -7590,7 +7590,7 @@
     "use_context": "both",
     "added_at": "2026-03-15",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["tools-mcp"]
   },
   {
     "id": "stagehand",
@@ -7627,7 +7627,7 @@
     "use_context": "both",
     "added_at": "2026-03-18",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["tools-mcp"]
   },
   {
     "id": "skyvern",
@@ -7668,7 +7668,7 @@
       "type": "per_call"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["tools-mcp"]
   },
   {
     "id": "firecrawl",
@@ -7714,7 +7714,7 @@
       "type": "flat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["tools-mcp"]
   },
   {
     "id": "gemini-code-assist",
@@ -7759,7 +7759,7 @@
     "last_synced_at": null,
     "is_stale": null,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "amazon-q-developer",
@@ -7804,7 +7804,7 @@
     "last_synced_at": null,
     "is_stale": null,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "augment-code",
@@ -7848,7 +7848,7 @@
     "last_synced_at": null,
     "is_stale": null,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "gemini-cli",
@@ -7889,7 +7889,7 @@
     "last_synced_at": null,
     "is_stale": null,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "jules",
@@ -7934,7 +7934,7 @@
     "last_synced_at": null,
     "is_stale": null,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "strands-agents",
@@ -7969,7 +7969,7 @@
     "last_synced_at": null,
     "is_stale": null,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["orchestration"]
   },
   {
     "id": "ragflow",
@@ -8009,7 +8009,7 @@
     "last_synced_at": null,
     "is_stale": null,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["orchestration"]
   },
   {
     "id": "lightrag",
@@ -8044,7 +8044,7 @@
     "last_synced_at": null,
     "is_stale": null,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["orchestration"]
   },
   {
     "id": "sambanova-cloud",
@@ -8084,7 +8084,7 @@
     "last_synced_at": null,
     "is_stale": null,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "cloudflare-ai-gateway",
@@ -8128,7 +8128,7 @@
     "last_synced_at": null,
     "is_stale": null,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["orchestration"]
   },
   {
     "id": "trl",
@@ -8163,7 +8163,7 @@
     "last_synced_at": null,
     "is_stale": null,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "pipecat",
@@ -8198,7 +8198,7 @@
     "last_synced_at": null,
     "is_stale": null,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "livekit-agents",
@@ -8238,7 +8238,7 @@
     "last_synced_at": null,
     "is_stale": null,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "browserbase",
@@ -8282,7 +8282,7 @@
     "last_synced_at": null,
     "is_stale": null,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["tools-mcp"]
   },
   {
     "id": "figma-ai",
@@ -8326,7 +8326,7 @@
     "last_synced_at": null,
     "is_stale": null,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["design"]
   },
   {
     "id": "langwatch",
@@ -8366,7 +8366,7 @@
     "last_synced_at": null,
     "is_stale": null,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["observability", "eval"]
   },
   {
     "id": "browserbase-mcp",
@@ -8401,7 +8401,7 @@
     "last_synced_at": null,
     "is_stale": null,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["tools-mcp"]
   },
   {
     "id": "mem0",
@@ -8441,7 +8441,7 @@
     "last_synced_at": null,
     "is_stale": null,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["retrieval-memory"]
   },
   {
     "id": "zep",
@@ -8481,7 +8481,7 @@
     "last_synced_at": null,
     "is_stale": null,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["retrieval-memory"]
   },
   {
     "id": "nemo-guardrails",
@@ -8516,7 +8516,7 @@
     "last_synced_at": null,
     "is_stale": null,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["guardrails"]
   },
   {
     "id": "guardrails-ai",
@@ -8556,7 +8556,7 @@
     "last_synced_at": null,
     "is_stale": null,
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["guardrails"]
   },
   {
     "id": "kiro",
@@ -8603,7 +8603,7 @@
       "type": "per_seat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "google-antigravity",
@@ -8650,7 +8650,7 @@
       "type": "per_seat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "microsoft-agent-framework",
@@ -8687,7 +8687,7 @@
     "use_context": "app-infrastructure",
     "added_at": "2026-05-15",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["orchestration"]
   },
   {
     "id": "claude-agent-sdk",
@@ -8724,7 +8724,7 @@
     "use_context": "app-infrastructure",
     "added_at": "2026-05-15",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["orchestration"]
   },
   {
     "id": "kapa-ai",
@@ -8765,7 +8765,7 @@
     "use_context": "app-infrastructure",
     "added_at": "2026-05-15",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["specs"]
   },
   {
     "id": "lakera-guard",
@@ -8806,7 +8806,7 @@
     "use_context": "app-infrastructure",
     "added_at": "2026-05-15",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["guardrails"]
   },
   {
     "id": "llm-guard",
@@ -8843,7 +8843,7 @@
     "use_context": "app-infrastructure",
     "added_at": "2026-05-15",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["guardrails"]
   },
   {
     "id": "openai-guardrails",
@@ -8880,7 +8880,7 @@
     "use_context": "app-infrastructure",
     "added_at": "2026-05-15",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["guardrails"]
   },
   {
     "id": "composio",
@@ -8921,7 +8921,7 @@
     "use_context": "app-infrastructure",
     "added_at": "2026-05-15",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["tools-mcp"]
   },
   {
     "id": "anthropic-computer-use",
@@ -8958,7 +8958,7 @@
     "use_context": "app-infrastructure",
     "added_at": "2026-05-15",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["tools-mcp"]
   },
   {
     "id": "openai-operator",
@@ -8999,7 +8999,7 @@
     "use_context": "app-infrastructure",
     "added_at": "2026-05-15",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["tools-mcp"]
   },
   {
     "id": "hume-evi",
@@ -9040,7 +9040,7 @@
     "use_context": "app-infrastructure",
     "added_at": "2026-05-15",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "github-copilot-coding-agent",
@@ -9087,7 +9087,7 @@
       "type": "per_seat"
     },
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["coding"]
   },
   {
     "id": "bmad-method",
@@ -9124,7 +9124,7 @@
     "use_context": "dev-productivity",
     "added_at": "2026-05-15",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["specs"]
   },
   {
     "id": "cognee",
@@ -9165,7 +9165,7 @@
     "use_context": "app-infrastructure",
     "added_at": "2026-05-15",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["retrieval-memory"]
   },
   {
     "id": "graphiti",
@@ -9202,7 +9202,7 @@
     "use_context": "app-infrastructure",
     "added_at": "2026-05-15",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["retrieval-memory"]
   },
   {
     "id": "runway-gen-4",
@@ -9247,7 +9247,7 @@
     "use_context": "app-infrastructure",
     "added_at": "2026-05-15",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "google-veo",
@@ -9284,7 +9284,7 @@
     "use_context": "app-infrastructure",
     "added_at": "2026-05-15",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
   },
   {
     "id": "kling",
@@ -9325,6 +9325,413 @@
     "use_context": "app-infrastructure",
     "added_at": "2026-05-15",
     "scope": "ai-native",
-    "lifecycle_phases": []
+    "lifecycle_phases": ["providers"]
+  },
+  {
+    "id": "langmem",
+    "name": "LangMem",
+    "category": "memory",
+    "tagline": "Memory primitives for LangChain agents",
+    "description": "LangChain's official memory SDK. Drop-in tools for long-term semantic memory, episodic recall, and user preference tracking — built to compose with LangGraph and the broader LangChain ecosystem.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": null,
+    "slot": "memory",
+    "choose_if": [
+      "You're already on LangGraph / LangChain and want native memory",
+      "You need semantic + episodic memory without rolling your own",
+      "You want managed memory backed by LangSmith's storage"
+    ],
+    "aliases": {
+      "npm": ["@langchain/langmem"],
+      "pip": ["langmem"],
+      "env_vars": ["LANGCHAIN_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://langchain-ai.github.io/langmem/",
+    "github_url": "https://github.com/langchain-ai/langmem",
+    "use_context": "app-infrastructure",
+    "added_at": "2026-05-30",
+    "health_score": null,
+    "last_synced_at": null,
+    "is_stale": null,
+    "scope": "ai-native",
+    "lifecycle_phases": ["retrieval-memory"]
+  },
+  {
+    "id": "codeium",
+    "name": "Codeium",
+    "category": "coding-assistants",
+    "tagline": "Free AI code completion across 70+ languages and 40+ IDEs",
+    "description": "AI code completion and chat that works in nearly every editor. Free for individuals, paid for teams. Often the fallback when Copilot is blocked by enterprise policy or budget. Now operates alongside Windsurf (same parent) but the IDE-plugin product remains distinct.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Pro",
+          "price": "$15/user/mo"
+        },
+        {
+          "name": "Teams",
+          "price": "$35/user/mo"
+        },
+        {
+          "name": "Enterprise",
+          "price": "Contact"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "code-editor",
+    "choose_if": [
+      "You want free AI completion that works in your existing IDE",
+      "Copilot is blocked or too expensive at your org",
+      "You need broad language + IDE coverage out of the box"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": [],
+      "env_vars": ["CODEIUM_API_KEY"],
+      "config_files": [".codeiumignore"]
+    },
+    "website_url": "https://codeium.com",
+    "github_url": null,
+    "use_context": "dev-productivity",
+    "added_at": "2026-05-30",
+    "health_score": null,
+    "last_synced_at": null,
+    "is_stale": null,
+    "scope": "ai-native",
+    "lifecycle_phases": ["coding"]
+  },
+  {
+    "id": "sourcegraph-cody",
+    "name": "Sourcegraph Cody",
+    "category": "coding-assistants",
+    "tagline": "AI coding assistant grounded in your entire codebase",
+    "description": "Cody pairs an LLM with Sourcegraph's code graph so suggestions know your whole repo, not just the open file. Strong on monorepos and on enterprises where context-across-services is the bottleneck. Self-hostable for compliance.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Pro",
+          "price": "$9/user/mo"
+        },
+        {
+          "name": "Enterprise",
+          "price": "Contact"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "code-editor",
+    "choose_if": [
+      "You work in a large monorepo or microservice fleet",
+      "You need repo-wide context, not single-file completion",
+      "Enterprise security / self-hosting is a hard requirement"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": [],
+      "env_vars": ["SRC_ENDPOINT", "SRC_ACCESS_TOKEN"],
+      "config_files": [".cody.json"]
+    },
+    "website_url": "https://sourcegraph.com/cody",
+    "github_url": "https://github.com/sourcegraph/cody",
+    "use_context": "dev-productivity",
+    "added_at": "2026-05-30",
+    "health_score": null,
+    "last_synced_at": null,
+    "is_stale": null,
+    "scope": "ai-native",
+    "lifecycle_phases": ["coding"]
+  },
+  {
+    "id": "codestral",
+    "name": "Codestral",
+    "category": "llm-infra",
+    "tagline": "Mistral's code-specialized LLM, served on its own endpoint",
+    "description": "Mistral's 22B-class code model with a dedicated API on codestral.mistral.ai. Tuned for code completion, repair, and instruction-following on programming tasks. Used standalone as a backend for AI coding tools and IDE plugins.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Pay-as-you-go",
+          "price": "$0.20 / 1M input, $0.60 / 1M output"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "inference",
+    "provider": "mistral",
+    "choose_if": [
+      "You want a code-specialized model API without using a wrapper",
+      "You're building a coding tool and want a cheap, fast code LLM backend",
+      "You need a non-OpenAI code model to comply with vendor policy"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["mistralai"],
+      "env_vars": ["CODESTRAL_API_KEY", "MISTRAL_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://docs.mistral.ai/capabilities/code_generation/",
+    "github_url": null,
+    "use_context": "app-infrastructure",
+    "added_at": "2026-05-30",
+    "health_score": null,
+    "last_synced_at": null,
+    "is_stale": null,
+    "scope": "ai-native",
+    "lifecycle_phases": ["providers"]
+  },
+  {
+    "id": "filesystem-mcp",
+    "name": "Filesystem MCP",
+    "category": "mcp",
+    "tagline": "Official MCP server for local filesystem access",
+    "description": "Reference Anthropic MCP server exposing read/write/list operations on the local filesystem to AI agents. The most common MCP wired into Claude Code and Cursor for repo-aware workflows.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": null,
+    "slot": "mcp-infra",
+    "choose_if": [
+      "Your agent needs to read or write local files via MCP",
+      "You want the canonical reference implementation, not a fork",
+      "You're setting up a Claude Code / Cursor workflow from scratch"
+    ],
+    "aliases": {
+      "npm": ["@modelcontextprotocol/server-filesystem"],
+      "pip": [],
+      "env_vars": [],
+      "config_files": ["claude_desktop_config.json", ".mcp.json"]
+    },
+    "website_url": "https://github.com/modelcontextprotocol/servers/tree/main/src/filesystem",
+    "github_url": "https://github.com/modelcontextprotocol/servers",
+    "use_context": "both",
+    "added_at": "2026-05-30",
+    "health_score": null,
+    "last_synced_at": null,
+    "is_stale": null,
+    "scope": "substrate",
+    "lifecycle_phases": ["tools-mcp"]
+  },
+  {
+    "id": "postgres-mcp",
+    "name": "Postgres MCP",
+    "category": "mcp",
+    "tagline": "Official MCP server for Postgres queries",
+    "description": "Reference Anthropic MCP server giving AI agents read-only access to a Postgres database with schema introspection. Use for data-aware agents that need to answer questions from production tables.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": null,
+    "slot": "mcp-infra",
+    "choose_if": [
+      "Your agent needs to query a Postgres database via MCP",
+      "You want safe read-only access with schema introspection",
+      "You're building a data-aware Claude or Cursor workflow"
+    ],
+    "aliases": {
+      "npm": ["@modelcontextprotocol/server-postgres"],
+      "pip": [],
+      "env_vars": ["POSTGRES_CONNECTION_STRING"],
+      "config_files": ["claude_desktop_config.json", ".mcp.json"]
+    },
+    "website_url": "https://github.com/modelcontextprotocol/servers/tree/main/src/postgres",
+    "github_url": "https://github.com/modelcontextprotocol/servers",
+    "use_context": "both",
+    "added_at": "2026-05-30",
+    "health_score": null,
+    "last_synced_at": null,
+    "is_stale": null,
+    "scope": "substrate",
+    "lifecycle_phases": ["tools-mcp"]
+  },
+  {
+    "id": "slack-mcp",
+    "name": "Slack MCP",
+    "category": "mcp",
+    "tagline": "Official MCP server for Slack",
+    "description": "Reference Anthropic MCP server exposing Slack messages, channels, and DMs to AI agents. Used for AI assistants that need to search history, summarize threads, or post on behalf of a user.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": null,
+    "slot": "mcp-infra",
+    "choose_if": [
+      "Your agent needs to read or post to Slack",
+      "You want canonical Slack tool access without a custom integration",
+      "You're building a workplace AI assistant"
+    ],
+    "aliases": {
+      "npm": ["@modelcontextprotocol/server-slack"],
+      "pip": [],
+      "env_vars": ["SLACK_BOT_TOKEN", "SLACK_TEAM_ID"],
+      "config_files": ["claude_desktop_config.json", ".mcp.json"]
+    },
+    "website_url": "https://github.com/modelcontextprotocol/servers/tree/main/src/slack",
+    "github_url": "https://github.com/modelcontextprotocol/servers",
+    "use_context": "both",
+    "added_at": "2026-05-30",
+    "health_score": null,
+    "last_synced_at": null,
+    "is_stale": null,
+    "scope": "substrate",
+    "lifecycle_phases": ["tools-mcp"]
+  },
+  {
+    "id": "notion-mcp",
+    "name": "Notion MCP",
+    "category": "mcp",
+    "tagline": "Official MCP server for Notion workspaces",
+    "description": "Notion's own MCP server giving AI agents access to pages, databases, and comments. The standard way to wire Claude into a Notion workspace for project context, ticket triage, and doc-grounded answers.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": null,
+    "slot": "mcp-infra",
+    "choose_if": [
+      "Your team uses Notion as a knowledge base or project tracker",
+      "You want Claude to read and write Notion pages",
+      "You need official, sanctioned Notion integration (not a community fork)"
+    ],
+    "aliases": {
+      "npm": ["@notionhq/notion-mcp-server"],
+      "pip": [],
+      "env_vars": ["NOTION_API_KEY"],
+      "config_files": ["claude_desktop_config.json", ".mcp.json"]
+    },
+    "website_url": "https://github.com/makenotion/notion-mcp-server",
+    "github_url": "https://github.com/makenotion/notion-mcp-server",
+    "use_context": "both",
+    "added_at": "2026-05-30",
+    "health_score": null,
+    "last_synced_at": null,
+    "is_stale": null,
+    "scope": "substrate",
+    "lifecycle_phases": ["tools-mcp"]
+  },
+  {
+    "id": "memory-mcp",
+    "name": "Memory MCP",
+    "category": "mcp",
+    "tagline": "Official MCP server for persistent agent memory",
+    "description": "Reference Anthropic MCP server providing a knowledge-graph-backed memory store that agents can read and write across sessions. Light-weight alternative to running a full Letta/Mem0 stack when you just need MCP-native memory.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": null,
+    "slot": "mcp-infra",
+    "choose_if": [
+      "You want MCP-native memory without standing up a separate memory server",
+      "You're using Claude Desktop / Code and need simple persistent recall",
+      "Your memory needs are graph-shaped (entities + relations)"
+    ],
+    "aliases": {
+      "npm": ["@modelcontextprotocol/server-memory"],
+      "pip": [],
+      "env_vars": ["MEMORY_FILE_PATH"],
+      "config_files": ["claude_desktop_config.json", ".mcp.json"]
+    },
+    "website_url": "https://github.com/modelcontextprotocol/servers/tree/main/src/memory",
+    "github_url": "https://github.com/modelcontextprotocol/servers",
+    "use_context": "both",
+    "added_at": "2026-05-30",
+    "health_score": null,
+    "last_synced_at": null,
+    "is_stale": null,
+    "scope": "substrate",
+    "lifecycle_phases": ["tools-mcp"]
+  },
+  {
+    "id": "agents-md",
+    "name": "AGENTS.md",
+    "category": "specifications",
+    "tagline": "The convention for telling AI coding agents how to work in your repo",
+    "description": "AGENTS.md is the cross-vendor markdown file that AI coding agents (Claude Code, Cursor, Codex, Aider, etc.) read for repo-specific instructions, conventions, and constraints. The de-facto spec for codifying your team's preferences so every agent behaves the same.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": []
+    },
+    "github_stars": null,
+    "slot": "specifications",
+    "choose_if": [
+      "You use multiple AI coding tools and want consistent behavior across them",
+      "You want one place to encode repo conventions for agents",
+      "You're tired of duplicating .cursorrules / .clinerules / CLAUDE.md content"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": [],
+      "env_vars": [],
+      "config_files": ["AGENTS.md"]
+    },
+    "website_url": "https://agents.md",
+    "github_url": null,
+    "use_context": "dev-productivity",
+    "added_at": "2026-05-30",
+    "health_score": null,
+    "last_synced_at": null,
+    "is_stale": null,
+    "scope": "substrate",
+    "lifecycle_phases": ["specs"]
+  },
+  {
+    "id": "specstory",
+    "name": "SpecStory",
+    "category": "spec-driven-dev",
+    "tagline": "Capture AI coding sessions, turn them into specs",
+    "description": "Records your Cursor / Claude Code conversations and helps you distill them into reusable specs and patterns. Useful when your team's tribal knowledge lives in chat history that you want to commit.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Team",
+          "price": "Contact"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "specifications",
+    "choose_if": [
+      "You want a paper trail of what AI did and why",
+      "You're trying to extract reusable patterns from one-off AI sessions",
+      "Your team needs to share AI workflows without screenshots"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": [],
+      "env_vars": [],
+      "config_files": [".specstory"]
+    },
+    "website_url": "https://specstory.com",
+    "github_url": null,
+    "use_context": "dev-productivity",
+    "added_at": "2026-05-30",
+    "health_score": null,
+    "last_synced_at": null,
+    "is_stale": null,
+    "scope": "ai-native",
+    "lifecycle_phases": ["specs"]
   }
 ]

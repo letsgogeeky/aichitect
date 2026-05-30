@@ -2452,13 +2452,6 @@
   },
   {
     "source": "kilo-code",
-    "target": "roocode",
-    "type": "competes-with",
-    "how": "Both Cline forks for VS Code; Kilo Code focuses on UX polish, RooCode on custom modes and personas.",
-    "achieves": "Choose RooCode for custom AI modes and boomerang tasks; Kilo Code for polished all-in-one UX."
-  },
-  {
-    "source": "kilo-code",
     "target": "cursor",
     "type": "competes-with",
     "how": "Kilo Code is a VS Code extension agent; Cursor is a forked IDE with deeper model integration built in.",
@@ -2477,34 +2470,6 @@
     "type": "commonly-paired-with",
     "how": "Kilo Code handles in-editor AI edits while Claude Code runs autonomous multi-step terminal tasks.",
     "achieves": "Full AI dev loop: interactive refinement in the editor, hands-off execution in the terminal."
-  },
-  {
-    "source": "roocode",
-    "target": "cline",
-    "type": "competes-with",
-    "how": "Both OSS VS Code AI agents from the same codebase; RooCode adds custom modes, Cline has broader community.",
-    "achieves": "Choose Cline for the largest community and ecosystem; RooCode for persona-based custom workflows."
-  },
-  {
-    "source": "roocode",
-    "target": "kilo-code",
-    "type": "competes-with",
-    "how": "Both Cline forks for VS Code; RooCode differentiates on custom AI modes, Kilo Code on UI polish.",
-    "achieves": "Choose RooCode for custom AI modes and role switching; Kilo Code for premium-feeling polish."
-  },
-  {
-    "source": "roocode",
-    "target": "claude-code",
-    "type": "commonly-paired-with",
-    "how": "RooCode handles file-level AI edits while Claude Code runs longer agentic tasks from the terminal.",
-    "achieves": "Switch between RooCode precision editing and Claude Code autonomous execution as tasks demand."
-  },
-  {
-    "source": "roocode",
-    "target": "mcp-sdk-ts",
-    "type": "integrates-with",
-    "how": "RooCode is a full MCP client; TypeScript MCP servers configured in its settings appear as callable agent tools.",
-    "achieves": "Any MCP server you build or install extends RooCode agentic capabilities instantly."
   },
   {
     "source": "warp",
