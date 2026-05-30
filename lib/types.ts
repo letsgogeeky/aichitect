@@ -102,11 +102,84 @@ export interface ToolEvent {
 
 export type ToolType = "oss" | "commercial";
 
+/**
+ * Scope tag per the AIchitect rule (see SCOPE.md):
+ *   ai-native — built around an LLM/ML model as the core abstraction.
+ *   substrate — protocol/contract layer AI workflows depend on (specs, MCP SDKs).
+ * There is no third category. General-purpose infrastructure (Vercel, Postgres) is out.
+ */
+export type ToolScope = "ai-native" | "substrate";
+
 export type UseContext = "dev-productivity" | "app-infrastructure" | "both";
 
 export type StackArchetype = "dev-productivity" | "app-infrastructure" | "hybrid";
 
 export type RelationshipType = "integrates-with" | "commonly-paired-with" | "competes-with";
+
+/**
+ * Canonical lifecycle phases of an AI product, spanning both the development
+ * workflow (how you build) and the runtime architecture (what runs in prod).
+ * eval and observability deliberately span both tracks — same tools serve both.
+ * See SCOPE.md for the rationale.
+ */
+export type LifecyclePhase =
+  | "requirements"
+  | "specs"
+  | "design"
+  | "coding"
+  | "code-review"
+  | "providers"
+  | "orchestration"
+  | "retrieval-memory"
+  | "tools-mcp"
+  | "guardrails"
+  | "eval"
+  | "observability";
+
+export const LIFECYCLE_PHASES: readonly LifecyclePhase[] = [
+  "requirements",
+  "specs",
+  "design",
+  "coding",
+  "code-review",
+  "providers",
+  "orchestration",
+  "retrieval-memory",
+  "tools-mcp",
+  "guardrails",
+  "eval",
+  "observability",
+] as const;
+
+export type LifecycleTrack = "development" | "runtime" | "specialized";
+
+export const LIFECYCLE_TRACKS: readonly LifecycleTrack[] = [
+  "development",
+  "runtime",
+  "specialized",
+] as const;
+
+/** Phases belonging to each end-to-end track. eval + observability live in both. */
+export const PHASES_BY_TRACK: Record<Exclude<LifecycleTrack, "specialized">, LifecyclePhase[]> = {
+  development: [
+    "requirements",
+    "specs",
+    "design",
+    "coding",
+    "code-review",
+    "eval",
+    "observability",
+  ],
+  runtime: [
+    "providers",
+    "orchestration",
+    "retrieval-memory",
+    "tools-mcp",
+    "guardrails",
+    "eval",
+    "observability",
+  ],
+};
 
 export type CategoryId =
   | "coding-assistants"
@@ -251,6 +324,22 @@ export interface Tool {
   max_rpm?: number | null;
   /** For vector DBs: typical bytes per stored vector (used to project storage cost from vector count). */
   bytes_per_vector?: number | null;
+
+  // ── AIC scope/lifecycle (PR 1) ─────────────────────────────────────────────
+  /** Per SCOPE.md. `ai-native` is the default; `substrate` for specs/MCP SDKs. */
+  scope: ToolScope;
+  /**
+   * Which lifecycle phases this tool can fit into. A tool can span multiple
+   * (e.g. langfuse → ["eval", "observability"]). Empty array is allowed during
+   * the backfill window (PR 1) but must be populated by PR 2.
+   */
+  lifecycle_phases: LifecyclePhase[];
+  /**
+   * True when the upstream repo has been archived on GitHub. Hidden from
+   * /explore default view; detail page at /tool/<id> remains accessible.
+   * Pulse cron fires the `archived_detected` event when this flips true.
+   */
+  archived?: boolean;
 }
 
 export interface Relationship {
@@ -320,6 +409,20 @@ export interface Stack {
   use_cases?: UseCase[];
   /** Project stages where this stack applies */
   stage?: Stage[];
+
+  // ── AIC lifecycle (PR 1) ────────────────────────────────────────────────────
+  /**
+   * Which end-to-end track this stack belongs to.
+   * `development` = how you build (PRD → coded → shipped).
+   * `runtime`     = what the AI product is (providers → orchestration → obs).
+   * `specialized` = narrow slice (default during the PR 1 backfill).
+   */
+  track: LifecycleTrack;
+  /**
+   * Phases this stack claims to cover. Empty array allowed during the PR 1
+   * backfill; PR 3 fills these from the per-tool lifecycle_phases.
+   */
+  phases: LifecyclePhase[];
 }
 
 export const STACK_CLUSTERS: { id: StackCluster; label: string; tagline: string }[] = [
@@ -418,7 +521,7 @@ export const CATEGORIES: CategoryMeta[] = [
   { id: "pipelines-rag", label: "Pipelines & RAG", color: "#26de81" },
   { id: "llm-infra", label: "LLM Infrastructure", color: "#4ecdc4" },
   { id: "design", label: "Design & UI", color: "#ff9f43" },
-  { id: "devops", label: "DevOps & CI/CD", color: "#fd9644" },
+  { id: "devops", label: "AI-Augmented Code Quality", color: "#fd9644" },
   { id: "docs", label: "Documentation", color: "#74b9ff" },
   { id: "product-mgmt", label: "Product & PM", color: "#fd79a8" },
   { id: "mcp", label: "MCP Servers", color: "#a29bfe" },

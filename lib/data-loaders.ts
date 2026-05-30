@@ -9,7 +9,16 @@ import stacksJson from "@/data/stacks.json";
 import type { Tool, Slot, Relationship, Stack } from "@/lib/types";
 
 export async function loadGraphData() {
-  const [tools, relationships] = await Promise.all([getTools(), getRelationships()]);
+  const [allTools, allRelationships] = await Promise.all([getTools(), getRelationships()]);
+  // Archived tools are kept in the catalog so /tool/<id> deep links don't 404,
+  // but they're hidden from /explore default view. Relationships referencing
+  // them are also pruned so the graph never has a dangling edge.
+  const archivedIds = new Set(allTools.filter((t) => t.archived).map((t) => t.id));
+  const tools = allTools.filter((t) => !t.archived);
+  const relationships =
+    archivedIds.size === 0
+      ? allRelationships
+      : allRelationships.filter((r) => !archivedIds.has(r.source) && !archivedIds.has(r.target));
   return { tools, relationships };
 }
 

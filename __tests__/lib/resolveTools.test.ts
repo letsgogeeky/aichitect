@@ -14,6 +14,8 @@ function makeTool(overrides: Partial<Tool> & { id: string; name: string }): Tool
     website_url: null,
     github_url: null,
     use_context: "dev-productivity",
+    scope: "ai-native",
+    lifecycle_phases: [],
     ...overrides,
   };
 }

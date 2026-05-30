@@ -13,6 +13,8 @@ function makeTool(overrides: Partial<Tool> & Pick<Tool, "id" | "name" | "categor
     use_context: "both",
     website_url: null,
     github_url: null,
+    scope: "ai-native",
+    lifecycle_phases: [],
     ...overrides,
   };
 }

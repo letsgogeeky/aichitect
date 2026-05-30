@@ -146,6 +146,7 @@ export const relationships: DbRelationship[] = (relationshipsData as Relationshi
 export function validate(): void {
   const toolIds = new Set(tools.map((t) => t.id));
   const orphans: string[] = [];
+  const scopeViolations: string[] = [];
 
   for (const r of relationships) {
     if (!toolIds.has(r.source)) orphans.push(`relationship source "${r.source}"`);
@@ -162,15 +163,46 @@ export function validate(): void {
     }
   }
 
-  if (orphans.length > 0) {
-    console.error(`\n${orphans.length} orphaned tool reference(s) — aborting:\n`);
-    orphans.forEach((o) => console.error(`  • ${o}`));
+  // ── PR 1: scope rule + lifecycle metadata are now required on every tool ──
+  // The DbTool/DbStack maps above drop these fields (they're not part of the
+  // current Supabase schema), so validate against the raw JSON imports.
+  const rawTools = toolsData as Tool[];
+  const rawStacks = stacksData as Stack[];
+  for (const t of rawTools) {
+    if (t.scope !== "ai-native" && t.scope !== "substrate") {
+      scopeViolations.push(
+        `tool "${t.id}" — invalid or missing scope (must be ai-native | substrate)`
+      );
+    }
+    if (!Array.isArray(t.lifecycle_phases)) {
+      scopeViolations.push(`tool "${t.id}" — missing lifecycle_phases array`);
+    }
+  }
+  for (const s of rawStacks) {
+    if (s.track !== "development" && s.track !== "runtime" && s.track !== "specialized") {
+      scopeViolations.push(`stack "${s.id}" — invalid or missing track`);
+    }
+    if (!Array.isArray(s.phases)) {
+      scopeViolations.push(`stack "${s.id}" — missing phases array`);
+    }
+  }
+
+  const allFailures = [...orphans, ...scopeViolations];
+  if (allFailures.length > 0) {
+    console.error(`\n${allFailures.length} validation failure(s) — aborting:\n`);
+    allFailures.forEach((o) => console.error(`  • ${o}`));
     process.exit(1);
   }
 
-  console.log(`✓ tools:         ${tools.length} rows`);
+  const archivedCount = rawTools.filter((t) => t.archived).length;
+  const substrateCount = rawTools.filter((t) => t.scope === "substrate").length;
+
+  console.log(
+    `✓ tools:         ${tools.length} rows (${substrateCount} substrate, ${archivedCount} archived)`
+  );
   console.log(`✓ stacks:        ${stacks.length} rows`);
   console.log(`✓ slots:         ${slots.length} rows`);
   console.log(`✓ relationships: ${relationships.length} rows`);
   console.log(`✓ No orphaned references`);
+  console.log(`✓ Scope + lifecycle metadata present on every tool and stack`);
 }

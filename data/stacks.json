@@ -63,7 +63,9 @@
     "target_team_size": ["solo"],
     "budget_tier": "low",
     "use_cases": ["chatbot", "rag", "coding-assistant"],
-    "stage": ["prototype", "mvp"]
+    "stage": ["prototype", "mvp"],
+    "track": "specialized",
+    "phases": []
   },
   {
     "id": "design-to-code",
@@ -123,7 +125,9 @@
     "target_team_size": ["solo", "small"],
     "budget_tier": "low",
     "use_cases": ["coding-assistant"],
-    "stage": ["prototype", "mvp"]
+    "stage": ["prototype", "mvp"],
+    "track": "specialized",
+    "phases": []
   },
   {
     "id": "mcp-power-user",
@@ -213,7 +217,9 @@
     "target_team_size": ["solo"],
     "budget_tier": "free",
     "use_cases": ["automation", "coding-assistant"],
-    "stage": ["mvp", "production"]
+    "stage": ["mvp", "production"],
+    "track": "specialized",
+    "phases": []
   },
   {
     "id": "no-code-ai",
@@ -278,7 +284,9 @@
     "target_team_size": ["solo", "small"],
     "budget_tier": "free",
     "use_cases": ["automation", "chatbot"],
-    "stage": ["prototype", "mvp"]
+    "stage": ["prototype", "mvp"],
+    "track": "specialized",
+    "phases": []
   },
   {
     "id": "typescript-only",
@@ -344,7 +352,9 @@
     "target_team_size": ["small", "team"],
     "budget_tier": "low",
     "use_cases": ["coding-assistant", "rag"],
-    "stage": ["mvp", "production"]
+    "stage": ["mvp", "production"],
+    "track": "specialized",
+    "phases": []
   },
   {
     "id": "zero-budget-oss",
@@ -405,7 +415,9 @@
     "target_team_size": ["solo"],
     "budget_tier": "free",
     "use_cases": ["coding-assistant", "automation"],
-    "stage": ["prototype", "mvp"]
+    "stage": ["prototype", "mvp"],
+    "track": "specialized",
+    "phases": []
   },
   {
     "id": "agentic-coding",
@@ -511,7 +523,9 @@
     "target_team_size": ["small", "team"],
     "budget_tier": "low",
     "use_cases": ["coding-assistant", "automation"],
-    "stage": ["mvp", "production"]
+    "stage": ["mvp", "production"],
+    "track": "specialized",
+    "phases": []
   },
   {
     "id": "multi-agent-devops",
@@ -601,7 +615,9 @@
     "target_team_size": ["team", "org"],
     "budget_tier": "mid",
     "use_cases": ["automation"],
-    "stage": ["production", "scale"]
+    "stage": ["production", "scale"],
+    "track": "specialized",
+    "phases": []
   },
   {
     "id": "browser-agent",
@@ -685,7 +701,9 @@
     "target_team_size": ["solo", "small"],
     "budget_tier": "low",
     "use_cases": ["automation"],
-    "stage": ["mvp", "production"]
+    "stage": ["mvp", "production"],
+    "track": "specialized",
+    "phases": []
   },
   {
     "id": "voice-ai",
@@ -751,7 +769,9 @@
     "target_team_size": ["small", "team"],
     "budget_tier": "mid",
     "use_cases": ["chatbot", "automation"],
-    "stage": ["mvp", "production"]
+    "stage": ["mvp", "production"],
+    "track": "specialized",
+    "phases": []
   },
   {
     "id": "data-ai-pipeline",
@@ -812,7 +832,9 @@
     "target_team_size": ["small", "team"],
     "budget_tier": "low",
     "use_cases": ["rag", "automation"],
-    "stage": ["mvp", "production"]
+    "stage": ["mvp", "production"],
+    "track": "specialized",
+    "phases": []
   },
   {
     "id": "llm-startup-infra",
@@ -878,7 +900,9 @@
     "target_team_size": ["small", "team"],
     "budget_tier": "low",
     "use_cases": ["chatbot", "rag", "observability"],
-    "stage": ["production", "scale"]
+    "stage": ["production", "scale"],
+    "track": "specialized",
+    "phases": []
   },
   {
     "id": "evaluation-quality",
@@ -943,7 +967,9 @@
     "target_team_size": ["small", "team"],
     "budget_tier": "low",
     "use_cases": ["observability"],
-    "stage": ["mvp", "production"]
+    "stage": ["mvp", "production"],
+    "track": "specialized",
+    "phases": []
   },
   {
     "id": "spec-driven-ai",
@@ -1013,7 +1039,9 @@
     "target_team_size": ["small", "team"],
     "budget_tier": "low",
     "use_cases": ["coding-assistant"],
-    "stage": ["mvp", "production"]
+    "stage": ["mvp", "production"],
+    "track": "development",
+    "phases": []
   },
   {
     "id": "cost-reduction",
@@ -1073,7 +1101,9 @@
     "target_team_size": ["small", "team", "org"],
     "budget_tier": "mid",
     "use_cases": ["chatbot", "rag"],
-    "stage": ["production", "scale"]
+    "stage": ["production", "scale"],
+    "track": "specialized",
+    "phases": []
   },
   {
     "id": "multimodal-rag",
@@ -1139,7 +1169,9 @@
     "target_team_size": ["small", "team"],
     "budget_tier": "mid",
     "use_cases": ["rag"],
-    "stage": ["production", "scale"]
+    "stage": ["production", "scale"],
+    "track": "specialized",
+    "phases": []
   },
   {
     "id": "legacy-plus-ai",
@@ -1200,7 +1232,9 @@
     "target_team_size": ["team", "org"],
     "budget_tier": "low",
     "use_cases": ["coding-assistant", "automation"],
-    "stage": ["production"]
+    "stage": ["production"],
+    "track": "specialized",
+    "phases": []
   },
   {
     "id": "enterprise-rag",
@@ -1286,7 +1320,9 @@
     "target_team_size": ["team", "org"],
     "budget_tier": "high",
     "use_cases": ["rag"],
-    "stage": ["production", "scale"]
+    "stage": ["production", "scale"],
+    "track": "specialized",
+    "phases": []
   },
   {
     "id": "oss-self-hosted",
@@ -1347,7 +1383,9 @@
     "target_team_size": ["team", "org"],
     "budget_tier": "mid",
     "use_cases": ["rag", "chatbot", "compliance"],
-    "stage": ["production", "scale"]
+    "stage": ["production", "scale"],
+    "track": "specialized",
+    "phases": []
   },
   {
     "id": "eu-gdpr-regulated",
@@ -1410,7 +1448,9 @@
     "target_team_size": ["team", "org"],
     "budget_tier": "mid",
     "use_cases": ["rag", "chatbot", "compliance"],
-    "stage": ["production", "scale"]
+    "stage": ["production", "scale"],
+    "track": "specialized",
+    "phases": []
   },
   {
     "id": "edge-on-device",
@@ -1487,7 +1527,9 @@
     "target_team_size": ["solo", "small"],
     "budget_tier": "free",
     "use_cases": ["chatbot"],
-    "stage": ["mvp", "production"]
+    "stage": ["mvp", "production"],
+    "track": "specialized",
+    "phases": []
   },
   {
     "id": "ai-red-team",
@@ -1551,7 +1593,9 @@
     "target_team_size": ["small", "team"],
     "budget_tier": "low",
     "use_cases": ["compliance", "observability"],
-    "stage": ["production"]
+    "stage": ["production"],
+    "track": "specialized",
+    "phases": []
   },
   {
     "id": "fine-tuning",
@@ -1635,7 +1679,9 @@
     "target_team_size": ["small", "team"],
     "budget_tier": "high",
     "use_cases": ["chatbot", "rag", "coding-assistant"],
-    "stage": ["production", "scale"]
+    "stage": ["production", "scale"],
+    "track": "specialized",
+    "phases": []
   },
   {
     "id": "document-intelligence",
@@ -1691,7 +1737,9 @@
     "target_team_size": ["small", "team"],
     "budget_tier": "mid",
     "use_cases": ["rag", "automation"],
-    "stage": ["production", "scale"]
+    "stage": ["production", "scale"],
+    "track": "specialized",
+    "phases": []
   },
   {
     "id": "research-synthesis",
@@ -1752,7 +1800,9 @@
     "target_team_size": ["solo", "small", "team"],
     "budget_tier": "mid",
     "use_cases": ["rag", "automation"],
-    "stage": ["production", "scale"]
+    "stage": ["production", "scale"],
+    "track": "specialized",
+    "phases": []
   },
   {
     "id": "memory-agents",
@@ -1830,7 +1880,9 @@
     "target_team_size": ["small", "team"],
     "budget_tier": "low",
     "use_cases": ["chatbot", "automation"],
-    "stage": ["mvp", "production"]
+    "stage": ["mvp", "production"],
+    "track": "specialized",
+    "phases": []
   },
   {
     "id": "ai-guardrails",
@@ -1891,7 +1943,9 @@
     "target_team_size": ["small", "team", "org"],
     "budget_tier": "low",
     "use_cases": ["chatbot", "compliance"],
-    "stage": ["production"]
+    "stage": ["production"],
+    "track": "specialized",
+    "phases": []
   },
   {
     "id": "graph-rag",
@@ -1947,7 +2001,9 @@
     "target_team_size": ["small", "team"],
     "budget_tier": "low",
     "use_cases": ["rag"],
-    "stage": ["production", "scale"]
+    "stage": ["production", "scale"],
+    "track": "specialized",
+    "phases": []
   },
   {
     "id": "vibe-coding",
@@ -2014,7 +2070,9 @@
     "target_team_size": ["solo"],
     "budget_tier": "free",
     "use_cases": ["coding-assistant", "chatbot"],
-    "stage": ["prototype"]
+    "stage": ["prototype"],
+    "track": "specialized",
+    "phases": []
   },
   {
     "id": "async-coding-team",
@@ -2130,7 +2188,9 @@
     "target_team_size": ["small", "team"],
     "budget_tier": "mid",
     "use_cases": ["coding-assistant", "automation"],
-    "stage": ["production"]
+    "stage": ["production"],
+    "track": "development",
+    "phases": []
   },
   {
     "id": "realtime-voice-agent",
@@ -2195,7 +2255,9 @@
     "target_team_size": ["small", "team"],
     "budget_tier": "mid",
     "use_cases": ["chatbot", "automation"],
-    "stage": ["production", "scale"]
+    "stage": ["production", "scale"],
+    "track": "specialized",
+    "phases": []
   },
   {
     "id": "solo-pm-product",
@@ -2281,7 +2343,9 @@
     "target_team_size": ["solo"],
     "budget_tier": "low",
     "use_cases": ["mvp", "internal-tools", "validation-prototype"],
-    "stage": ["prototype", "mvp"]
+    "stage": ["prototype", "mvp"],
+    "track": "specialized",
+    "phases": []
   },
   {
     "id": "multimodal-creator",
@@ -2357,6 +2421,8 @@
     "target_team_size": ["solo", "small"],
     "budget_tier": "mid",
     "use_cases": ["video-generation", "image-generation", "voice-generation", "content-at-scale"],
-    "stage": ["mvp", "production"]
+    "stage": ["mvp", "production"],
+    "track": "specialized",
+    "phases": []
   }
 ]

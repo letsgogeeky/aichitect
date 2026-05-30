@@ -41,7 +41,9 @@
       "free_tier_limit": "2000 completions",
       "pricing_url": "https://cursor.com/pricing",
       "type": "per_seat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "github-copilot",
@@ -86,7 +88,9 @@
       "free_tier_limit": "2k completions + 50 chats/mo on free plan",
       "pricing_url": "https://github.com/features/copilot/plans",
       "type": "per_seat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "windsurf",
@@ -126,7 +130,9 @@
       "pricing_url": "https://codeium.com/windsurf/pricing",
       "type": "per_seat"
     },
-    "provider": "cognition"
+    "provider": "cognition",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "zed",
@@ -154,7 +160,9 @@
     },
     "website_url": "https://zed.dev",
     "github_url": "https://github.com/zed-industries/zed",
-    "use_context": "dev-productivity"
+    "use_context": "dev-productivity",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "continue",
@@ -182,7 +190,9 @@
     },
     "website_url": "https://continue.dev",
     "github_url": "https://github.com/continuedev/continue",
-    "use_context": "dev-productivity"
+    "use_context": "dev-productivity",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "aider",
@@ -210,7 +220,9 @@
     },
     "website_url": "https://aider.chat",
     "github_url": "https://github.com/paul-gauthier/aider",
-    "use_context": "dev-productivity"
+    "use_context": "dev-productivity",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "claude-code",
@@ -249,7 +261,9 @@
       "cost_per_seat": 20,
       "pricing_url": "https://www.anthropic.com/claude/claude-code",
       "type": "per_seat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "tabnine",
@@ -288,7 +302,9 @@
       "free_tier_limit": "basic completions",
       "pricing_url": "https://www.tabnine.com/pricing",
       "type": "per_seat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "supermaven",
@@ -327,7 +343,9 @@
       "free_tier_limit": "basic completions",
       "pricing_url": "https://supermaven.com/pricing",
       "type": "per_seat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "plandex",
@@ -360,7 +378,9 @@
     },
     "website_url": "https://plandex.ai",
     "github_url": "https://github.com/plandex-ai/plandex",
-    "use_context": "dev-productivity"
+    "use_context": "dev-productivity",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "goose",
@@ -388,7 +408,9 @@
     },
     "website_url": "https://block.github.io/goose",
     "github_url": "https://github.com/block/goose",
-    "use_context": "dev-productivity"
+    "use_context": "dev-productivity",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "jetbrains-ai",
@@ -427,7 +449,9 @@
       "free_tier_limit": "free trial",
       "pricing_url": "https://www.jetbrains.com/ai/pricing/",
       "type": "per_seat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "cline",
@@ -455,7 +479,9 @@
     },
     "website_url": "https://cline.bot",
     "github_url": "https://github.com/cline/cline",
-    "use_context": "dev-productivity"
+    "use_context": "dev-productivity",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "bolt-new",
@@ -494,7 +520,9 @@
       "free_tier_limit": "100k tokens/day",
       "pricing_url": "https://bolt.new/pricing",
       "type": "per_seat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "devin",
@@ -534,7 +562,9 @@
       "pricing_url": "https://devin.ai/pricing",
       "type": "flat"
     },
-    "provider": "cognition"
+    "provider": "cognition",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "openhands",
@@ -563,7 +593,9 @@
     },
     "website_url": "https://docs.all-hands.dev",
     "github_url": "https://github.com/All-Hands-AI/OpenHands",
-    "use_context": "dev-productivity"
+    "use_context": "dev-productivity",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "swe-agent",
@@ -591,7 +623,9 @@
     },
     "website_url": "https://swe-agent.com",
     "github_url": "https://github.com/princeton-nlp/SWE-agent",
-    "use_context": "dev-productivity"
+    "use_context": "dev-productivity",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "crewai",
@@ -626,7 +660,9 @@
       "pricing_url": "https://www.crewai.com/pricing",
       "type": "free"
     },
-    "latency_p50_ms": 200
+    "latency_p50_ms": 200,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "autogen",
@@ -660,7 +696,9 @@
       "free_tier_limit": "unlimited (OSS library)",
       "type": "free"
     },
-    "latency_p50_ms": 180
+    "latency_p50_ms": 180,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "langgraph",
@@ -698,7 +736,9 @@
       "pricing_url": "https://www.langchain.com/pricing-langgraph-platform",
       "type": "flat"
     },
-    "latency_p50_ms": 150
+    "latency_p50_ms": 150,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "metagpt",
@@ -726,7 +766,9 @@
     },
     "website_url": "https://metagpt.com",
     "github_url": "https://github.com/geekan/MetaGPT",
-    "use_context": "app-infrastructure"
+    "use_context": "app-infrastructure",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "semantic-kernel",
@@ -755,7 +797,9 @@
     "website_url": "https://learn.microsoft.com/en-us/semantic-kernel",
     "github_url": "https://github.com/microsoft/semantic-kernel",
     "use_context": "app-infrastructure",
-    "latency_p50_ms": 100
+    "latency_p50_ms": 100,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "lovable",
@@ -794,7 +838,9 @@
       "free_tier_limit": "5 projects/mo",
       "pricing_url": "https://lovable.dev/pricing",
       "type": "per_seat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "gpt-pilot",
@@ -822,7 +868,9 @@
     },
     "website_url": "https://github.com/Pythagora-io/gpt-pilot",
     "github_url": "https://github.com/Pythagora-io/gpt-pilot",
-    "use_context": "dev-productivity"
+    "use_context": "dev-productivity",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "v0",
@@ -862,7 +910,9 @@
       "free_tier_limit": "200 credits/mo",
       "pricing_url": "https://v0.dev/pricing",
       "type": "per_seat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "locofy",
@@ -904,7 +954,9 @@
       "cost_per_month_base": 16,
       "pricing_url": "https://www.locofy.ai/pricing",
       "type": "flat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "builder-io",
@@ -943,7 +995,9 @@
       "free_tier_limit": "1 space",
       "pricing_url": "https://www.builder.io/m/pricing",
       "type": "flat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "framer-ai",
@@ -982,7 +1036,9 @@
       "free_tier_limit": "1 site",
       "pricing_url": "https://www.framer.com/pricing/",
       "type": "flat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "uizard",
@@ -1021,7 +1077,9 @@
       "free_tier_limit": "3 projects",
       "pricing_url": "https://uizard.io/pricing/",
       "type": "flat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "relume",
@@ -1059,7 +1117,9 @@
       "cost_per_month_base": 38,
       "pricing_url": "https://library.relume.io/pricing",
       "type": "flat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "webflow-ai",
@@ -1098,7 +1158,9 @@
       "free_tier_limit": "2 pages",
       "pricing_url": "https://webflow.com/pricing",
       "type": "flat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "anima",
@@ -1137,7 +1199,9 @@
       "free_tier_limit": "3 screens",
       "pricing_url": "https://www.animaapp.com/pricing",
       "type": "flat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "kombai",
@@ -1175,7 +1239,9 @@
       "cost_per_month_base": 19,
       "pricing_url": "https://kombai.com/pricing",
       "type": "flat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "google-stitch",
@@ -1214,7 +1280,9 @@
       "free_tier_limit": "free preview",
       "pricing_url": "https://stitch.withgoogle.com",
       "type": "free"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "langchain",
@@ -1257,7 +1325,9 @@
       "free_tier_limit": "unlimited (OSS library)",
       "type": "free"
     },
-    "latency_p50_ms": 100
+    "latency_p50_ms": 100,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "llamaindex",
@@ -1291,7 +1361,9 @@
       "free_tier_limit": "unlimited (OSS library)",
       "type": "free"
     },
-    "latency_p50_ms": 80
+    "latency_p50_ms": 80,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "dspy",
@@ -1324,7 +1396,9 @@
       "free_tier_limit": "unlimited (OSS library)",
       "type": "free"
     },
-    "latency_p50_ms": 100
+    "latency_p50_ms": 100,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "flowise",
@@ -1367,7 +1441,9 @@
       "pricing_url": "https://flowiseai.com/pricing",
       "type": "flat"
     },
-    "latency_p50_ms": 120
+    "latency_p50_ms": 120,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "dify",
@@ -1408,7 +1484,9 @@
       "pricing_url": "https://dify.ai/pricing",
       "type": "flat"
     },
-    "latency_p50_ms": 100
+    "latency_p50_ms": 100,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "n8n",
@@ -1449,7 +1527,9 @@
       "pricing_url": "https://n8n.io/pricing/",
       "type": "flat"
     },
-    "latency_p50_ms": 120
+    "latency_p50_ms": 120,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "haystack",
@@ -1482,7 +1562,9 @@
     },
     "website_url": "https://haystack.deepset.ai",
     "github_url": "https://github.com/deepset-ai/haystack",
-    "use_context": "app-infrastructure"
+    "use_context": "app-infrastructure",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "langflow",
@@ -1515,7 +1597,9 @@
     },
     "website_url": "https://langflow.org",
     "github_url": "https://github.com/langflow-ai/langflow",
-    "use_context": "app-infrastructure"
+    "use_context": "app-infrastructure",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "mastra",
@@ -1544,7 +1628,9 @@
     "website_url": "https://mastra.ai",
     "github_url": "https://github.com/mastra-ai/mastra",
     "use_context": "app-infrastructure",
-    "latency_p50_ms": 80
+    "latency_p50_ms": 80,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "pydantic-ai",
@@ -1573,7 +1659,9 @@
     "website_url": "https://ai.pydantic.dev",
     "github_url": "https://github.com/pydantic/pydantic-ai",
     "use_context": "app-infrastructure",
-    "latency_p50_ms": 60
+    "latency_p50_ms": 60,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "smolagents",
@@ -1602,7 +1690,9 @@
     "website_url": "https://huggingface.co/docs/smolagents",
     "github_url": "https://github.com/huggingface/smolagents",
     "use_context": "app-infrastructure",
-    "latency_p50_ms": 150
+    "latency_p50_ms": 150,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "agno",
@@ -1631,7 +1721,9 @@
     "website_url": "https://agno.com",
     "github_url": "https://github.com/agno-agi/agno",
     "use_context": "app-infrastructure",
-    "latency_p50_ms": 80
+    "latency_p50_ms": 80,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "coderabbit",
@@ -1670,7 +1762,9 @@
       "free_tier_limit": "free for OSS",
       "pricing_url": "https://coderabbit.ai/pricing",
       "type": "per_seat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "qodo",
@@ -1709,7 +1803,9 @@
       "free_tier_limit": "basic analysis",
       "pricing_url": "https://www.qodo.ai/pricing/",
       "type": "per_seat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "graphite",
@@ -1748,7 +1844,9 @@
       "free_tier_limit": "10 users",
       "pricing_url": "https://graphite.dev/pricing",
       "type": "per_seat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "sourcery",
@@ -1787,7 +1885,9 @@
       "free_tier_limit": "limited suggestions",
       "pricing_url": "https://sourcery.ai/pricing/",
       "type": "per_seat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "pixee",
@@ -1820,7 +1920,9 @@
     },
     "website_url": "https://pixee.ai",
     "github_url": null,
-    "use_context": "dev-productivity"
+    "use_context": "dev-productivity",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "trunk",
@@ -1859,7 +1961,9 @@
       "free_tier_limit": "unlimited OSS",
       "pricing_url": "https://trunk.io/pricing",
       "type": "per_seat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "mintlify",
@@ -1899,7 +2003,9 @@
       "free_tier_limit": "1 docs site",
       "pricing_url": "https://mintlify.com/pricing",
       "type": "flat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "swimm",
@@ -1938,7 +2044,9 @@
       "free_tier_limit": "5 docs",
       "pricing_url": "https://swimm.io/pricing",
       "type": "per_seat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "notion-ai",
@@ -1977,7 +2085,9 @@
       "free_tier_limit": "20 AI responses/mo",
       "pricing_url": "https://www.notion.com/pricing",
       "type": "per_seat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "gitbook-ai",
@@ -2016,7 +2126,9 @@
       "free_tier_limit": "5 collaborators",
       "pricing_url": "https://www.gitbook.com/pricing",
       "type": "per_seat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "linear-ai",
@@ -2055,7 +2167,9 @@
       "free_tier_limit": "250 issues",
       "pricing_url": "https://linear.app/pricing",
       "type": "per_seat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "kraftful",
@@ -2093,7 +2207,9 @@
       "cost_per_month_base": 49,
       "pricing_url": "https://www.kraftful.com/pricing",
       "type": "flat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "litellm",
@@ -2132,7 +2248,9 @@
       "free_tier_limit": "unlimited (self-hosted)",
       "pricing_url": "https://litellm.ai/pricing",
       "type": "free"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "openrouter",
@@ -2171,7 +2289,9 @@
       "free_tier_limit": "$1 credit on signup",
       "pricing_url": "https://openrouter.ai/pricing",
       "type": "usage_based"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "portkey",
@@ -2210,7 +2330,9 @@
       "free_tier_limit": "10k requests/mo",
       "pricing_url": "https://portkey.ai/pricing",
       "type": "flat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "langsmith",
@@ -2249,7 +2371,9 @@
       "free_tier_limit": "5k traces/mo",
       "pricing_url": "https://www.langchain.com/pricing-langsmith",
       "type": "per_seat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "langfuse",
@@ -2290,7 +2414,9 @@
       "free_tier_limit": "50k observations/mo free",
       "pricing_url": "https://langfuse.com/pricing"
     },
-    "provider": "clickhouse"
+    "provider": "clickhouse",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "helicone",
@@ -2329,7 +2455,9 @@
       "cost_per_event": 0.00005,
       "free_tier_limit": "10k requests/mo free",
       "pricing_url": "https://www.helicone.ai/pricing"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "arize-phoenix",
@@ -2367,7 +2495,9 @@
       "free_tier_limit": "unlimited (self-hosted)",
       "pricing_url": "https://phoenix.arize.com",
       "type": "free"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "braintrust",
@@ -2405,7 +2535,9 @@
       "type": "per_event",
       "cost_per_event": 0.00008,
       "pricing_url": "https://www.braintrust.dev/pricing"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "ollama",
@@ -2439,7 +2571,9 @@
       "free_tier_limit": "unlimited (local)",
       "type": "free"
     },
-    "latency_p50_ms": 600
+    "latency_p50_ms": 600,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "vllm",
@@ -2472,7 +2606,9 @@
       "free_tier_limit": "unlimited (self-hosted)",
       "type": "free"
     },
-    "latency_p50_ms": 400
+    "latency_p50_ms": 400,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "groq",
@@ -2513,7 +2649,9 @@
       "pricing_url": "https://groq.com/pricing",
       "type": "per_token"
     },
-    "latency_p50_ms": 100
+    "latency_p50_ms": 100,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "together-ai",
@@ -2554,7 +2692,9 @@
       "pricing_url": "https://www.together.ai/pricing",
       "type": "per_token"
     },
-    "latency_p50_ms": 250
+    "latency_p50_ms": 250,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "fireworks-ai",
@@ -2595,7 +2735,9 @@
       "pricing_url": "https://fireworks.ai/pricing",
       "type": "per_token"
     },
-    "latency_p50_ms": 200
+    "latency_p50_ms": 200,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "llama-cpp",
@@ -2625,7 +2767,9 @@
     "website_url": "https://github.com/ggerganov/llama.cpp",
     "github_url": "https://github.com/ggerganov/llama.cpp",
     "use_context": "both",
-    "latency_p50_ms": 800
+    "latency_p50_ms": 800,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "modal",
@@ -2663,7 +2807,9 @@
       "free_tier_limit": "$30/mo credit",
       "pricing_url": "https://modal.com/pricing",
       "type": "usage_based"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "qdrant",
@@ -2702,7 +2848,9 @@
       "pricing_url": "https://qdrant.tech/pricing/",
       "type": "free"
     },
-    "latency_p50_ms": 50
+    "latency_p50_ms": 50,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "chroma",
@@ -2736,7 +2884,9 @@
       "pricing_url": "https://trychroma.com/pricing",
       "type": "free"
     },
-    "latency_p50_ms": 20
+    "latency_p50_ms": 20,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "pgvector",
@@ -2769,7 +2919,9 @@
       "free_tier_limit": "unlimited (self-hosted Postgres extension)",
       "type": "free"
     },
-    "latency_p50_ms": 30
+    "latency_p50_ms": 30,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "pinecone",
@@ -2813,7 +2965,9 @@
       "pricing_url": "https://www.pinecone.io/pricing/"
     },
     "latency_p50_ms": 100,
-    "bytes_per_vector": 2000
+    "bytes_per_vector": 2000,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "weaviate",
@@ -2856,7 +3010,9 @@
       "pricing_url": "https://weaviate.io/pricing"
     },
     "latency_p50_ms": 80,
-    "bytes_per_vector": 2000
+    "bytes_per_vector": 2000,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "milvus",
@@ -2895,7 +3051,9 @@
       "pricing_url": "https://zilliz.com/pricing",
       "type": "free"
     },
-    "latency_p50_ms": 20
+    "latency_p50_ms": 20,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "anthropic-api",
@@ -2944,7 +3102,9 @@
     "ttft_p50_ms": 700,
     "output_tokens_per_second": 46,
     "max_tpm": 400000,
-    "max_rpm": 4000
+    "max_rpm": 4000,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "openai-api",
@@ -2992,7 +3152,9 @@
     "ttft_p50_ms": 500,
     "output_tokens_per_second": 85,
     "max_tpm": 600000,
-    "max_rpm": 5000
+    "max_rpm": 5000,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "mistral-api",
@@ -3039,7 +3201,9 @@
     "ttft_p50_ms": 500,
     "output_tokens_per_second": 80,
     "max_tpm": 500000,
-    "max_rpm": 5000
+    "max_rpm": 5000,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "cohere-api",
@@ -3087,7 +3251,9 @@
     "ttft_p50_ms": 500,
     "output_tokens_per_second": 80,
     "max_tpm": 500000,
-    "max_rpm": 5000
+    "max_rpm": 5000,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "replicate",
@@ -3126,7 +3292,9 @@
       "pricing_url": "https://replicate.com/pricing",
       "type": "usage_based"
     },
-    "latency_p50_ms": 1200
+    "latency_p50_ms": 1200,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "huggingface",
@@ -3165,7 +3333,9 @@
       "free_tier_limit": "shared inference free",
       "pricing_url": "https://huggingface.co/pricing",
       "type": "usage_based"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "vercel-ai-sdk",
@@ -3193,7 +3363,9 @@
     },
     "website_url": "https://sdk.vercel.ai",
     "github_url": "https://github.com/vercel/ai",
-    "use_context": "both"
+    "use_context": "both",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "ray",
@@ -3230,7 +3402,9 @@
     "cost_model": {
       "free_tier_limit": "unlimited (self-hosted)",
       "type": "free"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "logfire",
@@ -3268,7 +3442,9 @@
       "free_tier_limit": "1GB logs/mo",
       "pricing_url": "https://pydantic.dev/logfire#pricing",
       "type": "usage_based"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "mcp-sdk-ts",
@@ -3297,7 +3473,9 @@
     },
     "website_url": "https://modelcontextprotocol.io",
     "github_url": "https://github.com/modelcontextprotocol/typescript-sdk",
-    "use_context": "both"
+    "use_context": "both",
+    "scope": "substrate",
+    "lifecycle_phases": []
   },
   {
     "id": "mcp-sdk-python",
@@ -3325,7 +3503,9 @@
     },
     "website_url": "https://modelcontextprotocol.io",
     "github_url": "https://github.com/modelcontextprotocol/python-sdk",
-    "use_context": "both"
+    "use_context": "both",
+    "scope": "substrate",
+    "lifecycle_phases": []
   },
   {
     "id": "fastmcp",
@@ -3353,7 +3533,9 @@
     },
     "website_url": "https://github.com/jlowin/fastmcp",
     "github_url": "https://github.com/jlowin/fastmcp",
-    "use_context": "both"
+    "use_context": "both",
+    "scope": "substrate",
+    "lifecycle_phases": []
   },
   {
     "id": "smithery",
@@ -3386,7 +3568,9 @@
       "free_tier_limit": "free registry",
       "pricing_url": "https://smithery.ai",
       "type": "free"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "e2b",
@@ -3424,7 +3608,9 @@
       "free_tier_limit": "100 sandbox-hours/mo",
       "pricing_url": "https://e2b.dev/pricing",
       "type": "per_call"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "context7",
@@ -3452,7 +3638,9 @@
     },
     "website_url": "https://context7.com",
     "github_url": "https://github.com/upstash/context7",
-    "use_context": "both"
+    "use_context": "both",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "playwright-mcp",
@@ -3480,7 +3668,9 @@
     },
     "website_url": "https://github.com/microsoft/playwright-mcp",
     "github_url": "https://github.com/microsoft/playwright-mcp",
-    "use_context": "both"
+    "use_context": "both",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "github-mcp",
@@ -3508,7 +3698,9 @@
     },
     "website_url": "https://github.com/github/github-mcp-server",
     "github_url": "https://github.com/github/github-mcp-server",
-    "use_context": "both"
+    "use_context": "both",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "promptfoo",
@@ -3541,7 +3733,9 @@
       "free_tier_limit": "unlimited (self-hosted)",
       "pricing_url": "https://www.promptfoo.dev/pricing",
       "type": "free"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "deepeval",
@@ -3574,7 +3768,9 @@
       "free_tier_limit": "unlimited (OSS library)",
       "pricing_url": "https://www.confident-ai.com/pricing",
       "type": "free"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "ragas",
@@ -3603,7 +3799,9 @@
     },
     "website_url": "https://ragas.io",
     "github_url": "https://github.com/explodinggradients/ragas",
-    "use_context": "app-infrastructure"
+    "use_context": "app-infrastructure",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "vellum",
@@ -3642,7 +3840,9 @@
       "free_tier_limit": "1 seat + limited runs",
       "pricing_url": "https://www.vellum.ai/pricing",
       "type": "per_seat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "promptlayer",
@@ -3681,7 +3881,9 @@
       "free_tier_limit": "10k requests/mo",
       "pricing_url": "https://promptlayer.com/pricing",
       "type": "flat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "agenta",
@@ -3720,7 +3922,9 @@
       "free_tier_limit": "unlimited (self-hosted)",
       "pricing_url": "https://agenta.ai/pricing",
       "type": "flat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "weights-biases",
@@ -3759,7 +3963,9 @@
       "free_tier_limit": "unlimited for personal projects",
       "pricing_url": "https://wandb.ai/site/pricing",
       "type": "per_seat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "traceloop",
@@ -3797,7 +4003,9 @@
       "free_tier_limit": "50k spans/mo",
       "pricing_url": "https://www.traceloop.com/pricing",
       "type": "usage_based"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "spec-kit",
@@ -3826,7 +4034,9 @@
     },
     "website_url": "https://github.com/github/spec-kit",
     "github_url": "https://github.com/github/spec-kit",
-    "use_context": "dev-productivity"
+    "use_context": "dev-productivity",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "mermaid",
@@ -3855,7 +4065,9 @@
     },
     "website_url": "https://mermaid.js.org",
     "github_url": "https://github.com/mermaid-js/mermaid",
-    "use_context": "dev-productivity"
+    "use_context": "dev-productivity",
+    "scope": "substrate",
+    "lifecycle_phases": []
   },
   {
     "id": "eraser",
@@ -3898,7 +4110,9 @@
       "free_tier_limit": "5 diagrams",
       "pricing_url": "https://www.eraser.io/pricing",
       "type": "per_seat"
-    }
+    },
+    "scope": "substrate",
+    "lifecycle_phases": []
   },
   {
     "id": "swagger",
@@ -3937,7 +4151,9 @@
     },
     "website_url": "https://swagger.io",
     "github_url": "https://github.com/swagger-api/swagger-ui",
-    "use_context": "dev-productivity"
+    "use_context": "dev-productivity",
+    "scope": "substrate",
+    "lifecycle_phases": []
   },
   {
     "id": "redocly",
@@ -3970,7 +4186,9 @@
     },
     "website_url": "https://redocly.com",
     "github_url": "https://github.com/Redocly/redoc",
-    "use_context": "dev-productivity"
+    "use_context": "dev-productivity",
+    "scope": "substrate",
+    "lifecycle_phases": []
   },
   {
     "id": "asyncapi",
@@ -3998,7 +4216,9 @@
     },
     "website_url": "https://www.asyncapi.com",
     "github_url": "https://github.com/asyncapi/spec",
-    "use_context": "dev-productivity"
+    "use_context": "dev-productivity",
+    "scope": "substrate",
+    "lifecycle_phases": []
   },
   {
     "id": "stoplight",
@@ -4041,7 +4261,9 @@
       "free_tier_limit": "2 workspaces",
       "pricing_url": "https://stoplight.io/pricing",
       "type": "flat"
-    }
+    },
+    "scope": "substrate",
+    "lifecycle_phases": []
   },
   {
     "id": "speakeasy",
@@ -4081,7 +4303,9 @@
       "free_tier_limit": "3 SDKs",
       "pricing_url": "https://www.speakeasy.com/pricing",
       "type": "flat"
-    }
+    },
+    "scope": "substrate",
+    "lifecycle_phases": []
   },
   {
     "id": "fern",
@@ -4114,7 +4338,9 @@
     },
     "website_url": "https://buildwithfern.com",
     "github_url": "https://github.com/fern-api/fern",
-    "use_context": "dev-productivity"
+    "use_context": "dev-productivity",
+    "scope": "substrate",
+    "lifecycle_phases": []
   },
   {
     "id": "stainless",
@@ -4148,7 +4374,9 @@
     },
     "website_url": "https://www.stainless.com",
     "github_url": null,
-    "use_context": "dev-productivity"
+    "use_context": "dev-productivity",
+    "scope": "substrate",
+    "lifecycle_phases": []
   },
   {
     "id": "openapi-generator",
@@ -4176,7 +4404,9 @@
     },
     "website_url": "https://openapi-generator.tech",
     "github_url": "https://github.com/OpenAPITools/openapi-generator",
-    "use_context": "dev-productivity"
+    "use_context": "dev-productivity",
+    "scope": "substrate",
+    "lifecycle_phases": []
   },
   {
     "id": "google-adk",
@@ -4210,7 +4440,9 @@
     },
     "website_url": "https://google.github.io/adk-docs/",
     "github_url": "https://github.com/google/adk-python",
-    "use_context": "app-infrastructure"
+    "use_context": "app-infrastructure",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "julep",
@@ -4253,7 +4485,9 @@
       "free_tier_limit": "free dev tier",
       "pricing_url": "https://julep.ai/pricing",
       "type": "usage_based"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "letta",
@@ -4291,7 +4525,9 @@
     },
     "website_url": "https://letta.com",
     "github_url": "https://github.com/letta-ai/letta",
-    "use_context": "app-infrastructure"
+    "use_context": "app-infrastructure",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "bee-agent",
@@ -4325,7 +4561,9 @@
     },
     "website_url": "https://i-am-bee.github.io/bee-agent-framework/",
     "github_url": "https://github.com/i-am-bee/bee-agent-framework",
-    "use_context": "app-infrastructure"
+    "use_context": "app-infrastructure",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "griptape",
@@ -4364,7 +4602,9 @@
     "website_url": "https://www.griptape.ai",
     "github_url": "https://github.com/griptape-ai/griptape",
     "use_context": "app-infrastructure",
-    "latency_p50_ms": 120
+    "latency_p50_ms": 120,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "rivet",
@@ -4398,7 +4638,9 @@
     },
     "website_url": "https://rivet.ironcladapp.com",
     "github_url": "https://github.com/Ironclad/rivet",
-    "use_context": "app-infrastructure"
+    "use_context": "app-infrastructure",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "unify-ai",
@@ -4440,7 +4682,9 @@
     "cost_model": {
       "pricing_url": "https://unify.ai/pricing",
       "type": "usage_based"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "martian",
@@ -4482,7 +4726,9 @@
     "cost_model": {
       "pricing_url": "https://withmartian.com/pricing",
       "type": "usage_based"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "not-diamond",
@@ -4525,7 +4771,9 @@
       "free_tier_limit": "100 queries/mo",
       "pricing_url": "https://www.notdiamond.ai/pricing",
       "type": "usage_based"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "cerebras",
@@ -4571,7 +4819,9 @@
       "pricing_url": "https://cerebras.ai/pricing",
       "type": "per_token"
     },
-    "latency_p50_ms": 50
+    "latency_p50_ms": 50,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "deepinfra",
@@ -4617,7 +4867,9 @@
       "pricing_url": "https://deepinfra.com/pricing",
       "type": "per_token"
     },
-    "latency_p50_ms": 350
+    "latency_p50_ms": 350,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "baseten",
@@ -4659,7 +4911,9 @@
     "cost_model": {
       "pricing_url": "https://www.baseten.co/pricing",
       "type": "usage_based"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "lambda-labs",
@@ -4701,7 +4955,9 @@
     "cost_model": {
       "pricing_url": "https://lambdalabs.com/service/gpu-cloud/pricing",
       "type": "usage_based"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "perplexity-api",
@@ -4742,7 +4998,9 @@
       "pricing_url": "https://www.perplexity.ai/settings/api",
       "type": "per_token"
     },
-    "latency_p50_ms": 500
+    "latency_p50_ms": 500,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "redis-vector",
@@ -4786,7 +5044,9 @@
       "pricing_url": "https://redis.io/pricing/",
       "type": "usage_based"
     },
-    "latency_p50_ms": 5
+    "latency_p50_ms": 5,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "turbopuffer",
@@ -4833,7 +5093,9 @@
       "pricing_url": "https://turbopuffer.com/pricing"
     },
     "latency_p50_ms": 30,
-    "bytes_per_vector": 2000
+    "bytes_per_vector": 2000,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "lancedb",
@@ -4876,7 +5138,9 @@
       "free_tier_limit": "unlimited (self-hosted)",
       "type": "free"
     },
-    "latency_p50_ms": 15
+    "latency_p50_ms": 15,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "opik",
@@ -4914,7 +5178,9 @@
     },
     "website_url": "https://www.comet.com/site/products/opik/",
     "github_url": "https://github.com/comet-ml/opik",
-    "use_context": "app-infrastructure"
+    "use_context": "app-infrastructure",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "agentops",
@@ -4958,7 +5224,9 @@
       "free_tier_limit": "10k events/mo",
       "pricing_url": "https://www.agentops.ai/pricing",
       "type": "flat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "mlflow",
@@ -4996,7 +5264,9 @@
     },
     "website_url": "https://mlflow.org",
     "github_url": "https://github.com/mlflow/mlflow",
-    "use_context": "both"
+    "use_context": "both",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "trulens",
@@ -5030,7 +5300,9 @@
     },
     "website_url": "https://www.trulens.org",
     "github_url": "https://github.com/truera/trulens",
-    "use_context": "app-infrastructure"
+    "use_context": "app-infrastructure",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "humanloop",
@@ -5074,7 +5346,9 @@
       "free_tier_limit": "limited trial",
       "pricing_url": "https://humanloop.com/pricing",
       "type": "flat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "inspect-ai",
@@ -5108,7 +5382,9 @@
     },
     "website_url": "https://ukgovernment.github.io/inspect_ai/",
     "github_url": "https://github.com/UKGovernmentBEIS/inspect_ai",
-    "use_context": "app-infrastructure"
+    "use_context": "app-infrastructure",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "amp",
@@ -5146,7 +5422,9 @@
     },
     "website_url": "https://ampcode.com",
     "github_url": null,
-    "use_context": "dev-productivity"
+    "use_context": "dev-productivity",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "codex-cli",
@@ -5180,7 +5458,9 @@
     },
     "website_url": "https://github.com/openai/codex",
     "github_url": "https://github.com/openai/codex",
-    "use_context": "dev-productivity"
+    "use_context": "dev-productivity",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "kodu-ai",
@@ -5218,7 +5498,9 @@
     },
     "website_url": "https://kodu.ai",
     "github_url": "https://github.com/kodu-ai/claude-coder",
-    "use_context": "dev-productivity"
+    "use_context": "dev-productivity",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "factory-ai",
@@ -5256,7 +5538,9 @@
     },
     "website_url": "https://factory.ai",
     "github_url": null,
-    "use_context": "dev-productivity"
+    "use_context": "dev-productivity",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "replit-agent",
@@ -5300,7 +5584,9 @@
       "free_tier_limit": "3 agents/mo",
       "pricing_url": "https://replit.com/pricing",
       "type": "per_seat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "desktop-commander",
@@ -5334,7 +5620,9 @@
     },
     "website_url": "https://desktopcommander.app",
     "github_url": "https://github.com/wonderwhy-er/DesktopCommanderMCP",
-    "use_context": "both"
+    "use_context": "both",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "brave-search-mcp",
@@ -5372,7 +5660,9 @@
     },
     "website_url": "https://brave.com/search/api/",
     "github_url": "https://github.com/modelcontextprotocol/servers",
-    "use_context": "both"
+    "use_context": "both",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "sequential-thinking-mcp",
@@ -5406,7 +5696,9 @@
     },
     "website_url": "https://github.com/modelcontextprotocol/servers",
     "github_url": "https://github.com/modelcontextprotocol/servers",
-    "use_context": "both"
+    "use_context": "both",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "sentry-mcp",
@@ -5440,7 +5732,9 @@
     },
     "website_url": "https://docs.sentry.io/product/sentry-mcp/",
     "github_url": "https://github.com/getsentry/sentry-mcp",
-    "use_context": "both"
+    "use_context": "both",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "snyk",
@@ -5484,7 +5778,9 @@
       "free_tier_limit": "10 tests/mo",
       "pricing_url": "https://snyk.io/plans/",
       "type": "per_seat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "sonarqube",
@@ -5522,7 +5818,9 @@
     },
     "website_url": "https://www.sonarsource.com/products/sonarqube/",
     "github_url": "https://github.com/SonarSource/sonarqube",
-    "use_context": "dev-productivity"
+    "use_context": "dev-productivity",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "semgrep",
@@ -5566,7 +5864,9 @@
       "free_tier_limit": "unlimited OSS",
       "pricing_url": "https://semgrep.dev/pricing",
       "type": "per_seat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "archbee",
@@ -5610,7 +5910,9 @@
       "free_tier_limit": "10 pages",
       "pricing_url": "https://www.archbee.com/pricing",
       "type": "flat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "tettra",
@@ -5648,7 +5950,9 @@
     },
     "website_url": "https://tettra.com",
     "github_url": null,
-    "use_context": "dev-productivity"
+    "use_context": "dev-productivity",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "coda-ai",
@@ -5692,7 +5996,9 @@
       "free_tier_limit": "basic doc",
       "pricing_url": "https://coda.io/pricing",
       "type": "per_seat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "confluence-ai",
@@ -5736,7 +6042,9 @@
       "free_tier_limit": "10 users",
       "pricing_url": "https://www.atlassian.com/software/confluence/pricing",
       "type": "per_seat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "productboard-ai",
@@ -5779,7 +6087,9 @@
       "cost_per_seat": 19,
       "pricing_url": "https://www.productboard.com/pricing/",
       "type": "per_seat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "jira-ai",
@@ -5823,7 +6133,9 @@
       "free_tier_limit": "10 users",
       "pricing_url": "https://www.atlassian.com/software/jira/pricing",
       "type": "per_seat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "aha-ai",
@@ -5861,7 +6173,9 @@
     },
     "website_url": "https://www.aha.io",
     "github_url": null,
-    "use_context": "dev-productivity"
+    "use_context": "dev-productivity",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "grain",
@@ -5905,7 +6219,9 @@
       "free_tier_limit": "3 hours/mo",
       "pricing_url": "https://grain.com/pricing",
       "type": "per_seat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "google-gemini-api",
@@ -5958,7 +6274,9 @@
     "ttft_p50_ms": 600,
     "output_tokens_per_second": 120,
     "max_tpm": 1000000,
-    "max_rpm": 10000
+    "max_rpm": 10000,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "amazon-bedrock",
@@ -6003,7 +6321,9 @@
       "output_cost_per_1k_tokens": 0.015,
       "pricing_url": "https://aws.amazon.com/bedrock/pricing/",
       "type": "per_token"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "azure-openai",
@@ -6048,7 +6368,9 @@
       "output_cost_per_1k_tokens": 0.01,
       "pricing_url": "https://azure.microsoft.com/en-us/pricing/details/cognitive-services/openai-service/",
       "type": "per_token"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "xai-grok",
@@ -6100,7 +6422,9 @@
     "ttft_p50_ms": 600,
     "output_tokens_per_second": 60,
     "max_tpm": 300000,
-    "max_rpm": 2000
+    "max_rpm": 2000,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "deepseek-api",
@@ -6152,7 +6476,9 @@
     "ttft_p50_ms": 800,
     "output_tokens_per_second": 30,
     "max_tpm": 200000,
-    "max_rpm": 2000
+    "max_rpm": 2000,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "kilo-code",
@@ -6181,7 +6507,9 @@
     },
     "website_url": "https://kilocode.ai",
     "github_url": "https://github.com/Kilo-Org/kilocode",
-    "use_context": "dev-productivity"
+    "use_context": "dev-productivity",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "roocode",
@@ -6210,7 +6538,10 @@
     },
     "website_url": "https://github.com/RooVetGit/Roo-Code",
     "github_url": "https://github.com/RooVetGit/Roo-Code",
-    "use_context": "dev-productivity"
+    "use_context": "dev-productivity",
+    "scope": "ai-native",
+    "lifecycle_phases": [],
+    "archived": true
   },
   {
     "id": "warp",
@@ -6254,7 +6585,9 @@
       "free_tier_limit": "personal free",
       "pricing_url": "https://www.warp.dev/pricing",
       "type": "per_seat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "openai-agents-sdk",
@@ -6283,7 +6616,9 @@
     },
     "website_url": "https://openai.github.io/openai-agents-python",
     "github_url": "https://github.com/openai/openai-agents-python",
-    "use_context": "app-infrastructure"
+    "use_context": "app-infrastructure",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "manus-ai",
@@ -6321,7 +6656,9 @@
     },
     "website_url": "https://manus.ai",
     "github_url": null,
-    "use_context": "dev-productivity"
+    "use_context": "dev-productivity",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "mcp-so",
@@ -6350,7 +6687,9 @@
     },
     "website_url": "https://mcp.so",
     "github_url": null,
-    "use_context": "both"
+    "use_context": "both",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "runpod",
@@ -6393,7 +6732,9 @@
       "free_tier_limit": "$10 credit on signup",
       "pricing_url": "https://www.runpod.io/gpu-instance/pricing",
       "type": "usage_based"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "fal-ai",
@@ -6433,7 +6774,9 @@
       "free_tier_limit": "$0.10 credit on signup",
       "pricing_url": "https://fal.ai/pricing",
       "type": "per_call"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "maxim-ai",
@@ -6475,7 +6818,9 @@
     "cost_model": {
       "pricing_url": "https://www.getmaxim.ai/pricing",
       "type": "usage_based"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "galileo-eval",
@@ -6513,7 +6858,9 @@
     },
     "website_url": "https://rungalileo.io",
     "github_url": null,
-    "use_context": "app-infrastructure"
+    "use_context": "app-infrastructure",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "axolotl",
@@ -6543,7 +6890,9 @@
     "website_url": "https://axolotl.ai",
     "github_url": "https://github.com/axolotl-ai-cloud/axolotl",
     "use_context": "app-infrastructure",
-    "added_at": "2026-03-12"
+    "added_at": "2026-03-12",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "unsloth",
@@ -6577,7 +6926,9 @@
     },
     "website_url": "https://unsloth.ai",
     "github_url": "https://github.com/unslothai/unsloth",
-    "use_context": "app-infrastructure"
+    "use_context": "app-infrastructure",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "llama-factory",
@@ -6606,7 +6957,9 @@
     },
     "website_url": "https://github.com/hiyouga/LLaMA-Factory",
     "github_url": "https://github.com/hiyouga/LLaMA-Factory",
-    "use_context": "app-infrastructure"
+    "use_context": "app-infrastructure",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "torchtune",
@@ -6635,7 +6988,9 @@
     },
     "website_url": "https://pytorch.org/torchtune",
     "github_url": "https://github.com/pytorch/torchtune",
-    "use_context": "app-infrastructure"
+    "use_context": "app-infrastructure",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "predibase",
@@ -6678,7 +7033,9 @@
       "free_tier_limit": "limited free tier",
       "pricing_url": "https://predibase.com/pricing",
       "type": "usage_based"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "elevenlabs",
@@ -6727,7 +7084,9 @@
       "free_tier_limit": "10k chars/mo",
       "pricing_url": "https://elevenlabs.io/pricing",
       "type": "flat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "deepgram",
@@ -6770,7 +7129,9 @@
       "free_tier_limit": "$200 credit on signup",
       "pricing_url": "https://deepgram.com/pricing",
       "type": "per_call"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "assemblyai",
@@ -6813,7 +7174,9 @@
       "free_tier_limit": "$50 credit on signup",
       "pricing_url": "https://www.assemblyai.com/pricing",
       "type": "per_call"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "cartesia",
@@ -6856,7 +7219,9 @@
       "free_tier_limit": "1M chars free/mo",
       "pricing_url": "https://cartesia.ai/pricing",
       "type": "per_call"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "playht",
@@ -6899,7 +7264,9 @@
       "free_tier_limit": "12.5k words/mo",
       "pricing_url": "https://play.ht/pricing/",
       "type": "per_call"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "moondream",
@@ -6928,7 +7295,9 @@
     },
     "website_url": "https://moondream.ai",
     "github_url": "https://github.com/vikhyat/moondream",
-    "use_context": "app-infrastructure"
+    "use_context": "app-infrastructure",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "llava",
@@ -6957,7 +7326,9 @@
     },
     "website_url": "https://llava-vl.github.io",
     "github_url": "https://github.com/haotian-liu/LLaVA",
-    "use_context": "app-infrastructure"
+    "use_context": "app-infrastructure",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "paligemma",
@@ -6986,7 +7357,9 @@
     },
     "website_url": "https://ai.google.dev/gemma/docs/paligemma",
     "github_url": "https://github.com/google-research/big_vision",
-    "use_context": "app-infrastructure"
+    "use_context": "app-infrastructure",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "pixtral",
@@ -7030,7 +7403,9 @@
       "output_cost_per_1k_tokens": 0.003,
       "pricing_url": "https://mistral.ai/technology/#pricing",
       "type": "per_token"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "qwen-vl",
@@ -7059,7 +7434,9 @@
     },
     "website_url": "https://qwenlm.github.io/blog/qwen-vl",
     "github_url": "https://github.com/QwenLM/Qwen-VL",
-    "use_context": "app-infrastructure"
+    "use_context": "app-infrastructure",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "internvl2",
@@ -7088,7 +7465,9 @@
     },
     "website_url": "https://internvl.github.io",
     "github_url": "https://github.com/OpenGVLab/InternVL",
-    "use_context": "app-infrastructure"
+    "use_context": "app-infrastructure",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "vapi",
@@ -7132,7 +7511,9 @@
       "free_tier_limit": "$10 credit",
       "pricing_url": "https://vapi.ai/pricing",
       "type": "per_call"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "retell-ai",
@@ -7175,7 +7556,9 @@
       "free_tier_limit": "$10 credit",
       "pricing_url": "https://www.retellai.com/pricing",
       "type": "per_call"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "browser-use",
@@ -7205,7 +7588,9 @@
     "website_url": "https://browser-use.com",
     "github_url": "https://github.com/browser-use/browser-use",
     "use_context": "both",
-    "added_at": "2026-03-15"
+    "added_at": "2026-03-15",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "stagehand",
@@ -7240,7 +7625,9 @@
     "website_url": "https://stagehand.dev",
     "github_url": "https://github.com/browserbase/stagehand",
     "use_context": "both",
-    "added_at": "2026-03-18"
+    "added_at": "2026-03-18",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "skyvern",
@@ -7279,7 +7666,9 @@
       "free_tier_limit": "$5 credit",
       "pricing_url": "https://skyvern.com/pricing",
       "type": "per_call"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "firecrawl",
@@ -7323,7 +7712,9 @@
       "free_tier_limit": "500 credits/mo",
       "pricing_url": "https://www.firecrawl.dev/pricing",
       "type": "flat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "gemini-code-assist",
@@ -7366,7 +7757,9 @@
     "added_at": "2026-04-26",
     "health_score": null,
     "last_synced_at": null,
-    "is_stale": null
+    "is_stale": null,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "amazon-q-developer",
@@ -7409,7 +7802,9 @@
     "added_at": "2026-04-26",
     "health_score": null,
     "last_synced_at": null,
-    "is_stale": null
+    "is_stale": null,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "augment-code",
@@ -7451,7 +7846,9 @@
     "added_at": "2026-04-26",
     "health_score": null,
     "last_synced_at": null,
-    "is_stale": null
+    "is_stale": null,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "gemini-cli",
@@ -7490,7 +7887,9 @@
     "added_at": "2026-04-26",
     "health_score": null,
     "last_synced_at": null,
-    "is_stale": null
+    "is_stale": null,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "jules",
@@ -7533,7 +7932,9 @@
     "added_at": "2026-04-26",
     "health_score": null,
     "last_synced_at": null,
-    "is_stale": null
+    "is_stale": null,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "strands-agents",
@@ -7566,7 +7967,9 @@
     "added_at": "2026-04-26",
     "health_score": null,
     "last_synced_at": null,
-    "is_stale": null
+    "is_stale": null,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "ragflow",
@@ -7604,7 +8007,9 @@
     "added_at": "2026-04-26",
     "health_score": null,
     "last_synced_at": null,
-    "is_stale": null
+    "is_stale": null,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "lightrag",
@@ -7637,7 +8042,9 @@
     "added_at": "2026-04-26",
     "health_score": null,
     "last_synced_at": null,
-    "is_stale": null
+    "is_stale": null,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "sambanova-cloud",
@@ -7675,7 +8082,9 @@
     "added_at": "2026-04-26",
     "health_score": null,
     "last_synced_at": null,
-    "is_stale": null
+    "is_stale": null,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "cloudflare-ai-gateway",
@@ -7717,7 +8126,9 @@
     "added_at": "2026-04-26",
     "health_score": null,
     "last_synced_at": null,
-    "is_stale": null
+    "is_stale": null,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "trl",
@@ -7750,7 +8161,9 @@
     "added_at": "2026-04-26",
     "health_score": null,
     "last_synced_at": null,
-    "is_stale": null
+    "is_stale": null,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "pipecat",
@@ -7783,7 +8196,9 @@
     "added_at": "2026-04-26",
     "health_score": null,
     "last_synced_at": null,
-    "is_stale": null
+    "is_stale": null,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "livekit-agents",
@@ -7821,7 +8236,9 @@
     "added_at": "2026-04-26",
     "health_score": null,
     "last_synced_at": null,
-    "is_stale": null
+    "is_stale": null,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "browserbase",
@@ -7863,7 +8280,9 @@
     "added_at": "2026-04-26",
     "health_score": null,
     "last_synced_at": null,
-    "is_stale": null
+    "is_stale": null,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "figma-ai",
@@ -7905,7 +8324,9 @@
     "added_at": "2026-04-26",
     "health_score": null,
     "last_synced_at": null,
-    "is_stale": null
+    "is_stale": null,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "langwatch",
@@ -7943,7 +8364,9 @@
     "added_at": "2026-04-26",
     "health_score": null,
     "last_synced_at": null,
-    "is_stale": null
+    "is_stale": null,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "browserbase-mcp",
@@ -7976,7 +8399,9 @@
     "added_at": "2026-04-26",
     "health_score": null,
     "last_synced_at": null,
-    "is_stale": null
+    "is_stale": null,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "mem0",
@@ -8014,7 +8439,9 @@
     "added_at": "2026-04-26",
     "health_score": null,
     "last_synced_at": null,
-    "is_stale": null
+    "is_stale": null,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "zep",
@@ -8052,7 +8479,9 @@
     "added_at": "2026-04-26",
     "health_score": null,
     "last_synced_at": null,
-    "is_stale": null
+    "is_stale": null,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "nemo-guardrails",
@@ -8085,7 +8514,9 @@
     "added_at": "2026-04-26",
     "health_score": null,
     "last_synced_at": null,
-    "is_stale": null
+    "is_stale": null,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "guardrails-ai",
@@ -8123,7 +8554,9 @@
     "added_at": "2026-04-26",
     "health_score": null,
     "last_synced_at": null,
-    "is_stale": null
+    "is_stale": null,
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "kiro",
@@ -8168,7 +8601,9 @@
       "free_tier_limit": "limited model usage",
       "pricing_url": "https://kiro.dev/pricing",
       "type": "per_seat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "google-antigravity",
@@ -8213,7 +8648,9 @@
       "free_tier_limit": "Limited Gemini usage",
       "pricing_url": "https://antigravity.google/pricing",
       "type": "per_seat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "microsoft-agent-framework",
@@ -8248,7 +8685,9 @@
     "website_url": "https://github.com/microsoft/agent-framework",
     "github_url": "https://github.com/microsoft/agent-framework",
     "use_context": "app-infrastructure",
-    "added_at": "2026-05-15"
+    "added_at": "2026-05-15",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "claude-agent-sdk",
@@ -8283,7 +8722,9 @@
     "website_url": "https://github.com/anthropics/claude-agent-sdk-python",
     "github_url": "https://github.com/anthropics/claude-agent-sdk-python",
     "use_context": "app-infrastructure",
-    "added_at": "2026-05-15"
+    "added_at": "2026-05-15",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "kapa-ai",
@@ -8322,7 +8763,9 @@
     "website_url": "https://www.kapa.ai",
     "github_url": null,
     "use_context": "app-infrastructure",
-    "added_at": "2026-05-15"
+    "added_at": "2026-05-15",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "lakera-guard",
@@ -8361,7 +8804,9 @@
     "website_url": "https://www.lakera.ai/lakera-guard",
     "github_url": null,
     "use_context": "app-infrastructure",
-    "added_at": "2026-05-15"
+    "added_at": "2026-05-15",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "llm-guard",
@@ -8396,7 +8841,9 @@
     "website_url": "https://github.com/protectai/llm-guard",
     "github_url": "https://github.com/protectai/llm-guard",
     "use_context": "app-infrastructure",
-    "added_at": "2026-05-15"
+    "added_at": "2026-05-15",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "openai-guardrails",
@@ -8431,7 +8878,9 @@
     "website_url": "https://github.com/openai/openai-guardrails-python",
     "github_url": "https://github.com/openai/openai-guardrails-python",
     "use_context": "app-infrastructure",
-    "added_at": "2026-05-15"
+    "added_at": "2026-05-15",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "composio",
@@ -8470,7 +8919,9 @@
     "website_url": "https://composio.dev",
     "github_url": "https://github.com/ComposioHQ/composio",
     "use_context": "app-infrastructure",
-    "added_at": "2026-05-15"
+    "added_at": "2026-05-15",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "anthropic-computer-use",
@@ -8505,7 +8956,9 @@
     "website_url": "https://docs.anthropic.com/en/docs/agents-and-tools/computer-use",
     "github_url": null,
     "use_context": "app-infrastructure",
-    "added_at": "2026-05-15"
+    "added_at": "2026-05-15",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "openai-operator",
@@ -8544,7 +8997,9 @@
     "website_url": "https://openai.com/index/introducing-operator/",
     "github_url": null,
     "use_context": "app-infrastructure",
-    "added_at": "2026-05-15"
+    "added_at": "2026-05-15",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "hume-evi",
@@ -8583,7 +9038,9 @@
     "website_url": "https://hume.ai",
     "github_url": null,
     "use_context": "app-infrastructure",
-    "added_at": "2026-05-15"
+    "added_at": "2026-05-15",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "github-copilot-coding-agent",
@@ -8628,7 +9085,9 @@
       "free_tier_limit": null,
       "pricing_url": "https://github.com/features/copilot/plans",
       "type": "per_seat"
-    }
+    },
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "bmad-method",
@@ -8663,7 +9122,9 @@
     "website_url": "https://github.com/bmad-code-org/BMAD-METHOD",
     "github_url": "https://github.com/bmad-code-org/BMAD-METHOD",
     "use_context": "dev-productivity",
-    "added_at": "2026-05-15"
+    "added_at": "2026-05-15",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "cognee",
@@ -8702,7 +9163,9 @@
     "website_url": "https://cognee.ai",
     "github_url": "https://github.com/topoteretes/cognee",
     "use_context": "app-infrastructure",
-    "added_at": "2026-05-15"
+    "added_at": "2026-05-15",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "graphiti",
@@ -8737,7 +9200,9 @@
     "website_url": "https://github.com/getzep/graphiti",
     "github_url": "https://github.com/getzep/graphiti",
     "use_context": "app-infrastructure",
-    "added_at": "2026-05-15"
+    "added_at": "2026-05-15",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "runway-gen-4",
@@ -8780,7 +9245,9 @@
     "website_url": "https://runwayml.com",
     "github_url": null,
     "use_context": "app-infrastructure",
-    "added_at": "2026-05-15"
+    "added_at": "2026-05-15",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "google-veo",
@@ -8815,7 +9282,9 @@
     "website_url": "https://deepmind.google/technologies/veo/",
     "github_url": null,
     "use_context": "app-infrastructure",
-    "added_at": "2026-05-15"
+    "added_at": "2026-05-15",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   },
   {
     "id": "kling",
@@ -8854,6 +9323,8 @@
     "website_url": "https://klingai.com",
     "github_url": null,
     "use_context": "app-infrastructure",
-    "added_at": "2026-05-15"
+    "added_at": "2026-05-15",
+    "scope": "ai-native",
+    "lifecycle_phases": []
   }
 ]

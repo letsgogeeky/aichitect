@@ -4,6 +4,7 @@
 
 **Brand:** "Cut the noise. Pick your AI stack."
 **Domain:** aichitect.dev | **Stack:** Next.js 16 + React Flow + Three.js + Tailwind v4 + TypeScript
+**Scope rule:** [`SCOPE.md`](./SCOPE.md) — the single source of truth for what belongs in the catalog. Read it before adding a tool.
 
 ## Engineering philosophy
 
