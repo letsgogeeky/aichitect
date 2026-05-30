@@ -12,6 +12,8 @@ import { healthColor, healthLabel } from "@/lib/health";
 import { formatRelativeTime } from "@/lib/format";
 import { SITE_URL } from "@/lib/constants";
 import { supabase } from "@/lib/db";
+import { getToolReliability, getToolBenchmarkHistory } from "@/lib/pulse";
+import { ToolPulseSection } from "./components/ToolPulseSection";
 
 export const revalidate = 3600;
 
@@ -164,17 +166,22 @@ export default async function ToolPage({ params }: Props) {
   const paired = rels.filter((r) => r.type === "commonly-paired-with");
   const competes = rels.filter((r) => r.type === "competes-with");
 
-  // ── Recent activity ────────────────────────────────────────────────────────
-  const { data: rawEvents } = supabase
-    ? await supabase
-        .from("tool_events")
-        .select("id, type, detected_at, metadata")
-        .eq("tool_id", toolId)
-        .order("detected_at", { ascending: false })
-        .limit(5)
-    : { data: null };
+  // ── Recent activity + pulse data ──────────────────────────────────────────
+  // Fired in parallel so the page TTFB doesn't grow linearly with tab count.
+  const [eventsResult, reliability, benchmarkHistory] = await Promise.all([
+    supabase
+      ? supabase
+          .from("tool_events")
+          .select("id, type, detected_at, metadata")
+          .eq("tool_id", toolId)
+          .order("detected_at", { ascending: false })
+          .limit(5)
+      : Promise.resolve({ data: null as null | unknown[] }),
+    getToolReliability(toolId),
+    getToolBenchmarkHistory(toolId),
+  ]);
 
-  const recentEvents = (rawEvents ?? []) as {
+  const recentEvents = (eventsResult.data ?? []) as {
     id: string;
     type: ToolEventType;
     detected_at: string;
@@ -814,6 +821,9 @@ export default async function ToolPage({ params }: Props) {
                 )}
               </div>
             </section>
+
+            {/* Pulse — reliability + latency trend */}
+            <ToolPulseSection reliability={reliability} benchmarkHistory={benchmarkHistory} />
 
             {/* Recent activity */}
             {recentEvents.length > 0 && (

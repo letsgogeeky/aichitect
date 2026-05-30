@@ -216,3 +216,152 @@ export async function getCategoryMomentum(): Promise<CategoryMomentum[]> {
 
   return results;
 }
+
+// ── Latency leaders (AIC-126 follow-up) ──────────────────────────────────────
+//
+// Top tools by measured TTFT. Source: tools.ttft_p50_ms, populated weekly by
+// sync-benchmarks from Artificial Analysis. Zero-valued entries are filtered
+// out — AA returns 0 (not null) for unmeasured models and we don't want them
+// surfaced as "fastest".
+
+export interface LatencyLeader {
+  id: string;
+  name: string;
+  category: CategoryId;
+  ttft_p50_ms: number;
+  output_tokens_per_second: number | null;
+  provider: string | null;
+}
+
+export async function getLatencyLeaders(limit = 8): Promise<LatencyLeader[]> {
+  const db = getClient();
+  if (!db) return [];
+
+  const { data, error } = await db
+    .from("tools")
+    .select("id, name, category, ttft_p50_ms, output_tokens_per_second, provider")
+    .not("ttft_p50_ms", "is", null)
+    .gt("ttft_p50_ms", 0)
+    .order("ttft_p50_ms", { ascending: true })
+    .limit(limit);
+
+  if (error || !data) return [];
+  return data as LatencyLeader[];
+}
+
+// ── Active incidents ─────────────────────────────────────────────────────────
+//
+// Currently-ongoing major-or-worse incidents across all tracked vendors.
+// Sourced from tool_incidents (hourly cron). Resolved rows excluded.
+
+export interface ActiveIncident {
+  id: string;
+  tool_id: string;
+  tool_name: string;
+  title: string;
+  severity: "minor" | "major" | "critical";
+  status: string;
+  started_at: string;
+  scope: string[];
+  url: string;
+}
+
+export async function getActiveIncidents(limit = 5): Promise<ActiveIncident[]> {
+  const db = getClient();
+  if (!db) return [];
+
+  const { data, error } = await db
+    .from("tool_incidents")
+    .select("id, tool_id, title, severity, status, started_at, scope, url")
+    .is("ended_at", null)
+    .in("severity", ["minor", "major", "critical"])
+    .order("started_at", { ascending: false })
+    .limit(limit);
+
+  if (error || !data) return [];
+
+  // Enrich with tool name from static catalog (avoids a JOIN round-trip).
+  const tools = toolsJson as Tool[];
+  const nameById = new Map(tools.map((t) => [t.id, t.name]));
+  return data.map((row) => ({
+    ...(row as Omit<ActiveIncident, "tool_name">),
+    tool_name: nameById.get(row.tool_id) ?? row.tool_id,
+  }));
+}
+
+// ── Per-tool pulse data (for /tool/[toolId]) ──────────────────────────────────
+
+export interface ToolIncident {
+  id: string;
+  title: string;
+  severity: "none" | "minor" | "major" | "critical";
+  started_at: string;
+  ended_at: string | null;
+  url: string;
+}
+
+export interface ReliabilitySummary {
+  total_90d: number;
+  major_or_worse_90d: number;
+  ongoing: number;
+  last_major_at: string | null;
+  recent: ToolIncident[];
+}
+
+/**
+ * Pure aggregation over a list of incidents (assumed already filtered to the
+ * desired time window and ordered newest first). Split out from the fetch so
+ * the counting logic is unit-testable without a DB.
+ */
+export function summarizeIncidents(incidents: ToolIncident[]): ReliabilitySummary {
+  const majorOrWorse = incidents.filter((i) => i.severity === "major" || i.severity === "critical");
+  return {
+    total_90d: incidents.length,
+    major_or_worse_90d: majorOrWorse.length,
+    ongoing: incidents.filter((i) => i.ended_at === null).length,
+    last_major_at: majorOrWorse[0]?.started_at ?? null,
+    recent: incidents.slice(0, 3),
+  };
+}
+
+export async function getToolReliability(toolId: string): Promise<ReliabilitySummary | null> {
+  const db = getClient();
+  if (!db) return null;
+
+  const ninetyDaysAgo = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString();
+  const { data, error } = await db
+    .from("tool_incidents")
+    .select("id, title, severity, started_at, ended_at, url")
+    .eq("tool_id", toolId)
+    .gte("started_at", ninetyDaysAgo)
+    .order("started_at", { ascending: false });
+
+  if (error || !data) return null;
+
+  return summarizeIncidents(data as ToolIncident[]);
+}
+
+export interface BenchmarkPoint {
+  recorded_at: string;
+  ttft_p50_ms: number | null;
+  output_tokens_per_second: number | null;
+}
+
+export async function getToolBenchmarkHistory(
+  toolId: string,
+  limit = 12
+): Promise<BenchmarkPoint[]> {
+  const db = getClient();
+  if (!db) return [];
+
+  const { data, error } = await db
+    .from("tool_benchmark_history")
+    .select("recorded_at, ttft_p50_ms, output_tokens_per_second")
+    .eq("tool_id", toolId)
+    .order("recorded_at", { ascending: false })
+    .limit(limit);
+
+  if (error || !data) return [];
+  // Return chronological for a left-to-right sparkline.
+  return (data as BenchmarkPoint[]).reverse();
+}

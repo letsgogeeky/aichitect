@@ -6,7 +6,43 @@ import ExploreGraph from "@/components/graph/ExploreGraph";
 import { loadGraphData } from "@/lib/data-loaders";
 import { getTools } from "@/lib/data/tools";
 import { pageMeta } from "@/lib/metadata";
-import { SITE_URL } from "@/lib/constants";
+import { SITE_URL, TOOL_COUNT, CATEGORY_COUNT, RELATIONSHIP_COUNT } from "@/lib/constants";
+
+/**
+ * Server-rendered placeholder that gives the browser real DOM to paint before
+ * the ReactFlow client bundle hydrates. Without this Lighthouse's LCP candidate
+ * is the post-hydration graph render, which charged us 47 points on /explore.
+ */
+function GraphSkeleton() {
+  return (
+    <div
+      className="flex h-[calc(100vh-56px)] w-full items-center justify-center"
+      style={{ background: "var(--bg)" }}
+    >
+      <div className="px-6 text-center">
+        <h1
+          className="mb-2 text-2xl font-semibold tracking-tight"
+          style={{ color: "var(--text-primary)" }}
+        >
+          The AI tool landscape
+        </h1>
+        <p className="text-sm" style={{ color: "var(--text-muted)" }}>
+          {TOOL_COUNT} tools · {CATEGORY_COUNT} categories · {RELATIONSHIP_COUNT} relationships
+        </p>
+        <div
+          className="mt-6 inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px]"
+          style={{ background: "var(--surface)", color: "var(--text-muted)" }}
+        >
+          <span
+            className="inline-block h-1.5 w-1.5 animate-pulse rounded-full"
+            style={{ background: "var(--accent)" }}
+          />
+          Loading graph…
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export async function generateMetadata({
   searchParams,
@@ -54,7 +90,7 @@ export async function generateMetadata({
 export default async function ExplorePage() {
   const { tools, relationships } = await loadGraphData();
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<GraphSkeleton />}>
       <ExploreGraph initialTools={tools} initialRelationships={relationships} />
     </Suspense>
   );

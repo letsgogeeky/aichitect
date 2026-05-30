@@ -3,6 +3,7 @@ export const dynamic = "force-dynamic";
 import { createHash } from "node:crypto";
 import { createClient } from "@supabase/supabase-js";
 import { fetchToolGitHubData, type GitHubToolData } from "@/lib/github";
+import { selectCrossedMilestones } from "@/lib/healthMilestones";
 import type { CostModel, Pricing } from "@/lib/types";
 
 /**
@@ -283,24 +284,27 @@ export async function GET(request: Request) {
       }
     }
 
-    // Star milestone crossings — fire once per milestone, using most recent snapshot as baseline
-    const STAR_MILESTONES = [1000, 5000, 10000, 25000, 50000, 100000];
-    const prevLatestStars = latestSnapshot?.stars ?? 0;
-    for (const milestone of STAR_MILESTONES) {
-      if (prevLatestStars < milestone && ghData.stars >= milestone) {
-        const { error: eventError } = await db.from("tool_events").insert({
-          tool_id: tool.id,
-          type: "star_milestone",
-          metadata: { milestone, stars: ghData.stars },
-        });
-        if (eventError) {
-          console.error(
-            `[sync-health] ✗ ${tool.name} — star_milestone event failed: ${eventError.message}`
-          );
-        } else {
-          eventsWritten++;
+    // Star milestone crossings — fire once per milestone, using most recent snapshot as baseline.
+    // Batched into a single insert per tool so a fast-grower crossing 3 milestones in one run is
+    // one round-trip, not three.
+    const prevLatestStars = latestSnapshot?.stars ?? null;
+    const crossedMilestones = selectCrossedMilestones(prevLatestStars, ghData.stars);
+    const milestoneRows = crossedMilestones.map((milestone) => ({
+      tool_id: tool.id,
+      type: "star_milestone" as const,
+      metadata: { milestone, stars: ghData.stars },
+    }));
+    if (milestoneRows.length > 0) {
+      const { error: eventError } = await db.from("tool_events").insert(milestoneRows);
+      if (eventError) {
+        console.error(
+          `[sync-health] ✗ ${tool.name} — star_milestone batch failed: ${eventError.message}`
+        );
+      } else {
+        eventsWritten += milestoneRows.length;
+        for (const row of milestoneRows) {
           console.log(
-            `[sync-health] ⭐ ${tool.name} — crossed ${milestone.toLocaleString()} stars`
+            `[sync-health] ⭐ ${tool.name} — crossed ${row.metadata.milestone.toLocaleString()} stars`
           );
         }
       }

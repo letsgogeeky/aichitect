@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { CategoryMomentumCard } from "./components/CategoryMomentumCard";
-import { getCategoryMomentum } from "@/lib/pulse";
+import { LatencyLeadersCard } from "./components/LatencyLeadersCard";
+import { ActiveIncidentsCard } from "./components/ActiveIncidentsCard";
+import { getCategoryMomentum, getLatencyLeaders, getActiveIncidents } from "@/lib/pulse";
 import type { CategoryMomentum } from "@/lib/pulse";
 import { SITE_URL } from "@/lib/constants";
 
@@ -60,7 +62,11 @@ function SummaryBar({ categories }: { categories: CategoryMomentum[] }) {
 }
 
 export default async function PulsePage() {
-  const categories = await getCategoryMomentum();
+  const [categories, latencyLeaders, activeIncidents] = await Promise.all([
+    getCategoryMomentum(),
+    getLatencyLeaders(8),
+    getActiveIncidents(5),
+  ]);
   const hasData = categories.some((c) => c.avg_health_now != null);
 
   return (
@@ -82,6 +88,13 @@ export default async function PulsePage() {
             </div>
           )}
         </div>
+
+        {(latencyLeaders.length > 0 || activeIncidents.length > 0) && (
+          <div className="mb-6 grid grid-cols-1 gap-3 lg:grid-cols-2">
+            <LatencyLeadersCard leaders={latencyLeaders} />
+            <ActiveIncidentsCard incidents={activeIncidents} />
+          </div>
+        )}
 
         {!hasData ? (
           <div

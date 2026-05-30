@@ -78,9 +78,11 @@ export const AA_TOOL_SLUG_MAP: Record<string, string> = {
   "anthropic-api": "claude-sonnet-4-6",
   "google-gemini-api": "gemini-2-5-flash", // Flash has real TTFT; Pro shows reasoning overhead
   "mistral-api": "mistral-large-3",
-  "xai-grok": "grok-3",
+  // grok-3 / deepseek-v3-2 still resolve but AA reports ttft=0 — bumped to
+  // current measurable flagships (verified 2026-05-30).
+  "xai-grok": "grok-4-3-non-reasoning",
   "cohere-api": "command-a",
-  "deepseek-api": "deepseek-v3-2",
+  "deepseek-api": "deepseek-v4-flash-non-reasoning",
 };
 
 // ── API client ────────────────────────────────────────────────────────────────
