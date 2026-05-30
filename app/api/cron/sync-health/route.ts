@@ -163,6 +163,16 @@ export async function GET(request: Request) {
       break;
     }
 
+    if (fetchError === "unauthorized") {
+      console.error(
+        `[sync-health] ✗ GITHUB_TOKEN rejected (401) on first call — aborting run. Rotate the PAT in Vercel and redeploy.`
+      );
+      return Response.json(
+        { error: "github_token_unauthorized", processed, skipped, errors },
+        { status: 500 }
+      );
+    }
+
     if (!ghData) {
       console.log(
         `[sync-health] ✗ ${tool.name} — skipped (${fetchError ?? "unknown"}${rateLimitRemaining !== undefined ? `, remaining: ${rateLimitRemaining}` : ""})`

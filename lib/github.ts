@@ -33,7 +33,12 @@ async function fetchWithRetry(url: string, options: RequestInit, retries = 1): P
   return res;
 }
 
-export type GitHubFetchError = "not_found" | "rate_limited" | "network" | "unknown";
+export type GitHubFetchError =
+  | "not_found"
+  | "rate_limited"
+  | "unauthorized"
+  | "network"
+  | "unknown";
 
 export interface GitHubFetchResult {
   data: GitHubToolData | null;
@@ -71,6 +76,15 @@ export async function fetchToolGitHubData(githubUrl: string): Promise<GitHubFetc
       const resetTime = reset ? new Date(parseInt(reset, 10) * 1000).toISOString() : "unknown";
       console.warn(`[github] Rate limited — ${owner}/${repo}. Resets at ${resetTime}`);
       return { data: null, error: "rate_limited", rateLimitRemaining: 0 };
+    }
+
+    // A 401 means GITHUB_TOKEN is invalid or expired — never a per-repo issue.
+    // Surface it loudly so nightly runs don't silently skip every tool.
+    if (res.status === 401) {
+      console.error(
+        `[github] ✗ 401 Unauthorized for ${owner}/${repo} — GITHUB_TOKEN missing/invalid/expired. Rotate the PAT in Vercel.`
+      );
+      return { data: null, error: "unauthorized", rateLimitRemaining };
     }
 
     if (res.status === 404 || res.status === 403) {

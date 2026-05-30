@@ -13,6 +13,8 @@ import { formatRelativeTime } from "@/lib/format";
 import { SITE_URL } from "@/lib/constants";
 import { supabase } from "@/lib/db";
 
+export const revalidate = 3600;
+
 const allTools = toolsData as Tool[];
 const allRelationships = relationshipsData as Relationship[];
 const allStacks = stacksData as Stack[];
@@ -953,7 +955,11 @@ export default async function ToolPage({ params }: Props) {
               <img
                 src={`${SITE_URL}/badge/tool/${tool.id}`}
                 alt={`${tool.name} on AIchitect`}
+                width={170}
+                height={20}
                 className="mb-2"
+                loading="lazy"
+                decoding="async"
               />
               <code
                 className="block text-[10px] px-2 py-1.5 rounded break-all"

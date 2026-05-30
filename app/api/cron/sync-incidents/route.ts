@@ -90,85 +90,94 @@ export async function GET(request: Request) {
     }
 
     for (const inc of body.incidents ?? []) {
-      const started = inc.started_at ?? inc.created_at;
-      if (!started) continue;
+      try {
+        const started = inc.started_at ?? inc.created_at;
+        if (!started) continue;
 
-      // Look up existing row to detect state transitions.
-      const { data: existing } = await db
-        .from("tool_incidents")
-        .select("id, ended_at, severity, status")
-        .eq("tool_id", page.tool_id)
-        .eq("external_id", inc.id)
-        .maybeSingle();
+        // Statuspage occasionally omits `components` entirely on infra-wide incidents.
+        const scope = (inc.components ?? []).map((c) => c.name);
 
-      const payload = {
-        tool_id: page.tool_id,
-        external_id: inc.id,
-        started_at: started,
-        ended_at: inc.resolved_at,
-        severity: inc.impact,
-        status: inc.status,
-        title: inc.name,
-        scope: inc.components.map((c) => c.name),
-        url: inc.shortlink,
-        last_synced_at: new Date().toISOString(),
-      };
+        // Look up existing row to detect state transitions.
+        const { data: existing } = await db
+          .from("tool_incidents")
+          .select("id, ended_at, severity, status")
+          .eq("tool_id", page.tool_id)
+          .eq("external_id", inc.id)
+          .maybeSingle();
 
-      if (!existing) {
-        const { error } = await db.from("tool_incidents").insert(payload);
-        if (error) {
-          errors.push(`${page.tool_id}/${inc.id}: insert ${error.message}`);
-          continue;
+        const payload = {
+          tool_id: page.tool_id,
+          external_id: inc.id,
+          started_at: started,
+          ended_at: inc.resolved_at,
+          severity: inc.impact,
+          status: inc.status,
+          title: inc.name,
+          scope,
+          url: inc.shortlink,
+          last_synced_at: new Date().toISOString(),
+        };
+
+        if (!existing) {
+          const { error } = await db.from("tool_incidents").insert(payload);
+          if (error) {
+            errors.push(`${page.tool_id}/${inc.id}: insert ${error.message}`);
+            continue;
+          }
+          inserted++;
+
+          // Fire incident_started only for major-or-worse, only when the incident is still ongoing.
+          if (MAJOR_OR_WORSE.has(inc.impact) && !inc.resolved_at) {
+            await db.from("tool_events").insert({
+              tool_id: page.tool_id,
+              type: "incident_started",
+              old_hash: null,
+              new_hash: null,
+              metadata: {
+                severity: inc.impact,
+                title: inc.name,
+                scope,
+                url: inc.shortlink,
+                started_at: started,
+              },
+            });
+            eventsFired++;
+          }
+        } else {
+          const { error } = await db.from("tool_incidents").update(payload).eq("id", existing.id);
+          if (error) {
+            errors.push(`${page.tool_id}/${inc.id}: update ${error.message}`);
+            continue;
+          }
+          updated++;
+
+          // Fire incident_resolved when ended_at transitions from null to a real timestamp.
+          if (!existing.ended_at && inc.resolved_at && MAJOR_OR_WORSE.has(inc.impact)) {
+            const durationMin = Math.round(
+              (new Date(inc.resolved_at).getTime() - new Date(started).getTime()) / 60_000
+            );
+            await db.from("tool_events").insert({
+              tool_id: page.tool_id,
+              type: "incident_resolved",
+              old_hash: null,
+              new_hash: null,
+              metadata: {
+                severity: inc.impact,
+                title: inc.name,
+                scope,
+                url: inc.shortlink,
+                started_at: started,
+                ended_at: inc.resolved_at,
+                duration_minutes: durationMin,
+              },
+            });
+            eventsFired++;
+          }
         }
-        inserted++;
-
-        // Fire incident_started only for major-or-worse, only when the incident is still ongoing.
-        if (MAJOR_OR_WORSE.has(inc.impact) && !inc.resolved_at) {
-          await db.from("tool_events").insert({
-            tool_id: page.tool_id,
-            type: "incident_started",
-            old_hash: null,
-            new_hash: null,
-            metadata: {
-              severity: inc.impact,
-              title: inc.name,
-              scope: inc.components.map((c) => c.name),
-              url: inc.shortlink,
-              started_at: started,
-            },
-          });
-          eventsFired++;
-        }
-      } else {
-        const { error } = await db.from("tool_incidents").update(payload).eq("id", existing.id);
-        if (error) {
-          errors.push(`${page.tool_id}/${inc.id}: update ${error.message}`);
-          continue;
-        }
-        updated++;
-
-        // Fire incident_resolved when ended_at transitions from null to a real timestamp.
-        if (!existing.ended_at && inc.resolved_at && MAJOR_OR_WORSE.has(inc.impact)) {
-          const durationMin = Math.round(
-            (new Date(inc.resolved_at).getTime() - new Date(started).getTime()) / 60_000
-          );
-          await db.from("tool_events").insert({
-            tool_id: page.tool_id,
-            type: "incident_resolved",
-            old_hash: null,
-            new_hash: null,
-            metadata: {
-              severity: inc.impact,
-              title: inc.name,
-              scope: inc.components.map((c) => c.name),
-              url: inc.shortlink,
-              started_at: started,
-              ended_at: inc.resolved_at,
-              duration_minutes: durationMin,
-            },
-          });
-          eventsFired++;
-        }
+      } catch (e) {
+        errors.push(
+          `${page.tool_id}/${inc.id ?? "?"}: ${e instanceof Error ? e.message : String(e)}`
+        );
       }
     }
   }
