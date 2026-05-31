@@ -17,7 +17,7 @@
   </p>
 
   <img src="https://img.shields.io/badge/tools-246-7c6bff?style=flat-square" alt="246 tools" />
-  <img src="https://img.shields.io/badge/stacks-33-26de81?style=flat-square" alt="33 stacks" />
+  <img src="https://img.shields.io/badge/stacks-35-26de81?style=flat-square" alt="35 stacks" />
   <img src="https://img.shields.io/badge/categories-21-00d4aa?style=flat-square" alt="21 categories" />
   <img src="https://img.shields.io/badge/license-MIT-ff9f43?style=flat-square" alt="MIT license" />
   <img src="https://img.shields.io/badge/open%20source-%E2%9D%A4-ff6b6b?style=flat-square" alt="Open Source" />
@@ -25,7 +25,7 @@
 
 ---
 
-AI tools are all over the place. Every week there's a new framework, a new model, a new "essential" addition to your stack. AIchitect gives you a structured, visual map of the ecosystem — **246 tools** across **21 categories**, with **33 curated stacks** and a live signal feed — so you can pick the right stack based on data, not hype.
+AI tools are all over the place. Every week there's a new framework, a new model, a new "essential" addition to your stack. AIchitect gives you a structured, visual map of the ecosystem — **246 tools** across **21 categories**, with **35 curated stacks** and a live signal feed — so you can pick the right stack based on data, not hype.
 
 ## Features
 
@@ -37,7 +37,7 @@ Browse all 246 tools as a force-directed graph. Filter by category or relationsh
 - **2D Layers** — swimlane view organized by stack layer (Development → AI Logic → Models & Infra → Tooling)
 - **3D** — rotatable Three.js force graph with orbit controls
 
-### Stacks — 33 mission-driven starting points
+### Stacks — 35 mission-driven starting points
 
 Stacks lead with the specific situation they solve, list what was explicitly rejected and why, and tell you exactly when to move on. Organized across 5 decision clusters:
 
@@ -160,7 +160,7 @@ app/
 data/
   tools.json         246 tools
   relationships.json 538 edges (integrates-with / commonly-paired-with / competes-with)
-  stacks.json        33 curated stacks with flow edges
+  stacks.json        35 curated stacks with flow edges
   slots.json         22 builder slot types
 lib/
   types.ts           single source of truth for all interfaces + category colors
