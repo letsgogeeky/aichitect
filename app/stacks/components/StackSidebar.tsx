@@ -1,8 +1,25 @@
 "use client";
 
 import { useState } from "react";
-import { Stack, Tool, StackCluster, getCategoryColor, STACK_CLUSTERS } from "@/lib/types";
+import {
+  Stack,
+  Tool,
+  StackCluster,
+  LifecycleTrack,
+  getCategoryColor,
+  STACK_CLUSTERS,
+} from "@/lib/types";
+import { PHASE_TRACK_COLOR } from "@/lib/lifecycle";
 import { COMPLEXITY_META } from "../stacksConstants";
+
+type TrackFilter = "all" | LifecycleTrack;
+
+const TRACK_CHIPS: { id: TrackFilter; label: string; tagline: string }[] = [
+  { id: "all", label: "All", tagline: "every stack" },
+  { id: "development", label: "Dev", tagline: "how you build" },
+  { id: "runtime", label: "Runtime", tagline: "what runs in prod" },
+  { id: "specialized", label: "Specialized", tagline: "narrow slices" },
+];
 
 export function StackSidebar({
   stacks,
@@ -19,13 +36,16 @@ export function StackSidebar({
   onSelectCluster: (cluster: StackCluster) => void;
   onSelectStack: (s: Stack) => void;
 }) {
+  const [trackFilter, setTrackFilter] = useState<TrackFilter>("all");
   const [toolFilter, setToolFilter] = useState("");
 
-  const clusterStacks = stacks.filter((s) => s.cluster === activeCluster);
+  const trackFiltered =
+    trackFilter === "all" ? stacks : stacks.filter((s) => s.track === trackFilter);
+  const clusterStacks = trackFiltered.filter((s) => s.cluster === activeCluster);
 
   const q = toolFilter.trim().toLowerCase();
   const filteredResults: { stack: Stack; rejected: string | null }[] = q
-    ? stacks
+    ? trackFiltered
         .map((s) => {
           const included = s.tools.some((id) => {
             const t = allTools.find((tool) => tool.id === id);
@@ -42,18 +62,68 @@ export function StackSidebar({
         .filter(Boolean as unknown as <T>(x: T | null) => x is T)
     : [];
 
+  // Counts per track for chip badge rendering.
+  const trackCounts: Record<TrackFilter, number> = {
+    all: stacks.length,
+    development: stacks.filter((s) => s.track === "development").length,
+    runtime: stacks.filter((s) => s.track === "runtime").length,
+    specialized: stacks.filter((s) => s.track === "specialized").length,
+  };
+
   return (
     <aside
       data-tour="stacks-sidebar"
       className="hidden sm:flex flex-col flex-shrink-0 border-r overflow-hidden"
       style={{ width: 288, background: "var(--surface)", borderColor: "var(--border)" }}
     >
+      {/* Track filter chips */}
+      {!q && (
+        <div
+          className="flex-shrink-0 flex items-center gap-1 px-3 py-2 border-b"
+          style={{ borderColor: "var(--border)" }}
+        >
+          {TRACK_CHIPS.map((chip) => {
+            const active = trackFilter === chip.id;
+            const chipColor =
+              chip.id === "all"
+                ? "var(--accent)"
+                : chip.id === "specialized"
+                  ? "var(--text-muted)"
+                  : PHASE_TRACK_COLOR[chip.id];
+            return (
+              <button
+                key={chip.id}
+                onClick={() => setTrackFilter(chip.id)}
+                title={chip.tagline}
+                className="flex items-center gap-1 text-[10px] font-semibold rounded-full px-2 py-1 transition-colors"
+                style={
+                  active
+                    ? {
+                        background: chipColor + "22",
+                        color: chipColor,
+                        border: `1px solid ${chipColor}55`,
+                      }
+                    : {
+                        background: "transparent",
+                        color: "var(--text-muted)",
+                        border: "1px solid var(--border)",
+                      }
+                }
+              >
+                {chip.label}
+                <span className="opacity-60">{trackCounts[chip.id]}</span>
+              </button>
+            );
+          })}
+        </div>
+      )}
+
       {/* Cluster tabs — hidden while tool filter is active */}
       {!q && (
         <div className="flex-shrink-0 border-b" style={{ borderColor: "var(--border)" }}>
           <div className="flex flex-col gap-0">
             {STACK_CLUSTERS.map((cluster) => {
-              const count = stacks.filter((s) => s.cluster === cluster.id).length;
+              const count = trackFiltered.filter((s) => s.cluster === cluster.id).length;
               const isActive = activeCluster === cluster.id;
               return (
                 <button

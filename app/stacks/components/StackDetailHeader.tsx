@@ -4,10 +4,18 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Stack, Tool, StackCluster, getCategoryColor } from "@/lib/types";
+import { computeStackPhaseCoverage } from "@/lib/lifecycle";
+import { PhaseCoverageBar } from "@/components/ui/PhaseCoverageBar";
 import { COMPLEXITY_META } from "../stacksConstants";
 import { CloseButton } from "@/components/ui/CloseButton";
 import { ProductionUsageSection } from "@/components/ui/ProductionUsageSection";
 import { useUser } from "@/hooks/useUser";
+
+const TRACK_LABEL: Record<Stack["track"], string> = {
+  development: "Dev Workflow",
+  runtime: "Runtime Arch",
+  specialized: "Specialized",
+};
 
 export function StackDetailHeader({
   selected,
@@ -76,6 +84,11 @@ export function StackDetailHeader({
     ...entry,
     tool: allTools.find((t) => t.id === entry.tool),
   }));
+
+  const phaseCoverage = computeStackPhaseCoverage(
+    selected,
+    new Map(allTools.map((t) => [t.id, t]))
+  );
 
   return (
     <div
@@ -148,6 +161,22 @@ export function StackDetailHeader({
             Try in Builder →
           </Link>
         </div>
+      </div>
+
+      {/* Lifecycle phase coverage — shows which of the 12 phases this stack hits */}
+      <div className="mb-3">
+        <div className="flex items-center justify-between gap-2 mb-1.5">
+          <span
+            className="type-overline text-[10px] uppercase tracking-widest"
+            style={{ color: "var(--text-muted)" }}
+          >
+            Lifecycle Coverage
+          </span>
+          <span className="text-[10px] font-semibold" style={{ color: "var(--text-muted)" }}>
+            {phaseCoverage.size}/12 phases · {TRACK_LABEL[selected.track]}
+          </span>
+        </div>
+        <PhaseCoverageBar covered={phaseCoverage} compact />
       </div>
 
       {/* Badges row */}

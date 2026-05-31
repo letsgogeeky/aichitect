@@ -3,6 +3,12 @@
 import type { MouseEvent } from "react";
 import { useState, useEffect } from "react";
 import { Slot, Tool, StackArchetype, getCategoryColor } from "@/lib/types";
+import {
+  LIFECYCLE_PHASE_LABEL,
+  LIFECYCLE_PHASE_TRACK,
+  PHASE_TRACK_COLOR,
+  groupSlotsByPhase,
+} from "@/lib/lifecycle";
 import { CloseButton } from "@/components/ui/CloseButton";
 import { SLOT_AUTONOMY } from "@/lib/stackStory";
 import StackHealthPanel from "@/components/panels/StackHealthPanel";
@@ -109,6 +115,21 @@ export function BuilderSlotList({
   const notApplicableSlots = slots.filter((s) => s.priority[archetype] === "not-applicable");
   const applicableSelectedCount = applicableSlots.filter((s) => !!selected[s.id]).length;
 
+  // ── PR 4: group applicable slots by lifecycle phase ──────────────────────────
+  // Slot phase is derived from the tools currently in the slot (most slots are
+  // homogeneous, so one phase wins). Phase coverage = phases where at least one
+  // slot has a tool selected.
+  const toolsById = new Map(allTools.map((t) => [t.id, t]));
+  const slotsByPhase = groupSlotsByPhase(applicableSlots, toolsById);
+  const coveredPhases = new Set<string>();
+  for (const group of slotsByPhase) {
+    for (const slot of group.slots) {
+      const chosenId = selected[slot.id];
+      const chosen = chosenId ? toolsById.get(chosenId) : null;
+      if (chosen) for (const p of chosen.lifecycle_phases) coveredPhases.add(p);
+    }
+  }
+
   return (
     <aside
       data-tour="builder-slots"
@@ -161,10 +182,13 @@ export function BuilderSlotList({
 
         {selectedCount > 0 && (
           <div
-            className="text-[10px] px-2 py-1 rounded-md"
+            className="text-[10px] px-2 py-1 rounded-md flex items-center justify-between gap-2"
             style={{ background: "#7c6bff18", color: "var(--accent)" }}
           >
-            {applicableSelectedCount} of {applicableSlots.length} slots filled
+            <span>
+              {applicableSelectedCount} of {applicableSlots.length} slots filled
+            </span>
+            <span style={{ color: "var(--text-muted)" }}>{coveredPhases.size}/12 phases</span>
           </div>
         )}
 
@@ -298,182 +322,211 @@ export function BuilderSlotList({
           </div>
         )}
 
-        {applicableSlots.map((slot) => {
-          const selectedId = selected[slot.id];
-          const slotTools = slot.tools
-            .map((id) => allTools.find((t) => t.id === id))
-            .filter(Boolean) as Tool[];
-          const isOpen = !collapsedSlots[slot.id];
-          const selectedTool = slotTools.find((t) => t.id === selectedId);
-          const selectedSignal = selectedTool ? signals[selectedTool.id] : undefined;
-
+        {slotsByPhase.map(({ phase, slots: groupSlots }) => {
+          const trackColor = PHASE_TRACK_COLOR[LIFECYCLE_PHASE_TRACK[phase]];
+          const phaseSelectedCount = groupSlots.filter((s) => !!selected[s.id]).length;
           return (
-            <div key={slot.id}>
-              <button
-                onClick={() => onToggleSlot(slot.id)}
-                className="w-full flex items-start gap-2 mb-1 text-left group"
-              >
-                <svg
-                  width="10"
-                  height="10"
-                  viewBox="0 0 10 10"
-                  fill="none"
-                  className="mt-0.5 flex-shrink-0 text-[var(--text-muted)]"
-                  style={{
-                    transform: isOpen ? "rotate(0deg)" : "rotate(-90deg)",
-                    transition: "transform 180ms ease",
-                  }}
+            <div key={phase} className="space-y-2">
+              <div className="flex items-center gap-1.5 px-1 pt-1">
+                <span
+                  className="inline-block h-1.5 w-1.5 rounded-full flex-shrink-0"
+                  style={{ background: trackColor }}
+                />
+                <span
+                  className="text-[10px] font-semibold uppercase tracking-widest"
+                  style={{ color: trackColor }}
                 >
-                  <path
-                    d="M2 3.5L5 6.5L8 3.5"
-                    stroke="currentColor"
-                    strokeWidth="1.4"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-                <div className="flex-1 min-w-0">
-                  <p className="text-xs font-semibold text-[var(--text-primary)] leading-tight">
-                    {slot.name}
-                  </p>
-                  {SLOT_AUTONOMY[slot.id] && (
-                    <span
-                      className="text-[10px] font-medium"
-                      style={{ color: SLOT_AUTONOMY[slot.id].color, opacity: 0.75 }}
-                    >
-                      {SLOT_AUTONOMY[slot.id].label}
-                    </span>
-                  )}
-                  {!isOpen && selectedTool && (
-                    <p
-                      className="text-[10px] mt-0.5 truncate"
-                      style={{ color: getCategoryColor(selectedTool.category) }}
-                    >
-                      {selectedTool.name}
-                    </p>
-                  )}
-                  {!isOpen && !selectedTool && (
-                    <p className="text-[10px] text-[var(--text-muted)] mt-0.5">not set</p>
-                  )}
-                </div>
-              </button>
+                  {LIFECYCLE_PHASE_LABEL[phase]}
+                </span>
+                <span className="ml-auto text-[10px]" style={{ color: "var(--text-muted)" }}>
+                  {phaseSelectedCount}/{groupSlots.length}
+                </span>
+              </div>
+              {groupSlots.map((slot) => {
+                const selectedId = selected[slot.id];
+                const slotTools = slot.tools
+                  .map((id) => allTools.find((t) => t.id === id))
+                  .filter(Boolean) as Tool[];
+                const isOpen = !collapsedSlots[slot.id];
+                const selectedTool = slotTools.find((t) => t.id === selectedId);
+                const selectedSignal = selectedTool ? signals[selectedTool.id] : undefined;
 
-              {/* Risk badge — collapsed state, outside toggle button to avoid propagation */}
-              {!isOpen && selectedTool && selectedSignal?.signal && (
-                <div className="pl-4 mb-1">
-                  <SlotRiskBadge
-                    signal={selectedSignal}
-                    onSeeAlternatives={
-                      onSeeAlternatives
-                        ? () => onSeeAlternatives(slot.id, selectedTool.id)
-                        : undefined
-                    }
-                  />
-                </div>
-              )}
+                return (
+                  <div key={slot.id}>
+                    <button
+                      onClick={() => onToggleSlot(slot.id)}
+                      className="w-full flex items-start gap-2 mb-1 text-left group"
+                    >
+                      <svg
+                        width="10"
+                        height="10"
+                        viewBox="0 0 10 10"
+                        fill="none"
+                        className="mt-0.5 flex-shrink-0 text-[var(--text-muted)]"
+                        style={{
+                          transform: isOpen ? "rotate(0deg)" : "rotate(-90deg)",
+                          transition: "transform 180ms ease",
+                        }}
+                      >
+                        <path
+                          d="M2 3.5L5 6.5L8 3.5"
+                          stroke="currentColor"
+                          strokeWidth="1.4"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs font-semibold text-[var(--text-primary)] leading-tight">
+                          {slot.name}
+                        </p>
+                        {SLOT_AUTONOMY[slot.id] && (
+                          <span
+                            className="text-[10px] font-medium"
+                            style={{ color: SLOT_AUTONOMY[slot.id].color, opacity: 0.75 }}
+                          >
+                            {SLOT_AUTONOMY[slot.id].label}
+                          </span>
+                        )}
+                        {!isOpen && selectedTool && (
+                          <p
+                            className="text-[10px] mt-0.5 truncate"
+                            style={{ color: getCategoryColor(selectedTool.category) }}
+                          >
+                            {selectedTool.name}
+                          </p>
+                        )}
+                        {!isOpen && !selectedTool && (
+                          <p className="text-[10px] text-[var(--text-muted)] mt-0.5">not set</p>
+                        )}
+                      </div>
+                    </button>
 
-              {isOpen && (
-                <>
-                  <p className="text-xs text-[var(--text-muted)] mb-1.5 pl-4 leading-relaxed">
-                    {slot.description}
-                  </p>
-                  <div className="space-y-0.5">
-                    {slotTools.map((t) => {
-                      const active = selectedId === t.id;
-                      const color = getCategoryColor(t.category);
-                      const isCompareA = compareA?.id === t.id;
-                      const isCompareB = compareB?.id === t.id;
-                      const isCompared = isCompareA || isCompareB;
-                      const toolSignal = active ? signals[t.id] : undefined;
-                      return (
-                        <div key={t.id}>
-                          <div className="flex items-center gap-1 group/tool">
-                            <button
-                              onClick={() => onPickTool(slot.id, t.id)}
-                              className="flex-1 flex items-center gap-2 px-2.5 py-2 rounded-lg text-left transition-all"
-                              style={{
-                                background: active ? color + "22" : "var(--surface-2)",
-                                border: active ? `1px solid ${color}66` : "1px solid var(--border)",
-                              }}
-                            >
-                              <div
-                                className="w-1.5 h-1.5 rounded-full flex-shrink-0"
-                                style={{ background: color }}
-                              />
-                              <span
-                                className="text-xs font-medium"
-                                style={{ color: active ? color : "var(--text-primary)" }}
-                              >
-                                {t.name}
-                              </span>
-                              {t.type === "oss" && (
-                                <span className="ml-auto text-[10px] text-[var(--success)]">
-                                  OSS
-                                </span>
-                              )}
-                            </button>
-                            {active && <ToolUsageButton toolId={t.id} color={color} compact />}
-                            <button
-                              onClick={(e) => onCompareClick(t, e)}
-                              title={isCompareA ? "Staged for comparison" : `Compare ${t.name}`}
-                              className="flex-shrink-0 w-6 h-6 flex items-center justify-center rounded transition-all"
-                              style={{
-                                opacity: isCompared ? 1 : undefined,
-                                background: isCompared ? "#7c6bff22" : "transparent",
-                                color: isCompared ? "var(--accent)" : "var(--text-muted)",
-                              }}
-                            >
-                              <svg
-                                width="11"
-                                height="11"
-                                viewBox="0 0 12 12"
-                                fill="none"
-                                className={
-                                  isCompared
-                                    ? ""
-                                    : "opacity-0 group-hover/tool:opacity-100 transition-opacity"
-                                }
-                              >
-                                <rect
-                                  x="0.5"
-                                  y="0.5"
-                                  width="4"
-                                  height="11"
-                                  rx="1"
-                                  stroke="currentColor"
-                                  strokeWidth="1.2"
-                                />
-                                <rect
-                                  x="7.5"
-                                  y="0.5"
-                                  width="4"
-                                  height="11"
-                                  rx="1"
-                                  stroke="currentColor"
-                                  strokeWidth="1.2"
-                                />
-                              </svg>
-                            </button>
-                          </div>
-                          {/* Risk badge — open state, shown below the active tool row */}
-                          {toolSignal?.signal && (
-                            <div className="pl-2 mt-0.5 mb-0.5">
-                              <SlotRiskBadge
-                                signal={toolSignal}
-                                onSeeAlternatives={
-                                  onSeeAlternatives
-                                    ? () => onSeeAlternatives(slot.id, t.id)
-                                    : undefined
-                                }
-                              />
-                            </div>
-                          )}
+                    {/* Risk badge — collapsed state, outside toggle button to avoid propagation */}
+                    {!isOpen && selectedTool && selectedSignal?.signal && (
+                      <div className="pl-4 mb-1">
+                        <SlotRiskBadge
+                          signal={selectedSignal}
+                          onSeeAlternatives={
+                            onSeeAlternatives
+                              ? () => onSeeAlternatives(slot.id, selectedTool.id)
+                              : undefined
+                          }
+                        />
+                      </div>
+                    )}
+
+                    {isOpen && (
+                      <>
+                        <p className="text-xs text-[var(--text-muted)] mb-1.5 pl-4 leading-relaxed">
+                          {slot.description}
+                        </p>
+                        <div className="space-y-0.5">
+                          {slotTools.map((t) => {
+                            const active = selectedId === t.id;
+                            const color = getCategoryColor(t.category);
+                            const isCompareA = compareA?.id === t.id;
+                            const isCompareB = compareB?.id === t.id;
+                            const isCompared = isCompareA || isCompareB;
+                            const toolSignal = active ? signals[t.id] : undefined;
+                            return (
+                              <div key={t.id}>
+                                <div className="flex items-center gap-1 group/tool">
+                                  <button
+                                    onClick={() => onPickTool(slot.id, t.id)}
+                                    className="flex-1 flex items-center gap-2 px-2.5 py-2 rounded-lg text-left transition-all"
+                                    style={{
+                                      background: active ? color + "22" : "var(--surface-2)",
+                                      border: active
+                                        ? `1px solid ${color}66`
+                                        : "1px solid var(--border)",
+                                    }}
+                                  >
+                                    <div
+                                      className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                                      style={{ background: color }}
+                                    />
+                                    <span
+                                      className="text-xs font-medium"
+                                      style={{ color: active ? color : "var(--text-primary)" }}
+                                    >
+                                      {t.name}
+                                    </span>
+                                    {t.type === "oss" && (
+                                      <span className="ml-auto text-[10px] text-[var(--success)]">
+                                        OSS
+                                      </span>
+                                    )}
+                                  </button>
+                                  {active && (
+                                    <ToolUsageButton toolId={t.id} color={color} compact />
+                                  )}
+                                  <button
+                                    onClick={(e) => onCompareClick(t, e)}
+                                    title={
+                                      isCompareA ? "Staged for comparison" : `Compare ${t.name}`
+                                    }
+                                    className="flex-shrink-0 w-6 h-6 flex items-center justify-center rounded transition-all"
+                                    style={{
+                                      opacity: isCompared ? 1 : undefined,
+                                      background: isCompared ? "#7c6bff22" : "transparent",
+                                      color: isCompared ? "var(--accent)" : "var(--text-muted)",
+                                    }}
+                                  >
+                                    <svg
+                                      width="11"
+                                      height="11"
+                                      viewBox="0 0 12 12"
+                                      fill="none"
+                                      className={
+                                        isCompared
+                                          ? ""
+                                          : "opacity-0 group-hover/tool:opacity-100 transition-opacity"
+                                      }
+                                    >
+                                      <rect
+                                        x="0.5"
+                                        y="0.5"
+                                        width="4"
+                                        height="11"
+                                        rx="1"
+                                        stroke="currentColor"
+                                        strokeWidth="1.2"
+                                      />
+                                      <rect
+                                        x="7.5"
+                                        y="0.5"
+                                        width="4"
+                                        height="11"
+                                        rx="1"
+                                        stroke="currentColor"
+                                        strokeWidth="1.2"
+                                      />
+                                    </svg>
+                                  </button>
+                                </div>
+                                {/* Risk badge — open state, shown below the active tool row */}
+                                {toolSignal?.signal && (
+                                  <div className="pl-2 mt-0.5 mb-0.5">
+                                    <SlotRiskBadge
+                                      signal={toolSignal}
+                                      onSeeAlternatives={
+                                        onSeeAlternatives
+                                          ? () => onSeeAlternatives(slot.id, t.id)
+                                          : undefined
+                                      }
+                                    />
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          })}
                         </div>
-                      );
-                    })}
+                      </>
+                    )}
                   </div>
-                </>
-              )}
+                );
+              })}
             </div>
           );
         })}
