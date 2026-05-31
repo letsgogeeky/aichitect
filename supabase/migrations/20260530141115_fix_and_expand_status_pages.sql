@@ -16,6 +16,13 @@ UPDATE tool_status_page
 SET enabled = false
 WHERE tool_id IN ('mistral-api', 'perplexity-api', 'weaviate');
 
-INSERT INTO tool_status_page (tool_id, url) VALUES
+-- Same WHERE EXISTS guard as 20260514215634 — fresh local DBs apply migrations
+-- before seeding, so the FK target tool may not exist yet. Skipped rows are
+-- backfilled by scripts/seed-db.ts after tools are seeded. No-op in prod.
+INSERT INTO tool_status_page (tool_id, url)
+SELECT v.tool_id, v.url
+FROM (VALUES
   ('replicate', 'https://status.replicate.com')
+) AS v(tool_id, url)
+WHERE EXISTS (SELECT 1 FROM tools WHERE tools.id = v.tool_id)
 ON CONFLICT (tool_id) DO NOTHING;

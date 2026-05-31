@@ -12,7 +12,15 @@ CREATE TABLE IF NOT EXISTS tool_status_page (
 );
 
 -- Initial mapping for major LLM + vector-DB providers. All Atlassian Statuspage.
-INSERT INTO tool_status_page (tool_id, url) VALUES
+--
+-- The WHERE EXISTS guard is so a fresh local DB (where this migration runs
+-- before seeding) doesn't crash on the FK to tools(id). Rows whose target tool
+-- doesn't exist yet are skipped here; the seed pass populates them later via
+-- scripts/seed-db.ts. In prod this is a no-op (tools were already seeded
+-- when this migration first applied — verified May 2026).
+INSERT INTO tool_status_page (tool_id, url)
+SELECT v.tool_id, v.url
+FROM (VALUES
   ('openai-api',         'https://status.openai.com'),
   ('anthropic-api',      'https://status.anthropic.com'),
   ('mistral-api',        'https://status.mistral.ai'),
@@ -21,4 +29,6 @@ INSERT INTO tool_status_page (tool_id, url) VALUES
   ('perplexity-api',     'https://status.perplexity.com'),
   ('pinecone',           'https://status.pinecone.io'),
   ('weaviate',           'https://status.weaviate.io')
+) AS v(tool_id, url)
+WHERE EXISTS (SELECT 1 FROM tools WHERE tools.id = v.tool_id)
 ON CONFLICT (tool_id) DO NOTHING;
