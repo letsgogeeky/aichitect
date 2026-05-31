@@ -35,6 +35,11 @@ export interface DbTool {
   max_tpm: number | null;
   max_rpm: number | null;
   bytes_per_vector: number | null;
+  // PR 10: lifecycle metadata columns. Match the SQL defaults so a row
+  // without these fields still validates against the CHECK constraints.
+  scope: Tool["scope"];
+  lifecycle_phases: Tool["lifecycle_phases"];
+  archived: boolean;
 }
 
 export interface DbStack {
@@ -55,6 +60,10 @@ export interface DbStack {
   complexity: "beginner" | "intermediate" | "advanced" | null;
   monthly_cost: string | null;
   archetype: Stack["archetype"];
+  // PR 10: lifecycle track + phases. Defaults to "specialized" / [] when JSON
+  // hasn't been backfilled (matches the CHECK constraint).
+  track: Stack["track"];
+  phases: Stack["phases"];
 }
 
 export interface DbSlot {
@@ -101,6 +110,10 @@ export const tools: DbTool[] = (toolsData as Tool[]).map((t) => ({
   max_tpm: t.max_tpm ?? null,
   max_rpm: t.max_rpm ?? null,
   bytes_per_vector: t.bytes_per_vector ?? null,
+  // PR 10: lifecycle metadata — defaults match the SQL CHECK constraints.
+  scope: t.scope ?? "ai-native",
+  lifecycle_phases: t.lifecycle_phases ?? [],
+  archived: t.archived ?? false,
 }));
 
 export const stacks: DbStack[] = (stacksData as Stack[]).map((s) => ({
@@ -121,6 +134,9 @@ export const stacks: DbStack[] = (stacksData as Stack[]).map((s) => ({
   complexity: s.complexity ?? null,
   monthly_cost: s.monthly_cost ?? null,
   archetype: s.archetype ?? "app-infrastructure",
+  // PR 10: lifecycle track + phases (per stack).
+  track: s.track ?? "specialized",
+  phases: s.phases ?? [],
 }));
 
 export const slots: DbSlot[] = (slotsData as Slot[]).map((s) => ({
