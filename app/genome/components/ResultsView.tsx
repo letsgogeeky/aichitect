@@ -17,6 +17,8 @@ import { MissingPanel } from "./MissingPanel";
 import { GraduationBanner } from "./GraduationBanner";
 import { RoastPanel } from "./RoastPanel";
 import { ChallengePanel } from "./ChallengePanel";
+import { TrackScorePanel } from "./TrackScorePanel";
+import { PHASE_TRACK_COLOR } from "@/lib/lifecycle";
 
 function scoreNarrative(report: GenomeReport): string {
   const critical = report.missingSlots.filter((m) => m.priority === "required").length;
@@ -416,6 +418,36 @@ export function ResultsView({
         {/* Main */}
         <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: 20 }}>
           <GraduationBanner allIds={allIds} />
+
+          {/* PR 6: per-track lifecycle coverage — answers "how complete is my E2E story?" */}
+          <div>
+            <p
+              style={{
+                fontSize: 10,
+                fontWeight: 700,
+                textTransform: "uppercase",
+                letterSpacing: "0.08em",
+                color: "#555577",
+                margin: "0 0 10px",
+              }}
+            >
+              Lifecycle coverage
+            </p>
+            <div style={{ display: "flex", gap: 12, alignItems: "stretch" }}>
+              <TrackScorePanel
+                title="Dev Workflow"
+                subtitle="How you build with AI"
+                trackColor={PHASE_TRACK_COLOR.development}
+                score={report.trackScores.development}
+              />
+              <TrackScorePanel
+                title="Runtime Arch"
+                subtitle="What runs in production"
+                trackColor={PHASE_TRACK_COLOR.runtime}
+                score={report.trackScores.runtime}
+              />
+            </div>
+          </div>
 
           <RoastPanel report={report} allIds={allIds} />
 

@@ -1,4 +1,5 @@
-import type { Tool, Slot, StackArchetype, SlotPriority } from "./types";
+import type { Tool, Slot, StackArchetype, SlotPriority, LifecyclePhase } from "./types";
+import { PHASES_BY_TRACK } from "./types";
 
 // ---------------------------------------------------------------------------
 // Output types
@@ -21,6 +22,21 @@ export interface MissingSlotInfo {
 
 export type GenomeTier = "Minimal" | "Emerging" | "Competent" | "Production-Grade" | "Cutting-Edge";
 
+/**
+ * Per-track lifecycle scoring (PR 6).
+ *
+ * The dev and runtime tracks each have 7 canonical phases (5 unique + eval
+ * + observability shared). `coveredPhases` is the subset the user's detected
+ * tools touch via their `lifecycle_phases`. `score` is rounded percent.
+ */
+export interface TrackScore {
+  covered: number;
+  total: number;
+  score: number;
+  coveredPhases: LifecyclePhase[];
+  missingPhases: LifecyclePhase[];
+}
+
 export interface GenomeReport {
   /** All tools confirmed present in the project */
   detectedTools: Tool[];
@@ -28,12 +44,17 @@ export interface GenomeReport {
   filledSlots: FilledSlotInfo[];
   /** Slots with no detected tool — ordered: required → recommended → optional */
   missingSlots: MissingSlotInfo[];
-  /** Composite 0–100 score */
+  /** Composite 0–100 score (slot-coverage based) */
   fitnessScore: number;
   /** Label derived from score */
   tier: GenomeTier;
   /** Detected stack archetype — used for archetype-aware slot scoring */
   archetype: StackArchetype;
+  /** Per-track lifecycle coverage — "how complete is each E2E story?" */
+  trackScores: {
+    development: TrackScore;
+    runtime: TrackScore;
+  };
 }
 
 // ---------------------------------------------------------------------------
@@ -193,6 +214,10 @@ export function analyzeGenome(
 
   const fitnessScore = Math.round(slotScore * 100);
 
+  // ── 3. Per-track lifecycle scoring (PR 6) ──────────────────────────────────
+
+  const trackScores = computeTrackScores(detectedTools);
+
   return {
     detectedTools,
     filledSlots,
@@ -200,5 +225,43 @@ export function analyzeGenome(
     fitnessScore,
     tier: tierFromScore(fitnessScore),
     archetype,
+    trackScores,
+  };
+}
+
+/**
+ * Bucket detected tools' `lifecycle_phases` into the two end-to-end tracks
+ * and return per-track coverage. eval and observability count for BOTH tracks
+ * since the same tool serves both contexts.
+ *
+ * Exported for tests and standalone use (e.g. Genome's missing-phase panel
+ * computes this directly without going through analyzeGenome).
+ */
+export function computeTrackScores(detectedTools: Pick<Tool, "lifecycle_phases">[]): {
+  development: TrackScore;
+  runtime: TrackScore;
+} {
+  const seenPhases = new Set<LifecyclePhase>();
+  for (const tool of detectedTools) {
+    for (const phase of tool.lifecycle_phases) seenPhases.add(phase);
+  }
+
+  function trackScore(trackPhases: readonly LifecyclePhase[]): TrackScore {
+    const covered = trackPhases.filter((p) => seenPhases.has(p));
+    const missing = trackPhases.filter((p) => !seenPhases.has(p));
+    const total = trackPhases.length;
+    const score = total > 0 ? Math.round((covered.length / total) * 100) : 0;
+    return {
+      covered: covered.length,
+      total,
+      score,
+      coveredPhases: covered,
+      missingPhases: missing,
+    };
+  }
+
+  return {
+    development: trackScore(PHASES_BY_TRACK.development),
+    runtime: trackScore(PHASES_BY_TRACK.runtime),
   };
 }
