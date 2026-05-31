@@ -874,12 +874,27 @@ export default async function LandingPage() {
             color: "#8888aa",
             maxWidth: 580,
             lineHeight: 1.65,
-            marginBottom: 44,
+            marginBottom: 12,
             position: "relative",
           }}
         >
           {stackCount} curated stacks, {toolCount} tools, one opinionated map — so you can stop
           reading vendor pages and start shipping.
+        </p>
+
+        {/* Scope line — explicit about what AIchitect covers (per SCOPE.md) */}
+        <p
+          style={{
+            fontSize: "clamp(12px, 1.5vw, 14px)",
+            color: "#6c6c8a",
+            maxWidth: 580,
+            lineHeight: 1.5,
+            marginBottom: 44,
+            position: "relative",
+          }}
+        >
+          AIchitect maps the AI layer of your stack. Bring your own deploy target, CI, and app data
+          layer.
         </p>
 
         {/* CTAs */}

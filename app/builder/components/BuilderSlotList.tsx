@@ -682,6 +682,14 @@ export function BuilderSlotList({
             See in graph
           </Link>
         )}
+
+        {/* Scope footer — Builder picks AI-layer tools; the substrate is yours (per SCOPE.md) */}
+        <p
+          className="text-[10px] leading-relaxed pt-3 mt-3 border-t"
+          style={{ color: "var(--text-muted)", borderColor: "var(--border)" }}
+        >
+          This is the AI layer. Vercel, GitHub Actions, and Supabase live below.
+        </p>
       </div>
     </aside>
   );

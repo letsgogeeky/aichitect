@@ -287,6 +287,16 @@ export function StackSidebar({
           );
         })}
       </div>
+
+      {/* Scope footer — explicit about what AIchitect curates (per SCOPE.md) */}
+      <div
+        className="flex-shrink-0 border-t px-3 py-2.5"
+        style={{ borderColor: "var(--border)", background: "var(--surface-2)" }}
+      >
+        <p className="text-[10px] leading-relaxed" style={{ color: "var(--text-muted)" }}>
+          These are AI-layer stacks. Pair with your own hosting, CI, and database.
+        </p>
+      </div>
     </aside>
   );
 }
