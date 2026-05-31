@@ -2,6 +2,7 @@ import { unstable_cache } from "next/cache";
 import { supabase } from "@/lib/db";
 import type { Tool } from "@/lib/types";
 import toolsJson from "@/data/tools.json";
+import { hydrateTool, hydrateTools } from "./hydrateLifecycle";
 
 const fallback = toolsJson as Tool[];
 
@@ -10,7 +11,11 @@ const _getTools = unstable_cache(
     if (!supabase) return fallback;
     const { data, error } = await supabase.from("tools").select("*").order("name");
     if (error || !data?.length) return fallback;
-    return data as unknown as Tool[];
+    // PR 8: hydrate JSON-only lifecycle metadata (scope, lifecycle_phases,
+    // archived) onto DB rows. Without this, every consumer iterating
+    // tool.lifecycle_phases would crash on TypeError. See
+    // lib/data/hydrateLifecycle.ts for the precedence rules.
+    return hydrateTools(data as unknown as Tool[], fallback);
   },
   ["tools-all"],
   { revalidate: 3600, tags: ["tools"] }
@@ -24,7 +29,8 @@ export async function getToolById(id: string): Promise<Tool | null> {
   if (!supabase) return fallback.find((t) => t.id === id) ?? null;
   const { data, error } = await supabase.from("tools").select("*").eq("id", id).maybeSingle();
   if (error || !data) return fallback.find((t) => t.id === id) ?? null;
-  return data as unknown as Tool;
+  // PR 8: same hydration as getTools — single tool fetch path.
+  return hydrateTool(data as unknown as Tool, new Map(fallback.map((t) => [t.id, t])));
 }
 
 export interface ToolEvent {
