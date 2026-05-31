@@ -2,7 +2,7 @@
 
 import type { MouseEvent } from "react";
 import { useState, useEffect } from "react";
-import { Slot, Tool, StackArchetype, getCategoryColor } from "@/lib/types";
+import { Slot, Tool, StackArchetype, LifecyclePhase, getCategoryColor } from "@/lib/types";
 import {
   LIFECYCLE_PHASE_LABEL,
   LIFECYCLE_PHASE_TRACK,
@@ -18,6 +18,12 @@ import Link from "next/link";
 import { ToolUsageButton } from "@/components/ui/ToolUsageButton";
 import { useUser } from "@/hooks/useUser";
 
+export interface BuilderPhaseCoverage {
+  covered: Set<LifecyclePhase>;
+  missingDev: LifecyclePhase[];
+  missingRuntime: LifecyclePhase[];
+}
+
 export function BuilderSlotList({
   slots,
   allTools,
@@ -26,6 +32,7 @@ export function BuilderSlotList({
   stackParam,
   collapsedSlots,
   archetype,
+  phaseCoverage,
   compareA,
   compareB,
   onPickTool,
@@ -42,6 +49,7 @@ export function BuilderSlotList({
   stackParam: string;
   collapsedSlots: Record<string, boolean>;
   archetype: StackArchetype;
+  phaseCoverage: BuilderPhaseCoverage;
   compareA: Tool | null;
   compareB: Tool | null;
   onPickTool: (slotId: string, toolId: string) => void;
@@ -117,18 +125,11 @@ export function BuilderSlotList({
 
   // ── PR 4: group applicable slots by lifecycle phase ──────────────────────────
   // Slot phase is derived from the tools currently in the slot (most slots are
-  // homogeneous, so one phase wins). Phase coverage = phases where at least one
-  // slot has a tool selected.
+  // homogeneous, so one phase wins). Phase coverage is provided by useBuilderState
+  // (PR 7) so it stays consistent across all consumers.
   const toolsById = new Map(allTools.map((t) => [t.id, t]));
   const slotsByPhase = groupSlotsByPhase(applicableSlots, toolsById);
-  const coveredPhases = new Set<string>();
-  for (const group of slotsByPhase) {
-    for (const slot of group.slots) {
-      const chosenId = selected[slot.id];
-      const chosen = chosenId ? toolsById.get(chosenId) : null;
-      if (chosen) for (const p of chosen.lifecycle_phases) coveredPhases.add(p);
-    }
-  }
+  const coveredPhases = phaseCoverage.covered;
 
   return (
     <aside
@@ -220,6 +221,7 @@ export function BuilderSlotList({
             selected={selected}
             slots={slots}
             allTools={allTools}
+            phaseCoverage={phaseCoverage}
             onAddTool={onPickTool}
           />
         </div>

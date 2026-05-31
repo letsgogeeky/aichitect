@@ -1,7 +1,8 @@
 "use client";
 
 import { useMemo } from "react";
-import { Slot, Tool, StackArchetype, getCategoryColor } from "@/lib/types";
+import { Slot, Tool, StackArchetype, LifecyclePhase, getCategoryColor } from "@/lib/types";
+import { LIFECYCLE_PHASE_LABEL, PHASE_TRACK_COLOR } from "@/lib/lifecycle";
 
 interface Props {
   selected: Record<string, string>; // slotId → toolId
@@ -10,6 +11,12 @@ interface Props {
   onAddTool: (slotId: string, toolId: string) => void;
   /** Archetype used to resolve per-slot priority. Defaults to "hybrid" until AIC-68 adds detection. */
   archetype?: StackArchetype;
+  /** Optional PR 7 view: surface missing lifecycle phases alongside missing slots. */
+  phaseCoverage?: {
+    covered: Set<LifecyclePhase>;
+    missingDev: LifecyclePhase[];
+    missingRuntime: LifecyclePhase[];
+  };
 }
 
 interface SlotHealth {
@@ -49,6 +56,7 @@ export default function StackHealthPanel({
   allTools,
   onAddTool,
   archetype = "hybrid",
+  phaseCoverage,
 }: Props) {
   // Collect all selected Tool objects that carry a provider tag
   const providerTools = useMemo(() => {
@@ -200,7 +208,57 @@ export default function StackHealthPanel({
             onAdd={onAddTool}
           />
         ))}
+
+        {/* PR 7: lifecycle phase gaps — complements missing-slot rows with
+            "which end-to-end phases is this stack missing?" — only renders when
+            there's actually a gap to report. */}
+        {phaseCoverage && phaseCoverage.missingDev.length > 0 && (
+          <PhaseGapRow
+            track="development"
+            missing={phaseCoverage.missingDev}
+            color={PHASE_TRACK_COLOR.development}
+          />
+        )}
+        {phaseCoverage && phaseCoverage.missingRuntime.length > 0 && (
+          <PhaseGapRow
+            track="runtime"
+            missing={phaseCoverage.missingRuntime}
+            color={PHASE_TRACK_COLOR.runtime}
+          />
+        )}
       </div>
+    </div>
+  );
+}
+
+function PhaseGapRow({
+  track,
+  missing,
+  color,
+}: {
+  track: "development" | "runtime";
+  missing: LifecyclePhase[];
+  color: string;
+}) {
+  const label = track === "development" ? "Dev workflow" : "Runtime arch";
+  return (
+    <div className="px-3 py-2.5" style={{ background: "var(--surface)" }}>
+      <div className="flex items-center gap-1.5 mb-1">
+        <div className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: color }} />
+        <span className="text-[10px] font-medium text-[var(--text-primary)] leading-tight">
+          {label}
+        </span>
+        <span
+          className="ml-auto text-[8px] font-semibold uppercase tracking-wide flex-shrink-0"
+          style={{ color: color + "cc" }}
+        >
+          {missing.length} phase{missing.length === 1 ? "" : "s"} missing
+        </span>
+      </div>
+      <p className="text-[10px] leading-relaxed pl-2.5" style={{ color: "var(--text-muted)" }}>
+        Add tools that cover{" "}
+        <span style={{ color }}>{missing.map((p) => LIFECYCLE_PHASE_LABEL[p]).join(", ")}</span>.
+      </p>
     </div>
   );
 }

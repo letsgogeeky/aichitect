@@ -85,6 +85,28 @@ export function computeStackPhaseCoverage(
 }
 
 /**
+ * Builder-side coverage: takes the list of currently-selected tool IDs and
+ * returns the union of their lifecycle phases. Pure, no React, easy to test.
+ *
+ * Different signature from computeStackPhaseCoverage (which takes a Stack) so
+ * callers don't have to manufacture a fake Stack object. Both ultimately
+ * compute the same union semantics.
+ */
+export function computePhaseCoverage(
+  toolIds: Iterable<string | null | undefined>,
+  toolsById: Map<string, Pick<Tool, "lifecycle_phases">>
+): Set<LifecyclePhase> {
+  const covered = new Set<LifecyclePhase>();
+  for (const id of toolIds) {
+    if (!id) continue;
+    const tool = toolsById.get(id);
+    if (!tool) continue;
+    for (const phase of tool.lifecycle_phases) covered.add(phase);
+  }
+  return covered;
+}
+
+/**
  * Returns the lifecycle phase associated with a slot — the union of phases
  * across all tools currently assigned to that slot. Most slots collapse to a
  * single phase since slots are mostly homogeneous (vector-db tools all map to
@@ -164,4 +186,19 @@ export function classifyTrack(phases: Iterable<LifecyclePhase>): LifecycleTrack 
   if (devCount >= 2 && runtimeCount <= 1) return "development";
   if (runtimeCount >= 3 && devCount <= 1) return "runtime";
   return "specialized";
+}
+
+/**
+ * Given a phase coverage set, returns the phases missing from each end-to-end
+ * track. Used by the Builder's StackHealthPanel to surface "you're missing
+ * eval / observability / guardrails" without the user having to read a chart.
+ */
+export function getMissingPhasesByTrack(covered: Set<LifecyclePhase>): {
+  development: LifecyclePhase[];
+  runtime: LifecyclePhase[];
+} {
+  return {
+    development: PHASES_BY_TRACK.development.filter((p) => !covered.has(p)),
+    runtime: PHASES_BY_TRACK.runtime.filter((p) => !covered.has(p)),
+  };
 }

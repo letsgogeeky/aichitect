@@ -165,6 +165,7 @@ function BuilderPageContent({
     selectedCount,
     story,
     archetype,
+    phaseCoverage,
     stackParam,
     expandedId,
     setExpandedId,
@@ -229,6 +230,7 @@ function BuilderPageContent({
         stackParam={stackParam}
         collapsedSlots={collapsedSlots}
         archetype={archetype}
+        phaseCoverage={phaseCoverage}
         compareA={compareA}
         compareB={compareB}
         onPickTool={pickTool}

@@ -3,6 +3,7 @@ import { useSearchParams } from "next/navigation";
 import { Slot, Tool } from "@/lib/types";
 import { generateStackStory } from "@/lib/stackStory";
 import { detectArchetype } from "@/lib/genomeAnalysis";
+import { computePhaseCoverage, getMissingPhasesByTrack } from "@/lib/lifecycle";
 
 function syncUrl(param: string) {
   const url = new URL(window.location.href);
@@ -52,6 +53,16 @@ export function useBuilderState(slots: Slot[], allTools: Tool[]) {
   const story = useMemo(() => generateStackStory(selectedTools), [selectedTools]);
 
   const archetype = useMemo(() => detectArchetype(toolIds, allTools), [toolIds, allTools]);
+
+  // ── PR 7: lifecycle phase coverage derived from the selected stack ──────────
+  // Lifted out of BuilderSlotList so other consumers (StackHealthPanel, future
+  // phase progress strips) read the same source of truth.
+  const phaseCoverage = useMemo(() => {
+    const byId = new Map(allTools.map((t) => [t.id, t]));
+    const covered = computePhaseCoverage(Object.values(selected), byId);
+    const missing = getMissingPhasesByTrack(covered);
+    return { covered, missingDev: missing.development, missingRuntime: missing.runtime };
+  }, [selected, allTools]);
 
   // stackParam for badge/share URLs — derived from local state, not URL
   const stackParam = toolIds.join(",");
@@ -125,6 +136,7 @@ export function useBuilderState(slots: Slot[], allTools: Tool[]) {
     selectedTools,
     story,
     archetype,
+    phaseCoverage,
     stackParam,
     expandedId,
     setExpandedId,

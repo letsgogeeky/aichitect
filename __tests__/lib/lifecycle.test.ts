@@ -4,11 +4,13 @@ import {
   LIFECYCLE_PHASE_TRACK,
   PHASE_TRACK_COLOR,
   computeStackPhaseCoverage,
+  computePhaseCoverage,
+  getMissingPhasesByTrack,
   getSlotPhases,
   groupSlotsByPhase,
   classifyTrack,
 } from "@/lib/lifecycle";
-import { LIFECYCLE_PHASES, type LifecyclePhase, type Tool } from "@/lib/types";
+import { LIFECYCLE_PHASES, PHASES_BY_TRACK, type LifecyclePhase, type Tool } from "@/lib/types";
 
 function makeTool(
   id: string,
@@ -181,6 +183,76 @@ describe("groupSlotsByPhase", () => {
     ];
     const grouped = groupSlotsByPhase(slots, toolsById);
     expect(grouped.map((g) => g.phase)).toEqual(["requirements", "providers", "observability"]);
+  });
+});
+
+describe("computePhaseCoverage", () => {
+  it("returns empty for an empty tool ID list", () => {
+    expect(computePhaseCoverage([], new Map()).size).toBe(0);
+  });
+
+  it("ignores null/undefined entries (Builder passes Object.values(selected))", () => {
+    const toolsById = new Map([["a", makeTool("a", ["coding"])]]);
+    const covered = computePhaseCoverage(["a", null, undefined, ""], toolsById);
+    expect([...covered]).toEqual(["coding"]);
+  });
+
+  it("unions phases across tools", () => {
+    const toolsById = new Map([
+      ["a", makeTool("a", ["coding"])],
+      ["b", makeTool("b", ["specs", "design"])],
+    ]);
+    const covered = computePhaseCoverage(["a", "b"], toolsById);
+    expect([...covered].sort()).toEqual(["coding", "design", "specs"]);
+  });
+
+  it("ignores tool IDs missing from the map", () => {
+    const toolsById = new Map([["a", makeTool("a", ["coding"])]]);
+    const covered = computePhaseCoverage(["a", "ghost"], toolsById);
+    expect([...covered]).toEqual(["coding"]);
+  });
+});
+
+describe("getMissingPhasesByTrack", () => {
+  it("returns all phases as missing when nothing is covered", () => {
+    const missing = getMissingPhasesByTrack(new Set());
+    expect(missing.development).toEqual([...PHASES_BY_TRACK.development]);
+    expect(missing.runtime).toEqual([...PHASES_BY_TRACK.runtime]);
+  });
+
+  it("returns empty arrays when both tracks are fully covered", () => {
+    const covered = new Set<LifecyclePhase>(LIFECYCLE_PHASES);
+    const missing = getMissingPhasesByTrack(covered);
+    expect(missing.development).toEqual([]);
+    expect(missing.runtime).toEqual([]);
+  });
+
+  it("correctly excludes only the phases in the covered set", () => {
+    const covered = new Set<LifecyclePhase>(["coding", "providers", "eval"]);
+    const missing = getMissingPhasesByTrack(covered);
+    expect(missing.development).not.toContain("coding");
+    expect(missing.development).not.toContain("eval");
+    expect(missing.runtime).not.toContain("providers");
+    expect(missing.runtime).not.toContain("eval");
+  });
+
+  it("eval covered → removed from BOTH track missing lists", () => {
+    const missing = getMissingPhasesByTrack(new Set(["eval"]));
+    expect(missing.development).not.toContain("eval");
+    expect(missing.runtime).not.toContain("eval");
+  });
+
+  it("preserves canonical phase order in missing lists", () => {
+    const missing = getMissingPhasesByTrack(new Set(["specs"]));
+    // dev track without specs: requirements, design, coding, code-review, eval, observability
+    expect(missing.development).toEqual([
+      "requirements",
+      "design",
+      "coding",
+      "code-review",
+      "eval",
+      "observability",
+    ]);
   });
 });
 
