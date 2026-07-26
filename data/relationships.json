@@ -3207,20 +3207,6 @@
     "achieves": "Choose E2B for arbitrary code execution; Browserbase when the work is specifically browser-driven."
   },
   {
-    "source": "browserbase-mcp",
-    "target": "browserbase",
-    "type": "integrates-with",
-    "how": "Browserbase MCP is the MCP server that exposes Browserbase sessions to MCP clients (Claude Code, Cursor, Cline) — it is built on Browserbase itself.",
-    "achieves": "Drive Browserbase sessions from any MCP-aware client (Claude Code, Cursor, Cline) without writing custom API code."
-  },
-  {
-    "source": "browserbase-mcp",
-    "target": "playwright-mcp",
-    "type": "competes-with",
-    "how": "Both are MCP servers that expose browser control to MCP clients. Playwright MCP runs against a local Playwright runtime. Browserbase MCP runs against Browserbase's managed cloud browser fleet with stealth, recording, and parallelism out of the box.",
-    "achieves": "Choose Playwright MCP for local control without cloud cost; Browserbase MCP when you need managed scale, stealth, or session recording."
-  },
-  {
     "source": "langwatch",
     "target": "langfuse",
     "type": "competes-with",
@@ -3585,27 +3571,6 @@
     "achieves": "Choose Lakera Guard for managed real-time security defense; Guardrails AI for self-hosted validator-chain policy enforcement."
   },
   {
-    "source": "lakera-guard",
-    "target": "llm-guard",
-    "type": "competes-with",
-    "how": "Both are LLM guardrails layers. Lakera Guard is the managed, commercial product (Cisco-owned). LLM Guard is the OSS, self-hosted alternative from Protect AI.",
-    "achieves": "Choose Lakera Guard when you want managed real-time security; LLM Guard when you need OSS self-hosting you can audit."
-  },
-  {
-    "source": "llm-guard",
-    "target": "guardrails-ai",
-    "type": "competes-with",
-    "how": "Both are OSS validator-chain guardrails libraries. LLM Guard (Protect AI) ships a broad set of pre-built scanners (PII, prompt injection, toxicity, bias). Guardrails AI emphasises structured-output validation and a marketplace of community validators.",
-    "achieves": "Choose LLM Guard for security-focused pre-built scanners; Guardrails AI for structured-output validation and community validator marketplace."
-  },
-  {
-    "source": "llm-guard",
-    "target": "litellm",
-    "type": "integrates-with",
-    "how": "LLM Guard plugs into LiteLLM-routed calls as a scanner step, applying input/output validation across any model LiteLLM supports.",
-    "achieves": "Add OSS guardrails to any LiteLLM-backed application without changing the model provider."
-  },
-  {
     "source": "openai-guardrails",
     "target": "guardrails-ai",
     "type": "competes-with",
@@ -3772,5 +3737,145 @@
     "type": "competes-with",
     "how": "Both are frontier text-to-video models. Veo is Google's, Vertex-AI-integrated, with native audio. Kling is Kuaishou's, with strong image-to-video for character continuity.",
     "achieves": "Choose Veo for Google Cloud alignment and native audio; Kling for strong image-to-video and a non-Western frontier option."
+  },
+  {
+    "source": "grok-build",
+    "target": "claude-code",
+    "type": "competes-with",
+    "how": "Both are terminal-based agentic coding CLIs from a frontier model lab. Grok Build runs on grok-code-fast-1 and is bundled with SuperGrok; Claude Code runs on Claude and is billed via Anthropic API usage or a Claude subscription.",
+    "achieves": "Choose Grok Build if you're already on SuperGrok; choose Claude Code for tighter Anthropic-model integration and a larger existing ecosystem."
+  },
+  {
+    "source": "grok-build",
+    "target": "codex-cli",
+    "type": "competes-with",
+    "how": "Both are vendor-native terminal coding agents with ACP-style editor embedding. Grok Build is Rust-native and xAI-model-specific; Codex CLI is OpenAI-model-specific.",
+    "achieves": "Pick whichever CLI matches the model provider you're already paying for."
+  },
+  {
+    "source": "openspec",
+    "target": "spec-kit",
+    "type": "competes-with",
+    "how": "Both are OSS spec-driven-development layers that make an AI coding agent write a spec/proposal before implementation. Spec Kit is GitHub's take; OpenSpec is community-built and framework-agnostic across 25+ coding assistants.",
+    "achieves": "Choose OpenSpec for broad multi-assistant support; Spec Kit if you're already deep in the GitHub/Copilot ecosystem."
+  },
+  {
+    "source": "openspec",
+    "target": "claude-code",
+    "type": "integrates-with",
+    "how": "OpenSpec ships a Claude Code integration that drives the proposal → spec → design → tasks workflow directly from Claude Code's agent loop.",
+    "achieves": "Get spec-driven development inside Claude Code without leaving the terminal."
+  },
+  {
+    "source": "greptile",
+    "target": "coderabbit",
+    "type": "competes-with",
+    "how": "Both are AI PR-review agents. Greptile indexes the full codebase for every review; CodeRabbit focuses on fast, diff-scoped review with a large integration surface.",
+    "achieves": "Choose Greptile when whole-repo context matters for catching architectural regressions; CodeRabbit for faster, diff-focused review at scale."
+  },
+  {
+    "source": "greptile",
+    "target": "qodo",
+    "type": "competes-with",
+    "how": "Both combine AI PR review with broader code-quality tooling. Qodo pairs review with AI-generated tests; Greptile focuses purely on whole-codebase-aware review depth.",
+    "achieves": "Choose Qodo if you also want AI-generated test coverage; Greptile for the deepest whole-repo review context."
+  },
+  {
+    "source": "gray-swan-cygnal",
+    "target": "lakera-guard",
+    "type": "competes-with",
+    "how": "Both are managed, real-time guardrails proxies for prompt injection and jailbreak defense. Gray Swan Cygnal emphasises indirect injection via tool/agent outputs; Lakera Guard (Cisco-owned) emphasises broad enterprise security coverage.",
+    "achieves": "Choose Cygnal for agent/tool-call-aware injection defense; Lakera Guard for a more established enterprise security vendor relationship."
+  },
+  {
+    "source": "gray-swan-cygnal",
+    "target": "guardrails-ai",
+    "type": "competes-with",
+    "how": "Gray Swan Cygnal is a managed real-time security proxy; Guardrails AI is an OSS, self-hosted validator-chain library focused on structured-output and policy validation rather than adversarial defense.",
+    "achieves": "Choose Cygnal for managed adversarial/injection defense; Guardrails AI for self-hosted structured-output validation."
+  },
+  {
+    "source": "seedance-2-5",
+    "target": "kling",
+    "type": "competes-with",
+    "how": "Both are frontier text/image-to-video models from major labs. Seedance 2.5 (ByteDance) supports native 30-second clips and up to 50 reference images; Kling emphasises motion realism and camera control.",
+    "achieves": "Choose Seedance 2.5 for longer native clips and multi-reference conditioning; Kling for motion fidelity and camera-control features."
+  },
+  {
+    "source": "seedance-2-5",
+    "target": "runway-gen-4",
+    "type": "competes-with",
+    "how": "Both target frontier video generation for production creative workflows. Runway Gen-4 leans into a mature creative-tooling ecosystem; Seedance 2.5 leans into longer native clip length and ByteDance/Volcano Engine distribution.",
+    "achieves": "Choose Runway Gen-4 for an established creative-tool ecosystem; Seedance 2.5 for longer native clips at competitive API pricing."
+  },
+  {
+    "source": "everos",
+    "target": "mem0",
+    "type": "competes-with",
+    "how": "Both are agent memory layers. Mem0 is a hosted-or-self-hosted service with vector/graph/KV backends; EverOS is local-first and stores memory as plain markdown files with hybrid BM25+vector retrieval.",
+    "achieves": "Choose EverOS for local-first, human-readable memory with no hosted dependency; Mem0 for a more mature hosted service with broader backend options."
+  },
+  {
+    "source": "everos",
+    "target": "letta",
+    "type": "competes-with",
+    "how": "Both give agents persistent, evolving memory across sessions. Letta (formerly MemGPT) models memory as an OS-style paging system; EverOS models it as markdown files with self-evolving skills.",
+    "achieves": "Choose EverOS for a lightweight, file-based approach you can inspect and version-control directly; Letta for a more structured memory-management runtime."
+  },
+  {
+    "source": "z-ai-glm-api",
+    "target": "deepseek-api",
+    "type": "competes-with",
+    "how": "Both are Chinese-lab foundation model APIs with open, MIT/permissive-licensed weights and a hosted pay-per-token option. GLM-5.2 emphasises a 1M-token context window; DeepSeek emphasises aggressive pricing at the reasoning tier.",
+    "achieves": "Benchmark both against your workload — pricing and context-window needs differ enough to matter at scale."
+  },
+  {
+    "source": "z-ai-glm-api",
+    "target": "litellm",
+    "type": "integrates-with",
+    "how": "LiteLLM ships a GLM/Z.AI provider adapter, letting the GLM API be routed and load-balanced alongside every other model provider through one interface.",
+    "achieves": "Add Z.AI's GLM models to a multi-provider LiteLLM setup without a separate SDK integration."
+  },
+  {
+    "source": "rime",
+    "target": "cartesia",
+    "type": "competes-with",
+    "how": "Both are low-latency voice AI platforms built by teams with deep speech-research backgrounds. Cartesia leans into its state-space Sonic model for raw latency; Rime leans into enterprise conversational deployments with compliance certifications.",
+    "achieves": "Choose Rime for enterprise compliance (HIPAA/SOC 2) and proven high-volume production use; Cartesia for the lowest-latency real-time synthesis."
+  },
+  {
+    "source": "rime",
+    "target": "elevenlabs",
+    "type": "competes-with",
+    "how": "Both offer production-grade TTS and conversational voice. ElevenLabs has the broadest voice-cloning and language catalog; Rime focuses on enterprise conversational deployments with dedicated compliance and on-prem options.",
+    "achieves": "Choose ElevenLabs for the widest voice/language selection; Rime for enterprise compliance and dedicated support at high call volume."
+  },
+  {
+    "source": "deepteam",
+    "target": "deepeval",
+    "type": "integrates-with",
+    "how": "DeepTeam and DeepEval are built by the same team (Confident AI) and share infrastructure — DeepTeam supplies the adversarial attacks and vulnerability taxonomy, DeepEval supplies the metric/scoring layer.",
+    "achieves": "Run adversarial red-team attacks through DeepTeam and score the results with DeepEval's metrics in one pipeline."
+  },
+  {
+    "source": "deepteam",
+    "target": "inspect-ai",
+    "type": "competes-with",
+    "how": "Both frameworks support red-teaming and adversarial evaluation of LLMs. Inspect AI (UK AI Safety Institute) is a general-purpose eval framework with red-teaming as one capability; DeepTeam is purpose-built specifically for adversarial/security testing with a named vulnerability taxonomy.",
+    "achieves": "Choose DeepTeam for a dedicated, OWASP/NIST-mapped security-testing taxonomy; Inspect AI for a broader eval framework where red-teaming is one of several use cases."
+  },
+  {
+    "source": "tinker",
+    "target": "unsloth",
+    "type": "competes-with",
+    "how": "Both fine-tune open-weight models efficiently. Unsloth is a library you run on your own GPUs; Tinker is a fully managed API that handles the distributed training loop for you, including large MoE models.",
+    "achieves": "Choose Tinker to avoid provisioning and managing training infrastructure yourself; Unsloth for maximum control and lower cost when you already have GPU capacity."
+  },
+  {
+    "source": "tinker",
+    "target": "predibase",
+    "type": "competes-with",
+    "how": "Both are managed fine-tuning platforms. Predibase (now part of Rubrik) targets enterprise LoRA fine-tuning and serving; Tinker targets research and frontier-lab-grade training on large open-weight models via a lower-level training-loop API.",
+    "achieves": "Choose Predibase for an enterprise-oriented managed fine-tune-and-serve pipeline; Tinker for lower-level control over the training loop itself."
   }
 ]

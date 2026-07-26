@@ -159,8 +159,8 @@ components/
     ToolUsageButton.tsx       → "I use this" production usage button
     WalkthroughOverlay.tsx    → product walkthrough overlay
 data/
-  tools.json            → 246 tools, 21 categories
-  relationships.json    → ~538 edges (integrates-with / commonly-paired-with / competes-with)
+  tools.json            → 256 tools, 21 categories
+  relationships.json    → ~553 edges (integrates-with / commonly-paired-with / competes-with)
   stacks.json           → 35 curated stacks with flow edges
   slots.json            → 20 slot types for the Builder
 lib/

@@ -8379,7 +8379,7 @@
       "free_tier": true,
       "plans": []
     },
-    "github_stars": 1000,
+    "github_stars": 3400,
     "slot": "mcp-infra",
     "prominent": false,
     "choose_if": [
@@ -8401,7 +8401,8 @@
     "last_synced_at": null,
     "is_stale": null,
     "scope": "ai-native",
-    "lifecycle_phases": ["tools-mcp"]
+    "lifecycle_phases": ["tools-mcp"],
+    "archived": true
   },
   {
     "id": "mem0",
@@ -8824,7 +8825,7 @@
         }
       ]
     },
-    "github_stars": null,
+    "github_stars": 3200,
     "slot": "guardrails",
     "provider": "protect-ai",
     "choose_if": [
@@ -8843,7 +8844,8 @@
     "use_context": "app-infrastructure",
     "added_at": "2026-05-15",
     "scope": "ai-native",
-    "lifecycle_phases": ["guardrails"]
+    "lifecycle_phases": ["guardrails"],
+    "archived": true
   },
   {
     "id": "openai-guardrails",
@@ -9733,5 +9735,411 @@
     "is_stale": null,
     "scope": "ai-native",
     "lifecycle_phases": ["specs"]
+  },
+  {
+    "id": "grok-build",
+    "name": "Grok Build",
+    "category": "coding-assistants",
+    "tagline": "xAI's agentic coding CLI powered by Grok Code Fast",
+    "description": "Terminal-based AI coding agent from xAI, built around the purpose-trained grok-code-fast-1 model. Runs as a full-screen TUI or headlessly for CI, edits files and runs shell commands autonomously, and exposes an Agent Client Protocol (ACP) for embedding in editors.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": false,
+      "plans": [
+        {
+          "name": "SuperGrok",
+          "price": "$30/mo"
+        },
+        {
+          "name": "SuperGrok Heavy",
+          "price": "$300/mo"
+        }
+      ]
+    },
+    "github_stars": 22300,
+    "slot": "cli-agent",
+    "prominent": false,
+    "choose_if": [
+      "You're already paying for SuperGrok and want an agentic coding CLI bundled in",
+      "You want a Rust-native terminal agent that also works headlessly in CI",
+      "You need Agent Client Protocol (ACP) support to embed the agent in your own editor"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": [],
+      "env_vars": ["XAI_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://x.ai/news/grok-build-cli",
+    "github_url": "https://github.com/xai-org/grok-build",
+    "use_context": "dev-productivity",
+    "added_at": "2026-07-24",
+    "scope": "ai-native",
+    "lifecycle_phases": ["coding"]
+  },
+  {
+    "id": "openspec",
+    "name": "OpenSpec",
+    "category": "spec-driven-dev",
+    "tagline": "Spec-driven development artifacts for AI coding agents",
+    "description": "OSS framework that organizes AI-assisted coding into version-controlled artifacts — proposals, specifications, designs, and task checklists — written before implementation begins. Integrates with 25+ AI coding assistants so humans and agents work from the same source of truth.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "OSS",
+          "price": "Free"
+        }
+      ]
+    },
+    "github_stars": 62450,
+    "slot": "specifications",
+    "prominent": false,
+    "choose_if": [
+      "You want AI agents to write a spec/proposal before touching code",
+      "You're coordinating multiple AI coding assistants and need one shared source of truth",
+      "You want spec artifacts kept in version control alongside the code they describe"
+    ],
+    "aliases": {
+      "npm": ["@fission-ai/openspec"],
+      "pip": [],
+      "env_vars": [],
+      "config_files": ["openspec/"]
+    },
+    "website_url": "https://openspec.dev/",
+    "github_url": "https://github.com/Fission-AI/OpenSpec",
+    "use_context": "dev-productivity",
+    "added_at": "2026-07-24",
+    "scope": "substrate",
+    "lifecycle_phases": ["specs"]
+  },
+  {
+    "id": "greptile",
+    "name": "Greptile",
+    "category": "code-review-ai",
+    "tagline": "AI code review agent trained on your full codebase",
+    "description": "LLM-based pull-request review agent that indexes an entire codebase, not just the diff, to catch bugs, style violations, and architectural regressions. Used in production at NVIDIA, Meta, Netflix, and Brex; benchmarked alongside CodeRabbit and Qodo in the 2026 Martian Code Review Bench.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Starter",
+          "price": "Free — 1 seat, 50 credits/mo"
+        },
+        {
+          "name": "Pro",
+          "price": "$30/seat/mo"
+        },
+        {
+          "name": "Enterprise",
+          "price": "Custom"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "devops-automation",
+    "prominent": false,
+    "choose_if": [
+      "You want PR review that reasons over the whole codebase, not just the diff",
+      "You need self-hosting, SSO, or GitHub Enterprise support",
+      "You're comparing code-review agents and want one benchmarked against CodeRabbit/Qodo"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": [],
+      "env_vars": [],
+      "config_files": []
+    },
+    "website_url": "https://www.greptile.com",
+    "github_url": null,
+    "use_context": "dev-productivity",
+    "added_at": "2026-07-24",
+    "scope": "ai-native",
+    "lifecycle_phases": ["code-review"],
+    "cost_model": {
+      "type": "per_seat",
+      "cost_per_seat": 30,
+      "free_tier_limit": "1 seat, 50 credits/mo",
+      "pricing_url": "https://www.greptile.com/pricing"
+    }
+  },
+  {
+    "id": "gray-swan-cygnal",
+    "name": "Gray Swan Cygnal",
+    "category": "guardrails",
+    "tagline": "Real-time prompt-injection and jailbreak defense proxy",
+    "description": "Runtime guardrails gateway from Gray Swan AI (CMU AI-safety spinout) that scores every prompt, response, and tool call for jailbreaks and prompt injection, including indirect injection via tool outputs. Deploys as a drop-in proxy — swap the model's base_url and every call gets scored.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Free",
+          "price": "200K tokens/min, 10M tokens/day"
+        },
+        {
+          "name": "Enterprise",
+          "price": "Contact sales"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "guardrails",
+    "prominent": false,
+    "choose_if": [
+      "You need runtime defense against indirect prompt injection via tool outputs",
+      "You want a drop-in proxy rather than an SDK you wire into every call site",
+      "You're replacing LLM Guard after its 2026-07 archival and want a maintained alternative"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": [],
+      "env_vars": [],
+      "config_files": []
+    },
+    "website_url": "https://www.grayswan.ai/product/cygnal",
+    "github_url": null,
+    "use_context": "app-infrastructure",
+    "added_at": "2026-07-24",
+    "scope": "ai-native",
+    "lifecycle_phases": ["guardrails"]
+  },
+  {
+    "id": "seedance-2-5",
+    "name": "Seedance 2.5",
+    "category": "multimodal",
+    "tagline": "ByteDance's frontier text/image-to-video model",
+    "description": "ByteDance's flagship video generation model, producing native 30-second clips from up to 50 reference images with region-level editing control. Served via Volcano Engine / BytePlus, competing directly with Runway Gen-4 and Google Veo at the frontier tier.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": false,
+      "plans": [
+        {
+          "name": "API",
+          "price": "Contact Volcano Engine / BytePlus"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "multimodal",
+    "prominent": false,
+    "choose_if": [
+      "You need long-form (30s+) native video generation, not just short clips",
+      "You want multi-reference-image conditioning (up to 50 inputs) for consistent characters/scenes",
+      "You're already on ByteDance/Volcano Engine infra"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": [],
+      "env_vars": [],
+      "config_files": []
+    },
+    "website_url": "https://www.volcengine.com",
+    "github_url": null,
+    "use_context": "app-infrastructure",
+    "added_at": "2026-07-24",
+    "scope": "ai-native",
+    "lifecycle_phases": ["providers"]
+  },
+  {
+    "id": "everos",
+    "name": "EverOS",
+    "category": "memory",
+    "tagline": "Local-first, markdown-native memory runtime for agents",
+    "description": "Open-source agent memory runtime storing state as plain markdown with hybrid BM25 + vector retrieval, plus 'self-evolving' skills that update from experience. Local-first alternative to hosted memory layers like Mem0 and Letta.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "OSS",
+          "price": "Free"
+        }
+      ]
+    },
+    "github_stars": 11500,
+    "slot": "memory",
+    "prominent": false,
+    "choose_if": [
+      "You want agent memory stored as plain, human-readable markdown files",
+      "You need local-first memory with no hosted service dependency",
+      "You want hybrid keyword + vector retrieval out of the box"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": [],
+      "env_vars": [],
+      "config_files": []
+    },
+    "website_url": "https://evermind.ai",
+    "github_url": "https://github.com/EverMind-AI/EverOS",
+    "use_context": "app-infrastructure",
+    "added_at": "2026-07-24",
+    "scope": "ai-native",
+    "lifecycle_phases": ["retrieval-memory"]
+  },
+  {
+    "id": "z-ai-glm-api",
+    "name": "Z.AI GLM API",
+    "category": "llm-infra",
+    "tagline": "Zhipu's pay-per-token API for the GLM model family",
+    "description": "Standalone pay-per-token foundation model API for Zhipu's GLM family, led by GLM-5.2 (744B MoE, 1M context). Weights are MIT-licensed and open, giving teams a choice between the hosted API and self-hosting — the main Chinese-lab entry point in this catalog beyond DeepSeek.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "GLM-4.5-Flash",
+          "price": "Free"
+        },
+        {
+          "name": "GLM-5.2",
+          "price": "$1.40 / $4.40 per 1M tokens (in/out)"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "inference",
+    "prominent": false,
+    "choose_if": [
+      "You want an open-weight model family with a hosted pay-per-token option",
+      "You're benchmarking against DeepSeek and want another frontier open-weights alternative",
+      "You need a free tier to prototype before committing to paid usage"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": [],
+      "env_vars": ["ZAI_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://z.ai",
+    "github_url": null,
+    "use_context": "app-infrastructure",
+    "added_at": "2026-07-24",
+    "scope": "ai-native",
+    "lifecycle_phases": ["providers"],
+    "cost_model": {
+      "type": "per_token",
+      "input_cost_per_1k_tokens": 0.0014,
+      "output_cost_per_1k_tokens": 0.0044,
+      "pricing_url": "https://docs.z.ai/guides/overview/pricing"
+    }
+  },
+  {
+    "id": "rime",
+    "name": "Rime",
+    "category": "voice-ai",
+    "tagline": "Enterprise conversational speech-to-speech and TTS platform",
+    "description": "Conversational voice AI platform (Mist, Arcana, Coda models) built by ex-Stanford linguists and a former Amazon Alexa researcher. Powers roughly 100M calls/month in production at Mayo Clinic, Dialpad, Upstart, and Asurion.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "Starter",
+          "price": "$0.05 / 1K characters — 3,000 min free"
+        },
+        {
+          "name": "Enterprise",
+          "price": "Custom"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "voice-ai",
+    "prominent": false,
+    "choose_if": [
+      "You need enterprise-grade conversational speech-to-speech, not just TTS",
+      "You want HIPAA/SOC 2 compliance and on-prem/VPC deployment options",
+      "You're evaluating voice platforms with real production call volume as proof"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": [],
+      "env_vars": ["RIME_API_KEY"],
+      "config_files": []
+    },
+    "website_url": "https://rime.ai",
+    "github_url": null,
+    "use_context": "app-infrastructure",
+    "added_at": "2026-07-24",
+    "scope": "ai-native",
+    "lifecycle_phases": ["providers"]
+  },
+  {
+    "id": "deepteam",
+    "name": "DeepTeam",
+    "category": "prompt-eval",
+    "tagline": "OSS red-teaming framework for LLMs and agents",
+    "description": "Adversarial red-teaming framework covering 50+ vulnerability types and 20+ attack methods, mapped to the OWASP LLM Top 10 and NIST AI RMF. Built by Confident AI, the team behind DeepEval, as a dedicated security-testing counterpart rather than a general eval library.",
+    "type": "oss",
+    "pricing": {
+      "free_tier": true,
+      "plans": [
+        {
+          "name": "OSS",
+          "price": "Free"
+        }
+      ]
+    },
+    "github_stars": 2300,
+    "slot": "prompt-eval",
+    "prominent": false,
+    "choose_if": [
+      "You need to red-team an LLM or agent against a broad, named vulnerability taxonomy",
+      "You want OWASP LLM Top 10 / NIST AI RMF mapped attack coverage out of the box",
+      "You're already using DeepEval and want a matching adversarial-testing tool"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": ["deepteam"],
+      "env_vars": [],
+      "config_files": []
+    },
+    "website_url": "https://trydeepteam.com",
+    "github_url": "https://github.com/confident-ai/deepteam",
+    "use_context": "app-infrastructure",
+    "added_at": "2026-07-24",
+    "scope": "ai-native",
+    "lifecycle_phases": ["eval"]
+  },
+  {
+    "id": "tinker",
+    "name": "Tinker",
+    "category": "fine-tuning",
+    "tagline": "Managed distributed fine-tuning API from Thinking Machines Lab",
+    "description": "Hosted fine-tuning API (LoRA and full fine-tune) for open-weight models, including large MoE models, from Mira Murati's Thinking Machines Lab. A managed-training-loop alternative to library-based tools like Axolotl or Unsloth — usage-based per-token pricing that varies by model.",
+    "type": "commercial",
+    "pricing": {
+      "free_tier": false,
+      "plans": [
+        {
+          "name": "Usage-based",
+          "price": "Per-token, varies by model"
+        }
+      ]
+    },
+    "github_stars": null,
+    "slot": "fine-tuning",
+    "prominent": false,
+    "choose_if": [
+      "You want a managed fine-tuning API instead of running training infra yourself",
+      "You need to fine-tune large open-weight MoE models without provisioning GPU clusters",
+      "You're comparing a hosted training loop against library-based options like Axolotl/Unsloth"
+    ],
+    "aliases": {
+      "npm": [],
+      "pip": [],
+      "env_vars": [],
+      "config_files": []
+    },
+    "website_url": "https://www.thinkingmachines.ai/tinker/",
+    "github_url": null,
+    "use_context": "app-infrastructure",
+    "added_at": "2026-07-24",
+    "scope": "ai-native",
+    "lifecycle_phases": ["coding"]
   }
 ]

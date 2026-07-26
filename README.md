@@ -16,7 +16,7 @@
     <a href="https://aichitect.dev/feed">Activity</a>
   </p>
 
-  <img src="https://img.shields.io/badge/tools-246-7c6bff?style=flat-square" alt="246 tools" />
+  <img src="https://img.shields.io/badge/tools-256-7c6bff?style=flat-square" alt="256 tools" />
   <img src="https://img.shields.io/badge/stacks-35-26de81?style=flat-square" alt="35 stacks" />
   <img src="https://img.shields.io/badge/categories-21-00d4aa?style=flat-square" alt="21 categories" />
   <img src="https://img.shields.io/badge/license-MIT-ff9f43?style=flat-square" alt="MIT license" />
@@ -25,13 +25,13 @@
 
 ---
 
-AI tools are all over the place. Every week there's a new framework, a new model, a new "essential" addition to your stack. AIchitect gives you a structured, visual map of the ecosystem — **246 tools** across **21 categories**, with **35 curated stacks** and a live signal feed — so you can pick the right stack based on data, not hype.
+AI tools are all over the place. Every week there's a new framework, a new model, a new "essential" addition to your stack. AIchitect gives you a structured, visual map of the ecosystem — **256 tools** across **21 categories**, with **35 curated stacks** and a live signal feed — so you can pick the right stack based on data, not hype.
 
 ## Features
 
 ### Explore — the full ecosystem as an interactive graph
 
-Browse all 246 tools as a force-directed graph. Filter by category or relationship type, search by name, and switch between three view modes:
+Browse all 256 tools as a force-directed graph. Filter by category or relationship type, search by name, and switch between three view modes:
 
 - **2D Grid** — clean, scannable card layout
 - **2D Layers** — swimlane view organized by stack layer (Development → AI Logic → Models & Infra → Tooling)
@@ -158,8 +158,8 @@ app/
   api/               cron, MCP, roast/challenge endpoints
   badge/             shields.io-style SVG badge endpoint
 data/
-  tools.json         246 tools
-  relationships.json 538 edges (integrates-with / commonly-paired-with / competes-with)
+  tools.json         256 tools
+  relationships.json 553 edges (integrates-with / commonly-paired-with / competes-with)
   stacks.json        35 curated stacks with flow edges
   slots.json         22 builder slot types
 lib/
