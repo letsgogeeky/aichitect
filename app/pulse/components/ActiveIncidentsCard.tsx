@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import type { ActiveIncident } from "@/lib/pulse";
 import { formatRelativeTime } from "@/lib/format";
