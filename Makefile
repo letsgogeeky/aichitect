@@ -46,7 +46,10 @@ format: ## Format all files with Prettier inside container
 test: ## Run tests with Vitest inside container
 	$(COMPOSE) run --rm app npx vitest run
 
-check: lint typecheck test ## Run all checks (lint + typecheck + test)
+audit: ## Check for high/critical npm vulnerabilities not in the allowlist
+	$(COMPOSE) run --rm app node scripts/audit-check.mjs
+
+check: lint typecheck test audit ## Run all checks (lint + typecheck + test + audit)
 
 sync-counts: ## Sync tool/category/stack counts into README.md and CLAUDE.md
 	node scripts/sync-counts.mjs
