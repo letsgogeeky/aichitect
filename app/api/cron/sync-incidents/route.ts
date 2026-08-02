@@ -64,6 +64,7 @@ export async function GET(request: Request) {
 
   let inserted = 0;
   let updated = 0;
+  let reconciled = 0;
   let eventsFired = 0;
   const errors: string[] = [];
 
@@ -180,15 +181,61 @@ export async function GET(request: Request) {
         );
       }
     }
+
+    // Vendors occasionally delete/replace an incident (e.g. a typo fix on their
+    // end) without ever setting resolved_at — the old id just stops appearing
+    // in the feed. Anything we still have marked ongoing that wasn't in this
+    // fetch is reconciled as resolved so it doesn't stay "active" forever.
+    const seenIds = new Set((body.incidents ?? []).map((inc) => inc.id));
+    const { data: ongoing } = await db
+      .from("tool_incidents")
+      .select("id, external_id, started_at, severity, title, scope, url")
+      .eq("tool_id", page.tool_id)
+      .is("ended_at", null);
+
+    for (const row of ongoing ?? []) {
+      if (seenIds.has(row.external_id)) continue;
+
+      const now = new Date().toISOString();
+      const { error } = await db
+        .from("tool_incidents")
+        .update({ ended_at: now, status: "resolved", last_synced_at: now })
+        .eq("id", row.id);
+      if (error) {
+        errors.push(`${page.tool_id}/${row.external_id}: reconcile ${error.message}`);
+        continue;
+      }
+      reconciled++;
+
+      if (MAJOR_OR_WORSE.has(row.severity)) {
+        await db.from("tool_events").insert({
+          tool_id: page.tool_id,
+          type: "incident_resolved",
+          old_hash: null,
+          new_hash: null,
+          metadata: {
+            severity: row.severity,
+            title: row.title,
+            scope: row.scope,
+            url: row.url,
+            started_at: row.started_at,
+            ended_at: now,
+            reconciled: true,
+          },
+        });
+        eventsFired++;
+      }
+    }
   }
 
   console.log(
-    `[sync-incidents] Done — pages: ${pages.length}, inserted: ${inserted}, updated: ${updated}, events: ${eventsFired}, errors: ${errors.length}`
+    `[sync-incidents] Done — pages: ${pages.length}, inserted: ${inserted}, updated: ${updated}, reconciled: ${reconciled}, events: ${eventsFired}, errors: ${errors.length}`
   );
   return Response.json({
     pages: pages.length,
     inserted,
     updated,
+    reconciled,
     events_fired: eventsFired,
     errors,
   });
