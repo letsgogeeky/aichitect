@@ -45,6 +45,7 @@ export function StackDetailHeader({
   onClearCompare: () => void;
 }) {
   const [killOpen, setKillOpen] = useState(false);
+  const [notInStackOpen, setNotInStackOpen] = useState(false);
   const [watchState, setWatchState] = useState<"idle" | "saving" | "error">("idle");
   const { user } = useUser();
   const router = useRouter();
@@ -250,46 +251,63 @@ export function StackDetailHeader({
         )}
       </div>
 
-      {/* Not In This Stack */}
+      {/* Not In This Stack — collapsed by default; supplementary context,
+          not the reason someone opened this page. Matches the "When to
+          move on" collapsible pattern below. */}
       {notInStackTools.length > 0 && (
-        <div
-          className="rounded-lg px-3 py-2 mb-3"
-          style={{ background: "#ff6b6b06", border: "1px solid #ff6b6b18" }}
-        >
-          <div className="type-overline mb-1.5" style={{ color: "var(--danger)" }}>
-            Not in this stack
-          </div>
-          <div className="flex flex-col gap-1">
-            {notInStackTools.map(({ tool, reason }) => {
-              const color = tool ? getCategoryColor(tool.category) : "var(--text-muted)";
-              return (
-                <div key={reason} className="flex items-baseline gap-2">
-                  <span className="type-caption flex-shrink-0" style={{ color: "var(--danger)" }}>
-                    ✗
-                  </span>
-                  {tool ? (
-                    <Link
-                      href={`/explore?tool=${tool.id}`}
-                      className="type-label flex-shrink-0 hover:underline"
-                      style={{ color }}
-                    >
-                      {tool.name}
-                    </Link>
-                  ) : (
-                    <span
-                      className="type-label flex-shrink-0"
-                      style={{ color: "var(--text-muted)" }}
-                    >
-                      {reason}
-                    </span>
-                  )}
-                  <span className="type-body-tight" style={{ color: "var(--text-muted)" }}>
-                    — {reason}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
+        <div className="mb-3">
+          <button
+            onClick={() => setNotInStackOpen((v) => !v)}
+            className="flex items-center gap-2 w-full text-left"
+          >
+            <div className="type-overline" style={{ color: "var(--danger)" }}>
+              Not in this stack
+            </div>
+            <span className="type-caption" style={{ color: "var(--danger)" }}>
+              {notInStackTools.length} excluded {notInStackOpen ? "▲" : "▼"}
+            </span>
+          </button>
+          {notInStackOpen && (
+            <div
+              className="mt-1.5 rounded-lg px-3 py-2"
+              style={{ background: "#ff6b6b06", border: "1px solid #ff6b6b18" }}
+            >
+              <div className="flex flex-col gap-1">
+                {notInStackTools.map(({ tool, reason }) => {
+                  const color = tool ? getCategoryColor(tool.category) : "var(--text-muted)";
+                  return (
+                    <div key={reason} className="flex items-baseline gap-2">
+                      <span
+                        className="type-caption flex-shrink-0"
+                        style={{ color: "var(--danger)" }}
+                      >
+                        ✗
+                      </span>
+                      {tool ? (
+                        <Link
+                          href={`/explore?tool=${tool.id}`}
+                          className="type-label flex-shrink-0 hover:underline"
+                          style={{ color }}
+                        >
+                          {tool.name}
+                        </Link>
+                      ) : (
+                        <span
+                          className="type-label flex-shrink-0"
+                          style={{ color: "var(--text-muted)" }}
+                        >
+                          {reason}
+                        </span>
+                      )}
+                      <span className="type-body-tight" style={{ color: "var(--text-muted)" }}>
+                        — {reason}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </div>
       )}
 

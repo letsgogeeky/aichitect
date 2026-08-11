@@ -506,3 +506,33 @@ console errors; `make typecheck` clean.
 
 **Nothing hidden this iteration** — same 17 categories shown, just ordered
 and grouped by what the reader actually needs to see first.
+
+## Iteration 13 — Stacks detail header (StackDetailHeader.tsx) restructure
+
+**Problem:** screenshotted `/stacks`. The detail header (`maxHeight: "55%"`
+of the viewport) stacks: a situation banner, title, description, CTAs, a
+12-cell lifecycle-coverage bar, 5 tag pills, two full paragraph blocks
+("Why this stack" / "Tradeoff"), and a 4-item "Not in this stack" list with
+per-item reasoning — **all before the graph**, which is the actual product
+(the interactive visualization of the stack's tools and how they connect).
+On a standard laptop viewport, the graph was reduced to a sliver at the
+very bottom of the screen, sometimes fully below the fold.
+
+**Redesign:** made "Not in this stack" collapsed by default, matching the
+"When to move on" collapsible pattern that already existed two sections
+below it in the same file (so this isn't a new pattern, just applying an
+existing one consistently). Collapsed, it now reads as a single line —
+`NOT IN THIS STACK · 4 excluded ▼` — instead of 4 full rows with
+tool links and reasoning text. "Why this stack" and "Tradeoff" were left
+expanded: per the product's own onboarding tour copy ("opinionated picks…
+with tradeoffs documented honestly"), that's core value, not supplementary
+detail, so it stays visible by default while the genuinely secondary
+"excluded tools" list becomes opt-in.
+
+**Verified:** screenshotted before/after — the graph is now visible much
+higher on the page in the default (collapsed) state; verified the
+expand/collapse toggle actually works via Playwright click + screenshot;
+zero console errors; `make typecheck` clean.
+
+**Nothing hidden this iteration** — the excluded-tools reasoning is still
+fully present, one click away, not removed.
