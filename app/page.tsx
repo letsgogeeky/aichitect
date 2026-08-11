@@ -3,7 +3,7 @@ import Logo from "@/components/ui/Logo";
 import { GITHUB_URL, SITE_HOST } from "@/lib/constants";
 import { FindMyStackButton } from "@/components/ui/StackQuizModal";
 import { getCounts } from "@/lib/data/counts";
-import { supabase } from "@/lib/db";
+import { supabase } from "@/lib/db.server";
 import { formatRelativeTime } from "@/lib/format";
 import type { ToolEventType, CategoryId } from "@/lib/types";
 import { getCategoryColor } from "@/lib/types";

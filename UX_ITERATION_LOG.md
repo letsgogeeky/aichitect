@@ -943,3 +943,102 @@ role="button">`) wrapping a real `<Link>` — 20 instances on `/feed`. The
 **Result: 0 violations (any WCAG 2A/2AA rule, not just contrast) across all
 15 scanned routes**, verified after a full `--renew-anon-volumes` rebuild.
 `make check` (lint/typecheck/test, 217 tests) clean throughout.
+
+## Part 3 continued — the real cause of "Multiple GoTrueClient instances"
+
+With contrast/WCAG at zero violations, this iteration moved to browser
+console errors/warnings as the next bug-hunting surface — a plain crawl of
+all 20 known routes (`crawl-errors2.mjs`, console + `pageerror` +
+`requestfailed` + non-2xx `response` listeners) rather than more manual
+grep-hunting.
+
+**Problem found:** despite the earlier fix that made
+`createSupabaseBrowserClient()` an actual module-scoped singleton, the
+"Multiple GoTrueClient instances detected" warning was still firing on
+**every single route**, not just occasionally. Root cause turned out to be
+two independent bugs stacked on top of each other:
+
+1. `lib/db.ts` exported _two_ things from the same file: the browser
+   singleton factory, and a legacy top-level `export const supabase =
+createClient(url, anonKey)` meant for server-side data loaders. Because
+   JS executes a module's entire top level on import — not just the
+   binding you asked for — any client component importing
+   `createSupabaseBrowserClient` from this file _also_ ran the
+   `createClient()` line, instantiating a second GoTrue client in the
+   browser pointed at the same auth storage key. Fix: split into
+   `lib/db.ts` (browser-only, `createSupabaseBrowserClient`) and a new
+   `lib/db.server.ts` (the `supabase` legacy client) — 8 server-side call
+   sites (`app/page.tsx`, `lib/data/*.ts`, two API routes, etc.) updated
+   to import from `lib/db.server.ts` instead.
+2. Even after the split, the warning persisted on exactly 5 routes —
+   `/explore`, `/stacks`, `/builder`, `/genome`, `/watch/[id]` — the ones
+   with a `dynamic(..., { ssr: false })` client subtree (Three.js 3D
+   graph, React Flow canvas). Those subtrees get bundled into a separate
+   chunk, which gets its _own copy_ of any module it imports — so a plain
+   module-scoped `let browserClient` singleton isn't actually a singleton
+   across chunk boundaries. Fixed by caching on `globalThis` instead
+   (`globalThis.__supabaseBrowserClient`), which is shared across however
+   many bundle copies of the module exist. This is the standard fix for
+   "singleton needs to survive being bundled twice," same category as the
+   Next.js-recommended pattern for caching a Prisma client across HMR
+   reloads — not a workaround, the textbook-correct pattern for this
+   exact bundler behavior.
+
+**Even after both fixes, `/explore`, `/stacks` (etc.) still warned.**
+Traced with `page.on("console")` + checking `window.__supabaseBrowserClient`
+directly — the global singleton _was_ being shared correctly, so the
+second instance had to be coming from somewhere that bypassed
+`createSupabaseBrowserClient()` entirely. Found it: `DetailPanel.tsx` and
+`ComparisonPanel.tsx` (both `"use client"`) imported `getToolHealthDetails`
+/ `getToolTrajectory` directly from `lib/data/tools.ts` — a
+server-oriented data-loader module that itself imports the `supabase`
+client from `lib/db.server.ts` _and_ calls `next/cache`'s `unstable_cache`
+at module top level. Importing either of those two client components
+bundled all of that into the browser, recreating bug #1 through a
+different door. A third instance of the exact same pattern was found in
+`components/mobile/ToolDetailSheet.tsx` (the mobile equivalent of
+DetailPanel) — that one is why `/explore` kept warning even after fixing
+DetailPanel, since ToolDetailSheet is bundled into the Explore page
+regardless of viewport.
+
+Notably, `components/panels/TrajectorySparkline.tsx` already did this
+correctly — it `fetch()`es `/api/tool/[toolId]/snapshots` instead of
+importing the server module directly. DetailPanel/ComparisonPanel/
+ToolDetailSheet were the outliers, not the pattern.
+
+**Fix:** added two new API routes, `GET /api/tool/[toolId]/health` and
+`GET /api/tool/[toolId]/trajectory`, which call the _same_
+`getToolHealthDetails`/`getToolTrajectory` functions server-side and
+return the identical JSON shape. Updated all three client components to
+`fetch()` from these routes instead of importing the functions directly,
+using `import type` for the now-erased-at-compile-time TypeScript
+interfaces (`ToolHealthDetails`, `ToolTrajectoryPoint`) so the type
+information survives without pulling in any runtime code. Verified via
+direct `curl` against both new routes (same response shape, 200 on a
+nonexistent tool ID since both functions already null-guard rather than
+404 — preserved existing behavior exactly, not a regression).
+
+**Result:** the "Multiple GoTrueClient instances" warning — present on
+100% of routes at the start of this session, then 5 of 20 after fix #1/#2 —
+is now gone from all 20 crawled routes (`/`, `/explore`, `/stacks`,
+`/builder`, `/genome`, `/compare`, `/simulate`, `/feed`, `/pulse`,
+`/changelog`, `/mcp`, `/match`, `/tool/cursor`, `/category`,
+`/category/coding-assistants`, `/compare/cursor/github-copilot`,
+`/watch/[id]`, `/case`, `/privacy`, `/profile/[username]`), verified after
+a fresh `--renew-anon-volumes` rebuild. Re-ran the full WCAG 2A/2AA axe
+scan afterward too — still 0 violations across all 15 scanned routes, so
+the fetch-based rewiring didn't regress accessibility.
+
+**Investigated but not a bug:** `/watch/[id]` logs an `[http 401]` for
+`/api/stacks/[id]` when visited anonymously — that route is
+intentionally owner-only (`SavedStack`, private per-user data via RLS),
+and `WatchClient.tsx` already handles the 401 by redirecting to `/`. The
+console entry is just the browser's normal network log for a request
+that got a non-2xx response before the redirect fires; not a UX problem.
+
+**Left alone:** a React Flow "new nodeTypes or edgeTypes object" dev-mode
+warning on `/stacks` — both `nodeTypes` objects in that file are already
+defined at module scope (not recreated per render), so this looks like an
+internal React Flow check quirk rather than an actual unmemoized-object
+bug on our side. Low severity (perf-only, dev-mode-only), not chased
+further.

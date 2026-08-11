@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import { simulate, SimulationInput, TOKEN_DEFAULTS } from "@/lib/simulate";
-import { supabase } from "@/lib/db";
+import { supabase } from "@/lib/db.server";
 import type { Tool } from "@/lib/types";
 
 interface SimulationRequestBody {

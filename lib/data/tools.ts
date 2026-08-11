@@ -1,5 +1,5 @@
 import { unstable_cache } from "next/cache";
-import { supabase } from "@/lib/db";
+import { supabase } from "@/lib/db.server";
 import type { Tool } from "@/lib/types";
 import toolsJson from "@/data/tools.json";
 import { hydrateTool, hydrateTools } from "./hydrateLifecycle";

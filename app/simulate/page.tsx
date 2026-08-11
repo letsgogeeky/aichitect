@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { supabase } from "@/lib/db";
+import { supabase } from "@/lib/db.server";
 import { pageMeta } from "@/lib/metadata";
 import type { Tool } from "@/lib/types";
 import type { SimulationInput, SimulationUseCase } from "@/lib/simulate";

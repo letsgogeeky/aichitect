@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { supabase } from "@/lib/db";
+import { supabase } from "@/lib/db.server";
 import { getCategoryColor, CATEGORIES, type CategoryId, type ToolEventType } from "@/lib/types";
 import { SITE_HOST } from "@/lib/constants";
 

@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { cache } from "react";
-import { supabase } from "@/lib/db";
+import { supabase } from "@/lib/db.server";
 import {
   getCategoryColor,
   getReadableTextColor,

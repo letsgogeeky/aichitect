@@ -1,5 +1,5 @@
 import { unstable_cache } from "next/cache";
-import { supabase } from "@/lib/db";
+import { supabase } from "@/lib/db.server";
 import type { Slot } from "@/lib/types";
 import slotsJson from "@/data/slots.json";
 

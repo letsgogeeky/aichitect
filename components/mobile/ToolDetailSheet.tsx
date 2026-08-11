@@ -16,7 +16,7 @@ import toolsData from "@/data/tools.json";
 import stacksData from "@/data/stacks.json";
 import { useSuggestTool } from "@/components/ui/SuggestToolContext";
 import BottomSheet from "./BottomSheet";
-import { getToolHealthDetails, ToolHealthDetails } from "@/lib/data/tools";
+import type { ToolHealthDetails } from "@/lib/data/tools";
 import { formatRelativeTime, formatStarDelta } from "@/lib/format";
 import { healthColor, healthLabel } from "@/lib/health";
 import { TrajectorySparkline } from "@/components/panels/TrajectorySparkline";
@@ -40,9 +40,13 @@ export default function ToolDetailSheet({ tool, open, onClose }: Props) {
   useEffect(() => {
     if (!tool) return;
     let cancelled = false;
-    getToolHealthDetails(tool.id, tool.github_stars ?? null).then((details) => {
-      if (!cancelled) setHealthDetails(details);
-    });
+    const starsQuery = tool.github_stars != null ? `?stars=${tool.github_stars}` : "";
+    fetch(`/api/tool/${tool.id}/health${starsQuery}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((details: ToolHealthDetails | null) => {
+        if (!cancelled) setHealthDetails(details);
+      })
+      .catch(() => {});
     return () => {
       cancelled = true;
     };

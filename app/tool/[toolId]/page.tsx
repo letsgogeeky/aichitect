@@ -16,7 +16,7 @@ import { pageMeta } from "@/lib/metadata";
 import { healthColor, healthLabel } from "@/lib/health";
 import { formatRelativeTime } from "@/lib/format";
 import { SITE_URL } from "@/lib/constants";
-import { supabase } from "@/lib/db";
+import { supabase } from "@/lib/db.server";
 import { getToolReliability, getToolBenchmarkHistory } from "@/lib/pulse";
 import { ToolPulseSection } from "./components/ToolPulseSection";
 

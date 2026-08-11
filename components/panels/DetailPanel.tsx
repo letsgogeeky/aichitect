@@ -9,7 +9,7 @@ import toolsData from "@/data/tools.json";
 import stacksData from "@/data/stacks.json";
 import { Relationship, Stack } from "@/lib/types";
 import { useSuggestTool } from "@/components/ui/SuggestToolContext";
-import { getToolHealthDetails, ToolHealthDetails } from "@/lib/data/tools";
+import type { ToolHealthDetails } from "@/lib/data/tools";
 import { formatRelativeTime, formatStarDelta } from "@/lib/format";
 import { healthColor, healthLabel } from "@/lib/health";
 import { CloseButton } from "@/components/ui/CloseButton";
@@ -38,9 +38,13 @@ export default function DetailPanel({ tool, onClose }: Props) {
   useEffect(() => {
     if (!tool) return;
     let cancelled = false;
-    getToolHealthDetails(tool.id, tool.github_stars ?? null).then((details) => {
-      if (!cancelled) setHealthDetails(details);
-    });
+    const starsQuery = tool.github_stars != null ? `?stars=${tool.github_stars}` : "";
+    fetch(`/api/tool/${tool.id}/health${starsQuery}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((details: ToolHealthDetails | null) => {
+        if (!cancelled) setHealthDetails(details);
+      })
+      .catch(() => {});
     fetch(`/api/tools/${tool.id}/usage`)
       .then((r) => (r.ok ? r.json() : null))
       .then((data: ToolUsageSummary | null) => {

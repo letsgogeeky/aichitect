@@ -1,5 +1,5 @@
 import { unstable_cache } from "next/cache";
-import { supabase } from "@/lib/db";
+import { supabase } from "@/lib/db.server";
 import type { Stack } from "@/lib/types";
 import stacksJson from "@/data/stacks.json";
 import { hydrateStack, hydrateStacks } from "./hydrateLifecycle";

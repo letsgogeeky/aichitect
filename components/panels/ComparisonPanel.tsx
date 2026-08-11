@@ -20,7 +20,7 @@ import {
   ToolPill,
 } from "@/components/comparison";
 import { formatRelativeTime } from "@/lib/format";
-import { getToolTrajectory, type ToolTrajectoryPoint } from "@/lib/data/tools";
+import type { ToolTrajectoryPoint } from "@/lib/data/tools";
 
 const relationships = relationshipsData as Relationship[];
 const allTools = toolsData as Tool[];
@@ -59,7 +59,9 @@ export default function ComparisonPanel({ toolA, toolB, onClose, onSwap }: Compa
 
   useEffect(() => {
     let cancelled = false;
-    Promise.all([getToolTrajectory(toolA.id), getToolTrajectory(toolB.id)]).then(([a, b]) => {
+    const fetchTrajectory = (id: string): Promise<ToolTrajectoryPoint[]> =>
+      fetch(`/api/tool/${id}/trajectory`).then((r) => (r.ok ? r.json() : []));
+    Promise.all([fetchTrajectory(toolA.id), fetchTrajectory(toolB.id)]).then(([a, b]) => {
       if (!cancelled) {
         setTrajectoryA(a);
         setTrajectoryB(b);
