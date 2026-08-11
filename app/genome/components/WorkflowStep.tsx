@@ -89,6 +89,7 @@ function ToolChip({
 export function WorkflowStep({ onNext }: { onNext: (workflowIds: string[]) => void }) {
   const { allTools } = useGenomeData();
   const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [query, setQuery] = useState("");
 
   function toggle(id: string) {
     setSelected((prev) => {
@@ -99,7 +100,10 @@ export function WorkflowStep({ onNext }: { onNext: (workflowIds: string[]) => vo
     });
   }
 
-  const groups = useMemo(() => {
+  // 121 tools across 14 categories — scrolling the whole list to find one
+  // is the actual usability problem here, not contrast/size. A name filter
+  // lets a user jump straight to their tool instead of scanning everything.
+  const allGroups = useMemo(() => {
     const workflowTools = allTools.filter(
       (t) => t.use_context === "dev-productivity" || t.use_context === "both"
     );
@@ -109,6 +113,21 @@ export function WorkflowStep({ onNext }: { onNext: (workflowIds: string[]) => vo
       return [{ label: cat.label, tools }];
     });
   }, [allTools]);
+
+  const totalCount = allGroups.reduce((n, g) => n + g.tools.length, 0);
+
+  const groups = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return allGroups;
+    return allGroups
+      .map((g) => ({
+        ...g,
+        tools: g.tools.filter(
+          (t) => t.name.toLowerCase().includes(q) || t.tagline.toLowerCase().includes(q)
+        ),
+      }))
+      .filter((g) => g.tools.length > 0);
+  }, [allGroups, query]);
 
   return (
     <div
@@ -148,11 +167,28 @@ export function WorkflowStep({ onNext }: { onNext: (workflowIds: string[]) => vo
             fontSize: 13,
             color: "var(--text-secondary)",
             lineHeight: 1.6,
-            margin: "0 0 12px",
+            margin: "0 0 16px",
           }}
         >
           These tools don&apos;t always show up in dependency files. Select everything you use.
         </p>
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder={`Search ${totalCount} tools…`}
+          style={{
+            width: "100%",
+            maxWidth: 320,
+            padding: "8px 14px",
+            borderRadius: 8,
+            fontSize: 13,
+            background: "var(--surface)",
+            border: "1px solid var(--border)",
+            color: "var(--text-primary)",
+            outline: "none",
+          }}
+        />
       </div>
 
       {/* Groups */}
@@ -166,6 +202,11 @@ export function WorkflowStep({ onNext }: { onNext: (workflowIds: string[]) => vo
           marginBottom: 28,
         }}
       >
+        {groups.length === 0 && (
+          <p style={{ fontSize: 13, color: "var(--text-muted)", textAlign: "center" }}>
+            No tools match &ldquo;{query}&rdquo;.
+          </p>
+        )}
         {groups.map((group) => (
           <div key={group.label}>
             <p

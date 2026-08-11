@@ -566,3 +566,26 @@ console errors; `make typecheck` clean.
 **Nothing hidden this iteration** — the autonomy tag still shows exactly
 where it's actionable (chosen or expanded slots), just not stacked on top
 of an unrelated empty-state label.
+
+## Iteration 15 — Genome workflow step (WorkflowStep.tsx) — add search
+
+**Problem:** screenshotted `/genome`. Step 1 of the wizard ("What's your
+dev workflow?") renders **121 tools across 14 categories** as one long
+scrolling wall of cards, grouped by category header but with no way to
+filter. "Coding Assistants" alone has 27 cards. This isn't a contrast or
+size problem (the cards themselves are legible) — it's that finding your
+2-3 actual tools means scrolling past 100+ irrelevant ones.
+
+**Fix:** added a search input (`Search 121 tools…`) that filters both the
+tool list and category grouping by name/tagline match in real time, with
+an explicit "No tools match…" empty state. This is additive — nothing
+about the existing grouped-grid layout changed, so a user who prefers to
+browse can still scroll the full list; the search is there for the much
+more common case of "I know what I use, let me find it fast."
+
+**Verified:** screenshotted before/after via Playwright — typing "cursor"
+narrows 121 cards down to the one match; an unmatched query shows the
+empty state; zero console errors; `make typecheck` clean.
+
+**Nothing hidden this iteration** — all 121 tools remain browsable, search
+is opt-in.
