@@ -22,7 +22,7 @@ export function LatencyLeadersCard({ leaders }: Props) {
           Latency Leaders
         </h2>
         <span
-          className="text-[10px]"
+          className="text-[11px]"
           style={{ color: "var(--text-muted)" }}
           title="Median time-to-first-token from Artificial Analysis, refreshed weekly"
         >
@@ -41,7 +41,7 @@ export function LatencyLeadersCard({ leaders }: Props) {
               >
                 <span className="flex min-w-0 items-center gap-2">
                   <span
-                    className="w-4 text-[10px] tabular-nums"
+                    className="w-4 text-[11px] tabular-nums"
                     style={{ color: "var(--text-muted)" }}
                   >
                     {i + 1}
@@ -50,7 +50,7 @@ export function LatencyLeadersCard({ leaders }: Props) {
                     {t.name}
                   </span>
                   <span
-                    className="text-[10px] uppercase tracking-wide"
+                    className="text-[11px] uppercase tracking-wide"
                     style={{ color: c }}
                     title={catLabel}
                   >
@@ -74,7 +74,7 @@ export function LatencyLeadersCard({ leaders }: Props) {
           );
         })}
       </ol>
-      <p className="mt-3 text-[10px] leading-relaxed" style={{ color: "var(--text-muted)" }}>
+      <p className="mt-3 text-[11px] leading-relaxed" style={{ color: "var(--text-muted)" }}>
         Data via{" "}
         <a
           href="https://artificialanalysis.ai"

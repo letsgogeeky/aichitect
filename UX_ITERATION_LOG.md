@@ -180,4 +180,37 @@ category pages, the compare page, and the case-study page.
 
 **Nothing hidden this iteration.**
 
+## Iteration 6 — app/feed/, app/pulse/, app/watch/, app/profile/
+
+**Problem found:** the Pulse dashboard (`app/pulse/*`) turned out to be a
+self-contained subsystem styled entirely differently from the rest of the
+app — instead of the `--text-primary/secondary/muted` tokens, it uses raw
+Tailwind `text-white/N` opacity utilities throughout. Several of those
+fail AA outright:
+
+| Class                                                                     | Contrast |
+| ------------------------------------------------------------------------- | -------- |
+| `text-white/40` (metadata row)                                            | 3.77:1   |
+| `text-white/30` (chevron, snapshot notice, empty state, breadcrumb arrow) | 2.60:1   |
+| `text-white/20` (`—` placeholder)                                         | 1.77:1   |
+
+(`text-white/85` at 14.17:1 and `text-white/60` at 7.3:1 were already fine
+and left alone.) The usual 8-10px text also ran throughout `feed/`, `watch/`,
+and `profile/`.
+
+**Fixes:**
+
+- `CategoryMomentumCard.tsx` + `pulse/page.tsx`: `text-white/40`,
+  `text-white/30`, `text-white/20` → `text-[var(--text-muted)]` (4.75:1).
+  Backgrounds (`bg-white/5`, `bg-white/10`) left untouched — decorative
+  fills aren't subject to text-contrast rules.
+- `FeedClient.tsx`, `FeedCard.tsx`, `feed/event/[eventId]/page.tsx`,
+  `LatencyLeadersCard.tsx`, `ActiveIncidentsCard.tsx`,
+  `WatchSlotGrid.tsx`, `StackWatchHeader.tsx`, `WatchMissingPanel.tsx`,
+  `ProfileClient.tsx`: 8-10px text bumped to 11px; uppercase section
+  labels converted to `type-overline`.
+- Left `app/feed/event/[eventId]/opengraph-image.tsx` untouched — its font
+  sizes (13-72px) were already well above any floor and it's a Satori/edge
+  image generator outside the scope of this pass.
+
 **Nothing hidden this iteration.**

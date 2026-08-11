@@ -48,7 +48,7 @@ export function StackWatchHeader({ stack, report }: Props) {
           {/* Tier badge */}
           <div className="flex items-center gap-2 mb-2">
             <span
-              className="text-[10px] font-semibold px-2 py-0.5 rounded-full"
+              className="text-[11px] font-semibold px-2 py-0.5 rounded-full"
               style={{
                 background: tierColor + "18",
                 border: `1px solid ${tierColor}44`,
@@ -57,7 +57,7 @@ export function StackWatchHeader({ stack, report }: Props) {
             >
               {report.tier}
             </span>
-            <span className="text-[10px]" style={{ color: "var(--text-muted)" }}>
+            <span className="text-[11px]" style={{ color: "var(--text-muted)" }}>
               {report.fitnessScore}/100
             </span>
           </div>

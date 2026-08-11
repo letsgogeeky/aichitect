@@ -41,7 +41,7 @@ function SummaryBar({ categories }: { categories: CategoryMomentum[] }) {
       )}
       {flat > 0 && (
         <span className="flex items-center gap-1.5">
-          <span className="text-white/30">→</span>
+          <span className="text-[var(--text-muted)]">→</span>
           <span className="text-white/70">
             <strong className="text-white">{flat}</strong> {flat === 1 ? "category" : "categories"}{" "}
             flat

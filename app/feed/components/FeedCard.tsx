@@ -166,7 +166,7 @@ function ExpandedDetail({ type, metadata }: { type: ToolEventType; metadata: Eve
             </div>
           )}
 
-          <p className="text-[10px] pt-1" style={{ color: "var(--text-muted)" }}>
+          <p className="text-[11px] pt-1" style={{ color: "var(--text-muted)" }}>
             Score = commit recency (40 pts) + star momentum (30 pts) + issue ratio (20 pts) + forks
             (10 pts)
           </p>
@@ -294,10 +294,7 @@ function ExpandedDetail({ type, metadata }: { type: ToolEventType; metadata: Eve
       return (
         <div className="grid grid-cols-2 gap-3">
           <div>
-            <p
-              className="text-[10px] font-semibold uppercase tracking-wider mb-1.5"
-              style={{ color: "var(--text-muted)" }}
-            >
+            <p className="type-overline mb-1.5" style={{ color: "var(--text-muted)" }}>
               Before
             </p>
             <div className="space-y-1">
@@ -315,10 +312,7 @@ function ExpandedDetail({ type, metadata }: { type: ToolEventType; metadata: Eve
             </div>
           </div>
           <div>
-            <p
-              className="text-[10px] font-semibold uppercase tracking-wider mb-1.5"
-              style={{ color: "#74b9ff" }}
-            >
+            <p className="type-overline mb-1.5" style={{ color: "#74b9ff" }}>
               After
             </p>
             <div className="space-y-1">
@@ -463,7 +457,7 @@ function ExpandedDetail({ type, metadata }: { type: ToolEventType; metadata: Eve
             );
           })}
           {m.model_slug && (
-            <p className="text-[10px] pt-1" style={{ color: "var(--text-muted)" }}>
+            <p className="text-[11px] pt-1" style={{ color: "var(--text-muted)" }}>
               Sourced from Artificial Analysis · model slug{" "}
               <span className="font-mono">{m.model_slug}</span>
             </p>
@@ -522,7 +516,7 @@ export function FeedCard({ event }: { event: FeedEvent }) {
               {event.tool_name}
             </span>
             <span
-              className="text-[10px] font-medium px-1.5 py-0.5 rounded-full"
+              className="text-[11px] font-medium px-1.5 py-0.5 rounded-full"
               style={{ background: color + "18", color, border: `1px solid ${color}33` }}
             >
               {catLabel}
@@ -538,7 +532,7 @@ export function FeedCard({ event }: { event: FeedEvent }) {
         {/* Right side: timestamp + share + chevron */}
         <div className="flex items-center gap-2 flex-shrink-0 mt-0.5">
           <span
-            className="text-[10px]"
+            className="text-[11px]"
             style={{ color: "var(--text-muted)" }}
             title={event.detected_at}
           >
@@ -549,7 +543,7 @@ export function FeedCard({ event }: { event: FeedEvent }) {
           <Link
             href={`/feed/event/${event.id}`}
             onClick={(e) => e.stopPropagation()}
-            className="text-[10px] px-1.5 py-0.5 rounded transition-colors"
+            className="text-[11px] px-1.5 py-0.5 rounded transition-colors"
             style={{ color: "var(--text-muted)", border: "1px solid var(--border)" }}
             title="View event page"
           >
@@ -558,7 +552,7 @@ export function FeedCard({ event }: { event: FeedEvent }) {
 
           {/* Chevron */}
           <span
-            className="text-[10px] transition-transform"
+            className="text-[11px] transition-transform"
             style={{
               color: "var(--text-muted)",
               transform: expanded ? "rotate(180deg)" : "none",

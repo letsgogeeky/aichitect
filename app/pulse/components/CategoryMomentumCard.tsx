@@ -60,20 +60,20 @@ function ToolRow({ tool }: { tool: PulseToolRow }) {
           <span className="truncate text-xs font-medium text-white/85">{tool.name}</span>
           {tool.type === "oss" && (
             <span
-              className="shrink-0 rounded px-1 text-[9px] font-semibold uppercase tracking-wide"
+              className="shrink-0 rounded px-1 text-[11px] font-semibold uppercase tracking-wide"
               style={{ background: "#26de8118", color: "#26de81" }}
             >
               OSS
             </span>
           )}
           {tool.is_stale && (
-            <span className="shrink-0 text-[10px] text-amber-400" title="No commits in 90+ days">
+            <span className="shrink-0 text-[11px] text-amber-400" title="No commits in 90+ days">
               ⚠
             </span>
           )}
         </div>
         {starInfo && (
-          <span className="text-[10px]" style={{ color: starInfo.color }}>
+          <span className="text-[11px]" style={{ color: starInfo.color }}>
             {starInfo.text}
           </span>
         )}
@@ -89,14 +89,14 @@ function ToolRow({ tool }: { tool: PulseToolRow }) {
               />
             </div>
             <span
-              className="w-5 text-right text-[10px] tabular-nums font-medium"
+              className="w-5 text-right text-[11px] tabular-nums font-medium"
               style={{ color: healthColor(score) }}
             >
               {score}
             </span>
           </>
         ) : (
-          <span className="text-[10px] text-white/20">—</span>
+          <span className="text-[11px] text-[var(--text-muted)]">—</span>
         )}
       </div>
     </Link>
@@ -150,16 +150,18 @@ export function CategoryMomentumCard({ data }: CategoryMomentumCardProps) {
                 label
               )}
             </span>
-            <span className="text-white/30 text-xs">{open ? "▲" : "▼"}</span>
+            <span className="text-[var(--text-muted)] text-xs">{open ? "▲" : "▼"}</span>
           </div>
         </div>
 
         {/* Confidence / estimate notice */}
         {isEstimate && (
-          <p className="mt-1 text-[10px] text-white/30">Snapshot score · no 30-day baseline yet</p>
+          <p className="mt-1 text-[11px] text-[var(--text-muted)]">
+            Snapshot score · no 30-day baseline yet
+          </p>
         )}
         {!isEstimate && lowConfidence && (
-          <p className="mt-1 text-[10px] text-white/30">
+          <p className="mt-1 text-[11px] text-[var(--text-muted)]">
             Based on {data.baseline_count} of {data.tracked_count} tracked tools · early data
           </p>
         )}
@@ -184,7 +186,7 @@ export function CategoryMomentumCard({ data }: CategoryMomentumCardProps) {
         </div>
 
         {/* Metadata row */}
-        <div className="mt-2 flex items-center gap-2 text-xs text-white/40">
+        <div className="mt-2 flex items-center gap-2 text-xs text-[var(--text-muted)]">
           <span>
             {data.tool_count} tool{data.tool_count !== 1 ? "s" : ""}
           </span>
@@ -220,7 +222,7 @@ export function CategoryMomentumCard({ data }: CategoryMomentumCardProps) {
             </div>
           )}
           {!loading && tools?.length === 0 && (
-            <p className="px-3 py-2 text-xs text-white/30">No tools found.</p>
+            <p className="px-3 py-2 text-xs text-[var(--text-muted)]">No tools found.</p>
           )}
           {!loading && tools && tools.length > 0 && (
             <div>

@@ -194,7 +194,7 @@ export default function ProfileClient({ username }: Props) {
                 >
                   {badgeFailed ? (
                     <span
-                      className="flex items-center px-2 h-5 rounded text-[10px] font-semibold"
+                      className="flex items-center px-2 h-5 rounded text-[11px] font-semibold"
                       style={{ background: color + "22", color, border: `1px solid ${color}44` }}
                     >
                       {tool.name}
@@ -211,11 +211,11 @@ export default function ProfileClient({ username }: Props) {
                   )}
                   {/* Overlay: show on hover OR immediately after copy (works on touch too) */}
                   <span
-                    className={`absolute inset-0 flex items-center justify-center text-[10px] font-semibold rounded transition-opacity ${isCopied ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}
+                    className={`absolute inset-0 flex items-center justify-center text-[11px] font-semibold rounded transition-opacity ${isCopied ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}
                     style={{
                       background: color + "dd",
                       color: "#fff",
-                      fontSize: 10,
+                      fontSize: 11,
                     }}
                   >
                     {isCopied ? "Copied!" : "Copy"}
@@ -234,20 +234,20 @@ export default function ProfileClient({ username }: Props) {
               <p className="text-xs font-semibold" style={{ color: "var(--text-primary)" }}>
                 Add to your GitHub README
               </p>
-              <p className="text-[10px] mt-0.5" style={{ color: "var(--text-muted)" }}>
+              <p className="text-[11px] mt-0.5" style={{ color: "var(--text-muted)" }}>
                 Paste all {tools.length} badge{tools.length !== 1 ? "s" : ""} as Markdown — each
                 links back to AIchitect.
               </p>
             </div>
             <div
-              className="rounded px-2 py-2 font-mono text-[10px] break-all leading-relaxed max-h-24 overflow-y-auto"
+              className="rounded px-2 py-2 font-mono text-[11px] break-all leading-relaxed max-h-24 overflow-y-auto"
               style={{ background: "var(--surface-2)", color: "var(--text-muted)" }}
             >
               {tools.map(badgeMarkdown).join("\n")}
             </div>
             <button
               onClick={copyAll}
-              className="w-full py-2 rounded text-[10px] font-semibold transition-all"
+              className="w-full py-2 rounded text-[11px] font-semibold transition-all"
               style={{
                 background: copiedAll ? "#26de8122" : "var(--accent)",
                 color: copiedAll ? "var(--success)" : "#fff",
@@ -294,13 +294,13 @@ export default function ProfileClient({ username }: Props) {
                     >
                       {stack.name}
                     </p>
-                    <p className="text-[10px] mt-0.5" style={{ color: "var(--text-muted)" }}>
+                    <p className="text-[11px] mt-0.5" style={{ color: "var(--text-muted)" }}>
                       {stack.tool_ids.length} tool{stack.tool_ids.length !== 1 ? "s" : ""}
                     </p>
                   </div>
                   <Link
                     href={`/watch/${stack.id}`}
-                    className="text-[10px] font-medium px-2 py-1 rounded-md flex-shrink-0 transition-colors"
+                    className="text-[11px] font-medium px-2 py-1 rounded-md flex-shrink-0 transition-colors"
                     style={{
                       background: "#7c6bff18",
                       color: "var(--accent)",
@@ -311,7 +311,7 @@ export default function ProfileClient({ username }: Props) {
                   </Link>
                   <Link
                     href={`/builder?s=${stack.tool_ids.join(",")}`}
-                    className="text-[10px] font-medium px-2 py-1 rounded-md flex-shrink-0 transition-colors"
+                    className="text-[11px] font-medium px-2 py-1 rounded-md flex-shrink-0 transition-colors"
                     style={{
                       background: "var(--surface-2)",
                       color: "var(--text-muted)",

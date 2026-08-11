@@ -13,10 +13,7 @@ export function WatchMissingPanel({ report }: Props) {
 
   return (
     <div>
-      <p
-        className="text-[10px] font-bold uppercase tracking-widest mb-4"
-        style={{ color: "var(--text-muted)" }}
-      >
+      <p className="type-overline mb-4" style={{ color: "var(--text-muted)" }}>
         Missing layers
       </p>
       <div className="space-y-2">
@@ -43,7 +40,7 @@ export function WatchMissingPanel({ report }: Props) {
                     {m.slotName}
                   </span>
                   <span
-                    className="text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded"
+                    className="text-[11px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded"
                     style={{ background: color + "18", color: color + "cc" }}
                   >
                     {m.priority}

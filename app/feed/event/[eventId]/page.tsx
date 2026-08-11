@@ -304,10 +304,7 @@ function EventDetailSection({ event }: { event: EventDetail }) {
       return (
         <div className="grid grid-cols-2 gap-6 pt-4">
           <div>
-            <p
-              className="text-[10px] font-semibold uppercase tracking-wider mb-3"
-              style={{ color: "var(--text-muted)" }}
-            >
+            <p className="type-overline mb-3" style={{ color: "var(--text-muted)" }}>
               Before
             </p>
             {old_p.free_tier && (
@@ -332,10 +329,7 @@ function EventDetailSection({ event }: { event: EventDetail }) {
             </div>
           </div>
           <div>
-            <p
-              className="text-[10px] font-semibold uppercase tracking-wider mb-3"
-              style={{ color: "#74b9ff" }}
-            >
+            <p className="type-overline mb-3" style={{ color: "#74b9ff" }}>
               After
             </p>
             {new_p.free_tier && (
@@ -472,7 +466,7 @@ export default async function EventPage({ params }: Props) {
             <div className="flex items-start justify-between gap-4 mb-3">
               <div className="flex items-center gap-2 flex-wrap">
                 <span
-                  className="text-[10px] font-semibold px-2 py-0.5 rounded-full uppercase tracking-wider"
+                  className="text-[11px] font-semibold px-2 py-0.5 rounded-full uppercase tracking-wider"
                   style={{
                     background: eventColor + "18",
                     color: eventColor,
@@ -482,7 +476,7 @@ export default async function EventPage({ params }: Props) {
                   {eventTypeLabel}
                 </span>
                 <span
-                  className="text-[10px] font-medium px-1.5 py-0.5 rounded-full"
+                  className="text-[11px] font-medium px-1.5 py-0.5 rounded-full"
                   style={{ background: color + "18", color, border: `1px solid ${color}33` }}
                 >
                   {catLabel}
@@ -510,10 +504,7 @@ export default async function EventPage({ params }: Props) {
 
           {/* Detail section */}
           <div className="px-6 pb-6" style={{ borderTop: "1px solid var(--border)" }}>
-            <p
-              className="text-[10px] font-semibold uppercase tracking-wider pt-4 mb-2"
-              style={{ color: "var(--text-muted)" }}
-            >
+            <p className="type-overline pt-4 mb-2" style={{ color: "var(--text-muted)" }}>
               Event detail
             </p>
             <EventDetailSection event={event} />

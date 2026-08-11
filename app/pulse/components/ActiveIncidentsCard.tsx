@@ -27,7 +27,7 @@ export function ActiveIncidentsCard({ incidents }: Props) {
         >
           Active Incidents
         </h2>
-        <span className="text-[10px]" style={{ color: "var(--text-muted)" }}>
+        <span className="text-[11px]" style={{ color: "var(--text-muted)" }}>
           live · hourly
         </span>
       </div>
@@ -59,7 +59,7 @@ export function ActiveIncidentsCard({ incidents }: Props) {
                       {inc.tool_name}
                     </Link>
                     <span
-                      className="rounded-full px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wider"
+                      className="rounded-full px-1.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider"
                       style={{
                         background: sevColor + "22",
                         color: sevColor,
@@ -68,7 +68,7 @@ export function ActiveIncidentsCard({ incidents }: Props) {
                     >
                       {inc.severity}
                     </span>
-                    <span className="ml-auto text-[10px]" style={{ color: "var(--text-muted)" }}>
+                    <span className="ml-auto text-[11px]" style={{ color: "var(--text-muted)" }}>
                       {formatRelativeTime(inc.started_at)}
                     </span>
                   </div>
@@ -76,7 +76,7 @@ export function ActiveIncidentsCard({ incidents }: Props) {
                     {inc.title}
                   </p>
                   {inc.scope.length > 0 && (
-                    <p className="mt-0.5 text-[10px]" style={{ color: "var(--text-muted)" }}>
+                    <p className="mt-0.5 text-[11px]" style={{ color: "var(--text-muted)" }}>
                       {inc.scope.slice(0, 3).join(" · ")}
                       {inc.scope.length > 3 && ` +${inc.scope.length - 3}`}
                     </p>

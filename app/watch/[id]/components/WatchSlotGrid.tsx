@@ -46,10 +46,7 @@ export function WatchSlotGrid({ report, signals, allTools }: Props) {
   return (
     <>
       <div>
-        <p
-          className="text-[10px] font-bold uppercase tracking-widest mb-4"
-          style={{ color: "var(--text-muted)" }}
-        >
+        <p className="type-overline mb-4" style={{ color: "var(--text-muted)" }}>
           Stack slots — {report.filledSlots.length} tool
           {report.filledSlots.length !== 1 ? "s" : ""}
         </p>
@@ -67,10 +64,7 @@ export function WatchSlotGrid({ report, signals, allTools }: Props) {
                 style={{ background: "var(--surface)", border: "1px solid var(--border)" }}
               >
                 {/* Slot label */}
-                <p
-                  className="text-[10px] uppercase tracking-wider mb-2"
-                  style={{ color: "var(--text-muted)" }}
-                >
+                <p className="type-overline mb-2" style={{ color: "var(--text-muted)" }}>
                   {slot.slotName}
                 </p>
 
@@ -86,7 +80,7 @@ export function WatchSlotGrid({ report, signals, allTools }: Props) {
                     </span>
                     {slot.tool.type === "oss" && (
                       <span
-                        className="text-[10px] font-medium flex-shrink-0"
+                        className="text-[11px] font-medium flex-shrink-0"
                         style={{ color: "#26de81" }}
                       >
                         OSS

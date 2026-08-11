@@ -109,7 +109,7 @@ function ToolPicker({
                   {t.name}
                 </span>
                 {active && (
-                  <span className="text-[10px]" style={{ color: "var(--accent)" }}>
+                  <span className="text-[11px]" style={{ color: "var(--accent)" }}>
                     ✓
                   </span>
                 )}
