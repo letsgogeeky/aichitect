@@ -1225,3 +1225,13 @@ re-check that `/category` is now genuinely clean on desktop, not just
 "clean of non-contrast issues." Also re-ran the console-error crawl and
 the mobile-overflow crawl from the previous iteration to confirm neither
 regressed. `make check` (lint/typecheck/test, 217 tests) clean.
+
+**Closing the gap properly:** since `/category` was proof that the
+filtered desktop script's "clean" results couldn't be fully trusted for
+contrast, wrote one true unfiltered scan (`axe-true-full.mjs` — full
+WCAG 2A/2AA tag set, no result filtering) and ran it against all 20
+routes this log has ever touched at desktop width in one pass. **All 20
+genuinely clean** — no filtering, no exceptions. This is the first time
+this exact claim has been verified with a script that couldn't hide a
+contrast violation even if one existed, rather than one that was
+contrast-blind by construction.
