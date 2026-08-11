@@ -528,7 +528,7 @@ export default function ExploreGraph({
                     setSelectedTool(null);
                   }
                 }}
-                className="px-2.5 py-1 text-[10px] font-medium transition-colors flex items-center gap-1.5"
+                className="px-2.5 py-1 text-[12px] font-medium transition-colors flex items-center gap-1.5"
                 style={{
                   background: compareMode ? "#7c6bff22" : "transparent",
                   color: compareMode ? "var(--accent)" : "var(--text-muted)",
@@ -578,7 +578,7 @@ export default function ExploreGraph({
                       setSelectedTool(null);
                     }
                   }}
-                  className="px-2.5 py-1 text-[10px] font-medium transition-colors"
+                  className="px-2.5 py-1 text-[12px] font-medium transition-colors"
                   style={{
                     background: viewMode === mode ? "#7c6bff22" : "transparent",
                     color: viewMode === mode ? "var(--accent)" : "var(--text-muted)",
@@ -650,7 +650,7 @@ export default function ExploreGraph({
                   color: "#fff",
                   borderRadius: 10,
                   padding: "0 5px",
-                  fontSize: 10,
+                  fontSize: 11,
                 }}
               >
                 {allCategories.size - activeCategories.size}
@@ -716,12 +716,12 @@ export default function ExploreGraph({
                   <p className="text-xs font-medium" style={{ color: "var(--text-primary)" }}>
                     {selectedTool.name}
                   </p>
-                  <p className="text-[10px]" style={{ color: "var(--text-muted)" }}>
+                  <p className="text-xs" style={{ color: "var(--text-muted)" }}>
                     Now click a second tool to compare
                   </p>
                 </>
               ) : (
-                <p className="text-[10px]" style={{ color: "var(--text-muted)" }}>
+                <p className="text-xs" style={{ color: "var(--text-muted)" }}>
                   Click two tools on the graph to compare them
                 </p>
               )}

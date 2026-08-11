@@ -39,3 +39,37 @@ and — per the brief — anything hidden for being low-value, with the reason.
 
 **Nothing hidden this iteration** — foundational token/color work only, no UI
 elements removed or collapsed.
+
+## Iteration 2 — components/graph/ (ToolNode, ExploreGraph, ExploreGraph3D, EnrichedEdge, LaneLabel)
+
+**Problem found:** the primary visual surface of the app (every tool card in
+Explore/Builder/Stacks) ran almost entirely on 10px text: category label,
+tool name (12-13px), all four status badges (OSS/Free Tier/Stale/New), star
+count, price pill, action links. Two spots had much worse issues than mere
+size:
+
+- `LaneLabel.tsx` (swimlane section headers in the "Layers" view) used
+  `rgba(124,107,255,0.55)` and `rgba(160,155,210,0.35)` for its heading and
+  subtitle — effective contrast **2.28:1** and **1.88:1** against the
+  background, both far below WCAG AA and genuinely hard to see.
+- `ExploreGraph3D.tsx`'s legend header used `#7c6bff88` — **2.22:1**.
+- The tool-card "Synced Xd ago" timestamp applied `opacity: 0.6` on top of
+  an already-muted color, silently undoing the contrast fix from Iteration 1.
+
+**Fixes:**
+
+- Tool card (`ToolNode.tsx`): category label now uses `type-overline`; name
+  bumped 12/13px → 13/15px; all four status badges, star count, price pill,
+  and action links bumped 10px → 11px; avatar-fallback initials 7px → 9px;
+  removed the redundant `opacity: 0.6` on the sync timestamp.
+- `LaneLabel.tsx` and the 3D legend header: replaced translucent accent
+  colors with solid `var(--accent)` / `var(--text-muted)` — contrast now
+  5.08:1 and 4.75:1 respectively.
+- `EnrichedEdge.tsx` relationship tooltip: 10px → 12px (it's a real
+  descriptive sentence, not a tag).
+- `ExploreGraph.tsx`: Compare/Grid/Layers/3D toggle buttons (interactive
+  controls users click) bumped 10px → 12px; compare-hint instructional text
+  10px → 13px (`text-xs` token).
+- `ExploreGraph3D.tsx` hover-tooltip name/tagline: 11/9px → 13/12px.
+
+**Nothing hidden this iteration.**

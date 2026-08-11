@@ -158,22 +158,19 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
         <div className="flex items-center justify-between mb-1.5">
           <div className="flex items-center gap-1.5 min-w-0">
             <ColorDot color={color} />
-            <span
-              className="text-[10px] font-medium uppercase tracking-wide truncate"
-              style={{ color }}
-            >
+            <span className="type-overline truncate" style={{ color }}>
               {data.category.replace(/-/g, " ")}
             </span>
           </div>
           <div className="flex items-center gap-1 flex-shrink-0 ml-1">
             {data.github_stars ? (
-              <span className="text-[10px] text-[var(--text-muted)]">
+              <span className="text-[11px] text-[var(--text-muted)]">
                 ⭐ {formatStars(data.github_stars)}
               </span>
             ) : null}
             {data.stars_delta != null && Math.abs(data.stars_delta) >= 50 ? (
               <span
-                className="text-[10px] font-semibold"
+                className="text-[11px] font-semibold"
                 style={{ color: formatDelta(data.stars_delta).color }}
                 title={`${data.stars_delta > 0 ? "+" : ""}${data.stars_delta} stars over 30d`}
               >
@@ -187,7 +184,7 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
         <div className="mb-1">
           <span
             className="font-semibold text-[var(--text-primary)] leading-tight"
-            style={{ fontSize: isProminent || isExpanded ? 13 : 12 }}
+            style={{ fontSize: isProminent || isExpanded ? 15 : 13 }}
           >
             {data.name}
           </span>
@@ -199,7 +196,7 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
             {isOss && (
               <span
                 style={{
-                  fontSize: 10,
+                  fontSize: 11,
                   padding: "2px 7px",
                   borderRadius: 4,
                   background: "#26de8120",
@@ -216,7 +213,7 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
             {hasFree && (
               <span
                 style={{
-                  fontSize: 10,
+                  fontSize: 11,
                   padding: "2px 7px",
                   borderRadius: 4,
                   background: "#00d4aa15",
@@ -233,7 +230,7 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
             {data.is_stale && (
               <span
                 style={{
-                  fontSize: 10,
+                  fontSize: 11,
                   padding: "2px 7px",
                   borderRadius: 4,
                   background: "#f39c1220",
@@ -250,7 +247,7 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
             {isNew && (
               <span
                 style={{
-                  fontSize: 10,
+                  fontSize: 11,
                   padding: "2px 7px",
                   borderRadius: 4,
                   background: "#7c6bff20",
@@ -309,7 +306,7 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
                   <div
                     key={a.github_username}
                     title={`@${a.github_username}`}
-                    className="w-4 h-4 rounded-full ring-1 ring-[var(--surface)] flex items-center justify-center text-[7px] font-bold"
+                    className="w-4 h-4 rounded-full ring-1 ring-[var(--surface)] flex items-center justify-center text-[9px] font-bold"
                     style={{ background: "#7c6bff33", color: "var(--accent)" }}
                   >
                     {a.github_username[0]?.toUpperCase()}
@@ -317,16 +314,13 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
                 )
               )}
             </div>
-            <span className="text-[10px] text-[var(--text-muted)]">{usage.count} using this</span>
+            <span className="text-[11px] text-[var(--text-muted)]">{usage.count} using this</span>
           </div>
         )}
 
         {/* Sync timestamp — only when expanded and data is present */}
         {isExpanded && data.last_synced_at && (
-          <p
-            className="text-[10px] text-[var(--text-muted)]"
-            style={{ marginBottom: 6, opacity: 0.6 }}
-          >
+          <p className="text-[11px] text-[var(--text-muted)]" style={{ marginBottom: 6 }}>
             Synced {formatSyncedDate(data.last_synced_at)}
           </p>
         )}
@@ -334,7 +328,7 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
         {/* Bottom row: plan price + visit link */}
         <div className="flex items-center gap-1 flex-wrap">
           {data.pricing.plans[0] && (
-            <span className="text-[10px] px-1.5 py-0.5 rounded-full border border-[var(--border)] text-[var(--text-muted)]">
+            <span className="text-[11px] px-1.5 py-0.5 rounded-full border border-[var(--border)] text-[var(--text-muted)]">
               {data.pricing.plans[0].price}
             </span>
           )}
@@ -346,7 +340,7 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
-                  className="text-[10px] px-2 py-0.5 rounded-full font-medium"
+                  className="text-[11px] px-2 py-0.5 rounded-full font-medium"
                   style={{
                     background: color + "22",
                     color,
@@ -359,7 +353,7 @@ function ToolNode({ data, selected }: NodeProps<ToolNodeData>) {
               <Link
                 href={`/tool/${data.id}`}
                 onClick={(e) => e.stopPropagation()}
-                className="text-[10px] px-2 py-0.5 rounded-full font-medium"
+                className="text-[11px] px-2 py-0.5 rounded-full font-medium"
                 style={{
                   background: "var(--surface-2)",
                   color: "var(--text-muted)",

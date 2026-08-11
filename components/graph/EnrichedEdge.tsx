@@ -71,9 +71,9 @@ export default function EnrichedEdge({
       {hovered && how && (
         <foreignObject
           x={labelX - 110}
-          y={labelY - 44}
+          y={labelY - 52}
           width={220}
-          height={80}
+          height={96}
           style={{ overflow: "visible", pointerEvents: "none" }}
         >
           <div
@@ -82,7 +82,7 @@ export default function EnrichedEdge({
               border: "1px solid #7c6bff33",
               borderRadius: 6,
               padding: "6px 9px",
-              fontSize: 10,
+              fontSize: 12,
               color: "#c0c0d8",
               lineHeight: 1.5,
               backdropFilter: "blur(6px)",

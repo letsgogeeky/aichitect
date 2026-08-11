@@ -29,19 +29,19 @@ export default function LaneLabel({ data }: NodeProps) {
       >
         <span
           style={{
-            fontSize: 10,
+            fontSize: 11,
             fontWeight: 700,
-            letterSpacing: "0.1em",
+            letterSpacing: "0.08em",
             textTransform: "uppercase",
-            color: "rgba(124, 107, 255, 0.55)",
+            color: "var(--accent)",
           }}
         >
           {data.label}
         </span>
         <span
           style={{
-            fontSize: 10,
-            color: "rgba(160, 155, 210, 0.35)",
+            fontSize: 11,
+            color: "var(--text-muted)",
             fontStyle: "italic",
           }}
         >

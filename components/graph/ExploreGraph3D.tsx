@@ -290,8 +290,8 @@ export default function ExploreGraph3D({
   const nodeLabel = useCallback((node: object) => {
     const n = node as Node3D;
     return `<div style="background:#0e0e18dd;border:1px solid #7c6bff44;border-radius:6px;padding:6px 10px;max-width:220px">
-      <div style="font-size:11px;font-weight:600;color:#e0e0ff;margin-bottom:3px">${n.name}</div>
-      <div style="font-size:9px;color:var(--text-secondary);line-height:1.4">${n.tagline}</div>
+      <div style="font-size:13px;font-weight:600;color:#e0e0ff;margin-bottom:3px">${n.name}</div>
+      <div style="font-size:12px;color:var(--text-secondary);line-height:1.4">${n.tagline}</div>
     </div>`;
   }, []);
 
@@ -343,9 +343,7 @@ export default function ExploreGraph3D({
           backdropFilter: "blur(8px)",
         }}
       >
-        <p className="text-[10px] font-semibold uppercase tracking-widest text-[#7c6bff88] mb-2">
-          Connections
-        </p>
+        <p className="type-overline text-[var(--accent)] mb-2">Connections</p>
         {[
           { color: "var(--accent)", label: "Integrates with" },
           { color: "#4a4a7a", label: "Often used together" },
@@ -353,10 +351,10 @@ export default function ExploreGraph3D({
         ].map(({ color, label }) => (
           <div key={label} className="flex items-center gap-2">
             <div className="w-4 h-px" style={{ background: color, opacity: 0.9 }} />
-            <span className="text-[10px] text-[var(--text-muted)]">{label}</span>
+            <span className="text-[11px] text-[var(--text-muted)]">{label}</span>
           </div>
         ))}
-        <p className="text-[10px] text-[var(--text-muted)] mt-1.5 pt-1.5 border-t border-[var(--border)]">
+        <p className="text-[11px] text-[var(--text-muted)] mt-1.5 pt-1.5 border-t border-[var(--border)]">
           Drag to rotate · Scroll to zoom · Click for details
         </p>
       </div>
