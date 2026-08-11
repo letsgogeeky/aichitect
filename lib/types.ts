@@ -537,7 +537,14 @@ export const CATEGORIES: CategoryMeta[] = [
   { id: "code-review-ai", label: "AI Code Review", color: "#0984e3" },
   { id: "fine-tuning", label: "Fine-tuning", color: "#e84393" },
   { id: "voice-ai", label: "Voice AI", color: "#00b894" },
-  { id: "multimodal", label: "Multimodal", color: "#6c5ce7" },
+  // #6c5ce7 (3.95:1 vs --surface) failed AA when used as raw text on the
+  // /category listing cards — same "category color used directly as text"
+  // pattern as spec-driven-dev above. +5% lightness, same hue/saturation —
+  // needed more headroom than a plain --surface check suggested, since the
+  // same color is also used as text on its own translucent tinted badge
+  // background (`color + "14"`), which is *lighter* than --surface and so
+  // narrows the contrast margin rather than widening it.
+  { id: "multimodal", label: "Multimodal", color: "#8072ea" },
   { id: "browser-automation", label: "Browser Automation", color: "#f0932b" },
   { id: "observability", label: "Observability", color: "#45aaf2" },
   { id: "memory", label: "Memory & Persistence", color: "#e056fd" },
@@ -552,8 +559,7 @@ export function getCategoryColor(id: CategoryId): string {
  * Picks dark or light text for a solid background color, using WCAG relative
  * luminance so the choice actually passes contrast — not just "light bg gets
  * dark text" by eyeballing it. Category colors span from near-black-passing
- * (#fdcb6e) to near-white-passing (#6c5ce7), so a fixed direction is wrong
- * for some of them.
+ * to near-white-passing, so a fixed direction is wrong for some of them.
  */
 export function getReadableTextColor(bgHex: string): string {
   const hex = bgHex.replace("#", "");
@@ -563,9 +569,8 @@ export function getReadableTextColor(bgHex: string): string {
   const lin = (c: number) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
   const luminance = 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
   // Relative luminance of var(--bg) (#0a0a0f) and pure white — white, not the
-  // app's dimmer off-white text-primary, because a couple of mid-luminance
-  // category colors (e.g. multimodal #6c5ce7) only clear 4.5:1 against true
-  // white (4.86:1 vs 4.29:1 with #f0f0f8).
+  // app's dimmer off-white text-primary, because some mid-luminance category
+  // colors only clear 4.5:1 against true white, not against #f0f0f8.
   const darkLum = 0.00316;
   const lightLum = 1;
   const contrastWithDark =

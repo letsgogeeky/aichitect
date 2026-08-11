@@ -315,6 +315,7 @@ export default function McpPage() {
           }}
         >
           <code
+            tabIndex={0}
             style={{
               flex: 1,
               fontFamily: "monospace",

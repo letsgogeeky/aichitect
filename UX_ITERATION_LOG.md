@@ -1160,3 +1160,68 @@ Verified via `mobile-crawl.mjs` re-run — 0 routes with any overflow now,
 `make check` (lint/typecheck/test, 217 tests) clean; full WCAG 2A/2AA
 axe re-scan and the 20-route console crawl both still 0 violations/0
 warnings after this change.
+
+## Part 3 continued — a mobile-viewport axe scan surfaces a real desktop bug too
+
+Mobile-viewport WCAG scanning hadn't been done before either (only the
+overflow crawl last iteration used a mobile viewport). Ran the full
+2A/2AA ruleset at 390px across the same 18 routes and found two more
+genuine violations:
+
+- **`scrollable-region-focusable` on `/mcp`** — the earlier fix for this
+  rule (three `<pre>` blocks) missed a fourth scrollable element: the MCP
+  server URL is rendered in a bare `<code>` tag with
+  `overflowX: "auto"` + `whiteSpace: "nowrap"`, not a `<pre>`. It didn't
+  fail at desktop width because the URL fit without needing to scroll —
+  the rule only fires when content is _actually_ overflowing, and the
+  narrower mobile viewport was what made it overflow. Fixed with the same
+  `tabIndex={0}` treatment as the `<pre>` blocks. Checked the other 3
+  `<code>` elements on the page for the same `overflowX` pattern — none
+  of them have it, so this was the only instance.
+- **`color-contrast` on `/category` (the category-index grid, not a
+  single category page)** — this one turned out to **not be
+  mobile-specific at all**: re-ran the same check at desktop width and
+  found the identical violation. It had simply never been caught before,
+  because `axe-full-scan.mjs` (used for every "0 violations" desktop
+  claim earlier in this log) deliberately filters `color-contrast` out of
+  its report — it was written specifically to isolate _non_-contrast
+  violations, since contrast was supposed to be covered by a separate,
+  earlier pass. That earlier pass never included the `/category` index
+  page. Lesson: "clean" from that script only ever meant "clean of
+  non-contrast issues," not "zero violations" — the log's own wording in
+  earlier entries overstated what it had actually checked.
+  - Root cause: the multimodal category's raw color (`#6c5ce7`) used
+    directly as text — both the card title and the tool-count badge —
+    against `var(--surface)`, at **3.95:1**, below AA's 4.5:1 floor. Same
+    failure mode as `spec-driven-dev` earlier in this log (a category
+    color that's fine as an accent/border/tinted-background color but too
+    dark to double as body text). Fixed the same way: brightened the
+    color, preserving hue/saturation (`+5%` HSL lightness →
+    `#8072ea`) in `lib/types.ts`'s `CATEGORIES` array, the single source
+    of truth. Needed one more iteration than the first guess: a `+3%`
+    version cleared the plain `var(--surface)` background (4.56:1) but
+    still failed on the _badge_, which sits on a translucent tinted
+    version of the same color (`color + "14"`) — that tint is lighter
+    than raw `--surface`, which narrows the contrast margin rather than
+    widening it (blending toward the text color, not away from it) —
+    the same "translucent-background-with-matching-text-color-behaves-
+    counterintuitively" trap as several `color + alpha` bugs earlier in
+    this log, just inverted (there it was the _text_ alpha causing the
+    problem; here it's the _background_ tint). `+5%` clears all three
+    backgrounds it's used against (surface, `--bg`, and the tinted badge)
+    with margin.
+  - Updated `getReadableTextColor`'s docstring, which cited the old
+    `#6c5ce7` value as its illustrative example of a mid-luminance
+    category color — genericized the comment rather than leaving a
+    now-inaccurate hex code in a docstring. The hardcoded unit test
+    (`getReadableTextColor("#6c5ce7")` → `"#ffffff"`) needed no change —
+    it tests the function against a literal string, not a `CATEGORIES`
+    lookup, so it's unaffected by what color multimodal currently has.
+
+Verified via a full re-scan at both viewports (`axe-mobile-scan.mjs`,
+`axe-full-scan.mjs`, a standalone desktop-only `/category` check, plus
+`axe-new-routes.mjs`) — 0 violations everywhere, including a direct
+re-check that `/category` is now genuinely clean on desktop, not just
+"clean of non-contrast issues." Also re-ran the console-error crawl and
+the mobile-overflow crawl from the previous iteration to confirm neither
+regressed. `make check` (lint/typecheck/test, 217 tests) clean.
