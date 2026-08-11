@@ -777,3 +777,55 @@ text at 2.04-3:1 and a `#d63031` red tag at 3.73-3.87:1 that weren't caught
 by the earlier manual `#444466`/`#333355` sweep because these are
 subtly different hex values, not the same literal strings grepped for
 before.
+
+## Follow-up fixes from the residual violations above
+
+- `StackSidebar.tsx` cluster-tab counts: `opacity-60` on top of
+  `var(--text-muted)` → 2.5-2.54:1. Same double-dim bug as everywhere else
+  in this codebase. Replaced with `font-normal` (still visually
+  distinguishes the count from the bold label, without touching contrast).
+- `PhaseCoverageBar.tsx` uncovered-phase cells: `opacity: 0.5` on top of
+  `var(--text-muted)` → 2.11:1. This was reviewed and deliberately left
+  alone in Part 1 ("intentionally dimmed to show non-coverage") — revisited
+  now that the bar for "acceptable" is measured, not eyeballed, and 2.11:1
+  is too low regardless of intent. Removed the opacity; the dashed border +
+  transparent background already signal "not covered" on their own.
+- `app/tool/[toolId]/page.tsx`: two more double-dim instances —
+  `SLOT_PRIORITY_COLOR["not-applicable"]` was a literal `#44446a`
+  (2.04:1, not even a translucency bug, just a raw color too dark for
+  text) and a relationship-description paragraph had `opacity: 0.7` on
+  `var(--text-muted)`. Fixed the color to `#7f7fa4` as a **literal hex**,
+  not `var(--text-muted)` — this value gets alpha-suffix-concatenated
+  (`color + "22"`, `` `${color}44` ``) a few lines down, which silently
+  breaks (invalid CSS) if the base value is a `var()` reference instead of
+  a real hex string. Removed the redundant opacity on the other instance.
+- `spec-driven-dev` category color (`#d63031`) was the one category color
+  that failed as text even at full opacity (4.07:1 vs. --bg, worse against
+  tinted badge backgrounds). Brightened twice, ending at `#df5d5e`
+  (4.5-6:1 across every background axe found it against) — same hue,
+  clearly still "red."
+
+## Flagged, not fixed: systemic "brand color on its own tint" pattern
+
+After every fix above, the **only remaining violations across all 12
+scanned routes** are one repeating shape: `var(--accent)` (#7c6bff) or
+`var(--text-muted)` used as text on a background that's the _same color_
+at 10-20% opacity (the `background: color + "18", color: color` badge
+pattern used hundreds of times throughout the app) — landing at 3.97-4.48:1,
+always just under 4.5.
+
+This isn't fixable per-instance without a design decision, because the
+root cause is the accent color's own luminance: `#7c6bff` clears 4.5:1
+against the _page_ background (5.08:1) but not against the slightly
+lighter _tinted_ backgrounds its own badges create. Computed the brightness
+change that would fix every remaining instance at once: raising `--accent`
+from `#7c6bff` to `#8e80ff` (same hue/saturation, HSL lightness 71%→75%)
+clears all of them with margin (4.92-5.55:1) — but this is the app's
+primary brand color, used as literal text/border/dot color in probably
+a thousand+ places, and changing it is a visual-identity decision, not a
+mechanical bug fix. Flagging it exactly the way the `multimodal` category
+color was flagged in Part 1, rather than changing brand colors
+unilaterally: **the fix is known and computed, just not applied.** If
+this is wanted, `--accent: #8e80ff` in `app/globals.css` is the one-line
+change; worth eyeballing the visual difference first since it's a real,
+if modest, shift.

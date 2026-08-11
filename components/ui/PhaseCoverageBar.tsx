@@ -43,10 +43,13 @@ export function PhaseCoverageBar({ covered, compact = false, showDividers = true
                 border: `1px solid ${trackColor}55`,
               }
             : {
+                // Dashed border + transparent bg already signal "not
+                // covered" — opacity used to additionally dim already-muted
+                // text to ~2.1:1, failing AA (same double-dim bug fixed
+                // elsewhere in this pass).
                 background: "transparent",
                 color: "var(--text-muted)",
                 border: "1px dashed var(--border)",
-                opacity: 0.5,
               }
         }
       >

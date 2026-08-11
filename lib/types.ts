@@ -527,7 +527,10 @@ export const CATEGORIES: CategoryMeta[] = [
   { id: "mcp", label: "MCP Servers", color: "#a29bfe" },
   { id: "prompt-eval", label: "Prompt & Eval", color: "#55efc4" },
   { id: "specifications", label: "Specifications", color: "#e17055" },
-  { id: "spec-driven-dev", label: "Spec-Driven Dev", color: "#d63031" },
+  // #d63031 (original) was 4.07:1 as text on --bg, failing AA — the only
+  // category color that failed at full opacity. Lightened further after the
+  // first pass (#dc4c4d) still fell short (4.38:1) against a tinted badge bg.
+  { id: "spec-driven-dev", label: "Spec-Driven Dev", color: "#df5d5e" },
   { id: "code-review-ai", label: "AI Code Review", color: "#0984e3" },
   { id: "fine-tuning", label: "Fine-tuning", color: "#e84393" },
   { id: "voice-ai", label: "Voice AI", color: "#00b894" },

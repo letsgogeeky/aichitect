@@ -111,7 +111,10 @@ export function StackSidebar({
                 }
               >
                 {chip.label}
-                <span className="opacity-60">{trackCounts[chip.id]}</span>
+                {/* font-normal (not opacity) distinguishes the count from the
+                    bold label — opacity here was dropping already-muted text
+                    to ~2.5:1 contrast, failing AA. */}
+                <span className="font-normal">{trackCounts[chip.id]}</span>
               </button>
             );
           })}

@@ -38,7 +38,12 @@ const SLOT_PRIORITY_COLOR: Record<string, string> = {
   required: "#ff6b6b",
   recommended: "#fdcb6e",
   optional: "#74b9ff",
-  "not-applicable": "#44446a",
+  // #44446a was 2.04:1 as text on --bg — well below AA even ignoring that
+  // it's meant to look de-emphasized. #7f7fa4 is var(--text-muted)'s actual
+  // value (4.75:1) — used as a literal here, not var(), because this color
+  // gets alpha-suffix-concatenated below (+ "22", + "44") which only works
+  // on a real hex string.
+  "not-applicable": "#7f7fa4",
 };
 
 const USE_CONTEXT_LABEL: Record<string, string> = {
@@ -679,7 +684,7 @@ export default async function ToolPage({ params }: Props) {
                           {achieves && (
                             <p
                               className="text-xs leading-snug mt-0.5"
-                              style={{ color: "var(--text-muted)", opacity: 0.7 }}
+                              style={{ color: "var(--text-muted)" }}
                             >
                               → {achieves}
                             </p>
