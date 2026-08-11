@@ -214,3 +214,95 @@ and `profile/`.
   image generator outside the scope of this pass.
 
 **Nothing hidden this iteration.**
+
+## Iteration 7 (final) — components/mobile/, components/ui/, landing page
+
+**Problem found:** `components/ui/LlmPromptSection.tsx` (the "honest take /
+here's the prompt" section on the landing page) turned out to be the worst
+offender in the whole audit — a set of near-black colors used as text on a
+near-black background, effectively invisible:
+
+| Element                        | Color on bg            | Contrast   |
+| ------------------------------ | ---------------------- | ---------- |
+| "free forever"                 | `#1e1e2e` on `#07070e` | **1.22:1** |
+| "Prompt" tag                   | `#252535` on `#0c0c14` | **1.29:1** |
+| "works with ChatGPT…"          | `#252535` on `#07070e` | **1.33:1** |
+| filename caption               | `#2a2a44` on `#080810` | **1.44:1** |
+| prompt description             | `#333350` on `#0c0c14` | **1.6:1**  |
+| eyebrow label                  | `#444466` on `#08080e` | **2.15:1** |
+| subtitle paragraph             | `#4a4a6a` on `#08080e` | **2.36:1** |
+| "Here's the other 20%" heading | `#6060a0` on page bg   | **3.46:1** |
+| prompt body text               | `#6060a0` on `#05050c` | **3.56:1** |
+| gap-card description           | `#7070a0` on `#0c0c14` | **4.19:1** |
+
+A contrast ratio near 1:1 means the color is nearly identical to its
+background — this text was not merely small, it was close to literally
+unreadable. The rest of `app/page.tsx` (2143 lines) had the same bug
+scattered through it at smaller scale: `#444466` (2.13:1), `#333355`
+(1.64:1), `#6666aa` (3.81:1), and `#6c6c8a` (3.9:1) used as real body/caption
+text in the activity feed preview, feature descriptions, and hero subtitle.
+
+**Fixes:**
+
+- `LlmPromptSection.tsx`: every one of the 10 broken colors above replaced
+  with `var(--text-muted)` or `var(--text-secondary)` depending on its role
+  (captions/labels → muted, body copy/headings → secondary) — all now
+  5.0-6.0:1. Remaining 10-11.5px text bumped to 11-13px.
+- `app/page.tsx`: `#444466`/`#333355` → `var(--text-muted)`;
+  `#6666aa`/`#6c6c8a` → `var(--text-secondary)` (17 call sites across the
+  activity feed, feature cards, and hero). Left the three `#0a0a0f`-on-button
+  instances alone — dark text on a bright button background is correct, not
+  a bug.
+- `ToolPulseSection`-adjacent components: `ProductionUsageSection.tsx`
+  (`#26de8188`, 3.74:1 → `var(--success)`), `ToolUsageButton.tsx`
+  (`color+"88"` category-color-at-alpha, and an 8px count badge with
+  `opacity: 0.7` stacked on top → full opacity, 10-11px), `Navbar.tsx`
+  (sign-out button had `opacity: 0.6` on `text-secondary`, dropping it to
+  2.75:1 → removed).
+- Bumped remaining 8-10px text to 11px across `ToolDetailSheet.tsx`,
+  `PhaseCoverageBar.tsx`, `MyStackTray.tsx` (14px-circle remove button,
+  8px→9px — kept smaller than the 11px floor because it's physically
+  constrained by the circle size).
+
+**Decision (not changed, intentional):** the landing page's small SVG
+"preview" illustrations (`StacksPreview`, `BuilderPreview`, and similar
+mini mockup diagrams, `fontSize={6-8}`) were left as-is. These are
+miniature schematic illustrations of what a feature looks like — decorative
+diagram texture at a fixed, hand-tuned layout (hardcoded x/y coordinates in
+a 280×160 viewBox), not functional content a user reads letter-by-letter.
+Bumping their font size risks colliding with the surrounding shapes with no
+way to visually verify the result in this environment, for a purely
+decorative element. Flagging here rather than silently leaving it
+unexamined.
+
+**Nothing else hidden this iteration.**
+
+---
+
+## Summary
+
+Seven iterations, seven commits, zero regressions (`make check` — lint,
+typecheck, and all 215 tests — passed after every commit). The core,
+recurring problems across the whole codebase were:
+
+1. **A type scale that floored at 7-10px** where the app's own semantic
+   scale (built for exactly this, `type-*` utilities in `globals.css`) was
+   barely adopted (~14 of 500+ call sites) — fixed at the token level in
+   Iteration 1 so the fix propagates everywhere, then swept file-by-file.
+2. **`--text-muted` failing WCAG AA at 2.78:1** — fixed once, at the source,
+   in Iteration 1.
+3. **Translucent brand colors reused as text color** — a pattern that
+   recurred in nearly every iteration (Iterations 2-7), always in the
+   40-60% alpha range, always failing AA. Backgrounds/borders keep their
+   transparency; text now always renders at full opacity.
+4. **One genuinely severe bug** (`LlmPromptSection.tsx`, Iteration 7):
+   near-black text on a near-black background, some pairs under 1.5:1
+   contrast — effectively invisible, not just hard to read.
+
+No UI elements were hidden or removed during this pass — everything found
+was a size/color/contrast defect, not genuinely low-value information. If a
+future pass wants to reduce information density (not just fix legibility),
+the flagged-but-unfixed items above are good starting points:
+`SLOT_AUTONOMY["multimodal"]`'s color and the app-wide `multimodal` category
+color (`#6c5ce7`, fails AA even at full opacity) are the one open item that
+needs a deliberate design decision rather than a mechanical fix.

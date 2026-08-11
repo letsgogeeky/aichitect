@@ -143,7 +143,7 @@ export function LlmPromptSection() {
                 style={{
                   fontSize: 12,
                   fontWeight: 600,
-                  color: "#444466",
+                  color: "var(--text-secondary)",
                   letterSpacing: "0.09em",
                   textTransform: "uppercase",
                 }}
@@ -170,7 +170,7 @@ export function LlmPromptSection() {
             <p
               style={{
                 fontSize: 14,
-                color: "#4a4a6a",
+                color: "var(--text-secondary)",
                 lineHeight: 1.75,
                 maxWidth: 400,
               }}
@@ -208,7 +208,7 @@ export function LlmPromptSection() {
                 <span
                   style={{
                     fontSize: 12,
-                    color: "#2a2a44",
+                    color: "var(--text-muted)",
                     marginLeft: 10,
                     fontFamily: "'SF Mono', 'Fira Code', monospace",
                   }}
@@ -245,9 +245,9 @@ export function LlmPromptSection() {
                   margin: 0,
                   padding: "20px 22px 24px",
                   fontFamily: "'SF Mono', 'Fira Code', 'Cascadia Code', monospace",
-                  fontSize: 11.5,
+                  fontSize: 13,
                   lineHeight: 1.8,
-                  color: "#6060a0",
+                  color: "var(--text-secondary)",
                   whiteSpace: "pre-wrap",
                   wordBreak: "break-word",
                   overflowY: "auto",
@@ -307,14 +307,14 @@ export function LlmPromptSection() {
             >
               <span
                 style={{
-                  fontSize: 10,
-                  color: "#252535",
+                  fontSize: 11,
+                  color: "var(--text-muted)",
                   fontFamily: "monospace",
                 }}
               >
                 works with ChatGPT · Claude · Gemini · Grok
               </span>
-              <span style={{ fontSize: 10, color: "#1e1e2e" }}>free forever</span>
+              <span style={{ fontSize: 11, color: "var(--text-muted)" }}>free forever</span>
             </div>
           </div>
         </div>
@@ -330,7 +330,7 @@ export function LlmPromptSection() {
             style={{
               fontSize: "clamp(16px, 2vw, 20px)",
               fontWeight: 700,
-              color: "#6060a0",
+              color: "var(--text-secondary)",
               letterSpacing: -0.3,
               marginBottom: 20,
             }}
@@ -376,9 +376,9 @@ export function LlmPromptSection() {
                   <div style={{ display: "flex", alignItems: "flex-start", gap: 8 }}>
                     <span
                       style={{
-                        fontSize: 10,
+                        fontSize: 11,
                         fontWeight: 700,
-                        color: "#252535",
+                        color: "var(--text-muted)",
                         flexShrink: 0,
                         marginTop: 2,
                         letterSpacing: "0.06em",
@@ -387,14 +387,14 @@ export function LlmPromptSection() {
                     >
                       Prompt
                     </span>
-                    <span style={{ fontSize: 12, color: "#333350", lineHeight: 1.5 }}>
+                    <span style={{ fontSize: 12, color: "var(--text-secondary)", lineHeight: 1.5 }}>
                       {prompt}
                     </span>
                   </div>
                   <div style={{ display: "flex", alignItems: "flex-start", gap: 8 }}>
                     <span
                       style={{
-                        fontSize: 10,
+                        fontSize: 11,
                         fontWeight: 700,
                         color,
                         flexShrink: 0,
@@ -405,7 +405,9 @@ export function LlmPromptSection() {
                     >
                       Here
                     </span>
-                    <span style={{ fontSize: 12, color: "#7070a0", lineHeight: 1.5 }}>{app}</span>
+                    <span style={{ fontSize: 12, color: "var(--text-secondary)", lineHeight: 1.5 }}>
+                      {app}
+                    </span>
                   </div>
                 </div>
               </div>

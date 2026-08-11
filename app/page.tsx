@@ -942,7 +942,7 @@ export default async function LandingPage() {
         <p
           style={{
             fontSize: "clamp(12px, 1.5vw, 14px)",
-            color: "#6c6c8a",
+            color: "var(--text-secondary)",
             maxWidth: 580,
             lineHeight: 1.5,
             marginBottom: 44,
@@ -985,7 +985,7 @@ export default async function LandingPage() {
               Browse Stacks
             </Link>
           </div>
-          <p style={{ fontSize: 12, color: "#444466", margin: 0 }}>
+          <p style={{ fontSize: 12, color: "var(--text-muted)", margin: 0 }}>
             or{" "}
             <Link
               href="/explore"
@@ -1184,12 +1184,17 @@ export default async function LandingPage() {
                   </div>
                   {/* Relative time */}
                   <span
-                    style={{ fontSize: 11, color: "#444466", flexShrink: 0, whiteSpace: "nowrap" }}
+                    style={{
+                      fontSize: 11,
+                      color: "var(--text-muted)",
+                      flexShrink: 0,
+                      whiteSpace: "nowrap",
+                    }}
                   >
                     {formatRelativeTime(ev.detected_at)}
                   </span>
                   {/* Arrow */}
-                  <span style={{ fontSize: 12, color: "#333355", flexShrink: 0 }}>↗</span>
+                  <span style={{ fontSize: 12, color: "var(--text-muted)", flexShrink: 0 }}>↗</span>
                 </Link>
               );
             })}
@@ -1209,7 +1214,7 @@ export default async function LandingPage() {
           flexWrap: "wrap",
         }}
       >
-        <span style={{ fontSize: 12, color: "#444466", flexShrink: 0 }}>
+        <span style={{ fontSize: 12, color: "var(--text-muted)", flexShrink: 0 }}>
           Not sure where to start?
         </span>
         <Link
@@ -1335,7 +1340,9 @@ export default async function LandingPage() {
               >
                 {tagline}
               </p>
-              <p style={{ fontSize: 13, color: "#6666aa", lineHeight: 1.6, margin: 0 }}>
+              <p
+                style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.6, margin: 0 }}
+              >
                 {description}
               </p>
               <div
@@ -1436,7 +1443,7 @@ export default async function LandingPage() {
             <p
               style={{
                 fontSize: 15,
-                color: "#6666aa",
+                color: "var(--text-secondary)",
                 lineHeight: 1.7,
                 marginBottom: 28,
                 maxWidth: 440,
@@ -1547,7 +1554,7 @@ export default async function LandingPage() {
                   style={{
                     fontSize: 10,
                     fontWeight: 600,
-                    color: "#444466",
+                    color: "var(--text-muted)",
                     textTransform: "uppercase",
                     letterSpacing: "0.08em",
                     margin: "0 0 6px",
@@ -1631,7 +1638,7 @@ export default async function LandingPage() {
           <p
             style={{
               fontSize: 11,
-              color: "#444466",
+              color: "var(--text-muted)",
               marginBottom: 14,
               textTransform: "uppercase",
               letterSpacing: "0.08em",
@@ -1754,7 +1761,7 @@ export default async function LandingPage() {
             <p
               style={{
                 fontSize: 15,
-                color: "#6666aa",
+                color: "var(--text-secondary)",
                 lineHeight: 1.7,
                 marginBottom: 32,
                 maxWidth: 440,
@@ -1960,8 +1967,8 @@ export default async function LandingPage() {
                       border: "1px solid #1e1e2e",
                     }}
                   >
-                    <span style={{ fontSize: 10, color: "#333355" }}>{slot}</span>
-                    <span style={{ fontSize: 10, color: "#333355" }}>→ {suggest}</span>
+                    <span style={{ fontSize: 10, color: "var(--text-muted)" }}>{slot}</span>
+                    <span style={{ fontSize: 10, color: "var(--text-muted)" }}>→ {suggest}</span>
                   </div>
                 ))}
 
@@ -2050,7 +2057,7 @@ export default async function LandingPage() {
           <p
             style={{
               fontSize: 14,
-              color: "#6666aa",
+              color: "var(--text-secondary)",
               maxWidth: 480,
               margin: "0 auto 28px",
               lineHeight: 1.7,
@@ -2099,7 +2106,7 @@ export default async function LandingPage() {
       >
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
           <Logo size={20} id="footer-logo-g" />
-          <span style={{ fontSize: 13, color: "#444466" }}>AIchitect</span>
+          <span style={{ fontSize: 13, color: "var(--text-muted)" }}>AIchitect</span>
         </div>
         <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
           {[
@@ -2121,7 +2128,7 @@ export default async function LandingPage() {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ fontSize: 12, color: "#444466", textDecoration: "none" }}
+                style={{ fontSize: 12, color: "var(--text-muted)", textDecoration: "none" }}
               >
                 {label}
               </a>
@@ -2129,14 +2136,14 @@ export default async function LandingPage() {
               <Link
                 key={label}
                 href={href}
-                style={{ fontSize: 12, color: "#444466", textDecoration: "none" }}
+                style={{ fontSize: 12, color: "var(--text-muted)", textDecoration: "none" }}
               >
                 {label}
               </Link>
             )
           )}
         </div>
-        <span style={{ fontSize: 12, color: "#333355" }}>{SITE_HOST}</span>
+        <span style={{ fontSize: 12, color: "var(--text-muted)" }}>{SITE_HOST}</span>
       </footer>
     </div>
   );

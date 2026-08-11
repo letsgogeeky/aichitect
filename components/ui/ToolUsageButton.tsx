@@ -87,7 +87,7 @@ export function ToolUsageButton({ toolId, color, compact = false }: Props) {
             padding: "0 6px",
             height: 22,
             borderRadius: 5,
-            fontSize: 10,
+            fontSize: 11,
             fontWeight: 600,
             cursor: loading ? "default" : "pointer",
             opacity: loading ? 0.6 : 1,
@@ -99,7 +99,7 @@ export function ToolUsageButton({ toolId, color, compact = false }: Props) {
           }}
         >
           {used ? "✓" : "use"}
-          {count > 0 && <span style={{ fontSize: 8, opacity: 0.7 }}>{count}</span>}
+          {count > 0 && <span style={{ fontSize: 11 }}>{count}</span>}
         </button>
 
         {tooltipOpen && (
@@ -181,9 +181,9 @@ export function ToolUsageButton({ toolId, color, compact = false }: Props) {
         {count > 0 && (
           <span
             style={{
-              fontSize: 10,
+              fontSize: 11,
               fontWeight: 500,
-              color: used ? color + "88" : "var(--text-muted)",
+              color: used ? color : "var(--text-muted)",
             }}
           >
             · {count}

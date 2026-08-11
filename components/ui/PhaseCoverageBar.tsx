@@ -20,7 +20,7 @@ interface Props {
  *   ●●●●●  ●●●●●  ●●       ←  E2E flagship: all 12 lit
  */
 export function PhaseCoverageBar({ covered, compact = false, showDividers = true }: Props) {
-  const size = compact ? "text-[9px] px-1 py-[2px]" : "text-[10px] px-1.5 py-0.5";
+  const size = compact ? "text-[11px] px-1 py-[2px]" : "text-[11px] px-1.5 py-0.5";
 
   // Group phases for the divider rendering — preserves canonical order.
   const devPhases = LIFECYCLE_PHASES.filter((p) => LIFECYCLE_PHASE_TRACK[p] === "development");

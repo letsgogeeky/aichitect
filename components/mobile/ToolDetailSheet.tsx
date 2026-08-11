@@ -110,14 +110,11 @@ export default function ToolDetailSheet({ tool, open, onClose }: Props) {
                   className="w-2.5 h-2.5 rounded-full flex-shrink-0"
                   style={{ background: color }}
                 />
-                <span
-                  className="text-[10px] font-semibold uppercase tracking-wide"
-                  style={{ color }}
-                >
+                <span className="type-overline" style={{ color }}>
                   {categoryLabel}
                 </span>
                 <span
-                  className={`text-[10px] font-semibold px-1.5 py-0.5 rounded uppercase ${
+                  className={`text-[11px] font-semibold px-1.5 py-0.5 rounded uppercase ${
                     tool.type === "oss"
                       ? "bg-[#26de8122] text-[var(--success)]"
                       : "bg-[#4ecdc422] text-[#4ecdc4]"
@@ -173,7 +170,7 @@ export default function ToolDetailSheet({ tool, open, onClose }: Props) {
                     </span>
                   </div>
                   <span
-                    className="text-[10px]"
+                    className="text-[11px]"
                     style={{ color: "var(--text-muted)", opacity: 0.7 }}
                   >
                     commit recency · star momentum · issue ratio · forks
@@ -191,10 +188,7 @@ export default function ToolDetailSheet({ tool, open, onClose }: Props) {
           {/* Trajectory sparkline */}
           {tool.github_url && (
             <div>
-              <h3
-                className="text-[10px] font-semibold uppercase tracking-widest mb-2"
-                style={{ color: "var(--text-muted)" }}
-              >
+              <h3 className="type-overline mb-2" style={{ color: "var(--text-muted)" }}>
                 90-day trajectory · health + stars
               </h3>
               <TrajectorySparkline toolId={tool.id} categoryColor={color} />
@@ -203,16 +197,13 @@ export default function ToolDetailSheet({ tool, open, onClose }: Props) {
 
           {/* Pricing */}
           <div>
-            <h3
-              className="text-[10px] font-semibold uppercase tracking-widest mb-2"
-              style={{ color: "var(--text-muted)" }}
-            >
+            <h3 className="type-overline mb-2" style={{ color: "var(--text-muted)" }}>
               Pricing
             </h3>
             <div className="flex flex-wrap gap-1.5">
               {tool.pricing.free_tier && (
                 <span
-                  className="text-[10px] px-2 py-1 rounded-full border"
+                  className="text-[11px] px-2 py-1 rounded-full border"
                   style={{ borderColor: "var(--border)", color: "var(--text-secondary)" }}
                 >
                   Free tier
@@ -221,7 +212,7 @@ export default function ToolDetailSheet({ tool, open, onClose }: Props) {
               {tool.pricing.plans.map((p, i) => (
                 <span
                   key={i}
-                  className="text-[10px] px-2 py-1 rounded-full border"
+                  className="text-[11px] px-2 py-1 rounded-full border"
                   style={{ borderColor: "var(--border)", color: "var(--text-secondary)" }}
                 >
                   {p.name}: {p.price}
@@ -284,10 +275,7 @@ export default function ToolDetailSheet({ tool, open, onClose }: Props) {
           {/* Connections */}
           {connected.length > 0 && (
             <div>
-              <h3
-                className="text-[10px] font-semibold uppercase tracking-widest mb-2"
-                style={{ color: "var(--text-muted)" }}
-              >
+              <h3 className="type-overline mb-2" style={{ color: "var(--text-muted)" }}>
                 Connections
               </h3>
               <div className="space-y-1">
@@ -302,7 +290,7 @@ export default function ToolDetailSheet({ tool, open, onClose }: Props) {
                     </span>
                     <div className="flex items-center gap-1.5 ml-2 flex-shrink-0">
                       <span
-                        className="text-[10px] px-1.5 py-0.5 rounded"
+                        className="text-[11px] px-1.5 py-0.5 rounded"
                         style={{
                           background:
                             type === "integrates-with"
@@ -326,7 +314,7 @@ export default function ToolDetailSheet({ tool, open, onClose }: Props) {
                       </span>
                       <Link
                         href={`/compare/${tool.id}/${other.id}`}
-                        className="text-[10px] px-1.5 py-0.5 rounded"
+                        className="text-[11px] px-1.5 py-0.5 rounded"
                         style={{ background: "#7c6bff22", color: "var(--accent)" }}
                       >
                         vs →
@@ -341,10 +329,7 @@ export default function ToolDetailSheet({ tool, open, onClose }: Props) {
           {/* Featured in stacks */}
           {featuredIn.length > 0 && (
             <div>
-              <h3
-                className="text-[10px] font-semibold uppercase tracking-widest mb-2"
-                style={{ color: "var(--text-muted)" }}
-              >
+              <h3 className="type-overline mb-2" style={{ color: "var(--text-muted)" }}>
                 Featured in stacks
               </h3>
               <div className="space-y-1">

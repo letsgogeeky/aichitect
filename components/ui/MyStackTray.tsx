@@ -122,7 +122,7 @@ export default function MyStackTray() {
                       background: "#1e1e2e",
                       border: "1px solid #3a3a4a",
                       color: "var(--text-secondary)",
-                      fontSize: 8,
+                      fontSize: 9,
                       lineHeight: 1,
                     }}
                   >

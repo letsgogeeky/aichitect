@@ -101,9 +101,9 @@ export function ProductionUsageSection({ stackId, tools }: Props) {
       {count > 0 && (
         <span
           style={{
-            fontSize: 10,
+            fontSize: 11,
             fontWeight: 500,
-            color: reported ? "#26de8188" : "var(--text-muted)",
+            color: reported ? "var(--success)" : "var(--text-muted)",
           }}
         >
           · {count}

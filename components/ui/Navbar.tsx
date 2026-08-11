@@ -357,7 +357,7 @@ export default function Navbar({ counts }: { counts?: Counts }) {
                 {userToolCount > 0 && (
                   <span
                     style={{
-                      fontSize: 10,
+                      fontSize: 11,
                       fontWeight: 600,
                       color: "var(--accent-2)",
                       background: "var(--accent-2-bg, #00d4aa14)",
@@ -374,13 +374,12 @@ export default function Navbar({ counts }: { counts?: Counts }) {
               <button
                 onClick={signOut}
                 style={{
-                  fontSize: 10,
+                  fontSize: 11,
                   color: "var(--text-secondary)",
                   background: "none",
                   border: "none",
                   cursor: "pointer",
                   padding: "2px 4px",
-                  opacity: 0.6,
                 }}
                 title="Sign out"
               >
