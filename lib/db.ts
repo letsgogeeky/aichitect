@@ -15,7 +15,10 @@ export const supabase: SupabaseClient | null = url && anonKey ? createClient(url
  * Browser-side Supabase client — singleton per URL/key pair, safe to call in
  * client components. Returns null when env vars are absent (build/prerender time).
  */
+let browserClient: SupabaseClient | null = null;
+
 export function createSupabaseBrowserClient() {
   if (!url || !anonKey) return null;
-  return createBrowserClient(url, anonKey);
+  if (!browserClient) browserClient = createBrowserClient(url, anonKey);
+  return browserClient;
 }

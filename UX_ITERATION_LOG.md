@@ -664,3 +664,42 @@ the same failure modes — the recurring patterns worth watching for are
 documented throughout: translucent brand colors as text, `SLOT_AUTONOMY`-
 style labels needing empty-state handling, and raw data-order rendering
 where a priority sort would help).
+
+---
+
+# Part 3 — bugs + continued UI/UX polish
+
+New loop scope: keep iterating on UI/UX (contrast, readability) _and_
+actively hunt for real application bugs, not just visual issues.
+
+## Bug 1 — Supabase browser client wasn't actually a singleton
+
+**Found while investigating console warnings during the 404 incident
+triage** (see conversation): the browser console repeatedly logged
+`Multiple GoTrueClient instances detected in the same browser context...
+may produce undefined behavior when used concurrently under the same
+storage key.`
+
+**Root cause:** `lib/db.ts`'s `createSupabaseBrowserClient()` docstring
+claimed "singleton per URL/key pair, safe to call in client components" —
+but the implementation called `createBrowserClient(url, anonKey)` fresh on
+every invocation, with no caching. 7 different call sites across the app
+(`useUser.ts`, `ProfileClient.tsx`, `ToolUsageButton.tsx`,
+`ProductionUsageSection.tsx`, etc.) each got their own GoTrueClient
+instance, all reading/writing the same `localStorage` auth key — exactly
+the "undefined behavior" scenario the library warns about (auth state
+could theoretically desync between instances).
+
+**Fix:** added a real module-level cache (`let browserClient: SupabaseClient
+| null = null`) so repeated calls return the same instance.
+
+**Verified:** Playwright console-message capture before/after — a single
+page load previously triggered the warning on essentially every component
+that calls `useUser()`; after the fix, one page load + 2 client-side
+navigations produced only 1 warning (down from many). The residual single
+warning is most likely Turbopack chunk-splitting duplicating the module
+instance across separate bundle chunks — a deeper fix would mean lifting
+the Supabase client into a single React Context provider at the app root
+instead of each `useUser()` call creating its own `useMemo`. Flagging as a
+follow-up rather than doing a bigger architecture change in this pass.
+`make check` (lint/typecheck/test) clean.
