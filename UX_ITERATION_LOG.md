@@ -589,3 +589,29 @@ empty state; zero console errors; `make typecheck` clean.
 
 **Nothing hidden this iteration** — all 121 tools remain browsable, search
 is opt-in.
+
+## Reviewed, no changes made — Tool detail, Compare, DetailPanel, mobile
+
+Screenshotted these four surfaces looking for the same kind of hierarchy/
+density problems fixed above. None showed it — logging what was checked so
+a future pass doesn't re-investigate from scratch:
+
+- **`/tool/[toolId]` (standalone tool page)** — dense but well-chunked into
+  clearly headed cards (About, Builder Slot, Integrations, Alternatives,
+  sidebar with Pricing/Pulse/Stacks). Already got the contrast/size pass
+  in Iteration 5. No structural problem found.
+- **`/compare/[a]/[b]`** — "Choose X when" cards, comparison table,
+  description cards, shared/unique connections — clear hierarchy
+  throughout, good use of tinted cards for exclusions.
+- **`DetailPanel.tsx` (Explore right panel)** — category/type badges,
+  description, community, pricing, connections list, featured/ruled-out
+  stacks — reads cleanly. Confirmed the Iteration 10 FilterPanel redesign
+  holds up correctly in this real context too (Stack Layers leads, Find a
+  curated stack collapsed at the bottom).
+- **Mobile** (390×844 viewport): the Explore mini-banner and
+  `ToolDetailSheet` bottom sheet are both legible with reasonable spacing
+  — no cramping found.
+
+Not exhaustively covered yet: `/profile/[username]`, `/watch/[id]`,
+`/changelog`, `/mcp` — lower-traffic pages, not named in the original
+complaint, worth a pass in a future iteration but not urgent.
