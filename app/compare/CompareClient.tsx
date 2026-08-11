@@ -74,7 +74,7 @@ function ToolPicker({
     <div style={{ position: "relative", flex: 1 }}>
       <div
         style={{
-          fontSize: 10,
+          fontSize: 11,
           fontWeight: 600,
           textTransform: "uppercase",
           letterSpacing: "0.08em",
@@ -204,7 +204,7 @@ function ToolPicker({
                       <span style={{ fontSize: 13, color: "var(--text-primary)", flex: 1 }}>
                         {t.name}
                       </span>
-                      <span style={{ fontSize: 10, color: c, opacity: 0.8 }}>{catLabel}</span>
+                      <span style={{ fontSize: 11, color: c, opacity: 0.8 }}>{catLabel}</span>
                     </button>
                   );
                 })}
@@ -235,7 +235,7 @@ function ToolPicker({
                       />
                       <span
                         style={{
-                          fontSize: 10,
+                          fontSize: 11,
                           fontWeight: 700,
                           textTransform: "uppercase",
                           letterSpacing: "0.1em",
@@ -244,7 +244,9 @@ function ToolPicker({
                       >
                         {cat.label}
                       </span>
-                      <span style={{ fontSize: 10, color: "#444466", marginLeft: "auto" }}>
+                      <span
+                        style={{ fontSize: 11, color: "var(--text-muted)", marginLeft: "auto" }}
+                      >
                         {items.length}
                       </span>
                     </div>
@@ -280,7 +282,7 @@ function ToolPicker({
                         {t.pricing?.free_tier && (
                           <span
                             style={{
-                              fontSize: 10,
+                              fontSize: 11,
                               color: "var(--accent-2)",
                               border: "1px solid #00d4aa33",
                               borderRadius: 4,
@@ -293,7 +295,7 @@ function ToolPicker({
                         {t.type === "oss" && (
                           <span
                             style={{
-                              fontSize: 10,
+                              fontSize: 11,
                               color: "var(--success)",
                               border: "1px solid #26de8133",
                               borderRadius: 4,
@@ -431,7 +433,7 @@ export default function CompareClient({
       <div>
         <h2
           style={{
-            fontSize: 10,
+            fontSize: 11,
             fontWeight: 600,
             textTransform: "uppercase",
             letterSpacing: "0.1em",
@@ -469,7 +471,7 @@ export default function CompareClient({
                 }}
               >
                 <span style={{ fontSize: 13, fontWeight: 500, color: cA }}>{a.name}</span>
-                <span style={{ fontSize: 10, color: rc, flex: 1, textAlign: "center" }}>
+                <span style={{ fontSize: 11, color: rc, flex: 1, textAlign: "center" }}>
                   {relLabel(type)}
                 </span>
                 <span style={{ fontSize: 13, fontWeight: 500, color: cB }}>{b.name}</span>

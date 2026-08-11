@@ -18,7 +18,7 @@ export function MissingPanel({
     <div>
       <p
         style={{
-          fontSize: 10,
+          fontSize: 11,
           fontWeight: 700,
           textTransform: "uppercase",
           letterSpacing: "0.08em",
@@ -90,7 +90,7 @@ export function MissingPanel({
                 <button
                   onClick={() => onLearnMore(m.suggestTool!)}
                   style={{
-                    fontSize: 10,
+                    fontSize: 11,
                     fontWeight: 500,
                     color: "var(--text-secondary)",
                     background: "#ffffff08",

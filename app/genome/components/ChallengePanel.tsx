@@ -108,7 +108,7 @@ export function ChallengePanel({ report, allIds }: ChallengePanelProps) {
           <span style={{ fontSize: 13 }}>⚔️</span>
           <span
             style={{
-              fontSize: 10,
+              fontSize: 11,
               fontWeight: 700,
               textTransform: "uppercase",
               letterSpacing: "0.08em",
@@ -119,7 +119,7 @@ export function ChallengePanel({ report, allIds }: ChallengePanelProps) {
           </span>
           <span
             style={{
-              fontSize: 10,
+              fontSize: 11,
               color: "var(--text-muted)",
               fontStyle: "italic",
             }}
@@ -253,7 +253,7 @@ export function ChallengePanel({ report, allIds }: ChallengePanelProps) {
             >
               <span
                 style={{
-                  fontSize: 10,
+                  fontSize: 11,
                   fontWeight: 700,
                   color: ACCENT,
                   textTransform: "uppercase",

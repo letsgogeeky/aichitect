@@ -154,7 +154,7 @@ function PrimaryMatchCard({ match, stack }: { match: StackMatch; stack: Stack })
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
               <span
                 style={{
-                  fontSize: 10,
+                  fontSize: 11,
                   fontWeight: 700,
                   color: labelColor,
                   background: labelColor + "18",
@@ -184,7 +184,7 @@ function PrimaryMatchCard({ match, stack }: { match: StackMatch; stack: Stack })
             {stack.complexity && (
               <span
                 style={{
-                  fontSize: 10,
+                  fontSize: 11,
                   fontWeight: 600,
                   color: complexityColor,
                   background: complexityColor + "18",
@@ -198,7 +198,7 @@ function PrimaryMatchCard({ match, stack }: { match: StackMatch; stack: Stack })
               </span>
             )}
             {stack.monthly_cost && (
-              <span style={{ fontSize: 10, color: "var(--text-muted)" }}>
+              <span style={{ fontSize: 11, color: "var(--text-muted)" }}>
                 {stack.monthly_cost}/mo
               </span>
             )}
@@ -236,12 +236,12 @@ function PrimaryMatchCard({ match, stack }: { match: StackMatch; stack: Stack })
             <span
               key={id}
               style={{
-                fontSize: 10,
+                fontSize: 11,
                 padding: "2px 8px",
                 borderRadius: 10,
                 background: "var(--btn)",
                 border: "1px solid var(--btn-border)",
-                color: "#6666aa",
+                color: "var(--text-secondary)",
                 fontFamily: "monospace",
               }}
             >
@@ -251,12 +251,12 @@ function PrimaryMatchCard({ match, stack }: { match: StackMatch; stack: Stack })
           {stack.tools.length > 7 && (
             <span
               style={{
-                fontSize: 10,
+                fontSize: 11,
                 padding: "2px 8px",
                 borderRadius: 10,
                 background: "var(--btn)",
                 border: "1px solid var(--btn-border)",
-                color: "#444466",
+                color: "var(--text-muted)",
               }}
             >
               +{stack.tools.length - 7} more
@@ -277,9 +277,9 @@ function PrimaryMatchCard({ match, stack }: { match: StackMatch; stack: Stack })
           >
             <p
               style={{
-                fontSize: 10,
+                fontSize: 11,
                 fontWeight: 700,
-                color: "#ff6b6b88",
+                color: "var(--danger)",
                 margin: "0 0 6px",
                 textTransform: "uppercase",
                 letterSpacing: "0.06em",
@@ -308,7 +308,7 @@ function PrimaryMatchCard({ match, stack }: { match: StackMatch; stack: Stack })
                     gap: 6,
                   }}
                 >
-                  <span style={{ color: "#ff6b6b66", flexShrink: 0 }}>✕</span>
+                  <span style={{ color: "var(--danger)", flexShrink: 0 }}>✕</span>
                   {cond}
                 </li>
               ))}
@@ -376,7 +376,7 @@ function RunnerUpCard({ match, stack }: { match: StackMatch; stack: Stack }) {
           <span style={{ fontSize: 13, fontWeight: 600, color: "#f0f0f8" }}>{stack.name}</span>
           <span
             style={{
-              fontSize: 10,
+              fontSize: 11,
               fontWeight: 600,
               color: labelColor,
               background: labelColor + "18",
@@ -628,7 +628,7 @@ export default function MatchClient() {
               <div>
                 <p
                   style={{
-                    fontSize: 10,
+                    fontSize: 11,
                     color: "var(--text-muted)",
                     margin: "4px 0 8px",
                     textTransform: "uppercase",

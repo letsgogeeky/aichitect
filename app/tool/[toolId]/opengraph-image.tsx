@@ -221,7 +221,7 @@ export default async function Image({ params }: { params: Promise<{ toolId: stri
                   borderColor: "#ffffff14",
                 }}
               >
-                <span style={{ fontSize: 13, fontWeight: 600, color: "#6666aa" }}>
+                <span style={{ fontSize: 13, fontWeight: 600, color: "#8888aa" }}>
                   ⭐ {tool.github_stars.toLocaleString()}
                 </span>
               </div>
@@ -231,10 +231,10 @@ export default async function Image({ params }: { params: Promise<{ toolId: stri
 
         {/* Bottom: URL */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <span style={{ fontSize: 14, color: "#2a2a44" }}>
+          <span style={{ fontSize: 14, color: "#7f7fa4" }}>
             {SITE_HOST}/tool/{toolId}
           </span>
-          <span style={{ fontSize: 14, color: "#2a2a44" }}>cut the noise. pick your AI stack.</span>
+          <span style={{ fontSize: 14, color: "#7f7fa4" }}>cut the noise. pick your AI stack.</span>
         </div>
       </div>
     </div>,

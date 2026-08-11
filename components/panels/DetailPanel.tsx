@@ -460,7 +460,7 @@ export default function DetailPanel({ tool, onClose }: Props) {
                   style={{ background: "#ff6b6b08", border: "1px solid #ff6b6b18" }}
                 >
                   <div className="type-label text-[var(--text-secondary)] mb-0.5">{stack.name}</div>
-                  <div className="type-body-tight" style={{ color: "#ff6b6b99" }}>
+                  <div className="type-body-tight" style={{ color: "var(--danger)" }}>
                     &ldquo;{reason}&rdquo;
                   </div>
                 </div>

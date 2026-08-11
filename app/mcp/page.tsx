@@ -115,7 +115,7 @@ function CodeBlock({
           <span
             style={{
               display: "block",
-              fontSize: 10,
+              fontSize: 11,
               color: "var(--text-muted)",
               marginBottom: 8,
               textTransform: "uppercase",
@@ -190,7 +190,7 @@ function ToolCard({
           <div>
             <span
               style={{
-                fontSize: 10,
+                fontSize: 11,
                 fontWeight: 600,
                 color: "var(--text-muted)",
                 textTransform: "uppercase",
@@ -208,7 +208,7 @@ function ToolCard({
                 borderRadius: 6,
                 fontFamily: "monospace",
                 fontSize: 12,
-                color: "#6666aa",
+                color: "var(--text-secondary)",
                 overflowX: "auto",
               }}
             >
@@ -218,7 +218,7 @@ function ToolCard({
           <div>
             <span
               style={{
-                fontSize: 10,
+                fontSize: 11,
                 fontWeight: 600,
                 color: "var(--text-muted)",
                 textTransform: "uppercase",
@@ -236,7 +236,7 @@ function ToolCard({
                 borderRadius: 6,
                 fontFamily: "monospace",
                 fontSize: 12,
-                color: "#6666aa",
+                color: "var(--text-secondary)",
                 overflowX: "auto",
               }}
             >

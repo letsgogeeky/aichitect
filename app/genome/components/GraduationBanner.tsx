@@ -57,7 +57,7 @@ export function GraduationBanner({ allIds }: { allIds: string[] }) {
       <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
         <span
           style={{
-            fontSize: 10,
+            fontSize: 11,
             fontWeight: 700,
             textTransform: "uppercase",
             letterSpacing: "0.1em",
@@ -86,7 +86,7 @@ export function GraduationBanner({ allIds }: { allIds: string[] }) {
         <div style={{ display: "flex", flexDirection: "column", gap: 3, flex: 1, minWidth: 0 }}>
           <span
             style={{
-              fontSize: 10,
+              fontSize: 11,
               fontWeight: 600,
               color: "var(--text-muted)",
               textTransform: "uppercase",
@@ -109,7 +109,7 @@ export function GraduationBanner({ allIds }: { allIds: string[] }) {
           </span>
           <span
             style={{
-              fontSize: 10,
+              fontSize: 11,
               color: COMPLEXITY_COLOR[fromComplexity] ?? "var(--text-muted)",
             }}
           >
@@ -117,12 +117,12 @@ export function GraduationBanner({ allIds }: { allIds: string[] }) {
           </span>
         </div>
 
-        <span style={{ fontSize: 14, color: "#333355", flexShrink: 0 }}>→</span>
+        <span style={{ fontSize: 14, color: "var(--text-muted)", flexShrink: 0 }}>→</span>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 3, flex: 1, minWidth: 0 }}>
           <span
             style={{
-              fontSize: 10,
+              fontSize: 11,
               fontWeight: 600,
               color: toColor,
               textTransform: "uppercase",
@@ -143,7 +143,7 @@ export function GraduationBanner({ allIds }: { allIds: string[] }) {
           >
             {targetStack.name}
           </span>
-          <span style={{ fontSize: 10, color: toColor }}>{COMPLEXITY_LABEL[toComplexity]}</span>
+          <span style={{ fontSize: 11, color: toColor }}>{COMPLEXITY_LABEL[toComplexity]}</span>
         </div>
       </div>
 
@@ -152,7 +152,7 @@ export function GraduationBanner({ allIds }: { allIds: string[] }) {
         <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
           <span
             style={{
-              fontSize: 10,
+              fontSize: 11,
               fontWeight: 600,
               color: "var(--text-muted)",
               textTransform: "uppercase",
@@ -169,7 +169,7 @@ export function GraduationBanner({ allIds }: { allIds: string[] }) {
                 <span
                   key={id}
                   style={{
-                    fontSize: 10,
+                    fontSize: 11,
                     fontWeight: 500,
                     color,
                     background: color + "18",

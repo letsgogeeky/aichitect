@@ -118,7 +118,7 @@ export function RoastPanel({ report, allIds }: RoastPanelProps) {
           <span style={{ fontSize: 13 }}>🔥</span>
           <span
             style={{
-              fontSize: 10,
+              fontSize: 11,
               fontWeight: 700,
               textTransform: "uppercase",
               letterSpacing: "0.08em",
@@ -241,7 +241,7 @@ export function RoastPanel({ report, allIds }: RoastPanelProps) {
           gap: 10,
         }}
       >
-        <span style={{ fontSize: 10, color: "var(--text-muted)", whiteSpace: "nowrap" }}>
+        <span style={{ fontSize: 11, color: "var(--text-muted)", whiteSpace: "nowrap" }}>
           Gentle Nudge
         </span>
         <div style={{ flex: 1, position: "relative" }}>
@@ -263,12 +263,12 @@ export function RoastPanel({ report, allIds }: RoastPanelProps) {
             }}
           />
         </div>
-        <span style={{ fontSize: 10, color: "var(--text-muted)", whiteSpace: "nowrap" }}>
+        <span style={{ fontSize: 11, color: "var(--text-muted)", whiteSpace: "nowrap" }}>
           Full Destruction
         </span>
         <span
           style={{
-            fontSize: 10,
+            fontSize: 11,
             fontWeight: 600,
             color: currentLevel.color,
             whiteSpace: "nowrap",

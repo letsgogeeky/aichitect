@@ -122,7 +122,7 @@ export default async function ChangelogPage() {
                       </span>
                       <span
                         style={{
-                          fontSize: 10,
+                          fontSize: 11,
                           fontWeight: 700,
                           color: "var(--accent)",
                           background: "#7c6bff20",
@@ -137,7 +137,7 @@ export default async function ChangelogPage() {
                       </span>
                       <span
                         style={{
-                          fontSize: 10,
+                          fontSize: 11,
                           color: "var(--text-muted)",
                           textTransform: "capitalize",
                         }}
@@ -161,7 +161,7 @@ export default async function ChangelogPage() {
                     </p>
                   </div>
                   <div style={{ flexShrink: 0, textAlign: "right" }}>
-                    <span style={{ fontSize: 10, color: "var(--text-muted)" }}>
+                    <span style={{ fontSize: 11, color: "var(--text-muted)" }}>
                       {relativeDate(tool.added_at!)}
                     </span>
                   </div>
@@ -212,11 +212,11 @@ export default async function ChangelogPage() {
                 />
                 <span style={{ flex: 1, fontSize: 12, color: "#c0c0d8" }}>{tool.name}</span>
                 {tool.health_score != null && (
-                  <span style={{ fontSize: 10, color: "var(--text-muted)" }}>
+                  <span style={{ fontSize: 11, color: "var(--text-muted)" }}>
                     score {tool.health_score}
                   </span>
                 )}
-                <span style={{ fontSize: 10, color: "var(--text-muted)" }}>
+                <span style={{ fontSize: 11, color: "var(--text-muted)" }}>
                   {relativeDate(tool.last_synced_at!)}
                 </span>
               </div>
@@ -251,7 +251,7 @@ export default async function ChangelogPage() {
             >
               <span
                 style={{
-                  fontSize: 10,
+                  fontSize: 11,
                   fontWeight: 700,
                   color: "#fd9644",
                   background: "#fd964418",
@@ -269,7 +269,7 @@ export default async function ChangelogPage() {
               </span>
               <span
                 style={{
-                  fontSize: 10,
+                  fontSize: 11,
                   color: "var(--text-muted)",
                   textTransform: "uppercase",
                   letterSpacing: "0.06em",
@@ -280,7 +280,9 @@ export default async function ChangelogPage() {
             </div>
           ))}
         </div>
-        <p style={{ fontSize: 12, color: "#444466", margin: "12px 0 0", lineHeight: 1.5 }}>
+        <p
+          style={{ fontSize: 12, color: "var(--text-muted)", margin: "12px 0 0", lineHeight: 1.5 }}
+        >
           Want to contribute or suggest a tool?{" "}
           <Link
             href="https://github.com/ramymoussa/aichitect"

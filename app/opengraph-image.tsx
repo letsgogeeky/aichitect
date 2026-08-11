@@ -153,7 +153,7 @@ export default function Image() {
           position: "absolute",
           bottom: 32,
           fontSize: 14,
-          color: "#333355",
+          color: "#7f7fa4",
           display: "flex",
         }}
       >

@@ -346,7 +346,7 @@ function MatchCard({
                 borderRadius: 10,
                 background: "var(--btn)",
                 border: "1px solid var(--btn-border)",
-                color: "#6666aa",
+                color: "var(--text-secondary)",
                 fontFamily: "monospace",
               }}
             >
@@ -361,7 +361,7 @@ function MatchCard({
                 borderRadius: 10,
                 background: "var(--btn)",
                 border: "1px solid var(--btn-border)",
-                color: "#444466",
+                color: "var(--text-muted)",
               }}
             >
               +{stack.tools.length - 6} more

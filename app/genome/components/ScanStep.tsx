@@ -133,7 +133,7 @@ export function ScanStep({
                 }}
               >
                 {filled && !active && (
-                  <span style={{ color: "var(--accent-2)", fontSize: 10 }}>✓</span>
+                  <span style={{ color: "var(--accent-2)", fontSize: 11 }}>✓</span>
                 )}
                 {tab.label}
               </button>
@@ -236,7 +236,7 @@ export function ScanStep({
         >
           <span
             style={{
-              fontSize: 10,
+              fontSize: 11,
               fontWeight: 600,
               color: "var(--text-muted)",
               letterSpacing: "0.06em",
@@ -270,7 +270,7 @@ export function ScanStep({
           </div>
         </div>
       ) : (
-        <p style={{ marginTop: 20, fontSize: 12, color: "#333355" }}>
+        <p style={{ marginTop: 20, fontSize: 12, color: "var(--text-muted)" }}>
           All processing is client-side — nothing leaves your browser.
         </p>
       )}

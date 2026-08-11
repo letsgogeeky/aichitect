@@ -37,7 +37,7 @@ export function TrackScorePanel({ title, subtitle, trackColor, score }: Props) {
         <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
           <div
             style={{
-              fontSize: 10,
+              fontSize: 11,
               fontWeight: 700,
               textTransform: "uppercase",
               letterSpacing: "0.08em",
@@ -95,7 +95,7 @@ export function TrackScorePanel({ title, subtitle, trackColor, score }: Props) {
               style={
                 isCovered
                   ? {
-                      fontSize: 10,
+                      fontSize: 11,
                       fontWeight: 500,
                       padding: "2px 7px",
                       borderRadius: 4,
@@ -104,7 +104,7 @@ export function TrackScorePanel({ title, subtitle, trackColor, score }: Props) {
                       border: `1px solid ${trackColor}55`,
                     }
                   : {
-                      fontSize: 10,
+                      fontSize: 11,
                       fontWeight: 500,
                       padding: "2px 7px",
                       borderRadius: 4,
@@ -122,11 +122,11 @@ export function TrackScorePanel({ title, subtitle, trackColor, score }: Props) {
       </div>
 
       {score.missingPhases.length > 0 ? (
-        <p style={{ fontSize: 10, color: "var(--text-muted)", margin: 0, lineHeight: 1.4 }}>
+        <p style={{ fontSize: 11, color: "var(--text-muted)", margin: 0, lineHeight: 1.4 }}>
           Missing: {score.missingPhases.map((p) => LIFECYCLE_PHASE_LABEL[p]).join(", ")}.
         </p>
       ) : (
-        <p style={{ fontSize: 10, color: trackColor, margin: 0, lineHeight: 1.4 }}>
+        <p style={{ fontSize: 11, color: trackColor, margin: 0, lineHeight: 1.4 }}>
           ● Full {title.toLowerCase()} coverage.
         </p>
       )}

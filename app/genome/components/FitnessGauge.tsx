@@ -36,14 +36,14 @@ export function FitnessGauge({ score, tier }: { score: number; tier: GenomeTier 
           <span style={{ fontSize: 26, fontWeight: 700, color: "#f0f0f8", lineHeight: 1 }}>
             {score}
           </span>
-          <span style={{ fontSize: 10, color: "var(--text-secondary)", marginTop: 2 }}>/ 100</span>
+          <span style={{ fontSize: 11, color: "var(--text-secondary)", marginTop: 2 }}>/ 100</span>
         </div>
       </div>
       <div
         style={{
           padding: "2px 10px",
           borderRadius: 20,
-          fontSize: 10,
+          fontSize: 11,
           fontWeight: 600,
           background: color + "18",
           border: `1px solid ${color}44`,

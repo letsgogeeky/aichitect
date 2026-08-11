@@ -306,3 +306,44 @@ the flagged-but-unfixed items above are good starting points:
 `SLOT_AUTONOMY["multimodal"]`'s color and the app-wide `multimodal` category
 color (`#6c5ce7`, fails AA even at full opacity) are the one open item that
 needs a deliberate design decision rather than a mechanical fix.
+
+## Iteration 8 — gap fix: app/genome/, app/match/, app/mcp/, app/changelog/ + stragglers
+
+A final repo-wide sanity sweep after "Iteration 7 (final)" found that
+`app/genome/` (a ~15-file flagship route per the architecture doc),
+`app/match/`, `app/mcp/`, `app/changelog/`, and `app/compare/CompareClient.tsx`
+were never covered by the original 7-task plan, plus a handful of the same
+recurring bugs had leaked into files already marked done:
+
+- The `#444466`/`#333355`/`#6666aa`/`#6c6c8a` dark-text bug from Iteration 7
+  also existed in `MatchClient.tsx`, `mcp/page.tsx`, `changelog/page.tsx`,
+  `GraduationBanner.tsx`, `ScanStep.tsx`, `SlotGrid.tsx`,
+  `StackQuizModal.tsx`, `CompareClient.tsx`, and — same pattern again —
+  **10 OG/social-share-image routes** (`#2a2a44` footer branding at 1.42:1,
+  `#333355` at 1.64:1, `#6666aa` at 3.81:1): the "cut the noise, pick your
+  AI stack." tagline and URL that render on every shared link preview were
+  themselves nearly invisible. Fixed with a literal hex bump (`#7f7fa4` /
+  `#8888aa`, matching the app tokens) since these are Satori-rendered and
+  can't use `var()`.
+- `StacksClient.tsx` and `StackDetailHeader.tsx` (touched in Iteration 4)
+  still had a plain, non-alpha `#6666aa` (3.81:1) that the alpha-suffix-only
+  regex used at the time didn't match.
+- `DetailPanel.tsx` (touched in Iteration 3) had one remaining `#ff6b6b99`
+  (3.15:1) instance the earlier pass missed.
+- `MatchClient.tsx`: `#ff6b6b88`/`#ff6b6b66` (2.71:1 / 2.0:1) on the "kill
+  conditions" heading and bullet.
+- ~50 more `fontSize: 10` instances across all of `app/genome/`.
+
+**Fixes:** all of the above bumped to the appropriate token (`var(--danger)`,
+`var(--text-muted)`, `var(--text-secondary)`) or literal hex equivalent for
+OG routes; remaining 10px text → 11px throughout `app/genome/`, `app/match/`,
+`app/mcp/`, `app/changelog/`, `app/compare/CompareClient.tsx`.
+
+**Lesson for future passes:** the original task breakdown was built from
+`CLAUDE.md`'s route list but missed a few directories on the first read, and
+the alpha-suffix regex (`#RRGGBBAA`) used in Iterations 2-4 didn't catch
+plain 6-digit dark colors used the same way. This final sweep grepped the
+_entire_ repo for both patterns rather than trusting the per-directory task
+list — that's what caught the remaining instances above.
+
+**Nothing hidden this iteration.**

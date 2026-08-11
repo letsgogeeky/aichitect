@@ -70,7 +70,7 @@ function ToolChip({
       </div>
       <span
         style={{
-          fontSize: 10,
+          fontSize: 11,
           color: "var(--text-muted)",
           lineHeight: 1.4,
           paddingLeft: 12,
@@ -170,7 +170,7 @@ export function WorkflowStep({ onNext }: { onNext: (workflowIds: string[]) => vo
           <div key={group.label}>
             <p
               style={{
-                fontSize: 10,
+                fontSize: 11,
                 fontWeight: 700,
                 textTransform: "uppercase",
                 letterSpacing: "0.08em",

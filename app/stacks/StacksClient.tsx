@@ -308,7 +308,7 @@ function StacksContent({
                 style={{
                   background: "var(--btn)",
                   border: "1px solid var(--btn-border)",
-                  color: "#6666aa",
+                  color: "var(--text-secondary)",
                 }}
               >
                 {selected.monthly_cost}/mo

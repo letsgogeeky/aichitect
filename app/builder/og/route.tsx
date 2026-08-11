@@ -157,7 +157,7 @@ export async function GET(request: NextRequest) {
                   style={{
                     fontSize: 15,
                     fontWeight: 600,
-                    color: "#6666aa",
+                    color: "#8888aa",
                     letterSpacing: 0.3,
                   }}
                 >
@@ -258,7 +258,7 @@ export async function GET(request: NextRequest) {
           </div>
         ) : (
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <div style={{ fontSize: 22, color: "#2a2a44", textAlign: "center" }}>
+            <div style={{ fontSize: 22, color: "#7f7fa4", textAlign: "center" }}>
               Pick your tools and share your AI stack.
             </div>
           </div>
@@ -272,8 +272,8 @@ export async function GET(request: NextRequest) {
             justifyContent: "space-between",
           }}
         >
-          <span style={{ fontSize: 14, color: "#2a2a44" }}>{SITE_HOST}</span>
-          <span style={{ fontSize: 14, color: "#2a2a44" }}>cut the noise. pick your AI stack.</span>
+          <span style={{ fontSize: 14, color: "#7f7fa4" }}>{SITE_HOST}</span>
+          <span style={{ fontSize: 14, color: "#7f7fa4" }}>cut the noise. pick your AI stack.</span>
         </div>
       </div>
     </div>,

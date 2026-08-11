@@ -161,7 +161,7 @@ export default async function Image({ searchParams }: { searchParams: Promise<{ 
                   style={{
                     fontSize: 15,
                     fontWeight: 600,
-                    color: "#6666aa",
+                    color: "#8888aa",
                     letterSpacing: 0.3,
                   }}
                 >
@@ -279,7 +279,7 @@ export default async function Image({ searchParams }: { searchParams: Promise<{ 
             <div
               style={{
                 fontSize: 22,
-                color: "#2a2a44",
+                color: "#7f7fa4",
                 textAlign: "center",
               }}
             >
@@ -296,8 +296,8 @@ export default async function Image({ searchParams }: { searchParams: Promise<{ 
             justifyContent: "space-between",
           }}
         >
-          <span style={{ fontSize: 14, color: "#2a2a44" }}>{SITE_HOST}</span>
-          <span style={{ fontSize: 14, color: "#2a2a44" }}>cut the noise. pick your AI stack.</span>
+          <span style={{ fontSize: 14, color: "#7f7fa4" }}>{SITE_HOST}</span>
+          <span style={{ fontSize: 14, color: "#7f7fa4" }}>cut the noise. pick your AI stack.</span>
         </div>
       </div>
     </div>,

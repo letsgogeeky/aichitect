@@ -236,7 +236,7 @@ export async function GET(request: NextRequest) {
         {/* ── FOOTER ── */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
-            <span style={{ fontSize: 14, color: "#2a2a44" }}>{SITE_HOST}</span>
+            <span style={{ fontSize: 14, color: "#7f7fa4" }}>{SITE_HOST}</span>
             {rejectedCount > 0 && (
               <span style={{ fontSize: 13, color: "#3a3a55" }}>
                 {rejectedCount} tool{rejectedCount !== 1 ? "s" : ""} rejected
@@ -248,7 +248,7 @@ export async function GET(request: NextRequest) {
               </span>
             )}
           </div>
-          <span style={{ fontSize: 14, color: "#2a2a44" }}>cut the noise. pick your AI stack.</span>
+          <span style={{ fontSize: 14, color: "#7f7fa4" }}>cut the noise. pick your AI stack.</span>
         </div>
       </div>
     </div>,

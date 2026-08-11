@@ -197,7 +197,7 @@ export async function GET(request: NextRequest) {
           <div
             style={{
               fontSize: 22,
-              color: "#6666aa",
+              color: "#8888aa",
               letterSpacing: 0.1,
               lineHeight: 1.4,
               maxWidth: 700,
@@ -248,8 +248,8 @@ export async function GET(request: NextRequest) {
           )}
 
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            <span style={{ fontSize: 14, color: "#2a2a44" }}>{SITE_HOST}/explore</span>
-            <span style={{ fontSize: 14, color: "#2a2a44" }}>
+            <span style={{ fontSize: 14, color: "#7f7fa4" }}>{SITE_HOST}/explore</span>
+            <span style={{ fontSize: 14, color: "#7f7fa4" }}>
               cut the noise. pick your AI stack.
             </span>
           </div>

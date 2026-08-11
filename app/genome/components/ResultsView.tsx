@@ -68,7 +68,7 @@ function ArchetypeBadge({ archetype }: { archetype: StackArchetype }) {
         borderRadius: 6,
         background: `${color}18`,
         border: `1px solid ${color}44`,
-        fontSize: 10,
+        fontSize: 11,
         fontWeight: 600,
         color,
         letterSpacing: "0.04em",
@@ -216,7 +216,7 @@ export function ResultsView({
           >
             ← Re-analyze
           </button>
-          <span style={{ color: "#1e1e2e" }}>|</span>
+          <span style={{ color: "var(--text-muted)" }}>|</span>
           <span style={{ fontSize: 12, color: "var(--text-secondary)" }}>
             <span style={{ color: "#f0f0f8", fontWeight: 500 }}>{allIds.length}</span> tools in your
             genome
@@ -382,7 +382,7 @@ export function ResultsView({
             <div style={{ padding: "8px 12px", borderBottom: "1px solid #1e1e2e" }}>
               <span
                 style={{
-                  fontSize: 10,
+                  fontSize: 11,
                   fontWeight: 700,
                   color: "var(--text-muted)",
                   textTransform: "uppercase",
@@ -433,7 +433,7 @@ export function ResultsView({
           <div>
             <p
               style={{
-                fontSize: 10,
+                fontSize: 11,
                 fontWeight: 700,
                 textTransform: "uppercase",
                 letterSpacing: "0.08em",
@@ -466,7 +466,7 @@ export function ResultsView({
           <div>
             <p
               style={{
-                fontSize: 10,
+                fontSize: 11,
                 fontWeight: 700,
                 textTransform: "uppercase",
                 letterSpacing: "0.08em",

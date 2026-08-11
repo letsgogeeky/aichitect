@@ -239,10 +239,10 @@ export default async function Image({ params }: { params: Promise<{ stackId: str
 
         {/* Footer */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <span style={{ fontSize: 14, color: "#2a2a44" }}>
+          <span style={{ fontSize: 14, color: "#7f7fa4" }}>
             {SITE_HOST}/stacks/{stackId}
           </span>
-          <span style={{ fontSize: 14, color: "#2a2a44" }}>cut the noise. pick your AI stack.</span>
+          <span style={{ fontSize: 14, color: "#7f7fa4" }}>cut the noise. pick your AI stack.</span>
         </div>
       </div>
     </div>,

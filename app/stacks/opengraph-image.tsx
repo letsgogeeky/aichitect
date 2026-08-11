@@ -92,7 +92,7 @@ export default function Image() {
       <div
         style={{
           fontSize: 18,
-          color: "#6666aa",
+          color: "#8888aa",
           marginBottom: 52,
           display: "flex",
         }}
@@ -136,7 +136,7 @@ export default function Image() {
           position: "absolute",
           bottom: 32,
           fontSize: 14,
-          color: "#333355",
+          color: "#7f7fa4",
           display: "flex",
         }}
       >

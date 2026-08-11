@@ -1,7 +1,7 @@
 export function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-      <span style={{ fontSize: 10, color: "var(--text-muted)" }}>{label}</span>
+      <span style={{ fontSize: 11, color: "var(--text-muted)" }}>{label}</span>
       <span style={{ fontSize: 12, fontWeight: 500, color: "#f0f0f8" }}>{value}</span>
     </div>
   );
