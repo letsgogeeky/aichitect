@@ -347,3 +347,29 @@ _entire_ repo for both patterns rather than trusting the per-directory task
 list — that's what caught the remaining instances above.
 
 **Nothing hidden this iteration.**
+
+## Iteration 9 (final cleanup) — app/simulate/, remaining modals, page.tsx stragglers
+
+A second repo-wide grep after Iteration 8 turned up one more uncovered
+route (`app/simulate/`, the cost simulator — 23 files, ~3,600 lines) plus
+leftover `fontSize: 10` in four modal components whose hex colors were
+fixed back in Iteration 1 but whose sizes were never swept, and 14
+remaining `fontSize: 10` instances in `app/page.tsx` that Iteration 7 had
+missed (it only fixed that file's broken colors, not its sizes).
+
+**Fixes:** `fontSize: 10` → `11` across `ProviderCompare.tsx`,
+`UnitEconomics.tsx` (app/simulate/), `SuggestToolModal.tsx`,
+`GetStartedModal.tsx`, `WalkthroughOverlay.tsx`, `StackQuizModal.tsx`, all
+remaining instances in `app/page.tsx`, and one `fontSize: 8` tag in
+`genome/MissingPanel.tsx`.
+
+**Verified clean:** a final repo-wide grep for every pattern used throughout
+this audit (sub-11px text, translucent/dark brand colors as text color,
+opacity stacked on already-muted text) now returns only the handful of
+previously-reviewed, intentional exceptions — decorative bullet/radio-dot
+glyphs (`ComparisonPanel.tsx`, `FilterPanel.tsx`) and avatar-fallback
+initials sized to fit their physical circle (`DetailPanel.tsx`,
+`ToolNode.tsx`, `MyStackTray.tsx`, all 9-10px inside 14-20px circles,
+documented in Iterations 2-3).
+
+**Nothing hidden this iteration.**

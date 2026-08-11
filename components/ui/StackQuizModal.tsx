@@ -159,7 +159,7 @@ function MatchCard({
             <span style={{ fontSize: 13, fontWeight: 600, color: "#f0f0f8" }}>{stack.name}</span>
             <span
               style={{
-                fontSize: 10,
+                fontSize: 11,
                 fontWeight: 600,
                 color: labelColor,
                 background: labelColor + "18",
@@ -256,7 +256,7 @@ function MatchCard({
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
               <span
                 style={{
-                  fontSize: 10,
+                  fontSize: 11,
                   fontWeight: 700,
                   color: labelColor,
                   background: labelColor + "18",
@@ -287,7 +287,7 @@ function MatchCard({
             {stack.complexity && (
               <span
                 style={{
-                  fontSize: 10,
+                  fontSize: 11,
                   fontWeight: 600,
                   color: complexityColor,
                   background: complexityColor + "18",
@@ -301,7 +301,7 @@ function MatchCard({
               </span>
             )}
             {stack.monthly_cost && (
-              <span style={{ fontSize: 10, color: "var(--text-muted)" }}>
+              <span style={{ fontSize: 11, color: "var(--text-muted)" }}>
                 {stack.monthly_cost}/mo
               </span>
             )}
@@ -341,7 +341,7 @@ function MatchCard({
             <span
               key={id}
               style={{
-                fontSize: 10,
+                fontSize: 11,
                 padding: "2px 8px",
                 borderRadius: 10,
                 background: "var(--btn)",
@@ -356,7 +356,7 @@ function MatchCard({
           {stack.tools.length > 6 && (
             <span
               style={{
-                fontSize: 10,
+                fontSize: 11,
                 padding: "2px 8px",
                 borderRadius: 10,
                 background: "var(--btn)",
@@ -598,7 +598,7 @@ export function StackQuizModal({ onClose, onApply }: Props) {
                 <div>
                   <p
                     style={{
-                      fontSize: 10,
+                      fontSize: 11,
                       color: "var(--text-muted)",
                       margin: "0 0 8px",
                       textTransform: "uppercase",

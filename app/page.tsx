@@ -1129,7 +1129,7 @@ export default async function LandingPage() {
                   {/* Type badge */}
                   <span
                     style={{
-                      fontSize: 10,
+                      fontSize: 11,
                       fontWeight: 600,
                       color,
                       background: `${color}14`,
@@ -1528,7 +1528,7 @@ export default async function LandingPage() {
               </span>
               <span
                 style={{
-                  fontSize: 10,
+                  fontSize: 11,
                   fontWeight: 600,
                   color: "#7c6bff",
                   background: "#7c6bff15",
@@ -1552,7 +1552,7 @@ export default async function LandingPage() {
               <div>
                 <p
                   style={{
-                    fontSize: 10,
+                    fontSize: 11,
                     fontWeight: 600,
                     color: "var(--text-muted)",
                     textTransform: "uppercase",
@@ -1582,7 +1582,7 @@ export default async function LandingPage() {
                   padding: "10px 12px",
                 }}
               >
-                <p style={{ fontSize: 10, fontWeight: 600, color: "#ff6b6b", margin: "0 0 4px" }}>
+                <p style={{ fontSize: 11, fontWeight: 600, color: "#ff6b6b", margin: "0 0 4px" }}>
                   ✕ Not in this stack
                 </p>
                 <p style={{ fontSize: 11, color: "var(--text-secondary)", margin: 0 }}>
@@ -1601,7 +1601,7 @@ export default async function LandingPage() {
                   padding: "10px 12px",
                 }}
               >
-                <p style={{ fontSize: 10, fontWeight: 600, color: "#fd9644", margin: "0 0 4px" }}>
+                <p style={{ fontSize: 11, fontWeight: 600, color: "#fd9644", margin: "0 0 4px" }}>
                   ⚡ Kill condition
                 </p>
                 <p
@@ -1672,7 +1672,7 @@ export default async function LandingPage() {
                 {label}
                 <span
                   style={{
-                    fontSize: 10,
+                    fontSize: 11,
                     color: `${color}88`,
                     background: `${color}18`,
                     borderRadius: 10,
@@ -1849,7 +1849,7 @@ export default async function LandingPage() {
               </span>
               <span
                 style={{
-                  fontSize: 10,
+                  fontSize: 11,
                   fontWeight: 600,
                   color: "#26de81",
                   background: "#26de8115",
@@ -1912,7 +1912,7 @@ export default async function LandingPage() {
                 </svg>
                 <span
                   style={{
-                    fontSize: 10,
+                    fontSize: 11,
                     color: "var(--text-muted)",
                     textAlign: "center",
                     lineHeight: 1.4,
@@ -1946,8 +1946,8 @@ export default async function LandingPage() {
                       border: `1px solid ${color}28`,
                     }}
                   >
-                    <span style={{ fontSize: 10, color: "var(--text-muted)" }}>{slot}</span>
-                    <span style={{ fontSize: 10, fontWeight: 600, color }}>{tool} ✓</span>
+                    <span style={{ fontSize: 11, color: "var(--text-muted)" }}>{slot}</span>
+                    <span style={{ fontSize: 11, fontWeight: 600, color }}>{tool} ✓</span>
                   </div>
                 ))}
                 {/* Missing slots */}
@@ -1967,8 +1967,8 @@ export default async function LandingPage() {
                       border: "1px solid #1e1e2e",
                     }}
                   >
-                    <span style={{ fontSize: 10, color: "var(--text-muted)" }}>{slot}</span>
-                    <span style={{ fontSize: 10, color: "var(--text-muted)" }}>→ {suggest}</span>
+                    <span style={{ fontSize: 11, color: "var(--text-muted)" }}>{slot}</span>
+                    <span style={{ fontSize: 11, color: "var(--text-muted)" }}>→ {suggest}</span>
                   </div>
                 ))}
 
@@ -1985,7 +1985,7 @@ export default async function LandingPage() {
                 >
                   <span
                     style={{
-                      fontSize: 10,
+                      fontSize: 11,
                       fontWeight: 700,
                       color: "#ff6b6b",
                       textTransform: "uppercase",
@@ -1997,7 +1997,7 @@ export default async function LandingPage() {
                   <p
                     style={{
                       margin: "4px 0 0",
-                      fontSize: 10,
+                      fontSize: 11,
                       color: "var(--text-secondary)",
                       lineHeight: 1.5,
                     }}

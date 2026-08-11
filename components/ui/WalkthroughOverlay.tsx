@@ -220,7 +220,7 @@ export default function WalkthroughOverlay() {
           {/* Step counter */}
           <p
             style={{
-              fontSize: 10,
+              fontSize: 11,
               color: "var(--text-muted)",
               marginBottom: 8,
               textTransform: "uppercase",

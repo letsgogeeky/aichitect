@@ -110,7 +110,7 @@ export default function ProviderCompare({ input, tools, comparisonUsers, onPickL
                   {i === 0 && (
                     <span
                       style={{
-                        fontSize: 10,
+                        fontSize: 11,
                         color: "var(--success)",
                         background: "color-mix(in srgb, var(--success) 12%, transparent)",
                         padding: "2px 6px",
@@ -124,7 +124,7 @@ export default function ProviderCompare({ input, tools, comparisonUsers, onPickL
                   {row.active && (
                     <span
                       style={{
-                        fontSize: 10,
+                        fontSize: 11,
                         color: "var(--accent)",
                         background: "color-mix(in srgb, var(--accent) 12%, transparent)",
                         padding: "2px 6px",

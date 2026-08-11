@@ -54,7 +54,7 @@ function ChecklistRow({ item }: { item: ChecklistItem }) {
           <span style={{ fontSize: 13, fontWeight: 600, color: "#f0f0f8" }}>{item.toolName}</span>
           <span
             style={{
-              fontSize: 10,
+              fontSize: 11,
               color: "var(--text-muted)",
               background: "var(--btn)",
               border: "1px solid var(--btn-border)",

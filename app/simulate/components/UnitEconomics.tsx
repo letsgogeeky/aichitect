@@ -54,7 +54,7 @@ export default function UnitEconomics({ snapshot }: Props) {
         >
           <span
             style={{
-              fontSize: 10,
+              fontSize: 11,
               textTransform: "uppercase",
               letterSpacing: 0.6,
               color: "var(--text-muted)",

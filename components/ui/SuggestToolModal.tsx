@@ -209,7 +209,7 @@ function Step1({
           placeholder="https://github.com/org/repo (optional)"
           type="url"
         />
-        <p style={{ marginTop: 4, fontSize: 10, color: "var(--text-muted)" }}>
+        <p style={{ marginTop: 4, fontSize: 11, color: "var(--text-muted)" }}>
           Providing a GitHub URL will auto-flag the tool as Open Source in the next step.
         </p>
       </div>
@@ -375,7 +375,7 @@ function PreviewCard({ form, color }: { form: FormData; color: string }) {
           />
           <span
             style={{
-              fontSize: 10,
+              fontSize: 11,
               fontWeight: 600,
               color,
               textTransform: "uppercase",
@@ -411,7 +411,7 @@ function PreviewCard({ form, color }: { form: FormData; color: string }) {
             {isOss && (
               <span
                 style={{
-                  fontSize: 10,
+                  fontSize: 11,
                   padding: "2px 7px",
                   borderRadius: 4,
                   background: "#26de8120",
@@ -427,7 +427,7 @@ function PreviewCard({ form, color }: { form: FormData; color: string }) {
             {form.hasFreeTier && (
               <span
                 style={{
-                  fontSize: 10,
+                  fontSize: 11,
                   padding: "2px 7px",
                   borderRadius: 4,
                   background: "#00d4aa15",
@@ -460,7 +460,7 @@ function PreviewCard({ form, color }: { form: FormData; color: string }) {
           <div style={{ marginTop: 8 }}>
             <span
               style={{
-                fontSize: 10,
+                fontSize: 11,
                 padding: "2px 7px",
                 borderRadius: 12,
                 border: "1px solid var(--btn-border)",
@@ -776,7 +776,7 @@ export default function SuggestToolModal({ onClose, prefillName = "" }: Props) {
         {!submitted && (
           <p
             style={{
-              fontSize: 10,
+              fontSize: 11,
               color: "var(--text-muted)",
               padding: "6px 20px 0",
               margin: 0,
