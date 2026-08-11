@@ -433,3 +433,39 @@ console errors.
 
 **Nothing hidden this iteration** — restructuring only, all filters still
 present and functional, just reordered/regrouped/decollapsed differently.
+
+## Iteration 11 — Activity Feed (FeedCard.tsx) restructure
+
+**Problem:** screenshotted `/feed` before touching anything — the collapsed
+card text was actually legible (Iterations 1-9 had already fixed the raw
+contrast issues here). The real problem was **homogeneity**: every single
+row — a routine 5-point health wobble and a critical service incident —
+rendered in an identical box with identical visual weight. The only
+differentiator was a 2px colored bar on the left edge, which requires
+reading every row to notice. With `Sweep AI` appearing three times in the
+first ten rows, the feed reads as a wall of near-identical boxes rather
+than a scannable timeline. Timestamps (`today`/`yesterday`) were also
+noticeably dim relative to everything else on the row.
+
+**Redesign:**
+
+- `eventDescription()` now returns an `icon` (one glyph per event type —
+  ↑/↓ for health, ⚡ for benchmark drift, ⭐ for star milestones, 📦 for
+  archived, 🔴 for incidents, ✓ for resolved) and a `severe` flag.
+- Each card now leads with a 28px colored icon badge instead of a bare
+  accent bar — gives the eye a scannable shape+color pattern before
+  reading any text, the way an inbox uses icons to let you triage without
+  reading every subject line.
+- Severe events (archived repos, incidents) get a tinted card background
+  and border (`eventColor + "0c"/"40"`) instead of the default neutral
+  card — they now visually interrupt the scroll instead of blending in
+  with routine health deltas.
+- Timestamp color: `text-muted` → `text-secondary` (still secondary
+  information, but no longer the dimmest thing on the row).
+
+**Verified:** screenshotted `/feed` before and after — icon badges render
+correctly per event type, colors match event severity, no console errors,
+`eventDescription` has no other call sites so the added return fields are
+safe.
+
+**Nothing hidden this iteration.**

@@ -12,7 +12,7 @@ type EventMeta = Record<string, unknown>;
 export function eventDescription(
   type: ToolEventType,
   metadata: EventMeta
-): { text: string; color: string } {
+): { text: string; color: string; icon: string; severe: boolean } {
   switch (type) {
     case "health_score_change": {
       const { old_score, new_score, delta } = metadata as {
@@ -24,6 +24,8 @@ export function eventDescription(
       return {
         text: `Health ${up ? "↑" : "↓"} ${old_score} → ${new_score}`,
         color: up ? "#26de81" : "#ff6b6b",
+        icon: up ? "↑" : "↓",
+        severe: false,
       };
     }
     case "stale_transition": {
@@ -31,12 +33,19 @@ export function eventDescription(
       return {
         text: `Went stale — no commits in ${days_since_commit}d`,
         color: "#f39c12",
+        icon: "⏸",
+        severe: false,
       };
     }
     case "archived_detected":
-      return { text: "Repository archived on GitHub", color: "#ff6b6b" };
+      return {
+        text: "Repository archived on GitHub",
+        color: "#ff6b6b",
+        icon: "📦",
+        severe: true,
+      };
     case "pricing_change":
-      return { text: "Pricing updated", color: "#74b9ff" };
+      return { text: "Pricing updated", color: "#74b9ff", icon: "$", severe: false };
     case "benchmark_drift": {
       const m = metadata as {
         ttft_delta_pct: number | null;
@@ -49,6 +58,8 @@ export function eventDescription(
         return {
           text: `Throughput ${better ? "↑" : "↓"} ${thr > 0 ? "+" : ""}${thr.toFixed(0)}% WoW`,
           color: better ? "#26de81" : "#ff6b6b",
+          icon: "⚡",
+          severe: false,
         };
       }
       if (ttft != null) {
@@ -56,15 +67,19 @@ export function eventDescription(
         return {
           text: `TTFT ${better ? "↓" : "↑"} ${ttft > 0 ? "+" : ""}${ttft.toFixed(0)}% WoW`,
           color: better ? "#26de81" : "#ff6b6b",
+          icon: "⚡",
+          severe: false,
         };
       }
-      return { text: "Benchmark drift", color: "var(--text-muted)" };
+      return { text: "Benchmark drift", color: "var(--text-muted)", icon: "⚡", severe: false };
     }
     case "star_milestone": {
       const { milestone, stars } = metadata as { milestone: number; stars: number };
       return {
         text: `Crossed ${milestone.toLocaleString()} stars ⭐ (now ${stars.toLocaleString()})`,
         color: "#fdcb6e",
+        icon: "⭐",
+        severe: false,
       };
     }
     case "incident_started": {
@@ -72,6 +87,8 @@ export function eventDescription(
       return {
         text: `${m.severity === "critical" ? "Critical" : "Major"} incident: ${m.title}`,
         color: m.severity === "critical" ? "#ff4757" : "#ff6b6b",
+        icon: "🔴",
+        severe: true,
       };
     }
     case "incident_resolved": {
@@ -81,10 +98,12 @@ export function eventDescription(
       return {
         text: `Resolved: ${m.title}${durStr ? ` (${durStr})` : ""}`,
         color: "#26de81",
+        icon: "✓",
+        severe: false,
       };
     }
     default:
-      return { text: type, color: "var(--text-muted)" };
+      return { text: type, color: "var(--text-muted)", icon: "•", severe: false };
   }
 }
 
@@ -490,28 +509,46 @@ export function FeedCard({ event }: { event: FeedEvent }) {
   const color = getCategoryColor(event.tool_category);
   const catLabel =
     CATEGORIES.find((c) => c.id === event.tool_category)?.label ?? event.tool_category;
-  const { text, color: eventColor } = eventDescription(event.type, event.metadata as EventMeta);
+  const {
+    text,
+    color: eventColor,
+    icon,
+    severe,
+  } = eventDescription(event.type, event.metadata as EventMeta);
 
   return (
     <div
       className="rounded-xl overflow-hidden"
-      style={{ background: "var(--surface)", border: "1px solid var(--border)" }}
+      style={{
+        background: severe ? eventColor + "0c" : "var(--surface)",
+        border: `1px solid ${severe ? eventColor + "40" : "var(--border)"}`,
+      }}
     >
       {/* Main row — clickable to expand */}
       <button
-        className="w-full text-left px-4 py-3.5 flex items-start gap-3"
+        className="w-full text-left px-4 py-3 flex items-start gap-3"
         onClick={() => setExpanded((v) => !v)}
         aria-expanded={expanded}
       >
-        {/* Left accent */}
+        {/* Event-type icon — gives the eye a scannable shape/color before
+            reading any text, instead of every row looking identical. */}
         <div
-          className="w-0.5 self-stretch rounded-full flex-shrink-0 mt-0.5"
-          style={{ background: eventColor, minHeight: 16 }}
-        />
+          className="flex items-center justify-center rounded-lg flex-shrink-0"
+          style={{
+            width: 28,
+            height: 28,
+            background: eventColor + "16",
+            color: eventColor,
+            fontSize: 13,
+          }}
+          aria-hidden
+        >
+          {icon}
+        </div>
 
         <div className="flex-1 min-w-0">
           {/* Tool + category */}
-          <div className="flex items-center gap-2 mb-1 flex-wrap">
+          <div className="flex items-center gap-2 mb-0.5 flex-wrap">
             <span className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>
               {event.tool_name}
             </span>
@@ -533,7 +570,7 @@ export function FeedCard({ event }: { event: FeedEvent }) {
         <div className="flex items-center gap-2 flex-shrink-0 mt-0.5">
           <span
             className="text-[11px]"
-            style={{ color: "var(--text-muted)" }}
+            style={{ color: "var(--text-secondary)" }}
             title={event.detected_at}
           >
             {formatRelativeTime(event.detected_at)}
