@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Fragment } from "react";
 import { CategoryMomentumCard } from "./components/CategoryMomentumCard";
 import { LatencyLeadersCard } from "./components/LatencyLeadersCard";
 import { ActiveIncidentsCard } from "./components/ActiveIncidentsCard";
@@ -61,12 +62,42 @@ function SummaryBar({ categories }: { categories: CategoryMomentum[] }) {
   );
 }
 
+/**
+ * Surface what needs attention first, instead of raw data order. A 17-card
+ * grid in arbitrary order forces the user to read every card to find the
+ * two that matter; sorting brings at-risk and declining categories to the
+ * top, "no data yet" to the bottom.
+ */
+function urgencyBucket(c: CategoryMomentum): number {
+  if (c.at_risk_count > 0) return 0;
+  if (c.momentum == null && c.avg_health_now == null) return 4;
+  if (c.momentum != null && c.momentum < -5) return 1;
+  if (c.momentum != null && c.momentum > 5) return 3;
+  return 2;
+}
+
+function sortByUrgency(categories: CategoryMomentum[]): CategoryMomentum[] {
+  return [...categories].sort((a, b) => {
+    const bucketDiff = urgencyBucket(a) - urgencyBucket(b);
+    if (bucketDiff !== 0) return bucketDiff;
+    const aMomentum = a.momentum ?? 0;
+    const bMomentum = b.momentum ?? 0;
+    return aMomentum - bMomentum;
+  });
+}
+
+const GROUP_LABEL = ["Needs attention", "Declining", "Stable", "Rising", "No data yet"];
+function groupLabel(c: CategoryMomentum): string {
+  return GROUP_LABEL[urgencyBucket(c)];
+}
+
 export default async function PulsePage() {
-  const [categories, latencyLeaders, activeIncidents] = await Promise.all([
+  const [categoriesRaw, latencyLeaders, activeIncidents] = await Promise.all([
     getCategoryMomentum(),
     getLatencyLeaders(8),
     getActiveIncidents(5),
   ]);
+  const categories = sortByUrgency(categoriesRaw);
   const hasData = categories.some((c) => c.avg_health_now != null);
 
   return (
@@ -107,9 +138,23 @@ export default async function PulsePage() {
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 items-start">
-            {categories.map((cat) => (
-              <CategoryMomentumCard key={cat.category_id} data={cat} />
-            ))}
+            {categories.map((cat, i) => {
+              const label = groupLabel(cat);
+              const prevLabel = i > 0 ? groupLabel(categories[i - 1]) : null;
+              return (
+                <Fragment key={cat.category_id}>
+                  {label !== prevLabel && (
+                    <p
+                      className="col-span-full type-overline text-[var(--text-muted)]"
+                      style={{ marginTop: i === 0 ? 0 : 8 }}
+                    >
+                      {label}
+                    </p>
+                  )}
+                  <CategoryMomentumCard data={cat} />
+                </Fragment>
+              );
+            })}
           </div>
         )}
       </div>

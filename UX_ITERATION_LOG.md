@@ -469,3 +469,40 @@ correctly per event type, colors match event severity, no console errors,
 safe.
 
 **Nothing hidden this iteration.**
+
+## Iteration 12 — Ecosystem Pulse (page.tsx) restructure
+
+**Problem:** screenshotted `/pulse` first. Initial suspicion — that all 17
+category cards had loud, fully-saturated colored borders competing for
+attention — turned out to be a **misread of a compressed screenshot**;
+`getComputedStyle()` on the actual rendered card confirmed the border is
+only a 2px colored _top_ accent, with the rest at a subtle `white/10`
+(logged here so a future pass doesn't waste time re-litigating it: always
+verify a visual read against computed styles before redesigning around
+it, especially for anything border/shadow-related at small sizes).
+
+The real problem was **ordering**: `getCategoryMomentum()` returns
+categories in raw data order, and `page.tsx` rendered them as-is — so
+"needs attention" cards (at-risk, declining) were scattered randomly among
+15 other cards. A monitoring dashboard where the reader has to check every
+row to find the 2-3 that matter is the textbook case of density without
+hierarchy.
+
+**Redesign:**
+
+- Added `sortByUrgency()`: at-risk categories first, then declining
+  (momentum < -5), then stable, then rising, then "no data yet" last —
+  each bucket internally sorted worst-momentum-first.
+- Added visible section labels (`NEEDS ATTENTION`, `DECLINING`, `STABLE`,
+  `RISING`, `NO DATA YET`) inserted into the grid wherever the bucket
+  changes, so the reordering is legible as structure, not just invisible
+  shuffling. A user's eye now lands on 2-3 cards worth acting on before
+  scrolling into the 12 that are fine.
+
+**Verified:** screenshotted `/pulse` after the change — "Needs attention"
+(MCP Servers, Multimodal, Agent Frameworks, all showing `⚠ at risk`) now
+leads the page; "No data yet" categories correctly sink to the bottom; no
+console errors; `make typecheck` clean.
+
+**Nothing hidden this iteration** — same 17 categories shown, just ordered
+and grouped by what the reader actually needs to see first.
