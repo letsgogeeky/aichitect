@@ -198,7 +198,11 @@ export default function SimulateAppClient({ tools, initialInput, initialShadow }
     >
       <style>{`
         @media (max-width: 880px) {
-          .simulate-grid { grid-template-columns: 1fr !important; }
+          /* minmax(0, 1fr), not 1fr — a bare fr track can't shrink below its
+             content's intrinsic min-width, so any wide inner element (e.g. a
+             chart) would force this track past the viewport and cause
+             horizontal scroll on the whole page. */
+          .simulate-grid { grid-template-columns: minmax(0, 1fr) !important; }
           .simulate-aside { position: static !important; }
         }
       `}</style>

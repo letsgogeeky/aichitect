@@ -43,7 +43,7 @@ function NavViewLinks() {
 
   return (
     <div
-      className="flex items-center"
+      className="hidden sm:flex items-center"
       style={{ background: "var(--btn)", borderRadius: 8, padding: 3, gap: 2, height: 34 }}
     >
       {VIEWS.map(({ href, label, Icon }) => {
@@ -175,7 +175,7 @@ export default function Navbar({ counts }: { counts?: Counts }) {
           <Suspense
             fallback={
               <div
-                className="flex items-center"
+                className="hidden sm:flex items-center"
                 style={{
                   background: "var(--btn)",
                   borderRadius: 8,
@@ -400,6 +400,30 @@ export default function Navbar({ counts }: { counts?: Counts }) {
         snapPoints={[40, 60]}
       >
         <div className="px-4 pt-1 pb-4 space-y-2">
+          {/* View links — the icon tab bar in the header is desktop-only (sm:flex),
+              so this is the only way to switch views on mobile. */}
+          <div className="grid grid-cols-2 gap-2 mb-2">
+            {VIEWS.map(({ href, label, Icon }) => {
+              const active =
+                href === "/compare" ? pathname.startsWith("/compare") : pathname === href;
+              return (
+                <Link
+                  key={href}
+                  href={href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium"
+                  style={{
+                    background: active ? "var(--accent)" : "var(--surface-2)",
+                    border: `1px solid ${active ? "var(--accent)" : "var(--border)"}`,
+                    color: active ? "var(--bg)" : "var(--text-primary)",
+                  }}
+                >
+                  <Icon size={13} />
+                  {label}
+                </Link>
+              );
+            })}
+          </div>
           {pathname === "/builder" && (
             <button
               onClick={() => {

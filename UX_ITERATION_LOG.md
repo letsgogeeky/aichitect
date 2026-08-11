@@ -1083,3 +1083,80 @@ and 0 console errors/warnings (excluding known-benign dev-mode-only
 noise: a Three.js deprecation notice, GPU driver perf logs, and a React
 Flow internal check quirk) across every route in the app** — 20 routes
 now cross-checked, up from the 15 the audit originally covered.
+
+## Part 3 continued — mobile viewport: every single page scrolled sideways
+
+New surface for this iteration: nothing in this whole log had been tested
+at a mobile viewport width before. Wrote a crawl (`mobile-crawl.mjs`,
+390×844, `isMobile: true`) across 18 routes checking
+`document.documentElement.scrollWidth` vs `clientWidth` — a simple,
+reliable way to catch horizontal-overflow bugs that a visual screenshot
+at one scroll position can miss entirely.
+
+**Problem found:** every single route reported the _exact same_ overflow
+— `scrollWidth=472` vs `clientWidth=390`, an 82px overflow, byte-for-byte
+identical whether the page was `/privacy` (a static paragraph of text) or
+`/explore` (the full graph). Identical overflow across totally unrelated
+pages means one thing: a global element rendered on every page, not a
+per-page bug. Traced with `getBoundingClientRect()` over every element to
+`components/ui/Navbar.tsx`'s desktop icon-tab bar (Stacks / Graph /
+Builder / Simulate / Compare / Genome / Activity / Pulse) — every other
+"desktop-only" chunk of the navbar correctly used `hidden sm:flex`, but
+this one particular row (both the real `NavViewLinks` component and its
+Suspense loading fallback) was just `flex items-center` with no `hidden`
+at all. At mobile widths it rendered anyway, all 8 icon tabs in a row
+with no width constraint, pushing the whole page 82px past the viewport
+— **every route in the app scrolled sideways on mobile**, not a
+visual-polish issue but a basic "does the page fit on the screen" bug.
+
+Worse than the overflow itself: the mobile "⋯" hamburger menu (a
+`BottomSheet` that already exists for Share Stack / Take a Tour /
+Suggest a Tool / sign-in) never contained these 8 view links at all — so
+even discounting the overflow, **mobile users had no menu-based way to
+switch between Stacks/Graph/Builder/etc.**, only the broken sideways-
+scrolling icon row. This wasn't "missing polish," it was a missing
+feature on every mobile pageview.
+
+**Fix:**
+
+- Added `hidden sm:flex` to both places the icon-tab row renders (the
+  real component and its Suspense fallback), so it's desktop-only exactly
+  like the rest of the navbar's other conditionally-shown chunks.
+- Added the same 8 view links to the mobile BottomSheet menu as a 2-column
+  grid of labeled buttons (icon + full label, not icon-only — there's
+  room in a full-height sheet), with the current route highlighted the
+  same way the desktop pill does (`var(--accent)` background,
+  `var(--bg)` text — the already-fixed AA-safe pairing). Scoped
+  intentionally simpler than the desktop version: doesn't forward the
+  `?s=` stack-selection param, since doing that would require pulling
+  `useSearchParams()` into the top-level Navbar component (currently
+  isolated inside a `Suspense`-wrapped child specifically to avoid
+  forcing the whole navbar through a search-params-triggered dynamic
+  render) — a bigger refactor than this bug fix warrants.
+
+Verified with a screenshot before/after (closed header now shows just
+logo + hamburger button, no overflow; opened sheet shows all 8 views in
+a clean grid) and by re-running `mobile-crawl.mjs` — the 82px overflow is
+gone from all 18 routes it was previously on. Confirmed the desktop navbar
+is visually unchanged (screenshot at 1280px).
+
+**A second, page-specific overflow surfaced once the global one was
+fixed:** `/simulate` alone still had a 16px overflow after the navbar
+fix. Traced to `SimulateAppClient.tsx`'s responsive CSS: a `<style>` tag
+switches the page's two-column CSS Grid to `grid-template-columns: 1fr
+!important` under `max-width: 880px`, but a bare `1fr` track still can't
+shrink below the _intrinsic minimum content width_ of whatever's inside
+it — some element inside the sidebar/main content was wider than the
+340px actually available (measured: the track computed to 382px instead
+of the ~342px content-box width), forcing the grid past the viewport
+edge. This is a well-known CSS Grid gotcha: `1fr` alone doesn't mean "at
+most 100% of available space," it means "at least my content's natural
+width." Fixed by changing the override to `minmax(0, 1fr)`, which allows
+the track to shrink to zero and rely on the content wrapping/scrolling
+internally instead of forcing the grid wider than its container.
+Verified via `mobile-crawl.mjs` re-run — 0 routes with any overflow now,
+18 of 18.
+
+`make check` (lint/typecheck/test, 217 tests) clean; full WCAG 2A/2AA
+axe re-scan and the 20-route console crawl both still 0 violations/0
+warnings after this change.
