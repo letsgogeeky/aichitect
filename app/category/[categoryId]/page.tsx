@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import toolsData from "@/data/tools.json";
-import { CATEGORIES, getCategoryColor, type CategoryId } from "@/lib/types";
+import { CATEGORIES, getCategoryColor, getReadableTextColor, type CategoryId } from "@/lib/types";
 import type { Tool } from "@/lib/types";
 import { pageMeta } from "@/lib/metadata";
 import { SITE_URL } from "@/lib/constants";
@@ -116,7 +116,7 @@ export default async function CategoryPage({ params }: Props) {
             <Link
               href={`/explore?category=${categoryId}`}
               className="text-sm font-medium px-4 py-2 rounded-lg transition-colors"
-              style={{ background: color, color: "#fff" }}
+              style={{ background: color, color: getReadableTextColor(color) }}
             >
               View in Explore graph →
             </Link>

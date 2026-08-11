@@ -211,7 +211,7 @@ export function ScanStep({
                 fontSize: 12,
                 fontWeight: 500,
                 background: "var(--accent)",
-                color: "#fff",
+                color: "var(--bg)",
                 border: "none",
                 cursor: "pointer",
               }}

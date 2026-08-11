@@ -366,7 +366,7 @@ function BuilderPageContent({
           style={{
             bottom: "calc(1rem + env(safe-area-inset-bottom, 0px))",
             background: "var(--accent)",
-            color: "#fff",
+            color: "var(--bg)",
           }}
         >
           ⊕ Choose Tools{selectedCount > 0 ? ` (${selectedCount})` : ""}

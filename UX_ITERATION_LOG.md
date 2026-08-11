@@ -703,3 +703,77 @@ the Supabase client into a single React Context provider at the app root
 instead of each `useUser()` call creating its own `useMemo`. Flagging as a
 follow-up rather than doing a bigger architecture change in this pass.
 `make check` (lint/typecheck/test) clean.
+
+## Automated contrast audit — axe-core (@axe-core/playwright)
+
+New loop input specifically called out "maybe color contrasts needs to be
+revised." Manual review across 16 prior iterations had already fixed the
+issues findable by eye/by grepping known-bad patterns — so this iteration
+switched to `@axe-core/playwright`, which computes real contrast ratios
+against actual rendered DOM/computed styles across a whole page. Ran it
+(WCAG 2 AA ruleset, `color-contrast` check) against 12 routes.
+
+**Found: the Navbar's active-tab pill, and every `<Button variant="primary">`,
+used white text on `var(--accent)` (#7c6bff) — 3.89:1, fails AA.** This is
+the single most-visible instance since it's the primary nav on every page.
+Root cause: `#7c6bff` is a _light_ mid-tone purple (67% luminance-ish) —
+white doesn't have enough headroom above it. Black text on the same
+background gets 5.40:1, `var(--bg)` (#0a0a0f, near-black) gets 5.08:1.
+
+**Fix:** changed `color: "#fff"` → `color: "var(--bg)"` for every solid
+`background: var(--accent)` + white-text pairing found via `grep -rB2
+'color: "#fff"'` — 18 call sites across `Navbar.tsx`, `Button.tsx` (the
+shared component — fixes every consumer), `ExploreGraph.tsx`,
+`StackQuizModal.tsx`, `ToolUsageButton.tsx`, `SuggestToolModal.tsx`,
+`MyStackTray.tsx`, `MatchClient.tsx`, `WorkflowStep.tsx`, `ScanStep.tsx`,
+`BuilderClient.tsx`, `MobileSlotPicker.tsx`, and the tool/compare detail
+pages.
+
+**Found a second, related bug while fixing the first:** 4 places
+(`app/tool/[toolId]/page.tsx`, `app/category/[categoryId]/page.tsx`,
+`app/feed/event/[eventId]/page.tsx`, `ToolDetailSheet.tsx`) use the _per-tool
+category color_ as a solid button background with fixed white text — e.g.
+the "Open in Builder" CTA on `/tool/cursor`. Checked all 16 category
+colors against white vs. black text:
+
+|                        | White text                             | Black text          |
+| ---------------------- | -------------------------------------- | ------------------- |
+| 15 of 16 categories    | fails (as low as 1.45:1 for `#55efc4`) | passes (5.3-14.5:1) |
+| `multimodal` (#6c5ce7) | passes (4.86:1)                        | fails (4.32:1)      |
+
+A fixed direction is wrong for at least one category either way — this
+needed a real per-color decision, not a hardcoded swap.
+
+**Fix:** added `getReadableTextColor(bgHex)` to `lib/types.ts` — computes
+WCAG relative luminance of the given background and returns whichever of
+`var(--bg)` / `#ffffff` yields higher contrast. Wired it into all 4 call
+sites in place of the hardcoded `"#fff"`. Added a regression test
+(`__tests__/lib/types.test.ts`) asserting every one of the 16 category
+colors gets a text choice that actually clears 4.5:1 — this is the kind
+of invariant that's easy to silently violate again if someone adds a new
+category color, so it's now enforced by CI instead of relying on manual
+review catching it.
+
+**Caught by the new test itself:** the function initially returned the
+3-digit hex shorthand `"#fff"` for the light-text branch. Browsers render
+that fine, but it broke the test's own luminance parser (which assumes
+6-digit hex) with a silent `NaN` comparison that read as "test passes"
+until asserted properly — switched to `"#ffffff"` for both correctness
+and to avoid that trap for any future consumer.
+
+**Verified:** re-ran the axe-core scan after the fix — the `white on
+var(--accent)`-pattern violations are gone from every route that had them
+(`/`, `/genome`, `/pulse`, `/compare`, `/feed`, `/changelog`, `/mcp`,
+`/builder`). `make check` clean throughout.
+
+**Remaining violations found, not yet fixed** (flagged for the next
+iteration): `/stacks` has the largest residual count — `opacity-60` cluster
+tab labels at 2.5:1, the `PhaseCoverageBar`'s uncovered-phase cells at
+2.11:1 (previously reviewed and deliberately left dimmed in Part 1 — worth
+revisiting now that this pass has a lower bar for "acceptable" contrast),
+and several accent-text-on-tinted-background pairs landing just under 4.5
+(4.3-4.48:1). `/tool/cursor` has a `#5e5e7a`/`#44446a`-family description
+text at 2.04-3:1 and a `#d63031` red tag at 3.73-3.87:1 that weren't caught
+by the earlier manual `#444466`/`#333355` sweep because these are
+subtly different hex values, not the same literal strings grepped for
+before.

@@ -586,7 +586,7 @@ function SuccessView({
             borderRadius: 7,
             fontSize: 12,
             background: "var(--accent)",
-            color: "#fff",
+            color: "var(--bg)",
             border: "none",
             cursor: "pointer",
             fontWeight: 500,
@@ -875,7 +875,7 @@ export default function SuggestToolModal({ onClose, prefillName = "" }: Props) {
                   fontSize: 12,
                   fontWeight: 500,
                   background: "var(--accent)",
-                  color: "#fff",
+                  color: "var(--bg)",
                   border: "none",
                   cursor: "pointer",
                 }}

@@ -541,3 +541,30 @@ export const CATEGORIES: CategoryMeta[] = [
 export function getCategoryColor(id: CategoryId): string {
   return CATEGORIES.find((c) => c.id === id)?.color ?? "#7f7fa4";
 }
+
+/**
+ * Picks dark or light text for a solid background color, using WCAG relative
+ * luminance so the choice actually passes contrast — not just "light bg gets
+ * dark text" by eyeballing it. Category colors span from near-black-passing
+ * (#fdcb6e) to near-white-passing (#6c5ce7), so a fixed direction is wrong
+ * for some of them.
+ */
+export function getReadableTextColor(bgHex: string): string {
+  const hex = bgHex.replace("#", "");
+  const r = parseInt(hex.slice(0, 2), 16) / 255;
+  const g = parseInt(hex.slice(2, 4), 16) / 255;
+  const b = parseInt(hex.slice(4, 6), 16) / 255;
+  const lin = (c: number) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
+  const luminance = 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
+  // Relative luminance of var(--bg) (#0a0a0f) and pure white — white, not the
+  // app's dimmer off-white text-primary, because a couple of mid-luminance
+  // category colors (e.g. multimodal #6c5ce7) only clear 4.5:1 against true
+  // white (4.86:1 vs 4.29:1 with #f0f0f8).
+  const darkLum = 0.00316;
+  const lightLum = 1;
+  const contrastWithDark =
+    (Math.max(luminance, darkLum) + 0.05) / (Math.min(luminance, darkLum) + 0.05);
+  const contrastWithLight =
+    (Math.max(luminance, lightLum) + 0.05) / (Math.min(luminance, lightLum) + 0.05);
+  return contrastWithDark >= contrastWithLight ? "var(--bg)" : "#ffffff";
+}

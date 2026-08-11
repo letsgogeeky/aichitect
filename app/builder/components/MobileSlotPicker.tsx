@@ -125,7 +125,7 @@ export function MobileSlotPicker({
         <div className="pt-2 pb-2">
           <button
             className="w-full py-2.5 rounded-lg text-sm font-semibold"
-            style={{ background: "var(--accent)", color: "#fff" }}
+            style={{ background: "var(--accent)", color: "var(--bg)" }}
             onClick={onClose}
           >
             Build my stack

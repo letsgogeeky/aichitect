@@ -5,7 +5,12 @@ import relationshipsData from "@/data/relationships.json";
 import stacksData from "@/data/stacks.json";
 import slotsData from "@/data/slots.json";
 import type { Tool, Relationship, Stack, Slot } from "@/lib/types";
-import { getCategoryColor, CATEGORIES, type ToolEventType } from "@/lib/types";
+import {
+  getCategoryColor,
+  getReadableTextColor,
+  CATEGORIES,
+  type ToolEventType,
+} from "@/lib/types";
 import { getToolById } from "@/lib/data/tools";
 import { pageMeta } from "@/lib/metadata";
 import { healthColor, healthLabel } from "@/lib/health";
@@ -347,7 +352,7 @@ export default async function ToolPage({ params }: Props) {
             <Link
               href={`/builder?s=${tool.id}`}
               className="text-sm font-semibold px-4 py-2 rounded-lg transition-colors"
-              style={{ background: color, color: "#fff" }}
+              style={{ background: color, color: getReadableTextColor(color) }}
             >
               Open in Builder →
             </Link>
@@ -986,7 +991,7 @@ export default async function ToolPage({ params }: Props) {
           <Link
             href="/explore"
             className="flex-shrink-0 ml-4 text-xs font-semibold px-4 py-2 rounded-md transition-colors"
-            style={{ background: "var(--accent)", color: "#fff" }}
+            style={{ background: "var(--accent)", color: "var(--bg)" }}
           >
             Explore graph →
           </Link>

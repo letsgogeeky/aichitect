@@ -325,7 +325,7 @@ function PrimaryMatchCard({ match, stack }: { match: StackMatch; stack: Stack })
               padding: "9px 16px",
               borderRadius: 8,
               background: "var(--accent)",
-              color: "#fff",
+              color: "var(--bg)",
               fontSize: 12,
               fontWeight: 600,
               textDecoration: "none",

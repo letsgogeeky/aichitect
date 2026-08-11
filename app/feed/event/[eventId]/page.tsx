@@ -4,6 +4,7 @@ import { cache } from "react";
 import { supabase } from "@/lib/db";
 import {
   getCategoryColor,
+  getReadableTextColor,
   CATEGORIES,
   type CategoryId,
   type ToolEventType,
@@ -528,7 +529,7 @@ export default async function EventPage({ params }: Props) {
             <Link
               href={`/tool/${event.tool_id}`}
               className="text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors"
-              style={{ background: color, color: "#fff" }}
+              style={{ background: color, color: getReadableTextColor(color) }}
             >
               View tool →
             </Link>

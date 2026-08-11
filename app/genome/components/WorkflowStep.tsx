@@ -258,7 +258,7 @@ export function WorkflowStep({ onNext }: { onNext: (workflowIds: string[]) => vo
             fontSize: 13,
             fontWeight: 600,
             background: "var(--accent)",
-            color: "#fff",
+            color: "var(--bg)",
             border: "none",
             cursor: "pointer",
           }}

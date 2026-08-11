@@ -616,7 +616,7 @@ export default function ExploreGraph({
                 <button
                   onClick={() => setMobileDetailOpen(true)}
                   className="text-xs px-3 py-1.5 rounded-lg"
-                  style={{ background: "var(--accent)", color: "#fff" }}
+                  style={{ background: "var(--accent)", color: "var(--bg)" }}
                 >
                   Details →
                 </button>
@@ -647,7 +647,7 @@ export default function ExploreGraph({
               <span
                 style={{
                   background: "var(--accent)",
-                  color: "#fff",
+                  color: "var(--bg)",
                   borderRadius: 10,
                   padding: "0 5px",
                   fontSize: 11,
@@ -763,7 +763,7 @@ export default function ExploreGraph({
         <div className="px-4 pb-4 pt-2">
           <button
             className="w-full py-2.5 rounded-lg text-sm font-semibold"
-            style={{ background: "var(--accent)", color: "#fff" }}
+            style={{ background: "var(--accent)", color: "var(--bg)" }}
             onClick={() => setMobileFilterOpen(false)}
           >
             Show results

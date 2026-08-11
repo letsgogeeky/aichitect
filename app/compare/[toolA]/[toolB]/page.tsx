@@ -623,7 +623,7 @@ export default async function ComparePage({ params }: Props) {
           <Link
             href={`/explore?compare=${a.id},${b.id}`}
             className="flex-shrink-0 ml-4 text-xs font-semibold px-4 py-2 rounded-md transition-colors"
-            style={{ background: "var(--accent)", color: "#fff" }}
+            style={{ background: "var(--accent)", color: "var(--bg)" }}
           >
             Open in Explore →
           </Link>

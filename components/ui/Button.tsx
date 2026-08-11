@@ -33,7 +33,9 @@ function variantStyles(v: ButtonVariant): React.CSSProperties {
       return {
         background: "var(--accent)",
         borderColor: "var(--accent)",
-        color: "#fff",
+        // white on var(--accent) is 3.89:1 (fails AA); var(--bg) on accent
+        // is 5.08:1 — same dark-on-bright pattern used for other solid CTAs.
+        color: "var(--bg)",
       };
     case "ghost":
       return {

@@ -140,7 +140,7 @@ export function ToolUsageButton({ toolId, color, compact = false }: Props) {
                 fontWeight: 600,
                 background: "var(--accent)",
                 border: "none",
-                color: "#fff",
+                color: "var(--bg)",
                 cursor: "pointer",
               }}
             >
@@ -229,7 +229,7 @@ export function ToolUsageButton({ toolId, color, compact = false }: Props) {
               fontWeight: 600,
               background: "var(--accent)",
               border: "none",
-              color: "#fff",
+              color: "var(--bg)",
               cursor: "pointer",
             }}
           >

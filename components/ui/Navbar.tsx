@@ -64,7 +64,10 @@ function NavViewLinks() {
               fontSize: 12,
               fontWeight: active ? 500 : 400,
               background: active ? "var(--accent)" : "transparent",
-              color: active ? "#ffffff" : "var(--text-secondary)",
+              // White-on-accent was 3.89:1 (fails AA); var(--bg) on accent is
+              // 5.08:1 — reuses the same dark-text-on-bright-button pattern
+              // already used for CTAs elsewhere (e.g. app/page.tsx).
+              color: active ? "var(--bg)" : "var(--text-secondary)",
               transition: "background 150ms, color 150ms",
             }}
           >

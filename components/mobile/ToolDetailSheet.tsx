@@ -3,7 +3,13 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { Tool, getCategoryColor, CATEGORIES, RelationshipType } from "@/lib/types";
+import {
+  Tool,
+  getCategoryColor,
+  getReadableTextColor,
+  CATEGORIES,
+  RelationshipType,
+} from "@/lib/types";
 import { Relationship, Stack } from "@/lib/types";
 import relationshipsData from "@/data/relationships.json";
 import toolsData from "@/data/tools.json";
@@ -226,7 +232,7 @@ export default function ToolDetailSheet({ tool, open, onClose }: Props) {
             <Link
               href={`/tool/${tool.id}`}
               className="flex-1 text-center text-xs py-2 px-3 rounded-md font-medium"
-              style={{ background: color, color: "#fff" }}
+              style={{ background: color, color: getReadableTextColor(color) }}
             >
               View full page →
             </Link>

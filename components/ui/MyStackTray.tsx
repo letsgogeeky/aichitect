@@ -149,7 +149,7 @@ export default function MyStackTray() {
               height: 28,
               borderRadius: 7,
               background: "var(--accent)",
-              color: "#fff",
+              color: "var(--bg)",
               fontSize: 12,
               fontWeight: 600,
               textDecoration: "none",
