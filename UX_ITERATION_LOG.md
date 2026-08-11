@@ -615,3 +615,52 @@ a future pass doesn't re-investigate from scratch:
 Not exhaustively covered yet: `/profile/[username]`, `/watch/[id]`,
 `/changelog`, `/mcp` — lower-traffic pages, not named in the original
 complaint, worth a pass in a future iteration but not urgent.
+
+## Reviewed, no changes made — Changelog, MCP, Profile, Watch
+
+Followed up on the remaining lower-traffic pages:
+
+- **`/changelog`** — screenshotted. Clean sectioned list (Recently added /
+  Health syncs / What's coming) with colored left-border accents per
+  section, simple readable rows. No issues.
+- **`/mcp`** — screenshotted. Well-organized technical page: hero, quick
+  setup with syntax-highlighted code blocks, tool-reference cards with
+  clear input/output schemas, example prompts. No issues.
+- **`/profile/[username]`** and **`/watch/[id]`** — the local dev database
+  has no seeded tables (a pre-existing environment issue — migrations
+  never applied here, unrelated to this UX work), so these couldn't be
+  screenshotted with real data. Reviewed the source directly instead
+  (`ProfileClient.tsx`, `WatchClient.tsx`, `WatchSlotGrid.tsx`): both are
+  straightforward card/list layouts with consistent section dividers and
+  no sign of the wall-of-text or unsorted-density problems found
+  elsewhere. No changes made.
+
+## Final verification — all four originally-named pages, fresh full-page screenshots
+
+Re-screenshotted `/feed`, `/pulse`, `/stacks`, and `/explore` end-to-end
+(not just the components touched in isolation) to confirm the fixes read
+well together as complete pages, not just in cropped-component view:
+
+- **Feed**: icon badges scan cleanly down the left edge, timestamps
+  legible, category pills readable.
+- **Pulse**: "NEEDS ATTENTION" leads with the 3 at-risk categories,
+  clearly separated from "STABLE" below.
+- **Stacks**: the graph is now visible without scrolling; "Not in this
+  stack" collapsed correctly.
+- **Explore** (FilterPanel in its real context): "Stack Layers" leads,
+  clear section dividers, "Find a curated stack" correctly collapsed at
+  the bottom.
+
+## Where this pass stands
+
+Between the original 9-iteration contrast/size pass and this 15-iteration
+structural pass, every page in the app has now been either fixed or
+reviewed and found clean. This iteration found no new genuine problems —
+a signal that this sweep has reached diminishing returns, not that the
+work is being cut short. Stopping the active loop here; the log above is
+the complete record if a future pass wants to pick up on something
+specific (or if a redesign changes any of these pages and reintroduces
+the same failure modes — the recurring patterns worth watching for are
+documented throughout: translucent brand colors as text, `SLOT_AUTONOMY`-
+style labels needing empty-state handling, and raw data-order rendering
+where a priority sort would help).
