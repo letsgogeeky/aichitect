@@ -1235,3 +1235,40 @@ genuinely clean** — no filtering, no exceptions. This is the first time
 this exact claim has been verified with a script that couldn't hide a
 contrast violation even if one existed, rather than one that was
 contrast-blind by construction.
+
+## Part 3 continued — a real broken link, found by crawling the live DOM
+
+New surface: nothing in this log had checked whether internal links
+actually resolve. Grepping source for `href="..."` misses anything built
+from a template literal or a variable, so instead crawled the _rendered_
+DOM across 17 seed routes (`document.querySelectorAll("a[href]")`),
+collected all internal `href`s into a set (130 unique paths — tool pages,
+category pages, compare pairs, feed events, etc.), and `fetch()`ed each
+one directly.
+
+**Found:** `/profile` (bare, no username) returned a genuine 404. Traced
+to `app/privacy/page.tsx`'s GDPR "Erasure" section — "delete your account
+... from your `<Link href="/profile">profile page</Link>`" — a hardcoded
+link to a route that has never existed; only `/profile/[username]` does.
+Every other place in the app that links to a profile (`Navbar.tsx`, ×2)
+correctly interpolates the signed-in user's username — this was the only
+hardcoded bare instance, on a legal/compliance page a signed-in user
+might actually click while exercising a real GDPR right.
+
+**Fix:** rather than patching just that one link (which would still leave
+`/profile` itself as a 404 for anyone who types it, bookmarks it, or hits
+it from anywhere else in the future), added `app/profile/page.tsx` — a
+client-side redirect page using the same `useUser()` hook `Navbar.tsx`
+already relies on: if signed in, `router.replace()` to
+`/profile/${username}`; if not, shows a "Sign in to view your profile"
+prompt with the same GitHub sign-in button styling used in the mobile
+nav menu, rather than silently redirecting into an OAuth flow the user
+didn't ask for. `/privacy`'s link now resolves through this instead of
+needing a special case.
+
+Verified via the same DOM-crawl script re-run after the fix (130/130
+links now resolve 2xx, down from 1 broken), a direct screenshot of
+`/profile` while signed out (renders the sign-in prompt cleanly, 0
+console errors), and a full re-run of the unfiltered WCAG scan and the
+console-error crawl to confirm nothing regressed. `make check`
+(lint/typecheck/test, 217 tests) clean.
