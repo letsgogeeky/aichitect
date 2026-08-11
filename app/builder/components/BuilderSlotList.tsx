@@ -379,7 +379,11 @@ export function BuilderSlotList({
                         <p className="text-xs font-semibold text-[var(--text-primary)] leading-tight">
                           {slot.name}
                         </p>
-                        {SLOT_AUTONOMY[slot.id] && (
+                        {/* The autonomy tag ("prioritizes signal", "you drive"...) only
+                            adds value once there's a tool to attach it to — shown stacked
+                            above a bare "not set" it reads as one confusing fragment for
+                            every still-empty slot, which is most of them early on. */}
+                        {SLOT_AUTONOMY[slot.id] && (isOpen || selectedTool) && (
                           <span
                             className="text-[11px] font-medium"
                             style={{ color: SLOT_AUTONOMY[slot.id].color }}
@@ -396,7 +400,7 @@ export function BuilderSlotList({
                           </p>
                         )}
                         {!isOpen && !selectedTool && (
-                          <p className="text-[11px] text-[var(--text-muted)] mt-0.5">not set</p>
+                          <p className="text-[11px] text-[var(--text-muted)] mt-0.5">Not set</p>
                         )}
                       </div>
                     </button>
@@ -607,7 +611,7 @@ export function BuilderSlotList({
                             </p>
                           )}
                           {!isOpen && !selectedTool && (
-                            <p className="text-[11px] text-[var(--text-muted)] mt-0.5">not set</p>
+                            <p className="text-[11px] text-[var(--text-muted)] mt-0.5">Not set</p>
                           )}
                         </div>
                       </button>

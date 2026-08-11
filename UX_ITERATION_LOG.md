@@ -536,3 +536,33 @@ zero console errors; `make typecheck` clean.
 
 **Nothing hidden this iteration** — the excluded-tools reasoning is still
 fully present, one click away, not removed.
+
+## Iteration 14 — Builder sidebar (BuilderSlotList.tsx) restructure
+
+**Problem:** screenshotted `/builder` with several slots filled. Every
+still-empty slot (most of them, early in the flow) rendered a confusing
+3-line stack: the slot question, then a colored `SLOT_AUTONOMY` tag
+("prioritizes signal", "auto-generated", "defines the contract" —
+describing a qualitative property of the slot category), then a plain
+muted "not set" directly below it. The two small-text lines sat right on
+top of each other with no visual separator, reading as one garbled
+fragment ("prioritizes signal / not set" — signal for what?) rather than
+two unrelated facts. The label is genuinely useful once you've picked a
+tool for that slot; on an empty slot it's just noise ahead of the actual
+status.
+
+**Redesign:** the `SLOT_AUTONOMY` tag now only renders when the slot is
+either expanded or has a tool selected — suppressed exactly in the
+collapsed-and-empty state where it was creating the confusing stack.
+Every currently-unfilled slot now reads as a clean two-line
+"question / Not set" (also capitalized for consistency with the rest of
+the sidebar's sentence-case labels).
+
+**Verified:** screenshotted `/builder` with `?s=cursor,langgraph,pgvector,langfuse`
+before/after — confirmed the fragment is gone from every empty slot row
+while filled slots and expanded slots still show the autonomy tag; zero
+console errors; `make typecheck` clean.
+
+**Nothing hidden this iteration** — the autonomy tag still shows exactly
+where it's actionable (chosen or expanded slots), just not stacked on top
+of an unrelated empty-state label.
