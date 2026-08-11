@@ -72,7 +72,7 @@ export default function TokenPresets({ input, output, onChange }: Props) {
               style={{
                 background: active ? "var(--accent)" : "var(--surface-2)",
                 border: `1px solid ${active ? "var(--accent)" : "var(--border)"}`,
-                color: active ? "#fff" : "var(--text-secondary)",
+                color: active ? "var(--bg)" : "var(--text-secondary)",
                 borderRadius: 999,
                 padding: "5px 10px",
                 fontSize: 12,

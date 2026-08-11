@@ -829,3 +829,117 @@ unilaterally: **the fix is known and computed, just not applied.** If
 this is wanted, `--accent: #8e80ff` in `app/globals.css` is the one-line
 change; worth eyeballing the visual difference first since it's a real,
 if modest, shift.
+
+## Resolved: applied the brand-color fix, zero contrast violations remain
+
+Decided the `--accent` question: applied `#7c6bff` → `#8e80ff` (screenshotted
+`/`, `/explore`, `/stacks` first to confirm it isn't visually jarring — it
+reads as a clean, modest brightening, not a redesign). Chose to act rather
+than leave it flagged indefinitely, since it's a small hue-preserving change
+that directly serves the user's explicit ask ("revise color contrasts...
+make it easily readable") and fixes every remaining confirmed violation.
+
+Re-running axe-core after the change surfaced a few more instances of the
+same root cause that a single CSS variable couldn't reach — literal hex
+values that happened to match the _old_ accent, hardcoded independently:
+
+- `coding-assistants` category color (`#7c6bff`, a literal in `CATEGORIES`,
+  not `var(--accent)`) — brightened to match, same reasoning.
+- `PHASE_TRACK_COLOR.development` in `lib/lifecycle.ts` (`#7c6bff`,
+  explicitly commented "mirrors var(--accent)") — same fix, and its `+ "cc"`
+  alpha-suffixed text usage in `StackHealthPanel.tsx` (3 spots) still fell
+  short even after brightening (4.29:1) — removed the alpha suffix entirely,
+  matching the "text needs full opacity" rule established throughout this
+  whole log.
+- `StackDetailHeader.tsx`'s mission-brief label used `accentColor + "99"`
+  (60% alpha) — same fix, full opacity.
+- The landing page's "Graph" view-card `accent: "#7c6bff"` entry — same fix.
+- `--text-muted` itself needed one more small nudge (`#7f7fa4` → `#8282a6`,
+  5.15:1 → 5.35:1 on `--bg`) after axe found it failing (4.39:1) against the
+  slightly-lighter `--btn` background used for tag pills — updated the 4
+  literal-hex fallbacks that track this token (OG-image-safe copies in
+  `lib/types.ts`, `genomeConstants.ts`, the tool page, and the test file)
+  to match.
+
+**Result: 0 contrast violations across all 12 originally-scanned routes.**
+
+## Found via a second sweep: 6 more "white on accent" instances axe missed on `/explore`
+
+Brightening the accent background made a _new_ violation visible on
+`/explore` — a walkthrough-tour "Next →" button at 3.14:1 (was already
+failing before the brightening too, just not caught). Root cause: my
+original sweep grepped for the literal string `color: "#fff"`, which
+doesn't match **ternary expressions** like `color: isLast ? "var(--accent-2)"
+: "#fff"` — the `"#fff"` is there, just not adjacent to `color:`. Found 6
+more instances this way (`WalkthroughOverlay.tsx`, `StackDetailHeader.tsx`,
+`TokenPresets.tsx`, `ShadowStackForm.tsx`, `ProfileClient.tsx` ×2,
+`CompareClient.tsx`, `SuggestToolModal.tsx`) via `grep -rn '"#fff"'` without
+the `color:` prefix requirement, then manually checking each match's
+context. One of them (`ProfileClient.tsx`) was the dynamic per-tool-color
+pattern, not the static accent one — used `getReadableTextColor()` there
+instead.
+
+**Lesson logged for next time:** when grep-hunting a pattern, search for the
+_value_ (`"#fff"`) not the _adjacent key-value pair_ (`color: "#fff"`) —
+ternaries, computed keys, and reordered properties all break the narrower
+pattern silently.
+
+## Operational finding: stale Turbopack cache survives `docker compose restart`
+
+Hit the exact same class of bug as the earlier 404 incident this session,
+twice more during this iteration: after editing `app/globals.css` (a CSS
+variable value) and later `FeedCard.tsx`/`changelog/page.tsx`, `docker
+compose restart app` did **not** pick up the change — `getComputedStyle()`
+kept returning the old value / axe kept flagging the old violation, even
+though the file on disk (verified via `docker compose exec app cat ...`)
+was correct.
+
+Root cause: `docker-compose.yml` mounts `/app/.next` as an anonymous volume
+specifically to "persist Next.js build cache across restarts" (see the
+inline comment) — so `restart`, and even `rm -f` + `up -d` (container
+recreation), don't clear it; Compose reuses the anonymous volume unless
+told not to. The fix is `docker compose up -d --renew-anon-volumes app`
+(after `stop` + `rm -f`) — this is now the standard verification step used
+for the rest of this iteration and should be the go-to for any future
+session that hits "I changed the file, restarted, but the browser still
+shows the old thing" in this repo.
+
+## Bugs beyond contrast — ran the full WCAG 2A/2AA ruleset, not just color-contrast
+
+Switched `axe-scan.mjs` to check all `wcag2a`/`wcag2aa` rules across 15
+routes (added `/match`, `/category`, `/category/coding-assistants` to the
+12 already covered). Found three more categories of real, serious-impact
+bugs:
+
+- **`nested-interactive`** (invalid ARIA/HTML — an interactive-role element
+  containing another interactive element, undefined click/keyboard
+  behavior): `FeedCard.tsx`'s whole row was a `<button>` (later `<div
+role="button">`) wrapping a real `<Link>` — 20 instances on `/feed`. The
+  first fix attempt (swap `<button>` for `<div role="button">`) _didn't_
+  fix it, because axe's rule checks ARIA role semantics, not just raw tag
+  names — `role="button"` is exactly as "interactive" as a real `<button>`
+  to this check. The actual fix: the row is now a plain `<div>` (no
+  role/tabIndex) for mouse-click convenience, and the chevron became a
+  real, independently-focusable `<button>` so keyboard users have an
+  explicit, non-nested way to toggle. Also found 4 instances on `/stacks`
+  from React Flow's own node wrapper (`role="button" tabindex="0"`,
+  generated by the library) containing our real Visit/Page links when a
+  node renders expanded — fixed with `nodesFocusable={false}` on that one
+  `<ReactFlow>` instance (display-only stack preview, no node-selection
+  behavior to preserve; verified the Visit/Page links stayed independently
+  tabbable and clickable after the change). Explore/Builder's graphs
+  weren't flagged — their nodes aren't expanded by default, so the
+  violation doesn't manifest there.
+- **`link-in-text-block`** (a link distinguishable only by color, not
+  underline — fails for colorblind users): found on `/changelog` and
+  `/tool/[toolId]`. Fixing this needed an _explicit_ `textDecoration:
+"underline"`, not just removing an inline `"none"` override — Tailwind's
+  base styles reset link underlines by default, so "not overriding it to
+  none" still computes to `none`. Verified via `getComputedStyle().textDecorationLine`.
+- **`scrollable-region-focusable`** (a horizontally-scrolling `<pre>` code
+  block with no way for keyboard users to scroll it): 3 instances on
+  `/mcp`. Fixed with `tabIndex={0}` on each.
+
+**Result: 0 violations (any WCAG 2A/2AA rule, not just contrast) across all
+15 scanned routes**, verified after a full `--renew-anon-volumes` rebuild.
+`make check` (lint/typecheck/test, 217 tests) clean throughout.

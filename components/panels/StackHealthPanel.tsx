@@ -250,7 +250,7 @@ function PhaseGapRow({
         </span>
         <span
           className="ml-auto text-[11px] font-semibold uppercase tracking-wide flex-shrink-0"
-          style={{ color: color + "cc" }}
+          style={{ color }}
         >
           {missing.length} phase{missing.length === 1 ? "" : "s"} missing
         </span>
@@ -288,7 +288,7 @@ function ProviderConflictRow({
         </span>
         <span
           className="ml-auto text-[11px] font-semibold uppercase tracking-wide flex-shrink-0"
-          style={{ color: "#fd9644cc" }}
+          style={{ color: "#fd9644" }}
         >
           heads up
         </span>
@@ -329,7 +329,7 @@ function HealthRow({
         </span>
         <span
           className="ml-auto text-[11px] font-semibold uppercase tracking-wide flex-shrink-0"
-          style={{ color: accentColor + "cc" }}
+          style={{ color: accentColor }}
         >
           {label}
         </span>

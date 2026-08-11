@@ -98,6 +98,7 @@ function CodeBlock({
   return (
     <div style={{ position: "relative" }}>
       <pre
+        tabIndex={0}
         style={{
           margin: 0,
           padding: "14px 16px",
@@ -200,6 +201,7 @@ function ToolCard({
               Input
             </span>
             <pre
+              tabIndex={0}
               style={{
                 margin: "4px 0 0",
                 padding: "8px 12px",
@@ -228,6 +230,7 @@ function ToolCard({
               Output
             </span>
             <pre
+              tabIndex={0}
               style={{
                 margin: "4px 0 0",
                 padding: "8px 12px",

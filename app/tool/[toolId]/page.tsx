@@ -39,11 +39,11 @@ const SLOT_PRIORITY_COLOR: Record<string, string> = {
   recommended: "#fdcb6e",
   optional: "#74b9ff",
   // #44446a was 2.04:1 as text on --bg — well below AA even ignoring that
-  // it's meant to look de-emphasized. #7f7fa4 is var(--text-muted)'s actual
+  // it's meant to look de-emphasized. #8282a6 is var(--text-muted)'s actual
   // value (4.75:1) — used as a literal here, not var(), because this color
   // gets alpha-suffix-concatenated below (+ "22", + "44") which only works
   // on a real hex string.
-  "not-applicable": "#7f7fa4",
+  "not-applicable": "#8282a6",
 };
 
 const USE_CONTEXT_LABEL: Record<string, string> = {
@@ -538,7 +538,7 @@ export default async function ToolPage({ params }: Props) {
                 </h2>
                 <p className="text-xs mb-4" style={{ color: "var(--text-muted)" }}>
                   AIchitect&apos;s{" "}
-                  <Link href="/genome" style={{ color: "var(--accent)" }}>
+                  <Link href="/genome" className="underline" style={{ color: "var(--accent)" }}>
                     Genome scanner
                   </Link>{" "}
                   detects {tool.name} in your project via these signals:

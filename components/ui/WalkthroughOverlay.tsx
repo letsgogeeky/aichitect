@@ -332,7 +332,7 @@ export default function WalkthroughOverlay() {
             style={{
               background: isLast ? "#00d4aa22" : "var(--accent)",
               border: isLast ? "1px solid #00d4aa44" : "none",
-              color: isLast ? "var(--accent-2)" : "#fff",
+              color: isLast ? "var(--accent-2)" : "var(--bg)",
               fontSize: 12,
               fontWeight: 600,
               padding: "5px 14px",

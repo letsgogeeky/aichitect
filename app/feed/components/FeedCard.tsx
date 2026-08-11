@@ -524,11 +524,17 @@ export function FeedCard({ event }: { event: FeedEvent }) {
         border: `1px solid ${severe ? eventColor + "40" : "var(--border)"}`,
       }}
     >
-      {/* Main row — clickable to expand */}
-      <button
-        className="w-full text-left px-4 py-3 flex items-start gap-3"
+      {/* Main row — clickable to expand for mouse users. Plain <div>, no
+          role/tabIndex: it contains a real nested <Link> (the "View event
+          page" share link), and giving the wrapper an interactive role
+          (button or real <button>) while it contains another interactive
+          element is invalid ARIA/HTML with unpredictable click/keyboard
+          behavior either way. Keyboard users get an explicit, independent
+          toggle via the chevron button below instead of relying on this
+          div being focusable. */}
+      <div
+        className="w-full text-left px-4 py-3 flex items-start gap-3 cursor-pointer"
         onClick={() => setExpanded((v) => !v)}
-        aria-expanded={expanded}
       >
         {/* Event-type icon — gives the eye a scannable shape/color before
             reading any text, instead of every row looking identical. */}
@@ -587,8 +593,17 @@ export function FeedCard({ event }: { event: FeedEvent }) {
             ↗
           </Link>
 
-          {/* Chevron */}
-          <span
+          {/* Chevron — a real button, not a span, so keyboard users have an
+              explicit way to toggle without relying on the (non-interactive)
+              row div. Stops propagation so it doesn't double-toggle via the
+              row's own onClick. */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setExpanded((v) => !v);
+            }}
+            aria-expanded={expanded}
+            aria-label={expanded ? "Collapse details" : "Expand details"}
             className="text-[11px] transition-transform"
             style={{
               color: "var(--text-muted)",
@@ -597,9 +612,9 @@ export function FeedCard({ event }: { event: FeedEvent }) {
             }}
           >
             ▾
-          </span>
+          </button>
         </div>
-      </button>
+      </div>
 
       {/* Expanded detail */}
       {expanded && (

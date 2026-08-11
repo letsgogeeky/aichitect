@@ -107,7 +107,9 @@ export function StackDetailHeader({
           className="rounded-lg px-3 py-2.5 mb-3"
           style={{ background: accentColor + "0a", border: `1px solid ${accentColor}22` }}
         >
-          <div className="type-overline mb-1" style={{ color: accentColor + "99" }}>
+          {/* Full opacity, not accentColor + "99" (60%) — translucent category
+              colors as text land well under 4.5:1 depending on the category. */}
+          <div className="type-overline mb-1" style={{ color: accentColor }}>
             The Situation
           </div>
           <p className="type-body font-medium" style={{ color: "var(--text-primary)" }}>
@@ -406,7 +408,7 @@ export function StackDetailHeader({
                 style={{
                   background: isCompared ? "var(--accent)" : "var(--surface)",
                   border: `1px solid ${isCompared ? "var(--accent)" : "var(--border)"}`,
-                  color: isCompared ? "#fff" : "var(--text-muted)",
+                  color: isCompared ? "var(--bg)" : "var(--text-muted)",
                 }}
               >
                 <svg width="8" height="8" viewBox="0 0 12 12" fill="none">

@@ -30,6 +30,6 @@ export const INPUT_TABS: { id: InputTab; label: string; placeholder: string }[] 
 export const PRIORITY_COLOR: Record<SlotPriority, string> = {
   required: "#ff6b6b",
   recommended: "#fd9644",
-  optional: "#7f7fa4",
+  optional: "#8282a6",
   "not-applicable": "#2a2a3a",
 };

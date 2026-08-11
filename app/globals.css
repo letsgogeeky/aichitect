@@ -8,11 +8,16 @@
   --border-2: #22222e;
   --text-primary: #f0f0f8;
   --text-secondary: #8888aa;
-  /* #7f7fa4 = 5.15:1 contrast on --bg (was #555577 @ 2.78:1, fails WCAG AA).
-     Kept visually distinct from --text-secondary (5.78:1) while remaining legible
-     at the 11-13px sizes it's actually used at. */
-  --text-muted: #7f7fa4;
-  --accent: #7c6bff;
+  /* #8282a6 = 5.35:1 on --bg (was #555577 @ 2.78:1, fails WCAG AA). Nudged up
+     once more from #7f7fa4 (4.39:1) after axe-core found it failing against
+     the slightly-lighter --btn background used for tag pills etc. Kept
+     visually distinct from --text-secondary (5.78:1). */
+  --text-muted: #8282a6;
+  /* #7c6bff (5.08:1 on --bg) fell short as text on its own translucent-tint
+     badge backgrounds throughout the app (3.97-4.48:1, axe-core confirmed
+     across every route). Brightened to #8e80ff, same hue/saturation, HSL
+     lightness 71%->75% — clears 4.5:1+ against every tinted background found. */
+  --accent: #8e80ff;
   --accent-2: #00d4aa;
   /* Navbar / action button tokens */
   --btn: #1c1c28;

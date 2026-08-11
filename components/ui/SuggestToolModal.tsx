@@ -858,7 +858,7 @@ export default function SuggestToolModal({ onClose, prefillName = "" }: Props) {
                   fontSize: 12,
                   fontWeight: 500,
                   background: canAdvance() ? "var(--accent)" : "var(--btn-border)",
-                  color: canAdvance() ? "#fff" : "var(--text-muted)",
+                  color: canAdvance() ? "var(--bg)" : "var(--text-muted)",
                   border: "none",
                   cursor: canAdvance() ? "pointer" : "not-allowed",
                   transition: "background 150ms, color 150ms",

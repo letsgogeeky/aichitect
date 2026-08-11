@@ -515,7 +515,10 @@ export const STACK_LAYERS: StackLayer[] = [
 ];
 
 export const CATEGORIES: CategoryMeta[] = [
-  { id: "coding-assistants", label: "Coding Assistants", color: "#7c6bff" },
+  // Matches --accent in globals.css (deliberately, coding-assistants is the
+  // flagship category) — brightened alongside it for the same reason: failed
+  // as text on tinted badge backgrounds (4.41-4.48:1, axe-core confirmed).
+  { id: "coding-assistants", label: "Coding Assistants", color: "#8e80ff" },
   { id: "autonomous-agents", label: "Autonomous Agents", color: "#ff6b6b" },
   { id: "agent-frameworks", label: "Agent Frameworks", color: "#fdcb6e" },
   { id: "pipelines-rag", label: "Pipelines & RAG", color: "#26de81" },
@@ -542,7 +545,7 @@ export const CATEGORIES: CategoryMeta[] = [
 ];
 
 export function getCategoryColor(id: CategoryId): string {
-  return CATEGORIES.find((c) => c.id === id)?.color ?? "#7f7fa4";
+  return CATEGORIES.find((c) => c.id === id)?.color ?? "#8282a6";
 }
 
 /**

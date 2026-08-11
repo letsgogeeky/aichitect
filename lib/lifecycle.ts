@@ -58,7 +58,7 @@ export const LIFECYCLE_PHASE_TRACK: Record<LifecyclePhase, PhaseTrack> = (() => 
 
 // Track colors mirror existing category palette tones so the UI feels native.
 export const PHASE_TRACK_COLOR: Record<PhaseTrack, string> = {
-  development: "#7c6bff", // var(--accent) — violet
+  development: "#8e80ff", // var(--accent) — violet (kept in sync with the brightened accent)
   runtime: "#4ecdc4", // teal (matches llm-infra category)
   shared: "#fdcb6e", // amber (eval + obs span both)
 };

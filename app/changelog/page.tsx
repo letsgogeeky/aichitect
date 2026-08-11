@@ -288,7 +288,7 @@ export default async function ChangelogPage() {
             href="https://github.com/ramymoussa/aichitect"
             target="_blank"
             rel="noopener noreferrer"
-            style={{ color: "var(--accent)", textDecoration: "none" }}
+            style={{ color: "var(--accent)", textDecoration: "underline" }}
           >
             Open an issue on GitHub →
           </Link>

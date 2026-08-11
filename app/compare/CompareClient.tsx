@@ -419,7 +419,7 @@ export default function CompareClient({
           borderRadius: 10,
           background: canCompare ? "var(--accent)" : "var(--btn)",
           border: "none",
-          color: canCompare ? "#fff" : "var(--text-muted)",
+          color: canCompare ? "var(--bg)" : "var(--text-muted)",
           fontSize: 14,
           fontWeight: 600,
           cursor: canCompare ? "pointer" : "default",

@@ -770,7 +770,9 @@ export default async function LandingPage() {
       tagline: "Explore the full AI ecosystem",
       description: `Map ${toolCount} tools across ${categoryCount} categories. Browse relationships, filter by category, and explore in 2D or 3D.`,
       Icon: IconNetwork,
-      accent: "#7c6bff",
+      // Matches var(--accent) (deliberately) — brightened alongside it,
+      // same reason: failed as text on its own tinted badge background.
+      accent: "#8e80ff",
       Preview: GraphPreview,
     },
     {

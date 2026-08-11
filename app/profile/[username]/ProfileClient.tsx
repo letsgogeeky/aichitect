@@ -6,7 +6,7 @@ import Link from "next/link";
 import { createSupabaseBrowserClient } from "@/lib/db";
 import { useUser } from "@/hooks/useUser";
 import toolsData from "@/data/tools.json";
-import { Tool, getCategoryColor } from "@/lib/types";
+import { Tool, getCategoryColor, getReadableTextColor } from "@/lib/types";
 import { SITE_URL } from "@/lib/constants";
 
 const allTools = toolsData as Tool[];
@@ -214,7 +214,7 @@ export default function ProfileClient({ username }: Props) {
                     className={`absolute inset-0 flex items-center justify-center text-[11px] font-semibold rounded transition-opacity ${isCopied ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}
                     style={{
                       background: color + "dd",
-                      color: "#fff",
+                      color: getReadableTextColor(color),
                       fontSize: 11,
                     }}
                   >
@@ -250,7 +250,7 @@ export default function ProfileClient({ username }: Props) {
               className="w-full py-2 rounded text-[11px] font-semibold transition-all"
               style={{
                 background: copiedAll ? "#26de8122" : "var(--accent)",
-                color: copiedAll ? "var(--success)" : "#fff",
+                color: copiedAll ? "var(--success)" : "var(--bg)",
                 border: copiedAll ? "1px solid #26de8144" : "none",
               }}
             >

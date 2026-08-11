@@ -65,6 +65,14 @@ function StackGraph({ stack, allTools }: { stack: Stack; allTools: Tool[] }) {
       proOptions={{ hideAttribution: true }}
       minZoom={0.2}
       nodesDraggable
+      // React Flow wraps every node in role="button" tabIndex={0}. These
+      // nodes (always rendered expanded) contain real <a>/<button> elements
+      // (Visit, Page links) — nesting real interactive elements inside a
+      // button-role wrapper is invalid HTML with unpredictable click/
+      // keyboard behavior. This graph has no node-level onClick to preserve
+      // (nodes aren't selectable here), so disabling it is a clean fix —
+      // the inner links stay independently keyboard-reachable regardless.
+      nodesFocusable={false}
     >
       <Background variant={BackgroundVariant.Dots} color="#1e1e2e" gap={20} size={1} />
       <Controls showInteractive={false} />

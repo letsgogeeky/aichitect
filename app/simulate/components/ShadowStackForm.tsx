@@ -139,7 +139,7 @@ function primaryButtonStyle(enabled: boolean): React.CSSProperties {
   return {
     background: enabled ? "var(--accent)" : "var(--btn)",
     border: `1px solid ${enabled ? "var(--accent)" : "var(--btn-border)"}`,
-    color: enabled ? "#fff" : "var(--text-muted)",
+    color: enabled ? "var(--bg)" : "var(--text-muted)",
     borderRadius: 6,
     padding: "10px 16px",
     fontSize: 13,
