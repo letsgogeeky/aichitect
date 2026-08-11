@@ -123,7 +123,10 @@ export default function FilterPanel({
   // Each layer starts open; track collapsed state per layer id
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
   const [edgesCollapsed, setEdgesCollapsed] = useState(false);
-  const [stackFilterCollapsed, setStackFilterCollapsed] = useState(false);
+  // "Find Stacks" is a secondary, advanced filter (~20 pill options across 5
+  // groups) — it defaults closed so the primary Stack Layers filter is the
+  // first thing a user sees, not a wall of pills.
+  const [stackFilterCollapsed, setStackFilterCollapsed] = useState(true);
 
   const hasStackFilter =
     stackFilters.team ||
@@ -174,13 +177,15 @@ export default function FilterPanel({
     setActiveRelTypes(next);
   }
 
+  const sectionDivider = "pt-4 mt-4 border-t border-[var(--border)]";
+
   return (
     <aside
       data-tour="filter-panel"
-      className="w-52 flex-shrink-0 border-r overflow-y-auto"
+      className="w-64 flex-shrink-0 border-r overflow-y-auto"
       style={{ background: "var(--surface)", borderColor: "var(--border)" }}
     >
-      <div className="p-3 space-y-3">
+      <div className="p-3.5">
         {/* Search */}
         <input
           type="text"
@@ -195,61 +200,212 @@ export default function FilterPanel({
           }}
         />
 
-        {/* My tools filter — authenticated users only */}
-        {isAuthenticated && (
+        {/* Quick toggles — grouped as one visual unit, not two lookalike boxes */}
+        <div className="flex flex-col gap-1 mt-2.5">
+          {isAuthenticated && (
+            <button
+              onClick={onToggleMyTools}
+              className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md text-xs transition-colors text-left"
+              style={
+                onlyMyTools
+                  ? {
+                      background: "#7c6bff18",
+                      color: "var(--accent)",
+                    }
+                  : {
+                      background: "transparent",
+                      color: "var(--text-secondary)",
+                    }
+              }
+            >
+              <span
+                className="inline-block rounded-sm flex-shrink-0"
+                style={{
+                  width: 12,
+                  height: 12,
+                  border: `1.5px solid ${onlyMyTools ? "var(--accent)" : "var(--border-2)"}`,
+                  background: onlyMyTools ? "var(--accent)" : "transparent",
+                }}
+              />
+              Only show tools I use
+            </button>
+          )}
           <button
-            onClick={onToggleMyTools}
+            onClick={onToggleHideStale}
             className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md text-xs transition-colors text-left"
             style={
-              onlyMyTools
+              hideStale
                 ? {
-                    background: "#7c6bff22",
-                    border: "1px solid #7c6bff44",
-                    color: "var(--accent)",
+                    background: "#f39c1214",
+                    color: "#f39c12",
                   }
                 : {
-                    background: "var(--surface-2)",
-                    border: "1px solid var(--border)",
-                    color: "var(--text-muted)",
+                    background: "transparent",
+                    color: "var(--text-secondary)",
                   }
             }
           >
-            <span style={{ fontSize: 10 }}>{onlyMyTools ? "●" : "○"}</span>
-            Only show tools I use
+            <span
+              className="inline-block rounded-sm flex-shrink-0"
+              style={{
+                width: 12,
+                height: 12,
+                border: `1.5px solid ${hideStale ? "#f39c12" : "var(--border-2)"}`,
+                background: hideStale ? "#f39c12" : "transparent",
+              }}
+            />
+            Hide stale tools
           </button>
-        )}
+        </div>
 
-        {/* Health filter */}
-        <button
-          onClick={onToggleHideStale}
-          className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md text-xs transition-colors text-left"
-          style={
-            hideStale
-              ? {
-                  background: "#f39c1218",
-                  border: "1px solid #f39c1244",
-                  color: "#f39c12",
-                }
-              : {
-                  background: "var(--surface-2)",
-                  border: "1px solid var(--border)",
-                  color: "var(--text-muted)",
-                }
-          }
-        >
-          <span style={{ fontSize: 10 }}>{hideStale ? "●" : "○"}</span>
-          Hide stale tools
-        </button>
+        {/* Categories grouped by stack layer — the primary filter, so it
+            leads and gets the most visual weight. */}
+        <div className={sectionDivider}>
+          <div className="flex items-center justify-between mb-2.5">
+            <span className="type-label text-[var(--text-secondary)]">Stack Layers</span>
+            <button
+              onClick={toggleAll}
+              className="text-[11px] text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors"
+            >
+              {allOn ? "Clear all" : "Select all"}
+            </button>
+          </div>
 
-        {/* Stack Filter */}
-        <div>
-          <div className="w-full flex items-center gap-1.5 mb-1.5">
+          <div className="space-y-2">
+            {STACK_LAYERS.map((layer) => {
+              const layerCats = CATEGORIES.filter((c) => layer.categories.includes(c.id));
+              const isOpen = !collapsed[layer.id];
+              const allLayerActive = layerCats.every((c) => activeCategories.has(c.id));
+              const someLayerActive = layerCats.some((c) => activeCategories.has(c.id));
+
+              return (
+                <div key={layer.id}>
+                  {/* Layer header — click to collapse, dot toggles all in layer */}
+                  <div
+                    className="flex items-center gap-1.5 px-2 py-1.5 rounded-md cursor-pointer hover:bg-[var(--surface-2)] transition-colors group"
+                    onClick={() => toggleLayerCollapsed(layer.id)}
+                    title={layer.description}
+                  >
+                    <ChevronIcon open={isOpen} />
+                    <span
+                      className="text-[12px] font-semibold flex-1 leading-tight"
+                      style={{
+                        color: someLayerActive ? "var(--text-primary)" : "var(--text-muted)",
+                      }}
+                    >
+                      {layer.question}
+                    </span>
+                    {/* Toggle all in layer */}
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleLayerCategories(layer.categories as string[]);
+                      }}
+                      className="opacity-0 group-hover:opacity-100 transition-opacity text-[11px] text-[var(--text-muted)] hover:text-[var(--text-secondary)]"
+                    >
+                      {allLayerActive ? "−" : "+"}
+                    </button>
+                  </div>
+
+                  {/* Category list — collapsible, with a left guide line so the
+                      indented group reads as "belongs to the header above" at a glance. */}
+                  {isOpen && (
+                    <div
+                      className="ml-4 mt-0.5 pl-2.5 space-y-0.5 mb-1"
+                      style={{ borderLeft: "1px solid var(--border)" }}
+                    >
+                      {layerCats.map((cat) => {
+                        const active = activeCategories.has(cat.id);
+                        return (
+                          <button
+                            key={cat.id}
+                            onClick={() => toggleCategory(cat.id)}
+                            className="w-full flex items-center gap-2 px-1.5 py-1 rounded-md text-left transition-colors hover:bg-[var(--surface-2)]"
+                            style={{ opacity: active ? 1 : 0.4 }}
+                          >
+                            <ColorDot color={cat.color} />
+                            <span className="text-xs text-[var(--text-secondary)] truncate">
+                              {cat.label}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+
+          <Link
+            href="/category"
+            className="block text-[11px] text-center py-1.5 mt-2 rounded-md transition-colors"
+            style={{
+              background: "var(--surface-2)",
+              border: "1px solid var(--border)",
+              color: "var(--text-muted)",
+            }}
+          >
+            Browse all categories →
+          </Link>
+        </div>
+
+        {/* Relationship types — collapsible */}
+        <div className={sectionDivider}>
+          <button
+            className="w-full flex items-center gap-1.5 mb-2"
+            onClick={() => setEdgesCollapsed((v) => !v)}
+          >
+            <ChevronIcon open={!edgesCollapsed} />
+            <span className="type-label text-[var(--text-secondary)]">Edges</span>
+          </button>
+
+          {!edgesCollapsed && (
+            <div className="space-y-0.5">
+              {REL_TYPES.map((rt) => {
+                const active = activeRelTypes.has(rt.id);
+                return (
+                  <button
+                    key={rt.id}
+                    onClick={() => toggleRelType(rt.id)}
+                    className="w-full flex items-center gap-2 px-2 py-1.5 rounded-md text-left transition-colors hover:bg-[var(--surface-2)]"
+                    style={{ opacity: active ? 1 : 0.4 }}
+                  >
+                    <div className="w-6 flex items-center flex-shrink-0">
+                      <div
+                        className="w-full"
+                        style={{
+                          height: rt.style === "solid" ? 1.5 : 0,
+                          background:
+                            rt.style === "solid" ? "var(--text-secondary)" : "transparent",
+                          borderTop:
+                            rt.style === "dashed"
+                              ? "1px dashed var(--text-secondary)"
+                              : rt.style === "dotted"
+                                ? "1px dotted var(--text-secondary)"
+                                : "none",
+                        }}
+                      />
+                    </div>
+                    <span className="text-xs text-[var(--text-secondary)]">{rt.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+        </div>
+
+        {/* Stack Filter — secondary/advanced (~20 pill options), collapsed by default */}
+        <div className={sectionDivider}>
+          <div className="w-full flex items-center gap-1.5 mb-2">
             <button
               className="flex items-center gap-1.5 flex-1 min-w-0"
               onClick={() => setStackFilterCollapsed((v) => !v)}
             >
               <ChevronIcon open={!stackFilterCollapsed} />
-              <span className="type-overline text-[var(--text-muted)] text-left">Find Stacks</span>
+              <span className="type-label text-[var(--text-secondary)] text-left">
+                Find a curated stack
+              </span>
             </button>
             {hasStackFilter && (
               <button
@@ -262,12 +418,28 @@ export default function FilterPanel({
             )}
           </div>
 
+          {stackFilterCollapsed && hasStackFilter && (
+            <p className="text-[11px] text-[var(--text-muted)] mb-1">
+              {[
+                stackFilters.team && TEAM_OPTIONS.find((o) => o.id === stackFilters.team)?.label,
+                stackFilters.budget &&
+                  BUDGET_OPTIONS.find((o) => o.id === stackFilters.budget)?.label,
+                stackFilters.use && USE_CASE_OPTIONS.find((o) => o.id === stackFilters.use)?.label,
+                stackFilters.stage && STAGE_OPTIONS.find((o) => o.id === stackFilters.stage)?.label,
+                stackFilters.cluster,
+              ]
+                .filter(Boolean)
+                .join(" · ")}{" "}
+              active
+            </p>
+          )}
+
           {!stackFilterCollapsed && (
-            <div className="space-y-2.5">
+            <div className="space-y-3">
               {/* Team size */}
               <div>
-                <p className="type-overline text-[var(--text-muted)] mb-1 px-1">Team size</p>
-                <div className="flex flex-wrap gap-1">
+                <p className="type-overline text-[var(--text-muted)] mb-1.5 px-1">Team size</p>
+                <div className="flex flex-wrap gap-1.5">
                   {TEAM_OPTIONS.map((opt) => (
                     <button
                       key={opt.id}
@@ -295,8 +467,8 @@ export default function FilterPanel({
 
               {/* Budget */}
               <div>
-                <p className="type-overline text-[var(--text-muted)] mb-1 px-1">Budget</p>
-                <div className="flex flex-wrap gap-1">
+                <p className="type-overline text-[var(--text-muted)] mb-1.5 px-1">Budget</p>
+                <div className="flex flex-wrap gap-1.5">
                   {BUDGET_OPTIONS.map((opt) => (
                     <button
                       key={opt.id}
@@ -324,8 +496,8 @@ export default function FilterPanel({
 
               {/* Use case */}
               <div>
-                <p className="type-overline text-[var(--text-muted)] mb-1 px-1">Use case</p>
-                <div className="flex flex-wrap gap-1">
+                <p className="type-overline text-[var(--text-muted)] mb-1.5 px-1">Use case</p>
+                <div className="flex flex-wrap gap-1.5">
                   {USE_CASE_OPTIONS.map((opt) => (
                     <button
                       key={opt.id}
@@ -353,8 +525,8 @@ export default function FilterPanel({
 
               {/* Stage */}
               <div>
-                <p className="type-overline text-[var(--text-muted)] mb-1 px-1">Stage</p>
-                <div className="flex flex-wrap gap-1">
+                <p className="type-overline text-[var(--text-muted)] mb-1.5 px-1">Stage</p>
+                <div className="flex flex-wrap gap-1.5">
                   {STAGE_OPTIONS.map((opt) => (
                     <button
                       key={opt.id}
@@ -382,8 +554,8 @@ export default function FilterPanel({
 
               {/* Cluster */}
               <div>
-                <p className="type-overline text-[var(--text-muted)] mb-1 px-1">Cluster</p>
-                <div className="flex flex-wrap gap-1">
+                <p className="type-overline text-[var(--text-muted)] mb-1.5 px-1">Cluster</p>
+                <div className="flex flex-wrap gap-1.5">
                   {STACK_CLUSTERS.map((opt) => (
                     <button
                       key={opt.id}
@@ -417,139 +589,6 @@ export default function FilterPanel({
                     : `${matchingStackCount} stack${matchingStackCount !== 1 ? "s" : ""} match — tools highlighted`}
                 </p>
               )}
-            </div>
-          )}
-        </div>
-
-        {/* Categories grouped by stack layer */}
-        <div>
-          <div className="flex items-center justify-between mb-2">
-            <span className="type-overline text-[var(--text-muted)]">Stack Layers</span>
-            <button
-              onClick={toggleAll}
-              className="text-[11px] text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors"
-            >
-              {allOn ? "None" : "All"}
-            </button>
-          </div>
-
-          <div className="space-y-1">
-            {STACK_LAYERS.map((layer) => {
-              const layerCats = CATEGORIES.filter((c) => layer.categories.includes(c.id));
-              const isOpen = !collapsed[layer.id];
-              const allLayerActive = layerCats.every((c) => activeCategories.has(c.id));
-              const someLayerActive = layerCats.some((c) => activeCategories.has(c.id));
-
-              return (
-                <div key={layer.id}>
-                  {/* Layer header — click to collapse, dot toggles all in layer */}
-                  <div
-                    className="flex items-center gap-1.5 px-2 py-1 rounded-md cursor-pointer hover:bg-[var(--surface-2)] transition-colors group"
-                    onClick={() => toggleLayerCollapsed(layer.id)}
-                    title={layer.description}
-                  >
-                    <ChevronIcon open={isOpen} />
-                    <span
-                      className="text-[11px] font-semibold flex-1 leading-tight"
-                      style={{
-                        color: someLayerActive ? "var(--text-secondary)" : "var(--text-muted)",
-                        opacity: someLayerActive ? 1 : 0.5,
-                      }}
-                    >
-                      {layer.question}
-                    </span>
-                    {/* Toggle all in layer */}
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        toggleLayerCategories(layer.categories as string[]);
-                      }}
-                      className="opacity-0 group-hover:opacity-100 transition-opacity text-[11px] text-[var(--text-muted)] hover:text-[var(--text-secondary)]"
-                    >
-                      {allLayerActive ? "−" : "+"}
-                    </button>
-                  </div>
-
-                  {/* Category list — collapsible */}
-                  {isOpen && (
-                    <div className="ml-3 mt-0.5 space-y-0.5 mb-1">
-                      {layerCats.map((cat) => {
-                        const active = activeCategories.has(cat.id);
-                        return (
-                          <button
-                            key={cat.id}
-                            onClick={() => toggleCategory(cat.id)}
-                            className="w-full flex items-center gap-2 px-2 py-1 rounded-md text-left transition-colors hover:bg-[var(--surface-2)]"
-                            style={{ opacity: active ? 1 : 0.35 }}
-                          >
-                            <ColorDot color={cat.color} />
-                            <span className="text-xs text-[var(--text-secondary)] truncate">
-                              {cat.label}
-                            </span>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        <Link
-          href="/category"
-          className="block text-[11px] text-center py-1.5 rounded-md transition-colors"
-          style={{
-            background: "var(--surface-2)",
-            border: "1px solid var(--border)",
-            color: "var(--text-muted)",
-          }}
-        >
-          Browse all categories →
-        </Link>
-
-        {/* Relationship types — collapsible */}
-        <div>
-          <button
-            className="w-full flex items-center gap-1.5 mb-1.5"
-            onClick={() => setEdgesCollapsed((v) => !v)}
-          >
-            <ChevronIcon open={!edgesCollapsed} />
-            <span className="type-overline text-[var(--text-muted)]">Edges</span>
-          </button>
-
-          {!edgesCollapsed && (
-            <div className="space-y-0.5">
-              {REL_TYPES.map((rt) => {
-                const active = activeRelTypes.has(rt.id);
-                return (
-                  <button
-                    key={rt.id}
-                    onClick={() => toggleRelType(rt.id)}
-                    className="w-full flex items-center gap-2 px-2 py-1.5 rounded-md text-left transition-colors hover:bg-[var(--surface-2)]"
-                    style={{ opacity: active ? 1 : 0.35 }}
-                  >
-                    <div className="w-6 flex items-center flex-shrink-0">
-                      <div
-                        className="w-full"
-                        style={{
-                          height: rt.style === "solid" ? 1.5 : 0,
-                          background:
-                            rt.style === "solid" ? "var(--text-secondary)" : "transparent",
-                          borderTop:
-                            rt.style === "dashed"
-                              ? "1px dashed var(--text-secondary)"
-                              : rt.style === "dotted"
-                                ? "1px dotted var(--text-secondary)"
-                                : "none",
-                        }}
-                      />
-                    </div>
-                    <span className="text-xs text-[var(--text-secondary)]">{rt.label}</span>
-                  </button>
-                );
-              })}
             </div>
           )}
         </div>

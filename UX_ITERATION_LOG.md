@@ -373,3 +373,63 @@ initials sized to fit their physical circle (`DetailPanel.tsx`,
 documented in Iterations 2-3).
 
 **Nothing hidden this iteration.**
+
+---
+
+# Part 2 — structural/hierarchy pass
+
+The pass above (Iterations 1-9) fixed contrast ratios and font-size floors,
+but user feedback after using the app was that several pages still felt
+"horrible" to read — specifically the graph sidebar filters, Activity
+(Feed), Pulse, and Stacks. The problem in these pages isn't (only) contrast
+or size anymore — it's **information hierarchy and density**: too many
+things rendered at the same visual weight, with no grouping or breathing
+room, so nothing stands out and everything competes for attention at once.
+This part goes deeper: restructuring layout, spacing, grouping, and what's
+shown by default — not just recoloring/resizing existing elements.
+
+## Iteration 10 — FilterPanel.tsx (graph sidebar filters) restructure
+
+**Problem:** the sidebar crammed 7 distinct filter mechanisms into a
+208px-wide column with almost no visual separation between them — search,
+two boolean toggles, an advanced "Find Stacks" sub-filter (5 groups, ~20
+pill buttons, defaulted **open**), the category/layer filter (the actual
+primary way to filter the graph), a "browse all categories" link, and the
+edge-type filter. Every section used identical tiny uppercase labels and
+identical pill styling, so a user scanning down saw one undifferentiated
+wall of controls with no anchor points. The advanced 20-pill sub-filter
+being open by default pushed the primary category filter below the fold.
+
+**Redesign (not just a token swap):**
+
+- Sidebar widened `w-52` (208px) → `w-64` (256px) — the pill buttons and
+  category rows were visibly cramped/wrapping at the old width.
+- **Reordered by actual usage priority**: Stack Layers (the primary graph
+  filter) now leads, followed by Edges, with the secondary "Find a curated
+  stack" sub-filter (renamed from "Find Stacks" for clarity) moved to the
+  end and **collapsed by default** — it now shows a one-line summary of
+  active filters instead of the full 20-pill UI when collapsed.
+  `stackFilterCollapsed` initial state flipped `false` → `true`.
+  "Only show tools I use" and "Hide stale tools" replaced their competing
+  bordered-box styling with small checkbox indicators grouped as one
+  visual unit.
+- **Real section dividers**: every major section now gets `border-top` +
+  `pt-4 mt-4`, so the eye has clear stopping points instead of a
+  continuous scroll of same-weight content.
+- **Stronger header hierarchy**: section headers (Stack Layers, Edges,
+  Find a curated stack) bumped from `type-overline` (11px) to `type-label`
+  (13px, semibold); layer question headers ("What are you building and how
+  is it defined?") bumped 11px→12px and switched from `text-secondary`
+  (muted even when active) to `text-primary` when active, so they read as
+  real headers instead of blending into the category list below them.
+- Category rows under each layer now sit against a left guide line
+  (`border-left`) so the "these belong to the header above" relationship
+  is visible at a glance, not just implied by indentation.
+
+**Verified:** screenshotted `/explore` with Playwright against the running
+dev server — wider sidebar, bold layer headers, visible section dividers,
+"Find a curated stack" correctly collapsed with chevron closed, zero
+console errors.
+
+**Nothing hidden this iteration** — restructuring only, all filters still
+present and functional, just reordered/regrouped/decollapsed differently.
