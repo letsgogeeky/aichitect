@@ -189,7 +189,7 @@ export default async function ComparePage({ params }: Props) {
         <div className="mb-10">
           {directRel && (
             <div
-              className="inline-flex items-center gap-1.5 text-[10px] font-medium px-2.5 py-1 rounded-full mb-4"
+              className="inline-flex items-center gap-1.5 text-[11px] font-medium px-2.5 py-1 rounded-full mb-4"
               style={relBadgeStyle(directRel.type)}
             >
               These tools {relLabel(directRel.type)}
@@ -388,7 +388,7 @@ export default async function ComparePage({ params }: Props) {
                     {a.pricing.plans.map((p, i) => (
                       <span
                         key={i}
-                        className="text-[10px] px-1.5 py-0.5 rounded border border-[var(--border)] text-[var(--text-secondary)]"
+                        className="text-[11px] px-1.5 py-0.5 rounded border border-[var(--border)] text-[var(--text-secondary)]"
                       >
                         {p.name}: {p.price}
                       </span>
@@ -403,7 +403,7 @@ export default async function ComparePage({ params }: Props) {
                     {b.pricing.plans.map((p, i) => (
                       <span
                         key={i}
-                        className="text-[10px] px-1.5 py-0.5 rounded border border-[var(--border)] text-[var(--text-secondary)]"
+                        className="text-[11px] px-1.5 py-0.5 rounded border border-[var(--border)] text-[var(--text-secondary)]"
                       >
                         {p.name}: {p.price}
                       </span>
@@ -445,7 +445,7 @@ export default async function ComparePage({ params }: Props) {
                             : "var(--danger)",
                     }}
                   >
-                    <span style={{ fontSize: 8 }}>●</span>
+                    <span style={{ fontSize: 11 }}>●</span>
                     {a.health_score} —{" "}
                     {a.health_score >= 70
                       ? "Active"
@@ -469,7 +469,7 @@ export default async function ComparePage({ params }: Props) {
                             : "var(--danger)",
                     }}
                   >
-                    <span style={{ fontSize: 8 }}>●</span>
+                    <span style={{ fontSize: 11 }}>●</span>
                     {b.health_score} —{" "}
                     {b.health_score >= 70
                       ? "Active"
@@ -525,7 +525,7 @@ export default async function ComparePage({ params }: Props) {
                     href={tool.website_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[10px] font-medium px-2 py-1 rounded transition-colors"
+                    className="text-[11px] font-medium px-2 py-1 rounded transition-colors"
                     style={{ background: color + "22", color, border: `1px solid ${color}44` }}
                   >
                     Website ↗
@@ -536,7 +536,7 @@ export default async function ComparePage({ params }: Props) {
                     href={tool.github_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[10px] font-medium px-2 py-1 rounded border border-[var(--border)] transition-colors"
+                    className="text-[11px] font-medium px-2 py-1 rounded border border-[var(--border)] transition-colors"
                     style={{ color: "var(--text-secondary)" }}
                   >
                     GitHub ↗
@@ -552,7 +552,7 @@ export default async function ComparePage({ params }: Props) {
           <section className="mb-8">
             <h2 className="text-sm font-semibold mb-3" style={{ color: "var(--text-primary)" }}>
               Shared Connections
-              <span className="ml-2 text-[10px] font-normal" style={{ color: "var(--text-muted)" }}>
+              <span className="ml-2 text-[11px] font-normal" style={{ color: "var(--text-muted)" }}>
                 {sharedTools.length} tools both integrate with
               </span>
             </h2>
@@ -593,7 +593,7 @@ export default async function ComparePage({ params }: Props) {
                     return (
                       <span
                         key={t.id}
-                        className="text-[10px] px-2 py-0.5 rounded-full"
+                        className="text-[11px] px-2 py-0.5 rounded-full"
                         style={{ background: c + "18", border: `1px solid ${c}33`, color: c }}
                       >
                         {t.name}

@@ -436,7 +436,7 @@ export default async function ToolPage({ params }: Props) {
                     {slot.name}
                   </span>
                   <span
-                    className="text-[10px] font-semibold px-2 py-0.5 rounded"
+                    className="text-[11px] font-semibold px-2 py-0.5 rounded"
                     style={{
                       background: SLOT_PRIORITY_COLOR[slot.priority["hybrid"]] + "22",
                       color: SLOT_PRIORITY_COLOR[slot.priority["hybrid"]],
@@ -458,7 +458,7 @@ export default async function ToolPage({ params }: Props) {
                       className="text-center px-2 py-2 rounded-lg"
                       style={{ background: "var(--surface-2)" }}
                     >
-                      <div className="text-[10px] mb-1" style={{ color: "var(--text-muted)" }}>
+                      <div className="text-[11px] mb-1" style={{ color: "var(--text-muted)" }}>
                         {arch === "dev-productivity"
                           ? "Dev Tools"
                           : arch === "app-infrastructure"
@@ -466,7 +466,7 @@ export default async function ToolPage({ params }: Props) {
                             : "Hybrid"}
                       </div>
                       <div
-                        className="text-[10px] font-semibold"
+                        className="text-[11px] font-semibold"
                         style={{ color: SLOT_PRIORITY_COLOR[slot.priority[arch]] }}
                       >
                         {SLOT_PRIORITY_LABEL[slot.priority[arch]]}
@@ -478,7 +478,7 @@ export default async function ToolPage({ params }: Props) {
                 {/* Slot peers */}
                 {slotPeers.length > 0 && (
                   <div>
-                    <p className="text-[10px] mb-2" style={{ color: "var(--text-muted)" }}>
+                    <p className="text-[11px] mb-2" style={{ color: "var(--text-muted)" }}>
                       Other tools in this slot:
                     </p>
                     <div className="flex flex-wrap gap-1.5">
@@ -536,10 +536,7 @@ export default async function ToolPage({ params }: Props) {
                 <div className="space-y-3">
                   {tool.aliases?.npm && tool.aliases.npm.length > 0 && (
                     <div>
-                      <span
-                        className="text-[10px] font-semibold uppercase tracking-wider"
-                        style={{ color: "var(--text-muted)" }}
-                      >
+                      <span className="type-overline" style={{ color: "var(--text-muted)" }}>
                         npm packages
                       </span>
                       <div className="flex flex-wrap gap-1.5 mt-1.5">
@@ -561,10 +558,7 @@ export default async function ToolPage({ params }: Props) {
                   )}
                   {tool.aliases?.pip && tool.aliases.pip.length > 0 && (
                     <div>
-                      <span
-                        className="text-[10px] font-semibold uppercase tracking-wider"
-                        style={{ color: "var(--text-muted)" }}
-                      >
+                      <span className="type-overline" style={{ color: "var(--text-muted)" }}>
                         pip packages
                       </span>
                       <div className="flex flex-wrap gap-1.5 mt-1.5">
@@ -586,10 +580,7 @@ export default async function ToolPage({ params }: Props) {
                   )}
                   {tool.aliases?.env_vars && tool.aliases.env_vars.length > 0 && (
                     <div>
-                      <span
-                        className="text-[10px] font-semibold uppercase tracking-wider"
-                        style={{ color: "var(--text-muted)" }}
-                      >
+                      <span className="type-overline" style={{ color: "var(--text-muted)" }}>
                         env vars
                       </span>
                       <div className="flex flex-wrap gap-1.5 mt-1.5">
@@ -611,10 +602,7 @@ export default async function ToolPage({ params }: Props) {
                   )}
                   {tool.aliases?.config_files && tool.aliases.config_files.length > 0 && (
                     <div>
-                      <span
-                        className="text-[10px] font-semibold uppercase tracking-wider"
-                        style={{ color: "var(--text-muted)" }}
-                      >
+                      <span className="type-overline" style={{ color: "var(--text-muted)" }}>
                         config files
                       </span>
                       <div className="flex flex-wrap gap-1.5 mt-1.5">
@@ -669,7 +657,7 @@ export default async function ToolPage({ params }: Props) {
                               {other.name}
                             </Link>
                             <span
-                              className="text-[10px] px-1.5 py-0.5 rounded-full"
+                              className="text-[11px] px-1.5 py-0.5 rounded-full"
                               style={{ background: c + "22", color: c }}
                             >
                               {CATEGORIES.find((cat) => cat.id === other.category)?.label}
@@ -694,7 +682,7 @@ export default async function ToolPage({ params }: Props) {
                         </div>
                         <Link
                           href={`/compare/${tool.id}/${other.id}`}
-                          className="flex-shrink-0 text-[10px] px-2 py-1 rounded transition-colors"
+                          className="flex-shrink-0 text-[11px] px-2 py-1 rounded transition-colors"
                           style={{
                             background: "#7c6bff18",
                             color: "var(--accent)",
@@ -767,7 +755,7 @@ export default async function ToolPage({ params }: Props) {
                         }}
                       >
                         <span>{other.name}</span>
-                        <span className="text-[10px] ml-2 flex-shrink-0" style={{ color: c }}>
+                        <span className="text-[11px] ml-2 flex-shrink-0" style={{ color: c }}>
                           compare →
                         </span>
                       </Link>
@@ -858,12 +846,12 @@ export default async function ToolPage({ params }: Props) {
                           >
                             {label}
                           </p>
-                          <p className="text-[10px] mt-0.5" style={{ color: "var(--text-muted)" }}>
+                          <p className="text-[11px] mt-0.5" style={{ color: "var(--text-muted)" }}>
                             {formatRelativeTime(ev.detected_at)}
                           </p>
                         </div>
                         <span
-                          className="text-[10px] flex-shrink-0 mt-0.5 opacity-0 group-hover:opacity-100 transition-opacity"
+                          className="text-[11px] flex-shrink-0 mt-0.5 opacity-0 group-hover:opacity-100 transition-opacity"
                           style={{ color: "var(--text-muted)" }}
                         >
                           ↗
@@ -921,7 +909,7 @@ export default async function ToolPage({ params }: Props) {
               >
                 <h2
                   className="text-xs font-semibold uppercase tracking-widest mb-3"
-                  style={{ color: "#ff6b6b99" }}
+                  style={{ color: "var(--danger)" }}
                 >
                   Ruled out by {rejectedBy.length} stack{rejectedBy.length !== 1 ? "s" : ""}
                 </h2>
@@ -938,7 +926,7 @@ export default async function ToolPage({ params }: Props) {
                       >
                         {stack.name}
                       </div>
-                      <div className="text-[11px] leading-snug" style={{ color: "#ff6b6b99" }}>
+                      <div className="text-[11px] leading-snug" style={{ color: "var(--danger)" }}>
                         &ldquo;{reason}&rdquo;
                       </div>
                     </div>
@@ -972,7 +960,7 @@ export default async function ToolPage({ params }: Props) {
                 decoding="async"
               />
               <code
-                className="block text-[10px] px-2 py-1.5 rounded break-all"
+                className="block text-[11px] px-2 py-1.5 rounded break-all"
                 style={{ background: "var(--surface-2)", color: "var(--text-muted)" }}
               >
                 {`[![${tool.name}](${SITE_URL}/badge/tool/${tool.id})](${SITE_URL}/tool/${tool.id})`}

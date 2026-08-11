@@ -394,7 +394,7 @@ export function CaseClient({
                     </span>
                     {slot && (
                       <span
-                        className="text-[10px] px-1.5 py-0.5 rounded"
+                        className="text-[11px] px-1.5 py-0.5 rounded"
                         style={{
                           background: `${color}18`,
                           color: color,
@@ -412,7 +412,7 @@ export function CaseClient({
                     {tool.tagline}
                   </p>
                   {tool.choose_if && tool.choose_if.length > 0 && (
-                    <p className="text-[10px] mt-1" style={{ color: "var(--text-muted)" }}>
+                    <p className="text-[11px] mt-1" style={{ color: "var(--text-muted)" }}>
                       Choose if: {tool.choose_if.join(" · ")}
                     </p>
                   )}

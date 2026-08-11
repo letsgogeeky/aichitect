@@ -34,10 +34,7 @@ function LatencySparkline({ points }: { points: BenchmarkPoint[] }) {
   return (
     <div className="space-y-1">
       <div className="flex items-baseline justify-between">
-        <span
-          className="text-[10px] uppercase tracking-wider"
-          style={{ color: "var(--text-muted)" }}
-        >
+        <span className="type-overline" style={{ color: "var(--text-muted)" }}>
           TTFT (last {geom.pointCount} runs)
         </span>
         <span className="font-mono text-xs tabular-nums" style={{ color: stroke }}>
@@ -48,7 +45,7 @@ function LatencySparkline({ points }: { points: BenchmarkPoint[] }) {
         <path d={geom.path} fill="none" stroke={stroke} strokeWidth={1.5} strokeLinejoin="round" />
         <circle cx={SPARK_W - SPARK_PAD} cy={endpointY} r={2.5} fill={stroke} />
       </svg>
-      <div className="flex justify-between text-[9px]" style={{ color: "var(--text-muted)" }}>
+      <div className="flex justify-between text-[11px]" style={{ color: "var(--text-muted)" }}>
         <span>{geom.firstValue} ms</span>
         <span>
           min {geom.min} · max {geom.max}
@@ -83,7 +80,7 @@ function ReliabilityStrip({ reliability }: { reliability: ReliabilitySummary }) 
         <Stat label="ongoing" value={ongoing} tint={ongoing > 0 ? "#fdcb6e" : undefined} />
       </div>
       {last_major_at && (
-        <p className="text-[10px]" style={{ color: "var(--text-muted)" }}>
+        <p className="text-[11px]" style={{ color: "var(--text-muted)" }}>
           Last major incident {formatRelativeTime(last_major_at)}
         </p>
       )}
@@ -101,7 +98,7 @@ function ReliabilityStrip({ reliability }: { reliability: ReliabilitySummary }) 
                 <span className="truncate" style={{ color: "var(--text-secondary)" }}>
                   {inc.title}
                 </span>
-                <span className="ml-2 text-[9px]" style={{ color: "var(--text-muted)" }}>
+                <span className="ml-2 text-[11px]" style={{ color: "var(--text-muted)" }}>
                   {formatRelativeTime(inc.started_at)}
                 </span>
               </a>
@@ -122,7 +119,7 @@ function Stat({ label, value, tint }: { label: string; value: number; tint?: str
       >
         {value}
       </div>
-      <div className="text-[9px] uppercase tracking-wider" style={{ color: "var(--text-muted)" }}>
+      <div className="type-overline" style={{ color: "var(--text-muted)" }}>
         {label}
       </div>
     </div>

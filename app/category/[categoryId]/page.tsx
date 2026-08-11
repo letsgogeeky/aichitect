@@ -162,7 +162,7 @@ export default async function CategoryPage({ params }: Props) {
                 <div className="flex items-center gap-1.5 mb-2 flex-wrap">
                   {isOss && (
                     <span
-                      className="text-[10px] font-semibold px-1.5 py-0.5 rounded uppercase"
+                      className="text-[11px] font-semibold px-1.5 py-0.5 rounded uppercase"
                       style={{ background: "#26de8118", color: "#26de81" }}
                     >
                       OSS
@@ -170,7 +170,7 @@ export default async function CategoryPage({ params }: Props) {
                   )}
                   {tool.pricing.free_tier && (
                     <span
-                      className="text-[10px] font-semibold px-1.5 py-0.5 rounded"
+                      className="text-[11px] font-semibold px-1.5 py-0.5 rounded"
                       style={{ background: "#00d4aa18", color: "#00d4aa" }}
                     >
                       Free
@@ -178,7 +178,7 @@ export default async function CategoryPage({ params }: Props) {
                   )}
                   {tool.prominent && (
                     <span
-                      className="text-[10px] font-semibold px-1.5 py-0.5 rounded"
+                      className="text-[11px] font-semibold px-1.5 py-0.5 rounded"
                       style={{ background: color + "18", color }}
                     >
                       Popular
@@ -186,7 +186,7 @@ export default async function CategoryPage({ params }: Props) {
                   )}
                   {tool.is_stale && (
                     <span
-                      className="text-[10px] font-semibold px-1.5 py-0.5 rounded"
+                      className="text-[11px] font-semibold px-1.5 py-0.5 rounded"
                       style={{ background: "#f39c1218", color: "#f39c12" }}
                     >
                       ⚠ Stale

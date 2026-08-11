@@ -156,3 +156,28 @@ decision out of scope for a component-level pass — left as-is here rather
 than patching one call site inconsistently with the rest of the app.
 
 **Nothing hidden this iteration.**
+
+## Iteration 5 — app/tool/, app/category/, app/compare/, app/case/
+
+**Problem found:** the same `#ff6b6b99` translucent-danger-as-text bug
+(3.15:1, fails AA) recurred again in `app/tool/[toolId]/page.tsx`'s "Ruled
+out by" section — the third time this exact failure mode has shown up
+(StackHealthPanel in Iteration 3, StackDetailHeader in Iteration 4). Plus
+the usual scattering of 8-10px text across the standalone tool page,
+category pages, the compare page, and the case-study page.
+
+**Fixes:**
+
+- `app/tool/[toolId]/page.tsx`: `#ff6b6b99` → `var(--danger)` (3.15:1 →
+  7.12:1) in both the "Ruled out by" heading and reason text; remaining
+  10px text bumped to 11px; uppercase section labels → `type-overline`.
+- `ToolPulseSection.tsx`: 9-10px text bumped to 11px; uppercase labels →
+  `type-overline`.
+- `category/page.tsx`, `category/[categoryId]/page.tsx`,
+  `compare/[toolA]/[toolB]/page.tsx`, `case/CaseClient.tsx`: 10px text
+  (badges, pills, table cells) bumped to 11px; two 8px health-dot glyphs in
+  the compare page bumped to 11px.
+
+**Nothing hidden this iteration.**
+
+**Nothing hidden this iteration.**

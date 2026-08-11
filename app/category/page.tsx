@@ -66,7 +66,7 @@ export default function CategoryIndexPage() {
                   {prominent.map((t) => (
                     <span
                       key={t.id}
-                      className="text-[10px] px-1.5 py-0.5 rounded"
+                      className="text-[11px] px-1.5 py-0.5 rounded"
                       style={{
                         background: color + "10",
                         color: "var(--text-muted)",
@@ -78,7 +78,7 @@ export default function CategoryIndexPage() {
                   ))}
                   {tools.length > 3 && (
                     <span
-                      className="text-[10px] px-1.5 py-0.5 rounded"
+                      className="text-[11px] px-1.5 py-0.5 rounded"
                       style={{ color: "var(--text-muted)" }}
                     >
                       +{tools.length - 3} more
