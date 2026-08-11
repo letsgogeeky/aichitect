@@ -1042,3 +1042,44 @@ defined at module scope (not recreated per render), so this looks like an
 internal React Flow check quirk rather than an actual unmemoized-object
 bug on our side. Low severity (perf-only, dev-mode-only), not chased
 further.
+
+## Part 3 continued — axe-scanning the routes the earlier passes missed
+
+The 15-route axe sweep and the 20-route console crawl both used a fixed
+route list assembled early in this session. It never included `/case`,
+`/privacy`, `/profile/[username]`, or the dynamic `/compare/[toolA]/[toolB]`
+pair page — all real, linked-to routes, just not on the list. Ran the full
+WCAG 2A/2AA ruleset against them explicitly and found 3 more genuine
+violations, all instances of patterns already fixed elsewhere in the app
+but never applied to these specific pages:
+
+- **`link-in-text-block`** on `/case` (1 instance — the "Go to the Builder"
+  empty-state link) and `/privacy` (5 instances — two external ToS links,
+  the mailto link ×2, and the "profile page" GDPR-erasure link) — same
+  root cause as the `/changelog` and `/tool/[toolId]` fixes earlier in
+  this log: an accent-colored link with no underline is only
+  distinguishable from surrounding body text by color. Fixed by adding
+  `textDecoration: "underline"` to each (all 5 on `/privacy` shared the
+  identical `style={{ color: "var(--accent)" }}`, so one `replace_all`
+  covered them).
+- **`color-contrast`** on `/compare/[toolA]/[toolB]` (2 instances — the
+  "Only Cursor" / "Only GitHub Copilot" unique-tools section headers) —
+  the same "per-category color at reduced text alpha" bug found and fixed
+  repeatedly throughout this whole log (`StackHealthPanel`,
+  `StackDetailHeader`, etc.): `style={{ color: color + "cc" }}` where
+  `color` is a dynamic `getCategoryColor()` result, not a fixed brand
+  color — some categories fail AA at 80% opacity even though most don't.
+  Fixed by dropping to full opacity (`style={{ color }}`), consistent
+  with every other instance of this exact bug in the app.
+
+Verified via a full axe re-scan of all 5 routes (0 violations), plus a
+re-run of both the original 15-route WCAG scan and the 20-route console
+crawl to confirm nothing regressed — still 0 WCAG violations and 0
+GoTrueClient warnings across the board. `make check` (lint/typecheck/test,
+217 tests) clean.
+
+**Running total across this whole log: 0 contrast/WCAG 2A/2AA violations
+and 0 console errors/warnings (excluding known-benign dev-mode-only
+noise: a Three.js deprecation notice, GPU driver perf logs, and a React
+Flow internal check quirk) across every route in the app** — 20 routes
+now cross-checked, up from the 15 the audit originally covered.

@@ -227,7 +227,7 @@ export function CaseClient({
       <div className="max-w-2xl mx-auto px-6 py-20 text-center">
         <p className="text-sm" style={{ color: "var(--text-muted)" }}>
           No tools selected. Go to the{" "}
-          <Link href="/builder" style={{ color: "var(--accent)" }}>
+          <Link href="/builder" style={{ color: "var(--accent)", textDecoration: "underline" }}>
             Builder
           </Link>{" "}
           and pick your stack first.

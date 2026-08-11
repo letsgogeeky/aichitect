@@ -583,7 +583,7 @@ export default async function ComparePage({ params }: Props) {
               <div key={label}>
                 <h2
                   className="text-xs font-semibold uppercase tracking-widest mb-2"
-                  style={{ color: color + "cc" }}
+                  style={{ color }}
                 >
                   {label} ({tList.length})
                 </h2>

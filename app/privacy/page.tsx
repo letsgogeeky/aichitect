@@ -42,7 +42,10 @@ export default function PrivacyPage() {
           </p>
           <p className="mt-2">
             For data-related requests, contact us at:{" "}
-            <a href="mailto:privacy@aichitect.dev" style={{ color: "var(--accent)" }}>
+            <a
+              href="mailto:privacy@aichitect.dev"
+              style={{ color: "var(--accent)", textDecoration: "underline" }}
+            >
               privacy@aichitect.dev
             </a>
           </p>
@@ -114,7 +117,7 @@ export default function PrivacyPage() {
                 href="https://supabase.com/privacy"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ color: "var(--accent)" }}
+                style={{ color: "var(--accent)", textDecoration: "underline" }}
               >
                 Supabase Privacy Policy ↗
               </a>
@@ -126,7 +129,7 @@ export default function PrivacyPage() {
                 href="https://vercel.com/legal/privacy-policy"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ color: "var(--accent)" }}
+                style={{ color: "var(--accent)", textDecoration: "underline" }}
               >
                 Vercel Privacy Policy ↗
               </a>
@@ -149,7 +152,7 @@ export default function PrivacyPage() {
             <li>
               <strong>Erasure</strong> — delete your account and all associated data at any time
               from your{" "}
-              <Link href="/profile" style={{ color: "var(--accent)" }}>
+              <Link href="/profile" style={{ color: "var(--accent)", textDecoration: "underline" }}>
                 profile page
               </Link>
             </li>
@@ -162,7 +165,10 @@ export default function PrivacyPage() {
           </ul>
           <p className="mt-3">
             To exercise any of these rights, email{" "}
-            <a href="mailto:privacy@aichitect.dev" style={{ color: "var(--accent)" }}>
+            <a
+              href="mailto:privacy@aichitect.dev"
+              style={{ color: "var(--accent)", textDecoration: "underline" }}
+            >
               privacy@aichitect.dev
             </a>
             . We will respond within 30 days.
