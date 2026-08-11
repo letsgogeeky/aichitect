@@ -106,12 +106,12 @@ export function MobileSlotPicker({
                         {tool.name}
                       </span>
                       {tool.type === "oss" && (
-                        <span className="text-[10px]" style={{ color: "var(--success)" }}>
+                        <span className="text-[11px]" style={{ color: "var(--success)" }}>
                           OSS
                         </span>
                       )}
                       {isActive && (
-                        <span className="text-[10px]" style={{ color }}>
+                        <span className="text-[11px]" style={{ color }}>
                           ✓
                         </span>
                       )}

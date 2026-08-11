@@ -166,13 +166,10 @@ export function StackDetailHeader({
       {/* Lifecycle phase coverage — shows which of the 12 phases this stack hits */}
       <div className="mb-3">
         <div className="flex items-center justify-between gap-2 mb-1.5">
-          <span
-            className="type-overline text-[10px] uppercase tracking-widest"
-            style={{ color: "var(--text-muted)" }}
-          >
+          <span className="type-overline type-overline" style={{ color: "var(--text-muted)" }}>
             Lifecycle Coverage
           </span>
-          <span className="text-[10px] font-semibold" style={{ color: "var(--text-muted)" }}>
+          <span className="text-[11px] font-semibold" style={{ color: "var(--text-muted)" }}>
             {phaseCoverage.size}/12 phases · {TRACK_LABEL[selected.track]}
           </span>
         </div>
@@ -230,7 +227,7 @@ export function StackDetailHeader({
             className="rounded-lg px-3 py-2"
             style={{ background: "#7c6bff0a", border: "1px solid #7c6bff1a" }}
           >
-            <div className="type-overline mb-1" style={{ color: "#7c6bff88" }}>
+            <div className="type-overline mb-1" style={{ color: "var(--accent)" }}>
               Why this stack
             </div>
             <p className="type-body" style={{ color: "var(--text-muted)" }}>
@@ -243,7 +240,7 @@ export function StackDetailHeader({
             className="rounded-lg px-3 py-2"
             style={{ background: "#ff6b6b08", border: "1px solid #ff6b6b1a" }}
           >
-            <div className="type-overline mb-1" style={{ color: "#ff6b6b88" }}>
+            <div className="type-overline mb-1" style={{ color: "var(--danger)" }}>
               Tradeoff
             </div>
             <p className="type-body" style={{ color: "var(--text-muted)" }}>
@@ -259,7 +256,7 @@ export function StackDetailHeader({
           className="rounded-lg px-3 py-2 mb-3"
           style={{ background: "#ff6b6b06", border: "1px solid #ff6b6b18" }}
         >
-          <div className="type-overline mb-1.5" style={{ color: "#ff6b6b88" }}>
+          <div className="type-overline mb-1.5" style={{ color: "var(--danger)" }}>
             Not in this stack
           </div>
           <div className="flex flex-col gap-1">
@@ -267,7 +264,7 @@ export function StackDetailHeader({
               const color = tool ? getCategoryColor(tool.category) : "var(--text-muted)";
               return (
                 <div key={reason} className="flex items-baseline gap-2">
-                  <span className="type-caption flex-shrink-0" style={{ color: "#ff6b6b66" }}>
+                  <span className="type-caption flex-shrink-0" style={{ color: "var(--danger)" }}>
                     ✗
                   </span>
                   {tool ? (
@@ -303,10 +300,10 @@ export function StackDetailHeader({
             onClick={() => setKillOpen((v) => !v)}
             className="flex items-center gap-2 w-full text-left"
           >
-            <div className="type-overline" style={{ color: "#fdcb6e88" }}>
+            <div className="type-overline" style={{ color: "var(--warning)" }}>
               When to move on
             </div>
-            <span className="type-caption" style={{ color: "#fdcb6e66" }}>
+            <span className="type-caption" style={{ color: "var(--warning)" }}>
               {killOpen ? "▲" : "▼"}
             </span>
           </button>
@@ -318,7 +315,10 @@ export function StackDetailHeader({
               <div className="flex flex-col gap-1 mb-2">
                 {selected.kill_conditions!.map((condition, i) => (
                   <div key={i} className="flex items-baseline gap-2">
-                    <span className="type-caption flex-shrink-0" style={{ color: "#fdcb6e66" }}>
+                    <span
+                      className="type-caption flex-shrink-0"
+                      style={{ color: "var(--warning)" }}
+                    >
                       •
                     </span>
                     <span className="type-body-tight" style={{ color: "var(--text-muted)" }}>
@@ -375,7 +375,7 @@ export function StackDetailHeader({
                   background: inStack ? "var(--accent-2)" : "var(--surface)",
                   border: `1px solid ${inStack ? "var(--accent-2)" : "var(--border)"}`,
                   color: inStack ? "#0a0a0f" : "var(--text-muted)",
-                  fontSize: 10,
+                  fontSize: 11,
                   fontWeight: 700,
                 }}
               >
@@ -425,7 +425,7 @@ export function StackDetailHeader({
             }}
           >
             <span className="font-medium">{compareA.name}</span>
-            <span className="text-[#7c6bff66]">· pick one more</span>
+            <span className="text-[var(--text-muted)]">· pick one more</span>
             <CloseButton onClick={onClearCompare} variant="accent" className="leading-none" />
           </div>
         )}

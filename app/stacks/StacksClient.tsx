@@ -44,7 +44,7 @@ function StackGraph({ stack, allTools }: { stack: Stack; allTools: Tool[] }) {
       source: f.from,
       target: f.to,
       label: f.label,
-      labelStyle: { fill: "var(--text-secondary)", fontSize: 10 },
+      labelStyle: { fill: "var(--text-secondary)", fontSize: 11 },
       labelBgStyle: { fill: "var(--surface)", fillOpacity: 0.9 },
       style: { stroke: color, strokeWidth: 1.5 },
       animated: true,
@@ -275,10 +275,7 @@ function StacksContent({
               className="rounded-lg px-3 py-2.5"
               style={{ background: accentColor + "0a", border: `1px solid ${accentColor}22` }}
             >
-              <div
-                className="text-[10px] font-bold uppercase tracking-widest mb-1"
-                style={{ color: accentColor + "99" }}
-              >
+              <div className="type-overline mb-1" style={{ color: accentColor + "99" }}>
                 The Situation
               </div>
               <p
@@ -295,7 +292,7 @@ function StacksContent({
           <div className="flex flex-wrap gap-2">
             {complexity && (
               <span
-                className="text-[10px] font-semibold px-2 py-0.5 rounded-full uppercase"
+                className="text-[11px] font-semibold px-2 py-0.5 rounded-full uppercase"
                 style={{
                   background: complexity.color + "18",
                   border: `1px solid ${complexity.color}44`,
@@ -307,7 +304,7 @@ function StacksContent({
             )}
             {selected.monthly_cost && (
               <span
-                className="text-[10px] px-2 py-0.5 rounded-full"
+                className="text-[11px] px-2 py-0.5 rounded-full"
                 style={{
                   background: "var(--btn)",
                   border: "1px solid var(--btn-border)",
@@ -323,10 +320,7 @@ function StacksContent({
               className="rounded-lg px-3 py-2"
               style={{ background: "#7c6bff0a", border: "1px solid #7c6bff1a" }}
             >
-              <div
-                className="text-[10px] font-bold uppercase tracking-widest mb-1"
-                style={{ color: "#7c6bff88" }}
-              >
+              <div className="type-overline mb-1" style={{ color: "var(--accent)" }}>
                 Why this stack
               </div>
               <p className="text-xs leading-relaxed" style={{ color: "var(--text-muted)" }}>
@@ -339,10 +333,7 @@ function StacksContent({
               className="rounded-lg px-3 py-2"
               style={{ background: "#ff6b6b08", border: "1px solid #ff6b6b1a" }}
             >
-              <div
-                className="text-[10px] font-bold uppercase tracking-widest mb-1"
-                style={{ color: "#ff6b6b88" }}
-              >
+              <div className="type-overline mb-1" style={{ color: "var(--danger)" }}>
                 Tradeoff
               </div>
               <p className="text-xs leading-relaxed" style={{ color: "var(--text-muted)" }}>

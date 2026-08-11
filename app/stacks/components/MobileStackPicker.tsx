@@ -44,10 +44,7 @@ export function MobileStackPicker({
           const clStacks = stacks.filter((s) => s.cluster === cluster.id);
           return (
             <div key={cluster.id} className="mb-4">
-              <div
-                className="px-4 py-2 text-[10px] font-bold uppercase tracking-widest"
-                style={{ color: "var(--text-muted)" }}
-              >
+              <div className="px-4 py-2 type-overline" style={{ color: "var(--text-muted)" }}>
                 {cluster.label}
               </div>
               {clStacks.map((s) => {

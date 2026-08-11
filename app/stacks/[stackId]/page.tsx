@@ -21,7 +21,7 @@ function StackShellSkeleton({ stack }: { stack: Stack }) {
       style={{ background: "var(--bg)" }}
     >
       <div
-        className="mb-2 flex items-center gap-2 text-[10px] uppercase tracking-widest"
+        className="mb-2 flex items-center gap-2 type-overline"
         style={{ color: "var(--text-muted)" }}
       >
         {cluster && <span>{cluster.label}</span>}

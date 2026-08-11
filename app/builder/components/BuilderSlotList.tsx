@@ -151,13 +151,13 @@ export function BuilderSlotList({
             className="rounded-lg px-3 py-2.5 space-y-2"
             style={{ background: "var(--surface-2)", border: "1px solid var(--border)" }}
           >
-            <p className="text-[10px] text-[var(--text-muted)] leading-relaxed">
+            <p className="text-[11px] text-[var(--text-muted)] leading-relaxed">
               Not sure where to start?
             </p>
             <div className="flex gap-1.5">
               <button
                 onClick={onOpenQuiz}
-                className="flex-1 text-[10px] font-medium py-1.5 px-2 rounded-md transition-colors"
+                className="flex-1 text-[11px] font-medium py-1.5 px-2 rounded-md transition-colors"
                 style={{
                   background: "#7c6bff18",
                   border: "1px solid #7c6bff33",
@@ -168,7 +168,7 @@ export function BuilderSlotList({
               </button>
               <Link
                 href="/stacks"
-                className="flex-1 text-[10px] font-medium py-1.5 px-2 rounded-md text-center transition-colors"
+                className="flex-1 text-[11px] font-medium py-1.5 px-2 rounded-md text-center transition-colors"
                 style={{
                   background: "var(--btn)",
                   border: "1px solid var(--btn-border)",
@@ -183,7 +183,7 @@ export function BuilderSlotList({
 
         {selectedCount > 0 && (
           <div
-            className="text-[10px] px-2 py-1 rounded-md flex items-center justify-between gap-2"
+            className="text-[11px] px-2 py-1 rounded-md flex items-center justify-between gap-2"
             style={{ background: "#7c6bff18", color: "var(--accent)" }}
           >
             <span>
@@ -195,7 +195,7 @@ export function BuilderSlotList({
 
         {compareA && !compareB && (
           <div
-            className="flex items-center gap-1.5 text-[10px] px-2 py-1.5 rounded-md"
+            className="flex items-center gap-1.5 text-[11px] px-2 py-1.5 rounded-md"
             style={{
               background: "#7c6bff14",
               border: "1px solid #7c6bff33",
@@ -207,7 +207,7 @@ export function BuilderSlotList({
               style={{ background: getCategoryColor(compareA.category) }}
             />
             <span className="truncate font-medium">{compareA.name}</span>
-            <span className="text-[#7c6bff66] flex-shrink-0">· pick one more</span>
+            <span className="text-[var(--text-muted)] flex-shrink-0">· pick one more</span>
             <CloseButton
               onClick={onClearCompare}
               variant="accent"
@@ -231,7 +231,7 @@ export function BuilderSlotList({
             {!showSaveForm ? (
               <button
                 onClick={() => setShowSaveForm(true)}
-                className="flex items-center justify-center gap-1.5 w-full py-1.5 rounded-lg text-[10px] font-medium transition-colors"
+                className="flex items-center justify-center gap-1.5 w-full py-1.5 rounded-lg text-[11px] font-medium transition-colors"
                 style={{
                   background: "#7c6bff18",
                   border: "1px solid #7c6bff33",
@@ -256,7 +256,7 @@ export function BuilderSlotList({
                   onChange={(e) => setSaveName(e.target.value)}
                   placeholder="Stack name…"
                   autoFocus
-                  className="w-full px-2.5 py-1.5 rounded-lg text-[10px]"
+                  className="w-full px-2.5 py-1.5 rounded-lg text-[11px]"
                   style={{
                     background: "var(--surface-2)",
                     border: "1px solid var(--border)",
@@ -275,7 +275,7 @@ export function BuilderSlotList({
                   <button
                     onClick={saveStack}
                     disabled={!saveName.trim() || saveState === "saving"}
-                    className="flex-1 py-1.5 rounded-lg text-[10px] font-medium transition-all"
+                    className="flex-1 py-1.5 rounded-lg text-[11px] font-medium transition-all"
                     style={{
                       background: saveState === "saved" ? "#26de8122" : "#7c6bff18",
                       border: `1px solid ${saveState === "saved" ? "#26de8144" : "#7c6bff33"}`,
@@ -291,7 +291,7 @@ export function BuilderSlotList({
                       setSaveName("");
                       setSaveState("idle");
                     }}
-                    className="px-2 py-1.5 rounded-lg text-[10px] transition-colors"
+                    className="px-2 py-1.5 rounded-lg text-[11px] transition-colors"
                     style={{
                       background: "var(--surface-2)",
                       border: "1px solid var(--border)",
@@ -302,14 +302,14 @@ export function BuilderSlotList({
                   </button>
                 </div>
                 {saveState === "error" && (
-                  <p className="text-[10px]" style={{ color: "var(--danger, #ff6b6b)" }}>
+                  <p className="text-[11px]" style={{ color: "var(--danger, #ff6b6b)" }}>
                     Failed to save. Try again.
                   </p>
                 )}
                 {saveState === "saved" && savedStackId && (
                   <Link
                     href={`/watch/${savedStackId}`}
-                    className="flex items-center justify-center gap-1 w-full py-1.5 rounded-lg text-[10px] font-medium"
+                    className="flex items-center justify-center gap-1 w-full py-1.5 rounded-lg text-[11px] font-medium"
                     style={{
                       background: "#7c6bff18",
                       border: "1px solid #7c6bff33",
@@ -334,13 +334,10 @@ export function BuilderSlotList({
                   className="inline-block h-1.5 w-1.5 rounded-full flex-shrink-0"
                   style={{ background: trackColor }}
                 />
-                <span
-                  className="text-[10px] font-semibold uppercase tracking-widest"
-                  style={{ color: trackColor }}
-                >
+                <span className="type-overline" style={{ color: trackColor }}>
                   {LIFECYCLE_PHASE_LABEL[phase]}
                 </span>
-                <span className="ml-auto text-[10px]" style={{ color: "var(--text-muted)" }}>
+                <span className="ml-auto text-[11px]" style={{ color: "var(--text-muted)" }}>
                   {phaseSelectedCount}/{groupSlots.length}
                 </span>
               </div>
@@ -384,22 +381,22 @@ export function BuilderSlotList({
                         </p>
                         {SLOT_AUTONOMY[slot.id] && (
                           <span
-                            className="text-[10px] font-medium"
-                            style={{ color: SLOT_AUTONOMY[slot.id].color, opacity: 0.75 }}
+                            className="text-[11px] font-medium"
+                            style={{ color: SLOT_AUTONOMY[slot.id].color }}
                           >
                             {SLOT_AUTONOMY[slot.id].label}
                           </span>
                         )}
                         {!isOpen && selectedTool && (
                           <p
-                            className="text-[10px] mt-0.5 truncate"
+                            className="text-[11px] mt-0.5 truncate"
                             style={{ color: getCategoryColor(selectedTool.category) }}
                           >
                             {selectedTool.name}
                           </p>
                         )}
                         {!isOpen && !selectedTool && (
-                          <p className="text-[10px] text-[var(--text-muted)] mt-0.5">not set</p>
+                          <p className="text-[11px] text-[var(--text-muted)] mt-0.5">not set</p>
                         )}
                       </div>
                     </button>
@@ -455,7 +452,7 @@ export function BuilderSlotList({
                                       {t.name}
                                     </span>
                                     {t.type === "oss" && (
-                                      <span className="ml-auto text-[10px] text-[var(--success)]">
+                                      <span className="ml-auto text-[11px] text-[var(--success)]">
                                         OSS
                                       </span>
                                     )}
@@ -558,7 +555,7 @@ export function BuilderSlotList({
                   strokeLinejoin="round"
                 />
               </svg>
-              <span className="text-[10px] text-[var(--text-muted)]">
+              <span className="text-[11px] text-[var(--text-muted)]">
                 {showNotApplicable ? "Hide" : "Show"} {notApplicableSlots.length} slots not relevant
                 to your stack
               </span>
@@ -603,20 +600,20 @@ export function BuilderSlotList({
                           </p>
                           {!isOpen && selectedTool && (
                             <p
-                              className="text-[10px] mt-0.5 truncate"
+                              className="text-[11px] mt-0.5 truncate"
                               style={{ color: getCategoryColor(selectedTool.category) }}
                             >
                               {selectedTool.name}
                             </p>
                           )}
                           {!isOpen && !selectedTool && (
-                            <p className="text-[10px] text-[var(--text-muted)] mt-0.5">not set</p>
+                            <p className="text-[11px] text-[var(--text-muted)] mt-0.5">not set</p>
                           )}
                         </div>
                       </button>
                       {isOpen && (
                         <>
-                          <p className="text-[10px] text-[var(--text-muted)] mb-1.5 pl-4 leading-relaxed">
+                          <p className="text-[11px] text-[var(--text-muted)] mb-1.5 pl-4 leading-relaxed">
                             {slot.description}
                           </p>
                           <div className="space-y-0.5">
@@ -646,7 +643,7 @@ export function BuilderSlotList({
                                     {t.name}
                                   </span>
                                   {t.type === "oss" && (
-                                    <span className="ml-auto text-[10px] text-[var(--success)]">
+                                    <span className="ml-auto text-[11px] text-[var(--success)]">
                                       OSS
                                     </span>
                                   )}
@@ -667,7 +664,7 @@ export function BuilderSlotList({
         {selectedCount > 0 && (
           <Link
             href={`/explore?s=${stackParam}`}
-            className="flex items-center justify-center gap-1.5 w-full py-1.5 rounded-lg text-[10px] font-medium transition-colors"
+            className="flex items-center justify-center gap-1.5 w-full py-1.5 rounded-lg text-[11px] font-medium transition-colors"
             style={{
               background: "var(--surface-2)",
               border: "1px solid var(--border)",
@@ -687,7 +684,7 @@ export function BuilderSlotList({
 
         {/* Scope footer — Builder picks AI-layer tools; the substrate is yours (per SCOPE.md) */}
         <p
-          className="text-[10px] leading-relaxed pt-3 mt-3 border-t"
+          className="text-[11px] leading-relaxed pt-3 mt-3 border-t"
           style={{ color: "var(--text-muted)", borderColor: "var(--border)" }}
         >
           This is the AI layer. Vercel, GitHub Actions, and Supabase live below.

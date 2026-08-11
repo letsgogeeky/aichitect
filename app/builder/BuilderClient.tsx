@@ -91,7 +91,7 @@ function BuilderGraph({
         animated: !isPaired,
         style: relationshipEdgeStyle(r.type, color),
         label: isPaired ? "often used together" : undefined,
-        labelStyle: isPaired ? { fill: "var(--text-muted)", fontSize: 10 } : undefined,
+        labelStyle: isPaired ? { fill: "var(--text-muted)", fontSize: 11 } : undefined,
         labelBgStyle: isPaired ? { fill: "var(--surface)", fillOpacity: 0.8 } : undefined,
       };
     });
@@ -108,7 +108,7 @@ function BuilderGraph({
           Pick one tool per slot on the left. Your stack will render here — with every integration
           mapped out.
         </p>
-        <div className="flex items-center gap-1 text-[10px] text-[var(--text-muted)] mt-2">
+        <div className="flex items-center gap-1 text-[11px] text-[var(--text-muted)] mt-2">
           <span>←</span>
           <span>Start with your code editor</span>
         </div>
@@ -384,13 +384,11 @@ function BuilderPageContent({
               animation: "fadeIn 220ms ease",
             }}
           >
-            <p className="text-[10px] font-semibold uppercase tracking-widest text-[#7c6bff88] mb-1.5">
-              Your stack reads
-            </p>
+            <p className="type-overline text-[var(--accent)] mb-1.5">Your stack reads</p>
             <p className="text-xs text-[var(--text-primary)] font-mono mb-1 leading-relaxed">
               {story.flow}
             </p>
-            <p className="text-[10px] text-[var(--text-muted)] leading-relaxed">{story.prose}</p>
+            <p className="text-[11px] text-[var(--text-muted)] leading-relaxed">{story.prose}</p>
           </div>
         )}
       </div>

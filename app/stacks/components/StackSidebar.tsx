@@ -95,7 +95,7 @@ export function StackSidebar({
                 key={chip.id}
                 onClick={() => setTrackFilter(chip.id)}
                 title={chip.tagline}
-                className="flex items-center gap-1 text-[10px] font-semibold rounded-full px-2 py-1 transition-colors"
+                className="flex items-center gap-1 text-[11px] font-semibold rounded-full px-2 py-1 transition-colors"
                 style={
                   active
                     ? {
@@ -137,17 +137,17 @@ export function StackSidebar({
                 >
                   <div>
                     <div
-                      className="text-[12px] font-semibold leading-tight"
+                      className="text-[13px] font-semibold leading-tight"
                       style={{ color: isActive ? "var(--accent)" : "var(--text-secondary)" }}
                     >
                       {cluster.label}
                     </div>
-                    <div className="text-[10px]" style={{ color: "var(--text-muted)" }}>
+                    <div className="text-[11px]" style={{ color: "var(--text-muted)" }}>
                       {cluster.tagline}
                     </div>
                   </div>
                   <span
-                    className="text-[10px] px-1.5 py-0.5 rounded"
+                    className="text-[11px] px-1.5 py-0.5 rounded"
                     style={{
                       background: isActive ? "#7c6bff20" : "var(--btn)",
                       color: isActive ? "var(--accent)" : "var(--text-muted)",
@@ -182,7 +182,7 @@ export function StackSidebar({
       {/* Stack list */}
       <div className="flex-1 overflow-y-auto py-2">
         {q && filteredResults.length > 0 && (
-          <div className="px-3 pb-1 text-[10px]" style={{ color: "var(--text-muted)" }}>
+          <div className="px-3 pb-1 text-[11px]" style={{ color: "var(--text-muted)" }}>
             {filteredResults.length} stack{filteredResults.length !== 1 ? "s" : ""} — click any to
             view
           </div>
@@ -225,7 +225,7 @@ export function StackSidebar({
               </div>
               {q && (
                 <div
-                  className="text-[10px] mb-1.5 font-semibold uppercase tracking-wide"
+                  className="text-[11px] mb-1.5 font-semibold uppercase tracking-wide"
                   style={{ color: "var(--text-muted)" }}
                 >
                   {STACK_CLUSTERS.find((c) => c.id === s.cluster)?.label}
@@ -233,10 +233,10 @@ export function StackSidebar({
               )}
               {rejected !== null && (
                 <div
-                  className="text-[10px] leading-snug mb-2 px-1.5 py-1 rounded"
+                  className="text-[11px] leading-snug mb-2 px-1.5 py-1 rounded"
                   style={{
                     background: "#ff6b6b10",
-                    color: "#ff6b6b99",
+                    color: "var(--danger)",
                     border: "1px solid #ff6b6b22",
                   }}
                 >
@@ -293,7 +293,7 @@ export function StackSidebar({
         className="flex-shrink-0 border-t px-3 py-2.5"
         style={{ borderColor: "var(--border)", background: "var(--surface-2)" }}
       >
-        <p className="text-[10px] leading-relaxed" style={{ color: "var(--text-muted)" }}>
+        <p className="text-[11px] leading-relaxed" style={{ color: "var(--text-muted)" }}>
           These are AI-layer stacks. Pair with your own hosting, CI, and database.
         </p>
       </div>

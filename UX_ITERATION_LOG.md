@@ -111,3 +111,48 @@ translucent-color contrast bugs found in Iteration 2:
   6.04:1, matching the alpha already used elsewhere in the same file).
 
 **Nothing hidden this iteration.**
+
+## Iteration 4 — app/builder/ + app/stacks/
+
+**Problem found:** the same translucent-brand-color-as-text pattern from
+Iterations 2-3 turned out to be systemic, not a one-off — it recurs across
+`StackDetailHeader.tsx` and `StacksClient.tsx` for three different colors:
+
+| Color               | @66 (40%) | @88 (53%) | @99 (60%) | Full    |
+| ------------------- | --------- | --------- | --------- | ------- |
+| `#7c6bff` (accent)  | 1.72:1    | 2.21:1    | 2.50:1    | 5.08:1  |
+| `#ff6b6b` (danger)  | 2.00:1    | 2.71:1    | 3.15:1    | 7.12:1  |
+| `#fdcb6e` (warning) | 2.87:1    | 4.27:1    | 5.15:1    | 13.11:1 |
+
+Every alpha variant below full opacity fails WCAG AA (4.5:1) — these three
+brand colors are only safe as _text_ at full strength; the transparency was
+presumably borrowed from background-tint styling where it's fine, then
+reused for text color where it isn't. Also found: `BuilderSlotList.tsx`'s
+`SLOT_AUTONOMY` label color had `opacity: 0.75` layered on top, dropping
+3 of 9 slot-type colors below AA (as low as 2.75:1 for "multimodal").
+
+**Fixes:**
+
+- Replaced every `color: "#7c6bff88/66/99"`, `"#ff6b6b88/66/99"`,
+  `"#fdcb6e88/66"` text-color usage in `StacksClient.tsx`,
+  `StackSidebar.tsx`, `StackDetailHeader.tsx`, and `BuilderSlotList.tsx`
+  with the full-opacity token (`var(--accent)`, `var(--danger)`,
+  `var(--warning)`) — translucency is still used freely for backgrounds/
+  borders in the same files, just not for text.
+- Removed the `opacity: 0.75` on `SLOT_AUTONOMY` labels.
+- Bumped the remaining 10px text across `BuilderClient.tsx`,
+  `BuilderSlotList.tsx`, `MobileSlotPicker.tsx`, `StacksClient.tsx`,
+  `StackSidebar.tsx`, `StackDetailHeader.tsx`, `MobileStackPicker.tsx`, and
+  `app/stacks/[stackId]/page.tsx` to 11px; uppercase section labels
+  converted to `type-overline`.
+
+**Note (not fixed, flagged for later):** `SLOT_AUTONOMY["multimodal"].color`
+(`#6c5ce7`) is the canonical `multimodal` category brand color from
+`lib/types.ts`'s `CATEGORIES` table — it fails AA as text even at full
+opacity (4.07:1) and is reused as literal text color in many places
+app-wide (category labels, dots, badges). Fixing it means revisiting the
+category color palette itself, which is a bigger, cross-cutting design
+decision out of scope for a component-level pass — left as-is here rather
+than patching one call site inconsistently with the rest of the app.
+
+**Nothing hidden this iteration.**
