@@ -171,7 +171,7 @@ export default function DetailPanel({ tool, onClose }: Props) {
                     {formatStarDelta(healthDetails.starDelta).text}
                   </span>
                 )}
-                <span className="type-caption text-[var(--text-muted)] opacity-60">
+                <span className="type-caption text-[var(--text-muted)]">
                   · synced {formatRelativeTime(tool.last_synced_at)}
                 </span>
               </div>
@@ -250,7 +250,7 @@ export default function DetailPanel({ tool, onClose }: Props) {
                       <div
                         key={a.github_username}
                         title={`@${a.github_username}`}
-                        className="w-5 h-5 rounded-full ring-1 ring-[var(--surface)] flex items-center justify-center text-[8px] font-bold"
+                        className="w-5 h-5 rounded-full ring-1 ring-[var(--surface)] flex items-center justify-center text-[10px] font-bold"
                         style={{ background: "#7c6bff33", color: "var(--accent)" }}
                       >
                         {a.github_username[0]?.toUpperCase()}

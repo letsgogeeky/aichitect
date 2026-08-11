@@ -12,10 +12,10 @@ export function ChooseIfCard({ tool, color }: ChooseIfCardProps) {
         className="rounded-md p-3"
         style={{ background: "var(--surface-2)", borderTop: `2px solid ${color}` }}
       >
-        <p className="text-[10px] font-semibold uppercase tracking-wide mb-2" style={{ color }}>
+        <p className="text-[11px] font-semibold uppercase tracking-wide mb-2" style={{ color }}>
           Choose {tool.name} when…
         </p>
-        <p className="text-[10px] text-[var(--text-muted)] italic">No signals added yet</p>
+        <p className="text-[11px] text-[var(--text-muted)] italic">No signals added yet</p>
       </div>
     );
   }
@@ -24,13 +24,13 @@ export function ChooseIfCard({ tool, color }: ChooseIfCardProps) {
       className="rounded-md p-3"
       style={{ background: "var(--surface-2)", borderTop: `2px solid ${color}` }}
     >
-      <p className="text-[10px] font-semibold uppercase tracking-wide mb-2" style={{ color }}>
+      <p className="text-[11px] font-semibold uppercase tracking-wide mb-2" style={{ color }}>
         Choose {tool.name} when…
       </p>
       <ul className="space-y-1.5">
         {tool.choose_if.map((signal, i) => (
           <li key={i} className="flex items-start gap-1.5">
-            <span className="text-[10px] mt-0.5 flex-shrink-0" style={{ color }}>
+            <span className="text-[11px] mt-0.5 flex-shrink-0" style={{ color }}>
               •
             </span>
             <span className="text-xs text-[var(--text-secondary)] leading-snug">{signal}</span>

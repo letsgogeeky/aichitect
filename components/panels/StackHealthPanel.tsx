@@ -133,10 +133,10 @@ export default function StackHealthPanel({
         className="rounded-lg px-3 py-2.5 text-center"
         style={{ background: "#26de8110", border: "1px solid #26de8122" }}
       >
-        <p className="text-[10px] font-semibold" style={{ color: "var(--success)" }}>
+        <p className="text-[11px] font-semibold" style={{ color: "var(--success)" }}>
           Stack looks solid
         </p>
-        <p className="text-[10px] mt-0.5" style={{ color: "#26de8188" }}>
+        <p className="text-[11px] mt-0.5" style={{ color: "#26de81cc" }}>
           All essentials covered
         </p>
       </div>
@@ -152,7 +152,7 @@ export default function StackHealthPanel({
         className="px-3 py-2 flex items-center justify-between"
         style={{ background: "var(--surface-2)" }}
       >
-        <p className="text-[10px] font-semibold text-[var(--text-primary)]">Stack health</p>
+        <p className="text-[11px] font-semibold text-[var(--text-primary)]">Stack health</p>
         <div className="flex items-center gap-1.5">
           <div
             className="w-16 h-1 rounded-full overflow-hidden"
@@ -167,7 +167,7 @@ export default function StackHealthPanel({
               }}
             />
           </div>
-          <span className="text-[10px] font-medium" style={{ color: "var(--text-muted)" }}>
+          <span className="text-[11px] font-medium" style={{ color: "var(--text-muted)" }}>
             {totalFilled}/{totalEssentials}
           </span>
         </div>
@@ -245,17 +245,17 @@ function PhaseGapRow({
     <div className="px-3 py-2.5" style={{ background: "var(--surface)" }}>
       <div className="flex items-center gap-1.5 mb-1">
         <div className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: color }} />
-        <span className="text-[10px] font-medium text-[var(--text-primary)] leading-tight">
+        <span className="text-[11px] font-medium text-[var(--text-primary)] leading-tight">
           {label}
         </span>
         <span
-          className="ml-auto text-[8px] font-semibold uppercase tracking-wide flex-shrink-0"
+          className="ml-auto text-[11px] font-semibold uppercase tracking-wide flex-shrink-0"
           style={{ color: color + "cc" }}
         >
           {missing.length} phase{missing.length === 1 ? "" : "s"} missing
         </span>
       </div>
-      <p className="text-[10px] leading-relaxed pl-2.5" style={{ color: "var(--text-muted)" }}>
+      <p className="text-[11px] leading-relaxed pl-2.5" style={{ color: "var(--text-muted)" }}>
         Add tools that cover{" "}
         <span style={{ color }}>{missing.map((p) => LIFECYCLE_PHASE_LABEL[p]).join(", ")}</span>.
       </p>
@@ -283,17 +283,17 @@ function ProviderConflictRow({
     <div className="px-3 py-2.5" style={{ background: "var(--surface)" }}>
       <div className="flex items-center gap-1.5 mb-1">
         <div className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: "#fd9644" }} />
-        <span className="text-[10px] font-medium text-[var(--text-primary)] leading-tight">
+        <span className="text-[11px] font-medium text-[var(--text-primary)] leading-tight">
           Mixed providers
         </span>
         <span
-          className="ml-auto text-[8px] font-semibold uppercase tracking-wide flex-shrink-0"
-          style={{ color: "#fd964499" }}
+          className="ml-auto text-[11px] font-semibold uppercase tracking-wide flex-shrink-0"
+          style={{ color: "#fd9644cc" }}
         >
           heads up
         </span>
       </div>
-      <p className="text-[10px] leading-relaxed pl-2.5" style={{ color: "var(--text-muted)" }}>
+      <p className="text-[11px] leading-relaxed pl-2.5" style={{ color: "var(--text-muted)" }}>
         <span style={{ color: "#f0f0f8" }}>{dominantNames}</span> ({dominantLabel}) and{" "}
         <span style={{ color: "#f0f0f8" }}>{conflictNames}</span> ({conflictLabel}) serve different
         layers but are from competing providers — intentional if you&apos;re comparing, but consider
@@ -324,11 +324,11 @@ function HealthRow({
     <div className="px-3 py-2.5" style={{ background: "var(--surface)" }}>
       <div className="flex items-center gap-1.5 mb-1">
         <div className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: accentColor }} />
-        <span className="text-[10px] font-medium text-[var(--text-primary)] truncate leading-tight">
+        <span className="text-[11px] font-medium text-[var(--text-primary)] truncate leading-tight">
           {slot.name}
         </span>
         <span
-          className="ml-auto text-[8px] font-semibold uppercase tracking-wide flex-shrink-0"
+          className="ml-auto text-[11px] font-semibold uppercase tracking-wide flex-shrink-0"
           style={{ color: accentColor + "cc" }}
         >
           {label}
@@ -343,20 +343,20 @@ function HealthRow({
           />
           <div className="flex-1 min-w-0">
             <p
-              className="text-[10px] font-medium leading-tight"
+              className="text-[11px] font-medium leading-tight"
               style={{ color: getCategoryColor(suggestedTool.category) }}
             >
               {suggestedTool.name}
             </p>
             {suggestReason && (
-              <p className="text-[10px] text-[var(--text-muted)] leading-relaxed mt-0.5">
+              <p className="text-[11px] text-[var(--text-muted)] leading-relaxed mt-0.5">
                 {suggestReason}
               </p>
             )}
           </div>
           <button
             onClick={() => onAdd(slot.id, suggestedTool.id)}
-            className="flex-shrink-0 text-[10px] font-semibold px-1.5 py-0.5 rounded transition-colors"
+            className="flex-shrink-0 text-[11px] font-semibold px-1.5 py-0.5 rounded transition-colors"
             style={{
               background: getCategoryColor(suggestedTool.category) + "18",
               color: getCategoryColor(suggestedTool.category),
@@ -367,7 +367,7 @@ function HealthRow({
           </button>
         </div>
       ) : (
-        <p className="text-[10px] text-[var(--text-muted)] pl-2.5">Not set</p>
+        <p className="text-[11px] text-[var(--text-muted)] pl-2.5">Not set</p>
       )}
     </div>
   );

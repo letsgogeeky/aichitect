@@ -194,7 +194,7 @@ export function TrajectorySparkline({
       )}
 
       {/* Legend */}
-      <div className="mt-1 flex items-center gap-3 text-[10px] text-white/30">
+      <div className="mt-1 flex items-center gap-3 text-[11px] text-[var(--text-muted)]">
         <span className="flex items-center gap-1">
           <span
             className="inline-block h-0.5 w-4 rounded"

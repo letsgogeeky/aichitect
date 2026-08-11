@@ -126,7 +126,7 @@ export default function ComparisonPanel({ toolA, toolB, onClose, onSwap }: Compa
             {/* Direct relationship badge */}
             {directRelationship && (
               <div
-                className="inline-flex items-center gap-1.5 text-[10px] font-medium px-2 py-0.5 rounded-full mb-2"
+                className="inline-flex items-center gap-1.5 text-[11px] font-medium px-2 py-0.5 rounded-full mb-2"
                 style={relBadgeStyle(directRelationship.type)}
               >
                 <span>These tools {relLabel(directRelationship.type)}</span>
@@ -154,7 +154,7 @@ export default function ComparisonPanel({ toolA, toolB, onClose, onSwap }: Compa
           <div className="flex items-center gap-1 flex-shrink-0">
             <button
               onClick={handleShare}
-              className="text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors p-1 text-[10px] font-medium"
+              className="text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors p-1 text-[11px] font-medium"
               title="Copy share link"
               style={copied ? { color: "var(--success)" } : undefined}
             >
@@ -183,7 +183,7 @@ export default function ComparisonPanel({ toolA, toolB, onClose, onSwap }: Compa
         <div className="rounded-md overflow-hidden" style={{ border: "1px solid var(--border)" }}>
           {/* Column headers */}
           <div
-            className="grid grid-cols-[120px_1fr_1fr] text-[10px] font-semibold uppercase tracking-wide"
+            className="grid grid-cols-[120px_1fr_1fr] text-[11px] font-semibold uppercase tracking-wide"
             style={{ borderBottom: "1px solid var(--border)", background: "var(--surface-2)" }}
           >
             <div className="px-3 py-2 text-[var(--text-muted)]">Field</div>
@@ -192,14 +192,14 @@ export default function ComparisonPanel({ toolA, toolB, onClose, onSwap }: Compa
               style={{ borderColor: "var(--border)", color: colorA }}
             >
               {toolA.name}
-              {toolA.is_stale && <span style={{ color: "#f39c12", fontSize: 10 }}>⚠</span>}
+              {toolA.is_stale && <span style={{ color: "#f39c12", fontSize: 11 }}>⚠</span>}
             </div>
             <div
               className="px-3 py-2 border-l flex items-center gap-1.5"
               style={{ borderColor: "var(--border)", color: colorB }}
             >
               {toolB.name}
-              {toolB.is_stale && <span style={{ color: "#f39c12", fontSize: 10 }}>⚠</span>}
+              {toolB.is_stale && <span style={{ color: "#f39c12", fontSize: 11 }}>⚠</span>}
             </div>
           </div>
 
@@ -273,7 +273,7 @@ export default function ComparisonPanel({ toolA, toolB, onClose, onSwap }: Compa
                     trajectoryA[trajectoryA.length - 1].health_score - trajectoryA[0].health_score;
                   return (
                     <span
-                      className="text-[10px] font-medium"
+                      className="text-[11px] font-medium"
                       style={{
                         color:
                           delta > 5 ? "#26de81" : delta < -5 ? "#ff6b6b" : "var(--text-secondary)",
@@ -296,7 +296,7 @@ export default function ComparisonPanel({ toolA, toolB, onClose, onSwap }: Compa
                     trajectoryB[trajectoryB.length - 1].health_score - trajectoryB[0].health_score;
                   return (
                     <span
-                      className="text-[10px] font-medium"
+                      className="text-[11px] font-medium"
                       style={{
                         color:
                           delta > 5 ? "#26de81" : delta < -5 ? "#ff6b6b" : "var(--text-secondary)",
@@ -341,7 +341,7 @@ export default function ComparisonPanel({ toolA, toolB, onClose, onSwap }: Compa
         {/* Shared connections */}
         {sharedTools.length > 0 && (
           <div>
-            <h3 className="text-[10px] font-semibold uppercase tracking-widest text-[var(--text-muted)] mb-2">
+            <h3 className="type-overline text-[var(--text-muted)] mb-2">
               Shared Connections ({sharedTools.length})
             </h3>
             <div className="flex flex-wrap gap-1.5">
@@ -356,10 +356,7 @@ export default function ComparisonPanel({ toolA, toolB, onClose, onSwap }: Compa
         {(onlyATools.length > 0 || onlyBTools.length > 0) && (
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <h3
-                className="text-[10px] font-semibold uppercase tracking-widest mb-2"
-                style={{ color: colorA + "cc" }}
-              >
+              <h3 className="type-overline mb-2" style={{ color: colorA + "cc" }}>
                 Only {toolA.name} ({onlyATools.length})
               </h3>
               <div className="flex flex-wrap gap-1.5">
@@ -369,10 +366,7 @@ export default function ComparisonPanel({ toolA, toolB, onClose, onSwap }: Compa
               </div>
             </div>
             <div>
-              <h3
-                className="text-[10px] font-semibold uppercase tracking-widest mb-2"
-                style={{ color: colorB + "cc" }}
-              >
+              <h3 className="type-overline mb-2" style={{ color: colorB + "cc" }}>
                 Only {toolB.name} ({onlyBTools.length})
               </h3>
               <div className="flex flex-wrap gap-1.5">
@@ -388,7 +382,7 @@ export default function ComparisonPanel({ toolA, toolB, onClose, onSwap }: Compa
         <div className="pt-1" style={{ borderTop: "1px solid var(--border)" }}>
           <a
             href={`/explore?compare=${toolA.id},${toolB.id}`}
-            className="block text-center text-[10px] py-1.5 px-3 rounded-md transition-colors hover:border-[var(--border-2)]"
+            className="block text-center text-[11px] py-1.5 px-3 rounded-md transition-colors hover:border-[var(--border-2)]"
             style={{ color: "var(--text-muted)", border: "1px solid var(--border)" }}
           >
             See full comparison in Explore →

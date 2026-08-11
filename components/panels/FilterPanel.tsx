@@ -249,14 +249,12 @@ export default function FilterPanel({
               onClick={() => setStackFilterCollapsed((v) => !v)}
             >
               <ChevronIcon open={!stackFilterCollapsed} />
-              <span className="text-[10px] font-semibold uppercase tracking-widest text-[var(--text-muted)] text-left">
-                Find Stacks
-              </span>
+              <span className="type-overline text-[var(--text-muted)] text-left">Find Stacks</span>
             </button>
             {hasStackFilter && (
               <button
                 onClick={clearStackFilters}
-                className="text-[10px] px-1.5 py-0.5 rounded flex-shrink-0"
+                className="text-[11px] px-1.5 py-0.5 rounded flex-shrink-0"
                 style={{ background: "#7c6bff22", color: "var(--accent)" }}
               >
                 Clear
@@ -268,15 +266,13 @@ export default function FilterPanel({
             <div className="space-y-2.5">
               {/* Team size */}
               <div>
-                <p className="text-[10px] uppercase tracking-widest text-[var(--text-muted)] mb-1 px-1">
-                  Team size
-                </p>
+                <p className="type-overline text-[var(--text-muted)] mb-1 px-1">Team size</p>
                 <div className="flex flex-wrap gap-1">
                   {TEAM_OPTIONS.map((opt) => (
                     <button
                       key={opt.id}
                       onClick={() => toggleStackFilter("team", opt.id)}
-                      className="text-[10px] px-2 py-0.5 rounded-full transition-colors"
+                      className="text-[11px] px-2 py-0.5 rounded-full transition-colors"
                       style={
                         stackFilters.team === opt.id
                           ? {
@@ -299,15 +295,13 @@ export default function FilterPanel({
 
               {/* Budget */}
               <div>
-                <p className="text-[10px] uppercase tracking-widest text-[var(--text-muted)] mb-1 px-1">
-                  Budget
-                </p>
+                <p className="type-overline text-[var(--text-muted)] mb-1 px-1">Budget</p>
                 <div className="flex flex-wrap gap-1">
                   {BUDGET_OPTIONS.map((opt) => (
                     <button
                       key={opt.id}
                       onClick={() => toggleStackFilter("budget", opt.id)}
-                      className="text-[10px] px-2 py-0.5 rounded-full transition-colors"
+                      className="text-[11px] px-2 py-0.5 rounded-full transition-colors"
                       style={
                         stackFilters.budget === opt.id
                           ? {
@@ -330,15 +324,13 @@ export default function FilterPanel({
 
               {/* Use case */}
               <div>
-                <p className="text-[10px] uppercase tracking-widest text-[var(--text-muted)] mb-1 px-1">
-                  Use case
-                </p>
+                <p className="type-overline text-[var(--text-muted)] mb-1 px-1">Use case</p>
                 <div className="flex flex-wrap gap-1">
                   {USE_CASE_OPTIONS.map((opt) => (
                     <button
                       key={opt.id}
                       onClick={() => toggleStackFilter("use", opt.id)}
-                      className="text-[10px] px-2 py-0.5 rounded-full transition-colors"
+                      className="text-[11px] px-2 py-0.5 rounded-full transition-colors"
                       style={
                         stackFilters.use === opt.id
                           ? {
@@ -361,15 +353,13 @@ export default function FilterPanel({
 
               {/* Stage */}
               <div>
-                <p className="text-[10px] uppercase tracking-widest text-[var(--text-muted)] mb-1 px-1">
-                  Stage
-                </p>
+                <p className="type-overline text-[var(--text-muted)] mb-1 px-1">Stage</p>
                 <div className="flex flex-wrap gap-1">
                   {STAGE_OPTIONS.map((opt) => (
                     <button
                       key={opt.id}
                       onClick={() => toggleStackFilter("stage", opt.id)}
-                      className="text-[10px] px-2 py-0.5 rounded-full transition-colors"
+                      className="text-[11px] px-2 py-0.5 rounded-full transition-colors"
                       style={
                         stackFilters.stage === opt.id
                           ? {
@@ -392,15 +382,13 @@ export default function FilterPanel({
 
               {/* Cluster */}
               <div>
-                <p className="text-[10px] uppercase tracking-widest text-[var(--text-muted)] mb-1 px-1">
-                  Cluster
-                </p>
+                <p className="type-overline text-[var(--text-muted)] mb-1 px-1">Cluster</p>
                 <div className="flex flex-wrap gap-1">
                   {STACK_CLUSTERS.map((opt) => (
                     <button
                       key={opt.id}
                       onClick={() => toggleStackFilter("cluster", opt.id)}
-                      className="text-[10px] px-2 py-0.5 rounded-full transition-colors"
+                      className="text-[11px] px-2 py-0.5 rounded-full transition-colors"
                       style={
                         stackFilters.cluster === opt.id
                           ? {
@@ -423,7 +411,7 @@ export default function FilterPanel({
 
               {/* Result count */}
               {hasStackFilter && (
-                <p className="text-[10px] text-[var(--text-muted)] px-1">
+                <p className="text-[11px] text-[var(--text-muted)] px-1">
                   {matchingStackCount === 0
                     ? "No matching stacks"
                     : `${matchingStackCount} stack${matchingStackCount !== 1 ? "s" : ""} match — tools highlighted`}
@@ -436,12 +424,10 @@ export default function FilterPanel({
         {/* Categories grouped by stack layer */}
         <div>
           <div className="flex items-center justify-between mb-2">
-            <span className="text-[10px] font-semibold uppercase tracking-widest text-[var(--text-muted)]">
-              Stack Layers
-            </span>
+            <span className="type-overline text-[var(--text-muted)]">Stack Layers</span>
             <button
               onClick={toggleAll}
-              className="text-[10px] text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors"
+              className="text-[11px] text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors"
             >
               {allOn ? "None" : "All"}
             </button>
@@ -464,7 +450,7 @@ export default function FilterPanel({
                   >
                     <ChevronIcon open={isOpen} />
                     <span
-                      className="text-[10px] font-semibold flex-1 leading-tight"
+                      className="text-[11px] font-semibold flex-1 leading-tight"
                       style={{
                         color: someLayerActive ? "var(--text-secondary)" : "var(--text-muted)",
                         opacity: someLayerActive ? 1 : 0.5,
@@ -478,7 +464,7 @@ export default function FilterPanel({
                         e.stopPropagation();
                         toggleLayerCategories(layer.categories as string[]);
                       }}
-                      className="opacity-0 group-hover:opacity-100 transition-opacity text-[10px] text-[var(--text-muted)] hover:text-[var(--text-secondary)]"
+                      className="opacity-0 group-hover:opacity-100 transition-opacity text-[11px] text-[var(--text-muted)] hover:text-[var(--text-secondary)]"
                     >
                       {allLayerActive ? "−" : "+"}
                     </button>
@@ -513,7 +499,7 @@ export default function FilterPanel({
 
         <Link
           href="/category"
-          className="block text-[10px] text-center py-1 rounded-md transition-colors"
+          className="block text-[11px] text-center py-1.5 rounded-md transition-colors"
           style={{
             background: "var(--surface-2)",
             border: "1px solid var(--border)",
@@ -530,9 +516,7 @@ export default function FilterPanel({
             onClick={() => setEdgesCollapsed((v) => !v)}
           >
             <ChevronIcon open={!edgesCollapsed} />
-            <span className="text-[10px] font-semibold uppercase tracking-widest text-[var(--text-muted)]">
-              Edges
-            </span>
+            <span className="type-overline text-[var(--text-muted)]">Edges</span>
           </button>
 
           {!edgesCollapsed && (

@@ -95,7 +95,7 @@ export function SlotRiskBadge({ signal, onSeeAlternatives }: SlotRiskBadgeProps)
       {config.showAction && onSeeAlternatives && (
         <button
           onClick={onSeeAlternatives}
-          className="text-[11px] text-white/40 underline-offset-2 hover:text-white/70 hover:underline transition-colors"
+          className="text-[11px] text-[var(--text-muted)] underline-offset-2 hover:text-[var(--text-secondary)] hover:underline transition-colors"
         >
           See alternatives →
         </button>

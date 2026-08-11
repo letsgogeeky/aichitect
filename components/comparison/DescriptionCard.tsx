@@ -11,7 +11,7 @@ export function DescriptionCard({ tool, color }: DescriptionCardProps) {
       className="rounded-md p-3 space-y-1"
       style={{ background: "var(--surface-2)", borderTop: `2px solid ${color}` }}
     >
-      <p className="text-[10px] font-semibold uppercase tracking-wide" style={{ color }}>
+      <p className="text-[11px] font-semibold uppercase tracking-wide" style={{ color }}>
         {tool.name}
       </p>
       <p className="text-xs text-[var(--text-secondary)] leading-relaxed">{tool.description}</p>

@@ -73,3 +73,41 @@ size:
 - `ExploreGraph3D.tsx` hover-tooltip name/tagline: 11/9px → 13/12px.
 
 **Nothing hidden this iteration.**
+
+## Iteration 3 — components/panels/ + components/comparison/
+
+**Problem found:** `FilterPanel.tsx` (the left sidebar used to filter every graph
+view) ran almost entirely on 10px section labels and filter chips —
+essentially the whole left rail of the app. `StackHealthPanel.tsx` had tag
+chips (required/recommended/heads-up/phase-count) at **8px**, below any
+reasonable floor. Several spots reused the same double-dim and
+translucent-color contrast bugs found in Iteration 2:
+
+- `TrajectorySparkline.tsx` legend: `text-white/30` — **2.60:1**.
+- `SlotRiskBadge.tsx` "See alternatives →" action link: `text-white/40` —
+  **3.77:1** (a clickable CTA, not decoration).
+- `DetailPanel.tsx` sync-timestamp: `opacity-60` stacked on top of
+  `text-muted`, undoing Iteration 1's contrast fix (same bug as ToolNode).
+- `StackHealthPanel.tsx`: `#26de8188` (success text, 3.74:1) and
+  `#fd964499` ("heads up" tag, 3.81:1) both fail AA.
+
+**Fixes:**
+
+- `FilterPanel.tsx`: all uppercase section labels (Find Stacks, Team size,
+  Budget, Use case, Stage, Cluster, Stack Layers, Edges) converted to
+  `type-overline`; filter chips, Clear button, layer question text, and the
+  "Browse all categories" link bumped 10px → 11px.
+- `DetailPanel.tsx`: removed the redundant `opacity-60`; avatar-fallback
+  initials 8px → 10px.
+- `TrajectorySparkline.tsx` legend: `text-white/30` → `text-[var(--text-muted)]`
+  at 11px (4.75:1).
+- `SlotRiskBadge.tsx` action link: `text-white/40` → `text-[var(--text-muted)]`.
+- `ComparisonPanel.tsx` + all 7 `components/comparison/` cells (CategoryPill,
+  ChooseIfCard, DescriptionCard, PlanPills, Row, ToolPill, TypeBadge): 10px →
+  11px across badges, table headers, and section labels; section headers
+  converted to `type-overline` where uppercase.
+- `StackHealthPanel.tsx`: all 8px/10px text bumped to 11px; `#26de8188` →
+  `#26de81cc` (3.74:1 → ~5.7:1) and `#fd964499` → `#fd9644cc` (3.81:1 →
+  6.04:1, matching the alpha already used elsewhere in the same file).
+
+**Nothing hidden this iteration.**
