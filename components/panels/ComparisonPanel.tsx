@@ -274,7 +274,10 @@ export default function ComparisonPanel({ toolA, toolB, onClose, onSwap }: Compa
                   return (
                     <span
                       className="text-[10px] font-medium"
-                      style={{ color: delta > 5 ? "#26de81" : delta < -5 ? "#ff6b6b" : "#8888aa" }}
+                      style={{
+                        color:
+                          delta > 5 ? "#26de81" : delta < -5 ? "#ff6b6b" : "var(--text-secondary)",
+                      }}
                     >
                       {delta > 0 ? "+" : ""}
                       {delta} pts
@@ -294,7 +297,10 @@ export default function ComparisonPanel({ toolA, toolB, onClose, onSwap }: Compa
                   return (
                     <span
                       className="text-[10px] font-medium"
-                      style={{ color: delta > 5 ? "#26de81" : delta < -5 ? "#ff6b6b" : "#8888aa" }}
+                      style={{
+                        color:
+                          delta > 5 ? "#26de81" : delta < -5 ? "#ff6b6b" : "var(--text-secondary)",
+                      }}
                     >
                       {delta > 0 ? "+" : ""}
                       {delta} pts

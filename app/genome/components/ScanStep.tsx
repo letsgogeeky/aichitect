@@ -72,7 +72,7 @@ export function ScanStep({
           style={{
             fontSize: 12,
             fontWeight: 600,
-            color: "#555577",
+            color: "var(--text-muted)",
             textTransform: "uppercase",
             letterSpacing: "0.08em",
             marginBottom: 10,
@@ -91,7 +91,7 @@ export function ScanStep({
         >
           What does your project use?
         </h1>
-        <p style={{ fontSize: 13, color: "#8888aa", lineHeight: 1.6, margin: 0 }}>
+        <p style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.6, margin: 0 }}>
           Paste your dependency file to auto-detect your LLM providers, frameworks, vector DBs, and
           observability tools.
         </p>
@@ -121,7 +121,7 @@ export function ScanStep({
                   padding: "10px 14px",
                   fontSize: 12,
                   fontWeight: active ? 500 : 400,
-                  color: active ? "#f0f0f8" : filled ? "var(--accent-2)" : "#555577",
+                  color: active ? "#f0f0f8" : filled ? "var(--accent-2)" : "var(--text-muted)",
                   background: "transparent",
                   border: "none",
                   borderBottom: active ? "2px solid var(--accent)" : "2px solid transparent",
@@ -178,7 +178,7 @@ export function ScanStep({
             style={{
               background: "none",
               border: "none",
-              color: "#555577",
+              color: "var(--text-muted)",
               fontSize: 12,
               cursor: "pointer",
               padding: 0,
@@ -193,7 +193,7 @@ export function ScanStep({
                 background: "none",
                 border: "none",
                 fontSize: 12,
-                color: "#555577",
+                color: "var(--text-muted)",
                 cursor: "pointer",
                 textDecoration: "underline",
                 textUnderlineOffset: 3,
@@ -238,7 +238,7 @@ export function ScanStep({
             style={{
               fontSize: 10,
               fontWeight: 600,
-              color: "#555577",
+              color: "var(--text-muted)",
               letterSpacing: "0.06em",
               textTransform: "uppercase",
             }}

@@ -26,7 +26,7 @@ class GenomeErrorBoundary extends Component<{ children: ReactNode }, { error: Er
             justifyContent: "center",
             height: "100%",
             gap: 12,
-            color: "#555577",
+            color: "var(--text-muted)",
           }}
         >
           <span style={{ fontSize: 28 }}>⚠</span>
@@ -134,7 +134,7 @@ function GenomePageInner() {
             justifyContent: "center",
             height: "100%",
             gap: 12,
-            color: "#555577",
+            color: "var(--text-muted)",
           }}
         >
           <p style={{ fontSize: 13, margin: 0 }}>No analysis to show.</p>
@@ -147,7 +147,7 @@ function GenomePageInner() {
                 borderRadius: 6,
                 background: "#1e1e2e",
                 border: "1px solid #2e2e4e",
-                color: "#8888aa",
+                color: "var(--text-secondary)",
                 cursor: "pointer",
               }}
             >
@@ -200,7 +200,7 @@ export default function GenomeClient({
                 alignItems: "center",
                 justifyContent: "center",
                 height: "100%",
-                color: "#555577",
+                color: "var(--text-muted)",
                 fontSize: 13,
               }}
             >

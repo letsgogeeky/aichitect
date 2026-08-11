@@ -27,7 +27,7 @@ export default function GenomeError({
         textAlign: "center",
       }}
     >
-      <p style={{ fontSize: 13, color: "#8888aa", maxWidth: 360 }}>
+      <p style={{ fontSize: 13, color: "var(--text-secondary)", maxWidth: 360 }}>
         Something went wrong in the Genome analyzer. Try pasting your dependencies again.
       </p>
       <button

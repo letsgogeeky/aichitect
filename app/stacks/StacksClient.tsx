@@ -44,7 +44,7 @@ function StackGraph({ stack, allTools }: { stack: Stack; allTools: Tool[] }) {
       source: f.from,
       target: f.to,
       label: f.label,
-      labelStyle: { fill: "#8888aa", fontSize: 10 },
+      labelStyle: { fill: "var(--text-secondary)", fontSize: 10 },
       labelBgStyle: { fill: "var(--surface)", fillOpacity: 0.9 },
       style: { stroke: color, strokeWidth: 1.5 },
       animated: true,

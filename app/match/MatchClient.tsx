@@ -15,7 +15,7 @@ const LABEL_COLOR: Record<string, string> = {
   "Strong match": "var(--accent-2)",
   "Good match": "var(--accent)",
   "Decent fit": "#fd9644",
-  "Partial match": "#8888aa",
+  "Partial match": "var(--text-secondary)",
 };
 
 const COMPLEXITY_COLOR: Record<string, string> = {
@@ -63,7 +63,7 @@ function OptionButton({
         borderRadius: 9,
         background: selected ? "#7c6bff18" : "var(--btn)",
         border: `1px solid ${selected ? "#7c6bff66" : "var(--btn-border)"}`,
-        color: selected ? "#f0f0f8" : "#8888aa",
+        color: selected ? "#f0f0f8" : "var(--text-secondary)",
         fontSize: 13,
         fontWeight: selected ? 500 : 400,
         cursor: "pointer",
@@ -83,7 +83,7 @@ function OptionButton({
       onMouseLeave={(e) => {
         if (!selected) {
           e.currentTarget.style.borderColor = "var(--btn-border)";
-          e.currentTarget.style.color = "#8888aa";
+          e.currentTarget.style.color = "var(--text-secondary)";
         }
       }}
     >
@@ -109,7 +109,7 @@ function OptionButton({
       <div>
         <div style={{ lineHeight: 1.3 }}>{option.label}</div>
         {option.sub && (
-          <div style={{ fontSize: 12, color: "#555577", marginTop: 2, lineHeight: 1.3 }}>
+          <div style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 2, lineHeight: 1.3 }}>
             {option.sub}
           </div>
         )}
@@ -119,8 +119,9 @@ function OptionButton({
 }
 
 function PrimaryMatchCard({ match, stack }: { match: StackMatch; stack: Stack }) {
-  const labelColor = LABEL_COLOR[match.label] ?? "#8888aa";
-  const complexityColor = COMPLEXITY_COLOR[stack.complexity ?? "beginner"] ?? "#8888aa";
+  const labelColor = LABEL_COLOR[match.label] ?? "var(--text-secondary)";
+  const complexityColor =
+    COMPLEXITY_COLOR[stack.complexity ?? "beginner"] ?? "var(--text-secondary)";
   const builderUrl = `/builder?s=${stack.tools.join(",")}`;
   const stacksUrl = `/stacks?stack=${stack.id}`;
 
@@ -197,20 +198,29 @@ function PrimaryMatchCard({ match, stack }: { match: StackMatch; stack: Stack })
               </span>
             )}
             {stack.monthly_cost && (
-              <span style={{ fontSize: 10, color: "#555577" }}>{stack.monthly_cost}/mo</span>
+              <span style={{ fontSize: 10, color: "var(--text-muted)" }}>
+                {stack.monthly_cost}/mo
+              </span>
             )}
           </div>
         </div>
 
         {/* Description */}
-        <p style={{ fontSize: 13, color: "#8888aa", lineHeight: 1.55, margin: "0 0 6px" }}>
+        <p
+          style={{
+            fontSize: 13,
+            color: "var(--text-secondary)",
+            lineHeight: 1.55,
+            margin: "0 0 6px",
+          }}
+        >
           {stack.description}
         </p>
         {stack.target && (
           <p
             style={{
               fontSize: 12,
-              color: "#555577",
+              color: "var(--text-muted)",
               lineHeight: 1.4,
               margin: "0 0 14px",
               fontStyle: "italic",
@@ -292,7 +302,7 @@ function PrimaryMatchCard({ match, stack }: { match: StackMatch; stack: Stack })
                   key={i}
                   style={{
                     fontSize: 12,
-                    color: "#8888aa",
+                    color: "var(--text-secondary)",
                     lineHeight: 1.45,
                     display: "flex",
                     gap: 6,
@@ -331,7 +341,7 @@ function PrimaryMatchCard({ match, stack }: { match: StackMatch; stack: Stack })
               borderRadius: 8,
               background: "var(--btn)",
               border: "1px solid var(--btn-border)",
-              color: "#8888aa",
+              color: "var(--text-secondary)",
               fontSize: 12,
               fontWeight: 500,
               textDecoration: "none",
@@ -346,7 +356,7 @@ function PrimaryMatchCard({ match, stack }: { match: StackMatch; stack: Stack })
 }
 
 function RunnerUpCard({ match, stack }: { match: StackMatch; stack: Stack }) {
-  const labelColor = LABEL_COLOR[match.label] ?? "#8888aa";
+  const labelColor = LABEL_COLOR[match.label] ?? "var(--text-secondary)";
   const builderUrl = `/builder?s=${stack.tools.join(",")}`;
 
   return (
@@ -382,7 +392,7 @@ function RunnerUpCard({ match, stack }: { match: StackMatch; stack: Stack }) {
         <p
           style={{
             fontSize: 12,
-            color: "#555577",
+            color: "var(--text-muted)",
             margin: 0,
             lineHeight: 1.4,
             overflow: "hidden",
@@ -404,7 +414,7 @@ function RunnerUpCard({ match, stack }: { match: StackMatch; stack: Stack }) {
           borderRadius: 6,
           background: "var(--btn)",
           border: "1px solid var(--btn-border)",
-          color: "#8888aa",
+          color: "var(--text-secondary)",
           textDecoration: "none",
         }}
       >
@@ -525,7 +535,7 @@ export default function MatchClient() {
           >
             {isComplete ? "Here's where you should start" : "Find your AI stack"}
           </h1>
-          <p style={{ fontSize: 13, color: "#555577", margin: 0, lineHeight: 1.5 }}>
+          <p style={{ fontSize: 13, color: "var(--text-muted)", margin: 0, lineHeight: 1.5 }}>
             {isComplete
               ? "Matched to your role, use case, budget, and priorities."
               : "4 questions. Opinionated recommendations. No fluff."}
@@ -552,7 +562,7 @@ export default function MatchClient() {
               }}
             >
               <ProgressDots total={QUESTIONS.length} current={step} />
-              <span style={{ fontSize: 12, color: "#555577" }}>
+              <span style={{ fontSize: 12, color: "var(--text-muted)" }}>
                 {step + 1} / {QUESTIONS.length}
               </span>
             </div>
@@ -568,7 +578,14 @@ export default function MatchClient() {
             >
               {q.question}
             </h2>
-            <p style={{ fontSize: 12, color: "#555577", margin: "0 0 18px", lineHeight: 1.5 }}>
+            <p
+              style={{
+                fontSize: 12,
+                color: "var(--text-muted)",
+                margin: "0 0 18px",
+                lineHeight: 1.5,
+              }}
+            >
               {q.hint}
             </p>
 
@@ -590,7 +607,7 @@ export default function MatchClient() {
                   marginTop: 16,
                   background: "none",
                   border: "none",
-                  color: "#555577",
+                  color: "var(--text-muted)",
                   fontSize: 12,
                   cursor: "pointer",
                   padding: 0,
@@ -612,7 +629,7 @@ export default function MatchClient() {
                 <p
                   style={{
                     fontSize: 10,
-                    color: "#555577",
+                    color: "var(--text-muted)",
                     margin: "4px 0 8px",
                     textTransform: "uppercase",
                     letterSpacing: "0.06em",
@@ -645,7 +662,7 @@ export default function MatchClient() {
                 style={{
                   background: "none",
                   border: "none",
-                  color: "#555577",
+                  color: "var(--text-muted)",
                   fontSize: 12,
                   cursor: "pointer",
                   textDecoration: "underline",
@@ -665,7 +682,7 @@ export default function MatchClient() {
                   borderRadius: 8,
                   background: copied ? "#00d4aa18" : "var(--btn)",
                   border: `1px solid ${copied ? "#00d4aa44" : "var(--btn-border)"}`,
-                  color: copied ? "var(--accent-2)" : "#8888aa",
+                  color: copied ? "var(--accent-2)" : "var(--text-secondary)",
                   fontSize: 12,
                   fontWeight: 500,
                   cursor: "pointer",

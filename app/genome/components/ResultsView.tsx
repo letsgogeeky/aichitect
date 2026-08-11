@@ -83,7 +83,15 @@ function ArchetypeBadge({ archetype }: { archetype: StackArchetype }) {
 function ScoreNarrative({ report }: { report: GenomeReport }) {
   const color = TIER_COLORS[report.tier as GenomeTier];
   return (
-    <p style={{ fontSize: 12, color: "#8888aa", margin: 0, lineHeight: 1.5, textAlign: "center" }}>
+    <p
+      style={{
+        fontSize: 12,
+        color: "var(--text-secondary)",
+        margin: 0,
+        lineHeight: 1.5,
+        textAlign: "center",
+      }}
+    >
       <span style={{ color }}>{report.tier}:</span>{" "}
       {scoreNarrative(report).replace(/^[^:]+: ?/, "")}
     </p>
@@ -201,7 +209,7 @@ export function ResultsView({
               background: "none",
               border: "none",
               fontSize: 12,
-              color: "#8888aa",
+              color: "var(--text-secondary)",
               cursor: "pointer",
               padding: 0,
             }}
@@ -209,7 +217,7 @@ export function ResultsView({
             ← Re-analyze
           </button>
           <span style={{ color: "#1e1e2e" }}>|</span>
-          <span style={{ fontSize: 12, color: "#8888aa" }}>
+          <span style={{ fontSize: 12, color: "var(--text-secondary)" }}>
             <span style={{ color: "#f0f0f8", fontWeight: 500 }}>{allIds.length}</span> tools in your
             genome
           </span>
@@ -247,7 +255,7 @@ export function ResultsView({
               fontWeight: 500,
               background: copied ? "#00d4aa18" : "#ffffff08",
               border: `1px solid ${copied ? "#00d4aa44" : "#1e1e2e"}`,
-              color: copied ? "var(--accent-2)" : "#8888aa",
+              color: copied ? "var(--accent-2)" : "var(--text-secondary)",
               cursor: "pointer",
               whiteSpace: "nowrap",
             }}
@@ -293,7 +301,7 @@ export function ResultsView({
               fontWeight: 500,
               background: "#ffffff08",
               border: "1px solid #1e1e2e",
-              color: "#8888aa",
+              color: "var(--text-secondary)",
               textDecoration: "none",
               whiteSpace: "nowrap",
             }}
@@ -376,7 +384,7 @@ export function ResultsView({
                 style={{
                   fontSize: 10,
                   fontWeight: 700,
-                  color: "#555577",
+                  color: "var(--text-muted)",
                   textTransform: "uppercase",
                   letterSpacing: "0.08em",
                 }}
@@ -409,7 +417,9 @@ export function ResultsView({
                 </div>
               ))}
               {report.detectedTools.length === 0 && (
-                <p style={{ fontSize: 12, color: "#555577", margin: 0 }}>No tools detected</p>
+                <p style={{ fontSize: 12, color: "var(--text-muted)", margin: 0 }}>
+                  No tools detected
+                </p>
               )}
             </div>
           </div>
@@ -427,7 +437,7 @@ export function ResultsView({
                 fontWeight: 700,
                 textTransform: "uppercase",
                 letterSpacing: "0.08em",
-                color: "#555577",
+                color: "var(--text-muted)",
                 margin: "0 0 10px",
               }}
             >
@@ -460,7 +470,7 @@ export function ResultsView({
                 fontWeight: 700,
                 textTransform: "uppercase",
                 letterSpacing: "0.08em",
-                color: "#555577",
+                color: "var(--text-muted)",
                 margin: "0 0 10px",
               }}
             >

@@ -48,7 +48,7 @@ export function WatchSlotGrid({ report, signals, allTools }: Props) {
       <div>
         <p
           className="text-[10px] font-bold uppercase tracking-widest mb-4"
-          style={{ color: "#555577" }}
+          style={{ color: "var(--text-muted)" }}
         >
           Stack slots — {report.filledSlots.length} tool
           {report.filledSlots.length !== 1 ? "s" : ""}

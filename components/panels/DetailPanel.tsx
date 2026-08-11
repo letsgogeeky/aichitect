@@ -403,8 +403,8 @@ export default function DetailPanel({ tool, onClose }: Props) {
                           type === "integrates-with"
                             ? "var(--accent)"
                             : type === "commonly-paired-with"
-                              ? "#8888aa"
-                              : "#555577",
+                              ? "var(--text-secondary)"
+                              : "var(--text-muted)",
                       }}
                     >
                       {type === "integrates-with"
@@ -485,15 +485,15 @@ export default function DetailPanel({ tool, onClose }: Props) {
               borderRadius: 7,
               background: "var(--btn)",
               border: "1px solid var(--btn-border)",
-              color: "#555577",
+              color: "var(--text-muted)",
               cursor: "pointer",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.color = "#8888aa";
+              e.currentTarget.style.color = "var(--text-secondary)";
               e.currentTarget.style.borderColor = "#3a3a4a";
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.color = "#555577";
+              e.currentTarget.style.color = "var(--text-muted)";
               e.currentTarget.style.borderColor = "var(--btn-border)";
             }}
           >

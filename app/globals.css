@@ -8,7 +8,10 @@
   --border-2: #22222e;
   --text-primary: #f0f0f8;
   --text-secondary: #8888aa;
-  --text-muted: #555577;
+  /* #7f7fa4 = 5.15:1 contrast on --bg (was #555577 @ 2.78:1, fails WCAG AA).
+     Kept visually distinct from --text-secondary (5.78:1) while remaining legible
+     at the 11-13px sizes it's actually used at. */
+  --text-muted: #7f7fa4;
   --accent: #7c6bff;
   --accent-2: #00d4aa;
   /* Navbar / action button tokens */
@@ -35,6 +38,15 @@
   --color-success: var(--success);
   --color-warning: var(--warning);
   --color-danger: var(--danger);
+
+  /* Raise the legibility floor app-wide. text-xs was 12px (used ~225x) and
+     text-sm was 14px (used ~73x) across the codebase as de facto body text —
+     both below comfortable reading size. Bumping the token here propagates
+     to every call site without touching individual files. */
+  --text-xs: 0.8125rem; /* 13px, was 12px */
+  --text-xs--line-height: 1.45;
+  --text-sm: 0.9375rem; /* 15px, was 14px */
+  --text-sm--line-height: 1.5;
 }
 
 * {
@@ -113,58 +125,60 @@ body {
  * covered by the colour token classes (text-[var(--text-muted)] etc.).
  * These classes own only: size, weight, line-height, transform, tracking.
  *
- * Scale (readable floor = 12px; tags/labels floor = 10px):
- *   type-overline  10px 700  uppercase  tracking 0.08em  — section labels
- *   type-tag       10px 600  —                           — badges / chips / pills
- *   type-caption   10px 400  —                           — metadata / timestamps
- *   type-body      12px 400  line-height relaxed (1.625) — primary prose
- *   type-body-tight 12px 400 line-height snug   (1.375) — compact prose / lists
- *   type-label     12px 600  —                           — sub-headings / emphasis
- *   type-title     16px 700  line-height tight  (1.2)   — card / panel titles
+ * Scale (readable floor = 13px; tags/labels floor = 11px — nothing in the
+ * app should render below 11px, the point past which type stops being text
+ * and starts being texture):
+ *   type-overline   11px 700  uppercase  tracking 0.06em  — section labels
+ *   type-tag        11px 600  —                           — badges / chips / pills
+ *   type-caption    11px 500  —                           — metadata / timestamps
+ *   type-body       14px 400  line-height relaxed (1.6)   — primary prose
+ *   type-body-tight 13px 400  line-height snug   (1.45)   — compact prose / lists
+ *   type-label      13px 600  —                           — sub-headings / emphasis
+ *   type-title      18px 700  line-height tight  (1.25)   — card / panel titles
  */
 
 @utility type-overline {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  line-height: 1.2;
+  letter-spacing: 0.06em;
+  line-height: 1.3;
 }
 
 @utility type-tag {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 600;
   line-height: 1.4;
 }
 
 @utility type-caption {
-  font-size: 10px;
-  font-weight: 400;
+  font-size: 11px;
+  font-weight: 500;
   line-height: 1.4;
 }
 
 @utility type-body {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 400;
-  line-height: 1.625;
+  line-height: 1.6;
 }
 
 @utility type-body-tight {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 400;
-  line-height: 1.375;
+  line-height: 1.45;
 }
 
 @utility type-label {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
-  line-height: 1.25;
+  line-height: 1.3;
 }
 
 @utility type-title {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.25;
 }
 
 @keyframes shimmer {

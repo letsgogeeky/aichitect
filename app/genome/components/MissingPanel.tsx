@@ -22,7 +22,7 @@ export function MissingPanel({
           fontWeight: 700,
           textTransform: "uppercase",
           letterSpacing: "0.08em",
-          color: "#555577",
+          color: "var(--text-muted)",
           margin: "0 0 8px",
         }}
       >
@@ -75,7 +75,7 @@ export function MissingPanel({
                   </span>
                 </div>
                 {m.suggestTool && (
-                  <p style={{ fontSize: 12, color: "#8888aa", margin: 0 }}>
+                  <p style={{ fontSize: 12, color: "var(--text-secondary)", margin: 0 }}>
                     Consider{" "}
                     <span
                       style={{ color: getCategoryColor(m.suggestTool.category), fontWeight: 500 }}
@@ -92,7 +92,7 @@ export function MissingPanel({
                   style={{
                     fontSize: 10,
                     fontWeight: 500,
-                    color: "#8888aa",
+                    color: "var(--text-secondary)",
                     background: "#ffffff08",
                     border: "1px solid #1e1e2e",
                     borderRadius: 6,

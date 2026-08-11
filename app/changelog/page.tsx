@@ -75,7 +75,7 @@ export default async function ChangelogPage() {
         >
           Changelog
         </h1>
-        <p style={{ fontSize: 14, color: "#8888aa", lineHeight: 1.6, margin: 0 }}>
+        <p style={{ fontSize: 14, color: "var(--text-secondary)", lineHeight: 1.6, margin: 0 }}>
           The AI tool landscape changes weekly. Here&apos;s what&apos;s new, recently synced, and
           what&apos;s coming. Tools with no update in 90+ days are flagged as stale.
         </p>
@@ -138,7 +138,7 @@ export default async function ChangelogPage() {
                       <span
                         style={{
                           fontSize: 10,
-                          color: "#555577",
+                          color: "var(--text-muted)",
                           textTransform: "capitalize",
                         }}
                       >
@@ -148,7 +148,7 @@ export default async function ChangelogPage() {
                     <p
                       style={{
                         fontSize: 12,
-                        color: "#555577",
+                        color: "var(--text-muted)",
                         margin: 0,
                         lineHeight: 1.4,
                         overflow: "hidden",
@@ -161,7 +161,7 @@ export default async function ChangelogPage() {
                     </p>
                   </div>
                   <div style={{ flexShrink: 0, textAlign: "right" }}>
-                    <span style={{ fontSize: 10, color: "#555577" }}>
+                    <span style={{ fontSize: 10, color: "var(--text-muted)" }}>
                       {relativeDate(tool.added_at!)}
                     </span>
                   </div>
@@ -212,9 +212,11 @@ export default async function ChangelogPage() {
                 />
                 <span style={{ flex: 1, fontSize: 12, color: "#c0c0d8" }}>{tool.name}</span>
                 {tool.health_score != null && (
-                  <span style={{ fontSize: 10, color: "#555577" }}>score {tool.health_score}</span>
+                  <span style={{ fontSize: 10, color: "var(--text-muted)" }}>
+                    score {tool.health_score}
+                  </span>
                 )}
-                <span style={{ fontSize: 10, color: "#555577" }}>
+                <span style={{ fontSize: 10, color: "var(--text-muted)" }}>
                   {relativeDate(tool.last_synced_at!)}
                 </span>
               </div>
@@ -262,11 +264,13 @@ export default async function ChangelogPage() {
               >
                 {item.id}
               </span>
-              <span style={{ flex: 1, fontSize: 12, color: "#8888aa" }}>{item.label}</span>
+              <span style={{ flex: 1, fontSize: 12, color: "var(--text-secondary)" }}>
+                {item.label}
+              </span>
               <span
                 style={{
                   fontSize: 10,
-                  color: "#555577",
+                  color: "var(--text-muted)",
                   textTransform: "uppercase",
                   letterSpacing: "0.06em",
                 }}
@@ -311,7 +315,9 @@ function Section({
         <div style={{ width: 3, height: 14, borderRadius: 2, background: accent, flexShrink: 0 }} />
         <h2 style={{ fontSize: 15, fontWeight: 700, color: "#f0f0f8", margin: 0 }}>{title}</h2>
       </div>
-      <p style={{ fontSize: 12, color: "#555577", margin: "0 0 14px 13px" }}>{subtitle}</p>
+      <p style={{ fontSize: 12, color: "var(--text-muted)", margin: "0 0 14px 13px" }}>
+        {subtitle}
+      </p>
       {children}
     </div>
   );
@@ -328,7 +334,9 @@ function EmptyState({ message }: { message: string }) {
         textAlign: "center",
       }}
     >
-      <p style={{ fontSize: 12, color: "#555577", margin: 0, lineHeight: 1.5 }}>{message}</p>
+      <p style={{ fontSize: 12, color: "var(--text-muted)", margin: 0, lineHeight: 1.5 }}>
+        {message}
+      </p>
     </div>
   );
 }

@@ -71,7 +71,7 @@ function ToolChip({
       <span
         style={{
           fontSize: 10,
-          color: "#555577",
+          color: "var(--text-muted)",
           lineHeight: 1.4,
           paddingLeft: 12,
           display: "-webkit-box",
@@ -124,7 +124,7 @@ export function WorkflowStep({ onNext }: { onNext: (workflowIds: string[]) => vo
           style={{
             fontSize: 12,
             fontWeight: 600,
-            color: "#555577",
+            color: "var(--text-muted)",
             textTransform: "uppercase",
             letterSpacing: "0.08em",
             marginBottom: 10,
@@ -143,7 +143,14 @@ export function WorkflowStep({ onNext }: { onNext: (workflowIds: string[]) => vo
         >
           What&apos;s your dev workflow?
         </h1>
-        <p style={{ fontSize: 13, color: "#8888aa", lineHeight: 1.6, margin: "0 0 12px" }}>
+        <p
+          style={{
+            fontSize: 13,
+            color: "var(--text-secondary)",
+            lineHeight: 1.6,
+            margin: "0 0 12px",
+          }}
+        >
           These tools don&apos;t always show up in dependency files. Select everything you use.
         </p>
       </div>
@@ -167,7 +174,7 @@ export function WorkflowStep({ onNext }: { onNext: (workflowIds: string[]) => vo
                 fontWeight: 700,
                 textTransform: "uppercase",
                 letterSpacing: "0.08em",
-                color: "#555577",
+                color: "var(--text-muted)",
                 margin: "0 0 10px",
               }}
             >

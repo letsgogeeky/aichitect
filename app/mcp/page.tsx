@@ -116,7 +116,7 @@ function CodeBlock({
             style={{
               display: "block",
               fontSize: 10,
-              color: "#555577",
+              color: "var(--text-muted)",
               marginBottom: 8,
               textTransform: "uppercase",
               letterSpacing: "0.08em",
@@ -175,7 +175,14 @@ function ToolCard({
           {examplePrompt && <CopyButton text={examplePrompt} label="Copy prompt" />}
         </div>
 
-        <p style={{ fontSize: 13, color: "#8888aa", margin: "0 0 14px", lineHeight: 1.55 }}>
+        <p
+          style={{
+            fontSize: 13,
+            color: "var(--text-secondary)",
+            margin: "0 0 14px",
+            lineHeight: 1.55,
+          }}
+        >
           {description}
         </p>
 
@@ -185,7 +192,7 @@ function ToolCard({
               style={{
                 fontSize: 10,
                 fontWeight: 600,
-                color: "#555577",
+                color: "var(--text-muted)",
                 textTransform: "uppercase",
                 letterSpacing: "0.06em",
               }}
@@ -213,7 +220,7 @@ function ToolCard({
               style={{
                 fontSize: 10,
                 fontWeight: 600,
-                color: "#555577",
+                color: "var(--text-muted)",
                 textTransform: "uppercase",
                 letterSpacing: "0.06em",
               }}
@@ -280,7 +287,7 @@ export default function McpPage() {
         <p
           style={{
             fontSize: 16,
-            color: "#8888aa",
+            color: "var(--text-secondary)",
             lineHeight: 1.6,
             margin: "0 0 28px",
             maxWidth: 520,
@@ -330,7 +337,7 @@ export default function McpPage() {
         >
           {["No authentication required", "Stateless", "4 tools available", "Saves tokens"].map(
             (note) => (
-              <span key={note} style={{ fontSize: 12, color: "#555577" }}>
+              <span key={note} style={{ fontSize: 12, color: "var(--text-muted)" }}>
                 · {note}
               </span>
             )
@@ -357,7 +364,7 @@ export default function McpPage() {
               }}
             >
               Claude Code{" "}
-              <span style={{ fontWeight: 400, color: "#555577" }}>
+              <span style={{ fontWeight: 400, color: "var(--text-muted)" }}>
                 — add to <code style={{ fontFamily: "monospace" }}>~/.claude/settings.json</code>
               </span>
             </p>
@@ -377,7 +384,7 @@ export default function McpPage() {
               }}
             >
               Cursor{" "}
-              <span style={{ fontWeight: 400, color: "#555577" }}>
+              <span style={{ fontWeight: 400, color: "var(--text-muted)" }}>
                 — Settings → MCP → Add server
               </span>
             </p>
@@ -400,7 +407,7 @@ export default function McpPage() {
                   <span
                     style={{
                       fontSize: 12,
-                      color: "#555577",
+                      color: "var(--text-muted)",
                       minWidth: 72,
                       fontFamily: "monospace",
                     }}
@@ -416,7 +423,7 @@ export default function McpPage() {
           </div>
 
           {/* Any client */}
-          <p style={{ fontSize: 12, color: "#555577", margin: 0 }}>
+          <p style={{ fontSize: 12, color: "var(--text-muted)", margin: 0 }}>
             Works with any MCP-compatible client — Windsurf, Zed, or your own agent.
           </p>
         </div>
@@ -442,7 +449,7 @@ export default function McpPage() {
         <h2 style={{ fontSize: 20, fontWeight: 700, margin: "0 0 8px", letterSpacing: -0.3 }}>
           Example prompts
         </h2>
-        <p style={{ fontSize: 13, color: "#555577", margin: "0 0 20px" }}>
+        <p style={{ fontSize: 13, color: "var(--text-muted)", margin: "0 0 20px" }}>
           Once the MCP server is added, paste any of these directly into your AI editor.
         </p>
 
@@ -496,7 +503,7 @@ export default function McpPage() {
           "Saves tokens vs. asking Claude to research stacks from scratch",
           "Powered by AIchitect's live catalog + Gemini",
         ].map((note) => (
-          <span key={note} style={{ fontSize: 12, color: "#555577" }}>
+          <span key={note} style={{ fontSize: 12, color: "var(--text-muted)" }}>
             {note}
           </span>
         ))}

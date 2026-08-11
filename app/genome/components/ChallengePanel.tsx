@@ -120,7 +120,7 @@ export function ChallengePanel({ report, allIds }: ChallengePanelProps) {
           <span
             style={{
               fontSize: 10,
-              color: "#555577",
+              color: "var(--text-muted)",
               fontStyle: "italic",
             }}
           >
@@ -150,7 +150,7 @@ export function ChallengePanel({ report, allIds }: ChallengePanelProps) {
           )}
 
           {state === "loading" && (
-            <span style={{ fontSize: 12, color: "#555577" }}>analyzing choices…</span>
+            <span style={{ fontSize: 12, color: "var(--text-muted)" }}>analyzing choices…</span>
           )}
 
           {(state === "error" || state === "rate-limited") && (
@@ -164,7 +164,7 @@ export function ChallengePanel({ report, allIds }: ChallengePanelProps) {
                 fontWeight: 500,
                 background: "#ffffff08",
                 border: "1px solid #1e1e2e",
-                color: "#8888aa",
+                color: "var(--text-secondary)",
                 cursor: "pointer",
               }}
             >
@@ -184,7 +184,7 @@ export function ChallengePanel({ report, allIds }: ChallengePanelProps) {
                   fontWeight: 500,
                   background: "#ffffff08",
                   border: "1px solid #1e1e2e",
-                  color: "#8888aa",
+                  color: "var(--text-secondary)",
                   cursor: "pointer",
                   whiteSpace: "nowrap",
                 }}
@@ -218,7 +218,7 @@ export function ChallengePanel({ report, allIds }: ChallengePanelProps) {
                   fontWeight: 500,
                   background: copied ? "#00d4aa18" : "#ffffff08",
                   border: `1px solid ${copied ? "#00d4aa44" : "#1e1e2e"}`,
-                  color: copied ? "#00d4aa" : "#8888aa",
+                  color: copied ? "#00d4aa" : "var(--text-secondary)",
                   cursor: "pointer",
                   whiteSpace: "nowrap",
                 }}
@@ -289,7 +289,7 @@ export function ChallengePanel({ report, allIds }: ChallengePanelProps) {
 
       {state === "error" && (
         <div style={{ padding: "12px 14px" }}>
-          <p style={{ margin: 0, fontSize: 12, color: "#555577" }}>
+          <p style={{ margin: 0, fontSize: 12, color: "var(--text-muted)" }}>
             Failed to generate challenge. Make sure GOOGLE_AI_API_KEY is set.
           </p>
         </div>

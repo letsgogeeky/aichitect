@@ -221,7 +221,7 @@ export default function WalkthroughOverlay() {
           <p
             style={{
               fontSize: 10,
-              color: "#555577",
+              color: "var(--text-muted)",
               marginBottom: 8,
               textTransform: "uppercase",
               letterSpacing: "0.08em",
@@ -246,7 +246,7 @@ export default function WalkthroughOverlay() {
           <p
             style={{
               fontSize: 11.5,
-              color: "#8888aa",
+              color: "var(--text-secondary)",
               lineHeight: 1.65,
               margin: 0,
             }}
@@ -295,7 +295,7 @@ export default function WalkthroughOverlay() {
             style={{
               background: "transparent",
               border: "none",
-              color: isFirst ? "var(--btn-border)" : "#8888aa",
+              color: isFirst ? "var(--btn-border)" : "var(--text-secondary)",
               fontSize: 12,
               cursor: isFirst ? "default" : "pointer",
               padding: "4px 0",
@@ -305,7 +305,7 @@ export default function WalkthroughOverlay() {
               if (!isFirst) e.currentTarget.style.color = "#f0f0f8";
             }}
             onMouseLeave={(e) => {
-              if (!isFirst) e.currentTarget.style.color = "#8888aa";
+              if (!isFirst) e.currentTarget.style.color = "var(--text-secondary)";
             }}
           >
             ← Back
@@ -359,7 +359,7 @@ export default function WalkthroughOverlay() {
           borderRadius: "50%",
           background: "var(--btn)",
           border: "1px solid var(--btn-border)",
-          color: "#555577",
+          color: "var(--text-muted)",
           fontSize: 13,
           cursor: "pointer",
           display: "flex",
@@ -374,7 +374,7 @@ export default function WalkthroughOverlay() {
           e.currentTarget.style.borderColor = "#3a3a4a";
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.color = "#555577";
+          e.currentTarget.style.color = "var(--text-muted)";
           e.currentTarget.style.borderColor = "var(--btn-border)";
         }}
       >

@@ -286,7 +286,7 @@ function ComparePreview() {
         x="140"
         y="84"
         textAnchor="middle"
-        fill="#555577"
+        fill="var(--text-muted)"
         fontSize="7"
         fontWeight="600"
         fontFamily="monospace"
@@ -300,28 +300,28 @@ function ComparePreview() {
       <rect x="164" y="17" width="56" height="8" rx="2" fill="#00d4aa" opacity="0.22" />
       <rect x="164" y="17" width="44" height="8" rx="2" fill="#00d4aa" opacity="0.12" />
       {/* Row labels */}
-      <text x="14" y="37" fill="#555577" fontSize="6" fontFamily="monospace">
+      <text x="14" y="37" fill="var(--text-muted)" fontSize="6" fontFamily="monospace">
         Category
       </text>
-      <text x="164" y="37" fill="#555577" fontSize="6" fontFamily="monospace">
+      <text x="164" y="37" fill="var(--text-muted)" fontSize="6" fontFamily="monospace">
         Category
       </text>
-      <text x="14" y="57" fill="#555577" fontSize="6" fontFamily="monospace">
+      <text x="14" y="57" fill="var(--text-muted)" fontSize="6" fontFamily="monospace">
         Type
       </text>
-      <text x="164" y="57" fill="#555577" fontSize="6" fontFamily="monospace">
+      <text x="164" y="57" fill="var(--text-muted)" fontSize="6" fontFamily="monospace">
         Type
       </text>
-      <text x="14" y="77" fill="#555577" fontSize="6" fontFamily="monospace">
+      <text x="14" y="77" fill="var(--text-muted)" fontSize="6" fontFamily="monospace">
         Free tier
       </text>
-      <text x="164" y="77" fill="#555577" fontSize="6" fontFamily="monospace">
+      <text x="164" y="77" fill="var(--text-muted)" fontSize="6" fontFamily="monospace">
         Free tier
       </text>
-      <text x="14" y="97" fill="#555577" fontSize="6" fontFamily="monospace">
+      <text x="14" y="97" fill="var(--text-muted)" fontSize="6" fontFamily="monospace">
         Stars
       </text>
-      <text x="164" y="97" fill="#555577" fontSize="6" fontFamily="monospace">
+      <text x="164" y="97" fill="var(--text-muted)" fontSize="6" fontFamily="monospace">
         Stars
       </text>
       {/* Row 1: Category pills */}
@@ -343,7 +343,7 @@ function ComparePreview() {
       <rect x="164" y="100" width="88" height="5" rx="2" fill="#00d4aa" opacity="0.1" />
       <rect x="164" y="100" width="36" height="5" rx="2" fill="#00d4aa" opacity="0.4" />
       {/* Shared connections section */}
-      <text x="14" y="118" fill="#555577" fontSize="6" fontFamily="monospace">
+      <text x="14" y="118" fill="var(--text-muted)" fontSize="6" fontFamily="monospace">
         Shared connections
       </text>
       {/* Left shared dots */}
@@ -439,7 +439,14 @@ function GenomePreview() {
       >
         78
       </text>
-      <text x="60" y="90" textAnchor="middle" fill="#555577" fontSize="7" fontFamily="monospace">
+      <text
+        x="60"
+        y="90"
+        textAnchor="middle"
+        fill="var(--text-muted)"
+        fontSize="7"
+        fontFamily="monospace"
+      >
         / 100
       </text>
       <rect x="36" y="126" width="48" height="10" rx="5" fill="#26de81" opacity="0.2" />
@@ -464,7 +471,7 @@ function GenomePreview() {
         { x: 118, y: 86, color: "#4ecdc4", label: "vector db", filled: true },
         { x: 194, y: 86, color: "#fd9644", label: "observability", filled: false },
         { x: 118, y: 124, color: "#a29bfe", label: "mcp", filled: false },
-        { x: 194, y: 124, color: "#555577", label: "eval", filled: false },
+        { x: 194, y: 124, color: "var(--text-muted)", label: "eval", filled: false },
       ].map(({ x, y, color, label, filled }) => (
         <g key={label}>
           <rect
@@ -535,27 +542,76 @@ function SimulatePreview() {
       />
 
       {/* Y labels */}
-      <text x="35" y="54" textAnchor="end" fill="#555577" fontSize="7" fontFamily="monospace">
+      <text
+        x="35"
+        y="54"
+        textAnchor="end"
+        fill="var(--text-muted)"
+        fontSize="7"
+        fontFamily="monospace"
+      >
         $20k
       </text>
-      <text x="35" y="84" textAnchor="end" fill="#555577" fontSize="7" fontFamily="monospace">
+      <text
+        x="35"
+        y="84"
+        textAnchor="end"
+        fill="var(--text-muted)"
+        fontSize="7"
+        fontFamily="monospace"
+      >
         $5k
       </text>
-      <text x="35" y="114" textAnchor="end" fill="#555577" fontSize="7" fontFamily="monospace">
+      <text
+        x="35"
+        y="114"
+        textAnchor="end"
+        fill="var(--text-muted)"
+        fontSize="7"
+        fontFamily="monospace"
+      >
         $1k
       </text>
 
       {/* X labels */}
-      <text x="55" y="143" textAnchor="middle" fill="#555577" fontSize="7" fontFamily="monospace">
+      <text
+        x="55"
+        y="143"
+        textAnchor="middle"
+        fill="var(--text-muted)"
+        fontSize="7"
+        fontFamily="monospace"
+      >
         1k
       </text>
-      <text x="120" y="143" textAnchor="middle" fill="#555577" fontSize="7" fontFamily="monospace">
+      <text
+        x="120"
+        y="143"
+        textAnchor="middle"
+        fill="var(--text-muted)"
+        fontSize="7"
+        fontFamily="monospace"
+      >
         10k
       </text>
-      <text x="185" y="143" textAnchor="middle" fill="#555577" fontSize="7" fontFamily="monospace">
+      <text
+        x="185"
+        y="143"
+        textAnchor="middle"
+        fill="var(--text-muted)"
+        fontSize="7"
+        fontFamily="monospace"
+      >
         100k
       </text>
-      <text x="250" y="143" textAnchor="middle" fill="#555577" fontSize="7" fontFamily="monospace">
+      <text
+        x="250"
+        y="143"
+        textAnchor="middle"
+        fill="var(--text-muted)"
+        fontSize="7"
+        fontFamily="monospace"
+      >
         1M
       </text>
 
@@ -871,7 +927,7 @@ export default async function LandingPage() {
         <p
           style={{
             fontSize: "clamp(15px, 2vw, 19px)",
-            color: "#8888aa",
+            color: "var(--text-secondary)",
             maxWidth: 580,
             lineHeight: 1.65,
             marginBottom: 12,
@@ -933,7 +989,11 @@ export default async function LandingPage() {
             or{" "}
             <Link
               href="/explore"
-              style={{ color: "#555577", textDecoration: "underline", textUnderlineOffset: 3 }}
+              style={{
+                color: "var(--text-muted)",
+                textDecoration: "underline",
+                textUnderlineOffset: 3,
+              }}
             >
               explore the full graph
             </Link>
@@ -968,7 +1028,7 @@ export default async function LandingPage() {
               >
                 {value}
               </div>
-              <div style={{ fontSize: 12, color: "#555577", marginTop: 2 }}>{label}</div>
+              <div style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 2 }}>{label}</div>
             </div>
           ))}
         </div>
@@ -992,7 +1052,7 @@ export default async function LandingPage() {
                 style={{
                   fontSize: 12,
                   fontWeight: 600,
-                  color: "#555577",
+                  color: "var(--text-muted)",
                   textTransform: "uppercase",
                   letterSpacing: "0.1em",
                   marginBottom: 4,
@@ -1020,7 +1080,7 @@ export default async function LandingPage() {
                 gap: 6,
                 fontSize: 12,
                 fontWeight: 500,
-                color: "#555577",
+                color: "var(--text-muted)",
                 textDecoration: "none",
               }}
             >
@@ -1113,7 +1173,7 @@ export default async function LandingPage() {
                       style={{
                         margin: 0,
                         fontSize: 12,
-                        color: "#555577",
+                        color: "var(--text-muted)",
                         overflow: "hidden",
                         textOverflow: "ellipsis",
                         whiteSpace: "nowrap",
@@ -1410,7 +1470,7 @@ export default async function LandingPage() {
                     }}
                   />
                   <span style={{ color: "#d0d0e8", fontWeight: 500 }}>{label}</span>
-                  <span style={{ color: "#555577" }}>· {desc}</span>
+                  <span style={{ color: "var(--text-muted)" }}>· {desc}</span>
                 </div>
               ))}
             </div>
@@ -1495,7 +1555,14 @@ export default async function LandingPage() {
                 >
                   Mission
                 </p>
-                <p style={{ fontSize: 12, color: "#8888aa", margin: 0, lineHeight: 1.5 }}>
+                <p
+                  style={{
+                    fontSize: 12,
+                    color: "var(--text-secondary)",
+                    margin: 0,
+                    lineHeight: 1.5,
+                  }}
+                >
                   Solo founder shipping a SaaS MVP this month. Velocity over architecture.
                 </p>
               </div>
@@ -1511,9 +1578,9 @@ export default async function LandingPage() {
                 <p style={{ fontSize: 10, fontWeight: 600, color: "#ff6b6b", margin: "0 0 4px" }}>
                   ✕ Not in this stack
                 </p>
-                <p style={{ fontSize: 11, color: "#8888aa", margin: 0 }}>
+                <p style={{ fontSize: 11, color: "var(--text-secondary)", margin: 0 }}>
                   <span style={{ color: "#d0d0e8", fontWeight: 500 }}>LangGraph</span>
-                  <span style={{ color: "#555577", fontStyle: "italic" }}>
+                  <span style={{ color: "var(--text-muted)", fontStyle: "italic" }}>
                     {" — "}orchestration overhead kills solo velocity at this stage
                   </span>
                 </p>
@@ -1530,7 +1597,14 @@ export default async function LandingPage() {
                 <p style={{ fontSize: 10, fontWeight: 600, color: "#fd9644", margin: "0 0 4px" }}>
                   ⚡ Kill condition
                 </p>
-                <p style={{ fontSize: 11, color: "#8888aa", margin: 0, fontStyle: "italic" }}>
+                <p
+                  style={{
+                    fontSize: 11,
+                    color: "var(--text-secondary)",
+                    margin: 0,
+                    fontStyle: "italic",
+                  }}
+                >
                   Team grows beyond 3 engineers
                 </p>
               </div>
@@ -1686,10 +1760,11 @@ export default async function LandingPage() {
                 maxWidth: 440,
               }}
             >
-              Paste your <code style={{ color: "#8888aa", fontSize: 13 }}>package.json</code> or{" "}
-              <code style={{ color: "#8888aa", fontSize: 13 }}>requirements.txt</code> and get a
-              fitness score for your AI stack — which slots are covered, which are missing, and
-              where you&apos;re leaving performance on the table.
+              Paste your{" "}
+              <code style={{ color: "var(--text-secondary)", fontSize: 13 }}>package.json</code> or{" "}
+              <code style={{ color: "var(--text-secondary)", fontSize: 13 }}>requirements.txt</code>{" "}
+              and get a fitness score for your AI stack — which slots are covered, which are
+              missing, and where you&apos;re leaving performance on the table.
             </p>
 
             {/* Feature pills */}
@@ -1762,7 +1837,9 @@ export default async function LandingPage() {
                 justifyContent: "space-between",
               }}
             >
-              <span style={{ fontSize: 12, color: "#555577" }}>6 tools in your genome</span>
+              <span style={{ fontSize: 12, color: "var(--text-muted)" }}>
+                6 tools in your genome
+              </span>
               <span
                 style={{
                   fontSize: 10,
@@ -1819,7 +1896,7 @@ export default async function LandingPage() {
                     x="44"
                     y="52"
                     textAnchor="middle"
-                    fill="#555577"
+                    fill="var(--text-muted)"
                     fontSize="7"
                     fontFamily="monospace"
                   >
@@ -1827,7 +1904,12 @@ export default async function LandingPage() {
                   </text>
                 </svg>
                 <span
-                  style={{ fontSize: 10, color: "#555577", textAlign: "center", lineHeight: 1.4 }}
+                  style={{
+                    fontSize: 10,
+                    color: "var(--text-muted)",
+                    textAlign: "center",
+                    lineHeight: 1.4,
+                  }}
                 >
                   6 of 8<br />
                   slots filled
@@ -1857,7 +1939,7 @@ export default async function LandingPage() {
                       border: `1px solid ${color}28`,
                     }}
                   >
-                    <span style={{ fontSize: 10, color: "#555577" }}>{slot}</span>
+                    <span style={{ fontSize: 10, color: "var(--text-muted)" }}>{slot}</span>
                     <span style={{ fontSize: 10, fontWeight: 600, color }}>{tool} ✓</span>
                   </div>
                 ))}
@@ -1905,7 +1987,14 @@ export default async function LandingPage() {
                   >
                     🔥 Roast
                   </span>
-                  <p style={{ margin: "4px 0 0", fontSize: 10, color: "#8888aa", lineHeight: 1.5 }}>
+                  <p
+                    style={{
+                      margin: "4px 0 0",
+                      fontSize: 10,
+                      color: "var(--text-secondary)",
+                      lineHeight: 1.5,
+                    }}
+                  >
                     No eval layer. You&apos;re shipping vibes to production.
                   </p>
                 </div>

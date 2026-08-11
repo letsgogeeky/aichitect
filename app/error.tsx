@@ -27,7 +27,7 @@ export default function Error({
         textAlign: "center",
       }}
     >
-      <p style={{ fontSize: 13, color: "#8888aa", maxWidth: 360 }}>
+      <p style={{ fontSize: 13, color: "var(--text-secondary)", maxWidth: 360 }}>
         Something went wrong rendering this view.
       </p>
       <button

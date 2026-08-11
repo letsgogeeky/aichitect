@@ -539,5 +539,5 @@ export const CATEGORIES: CategoryMeta[] = [
 ];
 
 export function getCategoryColor(id: CategoryId): string {
-  return CATEGORIES.find((c) => c.id === id)?.color ?? "#555577";
+  return CATEGORIES.find((c) => c.id === id)?.color ?? "#7f7fa4";
 }

@@ -34,7 +34,7 @@ function ChecklistRow({ item }: { item: ChecklistItem }) {
           justifyContent: "center",
           fontSize: 12,
           fontWeight: 600,
-          color: "#555577",
+          color: "var(--text-muted)",
           marginTop: 1,
         }}
       >
@@ -55,7 +55,7 @@ function ChecklistRow({ item }: { item: ChecklistItem }) {
           <span
             style={{
               fontSize: 10,
-              color: "#555577",
+              color: "var(--text-muted)",
               background: "var(--btn)",
               border: "1px solid var(--btn-border)",
               borderRadius: 4,
@@ -70,7 +70,7 @@ function ChecklistRow({ item }: { item: ChecklistItem }) {
           style={{
             margin: 0,
             fontSize: 12,
-            color: "#8888aa",
+            color: "var(--text-secondary)",
             lineHeight: 1.5,
           }}
         >
@@ -88,7 +88,7 @@ function ChecklistRow({ item }: { item: ChecklistItem }) {
           gap: 6,
         }}
       >
-        <span style={{ fontSize: 12, color: "#555577" }}>≈{item.timeEst}</span>
+        <span style={{ fontSize: 12, color: "var(--text-muted)" }}>≈{item.timeEst}</span>
         {item.link && (
           <a
             href={item.link}
@@ -173,7 +173,7 @@ export default function GetStartedModal({ toolIds, onClose }: Props) {
             <p
               style={{
                 fontSize: 12,
-                color: "#555577",
+                color: "var(--text-muted)",
                 margin: "0 0 4px",
                 textTransform: "uppercase",
                 letterSpacing: "0.08em",
@@ -191,7 +191,7 @@ export default function GetStartedModal({ toolIds, onClose }: Props) {
             style={{
               background: "none",
               border: "none",
-              color: "#555577",
+              color: "var(--text-muted)",
               cursor: "pointer",
               padding: 4,
               display: "flex",
@@ -211,7 +211,7 @@ export default function GetStartedModal({ toolIds, onClose }: Props) {
               style={{
                 padding: "48px 20px",
                 textAlign: "center",
-                color: "#555577",
+                color: "var(--text-muted)",
                 fontSize: 13,
               }}
             >
@@ -234,7 +234,7 @@ export default function GetStartedModal({ toolIds, onClose }: Props) {
               flexShrink: 0,
             }}
           >
-            <span style={{ fontSize: 12, color: "#555577" }}>
+            <span style={{ fontSize: 12, color: "var(--text-muted)" }}>
               Export as markdown to use anywhere
             </span>
             <button

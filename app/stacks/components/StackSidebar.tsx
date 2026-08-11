@@ -150,7 +150,7 @@ export function StackSidebar({
                     className="text-[10px] px-1.5 py-0.5 rounded"
                     style={{
                       background: isActive ? "#7c6bff20" : "var(--btn)",
-                      color: isActive ? "var(--accent)" : "#555577",
+                      color: isActive ? "var(--accent)" : "var(--text-muted)",
                       border: `1px solid ${isActive ? "#7c6bff33" : "var(--btn-border)"}`,
                     }}
                   >
@@ -226,7 +226,7 @@ export function StackSidebar({
               {q && (
                 <div
                   className="text-[10px] mb-1.5 font-semibold uppercase tracking-wide"
-                  style={{ color: "#555577" }}
+                  style={{ color: "var(--text-muted)" }}
                 >
                   {STACK_CLUSTERS.find((c) => c.id === s.cluster)?.label}
                 </div>

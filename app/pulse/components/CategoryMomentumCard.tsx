@@ -35,7 +35,7 @@ function getMomentumDisplay(data: CategoryMomentum): {
   if (data.avg_health_now != null) {
     return { arrow: "~", label: `${data.avg_health_now}`, color: "#a0a0b0", isEstimate: true };
   }
-  return { arrow: "–", label: "No data", color: "#555577", isEstimate: false };
+  return { arrow: "–", label: "No data", color: "var(--text-muted)", isEstimate: false };
 }
 
 /** Low confidence: fewer than half the tracked tools have a 30d baseline. */

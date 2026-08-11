@@ -151,7 +151,7 @@ export function RoastPanel({ report, allIds }: RoastPanelProps) {
           )}
 
           {state === "loading" && (
-            <span style={{ fontSize: 12, color: "#555577" }}>reading your stack…</span>
+            <span style={{ fontSize: 12, color: "var(--text-muted)" }}>reading your stack…</span>
           )}
 
           {(state === "error" || state === "rate-limited") && (
@@ -165,7 +165,7 @@ export function RoastPanel({ report, allIds }: RoastPanelProps) {
                 fontWeight: 500,
                 background: "#ffffff08",
                 border: "1px solid #1e1e2e",
-                color: "#8888aa",
+                color: "var(--text-secondary)",
                 cursor: "pointer",
               }}
             >
@@ -185,7 +185,7 @@ export function RoastPanel({ report, allIds }: RoastPanelProps) {
                   fontWeight: 500,
                   background: "#ffffff08",
                   border: "1px solid #1e1e2e",
-                  color: "#8888aa",
+                  color: "var(--text-secondary)",
                   cursor: "pointer",
                   whiteSpace: "nowrap",
                 }}
@@ -219,7 +219,7 @@ export function RoastPanel({ report, allIds }: RoastPanelProps) {
                   fontWeight: 500,
                   background: tweetCopied ? "#00d4aa18" : "#ffffff08",
                   border: `1px solid ${tweetCopied ? "#00d4aa44" : "#1e1e2e"}`,
-                  color: tweetCopied ? "#00d4aa" : "#8888aa",
+                  color: tweetCopied ? "#00d4aa" : "var(--text-secondary)",
                   cursor: "pointer",
                   whiteSpace: "nowrap",
                 }}
@@ -241,7 +241,9 @@ export function RoastPanel({ report, allIds }: RoastPanelProps) {
           gap: 10,
         }}
       >
-        <span style={{ fontSize: 10, color: "#555577", whiteSpace: "nowrap" }}>Gentle Nudge</span>
+        <span style={{ fontSize: 10, color: "var(--text-muted)", whiteSpace: "nowrap" }}>
+          Gentle Nudge
+        </span>
         <div style={{ flex: 1, position: "relative" }}>
           <input
             type="range"
@@ -261,7 +263,7 @@ export function RoastPanel({ report, allIds }: RoastPanelProps) {
             }}
           />
         </div>
-        <span style={{ fontSize: 10, color: "#555577", whiteSpace: "nowrap" }}>
+        <span style={{ fontSize: 10, color: "var(--text-muted)", whiteSpace: "nowrap" }}>
           Full Destruction
         </span>
         <span
@@ -308,7 +310,7 @@ export function RoastPanel({ report, allIds }: RoastPanelProps) {
 
       {state === "error" && (
         <div style={{ padding: "12px 14px" }}>
-          <p style={{ margin: 0, fontSize: 12, color: "#555577" }}>
+          <p style={{ margin: 0, fontSize: 12, color: "var(--text-muted)" }}>
             Failed to generate roast. Make sure GOOGLE_AI_API_KEY is set.
           </p>
         </div>

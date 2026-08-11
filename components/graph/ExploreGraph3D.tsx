@@ -291,7 +291,7 @@ export default function ExploreGraph3D({
     const n = node as Node3D;
     return `<div style="background:#0e0e18dd;border:1px solid #7c6bff44;border-radius:6px;padding:6px 10px;max-width:220px">
       <div style="font-size:11px;font-weight:600;color:#e0e0ff;margin-bottom:3px">${n.name}</div>
-      <div style="font-size:9px;color:#8888aa;line-height:1.4">${n.tagline}</div>
+      <div style="font-size:9px;color:var(--text-secondary);line-height:1.4">${n.tagline}</div>
     </div>`;
   }, []);
 
@@ -325,7 +325,7 @@ export default function ExploreGraph3D({
         className="w-full h-full flex flex-col items-center justify-center gap-3"
         style={{ background: "#08080f" }}
       >
-        <p style={{ fontSize: 13, color: "#8888aa" }}>
+        <p style={{ fontSize: 13, color: "var(--text-secondary)" }}>
           3D view requires WebGL, which isn&apos;t available in this browser.
         </p>
       </div>

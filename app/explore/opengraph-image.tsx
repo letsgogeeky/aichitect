@@ -78,7 +78,7 @@ export default async function Image({
           <div
             style={{
               fontSize: 13,
-              color: "#555577",
+              color: "#7f7fa4",
               letterSpacing: 2,
               textTransform: "uppercase",
               marginBottom: 32,
@@ -117,7 +117,7 @@ export default async function Image({
                   {a.name}
                 </span>
               </div>
-              <span style={{ fontSize: 13, color: "#555577", maxWidth: 280, textAlign: "center" }}>
+              <span style={{ fontSize: 13, color: "#7f7fa4", maxWidth: 280, textAlign: "center" }}>
                 {a.tagline}
               </span>
             </div>
@@ -154,7 +154,7 @@ export default async function Image({
                   {b.name}
                 </span>
               </div>
-              <span style={{ fontSize: 13, color: "#555577", maxWidth: 280, textAlign: "center" }}>
+              <span style={{ fontSize: 13, color: "#7f7fa4", maxWidth: 280, textAlign: "center" }}>
                 {b.tagline}
               </span>
             </div>

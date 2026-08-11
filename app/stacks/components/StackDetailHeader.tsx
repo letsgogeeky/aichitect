@@ -212,7 +212,7 @@ export function StackDetailHeader({
             style={{
               background: "var(--btn)",
               border: "1px solid var(--btn-border)",
-              color: "#555577",
+              color: "var(--text-muted)",
             }}
           >
             {tag}
@@ -264,7 +264,7 @@ export function StackDetailHeader({
           </div>
           <div className="flex flex-col gap-1">
             {notInStackTools.map(({ tool, reason }) => {
-              const color = tool ? getCategoryColor(tool.category) : "#555577";
+              const color = tool ? getCategoryColor(tool.category) : "var(--text-muted)";
               return (
                 <div key={reason} className="flex items-baseline gap-2">
                   <span className="type-caption flex-shrink-0" style={{ color: "#ff6b6b66" }}>
@@ -279,7 +279,10 @@ export function StackDetailHeader({
                       {tool.name}
                     </Link>
                   ) : (
-                    <span className="type-label flex-shrink-0" style={{ color: "#555577" }}>
+                    <span
+                      className="type-label flex-shrink-0"
+                      style={{ color: "var(--text-muted)" }}
+                    >
                       {reason}
                     </span>
                   )}

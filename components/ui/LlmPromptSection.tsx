@@ -226,7 +226,7 @@ export function LlmPromptSection() {
                   borderRadius: 7,
                   background: copied ? "#26de8118" : "#ffffff08",
                   border: copied ? "1px solid #26de8138" : "1px solid #1e1e30",
-                  color: copied ? "#26de81" : "#555577",
+                  color: copied ? "#26de81" : "var(--text-muted)",
                   fontSize: 12,
                   fontWeight: 600,
                   cursor: "pointer",

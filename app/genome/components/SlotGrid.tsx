@@ -78,7 +78,7 @@ export function SlotGrid({ report }: { report: GenomeReport }) {
                   style={{
                     fontSize: 10,
                     fontWeight: 600,
-                    color: "#555577",
+                    color: "var(--text-muted)",
                     textTransform: "uppercase",
                     letterSpacing: "0.06em",
                   }}
@@ -108,7 +108,7 @@ export function SlotGrid({ report }: { report: GenomeReport }) {
             background: "none",
             border: "none",
             fontSize: 12,
-            color: "#555577",
+            color: "var(--text-muted)",
             cursor: "pointer",
             textDecoration: "underline",
             textUnderlineOffset: 3,

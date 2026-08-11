@@ -28,7 +28,7 @@ export function CopyButton({ text, label = "Copy" }: CopyButtonProps) {
         borderRadius: 6,
         background: copied ? "#00d4aa18" : "var(--btn)",
         border: `1px solid ${copied ? "#00d4aa44" : "var(--btn-border)"}`,
-        color: copied ? "#00d4aa" : "#8888aa",
+        color: copied ? "#00d4aa" : "var(--text-secondary)",
         fontSize: 12,
         fontWeight: 500,
         cursor: "pointer",

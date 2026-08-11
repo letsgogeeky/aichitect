@@ -58,7 +58,7 @@ export default function MyStackTray() {
                 flexShrink: 0,
               }}
             />
-            <span style={{ fontSize: 12, color: "#8888aa" }}>
+            <span style={{ fontSize: 12, color: "var(--text-secondary)" }}>
               {stackTools.length} tool{stackTools.length !== 1 ? "s" : ""} in stack
             </span>
           </div>
@@ -78,7 +78,7 @@ export default function MyStackTray() {
           <button
             onClick={() => setMinimized(false)}
             title="Expand"
-            style={{ color: "#555577", lineHeight: 1, flexShrink: 0 }}
+            style={{ color: "var(--text-muted)", lineHeight: 1, flexShrink: 0 }}
           >
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
               <path
@@ -121,7 +121,7 @@ export default function MyStackTray() {
                     style={{
                       background: "#1e1e2e",
                       border: "1px solid #3a3a4a",
-                      color: "#8888aa",
+                      color: "var(--text-secondary)",
                       fontSize: 8,
                       lineHeight: 1,
                     }}
@@ -132,7 +132,7 @@ export default function MyStackTray() {
               );
             })}
             {overflow > 0 && (
-              <span style={{ fontSize: 12, color: "#555577", flexShrink: 0 }}>
+              <span style={{ fontSize: 12, color: "var(--text-muted)", flexShrink: 0 }}>
                 +{overflow} more
               </span>
             )}
@@ -163,7 +163,7 @@ export default function MyStackTray() {
           <button
             onClick={() => setMinimized(true)}
             title="Minimize"
-            style={{ color: "#555577", lineHeight: 1, flexShrink: 0 }}
+            style={{ color: "var(--text-muted)", lineHeight: 1, flexShrink: 0 }}
           >
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
               <path

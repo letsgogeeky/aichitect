@@ -220,7 +220,7 @@ export async function GET(request: NextRequest) {
                 borderColor: "#ffffff14",
               }}
             >
-              <span style={{ fontSize: 14, fontWeight: 500, color: "#555577" }}>
+              <span style={{ fontSize: 14, fontWeight: 500, color: "#7f7fa4" }}>
                 +{stack.tools.length - 6} more
               </span>
             </div>

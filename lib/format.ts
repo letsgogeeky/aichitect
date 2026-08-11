@@ -13,5 +13,5 @@ export function formatStarDelta(delta: number): { text: string; color: string } 
   const formatted = abs >= 1000 ? `${(abs / 1000).toFixed(1)}k` : String(abs);
   if (delta > 0) return { text: `↑ +${formatted}★ (30d)`, color: "#26de81" };
   if (delta < 0) return { text: `↓ -${formatted}★ (30d)`, color: "#ff6b6b" };
-  return { text: "= no change (30d)", color: "#555577" };
+  return { text: "= no change (30d)", color: "var(--text-muted)" };
 }

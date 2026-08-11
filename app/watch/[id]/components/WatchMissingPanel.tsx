@@ -15,7 +15,7 @@ export function WatchMissingPanel({ report }: Props) {
     <div>
       <p
         className="text-[10px] font-bold uppercase tracking-widest mb-4"
-        style={{ color: "#555577" }}
+        style={{ color: "var(--text-muted)" }}
       >
         Missing layers
       </p>

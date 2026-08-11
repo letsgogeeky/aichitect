@@ -202,7 +202,7 @@ export default async function Image({ params }: { params: Promise<{ categoryId: 
                   borderColor: "#ffffff14",
                 }}
               >
-                <span style={{ fontSize: 13, fontWeight: 500, color: "#555577" }}>
+                <span style={{ fontSize: 13, fontWeight: 500, color: "#7f7fa4" }}>
                   +{totalCount - 6} more
                 </span>
               </div>

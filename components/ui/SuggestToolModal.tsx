@@ -48,7 +48,7 @@ function FieldLabel({ children }: { children: React.ReactNode }) {
         display: "block",
         fontSize: 12,
         fontWeight: 500,
-        color: "#8888aa",
+        color: "var(--text-secondary)",
         marginBottom: 5,
         letterSpacing: 0.3,
         textTransform: "uppercase",
@@ -113,7 +113,7 @@ function Toggle({
         borderRadius: 8,
         background: value ? accent + "15" : "var(--btn)",
         border: `1px solid ${value ? accent + "50" : "var(--btn-border)"}`,
-        color: value ? accent : "#8888aa",
+        color: value ? accent : "var(--text-secondary)",
         fontSize: 12,
         fontWeight: 500,
         cursor: "pointer",
@@ -209,7 +209,7 @@ function Step1({
           placeholder="https://github.com/org/repo (optional)"
           type="url"
         />
-        <p style={{ marginTop: 4, fontSize: 10, color: "#555577" }}>
+        <p style={{ marginTop: 4, fontSize: 10, color: "var(--text-muted)" }}>
           Providing a GitHub URL will auto-flag the tool as Open Source in the next step.
         </p>
       </div>
@@ -249,7 +249,7 @@ function Step2({
                   borderRadius: 7,
                   background: active ? cat.color + "20" : "var(--btn)",
                   border: `1px solid ${active ? cat.color + "60" : "var(--btn-border)"}`,
-                  color: active ? cat.color : "#8888aa",
+                  color: active ? cat.color : "var(--text-secondary)",
                   fontSize: 12,
                   fontWeight: active ? 500 : 400,
                   cursor: "pointer",
@@ -447,7 +447,7 @@ function PreviewCard({ form, color }: { form: FormData; color: string }) {
         <p
           style={{
             fontSize: 12,
-            color: "#8888aa",
+            color: "var(--text-secondary)",
             lineHeight: 1.4,
             margin: 0,
           }}
@@ -464,7 +464,7 @@ function PreviewCard({ form, color }: { form: FormData; color: string }) {
                 padding: "2px 7px",
                 borderRadius: 12,
                 border: "1px solid var(--btn-border)",
-                color: "#555577",
+                color: "var(--text-muted)",
               }}
             >
               {form.startingPrice}
@@ -480,7 +480,7 @@ function Step4({ form, color, onSubmit }: { form: FormData; color: string; onSub
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
       <div>
-        <p style={{ fontSize: 12, color: "#8888aa", marginBottom: 10 }}>
+        <p style={{ fontSize: 12, color: "var(--text-secondary)", marginBottom: 10 }}>
           Here&apos;s how your tool card will look in the graph:
         </p>
         <PreviewCard form={form} color={color} />
@@ -493,7 +493,7 @@ function Step4({ form, color, onSubmit }: { form: FormData; color: string; onSub
           background: "var(--btn)",
           border: "1px solid var(--btn-border)",
           fontSize: 12,
-          color: "#8888aa",
+          color: "var(--text-secondary)",
           lineHeight: 1.5,
         }}
       >
@@ -555,7 +555,7 @@ function SuccessView({
         <p
           style={{
             fontSize: 12,
-            color: "#8888aa",
+            color: "var(--text-secondary)",
             marginTop: 6,
             lineHeight: 1.5,
           }}
@@ -573,7 +573,7 @@ function SuccessView({
             fontSize: 12,
             background: "var(--btn)",
             border: "1px solid var(--btn-border)",
-            color: "#8888aa",
+            color: "var(--text-secondary)",
             cursor: "pointer",
           }}
         >
@@ -723,14 +723,21 @@ export default function SuggestToolModal({ onClose, prefillName = "" }: Props) {
             <h2 style={{ fontSize: 15, fontWeight: 600, color: "#f0f0f8", margin: 0 }}>
               Suggest a Tool
             </h2>
-            <p style={{ fontSize: 12, color: "#8888aa", marginTop: 3, marginBottom: 0 }}>
+            <p
+              style={{
+                fontSize: 12,
+                color: "var(--text-secondary)",
+                marginTop: 3,
+                marginBottom: 0,
+              }}
+            >
               Help grow the dataset — every submission counts
             </p>
           </div>
           <button
             onClick={onClose}
             style={{
-              color: "#555577",
+              color: "var(--text-muted)",
               fontSize: 16,
               lineHeight: 1,
               background: "none",
@@ -770,7 +777,7 @@ export default function SuggestToolModal({ onClose, prefillName = "" }: Props) {
           <p
             style={{
               fontSize: 10,
-              color: "#555577",
+              color: "var(--text-muted)",
               padding: "6px 20px 0",
               margin: 0,
               textTransform: "uppercase",
@@ -826,7 +833,7 @@ export default function SuggestToolModal({ onClose, prefillName = "" }: Props) {
                 onClick={() => setStep((s) => s - 1)}
                 style={{
                   fontSize: 12,
-                  color: "#8888aa",
+                  color: "var(--text-secondary)",
                   background: "none",
                   border: "none",
                   cursor: "pointer",
@@ -851,7 +858,7 @@ export default function SuggestToolModal({ onClose, prefillName = "" }: Props) {
                   fontSize: 12,
                   fontWeight: 500,
                   background: canAdvance() ? "var(--accent)" : "var(--btn-border)",
-                  color: canAdvance() ? "#fff" : "#555577",
+                  color: canAdvance() ? "#fff" : "var(--text-muted)",
                   border: "none",
                   cursor: canAdvance() ? "pointer" : "not-allowed",
                   transition: "background 150ms, color 150ms",

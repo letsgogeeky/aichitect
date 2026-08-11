@@ -67,7 +67,8 @@ export function GraduationBanner({ allIds }: { allIds: string[] }) {
           Ready to graduate
         </span>
         <span style={{ fontSize: 13, fontWeight: 700, color: "#f0f0f8", lineHeight: 1.3 }}>
-          Your stack has outgrown <span style={{ color: "#8888aa" }}>{currentStack.name}</span>
+          Your stack has outgrown{" "}
+          <span style={{ color: "var(--text-secondary)" }}>{currentStack.name}</span>
         </span>
       </div>
 
@@ -87,7 +88,7 @@ export function GraduationBanner({ allIds }: { allIds: string[] }) {
             style={{
               fontSize: 10,
               fontWeight: 600,
-              color: "#555577",
+              color: "var(--text-muted)",
               textTransform: "uppercase",
               letterSpacing: "0.08em",
             }}
@@ -98,7 +99,7 @@ export function GraduationBanner({ allIds }: { allIds: string[] }) {
             style={{
               fontSize: 12,
               fontWeight: 600,
-              color: "#8888aa",
+              color: "var(--text-secondary)",
               whiteSpace: "nowrap",
               overflow: "hidden",
               textOverflow: "ellipsis",
@@ -109,7 +110,7 @@ export function GraduationBanner({ allIds }: { allIds: string[] }) {
           <span
             style={{
               fontSize: 10,
-              color: COMPLEXITY_COLOR[fromComplexity] ?? "#555577",
+              color: COMPLEXITY_COLOR[fromComplexity] ?? "var(--text-muted)",
             }}
           >
             {COMPLEXITY_LABEL[fromComplexity]}
@@ -153,7 +154,7 @@ export function GraduationBanner({ allIds }: { allIds: string[] }) {
             style={{
               fontSize: 10,
               fontWeight: 600,
-              color: "#555577",
+              color: "var(--text-muted)",
               textTransform: "uppercase",
               letterSpacing: "0.08em",
             }}

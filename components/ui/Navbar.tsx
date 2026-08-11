@@ -64,7 +64,7 @@ function NavViewLinks() {
               fontSize: 12,
               fontWeight: active ? 500 : 400,
               background: active ? "var(--accent)" : "transparent",
-              color: active ? "#ffffff" : "#8888aa",
+              color: active ? "#ffffff" : "var(--text-secondary)",
               transition: "background 150ms, color 150ms",
             }}
           >

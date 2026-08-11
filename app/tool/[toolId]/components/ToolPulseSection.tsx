@@ -11,7 +11,7 @@ const SEV_COLOR = {
   minor: "#fdcb6e",
   major: "#ff6b6b",
   critical: "#ff3838",
-  none: "#8888aa",
+  none: "var(--text-secondary)",
 } as const;
 
 const SPARK_W = 220;

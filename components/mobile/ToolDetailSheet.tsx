@@ -314,8 +314,8 @@ export default function ToolDetailSheet({ tool, open, onClose }: Props) {
                             type === "integrates-with"
                               ? "var(--accent)"
                               : type === "commonly-paired-with"
-                                ? "#8888aa"
-                                : "#555577",
+                                ? "var(--text-secondary)"
+                                : "var(--text-muted)",
                         }}
                       >
                         {type === "integrates-with"
@@ -371,7 +371,7 @@ export default function ToolDetailSheet({ tool, open, onClose }: Props) {
                 borderRadius: 7,
                 background: "var(--btn)",
                 border: "1px solid var(--btn-border)",
-                color: "#555577",
+                color: "var(--text-muted)",
                 fontSize: 12,
                 cursor: "pointer",
               }}

@@ -16,7 +16,7 @@ describe("getCategoryColor", () => {
   });
 
   it("returns the fallback color for an unknown id", () => {
-    expect(getCategoryColor("unknown-category" as CategoryId)).toBe("#555577");
+    expect(getCategoryColor("unknown-category" as CategoryId)).toBe("#7f7fa4");
   });
 });
 

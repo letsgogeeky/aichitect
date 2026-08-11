@@ -28,7 +28,7 @@ export default function CompareError({
         textAlign: "center",
       }}
     >
-      <p style={{ fontSize: 13, color: "#8888aa", maxWidth: 360 }}>
+      <p style={{ fontSize: 13, color: "var(--text-secondary)", maxWidth: 360 }}>
         Could not load this comparison. One or both tool IDs may not exist.
       </p>
       <div style={{ display: "flex", gap: 8 }}>
@@ -54,7 +54,7 @@ export default function CompareError({
             borderRadius: 8,
             background: "transparent",
             border: "1px solid var(--btn-border)",
-            color: "#8888aa",
+            color: "var(--text-secondary)",
             fontSize: 12,
             fontWeight: 500,
             cursor: "pointer",

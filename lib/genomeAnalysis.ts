@@ -91,7 +91,7 @@ export function tierFromScore(score: number): GenomeTier {
 }
 
 export const TIER_COLORS: Record<GenomeTier, string> = {
-  Minimal: "#555577",
+  Minimal: "var(--text-muted)",
   Emerging: "#fd9644",
   Competent: "#00d4aa",
   "Production-Grade": "#7c6bff",

@@ -44,7 +44,11 @@ function relBadgeStyle(type: string): React.CSSProperties {
   if (type === "integrates-with")
     return { background: "#7c6bff22", color: "var(--accent)", border: "1px solid #7c6bff44" };
   if (type === "commonly-paired-with")
-    return { background: "#4a4a7a44", color: "#8888aa", border: "1px solid #4a4a7a88" };
+    return {
+      background: "#4a4a7a44",
+      color: "var(--text-secondary)",
+      border: "1px solid #4a4a7a88",
+    };
   return { background: "#ff6b6b22", color: "var(--danger)", border: "1px solid #ff6b6b44" };
 }
 

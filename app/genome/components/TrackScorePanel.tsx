@@ -46,13 +46,13 @@ export function TrackScorePanel({ title, subtitle, trackColor, score }: Props) {
           >
             {title}
           </div>
-          <div style={{ fontSize: 11, color: "#8888aa" }}>{subtitle}</div>
+          <div style={{ fontSize: 11, color: "var(--text-secondary)" }}>{subtitle}</div>
         </div>
         <div style={{ display: "flex", alignItems: "baseline", gap: 4 }}>
           <span style={{ fontSize: 22, fontWeight: 700, color: "#f0f0f8", lineHeight: 1 }}>
             {score.covered}
           </span>
-          <span style={{ fontSize: 11, color: "#555577" }}>/ {score.total}</span>
+          <span style={{ fontSize: 11, color: "var(--text-muted)" }}>/ {score.total}</span>
           <span
             style={{
               marginLeft: 8,
@@ -109,7 +109,7 @@ export function TrackScorePanel({ title, subtitle, trackColor, score }: Props) {
                       padding: "2px 7px",
                       borderRadius: 4,
                       background: "transparent",
-                      color: "#555577",
+                      color: "var(--text-muted)",
                       border: "1px dashed #2a2a3a",
                       opacity: 0.7,
                     }
@@ -122,7 +122,7 @@ export function TrackScorePanel({ title, subtitle, trackColor, score }: Props) {
       </div>
 
       {score.missingPhases.length > 0 ? (
-        <p style={{ fontSize: 10, color: "#555577", margin: 0, lineHeight: 1.4 }}>
+        <p style={{ fontSize: 10, color: "var(--text-muted)", margin: 0, lineHeight: 1.4 }}>
           Missing: {score.missingPhases.map((p) => LIFECYCLE_PHASE_LABEL[p]).join(", ")}.
         </p>
       ) : (

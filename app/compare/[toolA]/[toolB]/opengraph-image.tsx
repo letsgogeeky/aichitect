@@ -171,7 +171,14 @@ export default async function Image({
           </div>
         </>
       ) : (
-        <div style={{ display: "flex", fontSize: 22, color: "#8888aa", textAlign: "center" }}>
+        <div
+          style={{
+            display: "flex",
+            fontSize: 22,
+            color: "var(--text-secondary)",
+            textAlign: "center",
+          }}
+        >
           AI Tool Comparison — {SITE_HOST}
         </div>
       )}

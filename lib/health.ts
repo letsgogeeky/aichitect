@@ -18,6 +18,7 @@ export function relLabel(type: string): string {
 
 export function relBadgeStyle(type: string): { background: string; color: string } {
   if (type === "integrates-with") return { background: "#7c6bff22", color: "#7c6bff" };
-  if (type === "commonly-paired-with") return { background: "#4a4a7a44", color: "#8888aa" };
+  if (type === "commonly-paired-with")
+    return { background: "#4a4a7a44", color: "var(--text-secondary)" };
   return { background: "#ff6b6b22", color: "#ff6b6b" };
 }

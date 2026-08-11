@@ -89,7 +89,7 @@ class Graph3DErrorBoundary extends Component<{ children: ReactNode }, { hasError
             justifyContent: "center",
             height: "100%",
             gap: 8,
-            color: "#8888aa",
+            color: "var(--text-secondary)",
             fontSize: 13,
             textAlign: "center",
             padding: 32,
@@ -283,7 +283,7 @@ function ExploreGraphInner({
         <MiniMap
           nodeColor={(node) => {
             const tool = tools.find((t) => t.id === node.id);
-            return tool ? getCategoryColor(tool.category) : "#555577";
+            return tool ? getCategoryColor(tool.category) : "var(--text-muted)";
           }}
           maskColor="#0a0a0f99"
         />
@@ -293,7 +293,9 @@ function ExploreGraphInner({
           className="absolute inset-0 flex flex-col items-center justify-center gap-3"
           style={{ zIndex: 10 }}
         >
-          <p style={{ fontSize: 13, color: "#8888aa" }}>No tools match your search.</p>
+          <p style={{ fontSize: 13, color: "var(--text-secondary)" }}>
+            No tools match your search.
+          </p>
           <button
             onClick={() => onSuggest(searchQuery)}
             style={{
