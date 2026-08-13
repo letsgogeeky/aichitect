@@ -73,6 +73,7 @@ export function BuilderSlotList({
       setSignals({});
       return;
     }
+    let cancelled = false;
     const timer = setTimeout(() => {
       fetch("/api/pulse/events", {
         method: "POST",
@@ -81,7 +82,7 @@ export function BuilderSlotList({
       })
         .then((r) => (r.ok ? r.json() : null))
         .then((data) => {
-          if (!data?.signals) return;
+          if (cancelled || !data?.signals) return;
           const map: Record<string, ToolRiskSignal> = {};
           for (const sig of data.signals as ToolRiskSignal[]) {
             if (sig.signal) map[sig.tool_id] = sig;
@@ -90,7 +91,10 @@ export function BuilderSlotList({
         })
         .catch(() => {});
     }, 400);
-    return () => clearTimeout(timer);
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
   }, [selected]);
 
   async function saveStack() {

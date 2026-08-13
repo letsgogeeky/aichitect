@@ -23,6 +23,8 @@ export function WatchClient({ stackId }: { stackId: string }) {
   const [signals, setSignals] = useState<Record<string, ToolRiskSignal>>({});
 
   useEffect(() => {
+    let cancelled = false;
+
     fetch(`/api/stacks/${stackId}`)
       .then(async (r) => {
         if (r.status === 401 || r.status === 403) {
@@ -33,7 +35,7 @@ export function WatchClient({ stackId }: { stackId: string }) {
         return r.json() as Promise<SavedStack>;
       })
       .then((data) => {
-        if (!data) return;
+        if (!data || cancelled) return;
         setStack(data);
 
         const archetype = detectArchetype(data.tool_ids, allTools);
@@ -49,7 +51,7 @@ export function WatchClient({ stackId }: { stackId: string }) {
         })
           .then((r) => (r.ok ? r.json() : null))
           .then((res) => {
-            if (!res?.signals) return;
+            if (cancelled || !res?.signals) return;
             const map: Record<string, ToolRiskSignal> = {};
             for (const sig of res.signals as ToolRiskSignal[]) {
               if (sig.signal) map[sig.tool_id] = sig;
@@ -59,9 +61,14 @@ export function WatchClient({ stackId }: { stackId: string }) {
           .catch(() => {});
       })
       .catch(() => {
+        if (cancelled) return;
         setError("Stack not found or you don't have access.");
         setLoading(false);
       });
+
+    return () => {
+      cancelled = true;
+    };
   }, [stackId, router]);
 
   if (loading) {

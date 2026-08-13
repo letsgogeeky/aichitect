@@ -144,7 +144,7 @@ export default function FeedClient() {
   const { user } = useUser();
 
   const fetchFeed = useCallback(
-    async (cursor: string | null, replace: boolean) => {
+    async (cursor: string | null, replace: boolean, isCancelled: () => boolean = () => false) => {
       if (replace) setLoading(true);
       else setLoadingMore(true);
 
@@ -158,19 +158,26 @@ export default function FeedClient() {
       try {
         const res = await fetch(`/api/feed?${params}`);
         const data: FeedResponse = res.ok ? await res.json() : { events: [], next_cursor: null };
+        if (isCancelled()) return;
         if (replace) setEvents(data.events);
         else setEvents((prev) => [...prev, ...data.events]);
         setNextCursor(data.next_cursor);
       } finally {
-        setLoading(false);
-        setLoadingMore(false);
+        if (!isCancelled()) {
+          setLoading(false);
+          setLoadingMore(false);
+        }
       }
     },
     [activeTab, savedOnly, toolParam]
   );
 
   useEffect(() => {
-    fetchFeed(null, true);
+    let cancelled = false;
+    fetchFeed(null, true, () => cancelled);
+    return () => {
+      cancelled = true;
+    };
   }, [fetchFeed]);
 
   function feedUrl(tabId: string, tools: string[]) {
