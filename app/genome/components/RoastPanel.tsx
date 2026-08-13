@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import type { GenomeReport } from "@/lib/genomeAnalysis";
 import type { RoastInput, RoastOutput } from "@/lib/ai/roast";
 import { SITE_URL } from "@/lib/constants";
@@ -10,7 +10,7 @@ interface RoastPanelProps {
   allIds: string[];
 }
 
-type RoastState = "idle" | "loading" | "done" | "error" | "rate-limited";
+type RoastState = "idle" | "loading" | "done" | "error" | "rate-limited" | "unauthorized";
 
 const ROAST_LEVELS = [
   { level: 1, name: "Gentle Nudge", color: "#00d4aa" },
@@ -27,6 +27,7 @@ export function RoastPanel({ report, allIds }: RoastPanelProps) {
   const [lines, setLines] = useState<string[]>([]);
   const [tweetCopied, setTweetCopied] = useState(false);
   const [roastnessLevel, setRoastnessLevel] = useState(DEFAULT_LEVEL);
+  const hasRoastedOnce = useRef(false);
 
   const currentLevel = ROAST_LEVELS[roastnessLevel - 1];
   const accentColor =
@@ -35,7 +36,7 @@ export function RoastPanel({ report, allIds }: RoastPanelProps) {
   async function requestRoast() {
     setState("loading");
 
-    const payload: RoastInput = {
+    const payload: RoastInput & { regenerate: boolean } = {
       tools: report.detectedTools.map((t) => t.name),
       tier: report.tier,
       fitnessScore: report.fitnessScore,
@@ -46,6 +47,7 @@ export function RoastPanel({ report, allIds }: RoastPanelProps) {
         .filter((s) => s.priority === "recommended")
         .map((s) => s.slotName),
       roastnessLevel: roastnessLevel as 1 | 2 | 3 | 4 | 5,
+      regenerate: hasRoastedOnce.current,
     };
 
     try {
@@ -59,11 +61,16 @@ export function RoastPanel({ report, allIds }: RoastPanelProps) {
         setState("rate-limited");
         return;
       }
+      if (res.status === 401) {
+        setState("unauthorized");
+        return;
+      }
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
       const data: RoastOutput = await res.json();
       setLines(data.lines);
       setState("done");
+      hasRoastedOnce.current = true;
     } catch {
       setState("error");
     }
@@ -320,6 +327,14 @@ export function RoastPanel({ report, allIds }: RoastPanelProps) {
         <div style={{ padding: "12px 14px" }}>
           <p style={{ margin: 0, fontSize: 12, color: "#fdcb6e" }}>
             Rate limit reached. Wait a moment before trying again.
+          </p>
+        </div>
+      )}
+
+      {state === "unauthorized" && (
+        <div style={{ padding: "12px 14px" }}>
+          <p style={{ margin: 0, fontSize: 12, color: "var(--text-muted)" }}>
+            Sign in to get your stack roasted.
           </p>
         </div>
       )}

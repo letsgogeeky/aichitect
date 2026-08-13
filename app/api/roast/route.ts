@@ -29,7 +29,7 @@ export async function POST(request: Request) {
   const user = await getUser();
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  let body: RoastInput;
+  let body: RoastInput & { regenerate?: boolean };
   try {
     body = await request.json();
   } catch {
@@ -50,7 +50,7 @@ export async function POST(request: Request) {
     String(body.roastnessLevel ?? 3),
   ]);
 
-  const cached = await getAICachedResponse<RoastOutput>(cacheKey);
+  const cached = body.regenerate ? null : await getAICachedResponse<RoastOutput>(cacheKey);
   if (cached) return NextResponse.json(cached);
 
   try {

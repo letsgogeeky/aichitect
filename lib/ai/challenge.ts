@@ -58,7 +58,10 @@ export async function generateChallenge(input: ChallengeInput): Promise<Challeng
     systemInstruction: SYSTEM_INSTRUCTION,
   });
 
-  const result = await model.generateContent(buildPrompt(input));
+  const timeout = new Promise<never>((_, reject) =>
+    setTimeout(() => reject(new Error("Request timed out")), 25000)
+  );
+  const result = await Promise.race([model.generateContent(buildPrompt(input)), timeout]);
   const text = result.response.text().trim();
 
   let challenges: ChallengeItem[] = [];

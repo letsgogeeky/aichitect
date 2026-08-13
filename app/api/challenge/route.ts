@@ -29,7 +29,7 @@ export async function POST(request: Request) {
   const user = await getUser();
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  let body: ChallengeInput;
+  let body: ChallengeInput & { regenerate?: boolean };
   try {
     body = await request.json();
   } catch {
@@ -53,7 +53,7 @@ export async function POST(request: Request) {
     body.tier,
   ]);
 
-  const cached = await getAICachedResponse<ChallengeOutput>(cacheKey);
+  const cached = body.regenerate ? null : await getAICachedResponse<ChallengeOutput>(cacheKey);
   if (cached) return NextResponse.json(cached);
 
   try {
@@ -74,6 +74,9 @@ export async function POST(request: Request) {
         { error: "Rate limit reached. Try again in a moment." },
         { status: 429 }
       );
+    }
+    if (msg.toLowerCase().includes("timed out")) {
+      return NextResponse.json({ error: "Request timed out. Try again." }, { status: 504 });
     }
     return NextResponse.json(
       { error: "Failed to generate challenges. Try again." },

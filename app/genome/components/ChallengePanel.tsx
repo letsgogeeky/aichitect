@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import type { GenomeReport } from "@/lib/genomeAnalysis";
 import type { ChallengeItem, ChallengeInput, ChallengeOutput } from "@/lib/ai/challenge";
 import { SITE_URL } from "@/lib/constants";
@@ -10,7 +10,7 @@ interface ChallengePanelProps {
   allIds: string[];
 }
 
-type ChallengeState = "idle" | "loading" | "done" | "error" | "rate-limited";
+type ChallengeState = "idle" | "loading" | "done" | "error" | "rate-limited" | "unauthorized";
 
 const ACCENT = "#7c6bff";
 
@@ -18,11 +18,12 @@ export function ChallengePanel({ report, allIds }: ChallengePanelProps) {
   const [state, setState] = useState<ChallengeState>("idle");
   const [challenges, setChallenges] = useState<ChallengeItem[]>([]);
   const [copied, setCopied] = useState(false);
+  const hasChallengedOnce = useRef(false);
 
   async function requestChallenge() {
     setState("loading");
 
-    const payload: ChallengeInput = {
+    const payload: ChallengeInput & { regenerate: boolean } = {
       filledSlots: report.filledSlots.map((s) => ({
         slotName: s.slotName,
         toolName: s.tool.name,
@@ -33,6 +34,7 @@ export function ChallengePanel({ report, allIds }: ChallengePanelProps) {
       tier: report.tier,
       fitnessScore: report.fitnessScore,
       archetype: report.archetype,
+      regenerate: hasChallengedOnce.current,
     };
 
     try {
@@ -46,11 +48,16 @@ export function ChallengePanel({ report, allIds }: ChallengePanelProps) {
         setState("rate-limited");
         return;
       }
+      if (res.status === 401) {
+        setState("unauthorized");
+        return;
+      }
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
       const data: ChallengeOutput = await res.json();
       setChallenges(data.challenges);
       setState("done");
+      hasChallengedOnce.current = true;
     } catch {
       setState("error");
     }
@@ -299,6 +306,14 @@ export function ChallengePanel({ report, allIds }: ChallengePanelProps) {
         <div style={{ padding: "12px 14px" }}>
           <p style={{ margin: 0, fontSize: 12, color: "#fdcb6e" }}>
             Rate limit reached. Wait a moment before trying again.
+          </p>
+        </div>
+      )}
+
+      {state === "unauthorized" && (
+        <div style={{ padding: "12px 14px" }}>
+          <p style={{ margin: 0, fontSize: 12, color: "var(--text-muted)" }}>
+            Sign in to challenge your stack.
           </p>
         </div>
       )}
