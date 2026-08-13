@@ -553,7 +553,7 @@ export default async function ComparePage({ params }: Props) {
             <h2 className="text-sm font-semibold mb-3" style={{ color: "var(--text-primary)" }}>
               Shared Connections
               <span className="ml-2 text-[11px] font-normal" style={{ color: "var(--text-muted)" }}>
-                {sharedTools.length} tools both integrate with
+                {sharedTools.length} tool{sharedTools.length !== 1 ? "s" : ""} both integrate with
               </span>
             </h2>
             <div className="flex flex-wrap gap-2">

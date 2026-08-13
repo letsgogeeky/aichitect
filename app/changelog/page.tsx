@@ -84,7 +84,7 @@ export default async function ChangelogPage() {
       {/* Recently added */}
       <Section
         title="Recently added"
-        subtitle={`${recentTools.length > 0 ? recentTools.length : "No"} tools added in the last ${NEW_WINDOW_DAYS} days`}
+        subtitle={`${recentTools.length > 0 ? recentTools.length : "No"} tool${recentTools.length !== 1 ? "s" : ""} added in the last ${NEW_WINDOW_DAYS} days`}
         accent="var(--accent)"
       >
         {recentTools.length === 0 ? (

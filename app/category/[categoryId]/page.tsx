@@ -60,7 +60,7 @@ export default async function CategoryPage({ params }: Props) {
     "@context": "https://schema.org",
     "@type": "ItemList",
     name: `${cat.label} AI Tools`,
-    description: `${tools.length} tools in the ${cat.label} category on AIchitect`,
+    description: `${tools.length} tool${tools.length !== 1 ? "s" : ""} in the ${cat.label} category on AIchitect`,
     url: `${SITE_URL}/category/${categoryId}`,
     numberOfItems: tools.length,
     itemListElement: tools.map((t, i) => ({
@@ -109,7 +109,7 @@ export default async function CategoryPage({ params }: Props) {
               className="text-sm font-medium px-2.5 py-0.5 rounded-full"
               style={{ background: color + "18", color, border: `1px solid ${color}33` }}
             >
-              {tools.length} tools
+              {tools.length} tool{tools.length !== 1 ? "s" : ""}
             </span>
           </div>
           <div className="flex flex-wrap gap-3 mt-4">

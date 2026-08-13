@@ -25,7 +25,9 @@ function StackShellSkeleton({ stack }: { stack: Stack }) {
         style={{ color: "var(--text-muted)" }}
       >
         {cluster && <span>{cluster.label}</span>}
-        <span>· {stack.tools.length} tools</span>
+        <span>
+          · {stack.tools.length} tool{stack.tools.length !== 1 ? "s" : ""}
+        </span>
       </div>
       <h1
         className="mb-2 text-2xl font-semibold tracking-tight"

@@ -522,7 +522,7 @@ export default function Navbar({ counts }: { counts?: Counts }) {
                       color: "var(--accent-2)",
                     }}
                   >
-                    {userToolCount} tools
+                    {userToolCount} tool{userToolCount !== 1 ? "s" : ""}
                   </span>
                 )}
               </Link>

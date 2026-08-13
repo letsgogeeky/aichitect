@@ -338,7 +338,9 @@ export function CaseClient({
         )}
         {/* Meta chips */}
         <div className="flex flex-wrap items-center gap-2 mt-3">
-          <span className="chip">{selectedTools.length} tools</span>
+          <span className="chip">
+            {selectedTools.length} tool{selectedTools.length !== 1 ? "s" : ""}
+          </span>
           {curatedStack?.monthly_cost && (
             <span className="chip">{curatedStack.monthly_cost}/mo</span>
           )}

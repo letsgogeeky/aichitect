@@ -218,8 +218,8 @@ export function ResultsView({
           </button>
           <span style={{ color: "var(--text-muted)" }}>|</span>
           <span style={{ fontSize: 12, color: "var(--text-secondary)" }}>
-            <span style={{ color: "#f0f0f8", fontWeight: 500 }}>{allIds.length}</span> tools in your
-            genome
+            <span style={{ color: "#f0f0f8", fontWeight: 500 }}>{allIds.length}</span>{" "}
+            {allIds.length === 1 ? "tool" : "tools"} in your genome
           </span>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
