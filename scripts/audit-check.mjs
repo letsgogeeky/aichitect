@@ -15,53 +15,12 @@ import { spawnSync } from "child_process";
 // Advisories with no available fix as of the date noted. Re-run
 // `npm audit` after any dependency bump and remove entries that no
 // longer appear.
-const ALLOWLIST = [
-  {
-    id: 1124334,
-    ghsa: "GHSA-mh99-v99m-4gvg",
-    package: "brace-expansion",
-    reason:
-      "Fix requires eslint@10, but eslint-config-next@16.2.12's own " +
-      "eslint-plugin-import and eslint-plugin-react-hooks cap eslint at " +
-      "^9 — confirmed via dry-run install, ERESOLVE. Dev-only DoS in " +
-      "eslint's file globbing, not shipped to users.",
-    notedOn: "2026-07-30",
-  },
-  {
-    id: 1117015,
-    ghsa: "GHSA-qx2v-qp2m-jg93",
-    package: "postcss",
-    reason:
-      "Bundled inside next's own node_modules; no fix available (npm audit fix reports none). Requires an upstream Next.js release.",
-    notedOn: "2026-07-30",
-  },
-  {
-    id: 1124252,
-    ghsa: "GHSA-6g55-p6wh-862q",
-    package: "postcss",
-    reason:
-      "Bundled inside next's own node_modules; no fix available. Requires an upstream Next.js release.",
-    notedOn: "2026-07-30",
-  },
-  {
-    id: 1124288,
-    ghsa: "GHSA-r28c-9q8g-f849",
-    package: "postcss",
-    reason:
-      "Bundled inside next's own node_modules; no fix available. Requires an upstream Next.js release.",
-    notedOn: "2026-07-30",
-  },
-  {
-    id: 1124066,
-    ghsa: "GHSA-f88m-g3jw-g9cj",
-    package: "sharp",
-    reason:
-      "Bundled inside next's own node_modules. Only next@16.3.0-preview.8+ " +
-      "(prerelease) carries a patched sharp; latest stable is 16.2.12. " +
-      "Not worth running a prerelease Next.js build in prod for this.",
-    notedOn: "2026-07-30",
-  },
-];
+//
+// Empty as of 2026-08-12: bumping next to 16.3.0 pulled in patched
+// postcss/sharp, and a transitive dedupe cleared brace-expansion. Only
+// remaining advisory is a low-severity esbuild issue (Windows dev-server
+// only), below this script's high/critical threshold.
+const ALLOWLIST = [];
 
 const allowedIds = new Set(ALLOWLIST.map((a) => a.id));
 
