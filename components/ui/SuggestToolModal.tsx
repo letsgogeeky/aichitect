@@ -736,6 +736,7 @@ export default function SuggestToolModal({ onClose, prefillName = "" }: Props) {
           </div>
           <button
             onClick={onClose}
+            aria-label="Close"
             style={{
               color: "var(--text-muted)",
               fontSize: 16,

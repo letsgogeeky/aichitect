@@ -188,6 +188,7 @@ export default function GetStartedModal({ toolIds, onClose }: Props) {
           </div>
           <button
             onClick={onClose}
+            aria-label="Close"
             style={{
               background: "none",
               border: "none",

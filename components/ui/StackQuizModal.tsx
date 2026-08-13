@@ -533,6 +533,7 @@ export function StackQuizModal({ onClose, onApply }: Props) {
           </div>
           <button
             onClick={onClose}
+            aria-label="Close"
             style={{
               background: "none",
               border: "none",

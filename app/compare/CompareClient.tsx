@@ -108,6 +108,7 @@ function ToolPicker({
               onChange(null);
               setQuery("");
             }}
+            aria-label={`Clear ${value.name}`}
             style={{
               fontSize: 14,
               color: "var(--text-muted)",

@@ -42,11 +42,17 @@ export function ActiveIncidentsCard({ incidents }: Props) {
             const sevColor = SEVERITY_COLOR[inc.severity];
             return (
               <li key={inc.id}>
-                <a
-                  href={inc.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group block rounded-md px-2 py-2 transition-colors hover:bg-[var(--surface-2)]"
+                <div
+                  role="link"
+                  tabIndex={0}
+                  onClick={() => window.open(inc.url, "_blank", "noopener,noreferrer")}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      window.open(inc.url, "_blank", "noopener,noreferrer");
+                    }
+                  }}
+                  className="group block rounded-md px-2 py-2 transition-colors hover:bg-[var(--surface-2)] cursor-pointer"
                   style={{ borderLeft: `2px solid ${sevColor}` }}
                 >
                   <div className="mb-0.5 flex items-center gap-2 text-xs">
@@ -81,7 +87,7 @@ export function ActiveIncidentsCard({ incidents }: Props) {
                       {inc.scope.length > 3 && ` +${inc.scope.length - 3}`}
                     </p>
                   )}
-                </a>
+                </div>
               </li>
             );
           })}

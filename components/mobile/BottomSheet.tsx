@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, useEffect } from "react";
 
 interface BottomSheetProps {
   open: boolean;
@@ -59,6 +59,15 @@ export default function BottomSheet({
     setSnapIndex(snapPoints.indexOf(nearest));
     setDragDelta(0);
   }, [currentHeight, dragDelta, onClose, snapPoints]);
+
+  useEffect(() => {
+    if (!open) return;
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") onClose();
+    }
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open, onClose]);
 
   if (!open) return null;
 
