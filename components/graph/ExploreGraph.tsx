@@ -506,6 +506,7 @@ export default function ExploreGraph({
             matchingStackCount={matchingStacks?.length ?? 0}
             onlyMyTools={onlyMyTools}
             onToggleMyTools={() => setOnlyMyTools((v) => !v)}
+            hasMyTools={myToolIds.size > 0}
             isAuthenticated={!!user}
             hideStale={hideStale}
             onToggleHideStale={() => setHideStale((v) => !v)}
@@ -513,10 +514,11 @@ export default function ExploreGraph({
         </div>
 
         <div className="flex-1 relative overflow-hidden">
-          {/* Compare toggle button — top-left */}
+          {/* Compare toggle button — top-left. Desktop only: the comparison result
+              panel below is desktop-only too, so this has no mobile destination. */}
           {viewMode !== "3d" && (
             <div
-              className="absolute top-3 left-3 z-10 flex items-center rounded-md overflow-hidden"
+              className="hidden sm:flex absolute top-3 left-3 z-10 items-center rounded-md overflow-hidden"
               style={{ border: "1px solid var(--border)", background: "var(--surface)" }}
             >
               <button
@@ -622,6 +624,7 @@ export default function ExploreGraph({
                 </button>
                 <button
                   onClick={() => setSelectedTool(null)}
+                  aria-label="Dismiss"
                   className="text-xs w-6 h-6 flex items-center justify-center rounded-full"
                   style={{ background: "var(--surface-2)", color: "var(--text-muted)" }}
                 >
@@ -667,6 +670,7 @@ export default function ExploreGraph({
                 activeRelTypes={activeRelTypes}
                 searchQuery={searchQuery}
                 selectedTool={selectedTool}
+                highlightedIds={mergedHighlightedIds}
                 onSelectTool={handleNodeSelect}
                 onWebGLUnavailable={() => setViewMode("grid")}
               />
@@ -756,6 +760,7 @@ export default function ExploreGraph({
           matchingStackCount={matchingStacks?.length ?? 0}
           onlyMyTools={onlyMyTools}
           onToggleMyTools={() => setOnlyMyTools((v) => !v)}
+          hasMyTools={myToolIds.size > 0}
           isAuthenticated={!!user}
           hideStale={hideStale}
           onToggleHideStale={() => setHideStale((v) => !v)}

@@ -66,6 +66,7 @@ interface Props {
   matchingStackCount: number;
   onlyMyTools: boolean;
   onToggleMyTools: () => void;
+  hasMyTools: boolean;
   isAuthenticated: boolean;
   hideStale: boolean;
   onToggleHideStale: () => void;
@@ -113,6 +114,7 @@ export default function FilterPanel({
   matchingStackCount,
   onlyMyTools,
   onToggleMyTools,
+  hasMyTools,
   isAuthenticated,
   hideStale,
   onToggleHideStale,
@@ -205,9 +207,13 @@ export default function FilterPanel({
           {isAuthenticated && (
             <button
               onClick={onToggleMyTools}
+              disabled={!hasMyTools}
+              title={hasMyTools ? undefined : 'Mark tools as "I use this" to enable this filter'}
               className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md text-xs transition-colors text-left"
-              style={
-                onlyMyTools
+              style={{
+                cursor: hasMyTools ? "pointer" : "not-allowed",
+                opacity: hasMyTools ? 1 : 0.5,
+                ...(onlyMyTools
                   ? {
                       background: "#7c6bff18",
                       color: "var(--accent)",
@@ -215,8 +221,8 @@ export default function FilterPanel({
                   : {
                       background: "transparent",
                       color: "var(--text-secondary)",
-                    }
-              }
+                    }),
+              }}
             >
               <span
                 className="inline-block rounded-sm flex-shrink-0"
@@ -284,6 +290,15 @@ export default function FilterPanel({
                   <div
                     className="flex items-center gap-1.5 px-2 py-1.5 rounded-md cursor-pointer hover:bg-[var(--surface-2)] transition-colors group"
                     onClick={() => toggleLayerCollapsed(layer.id)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        toggleLayerCollapsed(layer.id);
+                      }
+                    }}
+                    role="button"
+                    tabIndex={0}
+                    aria-expanded={isOpen}
                     title={layer.description}
                   >
                     <ChevronIcon open={isOpen} />

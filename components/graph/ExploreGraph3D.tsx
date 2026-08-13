@@ -34,6 +34,7 @@ interface Props {
   activeRelTypes: Set<RelationshipType>;
   searchQuery: string;
   selectedTool: Tool | null;
+  highlightedIds?: Set<string>;
   onSelectTool: (tool: Tool) => void;
   onWebGLUnavailable?: () => void;
 }
@@ -60,6 +61,7 @@ export default function ExploreGraph3D({
   activeRelTypes,
   searchQuery,
   selectedTool,
+  highlightedIds,
   onSelectTool,
   onWebGLUnavailable,
 }: Props) {
@@ -241,7 +243,7 @@ export default function ExploreGraph3D({
       const color = getCategoryColor(n.category as CategoryId);
       const radius = n.prominent ? 6 : 4;
       const isDimmed = !!(searchMatch && !searchMatch.has(n.id));
-      const isSelected = selectedTool?.id === n.id;
+      const isSelected = selectedTool?.id === n.id || !!highlightedIds?.has(n.id);
 
       const group = new THREE.Group();
 
@@ -284,7 +286,7 @@ export default function ExploreGraph3D({
 
       return group;
     },
-    [searchMatch, selectedTool]
+    [searchMatch, selectedTool, highlightedIds]
   );
 
   const nodeLabel = useCallback((node: object) => {
