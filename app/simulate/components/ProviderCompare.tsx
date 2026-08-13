@@ -87,6 +87,18 @@ export default function ProviderCompare({ input, tools, comparisonUsers, onPickL
             <tr
               key={row.tool.id}
               onClick={() => onPickLlm?.(row.tool.id)}
+              onKeyDown={
+                onPickLlm
+                  ? (e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        onPickLlm(row.tool.id);
+                      }
+                    }
+                  : undefined
+              }
+              role={onPickLlm ? "button" : undefined}
+              tabIndex={onPickLlm ? 0 : undefined}
               style={{
                 borderBottom: "1px solid var(--border)",
                 background: row.active ? "var(--surface-2)" : "transparent",

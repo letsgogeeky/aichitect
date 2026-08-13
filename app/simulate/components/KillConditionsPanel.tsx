@@ -11,7 +11,7 @@ function triggerForBreakingPoint(bp: BreakingPoint): string {
   const scale = formatUsers(bp.users);
   switch (bp.type) {
     case "latency":
-      return `Monthly users exceed ${scale} (p50 latency above 2s).`;
+      return `${bp.message} (around ${scale} monthly users).`;
     case "cost":
       return bp.message.replace(/at .+$/, "").trim() + ".";
     case "architecture":
