@@ -101,7 +101,7 @@ export default function Image() {
       <div
         style={{
           fontSize: 22,
-          color: "var(--text-secondary)",
+          color: "#8888aa",
           textAlign: "center",
           maxWidth: 640,
           lineHeight: 1.5,

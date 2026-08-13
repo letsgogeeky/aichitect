@@ -175,7 +175,7 @@ export default async function Image({
           style={{
             display: "flex",
             fontSize: 22,
-            color: "var(--text-secondary)",
+            color: "#8888aa",
             textAlign: "center",
           }}
         >

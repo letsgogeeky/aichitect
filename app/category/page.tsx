@@ -2,8 +2,15 @@ import Link from "next/link";
 import toolsData from "@/data/tools.json";
 import { CATEGORIES, getCategoryColor, type CategoryId } from "@/lib/types";
 import type { Tool } from "@/lib/types";
+import { pageMeta } from "@/lib/metadata";
 
 const allTools = toolsData as Tool[];
+
+export const metadata = pageMeta({
+  title: "AI Tool Categories",
+  description: `Browse ${allTools.length} AI tools across ${CATEGORIES.length} categories — coding assistants, agent frameworks, RAG pipelines, and more.`,
+  path: "/category",
+});
 
 export default function CategoryIndexPage() {
   return (
