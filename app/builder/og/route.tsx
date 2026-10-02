@@ -5,8 +5,6 @@ import { getCategoryColor } from "@/lib/types";
 import type { Tool } from "@/lib/types";
 import { SITE_HOST } from "@/lib/constants";
 
-export const runtime = "edge";
-
 const CATEGORY_LABEL: Record<string, string> = {
   "coding-assistants": "Coding",
   "autonomous-agents": "Agents",

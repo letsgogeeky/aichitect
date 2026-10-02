@@ -12,8 +12,6 @@ function escapeXml(str: string): string {
     .replace(/'/g, "&apos;");
 }
 
-export const runtime = "edge";
-
 export function GET(req: NextRequest) {
   const s = req.nextUrl.searchParams.get("s") ?? "";
   const toolIds = s.split(",").filter(Boolean);

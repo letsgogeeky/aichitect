@@ -12,6 +12,11 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Cloudflare/OpenNext build output — huge generated bundles that
+    // crash ESLint with an OOM if scanned (same fix applied on Thoth and
+    // Sopdet's own migrations).
+    ".open-next/**",
+    ".wrangler/**",
   ]),
 ]);
 

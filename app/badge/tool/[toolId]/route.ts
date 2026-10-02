@@ -12,8 +12,6 @@ function escapeXml(str: string): string {
     .replace(/'/g, "&apos;");
 }
 
-export const runtime = "edge";
-
 export async function GET(_req: NextRequest, { params }: { params: Promise<{ toolId: string }> }) {
   let toolId: string;
   try {

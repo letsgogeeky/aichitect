@@ -5,8 +5,6 @@ import { getCategoryColor } from "@/lib/types";
 import type { Tool } from "@/lib/types";
 import { SITE_HOST } from "@/lib/constants";
 
-export const runtime = "edge";
-
 const W = 1200;
 const H = 630;
 const COL_WIDTH = 260;

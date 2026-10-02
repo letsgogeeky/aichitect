@@ -17,6 +17,10 @@
 /.next/
 /out/
 
+# opennext / cloudflare
+/.open-next/
+/.wrangler/
+
 # production
 /build
 
@@ -39,6 +43,13 @@ supabase/.temp/
 
 # vercel
 .vercel
+
+# terraform (cloudflare infra)
+terraform/.terraform/
+terraform/*.tfstate
+terraform/*.tfstate.*
+terraform/terraform.tfvars
+terraform/*.tfplan
 
 # typescript
 *.tsbuildinfo

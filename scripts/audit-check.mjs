@@ -16,11 +16,38 @@ import { spawnSync } from "child_process";
 // `npm audit` after any dependency bump and remove entries that no
 // longer appear.
 //
-// Empty as of 2026-08-12: bumping next to 16.3.0 pulled in patched
-// postcss/sharp, and a transitive dedupe cleared brace-expansion. Only
-// remaining advisory is a low-severity esbuild issue (Windows dev-server
-// only), below this script's high/critical threshold.
-const ALLOWLIST = [];
+// 2026-10-02: the Cloudflare migration added `wrangler` + `@opennextjs/
+// cloudflare` as devDependencies. One critical advisory this also
+// surfaced (Next.js RCE in next/og ImageResponse, GHSA-vcvr-r3jv-pc5j)
+// was a real fix, not an allowlist candidate — bumped next to 16.3.8
+// (16.3.6+ patches it). `undici`'s advisory cleared by bumping wrangler
+// to latest (4.146.0). What's left, all transitive dev-tooling only
+// (never bundled into the deployed app):
+//   - brace-expansion (GHSA-q2hr-2g5m-vwhr, GHSA-qhr7-859c-m2p7,
+//     GHSA-6j4f-fj2g-mc7p): via @opennextjs/cloudflare's own
+//     @node-minify/core -> glob -> minimatch chain, even at latest
+//     (1.20.7). No newer release available upstream yet.
+//   - fast-uri (GHSA-5jgf-p345-68v8, GHSA-f65p-4m7j-42xc,
+//     GHSA-fph4-wmhf-6fwf, GHSA-jqff-g426-hqxp, GHSA-qw65-cvwx-89v3,
+//     GHSA-hrr3-gc8f-f4qj): via @modelcontextprotocol/sdk's ajv/
+//     ajv-formats chain — pre-existing, unrelated to this migration.
+//   - js-yaml (GHSA-2883-xcg3-v3hh): via eslint's own @eslint/eslintrc —
+//     pre-existing, unrelated to this migration.
+const ALLOWLIST = [
+  { id: 1240100, ghsa: "GHSA-q2hr-2g5m-vwhr", package: "brace-expansion" },
+  { id: 1240103, ghsa: "GHSA-q2hr-2g5m-vwhr", package: "brace-expansion" },
+  { id: 1240104, ghsa: "GHSA-qhr7-859c-m2p7", package: "brace-expansion" },
+  { id: 1240107, ghsa: "GHSA-qhr7-859c-m2p7", package: "brace-expansion" },
+  { id: 1240108, ghsa: "GHSA-6j4f-fj2g-mc7p", package: "brace-expansion" },
+  { id: 1240111, ghsa: "GHSA-6j4f-fj2g-mc7p", package: "brace-expansion" },
+  { id: 1158521, ghsa: "GHSA-5jgf-p345-68v8", package: "fast-uri" },
+  { id: 1158524, ghsa: "GHSA-f65p-4m7j-42xc", package: "fast-uri" },
+  { id: 1158527, ghsa: "GHSA-fph4-wmhf-6fwf", package: "fast-uri" },
+  { id: 1158530, ghsa: "GHSA-jqff-g426-hqxp", package: "fast-uri" },
+  { id: 1239943, ghsa: "GHSA-qw65-cvwx-89v3", package: "fast-uri" },
+  { id: 1240091, ghsa: "GHSA-hrr3-gc8f-f4qj", package: "fast-uri" },
+  { id: 1193727, ghsa: "GHSA-2883-xcg3-v3hh", package: "js-yaml" },
+];
 
 const allowedIds = new Set(ALLOWLIST.map((a) => a.id));
 

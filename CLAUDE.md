@@ -6,6 +6,18 @@
 **Domain:** aichitect.dev | **Stack:** Next.js 16 + React Flow + Three.js + Tailwind v4 + TypeScript
 **Scope rule:** [`SCOPE.md`](./SCOPE.md) — the single source of truth for what belongs in the catalog. Read it before adding a tool.
 
+## Deployment
+
+**Live on Cloudflare Workers** (`aichitect-web`) via OpenNext as of 2026-10-02 — tracked in Linear [AIC-182], same playbook proven on Thoth (2026-09-23) and Sopdet (2026-09-29). `aichitect.dev`, `www.aichitect.dev`, and `aichitect-staging.aichitect.dev` all serve the Worker. Vercel's deployment was already down (`402 DEPLOYMENT_DISABLED`) by the time of the cutover, so this fixed an outage rather than disrupting live traffic.
+
+- **Database**: staying on **Supabase** entirely — verified empirically that its REST API (PostgREST) works fine from workerd, unlike Thoth/Sopdet which hit a raw-Postgres-TCP incompatibility and had to move to PlanetScale. This app never makes a direct Postgres connection at runtime, so that problem doesn't apply here. No database migration happened or is needed.
+- **Crons**: `worker.ts` provides a custom `scheduled()` handler (via a self-referencing `SELF` service binding) dispatching to the same `/api/cron/*` routes Vercel Cron used to hit — `@opennextjs/cloudflare` exports no `scheduled()` of its own, so `wrangler.jsonc`'s `triggers.crons` would otherwise silently no-op. All 3 crons (sync-health, sync-benchmarks, sync-incidents) verified firing correctly post-cutover.
+- **`export const runtime = "edge"` was removed from every OG/badge route** — OpenNext-Cloudflare runs everything in a single Workers runtime; the Vercel edge/node split doesn't apply the same way. See "Edge runtime & SSR rules" below, which is being revised accordingly.
+- **`GITHUB_TOKEN` deliberately deferred** (Ramy's call, 2026-10-02) — not set as a Worker secret. `sync-health` runs unauthenticated (60 req/hr) and effectively processes nothing until this is set. Needs a GitHub PAT with read-only/public-repo scope.
+- **Two pre-existing bugs found in `sync-incidents`, unrelated to this migration** (would fail identically on Vercel): some Cohere incidents have a null `shortlink`, which violates `tool_incidents.url`'s NOT NULL constraint; Replicate's configured status-page URL now returns HTML instead of JSON (stale URL, needs updating in whatever table configures `status_pages`).
+- GitHub OAuth continues working unchanged post-cutover — Supabase's Redirect URLs allowlist is keyed to the domain (`aichitect.dev`), not the hosting platform, so the existing entry from the Vercel era still applies. The staging subdomain is a separate, lower-priority gap (OAuth doesn't work there — `https://aichitect-staging.aichitect.dev/**` was never added to Supabase's allowlist — a dashboard change, not code).
+- `terraform/` — own directory and state, not shared with Thoth's or Sopdet's.
+
 ## Engineering philosophy
 
 This is a greenfield project. Always build clean:
@@ -71,7 +83,7 @@ The exception: once we have production data that can't be migrated cheaply, or a
 app/
   page.tsx                          → landing page (hero, view cards, OSS banner, footer)
   layout.tsx                        → root metadata (OG, JSON-LD, robots, favicon)
-  opengraph-image.tsx               → root OG image (1200×630, edge runtime)
+  opengraph-image.tsx               → root OG image (1200×630)
   error.tsx                         → root error boundary
   robots.ts                         → /robots.txt
   sitemap.ts                        → /sitemap.xml
@@ -91,7 +103,7 @@ app/
       BuilderSlotList.tsx           → desktop aside: slot accordion + compare buttons + StackHealthPanel
       MobileSlotPicker.tsx          → BottomSheet wrapper for mobile slot picking
     og/route.tsx                    → OG image for /builder
-    opengraph-image.tsx             → builder OG image (edge runtime, reads ?s= param)
+    opengraph-image.tsx             → builder OG image (reads ?s= param)
   compare/
     CompareClient.tsx               → wires tool pair + relationships, renders ComparisonPanel
     [toolA]/[toolB]/page.tsx        → side-by-side comparison view
@@ -121,8 +133,8 @@ app/
     challenge/route.ts              → POST — genome challenge submission
     cron/sync-health/route.ts       → GET — nightly GitHub health sync (cron, requires CRON_SECRET)
   badge/
-    route.ts                        → GET /badge?s=cursor,langgraph → shields.io-style SVG (edge runtime)
-    tool/[toolId]/route.ts          → GET /badge/tool/:id → per-tool badge (edge runtime)
+    route.ts                        → GET /badge?s=cursor,langgraph → shields.io-style SVG
+    tool/[toolId]/route.ts          → GET /badge/tool/:id → per-tool badge
   auth/
     callback/route.ts               → GitHub OAuth callback handler (Supabase Auth)
 hooks/
@@ -244,7 +256,7 @@ Pricing is "contact sales", per-org negotiation, or invite-only. There is no pub
 
 ## Edge runtime & SSR rules
 
-These routes run in Next.js edge runtime (no Node.js APIs, no `fs`, no `crypto`, no server-only imports):
+**Stale as of the Cloudflare migration (see "Deployment" above) — needs re-verification, not yet rewritten.** These routes used to declare `export const runtime = "edge"`, which has been removed everywhere (OpenNext-Cloudflare runs the whole app in a single Workers runtime — Vercel's edge/Node split doesn't exist the same way under it). What's unconfirmed is whether the underlying constraints below still bind, loosen, or need replacing with workerd-specific ones (`nodejs_compat` provides more Node API surface than Vercel's edge runtime ever did, but exactly how much hasn't been characterized here). Treat the list below as "these routes have historically been constrained, re-check before assuming either old or new rules":
 
 - `app/badge/route.ts` — SVG badge endpoint
 - `app/badge/tool/[toolId]/route.ts` — per-tool badge
@@ -253,7 +265,7 @@ These routes run in Next.js edge runtime (no Node.js APIs, no `fs`, no `crypto`,
 - `app/stacks/opengraph-image.tsx` — stacks OG image
 - `app/explore/og/route.tsx`, `app/stacks/og/route.tsx`, `app/builder/og/route.tsx`, `app/genome/og/route.tsx` — route-level OG handlers
 
-If you touch these files: no `require()`, no Node built-ins, no Supabase server client (edge-compatible client only).
+Previously: no `require()`, no Node built-ins, no Supabase server client (edge-compatible client only). All of these were verified working end-to-end against the deployed Worker during the migration (staging smoke tests), so whatever the real constraint set turns out to be, the current code already satisfies it — this note is about keeping the documentation honest, not a sign anything is currently broken.
 
 **Heavy browser libs that break SSR** must be lazily imported:
 

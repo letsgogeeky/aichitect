@@ -1,0 +1,47 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "aichitect-web",
+  "main": "worker.ts",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+
+  "assets": {
+    "binding": "ASSETS",
+    "directory": ".open-next/assets"
+  },
+
+  "observability": {
+    "enabled": true
+  },
+
+  // Non-secret runtime config. CRON_SECRET and the Supabase/Google AI
+  // credentials are real Worker secrets (`wrangler secret put`), never
+  // here. SITE_URL flipped to the apex 2026-10-02 after the cutover —
+  // Vercel's deployment was already down (402) at the time, so this
+  // fixed an outage rather than disrupting live traffic.
+  "vars": {
+    "SITE_URL": "https://aichitect.dev"
+  },
+
+  // Self-referencing service binding — worker.ts's scheduled() handler
+  // dispatches cron work by calling this Worker's OWN fetch handler
+  // through this binding, not a raw global fetch() to SITE_URL. A Worker
+  // fetching its own public hostname gets rejected as a loop (Cloudflare
+  // error 1042) — hit and fixed on both Thoth's and Sopdet's migrations.
+  "services": [
+    { "binding": "SELF", "service": "aichitect-web" }
+  ],
+
+  // Mirrors today's vercel.json crons (sync-health daily, sync-benchmarks
+  // weekly, sync-incidents hourly). worker.ts's scheduled() handler
+  // dispatches each cron expression to its matching /api/cron/* route —
+  // @opennextjs/cloudflare exports no scheduled() of its own, so without
+  // that handler these triggers would silently no-op.
+  "triggers": {
+    "crons": [
+      "0 2 * * *",
+      "0 3 * * 1",
+      "0 * * * *"
+    ]
+  }
+}

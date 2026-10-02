@@ -1,0 +1,9 @@
+# Copy to terraform.tfvars (gitignored) and fill in real values.
+# Never commit terraform.tfvars.
+
+cloudflare_api_token = "paste-a-real-api-token-here"
+
+# Every other variable has a working default (see variables.tf) — the
+# account id, aichitect.dev's zone id, the staging hostname, and the
+# Worker script name are all already known and correct for this repo.
+# Override only if any of those actually change.

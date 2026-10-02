@@ -5,7 +5,6 @@ import { getCategoryColor, STACK_CLUSTERS } from "@/lib/types";
 import type { Stack, Tool } from "@/lib/types";
 import { SITE_HOST } from "@/lib/constants";
 
-export const runtime = "edge";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

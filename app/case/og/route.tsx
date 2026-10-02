@@ -6,8 +6,6 @@ import { getCategoryColor } from "@/lib/types";
 import type { Tool, Stack } from "@/lib/types";
 import { SITE_HOST } from "@/lib/constants";
 
-export const runtime = "edge";
-
 const W = 1200;
 const H = 630;
 const ACCENT = "#fdcb6e"; // amber — "Make a case" brand color

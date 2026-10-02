@@ -6,8 +6,6 @@ import { getCategoryColor } from "@/lib/types";
 import type { Tool, Relationship } from "@/lib/types";
 import { SITE_HOST } from "@/lib/constants";
 
-export const runtime = "edge";
-
 const W = 1200;
 const H = 630;
 
