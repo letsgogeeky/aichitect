@@ -32,7 +32,7 @@
     { "binding": "SELF", "service": "aichitect-web" }
   ],
 
-  // Mirrors today's vercel.json crons (sync-health daily, sync-benchmarks
+  // The three crons that ran on Vercel Cron (sync-health daily, sync-benchmarks
   // weekly, sync-incidents hourly). worker.ts's scheduled() handler
   // dispatches each cron expression to its matching /api/cron/* route —
   // @opennextjs/cloudflare exports no scheduled() of its own, so without

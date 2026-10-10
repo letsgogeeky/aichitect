@@ -87,17 +87,17 @@ Generates a structured argument for a given stack you can share with a teammate 
 
 ## Tech Stack
 
-| Layer       | Technology                                                                   |
-| ----------- | ---------------------------------------------------------------------------- |
-| Framework   | Next.js 16 (App Router, Turbopack)                                           |
-| Language    | TypeScript · React 19                                                        |
-| 2D graph    | React Flow v11 + dagre + ELK                                                 |
-| 3D graph    | react-force-graph-3d + Three.js                                              |
-| Styling     | Tailwind CSS v4                                                              |
-| Data layer  | Supabase Postgres (auth + tool events) · static JSON                         |
-| AI features | Google AI (`@google/generative-ai`) for Roast and Genome Challenge           |
-| Activity    | Vercel Cron → health sync (nightly), benchmarks (weekly), incidents (hourly) |
-| Dev runtime | Docker + Docker Compose                                                      |
+| Layer       | Technology                                                                                |
+| ----------- | ----------------------------------------------------------------------------------------- |
+| Framework   | Next.js 16 (App Router, Turbopack)                                                        |
+| Language    | TypeScript · React 19                                                                     |
+| 2D graph    | React Flow v11 + dagre + ELK                                                              |
+| 3D graph    | react-force-graph-3d + Three.js                                                           |
+| Styling     | Tailwind CSS v4                                                                           |
+| Data layer  | Supabase Postgres (auth + tool events) · static JSON                                      |
+| AI features | Google AI (`@google/generative-ai`) for Roast and Genome Challenge                        |
+| Activity    | Cloudflare cron triggers → health sync (nightly), benchmarks (weekly), incidents (hourly) |
+| Dev runtime | Docker + Docker Compose                                                                   |
 
 ## Getting Started
 

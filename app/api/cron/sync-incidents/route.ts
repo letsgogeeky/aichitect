@@ -4,7 +4,7 @@ export const dynamic = "force-dynamic";
  * Hourly cron: scrape vendor status pages (Atlassian Statuspage format),
  * upsert into tool_incidents, and emit incident_started / incident_resolved
  * events. Authorization: Vercel Cron sends `Authorization: Bearer ${CRON_SECRET}`.
- * Schedule: hourly — see vercel.json.
+ * Schedule: hourly — see wrangler.jsonc triggers.crons.
  */
 
 import { createClient } from "@supabase/supabase-js";
@@ -19,7 +19,8 @@ interface StatuspageIncident {
   created_at: string;
   started_at: string | null;
   resolved_at: string | null;
-  shortlink: string;
+  // Not always present — some Statuspage incidents (seen on Cohere) omit it.
+  shortlink: string | null;
   components: { name: string }[];
 }
 
@@ -97,6 +98,8 @@ export async function GET(request: Request) {
 
         // Statuspage occasionally omits `components` entirely on infra-wide incidents.
         const scope = (inc.components ?? []).map((c) => c.name);
+        // tool_incidents.url is NOT NULL; fall back to the incident's own page.
+        const url = inc.shortlink ?? `${page.url.replace(/\/$/, "")}/incidents/${inc.id}`;
 
         // Look up existing row to detect state transitions.
         const { data: existing } = await db
@@ -115,7 +118,7 @@ export async function GET(request: Request) {
           status: inc.status,
           title: inc.name,
           scope,
-          url: inc.shortlink,
+          url,
           last_synced_at: new Date().toISOString(),
         };
 
@@ -138,7 +141,7 @@ export async function GET(request: Request) {
                 severity: inc.impact,
                 title: inc.name,
                 scope,
-                url: inc.shortlink,
+                url,
                 started_at: started,
               },
             });
@@ -166,7 +169,7 @@ export async function GET(request: Request) {
                 severity: inc.impact,
                 title: inc.name,
                 scope,
-                url: inc.shortlink,
+                url,
                 started_at: started,
                 ended_at: inc.resolved_at,
                 duration_minutes: durationMin,

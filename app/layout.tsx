@@ -3,8 +3,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { SITE_URL, GITHUB_URL, TOOL_COUNT, CATEGORY_COUNT, STACK_COUNT } from "@/lib/constants";
 import { getCounts } from "@/lib/data/counts";
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SuggestToolProvider } from "@/components/ui/SuggestToolContext";
 import { WalkthroughProvider } from "@/components/ui/WalkthroughContext";
 import { PostHogProvider } from "@/components/PostHogProvider";
@@ -126,8 +124,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <SuggestToolProvider>
               <Navbar counts={counts} />
               {children}
-              <Analytics />
-              <SpeedInsights />
             </SuggestToolProvider>
           </WalkthroughProvider>
         </PostHogProvider>

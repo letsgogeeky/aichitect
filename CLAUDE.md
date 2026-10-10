@@ -10,6 +10,8 @@
 
 **Live on Cloudflare Workers** (`aichitect-web`) via OpenNext as of 2026-10-02 — tracked in Linear [AIC-182], same playbook proven on Thoth (2026-09-23) and Sopdet (2026-09-29). `aichitect.dev`, `www.aichitect.dev`, and `aichitect-staging.aichitect.dev` all serve the Worker. Vercel's deployment was already down (`402 DEPLOYMENT_DISABLED`) by the time of the cutover, so this fixed an outage rather than disrupting live traffic.
 
+- **Deploy**: `make deploy` → `scripts/deploy.sh`, run on the **host**, not Docker (OpenNext bakes absolute build paths into the bundle; workerd needs the host's native build). Manual by choice, like Thoth and Sopdet. `next build` inlines the `NEXT_PUBLIC_POSTGRES_SUPABASE_*` values from `.env.local`; runtime secrets are Worker secrets (`wrangler secret put`).
+- **Analytics**: `@vercel/analytics` / `speed-insights` removed (they only report through Vercel). PostHog stays; Cloudflare Web Analytics is enabled per hostname in the Cloudflare dashboard (automatic setup, no code).
 - **Database**: staying on **Supabase** entirely — verified empirically that its REST API (PostgREST) works fine from workerd, unlike Thoth/Sopdet which hit a raw-Postgres-TCP incompatibility and had to move to PlanetScale. This app never makes a direct Postgres connection at runtime, so that problem doesn't apply here. No database migration happened or is needed.
 - **Crons**: `worker.ts` provides a custom `scheduled()` handler (via a self-referencing `SELF` service binding) dispatching to the same `/api/cron/*` routes Vercel Cron used to hit — `@opennextjs/cloudflare` exports no `scheduled()` of its own, so `wrangler.jsonc`'s `triggers.crons` would otherwise silently no-op. All 3 crons (sync-health, sync-benchmarks, sync-incidents) verified firing correctly post-cutover.
 - **`export const runtime = "edge"` was removed from every OG/badge route** — OpenNext-Cloudflare runs everything in a single Workers runtime; the Vercel edge/node split doesn't apply the same way. See "Edge runtime & SSR rules" below, which is being revised accordingly.
@@ -393,17 +395,17 @@ Auth is handled by **Supabase Auth with GitHub OAuth**. No username/password log
 
 See `.env.example` at the project root. Never commit real secrets.
 
-| Variable                                 | Required         | Purpose                                              |
-| ---------------------------------------- | ---------------- | ---------------------------------------------------- |
-| `NEXT_PUBLIC_POSTGRES_SUPABASE_URL`      | Yes              | Supabase project URL                                 |
-| `NEXT_PUBLIC_POSTGRES_SUPABASE_ANON_KEY` | Yes              | Supabase anon key (public)                           |
-| `POSTGRES_SUPABASE_SERVICE_ROLE_KEY`     | Yes (server)     | Supabase service role key — never expose to client   |
-| `DATABASE_URL`                           | Yes (local)      | Local Docker Postgres connection string              |
-| `POSTGRES_URL_NON_POOLING`               | Yes (migrations) | Direct connection for Supabase CLI / migrations      |
-| `GITHUB_TOKEN`                           | Yes              | GitHub API token for nightly health sync             |
-| `CRON_SECRET`                            | Yes              | Bearer token Vercel sends to `/api/cron/sync-health` |
-| `GOOGLE_AI_API_KEY`                      | Yes              | Google AI key for `/api/roast` and `/api/challenge`  |
-| `NEXT_PUBLIC_SITE_URL`                   | Optional         | Overrides `aichitect.dev` for metadata/OG URLs       |
+| Variable                                 | Required         | Purpose                                                         |
+| ---------------------------------------- | ---------------- | --------------------------------------------------------------- |
+| `NEXT_PUBLIC_POSTGRES_SUPABASE_URL`      | Yes              | Supabase project URL                                            |
+| `NEXT_PUBLIC_POSTGRES_SUPABASE_ANON_KEY` | Yes              | Supabase anon key (public)                                      |
+| `POSTGRES_SUPABASE_SERVICE_ROLE_KEY`     | Yes (server)     | Supabase service role key — never expose to client              |
+| `DATABASE_URL`                           | Yes (local)      | Local Docker Postgres connection string                         |
+| `POSTGRES_URL_NON_POOLING`               | Yes (migrations) | Direct connection for Supabase CLI / migrations                 |
+| `GITHUB_TOKEN`                           | Yes              | GitHub API token for nightly health sync                        |
+| `CRON_SECRET`                            | Yes              | Bearer token `worker.ts`'s `scheduled()` sends to `/api/cron/*` |
+| `GOOGLE_AI_API_KEY`                      | Yes              | Google AI key for `/api/roast` and `/api/challenge`             |
+| `NEXT_PUBLIC_SITE_URL`                   | Optional         | Overrides `aichitect.dev` for metadata/OG URLs                  |
 
 The app falls back to static JSON data gracefully when Supabase env vars are absent (local dev without DB).
 

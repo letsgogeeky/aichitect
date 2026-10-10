@@ -27,9 +27,8 @@ interface Env {
   SELF?: { fetch(input: string, init?: RequestInit): Promise<Response> };
 }
 
-// Keep this map in sync with wrangler.jsonc's triggers.crons array AND
-// vercel.json's crons array (kept as historical reference, no longer the
-// live dispatcher) — a cron expression with no entry here silently no-ops.
+// Keep this map in sync with wrangler.jsonc's triggers.crons array — a cron
+// expression with no entry here silently no-ops.
 const CRON_ROUTES: Record<string, { path: string; method: "GET" | "POST" }> = {
   "0 2 * * *": { path: "/api/cron/sync-health", method: "GET" },
   "0 3 * * 1": { path: "/api/cron/sync-benchmarks", method: "GET" },

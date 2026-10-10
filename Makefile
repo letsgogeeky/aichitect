@@ -1,7 +1,7 @@
 COMPOSE = docker compose
 LOCAL_DB_URL = postgresql://postgres:postgres@db:5432/aichitect
 
-.PHONY: help run down restart build rebuild logs shell typecheck lint format check test sync-counts seed seed-local seed-validate db-push db-push-local db-diff db-diff-local db-migrate db-pull db-reset-local
+.PHONY: help run down restart build rebuild logs shell typecheck lint format check test sync-counts seed seed-local seed-validate db-push db-push-local db-diff db-diff-local db-migrate db-pull db-reset-local deploy
 
 help: ## Show this help
 	@awk 'BEGIN {FS = ":.*##"} /^[a-zA-Z_-]+:.*##/ { printf "  \033[36m%-12s\033[0m %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
@@ -93,3 +93,6 @@ db-pull: ## Pull remote schema changes into a new local migration
 db-reset-local: ## Wipe and re-apply all migrations on local Postgres (destructive)
 	$(COMPOSE) run --rm db psql -U postgres -c "DROP DATABASE IF EXISTS aichitect; CREATE DATABASE aichitect;"
 	$(MAKE) db-push-local
+
+deploy: ## Deploy to Cloudflare Workers (aichitect-web). Runs on the HOST, not Docker. Flags: make deploy args="-y --skip-checks"
+	@scripts/deploy.sh $(args)

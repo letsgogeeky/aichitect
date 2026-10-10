@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
  * covered by AA_TOOL_SLUG_MAP.
  *
  * Authorization: Vercel Cron sends `Authorization: Bearer ${CRON_SECRET}`.
- * Schedule: weekly — see vercel.json (Mondays 03:00 UTC).
+ * Schedule: weekly — see wrangler.jsonc triggers.crons (Mondays 03:00 UTC).
  *
  * Attribution: pages displaying AA data must credit Artificial Analysis.
  * Rate limit: 1,000 req/day on the free tier; this route makes exactly 1 call.
