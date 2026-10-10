@@ -8,7 +8,7 @@ help: ## Show this help
 
 run: ## Start the dev server (spins containers, applies local migrations, seeds DB, then tails logs)
 	$(COMPOSE) up -d
-	$(COMPOSE) run --rm -e PGSSLMODE=disable app npx supabase db push --db-url "$(LOCAL_DB_URL)"
+	$(COMPOSE) run --rm -e PGSSLMODE=disable app sh scripts/supabase.sh db push --db-url "$(LOCAL_DB_URL)"
 	$(COMPOSE) run --rm app npx tsx scripts/seed-db-local.ts
 	$(COMPOSE) logs -f app
 
@@ -72,23 +72,23 @@ seed: ## Seed remote Supabase with data from data/*.json (idempotent)
 #   make db-push         # promote to remote when satisfied
 
 db-push-local: ## Apply pending migrations to local Postgres container
-	$(COMPOSE) run --rm -e PGSSLMODE=disable app npx supabase db push --db-url "$(LOCAL_DB_URL)"
+	$(COMPOSE) run --rm -e PGSSLMODE=disable app sh scripts/supabase.sh db push --db-url "$(LOCAL_DB_URL)"
 
 db-push: ## Apply pending migrations to remote Supabase project
-	$(COMPOSE) run --rm app sh -c 'npx supabase db push --db-url "$$POSTGRES_URL_NON_POOLING"'
+	$(COMPOSE) run --rm app sh -c 'sh scripts/supabase.sh db push --db-url "$$POSTGRES_URL_NON_POOLING"'
 
 db-diff-local: ## Diff local migrations against local Postgres
-	$(COMPOSE) run --rm -e PGSSLMODE=disable app npx supabase db diff --db-url "$(LOCAL_DB_URL)"
+	$(COMPOSE) run --rm -e PGSSLMODE=disable app sh scripts/supabase.sh db diff --db-url "$(LOCAL_DB_URL)"
 
 db-diff: ## Diff local migrations against remote Supabase schema
-	$(COMPOSE) run --rm app sh -c 'npx supabase db diff --db-url "$$POSTGRES_URL_NON_POOLING"'
+	$(COMPOSE) run --rm app sh -c 'sh scripts/supabase.sh db diff --db-url "$$POSTGRES_URL_NON_POOLING"'
 
 db-migrate: ## Scaffold a new migration file: make db-migrate name=your_migration_name
 	@test -n "$(name)" || (echo "Usage: make db-migrate name=your_migration_name" && exit 1)
-	$(COMPOSE) run --rm app npx supabase migration new $(name)
+	$(COMPOSE) run --rm app sh scripts/supabase.sh migration new $(name)
 
 db-pull: ## Pull remote schema changes into a new local migration
-	$(COMPOSE) run --rm app sh -c 'npx supabase db pull --db-url "$$POSTGRES_URL_NON_POOLING"'
+	$(COMPOSE) run --rm app sh -c 'sh scripts/supabase.sh db pull --db-url "$$POSTGRES_URL_NON_POOLING"'
 
 db-reset-local: ## Wipe and re-apply all migrations on local Postgres (destructive)
 	$(COMPOSE) run --rm db psql -U postgres -c "DROP DATABASE IF EXISTS aichitect; CREATE DATABASE aichitect;"
